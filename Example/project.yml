@@ -62,6 +62,8 @@ targets:
 #      EXCLUDED_ARCHS[sdk=iphonesimulator*]:
 #        - arm64
     sources:
+      - path: "../DTBKit/Classes"
+        group: "Source Codes"
       - path: DTBKit
         group: "Example for DTBKit"
       - path: "../DTBKit.podspec"

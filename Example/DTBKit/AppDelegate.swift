@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DoraemonKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +17,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        window = UIWindow.init(frame: UIScreen.main.bounds)
+        
+        let nav = UINavigationController(rootViewController: HomeViewController())
+        window?.rootViewController = nav
+        
+        window?.makeKeyAndVisible()
+        
+        DoraemonManager.shareInstance().install(withPid: "73422655743e0c15bc7aff370d8485f5")
+        
         return true
     }
 
