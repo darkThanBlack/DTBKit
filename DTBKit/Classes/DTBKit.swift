@@ -57,5 +57,10 @@ extension DTBKitableValue {
 
 extension Int64: DTBKitableValue {}
 
+extension CGFloat: DTBKitableValue {}
+
+extension CGSize: DTBKitableValue {}
+
 extension UIViewController: DTBKitable {}
 
+extension UIImage: DTBKitable {}
