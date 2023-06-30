@@ -17,11 +17,6 @@ protocol DemoDescribable {
 
 struct DemoSectionModel {
     
-    enum SectionType: String, CaseIterable {
-        
-        case `default`
-    }
-    
     let type: SectionType
     
     let cells: [DemoCellModel]
@@ -39,28 +34,11 @@ extension DemoSectionModel: DemoDescribable {
     }
     
     var detail: String? {
-        return nil
-    }
-}
-
-extension DemoSectionModel.SectionType {
-    
-    var cells: [DemoCellModel.CellType] {
-        switch self {
-        case .default:
-            return [
-                .edgeLabel
-            ]
-        }
+        return type.desc
     }
 }
 
 struct DemoCellModel {
-    
-    enum CellType: String, CaseIterable {
-        
-        case edgeLabel
-    }
     
     let type: CellType
 }
@@ -72,20 +50,20 @@ extension DemoCellModel: DemoDescribable {
     }
     
     var detail: String? {
-        switch type {
-        case .edgeLabel:  return "带内边距的 UILabel"
-        }
+        return type.desc
     }
 }
 
 //MARK: -
 
-///Home
+///
 class HomeViewController: UIViewController {
     
     private let sections = DemoSectionModel.SectionType.allCases.map({
         DemoSectionModel(type: $0)
     })
+    
+    private let entry = DemoEntry()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,8 +76,6 @@ class HomeViewController: UIViewController {
         
         self.tableView.reloadData()
     }
-    
-    //MARK: View
     
     private func loadViews(in box: UIView) {
         box.addSubview(tableView)
@@ -120,8 +96,10 @@ class HomeViewController: UIViewController {
         tableView.dataSource = self
         tableView.separatorStyle = .none
         tableView.estimatedRowHeight = 44.0
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0.0
+        }
         if #available(iOS 11.0, *) {
-            print("contentInsetAdjustmentBehavior...")
             tableView.contentInsetAdjustmentBehavior = .never
         } else {
             self.automaticallyAdjustsScrollViewInsets = false
@@ -129,15 +107,11 @@ class HomeViewController: UIViewController {
         tableView.register(DemoCell.self, forCellReuseIdentifier: String(describing: DemoCell.self))
         return tableView
     }()
-    
 }
 
 extension HomeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch sections[indexPath.section].cells[indexPath.row].type {
-        case .edgeLabel:
-            break
-        }
+        entry.enter(sections[indexPath.section].cells[indexPath.row].type)
     }
 }
 
@@ -148,11 +122,16 @@ extension HomeViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let content = UIView()
+        content.backgroundColor = DTB.Color.XM.White.I()
+        content.frame = CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 30.0)
+        
         let label = UILabel()
-        label.frame = CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 30.0)
+        label.frame = CGRect(x: 16.0, y: 0, width: content.frame.size.width, height: content.frame.size.height)
         label.text = sections[section].title
-        label.backgroundColor = DTB.Color.XM.White.I()
-        return label
+        content.addSubview(label)
+        
+        return content
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

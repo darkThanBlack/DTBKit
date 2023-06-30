@@ -14,22 +14,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        window = UIWindow.init(frame: UIScreen.main.bounds)
+        window = UIWindow(frame: UIScreen.main.bounds)
         
         let nav = UINavigationController(rootViewController: HomeViewController())
+        
         window?.rootViewController = nav
         
         window?.makeKeyAndVisible()
         
-        DoraemonManager.shareInstance().install(withPid: "73422655743e0c15bc7aff370d8485f5")
+        adapter()
+        debugger()
         
         return true
     }
-
+    
+    private func debugger() {
+        DoraemonManager.shareInstance().install(withPid: "73422655743e0c15bc7aff370d8485f5")
+    }
+    
+    private func adapter() {
+        if #available(iOS 15.0, *) {
+            UITableView.appearance().sectionHeaderTopPadding = 0
+            UITableView.appearance().isPrefetchingEnabled = false
+            // UITabBar().scrollEdgeAppearance = UITabBar().standardAppearance
+        }
+    }
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.

@@ -2,8 +2,11 @@
 //  DTBKit.swift
 //  DTBKit
 //
-//  Created by moonShadow on 2023/6/28.
+//  Created by moonShadow on 2023/6/28
 //  Copyright © 2023 darkThanBlack. All rights reserved.
+//
+//  LICENSE: SAME AS REPOSITORY
+//  Contact me: [GitHub](https://github.com/darkThanBlack)
 //
 
 // MARK: Special thanks to ``KingFisher``!
@@ -14,12 +17,19 @@ import Foundation
 
 public enum DTB {}
 
+extension DTB {
+    ///
+    public enum App {}
+    ///
+    public enum Navigate {}
+}
+
 //MARK: - protocol name space
 
 public struct DTBKitWrapper<Base> {
-    public let base: Base
+    public let mySelf: Base
     public init(_ base: Base) {
-        self.base = base
+        self.mySelf = base
     }
 }
 
@@ -45,6 +55,7 @@ extension DTBKitableValue {
 
 // MARK: -
 
-extension UIColor: DTBKitable {}
-
 extension Int64: DTBKitableValue {}
+
+extension UIViewController: DTBKitable {}
+
