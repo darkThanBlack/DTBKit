@@ -1,0 +1,33 @@
+{
+  "configurations" : [
+    {
+      "id" : "C8EC9D7D-203F-4DC6-8D1C-C7A4680EF7B2",
+      "name" : "DTBKitFastCCPlan",
+      "options" : {
+        "uiTestingScreenshotsLifetime" : "keepNever",
+        "userAttachmentLifetime" : "keepNever"
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : {
+      "targets" : [
+        {
+          "containerPath" : "container:Pods\/Pods.xcodeproj",
+          "identifier" : "1FBA20CAFB0A158ECE46480230897835",
+          "name" : "DTBKit"
+        }
+      ]
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:DTBKit.xcodeproj",
+        "identifier" : "5AA8AA7D09F9746BCF01DD0D",
+        "name" : "DTBKit_Tests"
+      }
+    }
+  ],
+  "version" : 1
+}

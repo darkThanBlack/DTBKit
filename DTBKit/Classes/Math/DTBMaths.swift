@@ -24,6 +24,7 @@ extension DTBKitWrapper where Base == CGFloat {
     }
 }
 
+/// Size width and height always >= 0.0 semantically
 extension DTBKitWrapper where Base == CGSize {
     
     // MARK: - basic
@@ -65,13 +66,13 @@ extension DTBKitWrapper where Base == CGSize {
     }
     ///
     public func margin(dx: CGFloat, dy: CGFloat) -> CGSize {
-        return CGSize(width: mySelf.width + dx * 2.0, height: mySelf.height + dy * 2.0)
+        return margin(only: UIEdgeInsets(top: dy, left: dx, bottom: dy, right: dx))
     }
     ///
     public func margin(only insets: UIEdgeInsets) -> CGSize {
         return CGSize(
-            width: mySelf.width + insets.left + insets.right,
-            height: mySelf.height + insets.top + insets.bottom
+            width: mySelf.dtb.safe.width + insets.left + insets.right,
+            height: mySelf.dtb.safe.height + insets.top + insets.bottom
         ).dtb.safe
     }
     ///
@@ -80,13 +81,13 @@ extension DTBKitWrapper where Base == CGSize {
     }
     ///
     public func padding(dx: CGFloat, dy: CGFloat) -> CGSize {
-        return padding(only: UIEdgeInsets(top: dx, left: dy, bottom: dx, right: dy))
+        return padding(only: UIEdgeInsets(top: dy, left: dx, bottom: dy, right: dx))
     }
     ///
     public func padding(only insets: UIEdgeInsets) -> CGSize {
         return CGSize(
-            width: mySelf.width - (insets.left + insets.right),
-            height: mySelf.height - (insets.top + insets.bottom)
+            width: mySelf.dtb.safe.width - (insets.left + insets.right),
+            height: mySelf.dtb.safe.height - (insets.top + insets.bottom)
         ).dtb.safe
     }
     
