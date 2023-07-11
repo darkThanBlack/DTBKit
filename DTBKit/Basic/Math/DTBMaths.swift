@@ -12,10 +12,6 @@
 
 import Foundation
 
-class DTBMaths {
-
-}
-
 extension DTBKitWrapper where Base == CGFloat {
     
     ///  x/0 -> x/1
@@ -25,7 +21,7 @@ extension DTBKitWrapper where Base == CGFloat {
 }
 
 /// Size width and height always >= 0.0 semantically
-extension DTBKitWrapper where Base == CGSize {
+extension DTBKit.DTBKitWrapper where Base == CGSize {
     
     // MARK: - basic
     
@@ -71,8 +67,8 @@ extension DTBKitWrapper where Base == CGSize {
     ///
     public func margin(only insets: UIEdgeInsets) -> CGSize {
         return CGSize(
-            width: mySelf.dtb.safe.width + insets.left + insets.right,
-            height: mySelf.dtb.safe.height + insets.top + insets.bottom
+            width: safe.width + insets.left + insets.right,
+            height: safe.height + insets.top + insets.bottom
         ).dtb.safe
     }
     ///

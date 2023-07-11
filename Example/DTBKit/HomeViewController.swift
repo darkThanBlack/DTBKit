@@ -70,7 +70,7 @@ class HomeViewController: UIViewController {
         
         navigationController?.setNavigationBarHidden(true, animated: false)
         
-        view.backgroundColor = DTB.Color.XM.White.I()
+        view.backgroundColor = DTBKit.Color.hex(0xFAFAFA)
         
         loadViews(in: view)
         
@@ -123,7 +123,7 @@ extension HomeViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let content = UIView()
-        content.backgroundColor = DTB.Color.XM.White.I()
+        content.backgroundColor = DTBKit.Color.XM.White.I()
         content.frame = CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 30.0)
         
         let label = UILabel()
@@ -214,14 +214,14 @@ class DemoCell: UITableViewCell {
     private lazy var detailLabel: UILabel = {
         let detailLabel = UILabel()
         detailLabel.font = UIFont.systemFont(ofSize: 11.0, weight: .regular)
-        detailLabel.textColor = DTB.Color.XM.LightGray.A()
+        detailLabel.textColor = DTBKit.Color.XM.LightGray.A()
         detailLabel.numberOfLines = 0
         return detailLabel
     }()
     
     private lazy var singleLine: UIView = {
         let singleLine = UIView()
-        singleLine.backgroundColor = DTB.Color.XM.White.D()
+        singleLine.backgroundColor = DTBKit.Color.XM.White.D()
         return singleLine
     }()
 }

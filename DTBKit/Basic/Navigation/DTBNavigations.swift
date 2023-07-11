@@ -9,21 +9,21 @@
 //  Contact me: [GitHub](https://github.com/darkThanBlack)
 //
 
-extension DTB.Navigate {
+extension Navigate {
     
     /// Current controller in stack
     public static func topMost() -> UIViewController? {
-        return DTB.App.keyWindow()?.rootViewController?.dtb.topMost()
+        return App.keyWindow()?.rootViewController?.dtb.topMost()
     }
     
     /// Simply pop / dismiss / remove
     @discardableResult
     public static func popAnyway(animated: Bool = true) -> Bool {
-        return DTB.App.keyWindow()?.rootViewController?.dtb.popAnyway(animated: animated) ?? false
+        return App.keyWindow()?.rootViewController?.dtb.popAnyway(animated: animated) ?? false
     }
 }
 
-extension DTBKitWrapper where Base: UIViewController {
+extension DTBKit.DTBKitWrapper where Base: UIViewController {
 
     /// Current controller in stack
     public func topMost() -> UIViewController? {

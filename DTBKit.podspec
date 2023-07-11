@@ -22,16 +22,24 @@ TODO: Add long description of the pod here.
                        DESC
 
   s.homepage         = 'https://github.com/moonShadow/DTBKit'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'moonShadow' => '331614794@qq.com' }
   s.source           = { :git => 'https://github.com/moonShadow/DTBKit.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '10.0'
+  s.ios.deployment_target = '11.0'
 
-  s.source_files = 'DTBKit/Classes/**/*'
+  s.source_files = 'DTBKit/DTBKit.swift'
   
+  s.subspec 'Basic' do |ss|
+    ss.source_files = 'DTBKit/Basic/**/*'
+  end
+  
+  s.subspec 'UIKit' do |ss|
+    ss.source_files = 'DTBKit/UIKit/**/*'
+    ss.dependency 'DTBKit/Basic'
+    ss.dependency 'SnapKit', '5.0.1'
+  end
   # s.resource_bundles = {
   #   'DTBKit' => ['DTBKit/Assets/*.png']
   # }

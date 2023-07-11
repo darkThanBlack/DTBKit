@@ -9,7 +9,7 @@
 //  Contact me: [GitHub](https://github.com/darkThanBlack)
 //
 
-extension DTB.App {
+extension App {
     
     /// Current scene in general app
     ///

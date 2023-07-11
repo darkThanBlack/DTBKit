@@ -27,7 +27,7 @@ class DemoNavigationView: UIView {
     }
     
     @objc private func backButtonEvent(button: UIButton) {
-        DTB.Navigate.popAnyway()
+        Navigate.popAnyway()
     }
     
     override func layoutSubviews() {

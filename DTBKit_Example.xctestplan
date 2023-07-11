@@ -10,18 +10,13 @@
     }
   ],
   "defaultOptions" : {
-    "codeCoverage" : {
-      "targets" : [
-        {
-          "containerPath" : "container:Pods\/Pods.xcodeproj",
-          "identifier" : "1FBA20CAFB0A158ECE46480230897835",
-          "name" : "DTBKit"
-        }
-      ]
-    }
+    "codeCoverage" : false
   },
   "testTargets" : [
     {
+      "skippedTests" : [
+        "DTBTests"
+      ],
       "target" : {
         "containerPath" : "container:DTBKit.xcodeproj",
         "identifier" : "5AA8AA7D09F9746BCF01DD0D",

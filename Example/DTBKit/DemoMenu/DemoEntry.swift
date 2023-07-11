@@ -56,7 +56,7 @@ class DemoEntry {
         switch type {
         case .edgeLabel:
             SimpleVisualViewController.show {
-                let label = EdgeLabel()
+                let label = DTBKit.EdgeLabel()
                 label.text = "Edge Label"
                 label.textColor = .systemRed
                 label.backgroundColor = .systemYellow

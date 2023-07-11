@@ -12,9 +12,7 @@
 import UIKit
 
 /// Simply custom label edge
-///
-/// [refer](https://www.jianshu.com/p/5bffffdd7b45)
-class EdgeLabel: UILabel {
+public class EdgeLabel: UILabel {
     
     ///
     public var edgeInsets: UIEdgeInsets? {
@@ -23,7 +21,7 @@ class EdgeLabel: UILabel {
         }
     }
     
-    override func textRect(forBounds bounds: CGRect, limitedToNumberOfLines numberOfLines: Int) -> CGRect {
+    public override func textRect(forBounds bounds: CGRect, limitedToNumberOfLines numberOfLines: Int) -> CGRect {
         let insets = edgeInsets ?? .zero
         var rect = super.textRect(forBounds: bounds.inset(by: insets), limitedToNumberOfLines: numberOfLines)
         rect.origin.x -= insets.left
@@ -33,7 +31,7 @@ class EdgeLabel: UILabel {
         return rect
     }
     
-    override func drawText(in rect: CGRect) {
+    public override func drawText(in rect: CGRect) {
         super.drawText(in: rect.inset(by: edgeInsets ?? .zero))
     }
 }

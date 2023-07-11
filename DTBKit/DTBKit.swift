@@ -13,17 +13,6 @@
 
 import Foundation
 
-//MARK: - static name space
-
-public enum DTB {}
-
-extension DTB {
-    ///
-    public enum App {}
-    ///
-    public enum Navigate {}
-}
-
 //MARK: - protocol name space
 
 public struct DTBKitWrapper<Base> {
@@ -53,14 +42,25 @@ extension DTBKitableValue {
     }
 }
 
-// MARK: -
+//MARK: - static name space
 
-extension Int64: DTBKitableValue {}
+///
+public enum App {}
+
+///
+public enum Navigate {}
+
+///
+public enum Color {}
+
+// MARK: - Maths
 
 extension CGFloat: DTBKitableValue {}
 
 extension CGSize: DTBKitableValue {}
 
-extension UIViewController: DTBKitable {}
-
 extension UIImage: DTBKitable {}
+
+// MARK: - Navigation
+
+extension UIViewController: DTBKitable {}
