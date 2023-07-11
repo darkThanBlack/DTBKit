@@ -25,32 +25,41 @@ class SimpleVisualViewController: UIViewController {
     
     private weak var son: UIView?
     
+    enum Behaviors {
+        case center, full
+    }
+    private var behavior: Behaviors? = nil
+    
     ///
     static func show(
         in creator: (()->(UIView?))?,
+        behavior: Behaviors? = nil,
         framer: ((_ son: UIView, _ father: UIView)->())? = nil,
         layouter: ((_ son: UIView, _ father: UIView)->())? = nil,
         navigationable: Bool = true
     ) {
         let simpleVC = SimpleVisualViewController(
-            navigationable: navigationable,
             creator: creator,
+            behavior: behavior,
             framer: framer,
-            layouter: layouter
+            layouter: layouter,
+            navigationable: navigationable
         )
         Navigate.topMost()?.navigationController?.pushViewController(simpleVC, animated: true)
     }
     
     init(
-        navigationable: Bool,
         creator: (()->(UIView?))? = nil,
+        behavior: Behaviors? = nil,
         framer: ((_ son: UIView, _ father: UIView)->())?,
-        layouter: ((_ son: UIView, _ father: UIView)->())? = nil
+        layouter: ((_ son: UIView, _ father: UIView)->())? = nil,
+        navigationable: Bool
     ) {
-        self.navigationable = navigationable
         self.creator = creator
+        self.behavior = behavior
         self.layouter = layouter
         self.framer = framer
+        self.navigationable = navigationable
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -82,15 +91,29 @@ class SimpleVisualViewController: UIViewController {
             height: view.bounds.maxY - customNavBar.frame.maxY - bottomInset
         )
         
-        if let son = self.son {
-            framer?(son, view)
+        guard let son = self.son else {
+            return
+        }
+        guard framer == nil else {
+            framer?(son, contentView)
+            return
+        }
+        guard let fast = self.behavior else {
+            return
+        }
+        switch fast {
+        case .center:
+            son.sizeToFit()
+            son.center = CGPoint(x: contentView.bounds.midX, y: contentView.bounds.midY)
+        case .full:
+            son.frame = CGRect(x: 0, y: 0, width: contentView.bounds.size.width, height: contentView.bounds.size.height)
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemPink
+        view.backgroundColor = .white
         
         loadViews(in: view)
     }
@@ -102,7 +125,7 @@ class SimpleVisualViewController: UIViewController {
             return
         }
         self.son = son
-        box.addSubview(son)
+        contentView.addSubview(son)
         loadConstraints(in: box)
     }
     
@@ -137,8 +160,30 @@ class SimpleVisualViewController: UIViewController {
             contentView.rightAnchor.constraint(equalTo: box.rightAnchor),
         ])
         
-        if let son = self.son {
+        guard let son = self.son else {
+            return
+        }
+        guard layouter == nil else {
             layouter?(son, box)
+            return
+        }
+        guard let fast = self.behavior else {
+            return
+        }
+        son.translatesAutoresizingMaskIntoConstraints = false
+        switch fast {
+        case .center:
+            NSLayoutConstraint.activate([
+                son.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+                son.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+            ])
+        case .full:
+            NSLayoutConstraint.activate([
+                son.topAnchor.constraint(equalTo: contentView.topAnchor),
+                son.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+                son.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+                son.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            ])
         }
     }
     
