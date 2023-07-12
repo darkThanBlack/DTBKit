@@ -61,6 +61,6 @@ extension CGSize: DTBKitableValue {}
 
 extension UIImage: DTBKitable {}
 
-// MARK: - Navigation
-
 extension UIViewController: DTBKitable {}
+
+extension Array: DTBKitableValue {}
