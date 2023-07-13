@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:../DTBKit_Example.xctestplan">
-   </FileRef>
-   <FileRef
       location = "group:DTBKit.xcodeproj">
    </FileRef>
    <FileRef

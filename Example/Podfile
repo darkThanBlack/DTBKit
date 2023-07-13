@@ -3,16 +3,14 @@ use_frameworks!
 platform :ios, '11.0'
 
 target 'DTBKit_Example' do
-  pod 'DTBKit', :path => '../'
+  pod 'DTBKit', :path => '../', :testspecs => ['Tests']
   
   # pod 'SnapKit', '5.0.1'
   pod 'DoraemonKit/Core', '~> 3.0.4', configurations: %w[Debug] # 必选
   
-  target 'DTBKit_Tests' do
-    inherit! :search_paths
-
-    
-  end
+#  target 'DTBKit_Tests' do
+#    inherit! :search_paths
+#  end
 end
 
 post_install do |installer|

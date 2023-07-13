@@ -1,14 +1,6 @@
 name: DTBKit
-#settings:
-#  CODE_SIGN_STYLE: Automatic
-#  CODE_SIGN_ENTITLEMENTS: *.entitlements
-#  DEVELOPMENT_TEAM: 97TMNN7J92
 attributes:
   ORGANIZATIONNAME: darkThanBlack
-#configs:
-# Debug: debug
-# Release: release
-# Enterprise_Release: debug
 targets:
   DTBKit_Example:
     scheme:
@@ -16,8 +8,6 @@ targets:
     type: application
     platform: [iOS]
     platformSuffix: "" # 去掉平台后缀名，否则默认生成的target会带有"_iOS"后缀
-#    info:
-#      path: DTBKit/info.plist
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: org.darkThanBlack.demo.DTBKit # https://help.apple.com/xcode/mac/9.0/index.html?localePath=en.lproj#/dev7fe737ce0
@@ -26,97 +16,49 @@ targets:
         TARGETED_DEVICE_FAMILY: 1 # 1 代表device只有iPhone
         EXCLUDED_ARCHS[sdk=iphonesimulator*]: arm64
         UILaunchStoryboardName: LaunchScreen
-#        MARKETING_VERSION: 5.11.35
-#        CURRENT_PROJECT_VERSION: 553465
-#        GCC_PREFIX_HEADER: $(SRCROOT)/../XMOrg/Supporting Files/XM.pch
-#        SWIFT_OBJC_BRIDGING_HEADER: $(SRCROOT)/DTBKit/DTBKit-Bridging-Header.h
         FRAMEWORK_SEARCH_PATHS:
           - $(inherited)
           - $(PODS_CONFIGURATION_BUILD_DIR)/DTBKit
-        # USER_HEADER_SEARCH_PATHS: ../Butterfly/**
         LIBRARY_SEARCH_PATHS:
           - $(inherited)
         ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES: $(inherited)
         ENABLE_BITCODE: false
-        # GCC_PRECOMPILE_PREFIX_HEADER: true
-        # ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME: LaunchImage
-#        CLANG_ENABLE_OBJC_WEAK: true
-        WARNING_CFLAGS: 
+        WARNING_CFLAGS:
         - -Wno-documentation
         - -Wno-unguarded-availability
         - -Wno-strict-prototypes
         - -Wno-implicit-retain-self
-#      configs:
-#        Debug:
-#          MiSDKRun: debug
-#          OTHER_SWIFT_FLAGS:
-#           - "$(inherited) -D COCOAPODS -D DORAEMONABLE"
-#        Enterprise_Release:
-#          MiSDKRun: debug
-#          OTHER_SWIFT_FLAGS:
-#           - "$(inherited) -D COCOAPODS -D DORAEMONABLE"
-#        Release:
-#          MiSDKRun: online
-#          OTHER_SWIFT_FLAGS:
-#           - "$(inherited) -D COCOAPODS -D DORAEMONABLE"
-#      EXCLUDED_ARCHS[sdk=iphonesimulator*]:
-#        - arm64
     sources:
-      - path: "../DTBKit/Classes"
-        group: "Source Codes"
-      - path: DTBKit
-        group: "Example for DTBKit"
+      # Metatata
       - path: "../DTBKit.podspec"
-        group: "Podspec Metadata"
+        group: "Metadata"
       - path: "../README.md"
-        group: "Podspec Metadata"
+        group: "Metadata"
       - path: "../LICENSE"
-        group: "Podspec Metadata"
-#    dependencies:
-#      - framework: $(PROJECT_DIR)/Frameworks/CurBranch/Butterfly.framework
-#        embed: false
-#      - sdk: SystemConfiguration.framework
-#      - sdk: Security.framework
-#      - sdk: CoreMotion.framework
-#      - sdk: CoreTelephony.framework
-#      - sdk: AdSupport.framework
-#      - sdk: CFNetwork.framework
-#      - sdk: CoreServices.framework
-#      - sdk: UserNotifications.framework
-#      - sdk: libz.tbd
-#      - sdk: libxml2.tbd
-#      - sdk: libresolv.tbd
-#      - sdk: libsqlite3.tbd
-
-  DTBKit_Tests:
-    type: bundle.unit-test
-    platform: [iOS]
-    platformSuffix: "" # 去掉平台后缀名，否则默认生成的target会带有"_iOS"后缀
-    sources:
-      - Tests
-    settings:
-      TEST_HOST: $(BUILT_PRODUCTS_DIR)/DTBKit_Example.app/DTBKit_Example
-#     attributes:
-#       TestTargetID: 709437EA5FD2729650EC4AD0
-
-#aggregateTargets:
-#  XMOSFrameworkCheck:
-#    buildScripts:
-#    - name: "OSFrameworkCheckScript"
-#      script: "$PROJECT_DIR/../FrameworkBuild/Script/FrameworkCheck.sh Debug OS"
-#  XMFrameworkCheck:
-#    buildScripts:
-#    - name: "FrameworkCheckScript"
-#      script: "$PROJECT_DIR/../FrameworkBuild/Script/FrameworkCheck.sh Debug"
-#  XMSimulatorFrameworkCheck:
-#    buildScripts:
-#    - name: "FrameworkCheckScript"
-#      script: "$PROJECT_DIR/../FrameworkBuild/Script/FrameworkCheck.sh Debug Simulator"
-#  SwiftLint:
-#    buildScripts:
-#    - name: "SwiftLint"
-#      script: "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi"
-#  SwiftLintAutocorrect:
-#    buildScripts:
-#    - name: "SwiftLintAutocorrect"
-#      script: "if which swiftlint >/dev/null; then\nswiftlint autocorrect\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi"
+        group: "Metadata"
+      - path: "Podfile"
+        group: "Metadata"
+      - path: "project.yml"
+        group: "Metadata"
+      # Examples
+      - path: "DTBKit"
+        group: "Examples"
+      # Tests
+#      - path: "../DTBKit/Tests/"
+#        group: "Unit Tests"
+      # Sources
+#      - path: "../DTBKit/DTBKit.swift"
+#        group: "Source Codes"
+#      - path: "../DTBKit/Basic"
+#        group: "Source Codes"
+#      - path: "../DTBKit/UIKit"
+#        group: "Source Codes"
+    
+#  DTBKit_Tests:
+#    type: bundle.unit-test
+#    platform: [iOS]
+#    platformSuffix: "" # 去掉平台后缀名，否则默认生成的target会带有"_iOS"后缀
+#    sources:
+#      - Tests
+#    settings:
+#      TEST_HOST: $(BUILT_PRODUCTS_DIR)/DTBKit_Example.app/DTBKit_Example

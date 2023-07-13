@@ -31,6 +31,11 @@ TODO: Add long description of the pod here.
 
   s.source_files = 'DTBKit/DTBKit.swift'
   
+  s.test_spec 'Tests' do |t|
+    t.framework = 'XCTest'
+    t.source_files = 'DTBKit/Tests/**/*'
+  end
+  
   s.subspec 'Basic' do |ss|
     ss.source_files = 'DTBKit/Basic/**/*'
   end
