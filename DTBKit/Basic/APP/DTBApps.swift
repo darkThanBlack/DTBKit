@@ -9,6 +9,8 @@
 //  Contact me: [GitHub](https://github.com/darkThanBlack)
 //
 
+import UIKit
+
 extension App {
     
     /// Current scene in general app

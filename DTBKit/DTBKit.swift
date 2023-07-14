@@ -12,6 +12,7 @@
 // MARK: Special thanks to ``KingFisher``!
 
 import Foundation
+import UIKit
 
 //MARK: - protocol name space
 

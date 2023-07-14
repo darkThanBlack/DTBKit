@@ -10,7 +10,7 @@
 //
     
 
-import Foundation
+import UIKit
 
 extension DTBKitWrapper where Base == CGFloat {
     
@@ -21,7 +21,7 @@ extension DTBKitWrapper where Base == CGFloat {
 }
 
 /// Size width and height always >= 0.0 semantically
-extension DTBKit.DTBKitWrapper where Base == CGSize {
+extension DTBKitWrapper where Base == CGSize {
     
     // MARK: - basic
     

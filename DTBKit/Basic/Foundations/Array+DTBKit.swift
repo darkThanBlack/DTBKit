@@ -12,7 +12,7 @@
 
 import Foundation
 
-extension DTBKit.DTBKitWrapper {
+extension DTBKitWrapper {
     ///
     public subscript<T>(_ index: Int) -> T? where Base == Array<T> {
         guard mySelf.startIndex..<mySelf.endIndex ~= index else {

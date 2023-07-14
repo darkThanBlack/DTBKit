@@ -9,6 +9,8 @@
 //  Contact me: [GitHub](https://github.com/darkThanBlack)
 //
 
+import UIKit
+
 extension Navigate {
     
     /// Current controller in stack
@@ -23,7 +25,7 @@ extension Navigate {
     }
 }
 
-extension DTBKit.DTBKitWrapper where Base: UIViewController {
+extension DTBKitWrapper where Base: UIViewController {
 
     /// Current controller in stack
     public func topMost() -> UIViewController? {

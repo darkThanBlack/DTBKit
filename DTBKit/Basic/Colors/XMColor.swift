@@ -14,7 +14,7 @@ public extension Color {
     enum XM {}
 }
 
-extension DTBKit.Color.XM {
+extension Color.XM {
     
     //MARK: - Pure
     

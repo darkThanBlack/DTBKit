@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private func debugger() {
 #if DEBUG
-        DoraemonManager.shareInstance().install(withPid: "73422655743e0c15bc7aff370d8485f5")
+        DoraemonManager.shareInstance().install()
 #endif
     }
     

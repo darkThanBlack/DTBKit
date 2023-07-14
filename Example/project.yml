@@ -29,7 +29,8 @@ targets:
         - -Wno-strict-prototypes
         - -Wno-implicit-retain-self
     sources:
-      # Metatata
+      ## Metatata
+      ## 元数据
       - path: "../DTBKit.podspec"
         group: "Metadata"
       - path: "../README.md"
@@ -40,19 +41,21 @@ targets:
         group: "Metadata"
       - path: "project.yml"
         group: "Metadata"
-      # Examples
+      ## Examples
+      ## 示例代码
       - path: "DTBKit"
         group: "Examples"
-      # Tests
+      ## Sources
+      ## 源代码，不用 pods 而是直接引用到 Example 工程中，方便开发
+      - path: "../DTBKit/DTBKit.swift"
+        group: "Source Codes"
+      - path: "../DTBKit/Basic"
+        group: "Source Codes"
+      - path: "../DTBKit/UIKit"
+        group: "Source Codes"
+      ## Tests
 #      - path: "../DTBKit/Tests/"
 #        group: "Unit Tests"
-      # Sources
-#      - path: "../DTBKit/DTBKit.swift"
-#        group: "Source Codes"
-#      - path: "../DTBKit/Basic"
-#        group: "Source Codes"
-#      - path: "../DTBKit/UIKit"
-#        group: "Source Codes"
     
 #  DTBKit_Tests:
 #    type: bundle.unit-test
