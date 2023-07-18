@@ -17,9 +17,9 @@ import UIKit
 //MARK: - protocol name space
 
 public struct DTBKitWrapper<Base> {
-    public let mySelf: Base
+    public let me: Base
     public init(_ base: Base) {
-        self.mySelf = base
+        self.me = base
     }
 }
 

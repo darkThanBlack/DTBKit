@@ -16,7 +16,7 @@ extension DTBKitWrapper where Base == CGFloat {
     
     ///  x/0 -> x/1
     public func div(_ f: CGFloat) -> CGFloat {
-        return mySelf / (f == 0.0 ? 1.0 : f)
+        return me / (f == 0.0 ? 1.0 : f)
     }
 }
 
@@ -27,23 +27,23 @@ extension DTBKitWrapper where Base == CGSize {
     
     ///
     public var isEmpty: Bool {
-        return (mySelf.width <= 0) || (mySelf.height <= 0)
+        return (me.width <= 0) || (me.height <= 0)
     }
     ///
     public var safe: CGSize {
-        return CGSize(width: max(mySelf.width, 0), height: max(mySelf.height, 0))
+        return CGSize(width: max(me.width, 0), height: max(me.height, 0))
     }
     ///
     public var center: CGPoint {
-        return CGPoint(x: max(mySelf.width, 0) / 2.0, y: max(mySelf.height, 0) / 2.0)
+        return CGPoint(x: max(me.width, 0) / 2.0, y: max(me.height, 0) / 2.0)
     }
     ///
     public var longer: CGFloat {
-        return max(max(mySelf.width, mySelf.height), 0)
+        return max(max(me.width, me.height), 0)
     }
     ///
     public var shorter: CGFloat {
-        return max(min(mySelf.width, mySelf.height), 0)
+        return max(min(me.width, me.height), 0)
     }
     
     // MARK: - flow box
@@ -82,8 +82,8 @@ extension DTBKitWrapper where Base == CGSize {
     ///
     public func padding(only insets: UIEdgeInsets) -> CGSize {
         return CGSize(
-            width: mySelf.dtb.safe.width - (insets.left + insets.right),
-            height: mySelf.dtb.safe.height - (insets.top + insets.bottom)
+            width: me.dtb.safe.width - (insets.left + insets.right),
+            height: me.dtb.safe.height - (insets.top + insets.bottom)
         ).dtb.safe
     }
     
@@ -94,14 +94,14 @@ extension DTBKitWrapper where Base == CGSize {
         if isEmpty || target.dtb.isEmpty {
             return .zero
         }
-        if mySelf.width > mySelf.height {
+        if me.width > me.height {
             return CGSize(
                 width: target.width,
-                height: target.width * mySelf.height / mySelf.width
+                height: target.width * me.height / me.width
             )
         } else {
             return CGSize(
-                width: target.height * mySelf.width / mySelf.height,
+                width: target.height * me.width / me.height,
                 height: target.height
             )
         }
@@ -113,14 +113,14 @@ extension DTBKitWrapper where Base == CGSize {
             return .zero
         }
         
-        if mySelf.width < mySelf.height {
+        if me.width < me.height {
             return CGSize(
                 width: target.width,
-                height: target.width * mySelf.height / mySelf.width
+                height: target.width * me.height / me.width
             )
         } else {
             return CGSize(
-                width: target.height * mySelf.width / mySelf.height,
+                width: target.height * me.width / me.height,
                 height: target.height
             )
         }
@@ -130,6 +130,6 @@ extension DTBKitWrapper where Base == CGSize {
     
     /// (W && H) <= S
     public func pureSmall(than s: CGSize) -> Bool {
-        return (mySelf.width <= s.width) && (mySelf.height <= s.height)
+        return (me.width <= s.width) && (me.height <= s.height)
     }
 }

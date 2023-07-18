@@ -13,11 +13,14 @@
 import Foundation
 
 extension DTBKitWrapper {
+    
+    /// Safe array
     ///
+    /// * Sample: ``list[0] => list.dtb[0]``
     public subscript<T>(_ index: Int) -> T? where Base == Array<T> {
-        guard mySelf.startIndex..<mySelf.endIndex ~= index else {
+        guard me.startIndex..<me.endIndex ~= index else {
             return nil
         }
-        return mySelf[index]
+        return me[index]
     }
 }

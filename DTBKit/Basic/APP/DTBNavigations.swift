@@ -26,7 +26,7 @@ extension Navigate {
 }
 
 extension DTBKitWrapper where Base: UIViewController {
-
+    
     /// Current controller in stack
     public func topMost() -> UIViewController? {
         ///
@@ -42,24 +42,24 @@ extension DTBKitWrapper where Base: UIViewController {
             }
             return vc
         }
-        return recursion(mySelf)
+        return recursion(me)
     }
 
     /// Simply pop / dismiss / remove
     @discardableResult
     public func popAnyway(animated: Bool = true) -> Bool {
-        if let nav = mySelf.navigationController ?? (mySelf as? UINavigationController) {
+        if let nav = me.navigationController ?? (me as? UINavigationController) {
             nav.popViewController(animated: animated)
             return true
         }
-        if mySelf.presentingViewController != nil {
-            mySelf.dismiss(animated: animated)
+        if me.presentingViewController != nil {
+            me.dismiss(animated: animated)
             return true
         }
-        if mySelf.parent != nil {
-            mySelf.willMove(toParent: nil)
-            mySelf.view.removeFromSuperview()
-            mySelf.removeFromParent()
+        if me.parent != nil {
+            me.willMove(toParent: nil)
+            me.view.removeFromSuperview()
+            me.removeFromParent()
             return true
         }
         return false
