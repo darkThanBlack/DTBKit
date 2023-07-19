@@ -16,7 +16,7 @@ extension DemoCellModel {
     
     enum CellType: String, CaseIterable {
         
-        case edgeLabel, bundleImage
+        case edgeLabel, bundleImage, guide
         
         var desc: String? {
             switch self {
@@ -71,6 +71,8 @@ class DemoEntry {
                 imageView.dtb.setImage(named: "logo", bundleName: "DTBKit-Basic", frameworkName: "DTBKit")
                 return imageView
             }, behavior: .center)
+        case .guide:
+            Floating.shared.start()
         }
     }
 }

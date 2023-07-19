@@ -10,7 +10,7 @@ import UIKit
 
 ///
 public extension Color {
-    ///
+    /// Custom design style with extension
     enum XM {}
 }
 

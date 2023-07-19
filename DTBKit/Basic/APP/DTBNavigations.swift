@@ -14,14 +14,14 @@ import UIKit
 extension Navigate {
     
     /// Current controller in stack
-    public static func topMost() -> UIViewController? {
-        return App.keyWindow()?.rootViewController?.dtb.topMost()
+    public static func topMost(_ root: UIViewController? = nil) -> UIViewController? {
+        return (root ?? App.keyWindow()?.rootViewController)?.dtb.topMost()
     }
     
     /// Simply pop / dismiss / remove
     @discardableResult
-    public static func popAnyway(animated: Bool = true) -> Bool {
-        return App.keyWindow()?.rootViewController?.dtb.popAnyway(animated: animated) ?? false
+    public static func popAnyway(_ root: UIViewController? = nil, animated: Bool = true) -> Bool {
+        return Navigate.topMost(root)?.dtb.popAnyway(animated: animated) ?? false
     }
 }
 

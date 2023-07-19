@@ -12,7 +12,7 @@
 
 import UIKit
 
-///
+/// Fast test view
 class SimpleVisualViewController: UIViewController {
     
     private var navigationable: Bool
