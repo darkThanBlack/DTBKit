@@ -31,6 +31,10 @@ TODO: Add long description of the pod here.
 
   s.source_files = 'DTBKit/DTBKit.swift'
   
+  # s.resource_bundles = {
+  #   'DTBKit' => ['DTBKit/Assets/*.xcassets']
+  # }
+  
   s.test_spec 'Tests' do |t|
     t.framework = 'XCTest'
     t.source_files = 'DTBKit/Tests/**/*'
@@ -38,6 +42,9 @@ TODO: Add long description of the pod here.
   
   s.subspec 'Basic' do |ss|
     ss.source_files = 'DTBKit/Basic/**/*'
+    ss.resource_bundles = {
+      'DTBKit-Basic' => ['DTBKit/Assets/basic.xcassets']
+    }
   end
   
   s.subspec 'UIKit' do |ss|
@@ -45,10 +52,7 @@ TODO: Add long description of the pod here.
     ss.dependency 'DTBKit/Basic'
     ss.dependency 'SnapKit', '5.0.1'
   end
-  # s.resource_bundles = {
-  #   'DTBKit' => ['DTBKit/Assets/*.png']
-  # }
-
+  
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
   # s.dependency 'AFNetworking', '~> 2.3'

@@ -10,6 +10,9 @@
 		0169083FFEF6AE744A5BDE01 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDAF59F97655EB8E78958AD5 /* AppDelegate.swift */; };
 		0C1A172E134B1257FB303B8A /* DTBKit.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 3C7D3B41655E7FCD0EEE3DDE /* DTBKit.podspec */; };
 		0D95639B99F2A5832783FEF1 /* project.yml in Resources */ = {isa = PBXBuildFile; fileRef = 70B7C80B5F60A9B0123B9530 /* project.yml */; };
+		21BEECD17FA96DDA0BDBEE43 /* UIImageView+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A125D0742C22AB72E2FB031 /* UIImageView+DTBKit.swift */; };
+		2817A4676AD7A4A87863FB18 /* Pods_DTBKit_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4DC59E903BF48E2D225EDDD /* Pods_DTBKit_Example.framework */; };
+		32EC284AD691427577F70F1D /* UIImage+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CEAF5FD9FBC8F10646C2DB /* UIImage+DTBKit.swift */; };
 		4E873C07EA8DF68768C1CBCA /* DemoEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA0A7EC6D2C1DC9D18F08A1 /* DemoEntry.swift */; };
 		66F19A1005CEDC2EDDBFDF6A /* Exported.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB035E2CD0BB15B35B6ADEC /* Exported.swift */; };
 		7CF58AE26EC8F27ABBC74059 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB470419225C0F4E263C23C7 /* HomeViewController.swift */; };
@@ -17,11 +20,11 @@
 		7F4426EFE8922514BEFFA1C0 /* DTBColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8013B5645F272A042C7BD3A /* DTBColors.swift */; };
 		8DD734649787D05EF6D0203A /* EdgeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA75639F4BCCE3CFCB62F65 /* EdgeLabel.swift */; };
 		90766959B8603C9A9E4183C0 /* DemoContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB8888AC87F4EF690ACB15C /* DemoContentView.swift */; };
+		96C2FBBB655CB57056972881 /* Floating.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88CE30A86D7C101933069C5 /* Floating.swift */; };
 		996CFED17A4B1BDD6EE9648A /* DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EC983BB0CCCB17419FBFBA /* DTBKit.swift */; };
 		A1348D0AEC21FEC0D41CBBE1 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1E7982283574061EF2C6745 /* Launch Screen.storyboard */; };
-		A21C61A52A66971C00CA35C5 /* UIImage+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21C61A42A66971C00CA35C5 /* UIImage+DTBKit.swift */; };
 		A735232D860682E7B7E7ECB0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F814B4B829198871353120F8 /* Images.xcassets */; };
-		B00E193F3EDA670FEC9AA1B5 /* Pods_DTBKit_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 354716A34B88F360769FCC93 /* Pods_DTBKit_Example.framework */; };
+		B3B9577BA8721D8698D7CF5D /* basic.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 881598D80582636EC3A51695 /* basic.xcassets */; };
 		BDBB8C6B4588D4721BBE6CE5 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D9099D1384E801AE7056DEE1 /* README.md */; };
 		C1036EBEAFFED38FC7E633B1 /* DemoNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03364B5CAD0A00266B4A720C /* DemoNavigationView.swift */; };
 		D57FCCB4F94F72CBE04E4881 /* DTBMaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72606BB1D63D3B45B7923CF9 /* DTBMaths.swift */; };
@@ -35,43 +38,46 @@
 		00EC983BB0CCCB17419FBFBA /* DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DTBKit.swift; path = ../DTBKit/DTBKit.swift; sourceTree = "<group>"; };
 		03364B5CAD0A00266B4A720C /* DemoNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoNavigationView.swift; sourceTree = "<group>"; };
 		0DA0A7EC6D2C1DC9D18F08A1 /* DemoEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoEntry.swift; sourceTree = "<group>"; };
-		21B33A95C7CB0909570BB396 /* Pods-DTBKit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DTBKit_Example.debug.xcconfig"; path = "Target Support Files/Pods-DTBKit_Example/Pods-DTBKit_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		354716A34B88F360769FCC93 /* Pods_DTBKit_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DTBKit_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3C7D3B41655E7FCD0EEE3DDE /* DTBKit.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = DTBKit.podspec; path = ../DTBKit.podspec; sourceTree = "<group>"; };
+		271C5701FBC0F1C84F6316FA /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		3A125D0742C22AB72E2FB031 /* UIImageView+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+DTBKit.swift"; sourceTree = "<group>"; };
+		3C7D3B41655E7FCD0EEE3DDE /* DTBKit.podspec */ = {isa = PBXFileReference; name = DTBKit.podspec; path = ../DTBKit.podspec; sourceTree = "<group>"; };
 		4077018B3676CD26160A07E9 /* DTBNavigations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTBNavigations.swift; sourceTree = "<group>"; };
 		57E1DA12F6B31A7812F0346A /* DTBApps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTBApps.swift; sourceTree = "<group>"; };
 		5AA75639F4BCCE3CFCB62F65 /* EdgeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeLabel.swift; sourceTree = "<group>"; };
-		5E640FCA5DA1C76456068E49 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		5E640FCA5DA1C76456068E49 /* Podfile */ = {isa = PBXFileReference; path = Podfile; sourceTree = "<group>"; };
+		5F58A3667E08C59194B2AE9B /* Pods-DTBKit_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DTBKit_Example.release.xcconfig"; path = "Target Support Files/Pods-DTBKit_Example/Pods-DTBKit_Example.release.xcconfig"; sourceTree = "<group>"; };
 		70B7C80B5F60A9B0123B9530 /* project.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = project.yml; sourceTree = "<group>"; };
 		72606BB1D63D3B45B7923CF9 /* DTBMaths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTBMaths.swift; sourceTree = "<group>"; };
 		72CA11B14C676CF2BC4B22E4 /* XMColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMColor.swift; sourceTree = "<group>"; };
-		76F0BA395FE35F6B3FE4809A /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		76F0BA395FE35F6B3FE4809A /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		881598D80582636EC3A51695 /* basic.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = basic.xcassets; sourceTree = "<group>"; };
 		8CB035E2CD0BB15B35B6ADEC /* Exported.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exported.swift; sourceTree = "<group>"; };
-		A21C61A42A66971C00CA35C5 /* UIImage+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+DTBKit.swift"; sourceTree = "<group>"; };
-		A2C05BA12A61442100509983 /* Floating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Floating.swift; sourceTree = "<group>"; };
+		A4DC59E903BF48E2D225EDDD /* Pods_DTBKit_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DTBKit_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A94332BD9942E3A20F8AC621 /* DTBKit_Example.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = DTBKit_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB470419225C0F4E263C23C7 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		ABD44A74C27BCF41E4BC64F8 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
-		AD3822F1BFE14ECBE1DF3A18 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		ABD44A74C27BCF41E4BC64F8 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		AD3822F1BFE14ECBE1DF3A18 /* LICENSE */ = {isa = PBXFileReference; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		BAB8888AC87F4EF690ACB15C /* DemoContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoContentView.swift; sourceTree = "<group>"; };
 		C1E7982283574061EF2C6745 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
-		C29DB6C917C078A0AB77C07E /* Pods-DTBKit_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DTBKit_Example.release.xcconfig"; path = "Target Support Files/Pods-DTBKit_Example/Pods-DTBKit_Example.release.xcconfig"; sourceTree = "<group>"; };
+		C5CEAF5FD9FBC8F10646C2DB /* UIImage+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+DTBKit.swift"; sourceTree = "<group>"; };
+		C88CE30A86D7C101933069C5 /* Floating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Floating.swift; sourceTree = "<group>"; };
 		C93D23755F9FD8A9882B263F /* Array+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+DTBKit.swift"; sourceTree = "<group>"; };
 		CDAF59F97655EB8E78958AD5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D63C6B9CDD3CC334F4715719 /* SimpleVisualViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleVisualViewController.swift; sourceTree = "<group>"; };
 		D9099D1384E801AE7056DEE1 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		DA5E68C629A3A3C6AE2E1CE3 /* Pods-DTBKit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DTBKit_Example.debug.xcconfig"; path = "Target Support Files/Pods-DTBKit_Example/Pods-DTBKit_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		E8013B5645F272A042C7BD3A /* DTBColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTBColors.swift; sourceTree = "<group>"; };
 		F07719E41192E51E26324668 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		F2DCF0C710372F5B71633BAC /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		F2DCF0C710372F5B71633BAC /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
 		F814B4B829198871353120F8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		D8C4F8085CA45D66727F3B33 /* Frameworks */ = {
+		DEBA17304F9C96320FFECAE5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B00E193F3EDA670FEC9AA1B5 /* Pods_DTBKit_Example.framework in Frameworks */,
+				2817A4676AD7A4A87863FB18 /* Pods_DTBKit_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,7 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				ABD44A74C27BCF41E4BC64F8 /* .gitkeep */,
-				A2C05BA12A61442100509983 /* Floating.swift */,
+				C88CE30A86D7C101933069C5 /* Floating.swift */,
 			);
 			path = Floating;
 			sourceTree = "<group>";
@@ -143,9 +149,20 @@
 			isa = PBXGroup;
 			children = (
 				C93D23755F9FD8A9882B263F /* Array+DTBKit.swift */,
-				A21C61A42A66971C00CA35C5 /* UIImage+DTBKit.swift */,
+				C5CEAF5FD9FBC8F10646C2DB /* UIImage+DTBKit.swift */,
+				3A125D0742C22AB72E2FB031 /* UIImageView+DTBKit.swift */,
 			);
 			path = Foundations;
+			sourceTree = "<group>";
+		};
+		4E35FCB44B3F6041A446098F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DA5E68C629A3A3C6AE2E1CE3 /* Pods-DTBKit_Example.debug.xcconfig */,
+				5F58A3667E08C59194B2AE9B /* Pods-DTBKit_Example.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		52AFD474F8962326E7DF73D1 /* Colors */ = {
@@ -155,15 +172,6 @@
 				72CA11B14C676CF2BC4B22E4 /* XMColor.swift */,
 			);
 			path = Colors;
-			sourceTree = "<group>";
-		};
-		79150A7F24DA43085B277183 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				21B33A95C7CB0909570BB396 /* Pods-DTBKit_Example.debug.xcconfig */,
-				C29DB6C917C078A0AB77C07E /* Pods-DTBKit_Example.release.xcconfig */,
-			);
-			path = Pods;
 			sourceTree = "<group>";
 		};
 		88030DA478C3BC8517A7C58D /* Source Codes */ = {
@@ -190,14 +198,6 @@
 			path = DTBKit;
 			sourceTree = "<group>";
 		};
-		95543B697F7C453D67D4723F /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				354716A34B88F360769FCC93 /* Pods_DTBKit_Example.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		9F12C675ED584F082B757A84 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -206,15 +206,26 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		A02F3074E9FA30B17137A40B /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				271C5701FBC0F1C84F6316FA /* .gitkeep */,
+				881598D80582636EC3A51695 /* basic.xcassets */,
+			);
+			name = Assets;
+			path = ../DTBKit/Assets;
+			sourceTree = "<group>";
+		};
 		BC12DD552C2444C5241138E9 = {
 			isa = PBXGroup;
 			children = (
 				D4AD1857E48DF31880954735 /* Examples */,
 				FE361C91F82EDA0008C24741 /* Metadata */,
+				DBE214345037E502D7EC1111 /* Resources */,
 				88030DA478C3BC8517A7C58D /* Source Codes */,
 				9F12C675ED584F082B757A84 /* Products */,
-				79150A7F24DA43085B277183 /* Pods */,
-				95543B697F7C453D67D4723F /* Frameworks */,
+				4E35FCB44B3F6041A446098F /* Pods */,
+				FF24E3AEA72719FC4713FA34 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -224,6 +235,14 @@
 				8B751F8645EE2A075856B6D1 /* DTBKit */,
 			);
 			name = Examples;
+			sourceTree = "<group>";
+		};
+		DBE214345037E502D7EC1111 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A02F3074E9FA30B17137A40B /* Assets */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		FE361C91F82EDA0008C24741 /* Metadata */ = {
@@ -238,6 +257,14 @@
 			name = Metadata;
 			sourceTree = "<group>";
 		};
+		FF24E3AEA72719FC4713FA34 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A4DC59E903BF48E2D225EDDD /* Pods_DTBKit_Example.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -245,11 +272,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F1F58F71037EE1DBDB0C6ADC /* Build configuration list for PBXNativeTarget "DTBKit_Example" */;
 			buildPhases = (
-				40198C0CC67A034FF53DC8E9 /* [CP] Check Pods Manifest.lock */,
+				F0D299DAD4DE472518AE0D97 /* [CP] Check Pods Manifest.lock */,
 				1189F6771834ACEE127E70C3 /* Sources */,
 				6055D51056365702E0FA6C1C /* Resources */,
-				D8C4F8085CA45D66727F3B33 /* Frameworks */,
-				579D7BAA4FE2D4A8F6CAE36F /* [CP] Embed Pods Frameworks */,
+				DEBA17304F9C96320FFECAE5 /* Frameworks */,
+				BE15F3796E2EC649DFDD396E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -268,6 +295,8 @@
 			attributes = {
 				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = darkThanBlack;
+				TargetAttributes = {
+				};
 			};
 			buildConfigurationList = 37C9BF844CAB5607F72F8B75 /* Build configuration list for PBXProject "DTBKit" */;
 			compatibilityVersion = "Xcode 10.0";
@@ -296,6 +325,7 @@
 				A735232D860682E7B7E7ECB0 /* Images.xcassets in Resources */,
 				A1348D0AEC21FEC0D41CBBE1 /* Launch Screen.storyboard in Resources */,
 				BDBB8C6B4588D4721BBE6CE5 /* README.md in Resources */,
+				B3B9577BA8721D8698D7CF5D /* basic.xcassets in Resources */,
 				0D95639B99F2A5832783FEF1 /* project.yml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -303,7 +333,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		40198C0CC67A034FF53DC8E9 /* [CP] Check Pods Manifest.lock */ = {
+		BE15F3796E2EC649DFDD396E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DTBKit_Example/Pods-DTBKit_Example-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DTBKit_Example/Pods-DTBKit_Example-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DTBKit_Example/Pods-DTBKit_Example-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F0D299DAD4DE472518AE0D97 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -325,23 +372,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		579D7BAA4FE2D4A8F6CAE36F /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DTBKit_Example/Pods-DTBKit_Example-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DTBKit_Example/Pods-DTBKit_Example-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DTBKit_Example/Pods-DTBKit_Example-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -361,9 +391,11 @@
 				C1036EBEAFFED38FC7E633B1 /* DemoNavigationView.swift in Sources */,
 				8DD734649787D05EF6D0203A /* EdgeLabel.swift in Sources */,
 				66F19A1005CEDC2EDDBFDF6A /* Exported.swift in Sources */,
+				96C2FBBB655CB57056972881 /* Floating.swift in Sources */,
 				7CF58AE26EC8F27ABBC74059 /* HomeViewController.swift in Sources */,
-				A21C61A52A66971C00CA35C5 /* UIImage+DTBKit.swift in Sources */,
 				FFA3F576A21DD1B545DED513 /* SimpleVisualViewController.swift in Sources */,
+				32EC284AD691427577F70F1D /* UIImage+DTBKit.swift in Sources */,
+				21BEECD17FA96DDA0BDBEE43 /* UIImageView+DTBKit.swift in Sources */,
 				DEF3374D41E54CDBA4ACA9C7 /* XMColor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -435,7 +467,7 @@
 		};
 		BAA8C2FA7D56E81C5ABCEC56 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C29DB6C917C078A0AB77C07E /* Pods-DTBKit_Example.release.xcconfig */;
+			baseConfigurationReference = 5F58A3667E08C59194B2AE9B /* Pods-DTBKit_Example.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -525,7 +557,7 @@
 		};
 		F2A043E7593DC7E625CA69FC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 21B33A95C7CB0909570BB396 /* Pods-DTBKit_Example.debug.xcconfig */;
+			baseConfigurationReference = DA5E68C629A3A3C6AE2E1CE3 /* Pods-DTBKit_Example.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;

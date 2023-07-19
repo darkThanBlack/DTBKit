@@ -16,11 +16,13 @@ extension DemoCellModel {
     
     enum CellType: String, CaseIterable {
         
-        case edgeLabel
+        case edgeLabel, bundleImage
         
         var desc: String? {
             switch self {
             case .edgeLabel:  return "带内边距的 UILabel"
+            default:
+                return nil
             }
         }
     }
@@ -55,19 +57,20 @@ class DemoEntry {
     func enter(_ type: DemoCellModel.CellType) {
         switch type {
         case .edgeLabel:
-            SimpleVisualViewController.show {
+            SimpleVisualViewController.show(in: {
                 let label = EdgeLabel()
                 label.text = "Edge Label"
                 label.textColor = .systemRed
                 label.backgroundColor = .systemYellow
                 label.edgeInsets = UIEdgeInsets(top: 4.0, left: 16.0, bottom: 8.0, right: 32.0)
                 return label
-            } framer: { son, box in
-                son.sizeToFit()
-                son.center = CGPoint(x: box.bounds.midX, y: box.bounds.midY)
-            }
+            }, behavior: .center)
+        case .bundleImage:
+            SimpleVisualViewController.show(in: {
+                let imageView = UIImageView()
+                imageView.dtb.setImage(named: "logo", bundleName: "DTBKit-Basic", frameworkName: "DTBKit")
+                return imageView
+            }, behavior: .center)
         }
     }
-    
-    
 }

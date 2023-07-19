@@ -94,20 +94,7 @@ class SimpleVisualViewController: UIViewController {
         guard let son = self.son else {
             return
         }
-        guard framer == nil else {
-            framer?(son, contentView)
-            return
-        }
-        guard let fast = self.behavior else {
-            return
-        }
-        switch fast {
-        case .center:
-            son.sizeToFit()
-            son.center = CGPoint(x: contentView.bounds.midX, y: contentView.bounds.midY)
-        case .full:
-            son.frame = CGRect(x: 0, y: 0, width: contentView.bounds.size.width, height: contentView.bounds.size.height)
-        }
+        framer?(son, contentView)
     }
     
     override func viewDidLoad() {
@@ -126,7 +113,31 @@ class SimpleVisualViewController: UIViewController {
         }
         self.son = son
         contentView.addSubview(son)
+        loadFaster()
         loadConstraints(in: box)
+    }
+    
+    private func loadFaster() {
+        guard let fast = self.behavior, self.layouter == nil, self.framer == nil else {
+            return
+        }
+        self.layouter = { son, father in
+            son.translatesAutoresizingMaskIntoConstraints = false
+            switch fast {
+            case .center:
+                NSLayoutConstraint.activate([
+                    son.centerXAnchor.constraint(equalTo: father.centerXAnchor),
+                    son.centerYAnchor.constraint(equalTo: father.centerYAnchor)
+                ])
+            case .full:
+                NSLayoutConstraint.activate([
+                    son.topAnchor.constraint(equalTo: father.topAnchor),
+                    son.leftAnchor.constraint(equalTo: father.leftAnchor),
+                    son.rightAnchor.constraint(equalTo: father.rightAnchor),
+                    son.bottomAnchor.constraint(equalTo: father.bottomAnchor)
+                ])
+            }
+        }
     }
     
     private func loadConstraints(in box: UIView) {
@@ -163,28 +174,7 @@ class SimpleVisualViewController: UIViewController {
         guard let son = self.son else {
             return
         }
-        guard layouter == nil else {
-            layouter?(son, box)
-            return
-        }
-        guard let fast = self.behavior else {
-            return
-        }
-        son.translatesAutoresizingMaskIntoConstraints = false
-        switch fast {
-        case .center:
-            NSLayoutConstraint.activate([
-                son.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-                son.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
-            ])
-        case .full:
-            NSLayoutConstraint.activate([
-                son.topAnchor.constraint(equalTo: contentView.topAnchor),
-                son.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-                son.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-                son.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
-            ])
-        }
+        layouter?(son, box)
     }
     
     private lazy var customNavBar: DemoNavigationView = {

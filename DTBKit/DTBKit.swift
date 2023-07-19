@@ -9,13 +9,14 @@
 //  Contact me: [GitHub](https://github.com/darkThanBlack)
 //
 
-// MARK: Special thanks to ``KingFisher``!
+// Special thanks: ``KingFisher``
 
 import Foundation
 import UIKit
 
-//MARK: - protocol name space
+//MARK: - Namespaces
 
+///
 public struct DTBKitWrapper<Base> {
     public let me: Base
     public init(_ base: Base) {
@@ -23,6 +24,7 @@ public struct DTBKitWrapper<Base> {
     }
 }
 
+/// namespace for class
 public protocol DTBKitable: AnyObject {}
 
 extension DTBKitable {
@@ -33,6 +35,7 @@ extension DTBKitable {
     }
 }
 
+/// namespace for struct
 public protocol DTBKitableValue {}
 
 extension DTBKitableValue {
@@ -43,7 +46,7 @@ extension DTBKitableValue {
     }
 }
 
-//MARK: - static name space
+//MARK: - Static funcs
 
 ///
 public enum App {}
@@ -54,13 +57,15 @@ public enum Navigate {}
 ///
 public enum Color {}
 
-// MARK: - Maths
+// MARK: - Submodule: Basic
 
 extension CGFloat: DTBKitableValue {}
 
 extension CGSize: DTBKitableValue {}
 
 extension UIImage: DTBKitable {}
+
+extension UIImageView: DTBKitable {}
 
 extension UIViewController: DTBKitable {}
 
