@@ -12,7 +12,7 @@
 
 import UIKit
 
-///GuideRoot
+/// 
 class GuideRootView: UIView {
     
     //MARK: Interface
@@ -31,18 +31,21 @@ class GuideRootView: UIView {
     
     //MARK: View
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        print("MOON__Log  fire...")
+        driftView.fireAbsorb()
+    }
+    
     private func loadViews(in box: UIView) {
+        box.addSubview(driftView)
         
-        
-        loadConstraints(in: box)
+        driftView.sizeToFit()
     }
     
-    private func loadConstraints(in box: UIView) {
-        
-    }
-    
-    //MARK: Event
-    
-    
+    private lazy var driftView: GuideDriftView = {
+        let driftView = GuideDriftView()
+        return driftView
+    }()
 }
 

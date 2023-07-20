@@ -31,6 +31,9 @@ extension DTBKitWrapper where Base == CGSize {
     }
     ///
     public var safe: CGSize {
+        guard isEmpty else {
+            return me
+        }
         return CGSize(width: max(me.width, 0), height: max(me.height, 0))
     }
     ///
@@ -132,4 +135,50 @@ extension DTBKitWrapper where Base == CGSize {
     public func pureSmall(than s: CGSize) -> Bool {
         return (me.width <= s.width) && (me.height <= s.height)
     }
+}
+
+extension DTBKitWrapper where Base == CGRect {
+    
+    //MARK: - absorb
+    
+    public var isEmpty: Bool {
+        return me.size.dtb.isEmpty
+    }
+    
+    public func absorbable(in barrier: CGSize) -> CGRect {
+        return CGRect(
+            x: me.origin.x,
+            y: me.origin.y,
+            width: min(me.width, max(barrier.width, 0)),
+            height: min(me.height, max(barrier.height, 0))
+        )
+    }
+    
+//    public func absorbInside(in barrier: CGSize) -> CGRect {
+//        var result = absorbable(in: barrier)
+//
+//    }
+    
+    func frameInside(value: CGRect, barrier: CGRect) -> CGRect {
+        var newFrame = value
+        
+        if newFrame.origin.x < 0 {
+            newFrame.origin.x = 0
+        }
+        
+        if newFrame.origin.x > (barrier.size.width - newFrame.size.width) {
+            newFrame.origin.x = barrier.size.width - newFrame.size.width
+        }
+        
+        if newFrame.origin.y < 0 {
+            newFrame.origin.y = 0
+        }
+        
+        if newFrame.origin.y > (barrier.size.height - newFrame.size.height) {
+            newFrame.origin.y = barrier.size.height - newFrame.size.height
+        }
+        
+        return newFrame
+    }
+    
 }

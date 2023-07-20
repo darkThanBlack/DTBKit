@@ -63,10 +63,13 @@ extension CGFloat: DTBKitableValue {}
 
 extension CGSize: DTBKitableValue {}
 
+extension CGRect: DTBKitableValue {}
+
+extension Array: DTBKitableValue {}
+
 extension UIImage: DTBKitable {}
 
 extension UIImageView: DTBKitable {}
 
 extension UIViewController: DTBKitable {}
 
-extension Array: DTBKitableValue {}

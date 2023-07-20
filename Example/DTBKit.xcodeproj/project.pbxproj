@@ -27,6 +27,7 @@
 		A21C61AD2A67D7ED00CA35C5 /* GuideRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21C61AC2A67D7ED00CA35C5 /* GuideRootViewController.swift */; };
 		A21C61B02A67EA7900CA35C5 /* GuideRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21C61AF2A67EA7900CA35C5 /* GuideRootView.swift */; };
 		A21C61B22A67ED8000CA35C5 /* GuideDriftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21C61B12A67ED8000CA35C5 /* GuideDriftView.swift */; };
+		A21C61B42A68D64000CA35C5 /* ui-kit.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A21C61B32A68D64000CA35C5 /* ui-kit.xcassets */; };
 		A735232D860682E7B7E7ECB0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F814B4B829198871353120F8 /* Images.xcassets */; };
 		B3B9577BA8721D8698D7CF5D /* basic.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 881598D80582636EC3A51695 /* basic.xcassets */; };
 		BDBB8C6B4588D4721BBE6CE5 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D9099D1384E801AE7056DEE1 /* README.md */; };
@@ -60,6 +61,7 @@
 		A21C61AC2A67D7ED00CA35C5 /* GuideRootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideRootViewController.swift; sourceTree = "<group>"; };
 		A21C61AF2A67EA7900CA35C5 /* GuideRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideRootView.swift; sourceTree = "<group>"; };
 		A21C61B12A67ED8000CA35C5 /* GuideDriftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideDriftView.swift; sourceTree = "<group>"; };
+		A21C61B32A68D64000CA35C5 /* ui-kit.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "ui-kit.xcassets"; sourceTree = "<group>"; };
 		A4DC59E903BF48E2D225EDDD /* Pods_DTBKit_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DTBKit_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A94332BD9942E3A20F8AC621 /* DTBKit_Example.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = DTBKit_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB470419225C0F4E263C23C7 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 			children = (
 				271C5701FBC0F1C84F6316FA /* .gitkeep */,
 				881598D80582636EC3A51695 /* basic.xcassets */,
+				A21C61B32A68D64000CA35C5 /* ui-kit.xcassets */,
 			);
 			name = Assets;
 			path = ../DTBKit/Assets;
@@ -341,6 +344,7 @@
 				0C1A172E134B1257FB303B8A /* DTBKit.podspec in Resources */,
 				A735232D860682E7B7E7ECB0 /* Images.xcassets in Resources */,
 				A1348D0AEC21FEC0D41CBBE1 /* Launch Screen.storyboard in Resources */,
+				A21C61B42A68D64000CA35C5 /* ui-kit.xcassets in Resources */,
 				BDBB8C6B4588D4721BBE6CE5 /* README.md in Resources */,
 				B3B9577BA8721D8698D7CF5D /* basic.xcassets in Resources */,
 				0D95639B99F2A5832783FEF1 /* project.yml in Resources */,

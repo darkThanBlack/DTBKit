@@ -27,7 +27,7 @@ public class Drift {
         let guide = GuideWindow(frame: UIScreen.main.bounds)
         guide.isHidden = true
         guide.backgroundColor = .clear
-        guide.windowLevel = .alert
+        guide.windowLevel = .normal
         
         let root = GuideRootViewController()
         guide.noResponseView = root.view

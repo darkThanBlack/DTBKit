@@ -72,7 +72,9 @@ class DemoEntry {
                 return imageView
             }, behavior: .center)
         case .guide:
-            Floating.shared.start()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                Drift.shared.start()
+            }
         }
     }
 }

@@ -33,16 +33,16 @@ extension DTBKitWrapper where Base: UIImageView {
     /// - Parameters:
     ///   - name: image name
     ///   - bundleName: custom bundle name
-    ///   - classType: pass ``nil`` or ``.self``
     ///   - frameworkName: custom framework name
+    ///   - classType: pass ``nil`` or ``.self``
     ///   - types: image suffixs
     public func setImage(
         named name: String,
         bundleName: String? = nil,
-        classType: AnyClass? = nil,
         frameworkName: String? = nil,
+        classType: AnyClass? = nil,
         types: [String] = ["png", "jpg", "webp", "jpeg"]
     ) {
-        me.image = DTBKitWrapper<UIImage?>(named: name, bundleName: bundleName, classType: classType, frameworkName: frameworkName, types: types)?.me
+        me.image = DTBKitWrapper<UIImage?>(named: name, bundleName: bundleName, frameworkName: frameworkName, classType: classType, types: types)?.me
     }
 }

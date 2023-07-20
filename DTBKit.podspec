@@ -49,6 +49,10 @@ TODO: Add long description of the pod here.
   
   s.subspec 'UIKit' do |ss|
     ss.source_files = 'DTBKit/UIKit/**/*'
+    ss.resource_bundles = {
+      'DTBKit-UIKit' => ['DTBKit/Assets/ui-kit.xcassets']
+    }
+    
     ss.dependency 'DTBKit/Basic'
     ss.dependency 'SnapKit', '5.0.1'
   end

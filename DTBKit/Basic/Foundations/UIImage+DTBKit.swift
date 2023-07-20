@@ -48,14 +48,14 @@ extension DTBKitWrapper where Base == UIImage? {
     /// - Parameters:
     ///   - name: image name
     ///   - bundleName: ``/*.bundle/``
-    ///   - classType: ``Bundle(for: )``, pass ``nil`` or ``self``
     ///   - frameworkName: ``/*.framework/``，default is equal to "bundleName"
+    ///   - classType: ``Bundle(for: )``, pass ``nil`` or ``self``
     ///   - types: image suffix
     public init?(
         named name: String,
         bundleName: String? = nil,
-        classType: AnyClass? = nil,
         frameworkName: String? = nil,
+        classType: AnyClass? = nil,
         types: [String] = ["png", "jpg", "webp", "jpeg"]
     ) where Base == UIImage? {
         ///
