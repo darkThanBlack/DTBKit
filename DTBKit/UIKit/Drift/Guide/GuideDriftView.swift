@@ -13,16 +13,26 @@
 import UIKit
 
 ///
-class GuideDriftView: UIView {
+public class GuideDriftView: UIView {
     
     //MARK: Interface
     
-    func fireAbsorb() {
+    ///
+    public func fireAbsorb() {
         let newFrame = absorbHorizonal(frame, barrier: superview?.bounds ?? UIScreen.main.bounds)
         UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut) {
             self.frame = newFrame
         } completion: { _ in
-            // delay?
+            // do nth.
+        }
+    }
+    
+    ///
+    public func fireFade(_ isFade: Bool) {
+        UIView.animate(withDuration: isFade ? 0.5 : 0.0, delay: 0.0, options: .curveEaseInOut) {
+            self.contentView.alpha = isFade ? 0.4 : 1.0
+        } completion: { _ in
+            // do nth.
         }
     }
     
@@ -38,15 +48,15 @@ class GuideDriftView: UIView {
     
     //MARK: View
     
-    override var intrinsicContentSize: CGSize {
+    public override var intrinsicContentSize: CGSize {
         return contentView.intrinsicContentSize
     }
     
-    override func sizeThatFits(_ size: CGSize) -> CGSize {
+    public override func sizeThatFits(_ size: CGSize) -> CGSize {
         return contentView.sizeThatFits(size)
     }
     
-    override func layoutSubviews() {
+    public override func layoutSubviews() {
         super.layoutSubviews()
         
         contentView.frame = bounds
@@ -61,19 +71,62 @@ class GuideDriftView: UIView {
         return contentView
     }()
     
+    //MARK: - fade
+    
+    ///
+    private let canFade: Bool = true
+    ///
+    private var fadeTimer: Timer?
+    ///
+    private var fadeCounts: Int = 0
+    
+    private let fadeDelayTime: Int = 5
+    
+    ///
+    private func fadeTimerReStart() {
+        guard canFade, fadeTimer == nil else {
+            return
+        }
+        fireFade(false)
+        
+        fadeCounts = fadeDelayTime
+        fadeTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { [weak self] timer in
+            self?.fadeTimerEvent(timer)
+        })
+    }
+    
+    /// https://juejin.cn/post/6844903925011709959
+    private func fadeTimerEnd() {
+        fadeCounts = 0
+        fadeTimer?.invalidate()
+        fadeTimer = nil
+        
+        fireFade(true)
+    }
+    
+    private func fadeTimerEvent(_ timer: Timer?) {
+        fadeCounts -= 1
+        guard fadeCounts <= 0 else {
+            return
+        }
+        fadeTimerEnd()
+    }
+    
     //MARK: - touches
     
     ///
     private var op: CGPoint = .zero
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let p = touches.first?.location(in: self) else {
             return
         }
         op = p
+        
+        fadeTimerReStart()
     }
     
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let p = touches.first?.location(in: self) else {
             return
         }
@@ -83,8 +136,9 @@ class GuideDriftView: UIView {
         frame = tmp
     }
     
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         fireAbsorb()
+        fadeTimerReStart()
     }
     
     /// 越界
@@ -122,104 +176,4 @@ class GuideDriftView: UIView {
         
         return newFrame
     }
-}
-
-//MARK: -
-
-///
-class GuideDriftContentView: UIView {
-    
-    //MARK: Life Cycle
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        loadViews(in: self)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    @objc private func closeButtonEvent(button: UIButton) {
-        Drift.shared.stop()
-    }
-    
-    //MARK: View
-    
-    override var intrinsicContentSize: CGSize {
-        return CGSize(width: 32.0, height: 22 + 8 + 104)
-    }
-    
-    override func sizeThatFits(_ size: CGSize) -> CGSize {
-        return CGSize(width: 32.0, height: 22 + 8 + 104)
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        let titleWidth: CGFloat = 32.0
-        let closeSide: CGFloat = 11.0
-        
-        closeImageView.bounds = CGRect(x: 0, y: 0, width: closeSide, height: closeSide)
-        closeImageView.center = CGPoint(x: titleWidth / 2.0, y: closeSide / 2.0)
-        
-        closeButton.bounds = CGRect(x: 0, y: 0, width: 50, height: 50)
-        closeButton.center = closeImageView.center
-        
-        let titleSize = titleLabel.sizeThatFits(CGSize(width: titleWidth, height: CGFLOAT_MAX))
-        titleLabel.frame = CGRect(
-            x: 0,
-            y: closeImageView.frame.maxY + 8.0,
-            width: titleSize.width,
-            height: titleSize.height
-        )
-        titleLabel.layer.masksToBounds = true
-        titleLabel.layer.cornerRadius = (titleWidth / 2.0)
-        
-        gradient.frame = titleLabel.bounds
-    }
-    
-    private func loadViews(in box: UIView) {
-        box.addSubview(titleLabel)
-        titleLabel.layer.insertSublayer(gradient, at: 0)
-        
-        box.addSubview(closeImageView)
-        box.addSubview(closeButton)
-    }
-    
-    private lazy var gradient: CAGradientLayer = {
-        let gradient = CAGradientLayer()
-        gradient.colors = [
-            UIColor.white.cgColor,
-            UIColor.black.cgColor
-        ]
-        gradient.startPoint = CGPointMake(0.0, 0.0)
-        gradient.endPoint = CGPoint(x: 1.0, y: 1.0)
-        return gradient
-    }()
-    
-    private lazy var titleLabel: UILabel = {
-        let titleLabel = UILabel()
-        titleLabel.font = UIFont.systemFont(ofSize: 15.0, weight: .medium)
-        titleLabel.textColor = .white
-        titleLabel.text = "启\n动\n任\n务"
-        titleLabel.numberOfLines = 0
-        titleLabel.textAlignment = .center
-        return titleLabel
-    }()
-    
-    private lazy var closeImageView: UIImageView = {
-        let closeImageView = UIImageView()
-        closeImageView.dtb.setImage(named: "ic_close", bundleName: "DTBKit-UIKit", frameworkName: "DTBKit")
-        closeImageView.contentMode = .scaleAspectFit
-        return closeImageView
-    }()
-    
-    private lazy var closeButton: UIButton = {
-        let closeButton = UIButton(type: .custom)
-        closeButton.backgroundColor = .clear
-        closeButton.addTarget(self, action: #selector(closeButtonEvent(button:)), for: .touchUpInside)
-        return closeButton
-    }()
 }

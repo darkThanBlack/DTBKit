@@ -12,12 +12,12 @@
 
 import UIKit
 
-class GuideWindow: UIWindow {
+public class GuideWindow: UIWindow {
     
     ///
-    weak var noResponseView: UIView?
+    public weak var noResponseView: UIView?
     
-    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+    public override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         let view = super.hitTest(point, with: event)
         if view?.isEqual(noResponseView) == true {
             return nil

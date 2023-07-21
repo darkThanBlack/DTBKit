@@ -13,13 +13,13 @@
 import UIKit
 
 ///
-class GuideRootViewController: UIViewController {
+public class GuideRootViewController: UIViewController {
     
     //MARK: Interface
     
     //MARK: Life Cycle
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationController?.isNavigationBarHidden = true

@@ -47,3 +47,20 @@ public class Drift {
         window?.isHidden = true
     }
 }
+
+extension Drift {
+    
+    public enum DefaultsKey: String {
+        ///
+        case driftLast = "kLastDragPointKey"
+    }
+    
+    static func defaults(set value: Any?, forKey key: DefaultsKey) {
+        UserDefaults.standard.set(value, forKey: key.rawValue)
+        UserDefaults.standard.synchronize()
+    }
+    
+    static func defaults<T>(getForKey key: DefaultsKey) -> T? {
+        return UserDefaults.standard.object(forKey: key.rawValue) as? T
+    }
+}

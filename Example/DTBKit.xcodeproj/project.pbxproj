@@ -28,6 +28,7 @@
 		A21C61B02A67EA7900CA35C5 /* GuideRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21C61AF2A67EA7900CA35C5 /* GuideRootView.swift */; };
 		A21C61B22A67ED8000CA35C5 /* GuideDriftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21C61B12A67ED8000CA35C5 /* GuideDriftView.swift */; };
 		A21C61B42A68D64000CA35C5 /* ui-kit.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A21C61B32A68D64000CA35C5 /* ui-kit.xcassets */; };
+		A2CE51C12A6A90C700B5704B /* GuideDriftContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2CE51C02A6A90C700B5704B /* GuideDriftContentView.swift */; };
 		A735232D860682E7B7E7ECB0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F814B4B829198871353120F8 /* Images.xcassets */; };
 		B3B9577BA8721D8698D7CF5D /* basic.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 881598D80582636EC3A51695 /* basic.xcassets */; };
 		BDBB8C6B4588D4721BBE6CE5 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D9099D1384E801AE7056DEE1 /* README.md */; };
@@ -62,6 +63,7 @@
 		A21C61AF2A67EA7900CA35C5 /* GuideRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideRootView.swift; sourceTree = "<group>"; };
 		A21C61B12A67ED8000CA35C5 /* GuideDriftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideDriftView.swift; sourceTree = "<group>"; };
 		A21C61B32A68D64000CA35C5 /* ui-kit.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "ui-kit.xcassets"; sourceTree = "<group>"; };
+		A2CE51C02A6A90C700B5704B /* GuideDriftContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideDriftContentView.swift; sourceTree = "<group>"; };
 		A4DC59E903BF48E2D225EDDD /* Pods_DTBKit_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DTBKit_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A94332BD9942E3A20F8AC621 /* DTBKit_Example.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = DTBKit_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB470419225C0F4E263C23C7 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -234,6 +236,7 @@
 				A21C61AC2A67D7ED00CA35C5 /* GuideRootViewController.swift */,
 				A21C61AF2A67EA7900CA35C5 /* GuideRootView.swift */,
 				A21C61B12A67ED8000CA35C5 /* GuideDriftView.swift */,
+				A2CE51C02A6A90C700B5704B /* GuideDriftContentView.swift */,
 			);
 			path = Guide;
 			sourceTree = "<group>";
@@ -401,6 +404,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0169083FFEF6AE744A5BDE01 /* AppDelegate.swift in Sources */,
+				A2CE51C12A6A90C700B5704B /* GuideDriftContentView.swift in Sources */,
 				7E9600356FFAC5020C42141B /* Array+DTBKit.swift in Sources */,
 				EBDD4E252E14757AB100E441 /* DTBApps.swift in Sources */,
 				A21C61B22A67ED8000CA35C5 /* GuideDriftView.swift in Sources */,

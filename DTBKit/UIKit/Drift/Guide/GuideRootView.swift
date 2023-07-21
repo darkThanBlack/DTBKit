@@ -13,7 +13,7 @@
 import UIKit
 
 /// 
-class GuideRootView: UIView {
+public class GuideRootView: UIView {
     
     //MARK: Interface
     
@@ -31,9 +31,9 @@ class GuideRootView: UIView {
     
     //MARK: View
     
-    override func layoutSubviews() {
+    public override func layoutSubviews() {
         super.layoutSubviews()
-        print("MOON__Log  fire...")
+        
         driftView.fireAbsorb()
     }
     
