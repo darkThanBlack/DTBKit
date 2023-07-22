@@ -23,17 +23,16 @@ public class GuideDriftView: UIView {
         UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut) {
             self.frame = newFrame
         } completion: { _ in
-            // do nth.
+            Drift.defaults(set: ["x": newFrame.origin.x, "y": newFrame.origin.y], forKey: .driftedFrame)
         }
     }
     
     ///
     public func fireFade(_ isFade: Bool) {
-        UIView.animate(withDuration: isFade ? 0.5 : 0.0, delay: 0.0, options: .curveEaseInOut) {
-            self.contentView.alpha = isFade ? 0.4 : 1.0
-        } completion: { _ in
-            // do nth.
-        }
+        contentView.fireFade(isFade, params: [
+            "type": "absorb",
+            "direct": (self.center.x > (superview?.bounds.midX ?? 0)) ? "right" : "left"
+        ])
     }
     
     override init(frame: CGRect) {
@@ -80,16 +79,15 @@ public class GuideDriftView: UIView {
     ///
     private var fadeCounts: Int = 0
     
-    private let fadeDelayTime: Int = 5
+    private let fadeDelayTime: Int = 6
     
     ///
     private func fadeTimerReStart() {
-        guard canFade, fadeTimer == nil else {
-            return
-        }
+        guard canFade else { return }
         fireFade(false)
-        
         fadeCounts = fadeDelayTime
+        
+        guard fadeTimer == nil else { return }
         fadeTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { [weak self] timer in
             self?.fadeTimerEvent(timer)
         })
@@ -105,15 +103,17 @@ public class GuideDriftView: UIView {
     }
     
     private func fadeTimerEvent(_ timer: Timer?) {
+        guard isMoving == false else { return }
         fadeCounts -= 1
-        guard fadeCounts <= 0 else {
-            return
-        }
+        
+        guard fadeCounts <= 0 else { return }
         fadeTimerEnd()
     }
     
     //MARK: - touches
     
+    ///
+    private var isMoving: Bool = false
     ///
     private var op: CGPoint = .zero
     
@@ -122,6 +122,7 @@ public class GuideDriftView: UIView {
             return
         }
         op = p
+        isMoving = true
         
         fadeTimerReStart()
     }
@@ -137,6 +138,15 @@ public class GuideDriftView: UIView {
     }
     
     public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        isMoving = false
+        
+        fireAbsorb()
+        fadeTimerReStart()
+    }
+    
+    public override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        isMoving = false
+        
         fireAbsorb()
         fadeTimerReStart()
     }

@@ -15,6 +15,25 @@ import UIKit
 ///
 public class GuideDriftContentView: UIView {
     
+    ///
+    private var isFading = false
+    ///
+    private var fadeParam: [String: Any]? = nil
+    
+    ///
+    public func fireFade(_ isFade: Bool, params: [String: Any]? = nil) {
+        self.isFading = isFade
+        self.fadeParam = params
+        
+        UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseInOut) {
+            self.alpha = self.isFading ? 0.8 : 1.0
+            self.setNeedsLayout()
+            self.layoutIfNeeded()
+        } completion: { _ in
+            // do nth.
+        }
+    }
+    
     public override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -26,7 +45,16 @@ public class GuideDriftContentView: UIView {
     }
     
     @objc private func closeButtonEvent(button: UIButton) {
-        Drift.shared.stop()
+        let alert = UIAlertController(title: "提示", message: "浮窗将被关闭，您可以在【首页 - 启动任务】重新开启", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "取消", style: .default))
+        alert.addAction(UIAlertAction(title: "确定", style: .default, handler: { _ in
+            Drift.shared.stop()
+        }))
+        Drift.shared.topMost()?.present(alert, animated: true)
+    }
+    
+    @objc private func titleLabelEvent(gesture: UITapGestureRecognizer) {
+        // todo: open drift menu...
     }
     
     //MARK: View
@@ -52,24 +80,73 @@ public class GuideDriftContentView: UIView {
     public override func layoutSubviews() {
         super.layoutSubviews()
         
-        closeImageView.bounds = CGRect(origin: .zero, size: closeSize)
-        closeImageView.center = CGPoint(
-            x: bounds.midX,
-            y: 8.0 + (closeSize.height / 2.0)
-        )
-        
-        closeButton.bounds = CGRect(x: 0, y: 0, width: 50, height: 50)
-        closeButton.center = closeImageView.center
-        
-        titleLabel.bounds = CGRect(origin: .zero, size: titleSize)
-        titleLabel.center = CGPoint(
-            x: bounds.midX,
-            y: closeImageView.frame.maxY + 8.0 + (titleSize.height / 2.0)
-        )
-        
-        gradient.frame = titleLabel.frame
-        let path = UIBezierPath(roundedRect: titleLabel.bounds, cornerRadius: titleSize.width / 2.0)
-        shape.path = path.cgPath
+        if self.isFading {
+            [closeImageView, closeButton, titleLabel].forEach({ $0.isHidden = true })
+            
+            var direct = "left"
+            if let aniType = fadeParam?["type"] as? String, aniType == "absorb",
+               let value = fadeParam?["direct"] as? String {
+                direct = value
+            }
+            
+            switch direct {
+            case "left":
+                gradient.frame = CGRect(
+                    x: 0,
+                    y: titleLabel.frame.origin.y,
+                    width: 8.0,
+                    height: titleLabel.frame.size.height
+                )
+                let path = UIBezierPath(
+                    roundedRect: gradient.bounds,
+                    byRoundingCorners: [.topRight, .bottomRight],
+                    cornerRadii: CGSize(
+                        width: 4.0,
+                        height: 4.0
+                    )
+                )
+                shape.path = path.cgPath
+            case "right":
+                gradient.frame = CGRect(
+                    x: bounds.width - 8.0,
+                    y: titleLabel.frame.origin.y,
+                    width: 8.0,
+                    height: titleLabel.frame.size.height
+                )
+                let path = UIBezierPath(
+                    roundedRect: gradient.bounds,
+                    byRoundingCorners: [.topLeft, .bottomLeft],
+                    cornerRadii: CGSize(
+                        width: 4.0,
+                        height: 4.0
+                    )
+                )
+                shape.path = path.cgPath
+            default:
+                break
+            }
+        } else {
+            [closeImageView, closeButton, titleLabel].forEach({ $0.isHidden = false })
+            
+            closeImageView.bounds = CGRect(origin: .zero, size: closeSize)
+            closeImageView.center = CGPoint(
+                x: bounds.midX,
+                y: 8.0 + (closeSize.height / 2.0)
+            )
+            
+            closeButton.bounds = CGRect(x: 0, y: 0, width: 50, height: 50)
+            closeButton.center = closeImageView.center
+            
+            titleLabel.bounds = CGRect(origin: .zero, size: titleSize)
+            titleLabel.center = CGPoint(
+                x: bounds.midX,
+                y: closeImageView.frame.maxY + 8.0 + (titleSize.height / 2.0)
+            )
+            
+            gradient.frame = titleLabel.frame
+            let path = UIBezierPath(roundedRect: titleLabel.bounds, cornerRadius: titleSize.width / 2.0)
+            shape.path = path.cgPath
+        }
     }
     
     private func loadViews(in box: UIView) {
@@ -105,6 +182,13 @@ public class GuideDriftContentView: UIView {
         titleLabel.text = "启\n动\n任\n务"
         titleLabel.numberOfLines = 0
         titleLabel.textAlignment = .center
+        
+        titleLabel.isUserInteractionEnabled = true
+        let singleTap = UITapGestureRecognizer(target: self, action: #selector(titleLabelEvent(gesture:)))
+        singleTap.numberOfTapsRequired = 1
+        singleTap.numberOfTouchesRequired = 1
+        titleLabel.addGestureRecognizer(singleTap)
+        
         return titleLabel
     }()
     

@@ -12,7 +12,7 @@
 
 import UIKit
 
-/// 
+/// Restrict drift in safe area
 public class GuideRootView: UIView {
     
     //MARK: Interface
@@ -40,7 +40,14 @@ public class GuideRootView: UIView {
     private func loadViews(in box: UIView) {
         box.addSubview(driftView)
         
-        driftView.sizeToFit()
+        let driftSize = driftView.sizeThatFits(bounds.size)
+        let oldFrame: [String: CGFloat]? = Drift.defaults(getForKey: .driftedFrame)
+        driftView.frame = CGRect(
+            x: oldFrame?["x"] ?? 0,
+            y: oldFrame?["y"] ?? 0,
+            width: driftSize.width,
+            height: driftSize.height
+        )
     }
     
     private lazy var driftView: GuideDriftView = {

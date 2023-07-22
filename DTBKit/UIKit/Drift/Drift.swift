@@ -18,19 +18,20 @@ public class Drift {
     static let shared = Drift()
     private init() {}
     
-    var window: UIWindow?
+    var window: DriftWindow?
     
     public func prepare() {
         guard window == nil else {
             return
         }
-        let guide = GuideWindow(frame: UIScreen.main.bounds)
+        let guide = DriftWindow(frame: UIScreen.main.bounds)
         guide.isHidden = true
         guide.backgroundColor = .clear
         guide.windowLevel = .normal
         
         let root = GuideRootViewController()
-        guide.noResponseView = root.view
+        guide.addNoResponseView(root.view)
+        guide.addNoResponseView(root.contentView)
         
         let nav = UINavigationController(rootViewController: root)
         guide.rootViewController = nav
@@ -46,13 +47,20 @@ public class Drift {
     public func stop() {
         window?.isHidden = true
     }
+    
+    public func topMost() -> UIViewController? {
+        return Navigate.topMost(window?.rootViewController)
+    }
+    
 }
+
+//MARK: - UserDefaults
 
 extension Drift {
     
     public enum DefaultsKey: String {
         ///
-        case driftLast = "kLastDragPointKey"
+        case driftedFrame = "kDriftedFrameKey"
     }
     
     static func defaults(set value: Any?, forKey key: DefaultsKey) {

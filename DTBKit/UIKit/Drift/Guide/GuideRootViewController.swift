@@ -57,9 +57,9 @@ public class GuideRootViewController: UIViewController {
     }
     
     ///
-    private lazy var contentView: GuideRootView = {
+    lazy var contentView: GuideRootView = {
         let contentView = GuideRootView()
-        contentView.backgroundColor = .yellow
+        contentView.backgroundColor = .clear
         return contentView
     }()
     
