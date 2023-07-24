@@ -33,11 +33,6 @@ class GuideListViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    open override func loadView() {
-        view = UIView(frame: .zero)
-        view.backgroundColor = .clear
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -66,16 +61,16 @@ class GuideListViewController: UIViewController {
 extension GuideListViewController: UIViewControllerTransitioningDelegate {
     
     public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return MissionListAnimation(type: .dismiss)
+        return GuideAnimation(type: .dismiss)
     }
     
     public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return MissionListAnimation(type: .present)
+        return GuideAnimation(type: .present)
     }
 }
 
 ///
-class MissionListAnimation: NSObject, UIViewControllerAnimatedTransitioning {
+class GuideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
     
     enum Types {
         
