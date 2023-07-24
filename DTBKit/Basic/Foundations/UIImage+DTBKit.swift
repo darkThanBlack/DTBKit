@@ -40,7 +40,7 @@ extension DTBKitWrapper where Base == UIImage? {
     ///
     ///   // or you can use UIImageView extension in ``UIImageView+DTBKit.swift``
     ///   let imageView = UIImageView()
-    ///   imageView.dtb.setImage(named: "logo", bundleName: "DTBKit")
+    ///   imageView.dtb.setImage(named: "logo", bundleName: "DTBKit-UIKit", frameworkName: "DTBKit")
     /// ```
     ///
     /// [refer](https://juejin.cn/post/6844903559931117581)

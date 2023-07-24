@@ -1,8 +1,8 @@
 //
-//  UIImageView+DTBKit.swift
+//  UIButton+DTBKit.swift
 //  DTBKit_Example
 //
-//  Created by moonShadow on 2023/7/19
+//  Created by moonShadow on 2023/7/24
 //  Copyright © 2023 darkThanBlack. All rights reserved.
 //
 //  LICENSE: SAME AS REPOSITORY
@@ -12,7 +12,7 @@
 
 import UIKit
 
-extension DTBKitWrapper where Base: UIImageView {
+extension DTBKitWrapper where Base: UIButton {
     
     /// Create resource image by name
     ///
@@ -35,8 +35,9 @@ extension DTBKitWrapper where Base: UIImageView {
         bundleName: String? = nil,
         frameworkName: String? = nil,
         classType: AnyClass? = nil,
-        types: [String] = ["png", "jpg", "webp", "jpeg"]
+        types: [String] = ["png", "jpg", "webp", "jpeg"],
+        for state: UIControl.State = .normal
     ) {
-        me.image = DTBKitWrapper<UIImage?>(named: name, bundleName: bundleName, frameworkName: frameworkName, classType: classType, types: types)?.me
+        me.setImage(DTBKitWrapper<UIImage?>(named: name, bundleName: bundleName, frameworkName: frameworkName, classType: classType, types: types)?.me, for: state)
     }
 }

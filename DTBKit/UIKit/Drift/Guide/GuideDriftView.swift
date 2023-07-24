@@ -2,7 +2,7 @@
 //  GuideDriftView.swift
 //  DTBKit_Example
 //
-//  Created by moonShadow on 2023/7/19
+//  Created by moonShadow on 2023/7/21
 //  Copyright © 2023 darkThanBlack. All rights reserved.
 //
 //  LICENSE: SAME AS REPOSITORY
@@ -15,175 +15,223 @@ import UIKit
 ///
 public class GuideDriftView: UIView {
     
-    //MARK: Interface
+    ///
+    private var isFading = false
+    ///
+    private var fadeParam: [String: Any]? = nil
     
     ///
-    public func fireAbsorb() {
-        let newFrame = absorbHorizonal(frame, barrier: superview?.bounds ?? UIScreen.main.bounds)
-        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut) {
-            self.frame = newFrame
+    public func fireFade(_ isFade: Bool, params: [String: Any]? = nil) {
+        guard self.isFading != isFade else {
+            return
+        }
+        self.isFading = isFade
+        self.fadeParam = params
+        
+        let oldFrame = self.frame
+        UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseIn) {
+            var direct = "left"
+            if let aniType = self.fadeParam?["type"] as? String, aniType == "absorb",
+               let value = self.fadeParam?["direct"] as? String {
+                direct = value
+            }
+            switch direct {
+            case "left":
+                self.frame.origin.x = oldFrame.origin.x - 8.0
+            case "right":
+                self.frame.origin.x = oldFrame.origin.x + 8.0
+            default:
+                break
+            }
+            
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseInOut) {
+                self.alpha = self.isFading ? 0.8 : 1.0
+                self.setNeedsLayout()
+                self.layoutIfNeeded()
+            } completion: { _ in
+                UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseInOut) {
+                    self.frame = oldFrame
+                } completion: { _ in
+                    
+                }
+            }
         } completion: { _ in
-            Drift.defaults(set: ["x": newFrame.origin.x, "y": newFrame.origin.y], forKey: .driftedFrame)
+            
         }
     }
     
-    ///
-    public func fireFade(_ isFade: Bool) {
-        contentView.fireFade(isFade, params: [
-            "type": "absorb",
-            "direct": (self.center.x > (superview?.bounds.midX ?? 0)) ? "right" : "left"
-        ])
-    }
-    
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         
         loadViews(in: self)
     }
     
-    required init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    //MARK: - Event
+    
+    @objc private func closeButtonEvent(button: UIButton) {
+        let alert = UIAlertController(title: "提示", message: "浮窗将被关闭，您可以在【首页 - 启动任务】重新开启", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "取消", style: .default))
+        alert.addAction(UIAlertAction(title: "确定", style: .default, handler: { _ in
+            Drift.shared.stop()
+        }))
+        Drift.shared.topMost()?.present(alert, animated: true)
+    }
+    
+    @objc private func titleLabelEvent(gesture: UITapGestureRecognizer) {
+        let listVC = GuideListViewController()
+        Drift.shared.topMost()?.present(listVC, animated: true)
     }
     
     //MARK: View
     
+    private let titleSize = CGSize(width: 32.0, height: 104.0)
+    
+    private let closeSize = CGSize(width: 12.0, height: 12.0)
+    
     public override var intrinsicContentSize: CGSize {
-        return contentView.intrinsicContentSize
+        return CGSize(
+            width: titleSize.width + 8.0,
+            height: 8.0 + closeSize.height + 8.0 + titleSize.height
+        )
     }
     
     public override func sizeThatFits(_ size: CGSize) -> CGSize {
-        return contentView.sizeThatFits(size)
+        return CGSize(
+            width: titleSize.width + 8.0,
+            height: 8.0 + closeSize.height + 8.0 + titleSize.height
+        )
     }
     
     public override func layoutSubviews() {
         super.layoutSubviews()
         
-        contentView.frame = bounds
+        if self.isFading {
+            [closeImageView, closeButton, titleLabel].forEach({ $0.isHidden = true })
+            
+            var direct = "left"
+            if let aniType = fadeParam?["type"] as? String, aniType == "absorb",
+               let value = fadeParam?["direct"] as? String {
+                direct = value
+            }
+            
+            switch direct {
+            case "left":
+                gradient.frame = CGRect(
+                    x: 0,
+                    y: titleLabel.frame.origin.y,
+                    width: 8.0,
+                    height: titleLabel.frame.size.height
+                )
+                let path = UIBezierPath(
+                    roundedRect: gradient.bounds,
+                    byRoundingCorners: [.topRight, .bottomRight],
+                    cornerRadii: CGSize(
+                        width: 4.0,
+                        height: 4.0
+                    )
+                )
+                shape.path = path.cgPath
+            case "right":
+                gradient.frame = CGRect(
+                    x: bounds.width - 8.0,
+                    y: titleLabel.frame.origin.y,
+                    width: 8.0,
+                    height: titleLabel.frame.size.height
+                )
+                let path = UIBezierPath(
+                    roundedRect: gradient.bounds,
+                    byRoundingCorners: [.topLeft, .bottomLeft],
+                    cornerRadii: CGSize(
+                        width: 4.0,
+                        height: 4.0
+                    )
+                )
+                shape.path = path.cgPath
+            default:
+                break
+            }
+        } else {
+            [closeImageView, closeButton, titleLabel].forEach({ $0.isHidden = false })
+            
+            closeImageView.bounds = CGRect(origin: .zero, size: closeSize)
+            closeImageView.center = CGPoint(
+                x: bounds.midX,
+                y: 8.0 + (closeSize.height / 2.0)
+            )
+            
+            closeButton.bounds = CGRect(x: 0, y: 0, width: 50, height: 50)
+            closeButton.center = closeImageView.center
+            
+            titleLabel.bounds = CGRect(origin: .zero, size: titleSize)
+            titleLabel.center = CGPoint(
+                x: bounds.midX,
+                y: closeImageView.frame.maxY + 8.0 + (titleSize.height / 2.0)
+            )
+            
+            gradient.frame = titleLabel.frame
+            let path = UIBezierPath(roundedRect: titleLabel.bounds, cornerRadius: titleSize.width / 2.0)
+            shape.path = path.cgPath
+        }
     }
     
     private func loadViews(in box: UIView) {
-        box.addSubview(contentView)
+        box.layer.addSublayer(gradient)
+        gradient.mask = shape
+        
+        box.addSubview(titleLabel)
+        box.addSubview(closeImageView)
+        box.addSubview(closeButton)
     }
     
-    private lazy var contentView: GuideDriftContentView = {
-        let contentView = GuideDriftContentView()
-        return contentView
+    private lazy var shape: CAShapeLayer = {
+        let shape = CAShapeLayer()
+        return shape
     }()
     
-    //MARK: - fade
+    /// https://juejin.cn/post/6847902222466940936
+    private lazy var gradient: CAGradientLayer = {
+        let gradient = CAGradientLayer()
+        gradient.colors = [
+            DriftAdapter.color_FFAB1A().cgColor,
+            DriftAdapter.color_FF8534().cgColor
+        ]
+        gradient.startPoint = CGPointMake(0.0, 0.0)
+        gradient.endPoint = CGPoint(x: 1.0, y: 1.0)
+        return gradient
+    }()
     
-    ///
-    private let canFade: Bool = true
-    ///
-    private var fadeTimer: Timer?
-    ///
-    private var fadeCounts: Int = 0
+    private lazy var titleLabel: UILabel = {
+        let titleLabel = UILabel()
+        titleLabel.font = UIFont.systemFont(ofSize: 15.0, weight: .medium)
+        titleLabel.textColor = .white
+        titleLabel.text = "启\n动\n任\n务"
+        titleLabel.numberOfLines = 0
+        titleLabel.textAlignment = .center
+        
+        titleLabel.isUserInteractionEnabled = true
+        let singleTap = UITapGestureRecognizer(target: self, action: #selector(titleLabelEvent(gesture:)))
+        singleTap.numberOfTapsRequired = 1
+        singleTap.numberOfTouchesRequired = 1
+        titleLabel.addGestureRecognizer(singleTap)
+        
+        return titleLabel
+    }()
     
-    private let fadeDelayTime: Int = 6
+    private lazy var closeImageView: UIImageView = {
+        let closeImageView = UIImageView()
+        closeImageView.dtb.setImage(named: "ic_close", bundleName: "DTBKit-UIKit", frameworkName: "DTBKit")
+        closeImageView.contentMode = .scaleAspectFit
+        return closeImageView
+    }()
     
-    ///
-    private func fadeTimerReStart() {
-        guard canFade else { return }
-        fireFade(false)
-        fadeCounts = fadeDelayTime
-        
-        guard fadeTimer == nil else { return }
-        fadeTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { [weak self] timer in
-            self?.fadeTimerEvent(timer)
-        })
-    }
-    
-    /// https://juejin.cn/post/6844903925011709959
-    private func fadeTimerEnd() {
-        fadeCounts = 0
-        fadeTimer?.invalidate()
-        fadeTimer = nil
-        
-        fireFade(true)
-    }
-    
-    private func fadeTimerEvent(_ timer: Timer?) {
-        guard isMoving == false else { return }
-        fadeCounts -= 1
-        
-        guard fadeCounts <= 0 else { return }
-        fadeTimerEnd()
-    }
-    
-    //MARK: - touches
-    
-    ///
-    private var isMoving: Bool = false
-    ///
-    private var op: CGPoint = .zero
-    
-    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let p = touches.first?.location(in: self) else {
-            return
-        }
-        op = p
-        isMoving = true
-        
-        fadeTimerReStart()
-    }
-    
-    public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let p = touches.first?.location(in: self) else {
-            return
-        }
-        var tmp = frame
-        tmp.origin.x += (p.x - op.x)
-        tmp.origin.y += (p.y - op.y)
-        frame = tmp
-    }
-    
-    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        isMoving = false
-        
-        fireAbsorb()
-        fadeTimerReStart()
-    }
-    
-    public override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        isMoving = false
-        
-        fireAbsorb()
-        fadeTimerReStart()
-    }
-    
-    /// 越界
-    private func frameInside(value: CGRect, barrier: CGRect) -> CGRect {
-        var newFrame = value
-        
-        if newFrame.origin.x < 0 {
-            newFrame.origin.x = 0
-        }
-        
-        if newFrame.origin.x > (barrier.size.width - newFrame.size.width) {
-            newFrame.origin.x = barrier.size.width - newFrame.size.width
-        }
-        
-        if newFrame.origin.y < 0 {
-            newFrame.origin.y = 0
-        }
-        
-        if newFrame.origin.y > (barrier.size.height - newFrame.size.height) {
-            newFrame.origin.y = barrier.size.height - newFrame.size.height
-        }
-        
-        return newFrame
-    }
-    
-    /// 横向吸附
-    private func absorbHorizonal(_ value: CGRect, barrier: CGRect) -> CGRect {
-        var newFrame = frameInside(value: value, barrier: barrier)
-        
-        if newFrame.midX > barrier.width / 2.0 {
-            newFrame.origin.x = barrier.width - newFrame.size.width
-        } else {
-            newFrame.origin.x = 0
-        }
-        
-        return newFrame
-    }
+    private lazy var closeButton: UIButton = {
+        let closeButton = UIButton(type: .custom)
+        closeButton.backgroundColor = .clear
+        closeButton.addTarget(self, action: #selector(closeButtonEvent(button:)), for: .touchUpInside)
+        return closeButton
+    }()
 }

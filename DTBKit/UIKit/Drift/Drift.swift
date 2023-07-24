@@ -20,6 +20,8 @@ public class Drift {
     
     var window: DriftWindow?
     
+    weak var rootViewController: DriftRootViewController?
+    
     public func prepare() {
         guard window == nil else {
             return
@@ -29,13 +31,13 @@ public class Drift {
         guide.backgroundColor = .clear
         guide.windowLevel = .normal
         
-        let root = GuideRootViewController()
+        let root = DriftRootViewController()
         guide.addNoResponseView(root.view)
-        guide.addNoResponseView(root.contentView)
         
         let nav = UINavigationController(rootViewController: root)
         guide.rootViewController = nav
         
+        rootViewController = root
         window = guide
     }
     
@@ -51,7 +53,6 @@ public class Drift {
     public func topMost() -> UIViewController? {
         return Navigate.topMost(window?.rootViewController)
     }
-    
 }
 
 //MARK: - UserDefaults

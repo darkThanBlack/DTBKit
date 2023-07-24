@@ -71,5 +71,7 @@ extension UIImage: DTBKitable {}
 
 extension UIImageView: DTBKitable {}
 
+extension UIButton: DTBKitable {}
+
 extension UIViewController: DTBKitable {}
 
