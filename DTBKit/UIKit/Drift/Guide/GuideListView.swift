@@ -31,7 +31,8 @@ class GuideListView: UIView {
     }
     
     @objc private func closeButtonEvent(button: UIButton) {
-        Drift.shared.topMost()?.dismiss(animated: true)
+//        Drift.shared.topMost()?.dismiss(animated: true)
+        Drift.shared.topMost()?.navigationController?.popViewController(animated: true)
     }
     
     @objc private func pushButtonEvent(button: UIButton) {

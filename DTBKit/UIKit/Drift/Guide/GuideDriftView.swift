@@ -83,7 +83,7 @@ public class GuideDriftView: UIView {
     
     @objc private func titleLabelEvent(gesture: UITapGestureRecognizer) {
         let listVC = GuideListViewController()
-        Drift.shared.topMost()?.present(listVC, animated: true)
+        Drift.shared.topMost()?.navigationController?.pushViewController(listVC, animated: true)
     }
     
     //MARK: View

@@ -25,7 +25,11 @@ public class DriftRootViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("MOON__Log  啊？")
+        
         navigationController?.isNavigationBarHidden = true
+        
+        navigationController?.delegate = self
         
         view.backgroundColor = .clear
         
@@ -43,3 +47,18 @@ public class DriftRootViewController: UIViewController {
     }
 }
 
+extension DriftRootViewController: UINavigationControllerDelegate {
+    
+    public func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        switch operation {
+        case .push:
+            return GuideAnimation(type: .present)
+        case .pop:
+            return GuideAnimation(type: .dismiss)
+        case .none:
+            return nil
+        @unknown default:
+            return nil
+        }
+    }
+}

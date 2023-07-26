@@ -29,7 +29,7 @@ public class GuideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
     }
     
     public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return 0.3
+        return 10.0
     }
     
     public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
@@ -57,7 +57,8 @@ public class GuideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
     
     /// Present
     private func presentAnimateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        guard let toVC = transitionContext.viewController(forKey: .to) else {
+        guard let toView = transitionContext.view(forKey: .to) else {
+            assert(false)
             return
         }
         let container = transitionContext.containerView
@@ -94,15 +95,15 @@ public class GuideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
                     
                     self.bottomLand.frame = CGRect(x: 0, y: self.scSize.height - self.landHeight + (self.landRadius * 2.0), width: self.scSize.width, height: self.landHeight)
                 } completion: { _ in
-                    container.addSubview(toVC.view)
-                    toVC.view.frame = CGRect(x: 0, y: self.bottomLand.frame.origin.y, width: self.scSize.width, height: self.scSize.height)
+                    container.addSubview(toView)
+                    toView.frame = CGRect(x: 0, y: self.bottomLand.frame.origin.y, width: self.scSize.width, height: self.scSize.height)
                     // Step 5.  从浮岛顶部开始普通 present 效果
                     UIView.animate(withDuration: self.duration(0.2), delay: 0.0, options: .curveEaseInOut) {
-                        toVC.view.frame = CGRect(origin: .zero, size: self.scSize)
+                        toView.frame = CGRect(origin: .zero, size: self.scSize)
                     } completion: { _ in
                         // Finish.  移除浮岛，保留背景
                         self.bottomLand.removeFromSuperview()
-                        transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+                        transitionContext.completeTransition(true)
                     }
                 }
             }
@@ -111,7 +112,8 @@ public class GuideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
     
     /// Dismiss
     private func dismissAnimateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        guard let fromVC = transitionContext.viewController(forKey: .from) else {
+        guard let fromView = transitionContext.view(forKey: .from) else {
+            assert(false)
             return
         }
          let container = transitionContext.containerView
@@ -120,23 +122,24 @@ public class GuideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
         let cover = container.viewWithTag(self.coverTag)
         UIView.animate(withDuration: 0.25, animations: {
             cover?.alpha = 0
-            fromVC.view.frame = CGRect(x: 0, y: self.scSize.height, width: self.scSize.width, height: self.scSize.height)
+            fromView.frame = CGRect(x: 0, y: self.scSize.height, width: self.scSize.width, height: self.scSize.height)
         }) { _ in
             // 浮窗显示动画
             Drift.shared.rootViewController?.drift.fireFade(false)
             
-            fromVC.view.removeFromSuperview()
+            fromView.removeFromSuperview()
             cover?.removeFromSuperview()
             
-            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+            transitionContext.completeTransition(true)
         }
     }
     
     /// Push
     /// [HACK] main router need delay: 0.25 + 0.2
     private func pushAnimateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        guard let fromVC = transitionContext.viewController(forKey: .from),
-              let toVC = transitionContext.viewController(forKey: .to) else {
+        guard let fromView = transitionContext.view(forKey: .from),
+              let toView = transitionContext.view(forKey: .to) else {
+            assert(false)
             return
         }
         let container = transitionContext.containerView
@@ -148,7 +151,7 @@ public class GuideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
         // Step 2.2  背景透明
         UIView.animate(withDuration: self.duration(0.25), delay: 0.0, options: .curveEaseIn) {
             self.coverView.alpha = 0.0
-            fromVC.view.frame = CGRect(x: 0, y: self.scSize.height, width: self.scSize.width, height: self.scSize.height)
+            fromView.frame = CGRect(x: 0, y: self.scSize.height, width: self.scSize.width, height: self.scSize.height)
         } completion: { _ in
             container.addSubview(self.bottomLand)
             self.bottomLand.alpha = 1.0
@@ -167,15 +170,16 @@ public class GuideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
                     
                     self.bottomLand.frame = CGRect(x: 0, y: self.scSize.height - self.landHeight + (self.landRadius * 2.0), width: self.scSize.width, height: self.landHeight)
                 } completion: { _ in
-                    container.addSubview(toVC.view)
-                    toVC.view.frame = CGRect(x: 0, y: self.bottomLand.frame.origin.y, width: self.scSize.width, height: self.scSize.height)
+                    container.addSubview(toView)
+                    toView.frame = CGRect(x: 0, y: self.bottomLand.frame.origin.y, width: self.scSize.width, height: self.scSize.height)
                     // Step 5.  从浮岛顶部开始普通 present 效果
                     UIView.animate(withDuration: self.duration(0.2), delay: 0.0, options: .curveEaseInOut) {
-                        toVC.view.frame = CGRect(origin: .zero, size: self.scSize)
+                        toView.frame = CGRect(origin: .zero, size: self.scSize)
                     } completion: { _ in
                         // Finish.  移除浮岛，保留背景
                         self.bottomLand.removeFromSuperview()
-                        transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+                        // !transitionContext.transitionWasCancelled
+                        transitionContext.completeTransition(true)
                     }
                 }
             }
