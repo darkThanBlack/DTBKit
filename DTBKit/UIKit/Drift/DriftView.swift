@@ -31,10 +31,16 @@ public class DriftView: UIView {
     
     ///
     public func fireFade(_ isFade: Bool) {
+        guard canFade else { return }
+        
         contentView.fireFade(isFade, params: [
             "type": "absorb",
             "direct": (self.center.x > (superview?.bounds.midX ?? 0)) ? "right" : "left"
         ])
+        
+        if isFade == false {
+            fadeTimerReStart()
+        }
     }
     
     override init(frame: CGRect) {
@@ -85,8 +91,6 @@ public class DriftView: UIView {
     
     ///
     private func fadeTimerReStart() {
-        guard canFade else { return }
-        fireFade(false)
         fadeCounts = fadeDelayTime
         
         guard fadeTimer == nil else { return }
@@ -126,7 +130,7 @@ public class DriftView: UIView {
         op = p
         isMoving = true
         
-        fadeTimerReStart()
+        fireFade(false)
     }
     
     public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -143,14 +147,12 @@ public class DriftView: UIView {
         isMoving = false
         
         fireAbsorb()
-        fadeTimerReStart()
     }
     
     public override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         isMoving = false
         
         fireAbsorb()
-        fadeTimerReStart()
     }
     
     /// 越界

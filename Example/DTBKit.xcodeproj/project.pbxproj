@@ -27,6 +27,7 @@
 		A21C61AD2A67D7ED00CA35C5 /* DriftRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21C61AC2A67D7ED00CA35C5 /* DriftRootViewController.swift */; };
 		A21C61B22A67ED8000CA35C5 /* DriftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21C61B12A67ED8000CA35C5 /* DriftView.swift */; };
 		A21C61B42A68D64000CA35C5 /* ui-kit.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A21C61B32A68D64000CA35C5 /* ui-kit.xcassets */; };
+		A247B6B32A70CE3700632477 /* GuideAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A247B6B22A70CE3700632477 /* GuideAnimation.swift */; };
 		A2B001B92A6E1DB1001124ED /* GuideDocsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B001B82A6E1DB1001124ED /* GuideDocsViewController.swift */; };
 		A2B001BB2A6E6C2D001124ED /* GuideListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B001BA2A6E6C2D001124ED /* GuideListView.swift */; };
 		A2B001BD2A6E79CF001124ED /* UIButton+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B001BC2A6E79CF001124ED /* UIButton+DTBKit.swift */; };
@@ -66,6 +67,7 @@
 		A21C61AC2A67D7ED00CA35C5 /* DriftRootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriftRootViewController.swift; sourceTree = "<group>"; };
 		A21C61B12A67ED8000CA35C5 /* DriftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriftView.swift; sourceTree = "<group>"; };
 		A21C61B32A68D64000CA35C5 /* ui-kit.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "ui-kit.xcassets"; sourceTree = "<group>"; };
+		A247B6B22A70CE3700632477 /* GuideAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideAnimation.swift; sourceTree = "<group>"; };
 		A2B001B82A6E1DB1001124ED /* GuideDocsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideDocsViewController.swift; sourceTree = "<group>"; };
 		A2B001BA2A6E6C2D001124ED /* GuideListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideListView.swift; sourceTree = "<group>"; };
 		A2B001BC2A6E79CF001124ED /* UIButton+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+DTBKit.swift"; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 				A2CE51C22A6BBB1900B5704B /* GuideListViewController.swift */,
 				A2B001BA2A6E6C2D001124ED /* GuideListView.swift */,
 				A2B001B82A6E1DB1001124ED /* GuideDocsViewController.swift */,
+				A247B6B22A70CE3700632477 /* GuideAnimation.swift */,
 			);
 			path = Guide;
 			sourceTree = "<group>";
@@ -420,6 +423,7 @@
 				7E9600356FFAC5020C42141B /* Array+DTBKit.swift in Sources */,
 				EBDD4E252E14757AB100E441 /* DTBApps.swift in Sources */,
 				A21C61B22A67ED8000CA35C5 /* DriftView.swift in Sources */,
+				A247B6B32A70CE3700632477 /* GuideAnimation.swift in Sources */,
 				A2B001BD2A6E79CF001124ED /* UIButton+DTBKit.swift in Sources */,
 				7F4426EFE8922514BEFFA1C0 /* DTBColors.swift in Sources */,
 				996CFED17A4B1BDD6EE9648A /* DTBKit.swift in Sources */,

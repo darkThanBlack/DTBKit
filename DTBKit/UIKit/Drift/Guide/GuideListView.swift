@@ -34,6 +34,22 @@ class GuideListView: UIView {
         Drift.shared.topMost()?.dismiss(animated: true)
     }
     
+    @objc private func pushButtonEvent(button: UIButton) {
+        let docsVC = GuideDocsViewController()
+        
+        Drift.shared.topMost()?.present(docsVC, animated: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4.5) {
+            SimpleVisualViewController.show(in: {
+                let label = EdgeLabel()
+                label.text = "Edge Label"
+                label.textColor = .systemRed
+                label.backgroundColor = .systemYellow
+                label.edgeInsets = UIEdgeInsets(top: 4.0, left: 16.0, bottom: 8.0, right: 32.0)
+                return label
+            }, behavior: .center)
+        }
+    }
+    
     //MARK: View
     
     override func layoutSubviews() {
@@ -56,6 +72,8 @@ class GuideListView: UIView {
         box.addSubview(closeImageView)
         box.addSubview(closeButton)
         
+        box.addSubview(pushButton)
+        
         loadConstraints(in: box)
     }
     
@@ -75,6 +93,10 @@ class GuideListView: UIView {
             make.height.equalTo(50.0)
         }
         
+        pushButton.snp.makeConstraints { make in
+            make.centerX.equalTo(box.snp.centerX)
+            make.centerY.equalTo(box.snp.centerY)
+        }
     }
     
     private lazy var shape: CAShapeLayer = {
@@ -100,5 +122,13 @@ class GuideListView: UIView {
         gradientImageView.contentMode = .scaleAspectFill
         gradientImageView.image = DriftAdapter.imageNamed("guide_header_bg")
         return gradientImageView
+    }()
+    
+    private lazy var pushButton: UIButton = {
+        let pushButton = UIButton(type: .custom)
+        pushButton.backgroundColor = .green
+        pushButton.setTitle("push", for: .normal)
+        pushButton.addTarget(self, action: #selector(pushButtonEvent(button:)), for: .touchUpInside)
+        return pushButton
     }()
 }
