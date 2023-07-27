@@ -18,9 +18,11 @@ public class Drift {
     static let shared = Drift()
     private init() {}
     
+    weak var appWindow: UIWindow?
+    
     var window: DriftWindow?
     
-    weak var rootViewController: DriftRootViewController?
+    weak var mainController: DriftMainViewController?
     
     public func prepare() {
         guard window == nil else {
@@ -31,14 +33,16 @@ public class Drift {
         guide.backgroundColor = .clear
         guide.windowLevel = .normal
         
-        let root = DriftRootViewController()
-        guide.addNoResponseView(root.view)
+        let root = DriftMainViewController()
         
         let nav = UINavigationController(rootViewController: root)
         guide.rootViewController = nav
         
-        rootViewController = root
+        mainController = root
         window = guide
+        
+        // must be call last otherwise nav will be release
+        guide.addNoResponseView(root.view)
     }
     
     public func start() {
@@ -48,6 +52,10 @@ public class Drift {
     
     public func stop() {
         window?.isHidden = true
+    }
+    
+    public func appTopMost() -> UIViewController? {
+        return Navigate.topMost(appWindow?.rootViewController)
     }
     
     public func topMost() -> UIViewController? {

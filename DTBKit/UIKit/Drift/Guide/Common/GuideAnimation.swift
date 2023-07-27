@@ -13,13 +13,43 @@
 import UIKit
 
 ///
+public class GuideAnimationHandler: NSObject {}
+
+extension GuideAnimationHandler: UINavigationControllerDelegate {
+    
+    public func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        switch operation {
+        case .push:
+            return GuideAnimation(type: .push)
+        case .pop:
+            return GuideAnimation(type: .pop)
+        case .none:
+            return nil
+        @unknown default:
+            return nil
+        }
+    }
+}
+
+extension GuideAnimationHandler: UIViewControllerTransitioningDelegate {
+    
+    public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return GuideAnimation(type: .present)
+    }
+    
+    public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return GuideAnimation(type: .dismiss)
+    }
+}
+
+///
 public class GuideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
     
     public enum Types {
-        // for guide list
+        // main drift <-> any
         case present, dismiss
-        // for guide doc
-        case push
+        // list <-> docs
+        case push, pop
     }
     
     private let type: Types
@@ -40,6 +70,8 @@ public class GuideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
             dismissAnimateTransition(using: transitionContext)
         case .push:
             pushAnimateTransition(using: transitionContext)
+        case .pop:
+            popAnimateTransition(using: transitionContext)
         }
     }
     
@@ -52,7 +84,7 @@ public class GuideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
     
     /// Debug helper
     private func duration(_ value: TimeInterval) -> TimeInterval {
-        return value * 10.0
+        return value
     }
     
     /// Present
@@ -64,7 +96,7 @@ public class GuideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
         let container = transitionContext.containerView
         
         // Step 1.  浮窗隐藏动画
-        Drift.shared.rootViewController?.drift.fireFade(true)
+        Drift.shared.mainController?.drift.fireFade(true)
         
         container.addSubview(coverView)
         coverView.alpha = 0.0
@@ -73,7 +105,7 @@ public class GuideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
         container.addSubview(bottomLand)
         bottomLand.alpha = 0.0
         bottomLand.backgroundColor = DriftAdapter.color_FF8534()
-        bottomLand.frame = container.convert(Drift.shared.rootViewController?.drift.frame ?? .zero, to: nil)
+        bottomLand.frame = container.convert(Drift.shared.mainController?.drift.frame ?? .zero, to: nil)
         
         // Step 2.1  背景略微变深
         // Step 2.2  浮岛从浮窗当前位置缩放到屏幕最底部
@@ -119,16 +151,15 @@ public class GuideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
          let container = transitionContext.containerView
         
         // 普通 dismiss 效果
-        let cover = container.viewWithTag(self.coverTag)
         UIView.animate(withDuration: 0.25, animations: {
-            cover?.alpha = 0
+            self.coverView.alpha = 0
             fromView.frame = CGRect(x: 0, y: self.scSize.height, width: self.scSize.width, height: self.scSize.height)
         }) { _ in
             // 浮窗显示动画
-            Drift.shared.rootViewController?.drift.fireFade(false)
+            Drift.shared.mainController?.drift.fireFade(false)
             
             fromView.removeFromSuperview()
-            cover?.removeFromSuperview()
+            self.coverView.removeFromSuperview()
             
             transitionContext.completeTransition(true)
         }
@@ -145,7 +176,7 @@ public class GuideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
         let container = transitionContext.containerView
         
         // Step 1.  浮窗隐藏动画
-        Drift.shared.rootViewController?.drift.fireFade(true)
+        Drift.shared.mainController?.drift.fireFade(true)
         
         // Step 2.1  普通 dismiss 到最底部
         // Step 2.2  背景透明
@@ -184,6 +215,24 @@ public class GuideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
                 }
             }
         }
+    }
+    
+    private func popAnimateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        guard let fromView = transitionContext.view(forKey: .from),
+              let toView = transitionContext.view(forKey: .to) else {
+            assert(false)
+            return
+        }
+        let container = transitionContext.containerView
+        
+        // container.subviews.forEach({ $0.removeFromSuperview() })
+        
+        container.addSubview(toView)
+        
+        Drift.shared.mainController?.drift.fireAbsorb()
+        Drift.shared.mainController?.drift.fireFade(false)
+        
+        transitionContext.completeTransition(true)
     }
     
     private let coverTag = 20230724

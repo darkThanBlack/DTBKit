@@ -31,6 +31,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         adapter()
         debugger()
         
+        Drift.shared.appWindow = window
+        
         return true
     }
     

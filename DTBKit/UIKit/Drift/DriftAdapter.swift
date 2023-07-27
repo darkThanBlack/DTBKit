@@ -18,6 +18,10 @@ class DriftAdapter {
         return DTBKitWrapper(named: name, bundleName: "DTBKit-UIKit", frameworkName: "DTBKit")?.me
     }
     
+    static func color_333333() -> UIColor {
+        return Color.XM.DarkGray.A
+    }
+    
     static func color_FF8534() -> UIColor {
         return Color.XM.Orange.A
     }

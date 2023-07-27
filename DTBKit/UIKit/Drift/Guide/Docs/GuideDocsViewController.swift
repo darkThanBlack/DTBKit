@@ -12,25 +12,8 @@
 
 import UIKit
 
-///MissionDocs
+/// 新手引导 - 任务指南
 class GuideDocsViewController: UIViewController {
-    
-    //MARK: Interface
-    
-    //private let viewModel = MissionDocsViewModel()
-    //private let request = MissionDocsRequests()
-    
-    //MARK: Life Cycle
-    
-    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        self.modalPresentationStyle = .custom
-        self.transitioningDelegate = self
-    }
-    
-    public required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,21 +39,19 @@ class GuideDocsViewController: UIViewController {
         ])
     }
     
-    lazy var contentView: UIView = {
-        let contentView = UIView()
-        contentView.backgroundColor = .yellow
+    lazy var contentView: GuideDocsView = {
+        let contentView = GuideDocsView()
         return contentView
     }()
-    
 }
 
-extension GuideDocsViewController: UIViewControllerTransitioningDelegate {
+extension GuideDocsViewController: GuideDocsViewDelegate {
     
-    public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return GuideAnimation(type: .dismiss)
+    func closeEvent() {
+        navigationController?.dismiss(animated: true)
     }
     
-    public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return GuideAnimation(type: .push)
+    func popEvent() {
+        navigationController?.popViewController(animated: true)
     }
 }

@@ -1,5 +1,5 @@
 //
-//  DriftRootViewController.swift
+//  DriftMainViewController.swift
 //  DTBKit_Example
 //
 //  Created by moonShadow on 2023/7/19
@@ -13,7 +13,7 @@
 import UIKit
 
 ///
-public class DriftRootViewController: UIViewController {
+public class DriftMainViewController: UIViewController {
     
     //MARK: Interface
     
@@ -25,11 +25,7 @@ public class DriftRootViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("MOON__Log  啊？")
-        
         navigationController?.isNavigationBarHidden = true
-        
-        navigationController?.delegate = self
         
         view.backgroundColor = .clear
         
@@ -44,21 +40,5 @@ public class DriftRootViewController: UIViewController {
             height: driftSize.height
         )
         drift.fireAbsorb()
-    }
-}
-
-extension DriftRootViewController: UINavigationControllerDelegate {
-    
-    public func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        switch operation {
-        case .push:
-            return GuideAnimation(type: .present)
-        case .pop:
-            return GuideAnimation(type: .dismiss)
-        case .none:
-            return nil
-        @unknown default:
-            return nil
-        }
     }
 }

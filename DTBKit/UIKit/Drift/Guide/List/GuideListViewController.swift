@@ -12,34 +12,17 @@
 
 import UIKit
 
-///
+/// 新手引导 - 任务列表
 class GuideListViewController: UIViewController {
     
     lazy var contentView: GuideListView = {
         let contentView = GuideListView()
         contentView.backgroundColor = .white
+        contentView.delegate = self
         return contentView
     }()
     
     //MARK: Life Cycle
-    
-    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        self.modalPresentationStyle = .custom
-        self.transitioningDelegate = self
-    }
-    
-    public required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,13 +49,24 @@ class GuideListViewController: UIViewController {
     }
 }
 
-extension GuideListViewController: UIViewControllerTransitioningDelegate {
+extension GuideListViewController: GuideListViewDelegate {
     
-    public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return GuideAnimation(type: .dismiss)
+    func closeEvent() {
+        navigationController?.dismiss(animated: true)
     }
     
-    public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return GuideAnimation(type: .present)
+    func pushEvent() {
+        let docsVC = GuideDocsViewController()
+        navigationController?.pushViewController(docsVC, animated: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.45) {
+            SimpleVisualViewController.show(in: {
+                let label = EdgeLabel()
+                label.text = "Edge Label"
+                label.textColor = .systemRed
+                label.backgroundColor = .systemYellow
+                label.edgeInsets = UIEdgeInsets(top: 4.0, left: 16.0, bottom: 8.0, right: 32.0)
+                return label
+            }, behavior: .center)
+        }
     }
 }
