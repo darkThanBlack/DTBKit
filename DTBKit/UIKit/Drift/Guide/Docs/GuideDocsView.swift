@@ -11,6 +11,7 @@
     
 
 import UIKit
+import SnapKit
 
 protocol GuideDocsViewDelegate: AnyObject {
     

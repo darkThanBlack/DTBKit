@@ -8,7 +8,7 @@
 //  LICENSE: SAME AS REPOSITORY
 //  Contact me: [GitHub](https://github.com/darkThanBlack)
 //
-    
+
 
 import UIKit
 
@@ -90,7 +90,6 @@ public class GuideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
     /// Present
     private func presentAnimateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         guard let toView = transitionContext.view(forKey: .to) else {
-            assert(false)
             return
         }
         let container = transitionContext.containerView
@@ -135,7 +134,7 @@ public class GuideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
                     } completion: { _ in
                         // Finish.  移除浮岛，保留背景
                         self.bottomLand.removeFromSuperview()
-                        transitionContext.completeTransition(true)
+                        transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
                     }
                 }
             }
@@ -145,23 +144,25 @@ public class GuideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
     /// Dismiss
     private func dismissAnimateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         guard let fromView = transitionContext.view(forKey: .from) else {
-            assert(false)
             return
         }
-         let container = transitionContext.containerView
+        let container = transitionContext.containerView
         
-        // 普通 dismiss 效果
-        UIView.animate(withDuration: 0.25, animations: {
+        let cover = container.viewWithTag(coverTag)
+        
+        // Step 1.  普通 dismiss
+        UIView.animate(withDuration: 2.5, animations: {
             self.coverView.alpha = 0
+            self.coverView.backgroundColor = .clear
             fromView.frame = CGRect(x: 0, y: self.scSize.height, width: self.scSize.width, height: self.scSize.height)
         }) { _ in
-            // 浮窗显示动画
+            // Finish.  浮窗显示动画
             Drift.shared.mainController?.drift.fireFade(false)
             
             fromView.removeFromSuperview()
             self.coverView.removeFromSuperview()
             
-            transitionContext.completeTransition(true)
+            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
         }
     }
     
@@ -170,7 +171,6 @@ public class GuideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
     private func pushAnimateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         guard let fromView = transitionContext.view(forKey: .from),
               let toView = transitionContext.view(forKey: .to) else {
-            assert(false)
             return
         }
         let container = transitionContext.containerView
@@ -179,7 +179,7 @@ public class GuideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
         Drift.shared.mainController?.drift.fireFade(true)
         
         // Step 2.1  普通 dismiss 到最底部
-        // Step 2.2  背景透明
+        // Step 2.2  cover 透明
         UIView.animate(withDuration: self.duration(0.25), delay: 0.0, options: .curveEaseIn) {
             self.coverView.alpha = 0.0
             fromView.frame = CGRect(x: 0, y: self.scSize.height, width: self.scSize.width, height: self.scSize.height)
@@ -189,7 +189,8 @@ public class GuideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
             self.bottomLand.backgroundColor = .white
             self.bottomLand.frame = CGRect(x: 0, y: self.scSize.height, width: self.scSize.width, height: self.landHeight)
             
-            // Step 3.  浮岛从底部弹出，弹簧
+            // Step 3.1  浮岛从底部弹出，弹簧
+            // Step 3.2  保证背景透明
             UIView.animate(withDuration: self.duration(0.2), delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseInOut) {
                 self.bottomLand.frame = CGRect(x: 0, y: self.scSize.height - self.landHeight + self.landRadius, width: self.scSize.width, height: self.landHeight)
             } completion: { _ in
@@ -208,31 +209,43 @@ public class GuideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
                         toView.frame = CGRect(origin: .zero, size: self.scSize)
                     } completion: { _ in
                         // Finish.  移除浮岛，保留背景
+                        fromView.alpha = 1.0
                         self.bottomLand.removeFromSuperview()
-                        // !transitionContext.transitionWasCancelled
-                        transitionContext.completeTransition(true)
+                        transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
                     }
                 }
             }
         }
     }
     
+    /// Pop
     private func popAnimateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         guard let fromView = transitionContext.view(forKey: .from),
               let toView = transitionContext.view(forKey: .to) else {
-            assert(false)
             return
         }
         let container = transitionContext.containerView
         
-        // container.subviews.forEach({ $0.removeFromSuperview() })
-        
-        container.addSubview(toView)
-        
-        Drift.shared.mainController?.drift.fireAbsorb()
-        Drift.shared.mainController?.drift.fireFade(false)
-        
-        transitionContext.completeTransition(true)
+        // Step 1.  普通 dismiss
+        UIView.animate(withDuration: 0.25, animations: {
+            self.coverView.alpha = 0
+            fromView.frame = CGRect(x: 0, y: self.scSize.height, width: self.scSize.width, height: self.scSize.height)
+        }) { _ in
+            // Step 2.  弹簧 present
+            container.addSubview(toView)
+            toView.frame = CGRect(x: 0, y: self.scSize.height, width: self.scSize.width, height: self.scSize.height)
+            UIView.animate(withDuration: 0.25, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseInOut) {
+                toView.frame = CGRect(origin: .zero, size: self.scSize)
+            } completion: { _ in
+                // Finish.  浮窗显示动画
+                Drift.shared.mainController?.drift.fireFade(false)
+                
+                fromView.removeFromSuperview()
+                self.coverView.removeFromSuperview()
+                
+                transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+            }
+        }
     }
     
     private let coverTag = 20230724

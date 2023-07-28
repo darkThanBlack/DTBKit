@@ -15,13 +15,6 @@ import UIKit
 /// 新手引导 - 任务列表
 class GuideListViewController: UIViewController {
     
-    lazy var contentView: GuideListView = {
-        let contentView = GuideListView()
-        contentView.backgroundColor = .white
-        contentView.delegate = self
-        return contentView
-    }()
-    
     //MARK: Life Cycle
     
     override func viewDidLoad() {
@@ -47,6 +40,13 @@ class GuideListViewController: UIViewController {
             contentView.heightAnchor.constraint(equalTo: box.heightAnchor, multiplier: 0.9)
         ])
     }
+    
+    private lazy var contentView: GuideListView = {
+        let contentView = GuideListView()
+        contentView.backgroundColor = .white
+        contentView.delegate = self
+        return contentView
+    }()
 }
 
 extension GuideListViewController: GuideListViewDelegate {

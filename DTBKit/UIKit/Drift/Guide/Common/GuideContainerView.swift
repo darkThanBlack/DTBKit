@@ -26,6 +26,7 @@ class GuideContainerView: UIView {
     
     lazy var contentView: UIView = {
         let contentView = UIView()
+        contentView.isUserInteractionEnabled = true
         return contentView
     }()
     
