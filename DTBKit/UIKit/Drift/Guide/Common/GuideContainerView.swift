@@ -34,6 +34,11 @@ class GuideContainerView: UIView {
         super.init(frame: frame)
         
         loadViews(in: self)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            self.setNeedsLayout()
+            self.layoutIfNeeded()
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -50,7 +55,7 @@ class GuideContainerView: UIView {
         super.layoutSubviews()
         
         let path = UIBezierPath(
-            roundedRect: gradientImageView.bounds,
+            roundedRect: bounds,
             byRoundingCorners: [.topLeft, .topRight],
             cornerRadii: CGSize(
                 width: 10.0,
@@ -67,7 +72,7 @@ class GuideContainerView: UIView {
         box.addSubview(closeButton)
         box.addSubview(contentView)
         
-        gradientImageView.layer.mask = shape
+        self.layer.mask = shape
         
         gradientImageView.snp.makeConstraints { make in
             make.top.left.right.equalTo(box)
