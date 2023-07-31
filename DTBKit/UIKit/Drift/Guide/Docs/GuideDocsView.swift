@@ -56,6 +56,8 @@ class GuideDocsView: UIView {
     
     private lazy var backgroundView: GuideContainerView = {
         let view = GuideContainerView()
+        view.backgroundColor = .white
+        
         view.title = "任务指南"
         view.closeEventHandler = { [weak self] in
             self?.delegate?.closeEvent()

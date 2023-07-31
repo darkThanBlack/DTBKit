@@ -41,7 +41,6 @@ class GuideDocsViewController: UIViewController {
     
     private lazy var contentView: GuideDocsView = {
         let contentView = GuideDocsView()
-        contentView.backgroundColor = .white
         contentView.delegate = self
         return contentView
     }()

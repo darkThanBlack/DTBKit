@@ -34,11 +34,6 @@ class GuideContainerView: UIView {
         super.init(frame: frame)
         
         loadViews(in: self)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            self.setNeedsLayout()
-            self.layoutIfNeeded()
-        }
     }
     
     required init?(coder: NSCoder) {
