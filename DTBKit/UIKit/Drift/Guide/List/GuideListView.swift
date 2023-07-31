@@ -13,17 +13,27 @@
 import UIKit
 import SnapKit
 
-protocol GuideListViewDelegate: AnyObject {
+protocol GuideListViewDelegate: GuideGroupViewDelegate, GuideRefreshViewDelegate {
     ///
     func closeEvent()
     ///
     func pushEvent()
 }
 
-///
+/// 新手引导 - 任务列表
 class GuideListView: UIView {
     
-    weak var delegate: GuideListViewDelegate?
+    weak var delegate: GuideListViewDelegate? {
+        didSet {
+            self.groupView.delegate = delegate
+            self.refreshView.delegate = delegate
+        }
+    }
+    
+    ///
+    func setupItems(with datas: [GuideGroupItemDataSource]) {
+        groupView.setupItems(with: datas)
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -50,8 +60,26 @@ class GuideListView: UIView {
     //MARK: View
     
     private func loadViews(in box: UIView) {
-        
+        box.addSubview(titleLabel)
+        box.addSubview(hintLabel)
+        box.addSubview(groupView)
         box.addSubview(pushButton)
+        
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalTo(box.snp.top).offset(0)
+            make.left.equalTo(box.snp.left).offset(16.0)
+            make.right.equalTo(box.snp.right).offset(-16.0)
+        }
+        hintLabel.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(2.0)
+            make.left.equalTo(box.snp.left).offset(16.0)
+            make.right.equalTo(box.snp.right).offset(-16.0)
+        }
+        groupView.snp.makeConstraints { make in
+            make.top.equalTo(hintLabel.snp.bottom).offset(0)
+            make.left.right.equalTo(box)
+            make.height.equalTo(48.0)
+        }
         pushButton.snp.makeConstraints { make in
             make.centerX.equalTo(box.snp.centerX)
             make.centerY.equalTo(box.snp.centerY)
@@ -66,6 +94,31 @@ class GuideListView: UIView {
             self?.delegate?.closeEvent()
         }
         return view
+    }()
+    
+    private lazy var titleLabel: UILabel = {
+        let titleLabel = UILabel()
+        titleLabel.font = UIFont.systemFont(ofSize: 17.0, weight: .medium)
+        titleLabel.textColor = DriftAdapter.color_333333()
+        return titleLabel
+    }()
+    
+    private lazy var hintLabel: UILabel = {
+        let hintLabel = UILabel()
+        hintLabel.font = UIFont.systemFont(ofSize: 13.0, weight: .regular)
+        hintLabel.textColor = DriftAdapter.color_999999()
+        hintLabel.numberOfLines = 2
+        return hintLabel
+    }()
+    
+    private lazy var groupView: GuideGroupView = {
+        let groupView = GuideGroupView()
+        return groupView
+    }()
+    
+    private lazy var refreshView: GuideRefreshView = {
+        let refreshView = GuideRefreshView()
+        return refreshView
     }()
     
     private lazy var pushButton: UIButton = {

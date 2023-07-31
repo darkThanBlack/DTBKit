@@ -15,12 +15,18 @@ import UIKit
 /// 新手引导 - 任务列表
 class GuideListViewController: UIViewController {
     
+    private let viewModel = GuideViewModel()
+    
     //MARK: Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .clear
+        
+        viewModel.mocks {
+            self.contentView.setupItems(with: self.viewModel.groupList)
+        }
         
         loadViews(in: view)
     }
@@ -29,15 +35,21 @@ class GuideListViewController: UIViewController {
     
     private func loadViews(in box: UIView) {
         box.addSubview(contentView)
-        [contentView].forEach({
+        box.addSubview(robotImageView)
+        [contentView, robotImageView].forEach({
             $0.translatesAutoresizingMaskIntoConstraints = false
         })
         NSLayoutConstraint.activate([
             contentView.leftAnchor.constraint(equalTo: box.leftAnchor, constant: 0.0),
             contentView.rightAnchor.constraint(equalTo: box.rightAnchor, constant: 0.0),
             contentView.bottomAnchor.constraint(equalTo: box.bottomAnchor, constant: 0.0),
-            
-            contentView.heightAnchor.constraint(equalTo: box.heightAnchor, multiplier: 0.9)
+            contentView.heightAnchor.constraint(equalTo: box.heightAnchor, multiplier: 0.87)
+        ])
+        NSLayoutConstraint.activate([
+            robotImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: -16.0),
+            robotImageView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16.0),
+            robotImageView.widthAnchor.constraint(equalToConstant: 60.0),
+            robotImageView.heightAnchor.constraint(equalToConstant: 45.0)
         ])
     }
     
@@ -45,6 +57,13 @@ class GuideListViewController: UIViewController {
         let contentView = GuideListView()
         contentView.delegate = self
         return contentView
+    }()
+    
+    private lazy var robotImageView: UIImageView = {
+        let robotImageView = UIImageView()
+        robotImageView.image = DriftAdapter.imageNamed("guide_robot")
+        robotImageView.contentMode = .scaleAspectFit
+        return robotImageView
     }()
 }
 
@@ -67,5 +86,19 @@ extension GuideListViewController: GuideListViewDelegate {
                 return label
             }, behavior: .center)
         }
+    }
+    
+    ///
+    func guideListRefreshEvent() {
+        let alert = UIAlertController(title: "提示", message: "刷新结果", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "确定", style: .default, handler: nil))
+        present(alert, animated: true)
+    }
+    
+    ///
+    func guideGroupViewDidSelect(at index: Int) {
+        // todo: refresh sub list...
+        viewModel.select(group: index)
+        contentView.setupItems(with: viewModel.groupList)
     }
 }
