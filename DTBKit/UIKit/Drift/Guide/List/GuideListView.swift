@@ -17,7 +17,7 @@ protocol GuideListViewDelegate: GuideGroupViewDelegate, GuideRefreshViewDelegate
     ///
     func closeEvent()
     ///
-    func pushEvent()
+    func cellButtonEvent(_ data: GuideListCellDataSource)
 }
 
 /// 新手引导 - 任务列表
@@ -30,13 +30,17 @@ class GuideListView: UIView {
         }
     }
     
-    ///
-    func setupItems(with datas: [GuideGroupItemDataSource]) {
-        groupView.setupItems(with: datas)
+    func reloadData() {
+        groupView.setupItems(with: viewModel.groupList)
+        countsLabel.text = viewModel.getCountsText()
+        tableView.reloadData()
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    private let viewModel: GuideViewModel
+    
+    init(viewModel: GuideViewModel) {
+        self.viewModel = viewModel
+        super.init(frame: .zero)
         
         addSubview(backgroundView)
         backgroundView.snp.makeConstraints { make in
@@ -53,17 +57,15 @@ class GuideListView: UIView {
         delegate?.closeEvent()
     }
     
-    @objc private func pushButtonEvent(button: UIButton) {
-        delegate?.pushEvent()
-    }
-    
     //MARK: View
     
     private func loadViews(in box: UIView) {
         box.addSubview(titleLabel)
         box.addSubview(hintLabel)
         box.addSubview(groupView)
-        box.addSubview(pushButton)
+        box.addSubview(refreshView)
+        box.addSubview(countsLabel)
+        box.addSubview(tableView)
         
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(box.snp.top).offset(0)
@@ -80,16 +82,30 @@ class GuideListView: UIView {
             make.left.right.equalTo(box)
             make.height.equalTo(48.0)
         }
-        pushButton.snp.makeConstraints { make in
-            make.centerX.equalTo(box.snp.centerX)
-            make.centerY.equalTo(box.snp.centerY)
+        refreshView.snp.makeConstraints { make in
+            make.top.equalTo(groupView.snp.bottom).offset(12.0)
+            make.left.equalTo(box.snp.left).offset(8.0)
+            make.right.equalTo(box.snp.right).offset(-8.0)
+        }
+        countsLabel.snp.makeConstraints { make in
+            make.top.equalTo(refreshView.snp.bottom).offset(12.0)
+            make.left.equalTo(box.snp.left).offset(16.0)
+            make.right.lessThanOrEqualTo(box.snp.right).offset(-16.0)
+        }
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(countsLabel.snp.bottom).offset(8.0)
+            make.left.right.equalTo(box)
+            if #available(iOS 11.0, *) {
+                make.bottom.equalTo(box.safeAreaLayoutGuide.snp.bottom).offset(-8.0)
+            } else {
+                make.bottom.equalTo(box.snp.bottom).offset(8.0)
+            }
         }
     }
     
     private lazy var backgroundView: GuideContainerView = {
         let view = GuideContainerView()
-        view.backgroundColor = .white
-        
+        view.backgroundColor = DriftAdapter.color_FAFAFA()
         view.closeEventHandler = { [weak self] in
             self?.delegate?.closeEvent()
         }
@@ -100,6 +116,7 @@ class GuideListView: UIView {
         let titleLabel = UILabel()
         titleLabel.font = UIFont.systemFont(ofSize: 17.0, weight: .medium)
         titleLabel.textColor = DriftAdapter.color_333333()
+        titleLabel.text = "一起来完成新手启动任务吧！"
         return titleLabel
     }()
     
@@ -108,6 +125,7 @@ class GuideListView: UIView {
         hintLabel.font = UIFont.systemFont(ofSize: 13.0, weight: .regular)
         hintLabel.textColor = DriftAdapter.color_999999()
         hintLabel.numberOfLines = 2
+        hintLabel.text = "系统落地从培训到熟练使用正常是7-15天，最快3天启用"
         return hintLabel
     }()
     
@@ -118,14 +136,68 @@ class GuideListView: UIView {
     
     private lazy var refreshView: GuideRefreshView = {
         let refreshView = GuideRefreshView()
+        refreshView.backgroundColor = DriftAdapter.color_FFF0E7()
+        refreshView.layer.masksToBounds = true
+        refreshView.layer.cornerRadius = 4.0
         return refreshView
     }()
     
-    private lazy var pushButton: UIButton = {
-        let pushButton = UIButton(type: .custom)
-        pushButton.backgroundColor = .green
-        pushButton.setTitle("push", for: .normal)
-        pushButton.addTarget(self, action: #selector(pushButtonEvent(button:)), for: .touchUpInside)
-        return pushButton
+    private lazy var countsLabel: UILabel = {
+        let countsLabel = UILabel()
+        countsLabel.font = UIFont.systemFont(ofSize: 13.0, weight: .regular)
+        countsLabel.textColor = DriftAdapter.color_999999()
+        countsLabel.text = "已完成 -/-"
+        return countsLabel
     }()
+    
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .plain)
+        tableView.backgroundColor = DriftAdapter.color_FAFAFA()
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.separatorStyle = .none
+        tableView.estimatedRowHeight = 44.0
+        if #available(iOS 11.0, *) {
+            tableView.contentInsetAdjustmentBehavior = .never
+        }
+        tableView.register(GuideListCell.self, forCellReuseIdentifier: String(describing: GuideListCell.self))
+        return tableView
+    }()
+}
+
+extension GuideListView: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // do nth.
+    }
+}
+
+extension GuideListView: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.cellList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: GuideListCell.self)) as? GuideListCell else {
+            return UITableViewCell()
+        }
+        if indexPath.row < viewModel.cellList.count {
+            let model = viewModel.cellList[indexPath.row]
+            cell.config(with: model)
+            cell.delegate = self
+        }
+        return cell
+    }
+}
+
+extension GuideListView: GuideListCellDelegate {
+    ///
+    func cellRightButtonEvent(with cell: UITableViewCell) {
+        guard let indexPath = tableView.indexPath(for: cell),
+              indexPath.row < viewModel.cellList.count else {
+            return
+        }
+        let model = viewModel.cellList[indexPath.row]
+        delegate?.cellButtonEvent(model)
+    }
 }

@@ -25,7 +25,7 @@ class GuideListViewController: UIViewController {
         view.backgroundColor = .clear
         
         viewModel.mocks {
-            self.contentView.setupItems(with: self.viewModel.groupList)
+            self.contentView.reloadData()
         }
         
         loadViews(in: view)
@@ -54,7 +54,7 @@ class GuideListViewController: UIViewController {
     }
     
     private lazy var contentView: GuideListView = {
-        let contentView = GuideListView()
+        let contentView = GuideListView(viewModel: self.viewModel)
         contentView.delegate = self
         return contentView
     }()
@@ -89,6 +89,12 @@ extension GuideListViewController: GuideListViewDelegate {
     }
     
     ///
+    func cellButtonEvent(_ data: GuideListCellDataSource) {
+        // todo: 去完成/确认完成
+        pushEvent()
+    }
+    
+    ///
     func guideListRefreshEvent() {
         let alert = UIAlertController(title: "提示", message: "刷新结果", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "确定", style: .default, handler: nil))
@@ -97,8 +103,8 @@ extension GuideListViewController: GuideListViewDelegate {
     
     ///
     func guideGroupViewDidSelect(at index: Int) {
-        // todo: refresh sub list...
         viewModel.select(group: index)
-        contentView.setupItems(with: viewModel.groupList)
+        
+        contentView.reloadData()
     }
 }

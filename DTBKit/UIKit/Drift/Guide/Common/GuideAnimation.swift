@@ -12,7 +12,7 @@
 
 import UIKit
 
-///
+/// 新手任务 - 转场动画代理
 public class GuideAnimationHandler: NSObject {
     
     private let animation = GuideAnimation()
@@ -23,10 +23,8 @@ extension GuideAnimationHandler: UINavigationControllerDelegate {
     public func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         switch operation {
         case .push:
-//            return GuideAnimation(type: .push)
             return animation.to(.push)
         case .pop:
-//            return GuideAnimation(type: .pop)
             return animation.to(.pop)
         case .none:
             return nil
@@ -39,31 +37,29 @@ extension GuideAnimationHandler: UINavigationControllerDelegate {
 extension GuideAnimationHandler: UIViewControllerTransitioningDelegate {
     
     public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-//        return GuideAnimation(type: .present)
         return animation.to(.present)
     }
     
     public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-//        return GuideAnimation(type: .dismiss)
         return animation.to(.dismiss)
     }
 }
 
-///
+/// 新手引导 - 转场动画
 public class GuideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
     
     /// [HACK] 延时执行应用主路由跳转
     public static let mainRouterDelay: TimeInterval = 0.45
     
     public enum Types {
-        //
+        ///
         case none
-        // main drift <-> any
+        // 主视图浮窗 <-> {列表，详情}
         case present, dismiss
-        // list <-> docs
+        // 列表 <-> 详情
         case push, pop
     }
-    
+    ///
     private var type: Types = .none
     
     /// 保证过渡视图对象相同
@@ -254,7 +250,7 @@ public class GuideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
         }
         
-        // --- 浮岛
+        // --- 反向浮岛
 //        container.addSubview(self.bottomLand)
 //        self.bottomLand.alpha = 1.0
 //        self.bottomLand.backgroundColor = .white

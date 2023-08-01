@@ -41,6 +41,7 @@
 		A2E9C8A82A77941F00883D07 /* GuideGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E9C8A72A77941F00883D07 /* GuideGroupCell.swift */; };
 		A2E9C8AB2A77A0F700883D07 /* GuideViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E9C8AA2A77A0F700883D07 /* GuideViewModel.swift */; };
 		A2E9C8AD2A77B55400883D07 /* GuideRefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E9C8AC2A77B55400883D07 /* GuideRefreshView.swift */; };
+		A2E9C8B22A789F6300883D07 /* GuideListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E9C8B12A789F6300883D07 /* GuideListCell.swift */; };
 		A735232D860682E7B7E7ECB0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F814B4B829198871353120F8 /* Images.xcassets */; };
 		B3B9577BA8721D8698D7CF5D /* basic.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 881598D80582636EC3A51695 /* basic.xcassets */; };
 		BDBB8C6B4588D4721BBE6CE5 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D9099D1384E801AE7056DEE1 /* README.md */; };
@@ -88,6 +89,7 @@
 		A2E9C8A72A77941F00883D07 /* GuideGroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideGroupCell.swift; sourceTree = "<group>"; };
 		A2E9C8AA2A77A0F700883D07 /* GuideViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewModel.swift; sourceTree = "<group>"; };
 		A2E9C8AC2A77B55400883D07 /* GuideRefreshView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideRefreshView.swift; sourceTree = "<group>"; };
+		A2E9C8B12A789F6300883D07 /* GuideListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideListCell.swift; sourceTree = "<group>"; };
 		A4DC59E903BF48E2D225EDDD /* Pods_DTBKit_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DTBKit_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A94332BD9942E3A20F8AC621 /* DTBKit_Example.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = DTBKit_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB470419225C0F4E263C23C7 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -273,10 +275,10 @@
 		A2B12A402A7274B40059EF3D /* List */ = {
 			isa = PBXGroup;
 			children = (
+				A2E9C8B32A78DDB500883D07 /* View */,
 				A2E9C8A02A77869400883D07 /* Group */,
 				A2B001BA2A6E6C2D001124ED /* GuideListView.swift */,
 				A2CE51C22A6BBB1900B5704B /* GuideListViewController.swift */,
-				A2E9C8AC2A77B55400883D07 /* GuideRefreshView.swift */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -307,6 +309,15 @@
 				A2E9C8A72A77941F00883D07 /* GuideGroupCell.swift */,
 			);
 			path = Group;
+			sourceTree = "<group>";
+		};
+		A2E9C8B32A78DDB500883D07 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A2E9C8AC2A77B55400883D07 /* GuideRefreshView.swift */,
+				A2E9C8B12A789F6300883D07 /* GuideListCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		BC12DD552C2444C5241138E9 = {
@@ -499,6 +510,7 @@
 				66F19A1005CEDC2EDDBFDF6A /* Exported.swift in Sources */,
 				96C2FBBB655CB57056972881 /* Drift.swift in Sources */,
 				7CF58AE26EC8F27ABBC74059 /* HomeViewController.swift in Sources */,
+				A2E9C8B22A789F6300883D07 /* GuideListCell.swift in Sources */,
 				FFA3F576A21DD1B545DED513 /* SimpleVisualViewController.swift in Sources */,
 				32EC284AD691427577F70F1D /* UIImage+DTBKit.swift in Sources */,
 				21BEECD17FA96DDA0BDBEE43 /* UIImageView+DTBKit.swift in Sources */,

@@ -8,24 +8,33 @@
 //  LICENSE: SAME AS REPOSITORY
 //  Contact me: [GitHub](https://github.com/darkThanBlack)
 //
-    
+
 
 import UIKit
 
 ///
 class GuideViewModel {
     
+    private var groups: [GuideGroupModel] = []
+    
     var groupList: [GuideGroupItemDataSource] {
         return groups
     }
     
-    private var groups: [GuideGroupModel] = []
+    var cellList: [GuideListCellDataSource] {
+        return groups.first(where: { $0.isSelected })?.cells ?? []
+    }
     
     func select(group: Int? = nil) {
-        if let index = group, index < groups.count {
-            groups.first(where: { $0.isSelected })?.isSelected = false
-            groups[index].isSelected = true
-        }
+        groups.first(where: { $0.isSelected })?.isSelected = false
+        var index = group ?? 0
+        index = (index < groups.count) ? index : 0
+        groups[index].isSelected = true
+    }
+    
+    func getCountsText() -> String? {
+        let finishCount = cellList.filter({ $0.bizType == .finish }).count
+        return "已完成 " + "\(finishCount)" + "/" + "\(cellList.count)"
     }
     
     func mocks(completed: (()->())?) {
@@ -76,10 +85,58 @@ class GuideGroupModel: GuideGroupItemDataSource {
     
     var isCompleted: Bool
     
+    var cells: [GuideListCellModel] = []
+    
     init(title: String? = nil, isSelected: Bool, isLocked: Bool, isCompleted: Bool) {
         self.title = title
         self.isSelected = isSelected
         self.isLocked = isLocked
         self.isCompleted = isCompleted
+        
+        mocks()
+    }
+    
+    func mocks() {
+        cells = [
+            GuideListCellModel(
+                title: title,
+                detail: primaryKey,
+                roles: "角色：老师，校长，etc...",
+                inferTime: "耗时：5分钟",
+                bizType: .finish
+            )
+        ] + GuideListCell.BizTypes.allCases.map({ bizType in
+            return GuideListCellModel(
+                title: "任务标题过长过长过长过长过长过长过长过长过长过长过长过长过长",
+                detail: "任务说明过长过长过长过长过长过长过长过长过长过长过长过长过长过长过长过长过长过长过长过长过长过长过长过长过长过长",
+                roles: "角色：老师，校长，etc...  过长过长过长过长过长过长过长过长过长过长过长",
+                inferTime: "耗时：5分钟 过长过长过长过长过长",
+                bizType: bizType
+            )
+        })
+    }
+}
+
+class GuideListCellModel: GuideListCellDataSource {
+    
+    var primaryKey: String? = UUID().uuidString
+    
+    var title: String?
+    
+    var detail: String?
+    
+    var roles: String?
+    
+    var inferTime: String?
+    
+    var bizType: GuideListCell.BizTypes
+    
+    init(primaryKey: String? = nil, title: String? = nil, detail: String? = nil, roles: String? = nil, inferTime: String? = nil, bizType: GuideListCell.BizTypes) {
+        self.primaryKey = primaryKey
+        self.title = title
+        self.detail = detail
+        self.roles = roles
+        self.inferTime = inferTime
+        self.bizType = bizType
     }
 }

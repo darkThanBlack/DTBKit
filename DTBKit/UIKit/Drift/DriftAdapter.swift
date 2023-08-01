@@ -30,6 +30,10 @@ class DriftAdapter {
         return Color.XM.DarkGray.A
     }
     
+    static func color_FAFAFA() -> UIColor {
+        return Color.XM.White.I
+    }
+    
     static func color_FF8534() -> UIColor {
         return Color.XM.Orange.A
     }
@@ -38,4 +42,7 @@ class DriftAdapter {
         return Color.XM.Orange.B
     }
     
+    static func color_FFF0E7() -> UIColor {
+        return Color.hex(0xFFF0E7)
+    }
 }
