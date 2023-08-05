@@ -13,7 +13,7 @@
 import UIKit
 
 /// 新手引导 - 浮窗
-public class GuideDriftView: UIView {
+class GuideDriftView: UIView {
     
     ///
     private var isFading = false
@@ -21,7 +21,7 @@ public class GuideDriftView: UIView {
     private var fadeParam: [String: Any]? = nil
     
     ///
-    public func fireFade(_ isFade: Bool, params: [String: Any]? = nil) {
+    func fireFade(_ isFade: Bool, params: [String: Any]? = nil) {
         guard self.isFading != isFade else {
             return
         }
@@ -62,13 +62,13 @@ public class GuideDriftView: UIView {
         }
     }
     
-    public override init(frame: CGRect) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
         
         loadViews(in: self)
     }
     
-    public required init?(coder: NSCoder) {
+    required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -95,21 +95,21 @@ public class GuideDriftView: UIView {
     
     private let closeSize = CGSize(width: 12.0, height: 12.0)
     
-    public override var intrinsicContentSize: CGSize {
+    override var intrinsicContentSize: CGSize {
         return CGSize(
             width: titleSize.width + 8.0,
             height: 8.0 + closeSize.height + 8.0 + titleSize.height
         )
     }
     
-    public override func sizeThatFits(_ size: CGSize) -> CGSize {
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
         return CGSize(
             width: titleSize.width + 8.0,
             height: 8.0 + closeSize.height + 8.0 + titleSize.height
         )
     }
     
-    public override func layoutSubviews() {
+    override func layoutSubviews() {
         super.layoutSubviews()
         
         if self.isFading {

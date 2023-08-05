@@ -13,12 +13,12 @@
 import UIKit
 
 ///
-public class DriftView: UIView {
+class DriftView: UIView {
     
     //MARK: Interface
     
     ///
-    public func fireAbsorb() {
+    func fireAbsorb() {
         let father = superview?.bounds ?? UIScreen.main.bounds
         let barrier = father.inset(by: superview?.safeAreaInsets ?? .zero)
         let newFrame = absorbHorizonal(frame, barrier: barrier)
@@ -30,7 +30,7 @@ public class DriftView: UIView {
     }
     
     ///
-    public func fireFade(_ isFade: Bool) {
+    func fireFade(_ isFade: Bool) {
         guard canFade else { return }
         
         contentView.fireFade(isFade, params: [
@@ -55,15 +55,15 @@ public class DriftView: UIView {
     
     //MARK: View
     
-    public override var intrinsicContentSize: CGSize {
+    override var intrinsicContentSize: CGSize {
         return contentView.intrinsicContentSize
     }
     
-    public override func sizeThatFits(_ size: CGSize) -> CGSize {
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
         return contentView.sizeThatFits(size)
     }
     
-    public override func layoutSubviews() {
+    override func layoutSubviews() {
         super.layoutSubviews()
         
         contentView.frame = bounds
@@ -123,7 +123,7 @@ public class DriftView: UIView {
     ///
     private var op: CGPoint = .zero
     
-    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let p = touches.first?.location(in: self) else {
             return
         }
@@ -133,7 +133,7 @@ public class DriftView: UIView {
         fireFade(false)
     }
     
-    public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let p = touches.first?.location(in: self) else {
             return
         }
@@ -143,13 +143,13 @@ public class DriftView: UIView {
         frame = tmp
     }
     
-    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         isMoving = false
         
         fireAbsorb()
     }
     
-    public override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         isMoving = false
         
         fireAbsorb()

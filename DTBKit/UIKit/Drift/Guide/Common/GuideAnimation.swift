@@ -13,14 +13,14 @@
 import UIKit
 
 /// 新手任务 - 转场动画代理
-public class GuideAnimationHandler: NSObject {
+class GuideAnimationHandler: NSObject {
     
     private let animation = GuideAnimation()
 }
 
 extension GuideAnimationHandler: UINavigationControllerDelegate {
     
-    public func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         switch operation {
         case .push:
             return animation.to(.push)
@@ -36,22 +36,22 @@ extension GuideAnimationHandler: UINavigationControllerDelegate {
 
 extension GuideAnimationHandler: UIViewControllerTransitioningDelegate {
     
-    public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return animation.to(.present)
     }
     
-    public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return animation.to(.dismiss)
     }
 }
 
 /// 新手引导 - 转场动画
-public class GuideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
+class GuideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
     
     /// [HACK] 延时执行应用主路由跳转
-    public static let mainRouterDelay: TimeInterval = 0.45
+    static let mainRouterDelay: TimeInterval = 0.45
     
-    public enum Types {
+    enum Types {
         ///
         case none
         // 主视图浮窗 <-> {列表，详情}
@@ -68,11 +68,11 @@ public class GuideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
         return self
     }
     
-    public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 5.0
     }
     
-    public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         switch type {
         case .present:
             presentAnimateTransition(using: transitionContext)

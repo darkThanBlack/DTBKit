@@ -13,7 +13,7 @@
 import UIKit
 
 ///
-public class Drift {
+class Drift {
     
     static let shared = Drift()
     private init() {}
@@ -24,7 +24,7 @@ public class Drift {
     
     weak var mainController: DriftMainViewController?
     
-    public func prepare() {
+    func prepare() {
         guard window == nil else {
             return
         }
@@ -45,20 +45,20 @@ public class Drift {
         guide.addNoResponseView(root.view)
     }
     
-    public func start() {
+    func start() {
         prepare()
         window?.isHidden = false
     }
     
-    public func stop() {
+    func stop() {
         window?.isHidden = true
     }
     
-    public func appTopMost() -> UIViewController? {
+    func appTopMost() -> UIViewController? {
         return Navigate.topMost(appWindow?.rootViewController)
     }
     
-    public func topMost() -> UIViewController? {
+    func topMost() -> UIViewController? {
         return Navigate.topMost(window?.rootViewController)
     }
 }
@@ -67,7 +67,7 @@ public class Drift {
 
 extension Drift {
     
-    public enum DefaultsKey: String {
+    enum DefaultsKey: String {
         ///
         case driftedFrame = "kDriftedFrameKey"
     }

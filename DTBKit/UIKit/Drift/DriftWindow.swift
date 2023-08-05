@@ -13,7 +13,7 @@
 import UIKit
 
 ///
-public class DriftWindow: UIWindow {
+class DriftWindow: UIWindow {
     
     private class Weaker<T: AnyObject> {
         weak var me: T?
@@ -25,12 +25,12 @@ public class DriftWindow: UIWindow {
     
     private var noResponses: [Weaker<UIView>] = []
     
-    public func addNoResponseView(_ value: UIView) {
+    func addNoResponseView(_ value: UIView) {
         noResponses.removeAll(where: { $0.me == nil })
         noResponses.append(Weaker(value))
     }
     
-    public override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         let view = super.hitTest(point, with: event)
         if noResponses.filter({ $0.me != nil }).contains(where: { $0.me == view }) {
             return nil

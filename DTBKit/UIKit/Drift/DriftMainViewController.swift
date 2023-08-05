@@ -13,16 +13,16 @@
 import UIKit
 
 ///
-public class DriftMainViewController: UIViewController {
+class DriftMainViewController: UIViewController {
     
     //MARK: Interface
     
-    public lazy var drift: DriftView = {
+    lazy var drift: DriftView = {
         let driftView = DriftView()
         return driftView
     }()
     
-    public override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationController?.isNavigationBarHidden = true
