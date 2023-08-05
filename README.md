@@ -1,28 +1,52 @@
 # DTBKit
 
-[![CI Status](https://img.shields.io/travis/moonShadow/DTBKit.svg?style=flat)](https://travis-ci.org/moonShadow/DTBKit)
-[![Version](https://img.shields.io/cocoapods/v/DTBKit.svg?style=flat)](https://cocoapods.org/pods/DTBKit)
-[![License](https://img.shields.io/cocoapods/l/DTBKit.svg?style=flat)](https://cocoapods.org/pods/DTBKit)
-[![Platform](https://img.shields.io/cocoapods/p/DTBKit.svg?style=flat)](https://cocoapods.org/pods/DTBKit)
+ [![Static Badge](https://img.shields.io/badge/iOS-Swift-green)]() [![Static Badge](https://img.shields.io/badge/Cocoapods-1.12.1-green)]()
+
+
+
+[English](https://github.com/darkThanBlack/DTBKit/README.md) |  [简体中文](https://github.com/darkThanBlack/DTBKit/README.zh-CN.md)
+
+
+
+#### What is this？
+
+A personal bundle kit for best practices.
+
+
+
+#### How do I develop it?
+
+Use ``xcodegen`` in example proj.
+
+
+
+
+
+
 
 ## Example
 
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
+> Main proj. include everything.
 
-## Requirements
 
-## Installation
 
-DTBKit is available through [CocoaPods](https://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+## Basic
 
-```ruby
-pod 'DTBKit'
-```
+> Static. Full test.
+
+
+
+## UIKit
+
+> Refer for UI bundles. 
+
+
+
+
 
 ## Author
 
-moonShadow, 331614794@qq.com
+moonShadow
 
 ## License
 
