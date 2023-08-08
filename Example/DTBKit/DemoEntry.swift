@@ -72,9 +72,10 @@ class DemoEntry {
                 return imageView
             }, behavior: .center)
         case .guide:
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                Drift.shared.start()
-            }
+            print("\(UIViewController.topMost)")
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+//                Drift.shared.start()
+//            }
         }
     }
 }

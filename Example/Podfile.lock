@@ -15,10 +15,12 @@ PODS:
   - GCDWebServer/WebUploader (3.5.4):
     - GCDWebServer/Core
   - SnapKit (5.0.1)
+  - URLNavigator (2.3.0)
 
 DEPENDENCIES:
   - DoraemonKit/Core (~> 3.0.4)
   - SnapKit (= 5.0.1)
+  - URLNavigator (= 2.3.0)
 
 SPEC REPOS:
   trunk:
@@ -26,13 +28,15 @@ SPEC REPOS:
     - FMDB
     - GCDWebServer
     - SnapKit
+    - URLNavigator
 
 SPEC CHECKSUMS:
   DoraemonKit: 32fb97f3aa82efa133111d193080ca5462cef135
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
+  URLNavigator: 2593c0e2d293732ec5c44503cf54dceba1a68085
 
-PODFILE CHECKSUM: 5d3ec23f28d8f3f8fcdc3156a8887d2fb139e1ae
+PODFILE CHECKSUM: 12c6923e4521e9ebe746ea8f07a62de7f689d8bf
 
 COCOAPODS: 1.12.1
