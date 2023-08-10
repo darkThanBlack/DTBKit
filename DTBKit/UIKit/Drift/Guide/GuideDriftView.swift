@@ -226,7 +226,7 @@ class GuideDriftView: UIView {
     
     private lazy var closeImageView: UIImageView = {
         let closeImageView = UIImageView()
-        closeImageView.dtb.setImage(named: "ic_close", bundleName: "DTBKit-UIKit", frameworkName: "DTBKit")
+        closeImageView.image = DriftAdapter.imageNamed("ic_close")
         closeImageView.contentMode = .scaleAspectFit
         return closeImageView
     }()

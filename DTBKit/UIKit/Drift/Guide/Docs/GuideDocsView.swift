@@ -11,6 +11,7 @@
     
 
 import UIKit
+import WebKit
 import SnapKit
 
 protocol GuideDocsViewDelegate: AnyObject {
@@ -22,6 +23,14 @@ protocol GuideDocsViewDelegate: AnyObject {
 
 /// 新手引导 - 任务指南
 class GuideDocsView: UIView {
+    
+    func load(url: String) {
+        if let theUrl = URL(string: url) {
+            DispatchQueue.main.async {
+                self.webView.load(URLRequest(url: theUrl))
+            }
+        }
+    }
     
     weak var delegate: GuideDocsViewDelegate?
     
@@ -46,11 +55,23 @@ class GuideDocsView: UIView {
     //MARK: View
     
     private func loadViews(in box: UIView) {
+        box.addSubview(webView)
         box.addSubview(popButton)
         
+        webView.snp.makeConstraints { make in
+            make.top.equalTo(box.snp.top).offset(0)
+            make.left.equalTo(box.snp.left).offset(16.0)
+            make.right.equalTo(box.snp.right).offset(-16.0)
+        }
         popButton.snp.makeConstraints { make in
             make.centerX.equalTo(box.snp.centerX)
-            make.centerY.equalTo(box.snp.centerY)
+            make.top.equalTo(webView.snp.bottom).offset(16.0)
+            if #available(iOS 11.0, *) {
+                make.bottom.equalTo(box.safeAreaLayoutGuide.snp.bottom).offset(-16.0)
+            } else {
+                make.bottom.equalTo(box.snp.bottom).offset(-16.0)
+            }
+            make.height.greaterThanOrEqualTo(22.0)
         }
     }
     
@@ -65,10 +86,22 @@ class GuideDocsView: UIView {
         return view
     }()
     
+    private lazy var webView: WKWebView = {
+        let configuration = WKWebViewConfiguration()
+        configuration.allowsInlineMediaPlayback = true
+        configuration.mediaTypesRequiringUserActionForPlayback = .all
+        let webView = WKWebView(frame: .zero, configuration: configuration)
+        webView.backgroundColor = .white
+//        webView.uiDelegate = self
+//        webView.navigationDelegate = self
+        return webView
+    }()
+    
     private lazy var popButton: UIButton = {
         let popButton = UIButton(type: .custom)
-        popButton.backgroundColor = .green
-        popButton.setTitle("pop", for: .normal)
+        popButton.setTitle("<— 返回任务列表", for: .normal)
+        popButton.setTitleColor(DriftAdapter.color_FF8534(), for: .normal)
+        popButton.titleLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: .regular)
         popButton.addTarget(self, action: #selector(popButtonEvent(button:)), for: .touchUpInside)
         return popButton
     }()

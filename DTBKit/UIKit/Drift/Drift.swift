@@ -13,9 +13,9 @@
 import UIKit
 
 ///
-class Drift {
+public class Drift {
     
-    static let shared = Drift()
+    public static let shared = Drift()
     private init() {}
     
     weak var appWindow: UIWindow?
@@ -45,22 +45,47 @@ class Drift {
         guide.addNoResponseView(root.view)
     }
     
-    func start() {
+    public func setup(_ window: UIWindow?) {
+        self.appWindow = window
+        prepare()
+    }
+    
+    public func start() {
         prepare()
         window?.isHidden = false
     }
     
-    func stop() {
+    public func stop() {
         window?.isHidden = true
     }
     
     func appTopMost() -> UIViewController? {
-        return Navigate.topMost(appWindow?.rootViewController)
+        return topMost(appWindow?.rootViewController)
     }
     
     func topMost() -> UIViewController? {
-        return Navigate.topMost(window?.rootViewController)
+        return topMost(window?.rootViewController)
     }
+    
+    /// Current controller in stack
+    private func topMost(_ controller: UIViewController?) -> UIViewController? {
+        ///
+        func recursion(_ vc: UIViewController?) -> UIViewController? {
+            if let nav = vc as? UINavigationController {
+                return recursion(nav.visibleViewController)
+            }
+            if let tab = vc as? UITabBarController {
+                return recursion(tab.selectedViewController)
+            }
+            if let presented = vc?.presentedViewController {
+                return recursion(presented)
+            }
+            return vc
+        }
+        return recursion(controller)
+    }
+    
+    public let request = GuideRequests()
 }
 
 //MARK: - UserDefaults

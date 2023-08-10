@@ -15,6 +15,10 @@ import UIKit
 /// 新手引导 - 任务指南
 class GuideDocsViewController: UIViewController {
     
+    func load(url: String) {
+        contentView.load(url: url)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

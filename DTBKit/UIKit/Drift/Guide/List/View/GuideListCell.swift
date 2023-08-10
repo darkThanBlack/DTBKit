@@ -36,7 +36,7 @@ protocol GuideListCellDataSource {
 /// 新手引导 - 任务列表 Cell
 class GuideListCell: UITableViewCell {
     
-    /// 业务类型
+    /// 仅控制右侧视图展示
     enum BizTypes: CaseIterable {
         ///
         case unknown
@@ -258,8 +258,8 @@ class GuideListCell: UITableViewCell {
     }()
     
     /// 耗时
-    private lazy var timeLabel: EdgeLabel = {
-        let timeLabel = EdgeLabel()
+    private lazy var timeLabel: XMEdgeLabel = {
+        let timeLabel = XMEdgeLabel()
         timeLabel.backgroundColor = DriftAdapter.color_FAFAFA()
         timeLabel.font = UIFont.systemFont(ofSize: 11.0, weight: .regular)
         timeLabel.textColor = DriftAdapter.color_999999()

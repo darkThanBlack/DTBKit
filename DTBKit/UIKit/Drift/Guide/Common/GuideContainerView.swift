@@ -24,6 +24,7 @@ class GuideContainerView: UIView {
     
     var closeEventHandler: (()->())?
     
+    /// 业务页面放在里面
     lazy var contentView: UIView = {
         let contentView = UIView()
         contentView.isUserInteractionEnabled = true

@@ -311,7 +311,7 @@ class GuideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
         land.layer.cornerRadius = 10.0
         
         land.contentMode = .scaleAspectFill
-        land.dtb.setImage(named: "guide_header_bg", bundleName: "DTBKit-UIKit", frameworkName: "DTBKit")
+        land.image = DriftAdapter.imageNamed("guide_header_bg")
         
         return land
     }()

@@ -34,8 +34,8 @@ class DriftMainViewController: UIViewController {
         let driftSize = drift.sizeThatFits(UIScreen.main.bounds.size)
         let oldFrame: [String: CGFloat]? = Drift.defaults(getForKey: .driftedFrame)
         drift.frame = CGRect(
-            x: oldFrame?["x"] ?? 0,
-            y: oldFrame?["y"] ?? 0,
+            x: oldFrame?["x"] ?? view.bounds.midX,
+            y: oldFrame?["y"] ?? view.bounds.midY,
             width: driftSize.width,
             height: driftSize.height
         )

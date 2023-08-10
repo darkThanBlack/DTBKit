@@ -14,10 +14,14 @@ import UIKit
 import SnapKit
 
 protocol GuideListViewDelegate: GuideGroupViewDelegate, GuideRefreshViewDelegate {
+    
+    func mockEvent()
     ///
     func closeEvent()
     ///
-    func cellButtonEvent(_ data: GuideListCellDataSource)
+    func cellRightButtonEvent(_ data: GuideListCellDataSource)
+    ///
+    func cellDidSelectedEvent(_ data: GuideListCellDataSource)
 }
 
 /// 新手引导 - 任务列表
@@ -36,9 +40,9 @@ class GuideListView: UIView {
         tableView.reloadData()
     }
     
-    private let viewModel: GuideViewModel
+    private let viewModel: GuideListViewModel
     
-    init(viewModel: GuideViewModel) {
+    init(viewModel: GuideListViewModel) {
         self.viewModel = viewModel
         super.init(frame: .zero)
         
@@ -51,6 +55,12 @@ class GuideListView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc private func titleLabelEvent(gesture: UITapGestureRecognizer) {
+#if DEBUG
+        delegate?.mockEvent()
+#endif
     }
     
     @objc private func closeButtonEvent(button: UIButton) {
@@ -98,7 +108,7 @@ class GuideListView: UIView {
             if #available(iOS 11.0, *) {
                 make.bottom.equalTo(box.safeAreaLayoutGuide.snp.bottom).offset(-8.0)
             } else {
-                make.bottom.equalTo(box.snp.bottom).offset(8.0)
+                make.bottom.equalTo(box.snp.bottom).offset(-8.0)
             }
         }
     }
@@ -116,6 +126,13 @@ class GuideListView: UIView {
         let titleLabel = UILabel()
         titleLabel.font = UIFont.systemFont(ofSize: 17.0, weight: .medium)
         titleLabel.textColor = DriftAdapter.color_333333()
+        
+        titleLabel.isUserInteractionEnabled = true
+        let singleTap = UITapGestureRecognizer(target: self, action: #selector(titleLabelEvent(gesture:)))
+        singleTap.numberOfTapsRequired = 1
+        singleTap.numberOfTouchesRequired = 1
+        titleLabel.addGestureRecognizer(singleTap)
+        
         titleLabel.text = "一起来完成新手启动任务吧！"
         return titleLabel
     }()
@@ -166,8 +183,12 @@ class GuideListView: UIView {
 }
 
 extension GuideListView: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // do nth.
+        guard indexPath.row < viewModel.cellList.count else {
+            return
+        }
+        delegate?.cellDidSelectedEvent(viewModel.cellList[indexPath.row])
     }
 }
 
@@ -197,7 +218,6 @@ extension GuideListView: GuideListCellDelegate {
               indexPath.row < viewModel.cellList.count else {
             return
         }
-        let model = viewModel.cellList[indexPath.row]
-        delegate?.cellButtonEvent(model)
+        delegate?.cellRightButtonEvent(viewModel.cellList[indexPath.row])
     }
 }
