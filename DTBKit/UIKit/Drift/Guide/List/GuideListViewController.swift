@@ -96,7 +96,7 @@ extension GuideListViewController: GuideListViewDelegate {
         let basic = xmTopMost()
         
         let routes = [
-            ("员工管理", "xmzj://b/v5/staff/manage"),  // false
+            ("员工管理", "xmzj://b/v5/staff/manage"),
             ("财务中心-小麦收银", "xmzj://b/xiaomai_cashier"),
             ("教务中心-课程/套餐", "xmzj://b/v5/course/list"),
             ("教务中心-班级", "xmzj://b/v5/class/list"),
@@ -129,41 +129,53 @@ extension GuideListViewController: GuideListViewDelegate {
             ("财务中心-电子合同", "flutter:///electronic/contract/list"),
             
             // 总部
-            ("我的-员工管理", "xmzj://c/v5/ka/staff/manage"),  // false
-            ("我的-课程管理", "xmzj://c/v5/ka/course/manage"),  // false
+            ("我的-员工管理", "xmzj://c/v5/ka/staff/manage"),
+            ("我的-课程管理", "xmzj://c/v5/ka/course/manage"),
         ]
+        
+        var failed: [(String, String)] = []
         
         func fire(with index: Int) {
             guard index < routes.count else {
                 self.view.alpha = 1.0
+                
+                let str = "主路由执行 \(index) 条，失败 \(failed.count) 条：" + failed.reduce("", { res, next in
+                    return res + "\n" + next.0 + ": " + next.1
+                })
+                let alert = UIAlertController(title: "执行结果", message: str, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: failed.count == 0 ? "很好" : "不好", style: .default))
+                self.present(alert, animated: true)
+                
                 return
             }
             let data = routes[index]
             MainNavigator.XMPush(data.1, animated: false)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 let current = xmTopMost()
-                print("路由  \(data.0), success=\(basic != current)")
+                let success = basic != current
+                print("路由  \(data.0), success=\(success)")
+                if success == false {
+                    failed.append(data)
+                }
                 basic?.navigationController?.popViewController(animated: false)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     fire(with: index + 1)
                 }
             }
         }
         
-        let alert = UIAlertController(title: "提示", message: "全路由连通性测试", preferredStyle: .alert)
+        let alert = UIAlertController(title: "提示", message: "路由连通性测试", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "不懂", style: .default))
         alert.addAction(UIAlertAction(title: "我懂", style: .default, handler: { _ in
-            self.view.alpha = 1.0
+            self.view.alpha = 0.0
             fire(with: 0)
         }))
         present(alert, animated: true)
-        
-        // actualRouterPush(linkUrl: "https://www.baidu.com", routeUrl: "xmzj://b/v5/class/list")
     }
     
     /// 右上关闭按钮
     func closeEvent() {
-        navigationController?.dismiss(animated: true)
+        Drift.shared.navigator.close()
     }
     
     /// 切换组头
@@ -236,9 +248,7 @@ extension GuideListViewController: GuideListViewDelegate {
     private func actualRouterPush(linkUrl: String?, routeUrl: String?) {
         // 浮窗页面栈跳转
         if let url = linkUrl, url.isEmpty == false {
-            let docsVC = GuideDocsViewController()
-            docsVC.load(url: url)
-            navigationController?.pushViewController(docsVC, animated: true)
+            Drift.shared.navigator.push(with: url)
         } else {
             view.makeToast("未获取到任务指南数据")
         }

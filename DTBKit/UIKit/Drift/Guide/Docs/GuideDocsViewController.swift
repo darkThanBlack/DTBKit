@@ -53,10 +53,10 @@ class GuideDocsViewController: UIViewController {
 extension GuideDocsViewController: GuideDocsViewDelegate {
     
     func closeEvent() {
-        navigationController?.dismiss(animated: true)
+        Drift.shared.navigator.close()
     }
     
     func popEvent() {
-        navigationController?.popViewController(animated: true)
+        Drift.shared.navigator.pop()
     }
 }

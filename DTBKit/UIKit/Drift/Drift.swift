@@ -57,6 +57,7 @@ public class Drift {
     
     public func stop() {
         window?.isHidden = true
+        navigator.clear()
     }
     
     func appTopMost() -> UIViewController? {
@@ -86,6 +87,8 @@ public class Drift {
     }
     
     public let request = GuideRequests()
+    
+    public let navigator = GuideNavigator()
 }
 
 //MARK: - UserDefaults

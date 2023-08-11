@@ -12,11 +12,14 @@
 
 import UIKit
 
-/// transition 用于实现浮窗 <-> 子页面之间的动画效果
-/// navigate 用于实现任务列表 <-> 指南之间的动画效果
+/// 动画容器
+///
+/// 使用 push / pop 代理方法会和 Thrio 冲突, 暂用 present / dismiss 替代来避免
 class GuideNavigationController: UINavigationController {
     
-    private let animateHandler = GuideAnimationHandler()
+    private let animation = GuideAnimation()
+    
+    var animatePair: (show: GuideAnimation.Types, hide: GuideAnimation.Types)?
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -37,9 +40,18 @@ class GuideNavigationController: UINavigationController {
     private func prepare() {
         self.setNavigationBarHidden(true, animated: false)
         
-        self.delegate = animateHandler
-        
         self.modalPresentationStyle = .custom
-        self.transitioningDelegate = animateHandler
+        self.transitioningDelegate = self
+    }
+}
+
+extension GuideNavigationController: UIViewControllerTransitioningDelegate {
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return animation.to(animatePair?.show ?? .none)
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return animation.to(animatePair?.hide ?? .none)
     }
 }
