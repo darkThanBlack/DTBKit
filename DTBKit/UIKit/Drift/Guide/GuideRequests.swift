@@ -73,17 +73,10 @@ public class GuideRequests {
     
     /// 通过是否存在新手任务线判断业务本身是否可用
     /// 普通总部无新手任务
-    public func isTaskable() -> Promise<Bool> {
-        return getTaskProgress().map({ $0.hasLine == true })
-//        return Promise { seal in
-//            let params = QueryReceivedGuideTaskLineRequest(tenantId: getTenantId(), tenantType: getTenantType())
-//            let request = Butterfly_Business.GuideTaskInterface.queryReceivedLineProgress(request: params)
-//            let _ = provider.rx.makeRequest(MultiTarget(request)).mapObject(type: Butterfly_Business.ReceivedGuideTaskLineProgressVO.self).subscribe { result in
-//                seal.fulfill(result.hasLine == true)
-//            } onError: { error in
-//                seal.reject(error)
-//            }
-//        }
+    ///
+    /// forced: true == 强制发起请求
+    public func isTaskable(forced: Bool = false) -> Promise<Bool> {
+        return getTaskProgress(forced: forced).map({ $0.hasLine == true })
     }
     
     //MARK: - 新手任务设置
@@ -138,17 +131,6 @@ public class GuideRequests {
             let current = result.finishResult?.finishedTaskNum ?? 0
             return current < total
         }
-//        return Promise { seal in
-//            let params = QueryReceivedGuideTaskLineRequest(tenantId: getTenantId(), tenantType: getTenantType())
-//            let request = Butterfly_Business.GuideTaskInterface.queryReceivedLineProgress(request: params)
-//            let _ = provider.rx.makeRequest(MultiTarget(request)).mapObject(type: Butterfly_Business.ReceivedGuideTaskLineProgressVO.self).subscribe { result in
-//                let total = result.finishResult?.totalTaskNum ?? 0
-//                let current = result.finishResult?.finishedTaskNum ?? 0
-//                seal.fulfill(current < total)
-//            } onError: { error in
-//                seal.reject(error)
-//            }
-//        }
     }
     
     /// 设置 - 更新开关状态

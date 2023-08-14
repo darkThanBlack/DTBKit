@@ -73,7 +73,7 @@ class GuideListCellModel: GuideListCellDataSource {
     
     var inferTime: String?
     
-    /// 仅控制右侧视图展示
+    /// 仅用于控制右侧视图展示
     var bizType: GuideListCell.BizTypes
     
     // - Custom
@@ -86,7 +86,7 @@ class GuideListCellModel: GuideListCellDataSource {
     /// 主页面路由
     var jumpUrl: String?
     
-    ///
+    /// 仅用于判断主页面路由是否能够跳转
     enum JumpStates {
         ///
         case unknown
@@ -96,6 +96,8 @@ class GuideListCellModel: GuideListCellDataSource {
         case noPermission(message: String?)
         /// 仅 web
         case webOnly(message: String?)
+        /// 未解锁
+        case locked
         /// 版本过低
         case oldVersion
     }

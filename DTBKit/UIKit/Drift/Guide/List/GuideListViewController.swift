@@ -187,15 +187,10 @@ extension GuideListViewController: GuideListViewDelegate {
     /// 刷新
     func guideListRefreshEvent() {
         viewModel.refreshState().done { names in
-            let title = names.isEmpty ? "刷新成功，暂时没有新的任务完成" : ("恭喜你，成功完成了以下任务" + names.reduce("", { res, next in
-                return res + ("、") + next
-            }))
-            
-            let alert = UIAlertController(title: "提示", message: title, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "取消", style: .default, handler: nil))
-            alert.addAction(UIAlertAction(title: "确定", style: .default, handler: { _ in
-                self.reloadTree()
-            }))
+            let alert = GuideRefreshAlertController(titles: names)
+            alert.completedHandler = { [weak self] in
+                self?.reloadTree()
+            }
             self.present(alert, animated: true)
         }.catch { error in
             if error.localizedDescription.count > 0 {
@@ -237,8 +232,10 @@ extension GuideListViewController: GuideListViewDelegate {
             view.makeToast(message)
         case .webOnly(message: let message):
             view.makeToast(message)
+        case .locked:
+            view.makeToast("完成前面的任务后，此任务将解锁")
         case .oldVersion:
-            view.makeToast("应用版本过低，请升级至最新版本")
+            AppConfigure.shared.versions.showAppUpdateAlert()
         case .success:
             actualRouterPush(linkUrl: model.linkUrl, routeUrl: model.jumpUrl)
         }
@@ -265,23 +262,30 @@ extension GuideListViewController: GuideListViewDelegate {
     
     /// 手动确认完成
     private func manuallyEnsure(with model: GuideListCellModel) {
+        ///
+        func actualEnsure() {
+            viewModel.manuallyEnsure(with: model.taskId).done { [weak self] success in
+                let guideAlert = GuideRefreshAlertController(titles: [model.title ?? ""])
+                guideAlert.completedHandler = {
+                    self?.reloadTree()
+                }
+                self?.present(guideAlert, animated: true)
+            }.catch({ error in
+                if error.localizedDescription.count > 0 {
+                    self.view.makeToast(error.localizedDescription)
+                }
+            })
+        }
+        
+        // jumpable 意指主页面路由是否能够跳转，故此处只检查权限
         switch model.jumpable {
         case .noPermission(message: let message):
             view.makeToast(message)
-        default:  // 只检查权限
+        default:
             let alert = UIAlertController(title: "提示", message: "任务将会被手动置为已完成状态，是否继续？", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "取消", style: .default, handler: nil))
-            alert.addAction(UIAlertAction(title: "确定", style: .default, handler: { [weak self] _ in
-                self?.viewModel.manuallyEnsure(with: model.taskId).done { success in
-                    self?.view.makeToast("修改" + (success ? "成功" : "失败"))
-                    DispatchQueue.main.async {
-                        self?.reloadTree()
-                    }
-                }.catch({ error in
-                    if error.localizedDescription.count > 0 {
-                        self?.view.makeToast(error.localizedDescription)
-                    }
-                })
+            alert.addAction(UIAlertAction(title: "确定", style: .default, handler: { _ in
+                actualEnsure()
             }))
             present(alert, animated: true)
         }

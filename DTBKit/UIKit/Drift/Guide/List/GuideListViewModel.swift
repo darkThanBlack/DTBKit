@@ -89,10 +89,11 @@ class GuideListViewModel {
             let param = Butterfly_Business.GetGuideTaskLineTreeRequest(operatorId: getOperatorId(), tenantId: getTenantId(), tenantType: getTenantType())
             let request = Butterfly_Business.GuideTaskInterface.getTaskLineTree(request: param)
             provider.rx.makeRequest(MultiTarget(request)).mapObject(type: Butterfly_Business.GuideTaskLineTreeBizVO.self).subscribe { result in
-                self.groups = result.nodes?.compactMap({ vo in
+                let datas = result.nodes?.compactMap({ vo in
                     return GuideListGroupModel.parse(node: vo)
                 }) ?? []
-                self.groups.first?.isSelected = true
+                (datas.first(where: { $0.isCompleted == false }) ?? datas.first)?.isSelected = true
+                self.groups = datas
                 seal.fulfill()
             } onError: { error in
                 seal.reject(error)
@@ -108,7 +109,7 @@ class GuideListViewModel {
                 let params = RefreshGuideTaskRequest(
                     lineSnapshotId: progress.lineSnapshotId,
                     parentId: group?.groupId,
-                    receiverId: self.getOperatorId(),
+                    receiverId: self.getTenantId(),
                     taskLineId: progress.taskLineId
                 )
                 let request = Butterfly_Business.GuideTaskInterface.refreshGuideTask(request: params)
@@ -276,6 +277,9 @@ extension GuideListCellModel {
         model.jumpUrl = jumper?.url
         
         var jumpFail: GuideListCellModel.JumpStates? = nil
+        
+        // 检查 - 解锁状态
+        jumpFail = (bizType == .locked) ? .locked : nil
         // 检查 - 仅 web
         func checkWebOnly() -> GuideListCellModel.JumpStates? {
             guard appTerm == nil else {
