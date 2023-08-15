@@ -28,35 +28,10 @@ class GuideDriftView: UIView {
         self.isFading = isFade
         self.fadeParam = params
         
-        let oldFrame = self.frame
-        // Step 1.  根据左右吸边，做一个整体偏移
-        UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseIn) {
-            var direct = "left"
-            if let aniType = self.fadeParam?["type"] as? String, aniType == "absorb",
-               let value = self.fadeParam?["direct"] as? String {
-                direct = value
-            }
-            switch direct {
-            case "left":
-                self.frame.origin.x = oldFrame.origin.x - 8.0
-            case "right":
-                self.frame.origin.x = oldFrame.origin.x + 8.0
-            default:
-                break
-            }
-            // Step 2.  改变自身展示形态
-            UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseInOut) {
-                self.alpha = self.isFading ? 0.8 : 1.0
-                self.setNeedsLayout()
-                self.layoutIfNeeded()
-            } completion: { _ in
-                // Step 3.  复原整体偏移，营造弹动效果
-                UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseInOut) {
-                    self.frame = oldFrame
-                } completion: { _ in
-                    // do nth.
-                }
-            }
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseInOut) {
+            self.alpha = self.isFading ? 0.8 : 1.0
+            self.setNeedsLayout()
+            self.layoutIfNeeded()
         } completion: { _ in
             // do nth.
         }

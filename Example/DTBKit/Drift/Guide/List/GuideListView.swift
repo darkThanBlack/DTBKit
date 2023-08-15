@@ -15,7 +15,6 @@ import SnapKit
 
 protocol GuideListViewDelegate: GuideGroupViewDelegate, GuideRefreshViewDelegate {
     
-    func mockEvent()
     ///
     func closeEvent()
     ///
@@ -55,12 +54,6 @@ class GuideListView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    @objc private func titleLabelEvent(gesture: UITapGestureRecognizer) {
-#if DEBUG
-        delegate?.mockEvent()
-#endif
     }
     
     @objc private func closeButtonEvent(button: UIButton) {
@@ -126,13 +119,6 @@ class GuideListView: UIView {
         let titleLabel = UILabel()
         titleLabel.font = UIFont.systemFont(ofSize: 17.0, weight: .medium)
         titleLabel.textColor = DriftAdapter.color_333333()
-        
-        titleLabel.isUserInteractionEnabled = true
-        let singleTap = UITapGestureRecognizer(target: self, action: #selector(titleLabelEvent(gesture:)))
-        singleTap.numberOfTapsRequired = 1
-        singleTap.numberOfTouchesRequired = 1
-        titleLabel.addGestureRecognizer(singleTap)
-        
         titleLabel.text = "一起来完成新手启动任务吧！"
         return titleLabel
     }()

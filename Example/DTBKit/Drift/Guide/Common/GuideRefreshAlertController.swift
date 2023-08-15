@@ -15,6 +15,8 @@ import UIKit
 /// 新手引导 - 刷新弹窗
 class GuideRefreshAlertController: UIViewController {
     
+    private let animateHandler = AlertAnimationHandler(type: .center)
+    
     private var titles: [String] = []
     
     var completedHandler: (()->())?
@@ -32,7 +34,7 @@ class GuideRefreshAlertController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         
         self.modalPresentationStyle = .custom
-        self.transitioningDelegate = self
+        self.transitioningDelegate = animateHandler
     }
     
     required init?(coder: NSCoder) {
@@ -50,7 +52,7 @@ class GuideRefreshAlertController: UIViewController {
         view.addSubview(contentView)
         contentView.snp.makeConstraints { make in
             make.centerX.centerY.equalToSuperview()
-            make.width.equalTo(240.0*ScreenRatio)
+            make.width.equalTo(240.0)  //* ScreenRatio
             make.height.lessThanOrEqualToSuperview()
         }
         
@@ -241,81 +243,3 @@ class GuideRefreshAlertCell: UITableViewCell {
     }()
 }
 
-extension GuideRefreshAlertController: UIViewControllerTransitioningDelegate {
-    
-    public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return Animation(transitionType: .dismiss)
-    }
-    
-    public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return Animation(transitionType: .present)
-    }
-    
-    @objc(GuideRefreshAlertControllerAnimation)
-    class Animation: NSObject, UIViewControllerAnimatedTransitioning {
-        
-        enum TransitionType {
-            case present, dismiss
-        }
-        
-        private let type: TransitionType
-        
-        private let coverTag = 20230814
-        init(transitionType: TransitionType) {
-            self.type = transitionType
-        }
-        
-        private func presentAnimateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-            guard let alertVC = transitionContext.viewController(forKey: .to) else {
-                return
-            }
-            let container = transitionContext.containerView
-            alertVC.view.frame = CGRect(x: 0, y: ScreenHeight, width: ScreenWidth, height: ScreenHeight)
-            container.addSubview(coverView)
-            container.addSubview(alertVC.view)
-            UIView.animate(withDuration: 0.3, animations: {
-                alertVC.view.frame = ScreenRect
-                self.coverView.alpha = 0.35
-            }) { _ in
-                transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-            }
-        }
-        
-        private func dismissAnimateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-            guard let alertVC = transitionContext.viewController(forKey: .from) else {
-                return
-            }
-            let container = transitionContext.containerView
-            let cover = container.viewWithTag(coverTag)
-            UIView.animate(withDuration: 0.3, animations: {
-                cover?.alpha = 0
-                alertVC.view.frame = CGRect(x: 0, y: ScreenHeight, width: ScreenWidth, height: ScreenHeight)
-            }) { _ in
-                alertVC.view.removeFromSuperview()
-                cover?.removeFromSuperview()
-                transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-            }
-        }
-        
-        private lazy var coverView: UIView = {
-            let cover = UIView(backgroundColor: .black)
-            cover.frame = ScreenRect
-            cover.alpha = 0
-            cover.tag = coverTag
-            return cover
-        }()
-        
-        func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-            return 0.3
-        }
-        
-        func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-            switch type {
-            case .present:
-                presentAnimateTransition(using: transitionContext)
-            case .dismiss:
-                dismissAnimateTransition(using: transitionContext)
-            }
-        }
-    }
-}

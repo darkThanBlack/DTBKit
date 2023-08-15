@@ -258,8 +258,8 @@ class GuideListCell: UITableViewCell {
     }()
     
     /// 耗时
-    private lazy var timeLabel: XMEdgeLabel = {
-        let timeLabel = XMEdgeLabel()
+    private lazy var timeLabel: EdgeLabel = {
+        let timeLabel = EdgeLabel()
         timeLabel.backgroundColor = DriftAdapter.color_FAFAFA()
         timeLabel.font = UIFont.systemFont(ofSize: 11.0, weight: .regular)
         timeLabel.textColor = DriftAdapter.color_999999()

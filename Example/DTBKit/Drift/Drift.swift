@@ -53,6 +53,8 @@ public class Drift {
     public func start() {
         prepare()
         window?.isHidden = false
+        
+        Drift.shared.mainController?.drift.fireFade(false)
     }
     
     public func stop() {
@@ -85,8 +87,6 @@ public class Drift {
         }
         return recursion(controller)
     }
-    
-    public let request = GuideRequests()
     
     public let navigator = GuideNavigator()
 }

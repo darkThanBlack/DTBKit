@@ -21,6 +21,8 @@ targets:
           - $(PODS_CONFIGURATION_BUILD_DIR)/DTBKit
         LIBRARY_SEARCH_PATHS:
           - $(inherited)
+        OTHER_SWIFT_FLAGS:
+          - "$(inherited) -D COCOAPODS -D DTBKitable"
         ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES: $(inherited)
         ENABLE_BITCODE: false
         WARNING_CFLAGS:

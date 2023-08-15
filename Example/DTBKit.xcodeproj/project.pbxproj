@@ -11,125 +11,132 @@
 		0C1A172E134B1257FB303B8A /* DTBKit.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 3C7D3B41655E7FCD0EEE3DDE /* DTBKit.podspec */; };
 		0D95639B99F2A5832783FEF1 /* project.yml in Resources */ = {isa = PBXBuildFile; fileRef = 70B7C80B5F60A9B0123B9530 /* project.yml */; };
 		21BEECD17FA96DDA0BDBEE43 /* UIImageView+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A125D0742C22AB72E2FB031 /* UIImageView+DTBKit.swift */; };
-		2817A4676AD7A4A87863FB18 /* Pods_DTBKit_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4DC59E903BF48E2D225EDDD /* Pods_DTBKit_Example.framework */; };
+		293C559A80D7A7708E7BA34D /* GuideGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7875BF80C13623837AB4CDD7 /* GuideGroupView.swift */; };
+		2A362B67E58359CDAAFF91BA /* GuideRefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF0EDD7B3C29FC2B3836CDB /* GuideRefreshView.swift */; };
+		2B59DE43145E2B7B5BCF9FDC /* GuideDocsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C7D2E2BC23E7F7EE9AD080 /* GuideDocsView.swift */; };
 		32EC284AD691427577F70F1D /* UIImage+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CEAF5FD9FBC8F10646C2DB /* UIImage+DTBKit.swift */; };
-		4E873C07EA8DF68768C1CBCA /* DemoEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA0A7EC6D2C1DC9D18F08A1 /* DemoEntry.swift */; };
+		3AC23554A53955C5AF50A390 /* DemoEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC825259B4A2BC75D4CAEBE /* DemoEntry.swift */; };
+		3BADA596621DFDDDFDFF7FF0 /* GuideNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F85AD89D7368C0D7CB608F /* GuideNavigator.swift */; };
+		454C6EDDE2B559349CF33A4D /* GuideListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90312D2D7E9F3C66418BFD6B /* GuideListView.swift */; };
+		52B45C910CBE5919A5714350 /* GuideListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA222D1CA02633EDDE5FBAFA /* GuideListViewController.swift */; };
+		581DC4CA72E19C6F7A76A1E7 /* GuideListModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B25E22EA12255E1DF073DB4 /* GuideListModels.swift */; };
+		62A03AAD2669D8F10DB66810 /* GuideAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E360D9CEC0C3B8E86F21B5 /* GuideAnimation.swift */; };
 		66F19A1005CEDC2EDDBFDF6A /* Exported.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB035E2CD0BB15B35B6ADEC /* Exported.swift */; };
+		7085BF1C7DDE6D4AC768D176 /* DriftMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC7965369759BCE8568C02F /* DriftMainViewController.swift */; };
+		77148314DBAF98FE53447EC5 /* DriftAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C25030E5E6303521AA46B05 /* DriftAdapter.swift */; };
+		77A21B6E06C65AD56D40F6E3 /* GuideGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA618FD0DD0B81EAD18A39A /* GuideGroupCell.swift */; };
 		7CF58AE26EC8F27ABBC74059 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB470419225C0F4E263C23C7 /* HomeViewController.swift */; };
 		7E9600356FFAC5020C42141B /* Array+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D23755F9FD8A9882B263F /* Array+DTBKit.swift */; };
 		7F4426EFE8922514BEFFA1C0 /* DTBColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8013B5645F272A042C7BD3A /* DTBColors.swift */; };
+		805A957894565B4C61C194C6 /* GuideDriftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F8033A7C87062676046345 /* GuideDriftView.swift */; };
+		8A88749BBC7F9B1F52660EAE /* GuideNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01AF9B6856342AD559CE8C4 /* GuideNavigationController.swift */; };
 		8DD734649787D05EF6D0203A /* EdgeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA75639F4BCCE3CFCB62F65 /* EdgeLabel.swift */; };
 		90766959B8603C9A9E4183C0 /* DemoContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB8888AC87F4EF690ACB15C /* DemoContentView.swift */; };
-		96C2FBBB655CB57056972881 /* Drift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88CE30A86D7C101933069C5 /* Drift.swift */; };
+		923EC4B87F372D974DBDE8CB /* GuideDocsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026BE8308181F9B40BCACF55 /* GuideDocsViewController.swift */; };
+		93ADA9493C26B513330FBD88 /* Drift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D5E7F03CEAB6D5312B4AF9 /* Drift.swift */; };
+		93D070AAB567C87DC074BD64 /* DriftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B9B82681C66B688A48B739 /* DriftView.swift */; };
 		996CFED17A4B1BDD6EE9648A /* DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EC983BB0CCCB17419FBFBA /* DTBKit.swift */; };
+		9D01FF2535AD554BC4BEDB1F /* XMColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8D2A2CEE6175DC48EA0908 /* XMColor.swift */; };
 		A1348D0AEC21FEC0D41CBBE1 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1E7982283574061EF2C6745 /* Launch Screen.storyboard */; };
-		A21C61AB2A67D71A00CA35C5 /* DriftWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21C61AA2A67D71A00CA35C5 /* DriftWindow.swift */; };
-		A21C61AD2A67D7ED00CA35C5 /* DriftMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21C61AC2A67D7ED00CA35C5 /* DriftMainViewController.swift */; };
-		A21C61B22A67ED8000CA35C5 /* DriftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21C61B12A67ED8000CA35C5 /* DriftView.swift */; };
-		A21C61B42A68D64000CA35C5 /* ui-kit.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A21C61B32A68D64000CA35C5 /* ui-kit.xcassets */; };
-		A247B6B32A70CE3700632477 /* GuideAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A247B6B22A70CE3700632477 /* GuideAnimation.swift */; };
-		A24C77292A7255DC00005AD7 /* GuideNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24C77282A7255DC00005AD7 /* GuideNavigationController.swift */; };
-		A24C772B2A725DE600005AD7 /* GuideDocsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24C772A2A725DE600005AD7 /* GuideDocsView.swift */; };
-		A24C772E2A72611600005AD7 /* GuideContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24C772D2A72611600005AD7 /* GuideContainerView.swift */; };
-		A2B001B92A6E1DB1001124ED /* GuideDocsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B001B82A6E1DB1001124ED /* GuideDocsViewController.swift */; };
-		A2B001BB2A6E6C2D001124ED /* GuideListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B001BA2A6E6C2D001124ED /* GuideListView.swift */; };
-		A2B001BD2A6E79CF001124ED /* UIButton+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B001BC2A6E79CF001124ED /* UIButton+DTBKit.swift */; };
-		A2B001BF2A6E7B01001124ED /* DriftAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B001BE2A6E7B01001124ED /* DriftAdapter.swift */; };
-		A2CE51C12A6A90C700B5704B /* GuideDriftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2CE51C02A6A90C700B5704B /* GuideDriftView.swift */; };
-		A2CE51C32A6BBB1900B5704B /* GuideListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2CE51C22A6BBB1900B5704B /* GuideListViewController.swift */; };
-		A2E9C8A52A77912900883D07 /* GuideGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E9C8A32A77912800883D07 /* GuideGroupView.swift */; };
-		A2E9C8A82A77941F00883D07 /* GuideGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E9C8A72A77941F00883D07 /* GuideGroupCell.swift */; };
-		A2E9C8AB2A77A0F700883D07 /* GuideViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E9C8AA2A77A0F700883D07 /* GuideViewModel.swift */; };
-		A2E9C8AD2A77B55400883D07 /* GuideRefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E9C8AC2A77B55400883D07 /* GuideRefreshView.swift */; };
-		A2E9C8B22A789F6300883D07 /* GuideListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E9C8B12A789F6300883D07 /* GuideListCell.swift */; };
+		A22FBF262A8B790A00FC3AB4 /* AlertAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22FBF252A8B790A00FC3AB4 /* AlertAnimation.swift */; };
+		A48B1C7C36A5237D7F71BDD0 /* DriftWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5793A9C77CEB0BA20716CBF /* DriftWindow.swift */; };
 		A735232D860682E7B7E7ECB0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F814B4B829198871353120F8 /* Images.xcassets */; };
+		ACE6BAC40FBC6503D94CB4FC /* ui-kit.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C32B3577F677B75582FDB7F /* ui-kit.xcassets */; };
+		ADF9BE4BCD21B3DDA9D45C7A /* Pods_DTBKit_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95600C0C223804560262B2D3 /* Pods_DTBKit_Example.framework */; };
 		B3B9577BA8721D8698D7CF5D /* basic.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 881598D80582636EC3A51695 /* basic.xcassets */; };
+		BABA929407C7FFCFFE1BA033 /* GuideRefreshAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4769B2834371ECE1F77949AF /* GuideRefreshAlertController.swift */; };
 		BDBB8C6B4588D4721BBE6CE5 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D9099D1384E801AE7056DEE1 /* README.md */; };
 		C1036EBEAFFED38FC7E633B1 /* DemoNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03364B5CAD0A00266B4A720C /* DemoNavigationView.swift */; };
 		D57FCCB4F94F72CBE04E4881 /* DTBMaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72606BB1D63D3B45B7923CF9 /* DTBMaths.swift */; };
-		DEF3374D41E54CDBA4ACA9C7 /* XMColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72CA11B14C676CF2BC4B22E4 /* XMColor.swift */; };
+		D8166F40B8C325DF901445A0 /* UIButton+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEC3A04F7C037016F5F353D /* UIButton+DTBKit.swift */; };
 		E0478EC70F456DA31671C482 /* DTBNavigations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4077018B3676CD26160A07E9 /* DTBNavigations.swift */; };
+		E75F991716210D3330D0A705 /* GuideContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FD278B086454017F15C2122 /* GuideContainerView.swift */; };
 		EBDD4E252E14757AB100E441 /* DTBApps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E1DA12F6B31A7812F0346A /* DTBApps.swift */; };
+		ECCB29426D8CE9DCED85A3F3 /* GuideListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B0F95DF56E1065444C0CAE /* GuideListViewModel.swift */; };
+		FD60F67EBFE4CBD27C388B2E /* GuideListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEA7D686E49D06603E25058 /* GuideListCell.swift */; };
 		FFA3F576A21DD1B545DED513 /* SimpleVisualViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63C6B9CDD3CC334F4715719 /* SimpleVisualViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		00EC983BB0CCCB17419FBFBA /* DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DTBKit.swift; path = ../DTBKit/DTBKit.swift; sourceTree = "<group>"; };
+		026BE8308181F9B40BCACF55 /* GuideDocsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideDocsViewController.swift; sourceTree = "<group>"; };
 		03364B5CAD0A00266B4A720C /* DemoNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoNavigationView.swift; sourceTree = "<group>"; };
-		0DA0A7EC6D2C1DC9D18F08A1 /* DemoEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoEntry.swift; sourceTree = "<group>"; };
+		05F85AD89D7368C0D7CB608F /* GuideNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideNavigator.swift; sourceTree = "<group>"; };
 		271C5701FBC0F1C84F6316FA /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		36D5E7F03CEAB6D5312B4AF9 /* Drift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drift.swift; sourceTree = "<group>"; };
 		3A125D0742C22AB72E2FB031 /* UIImageView+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+DTBKit.swift"; sourceTree = "<group>"; };
+		3C25030E5E6303521AA46B05 /* DriftAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriftAdapter.swift; sourceTree = "<group>"; };
 		3C7D3B41655E7FCD0EEE3DDE /* DTBKit.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = DTBKit.podspec; path = ../DTBKit.podspec; sourceTree = "<group>"; };
+		3EEA7D686E49D06603E25058 /* GuideListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideListCell.swift; sourceTree = "<group>"; };
+		3FD278B086454017F15C2122 /* GuideContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideContainerView.swift; sourceTree = "<group>"; };
 		4077018B3676CD26160A07E9 /* DTBNavigations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTBNavigations.swift; sourceTree = "<group>"; };
+		45C7D2E2BC23E7F7EE9AD080 /* GuideDocsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideDocsView.swift; sourceTree = "<group>"; };
+		4769B2834371ECE1F77949AF /* GuideRefreshAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideRefreshAlertController.swift; sourceTree = "<group>"; };
+		55F8033A7C87062676046345 /* GuideDriftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideDriftView.swift; sourceTree = "<group>"; };
 		57E1DA12F6B31A7812F0346A /* DTBApps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTBApps.swift; sourceTree = "<group>"; };
 		5AA75639F4BCCE3CFCB62F65 /* EdgeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeLabel.swift; sourceTree = "<group>"; };
+		5AC7965369759BCE8568C02F /* DriftMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriftMainViewController.swift; sourceTree = "<group>"; };
+		5C32B3577F677B75582FDB7F /* ui-kit.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "ui-kit.xcassets"; sourceTree = "<group>"; };
 		5E640FCA5DA1C76456068E49 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
-		5F58A3667E08C59194B2AE9B /* Pods-DTBKit_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DTBKit_Example.release.xcconfig"; path = "Target Support Files/Pods-DTBKit_Example/Pods-DTBKit_Example.release.xcconfig"; sourceTree = "<group>"; };
+		6238A276E38F4312B87D9CEF /* Pods-DTBKit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DTBKit_Example.debug.xcconfig"; path = "Target Support Files/Pods-DTBKit_Example/Pods-DTBKit_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		70B7C80B5F60A9B0123B9530 /* project.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = project.yml; sourceTree = "<group>"; };
 		72606BB1D63D3B45B7923CF9 /* DTBMaths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTBMaths.swift; sourceTree = "<group>"; };
-		72CA11B14C676CF2BC4B22E4 /* XMColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMColor.swift; sourceTree = "<group>"; };
 		76F0BA395FE35F6B3FE4809A /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		7875BF80C13623837AB4CDD7 /* GuideGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideGroupView.swift; sourceTree = "<group>"; };
+		7B25E22EA12255E1DF073DB4 /* GuideListModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideListModels.swift; sourceTree = "<group>"; };
 		881598D80582636EC3A51695 /* basic.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = basic.xcassets; sourceTree = "<group>"; };
+		8AEC3A04F7C037016F5F353D /* UIButton+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+DTBKit.swift"; sourceTree = "<group>"; };
 		8CB035E2CD0BB15B35B6ADEC /* Exported.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exported.swift; sourceTree = "<group>"; };
-		A21C61AA2A67D71A00CA35C5 /* DriftWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriftWindow.swift; sourceTree = "<group>"; };
-		A21C61AC2A67D7ED00CA35C5 /* DriftMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriftMainViewController.swift; sourceTree = "<group>"; };
-		A21C61B12A67ED8000CA35C5 /* DriftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriftView.swift; sourceTree = "<group>"; };
-		A21C61B32A68D64000CA35C5 /* ui-kit.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "ui-kit.xcassets"; sourceTree = "<group>"; };
-		A247B6B22A70CE3700632477 /* GuideAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideAnimation.swift; sourceTree = "<group>"; };
-		A24C77282A7255DC00005AD7 /* GuideNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideNavigationController.swift; sourceTree = "<group>"; };
-		A24C772A2A725DE600005AD7 /* GuideDocsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideDocsView.swift; sourceTree = "<group>"; };
-		A24C772D2A72611600005AD7 /* GuideContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideContainerView.swift; sourceTree = "<group>"; };
-		A2B001B82A6E1DB1001124ED /* GuideDocsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideDocsViewController.swift; sourceTree = "<group>"; };
-		A2B001BA2A6E6C2D001124ED /* GuideListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideListView.swift; sourceTree = "<group>"; };
-		A2B001BC2A6E79CF001124ED /* UIButton+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+DTBKit.swift"; sourceTree = "<group>"; };
-		A2B001BE2A6E7B01001124ED /* DriftAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriftAdapter.swift; sourceTree = "<group>"; };
-		A2CE51C02A6A90C700B5704B /* GuideDriftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideDriftView.swift; sourceTree = "<group>"; };
-		A2CE51C22A6BBB1900B5704B /* GuideListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideListViewController.swift; sourceTree = "<group>"; };
-		A2E9C8A32A77912800883D07 /* GuideGroupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuideGroupView.swift; sourceTree = "<group>"; };
-		A2E9C8A72A77941F00883D07 /* GuideGroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideGroupCell.swift; sourceTree = "<group>"; };
-		A2E9C8AA2A77A0F700883D07 /* GuideViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewModel.swift; sourceTree = "<group>"; };
-		A2E9C8AC2A77B55400883D07 /* GuideRefreshView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideRefreshView.swift; sourceTree = "<group>"; };
-		A2E9C8B12A789F6300883D07 /* GuideListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideListCell.swift; sourceTree = "<group>"; };
-		A4DC59E903BF48E2D225EDDD /* Pods_DTBKit_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DTBKit_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8DC825259B4A2BC75D4CAEBE /* DemoEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoEntry.swift; sourceTree = "<group>"; };
+		90312D2D7E9F3C66418BFD6B /* GuideListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideListView.swift; sourceTree = "<group>"; };
+		94B0F95DF56E1065444C0CAE /* GuideListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideListViewModel.swift; sourceTree = "<group>"; };
+		95600C0C223804560262B2D3 /* Pods_DTBKit_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DTBKit_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A22FBF252A8B790A00FC3AB4 /* AlertAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertAnimation.swift; sourceTree = "<group>"; };
 		A94332BD9942E3A20F8AC621 /* DTBKit_Example.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = DTBKit_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB470419225C0F4E263C23C7 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		ABD44A74C27BCF41E4BC64F8 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		AB8D2A2CEE6175DC48EA0908 /* XMColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMColor.swift; sourceTree = "<group>"; };
 		AD3822F1BFE14ECBE1DF3A18 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		B01AF9B6856342AD559CE8C4 /* GuideNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideNavigationController.swift; sourceTree = "<group>"; };
+		B1B9B82681C66B688A48B739 /* DriftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriftView.swift; sourceTree = "<group>"; };
 		BAB8888AC87F4EF690ACB15C /* DemoContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoContentView.swift; sourceTree = "<group>"; };
 		C1E7982283574061EF2C6745 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		C5CEAF5FD9FBC8F10646C2DB /* UIImage+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+DTBKit.swift"; sourceTree = "<group>"; };
-		C88CE30A86D7C101933069C5 /* Drift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drift.swift; sourceTree = "<group>"; };
 		C93D23755F9FD8A9882B263F /* Array+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+DTBKit.swift"; sourceTree = "<group>"; };
+		CA222D1CA02633EDDE5FBAFA /* GuideListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideListViewController.swift; sourceTree = "<group>"; };
+		CAF0EDD7B3C29FC2B3836CDB /* GuideRefreshView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideRefreshView.swift; sourceTree = "<group>"; };
 		CDAF59F97655EB8E78958AD5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D5793A9C77CEB0BA20716CBF /* DriftWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriftWindow.swift; sourceTree = "<group>"; };
 		D63C6B9CDD3CC334F4715719 /* SimpleVisualViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleVisualViewController.swift; sourceTree = "<group>"; };
 		D9099D1384E801AE7056DEE1 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		DA5E68C629A3A3C6AE2E1CE3 /* Pods-DTBKit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DTBKit_Example.debug.xcconfig"; path = "Target Support Files/Pods-DTBKit_Example/Pods-DTBKit_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		E8013B5645F272A042C7BD3A /* DTBColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTBColors.swift; sourceTree = "<group>"; };
+		EF1858035FA222DF4A2697E8 /* Pods-DTBKit_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DTBKit_Example.release.xcconfig"; path = "Target Support Files/Pods-DTBKit_Example/Pods-DTBKit_Example.release.xcconfig"; sourceTree = "<group>"; };
 		F07719E41192E51E26324668 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		F2DCF0C710372F5B71633BAC /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		F814B4B829198871353120F8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		F8E360D9CEC0C3B8E86F21B5 /* GuideAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideAnimation.swift; sourceTree = "<group>"; };
+		FBA618FD0DD0B81EAD18A39A /* GuideGroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideGroupCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		DEBA17304F9C96320FFECAE5 /* Frameworks */ = {
+		F36D2678CE9FE8B34AF719C5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2817A4676AD7A4A87863FB18 /* Pods_DTBKit_Example.framework in Frameworks */,
+				ADF9BE4BCD21B3DDA9D45C7A /* Pods_DTBKit_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		06B363F0012B504446EAE338 /* DemoMenu */ = {
+		06B363F0012B504446EAE338 /* DemoMenuUI */ = {
 			isa = PBXGroup;
 			children = (
-				03364B5CAD0A00266B4A720C /* DemoNavigationView.swift */,
 				BAB8888AC87F4EF690ACB15C /* DemoContentView.swift */,
+				03364B5CAD0A00266B4A720C /* DemoNavigationView.swift */,
 				D63C6B9CDD3CC334F4715719 /* SimpleVisualViewController.swift */,
 			);
-			path = DemoMenu;
+			path = DemoMenuUI;
 			sourceTree = "<group>";
 		};
 		128CE0D5562F0055DF8376EC /* Basic */ = {
@@ -154,27 +161,33 @@
 			path = APP;
 			sourceTree = "<group>";
 		};
-		3538C54AB26F53954F7E67CA /* Drift */ = {
+		31EC8C484B6415ADFE7CB85E /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				A2B001BE2A6E7B01001124ED /* DriftAdapter.swift */,
-				ABD44A74C27BCF41E4BC64F8 /* .gitkeep */,
-				C88CE30A86D7C101933069C5 /* Drift.swift */,
-				A21C61AA2A67D71A00CA35C5 /* DriftWindow.swift */,
-				A21C61AC2A67D7ED00CA35C5 /* DriftMainViewController.swift */,
-				A21C61B12A67ED8000CA35C5 /* DriftView.swift */,
-				A21C61A92A67D6EC00CA35C5 /* Guide */,
+				F8E360D9CEC0C3B8E86F21B5 /* GuideAnimation.swift */,
+				3FD278B086454017F15C2122 /* GuideContainerView.swift */,
+				B01AF9B6856342AD559CE8C4 /* GuideNavigationController.swift */,
+				4769B2834371ECE1F77949AF /* GuideRefreshAlertController.swift */,
 			);
-			path = Drift;
+			path = Common;
+			sourceTree = "<group>";
+		};
+		36A10BCC888E7DF821EF0157 /* Group */ = {
+			isa = PBXGroup;
+			children = (
+				FBA618FD0DD0B81EAD18A39A /* GuideGroupCell.swift */,
+				7875BF80C13623837AB4CDD7 /* GuideGroupView.swift */,
+			);
+			path = Group;
 			sourceTree = "<group>";
 		};
 		3CF4BA5C21F365DBA62A397F /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				A22FBF272A8B792C00FC3AB4 /* TransAnimate */,
 				F2DCF0C710372F5B71633BAC /* .gitkeep */,
 				5AA75639F4BCCE3CFCB62F65 /* EdgeLabel.swift */,
-				72CA11B14C676CF2BC4B22E4 /* XMColor.swift */,
-				3538C54AB26F53954F7E67CA /* Drift */,
+				AB8D2A2CEE6175DC48EA0908 /* XMColor.swift */,
 			);
 			name = UIKit;
 			path = ../DTBKit/UIKit;
@@ -188,24 +201,27 @@
 			path = Math;
 			sourceTree = "<group>";
 		};
+		3F8538B122BCD58E039023D0 /* Guide */ = {
+			isa = PBXGroup;
+			children = (
+				55F8033A7C87062676046345 /* GuideDriftView.swift */,
+				05F85AD89D7368C0D7CB608F /* GuideNavigator.swift */,
+				31EC8C484B6415ADFE7CB85E /* Common */,
+				DA38CB4AAE25119778024A84 /* Docs */,
+				BC7C2F1F4284A44851A9A880 /* List */,
+			);
+			path = Guide;
+			sourceTree = "<group>";
+		};
 		487792C5BD29D0D045855781 /* Foundations */ = {
 			isa = PBXGroup;
 			children = (
 				C93D23755F9FD8A9882B263F /* Array+DTBKit.swift */,
+				8AEC3A04F7C037016F5F353D /* UIButton+DTBKit.swift */,
 				C5CEAF5FD9FBC8F10646C2DB /* UIImage+DTBKit.swift */,
 				3A125D0742C22AB72E2FB031 /* UIImageView+DTBKit.swift */,
-				A2B001BC2A6E79CF001124ED /* UIButton+DTBKit.swift */,
 			);
 			path = Foundations;
-			sourceTree = "<group>";
-		};
-		4E35FCB44B3F6041A446098F /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				DA5E68C629A3A3C6AE2E1CE3 /* Pods-DTBKit_Example.debug.xcconfig */,
-				5F58A3667E08C59194B2AE9B /* Pods-DTBKit_Example.release.xcconfig */,
-			);
-			path = Pods;
 			sourceTree = "<group>";
 		};
 		52AFD474F8962326E7DF73D1 /* Colors */ = {
@@ -214,6 +230,37 @@
 				E8013B5645F272A042C7BD3A /* DTBColors.swift */,
 			);
 			path = Colors;
+			sourceTree = "<group>";
+		};
+		54BE28F9B79FDF9FE208E15C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6238A276E38F4312B87D9CEF /* Pods-DTBKit_Example.debug.xcconfig */,
+				EF1858035FA222DF4A2697E8 /* Pods-DTBKit_Example.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		6FA90DBDF75CB93C0C29BD11 /* Drift */ = {
+			isa = PBXGroup;
+			children = (
+				36D5E7F03CEAB6D5312B4AF9 /* Drift.swift */,
+				3C25030E5E6303521AA46B05 /* DriftAdapter.swift */,
+				5AC7965369759BCE8568C02F /* DriftMainViewController.swift */,
+				B1B9B82681C66B688A48B739 /* DriftView.swift */,
+				D5793A9C77CEB0BA20716CBF /* DriftWindow.swift */,
+				3F8538B122BCD58E039023D0 /* Guide */,
+			);
+			path = Drift;
+			sourceTree = "<group>";
+		};
+		850DA62582B4E4F604FF7B9E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3EEA7D686E49D06603E25058 /* GuideListCell.swift */,
+				CAF0EDD7B3C29FC2B3836CDB /* GuideRefreshView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		88030DA478C3BC8517A7C58D /* Source Codes */ = {
@@ -230,13 +277,14 @@
 			isa = PBXGroup;
 			children = (
 				CDAF59F97655EB8E78958AD5 /* AppDelegate.swift */,
+				8DC825259B4A2BC75D4CAEBE /* DemoEntry.swift */,
 				8CB035E2CD0BB15B35B6ADEC /* Exported.swift */,
 				AB470419225C0F4E263C23C7 /* HomeViewController.swift */,
-				0DA0A7EC6D2C1DC9D18F08A1 /* DemoEntry.swift */,
 				F814B4B829198871353120F8 /* Images.xcassets */,
 				F07719E41192E51E26324668 /* Info.plist */,
 				C1E7982283574061EF2C6745 /* Launch Screen.storyboard */,
-				06B363F0012B504446EAE338 /* DemoMenu */,
+				06B363F0012B504446EAE338 /* DemoMenuUI */,
+				6FA90DBDF75CB93C0C29BD11 /* Drift */,
 			);
 			path = DTBKit;
 			sourceTree = "<group>";
@@ -254,70 +302,18 @@
 			children = (
 				271C5701FBC0F1C84F6316FA /* .gitkeep */,
 				881598D80582636EC3A51695 /* basic.xcassets */,
-				A21C61B32A68D64000CA35C5 /* ui-kit.xcassets */,
+				5C32B3577F677B75582FDB7F /* ui-kit.xcassets */,
 			);
 			name = Assets;
 			path = ../DTBKit/Assets;
 			sourceTree = "<group>";
 		};
-		A21C61A92A67D6EC00CA35C5 /* Guide */ = {
+		A22FBF272A8B792C00FC3AB4 /* TransAnimate */ = {
 			isa = PBXGroup;
 			children = (
-				A2E9C8AA2A77A0F700883D07 /* GuideViewModel.swift */,
-				A2CE51C02A6A90C700B5704B /* GuideDriftView.swift */,
-				A2B12A422A7274CD0059EF3D /* Common */,
-				A2B12A402A7274B40059EF3D /* List */,
-				A2B12A412A7274B90059EF3D /* Docs */,
+				A22FBF252A8B790A00FC3AB4 /* AlertAnimation.swift */,
 			);
-			path = Guide;
-			sourceTree = "<group>";
-		};
-		A2B12A402A7274B40059EF3D /* List */ = {
-			isa = PBXGroup;
-			children = (
-				A2E9C8B32A78DDB500883D07 /* View */,
-				A2E9C8A02A77869400883D07 /* Group */,
-				A2B001BA2A6E6C2D001124ED /* GuideListView.swift */,
-				A2CE51C22A6BBB1900B5704B /* GuideListViewController.swift */,
-			);
-			path = List;
-			sourceTree = "<group>";
-		};
-		A2B12A412A7274B90059EF3D /* Docs */ = {
-			isa = PBXGroup;
-			children = (
-				A24C772A2A725DE600005AD7 /* GuideDocsView.swift */,
-				A2B001B82A6E1DB1001124ED /* GuideDocsViewController.swift */,
-			);
-			path = Docs;
-			sourceTree = "<group>";
-		};
-		A2B12A422A7274CD0059EF3D /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				A24C77282A7255DC00005AD7 /* GuideNavigationController.swift */,
-				A247B6B22A70CE3700632477 /* GuideAnimation.swift */,
-				A24C772D2A72611600005AD7 /* GuideContainerView.swift */,
-			);
-			path = Common;
-			sourceTree = "<group>";
-		};
-		A2E9C8A02A77869400883D07 /* Group */ = {
-			isa = PBXGroup;
-			children = (
-				A2E9C8A32A77912800883D07 /* GuideGroupView.swift */,
-				A2E9C8A72A77941F00883D07 /* GuideGroupCell.swift */,
-			);
-			path = Group;
-			sourceTree = "<group>";
-		};
-		A2E9C8B32A78DDB500883D07 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				A2E9C8AC2A77B55400883D07 /* GuideRefreshView.swift */,
-				A2E9C8B12A789F6300883D07 /* GuideListCell.swift */,
-			);
-			path = View;
+			path = TransAnimate;
 			sourceTree = "<group>";
 		};
 		BC12DD552C2444C5241138E9 = {
@@ -328,9 +324,22 @@
 				DBE214345037E502D7EC1111 /* Resources */,
 				88030DA478C3BC8517A7C58D /* Source Codes */,
 				9F12C675ED584F082B757A84 /* Products */,
-				4E35FCB44B3F6041A446098F /* Pods */,
-				FF24E3AEA72719FC4713FA34 /* Frameworks */,
+				54BE28F9B79FDF9FE208E15C /* Pods */,
+				FE9BC0BC1ABA2C32E373607B /* Frameworks */,
 			);
+			sourceTree = "<group>";
+		};
+		BC7C2F1F4284A44851A9A880 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				7B25E22EA12255E1DF073DB4 /* GuideListModels.swift */,
+				90312D2D7E9F3C66418BFD6B /* GuideListView.swift */,
+				CA222D1CA02633EDDE5FBAFA /* GuideListViewController.swift */,
+				94B0F95DF56E1065444C0CAE /* GuideListViewModel.swift */,
+				36A10BCC888E7DF821EF0157 /* Group */,
+				850DA62582B4E4F604FF7B9E /* View */,
+			);
+			path = List;
 			sourceTree = "<group>";
 		};
 		D4AD1857E48DF31880954735 /* Examples */ = {
@@ -339,6 +348,15 @@
 				8B751F8645EE2A075856B6D1 /* DTBKit */,
 			);
 			name = Examples;
+			sourceTree = "<group>";
+		};
+		DA38CB4AAE25119778024A84 /* Docs */ = {
+			isa = PBXGroup;
+			children = (
+				45C7D2E2BC23E7F7EE9AD080 /* GuideDocsView.swift */,
+				026BE8308181F9B40BCACF55 /* GuideDocsViewController.swift */,
+			);
+			path = Docs;
 			sourceTree = "<group>";
 		};
 		DBE214345037E502D7EC1111 /* Resources */ = {
@@ -361,10 +379,10 @@
 			name = Metadata;
 			sourceTree = "<group>";
 		};
-		FF24E3AEA72719FC4713FA34 /* Frameworks */ = {
+		FE9BC0BC1ABA2C32E373607B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A4DC59E903BF48E2D225EDDD /* Pods_DTBKit_Example.framework */,
+				95600C0C223804560262B2D3 /* Pods_DTBKit_Example.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -376,11 +394,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F1F58F71037EE1DBDB0C6ADC /* Build configuration list for PBXNativeTarget "DTBKit_Example" */;
 			buildPhases = (
-				F0D299DAD4DE472518AE0D97 /* [CP] Check Pods Manifest.lock */,
+				C970833C27E67F457731072F /* [CP] Check Pods Manifest.lock */,
 				1189F6771834ACEE127E70C3 /* Sources */,
 				6055D51056365702E0FA6C1C /* Resources */,
-				DEBA17304F9C96320FFECAE5 /* Frameworks */,
-				BE15F3796E2EC649DFDD396E /* [CP] Embed Pods Frameworks */,
+				F36D2678CE9FE8B34AF719C5 /* Frameworks */,
+				AB34EF80EE0BF3980B34E5AB /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -426,17 +444,17 @@
 				0C1A172E134B1257FB303B8A /* DTBKit.podspec in Resources */,
 				A735232D860682E7B7E7ECB0 /* Images.xcassets in Resources */,
 				A1348D0AEC21FEC0D41CBBE1 /* Launch Screen.storyboard in Resources */,
-				A21C61B42A68D64000CA35C5 /* ui-kit.xcassets in Resources */,
 				BDBB8C6B4588D4721BBE6CE5 /* README.md in Resources */,
 				B3B9577BA8721D8698D7CF5D /* basic.xcassets in Resources */,
 				0D95639B99F2A5832783FEF1 /* project.yml in Resources */,
+				ACE6BAC40FBC6503D94CB4FC /* ui-kit.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		BE15F3796E2EC649DFDD396E /* [CP] Embed Pods Frameworks */ = {
+		AB34EF80EE0BF3980B34E5AB /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -453,7 +471,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DTBKit_Example/Pods-DTBKit_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F0D299DAD4DE472518AE0D97 /* [CP] Check Pods Manifest.lock */ = {
+		C970833C27E67F457731072F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -483,41 +501,45 @@
 			buildActionMask = 2147483647;
 			files = (
 				0169083FFEF6AE744A5BDE01 /* AppDelegate.swift in Sources */,
-				A2CE51C12A6A90C700B5704B /* GuideDriftView.swift in Sources */,
 				7E9600356FFAC5020C42141B /* Array+DTBKit.swift in Sources */,
 				EBDD4E252E14757AB100E441 /* DTBApps.swift in Sources */,
-				A2E9C8A82A77941F00883D07 /* GuideGroupCell.swift in Sources */,
-				A21C61B22A67ED8000CA35C5 /* DriftView.swift in Sources */,
-				A2E9C8A52A77912900883D07 /* GuideGroupView.swift in Sources */,
-				A247B6B32A70CE3700632477 /* GuideAnimation.swift in Sources */,
-				A2B001BD2A6E79CF001124ED /* UIButton+DTBKit.swift in Sources */,
 				7F4426EFE8922514BEFFA1C0 /* DTBColors.swift in Sources */,
 				996CFED17A4B1BDD6EE9648A /* DTBKit.swift in Sources */,
-				A21C61AD2A67D7ED00CA35C5 /* DriftMainViewController.swift in Sources */,
 				D57FCCB4F94F72CBE04E4881 /* DTBMaths.swift in Sources */,
-				A2E9C8AD2A77B55400883D07 /* GuideRefreshView.swift in Sources */,
-				A2B001BB2A6E6C2D001124ED /* GuideListView.swift in Sources */,
-				A24C772E2A72611600005AD7 /* GuideContainerView.swift in Sources */,
-				A24C77292A7255DC00005AD7 /* GuideNavigationController.swift in Sources */,
-				A2E9C8AB2A77A0F700883D07 /* GuideViewModel.swift in Sources */,
 				E0478EC70F456DA31671C482 /* DTBNavigations.swift in Sources */,
-				A21C61AB2A67D71A00CA35C5 /* DriftWindow.swift in Sources */,
 				90766959B8603C9A9E4183C0 /* DemoContentView.swift in Sources */,
-				4E873C07EA8DF68768C1CBCA /* DemoEntry.swift in Sources */,
+				3AC23554A53955C5AF50A390 /* DemoEntry.swift in Sources */,
 				C1036EBEAFFED38FC7E633B1 /* DemoNavigationView.swift in Sources */,
+				93ADA9493C26B513330FBD88 /* Drift.swift in Sources */,
+				77148314DBAF98FE53447EC5 /* DriftAdapter.swift in Sources */,
+				7085BF1C7DDE6D4AC768D176 /* DriftMainViewController.swift in Sources */,
+				93D070AAB567C87DC074BD64 /* DriftView.swift in Sources */,
+				A48B1C7C36A5237D7F71BDD0 /* DriftWindow.swift in Sources */,
 				8DD734649787D05EF6D0203A /* EdgeLabel.swift in Sources */,
-				A2B001BF2A6E7B01001124ED /* DriftAdapter.swift in Sources */,
 				66F19A1005CEDC2EDDBFDF6A /* Exported.swift in Sources */,
-				96C2FBBB655CB57056972881 /* Drift.swift in Sources */,
+				62A03AAD2669D8F10DB66810 /* GuideAnimation.swift in Sources */,
+				E75F991716210D3330D0A705 /* GuideContainerView.swift in Sources */,
+				2B59DE43145E2B7B5BCF9FDC /* GuideDocsView.swift in Sources */,
+				923EC4B87F372D974DBDE8CB /* GuideDocsViewController.swift in Sources */,
+				805A957894565B4C61C194C6 /* GuideDriftView.swift in Sources */,
+				77A21B6E06C65AD56D40F6E3 /* GuideGroupCell.swift in Sources */,
+				293C559A80D7A7708E7BA34D /* GuideGroupView.swift in Sources */,
+				FD60F67EBFE4CBD27C388B2E /* GuideListCell.swift in Sources */,
+				581DC4CA72E19C6F7A76A1E7 /* GuideListModels.swift in Sources */,
+				454C6EDDE2B559349CF33A4D /* GuideListView.swift in Sources */,
+				52B45C910CBE5919A5714350 /* GuideListViewController.swift in Sources */,
+				ECCB29426D8CE9DCED85A3F3 /* GuideListViewModel.swift in Sources */,
+				8A88749BBC7F9B1F52660EAE /* GuideNavigationController.swift in Sources */,
+				3BADA596621DFDDDFDFF7FF0 /* GuideNavigator.swift in Sources */,
+				A22FBF262A8B790A00FC3AB4 /* AlertAnimation.swift in Sources */,
+				BABA929407C7FFCFFE1BA033 /* GuideRefreshAlertController.swift in Sources */,
+				2A362B67E58359CDAAFF91BA /* GuideRefreshView.swift in Sources */,
 				7CF58AE26EC8F27ABBC74059 /* HomeViewController.swift in Sources */,
-				A2E9C8B22A789F6300883D07 /* GuideListCell.swift in Sources */,
 				FFA3F576A21DD1B545DED513 /* SimpleVisualViewController.swift in Sources */,
+				D8166F40B8C325DF901445A0 /* UIButton+DTBKit.swift in Sources */,
 				32EC284AD691427577F70F1D /* UIImage+DTBKit.swift in Sources */,
 				21BEECD17FA96DDA0BDBEE43 /* UIImageView+DTBKit.swift in Sources */,
-				A24C772B2A725DE600005AD7 /* GuideDocsView.swift in Sources */,
-				DEF3374D41E54CDBA4ACA9C7 /* XMColor.swift in Sources */,
-				A2CE51C32A6BBB1900B5704B /* GuideListViewController.swift in Sources */,
-				A2B001B92A6E1DB1001124ED /* GuideDocsViewController.swift in Sources */,
+				9D01FF2535AD554BC4BEDB1F /* XMColor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -588,7 +610,7 @@
 		};
 		BAA8C2FA7D56E81C5ABCEC56 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5F58A3667E08C59194B2AE9B /* Pods-DTBKit_Example.release.xcconfig */;
+			baseConfigurationReference = EF1858035FA222DF4A2697E8 /* Pods-DTBKit_Example.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -606,6 +628,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D DTBKitable";
 				PRODUCT_BUNDLE_IDENTIFIER = org.darkThanBlack.demo.DTBKit;
 				PRODUCT_NAME = DTBKit_Example;
 				SDKROOT = iphoneos;
@@ -678,7 +701,7 @@
 		};
 		F2A043E7593DC7E625CA69FC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DA5E68C629A3A3C6AE2E1CE3 /* Pods-DTBKit_Example.debug.xcconfig */;
+			baseConfigurationReference = 6238A276E38F4312B87D9CEF /* Pods-DTBKit_Example.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -696,6 +719,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D DTBKitable";
 				PRODUCT_BUNDLE_IDENTIFIER = org.darkThanBlack.demo.DTBKit;
 				PRODUCT_NAME = DTBKit_Example;
 				SDKROOT = iphoneos;

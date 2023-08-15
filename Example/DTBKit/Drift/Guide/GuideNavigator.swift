@@ -51,7 +51,7 @@ public class GuideNavigator {
             docsVC.load(url: docsUrl)
             
             let nav = GuideNavigationController(rootViewController: docsVC)
-            nav.animatePair = (.push, .dismiss)
+            nav.animatePair = (.push(isDelay: true), .dismiss)
             Drift.shared.topMost()?.present(nav, animated: true)
         })
     }
@@ -63,7 +63,7 @@ public class GuideNavigator {
             
             let listVC = GuideListViewController()
             let nav = GuideNavigationController(rootViewController: listVC)
-            nav.animatePair = (.push, .dismiss)
+            nav.animatePair = (.push(isDelay: false), .dismiss)
             Drift.shared.topMost()?.present(nav, animated: true)
         })
     }

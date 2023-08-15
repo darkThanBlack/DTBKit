@@ -39,14 +39,19 @@ class GuideListGroupModel: GuideGroupItemDataSource {
     }
     
     func mocks() {
+        let model = GuideListCellModel(
+            title: title,
+            detail: UUID().uuidString,
+            roles: "角色：老师，校长，etc...",
+            inferTime: "耗时：5分钟",
+            bizType: .finish
+        )
+        model.linkUrl = "https://www.baidu.com"
+        model.jumpUrl = "dtb://custom/route?page=0"
+        model.jumpable = .success
+        
         cells = [
-            GuideListCellModel(
-                title: title,
-                detail: UUID().uuidString,
-                roles: "角色：老师，校长，etc...",
-                inferTime: "耗时：5分钟",
-                bizType: .finish
-            )
+            model
         ] + GuideListCell.BizTypes.allCases.map({ bizType in
             return GuideListCellModel(
                 title: "任务标题过长过长过长过长过长过长过长过长过长过长过长过长过长",
