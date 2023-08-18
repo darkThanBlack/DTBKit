@@ -81,7 +81,7 @@ class DriftView: UIView {
     //MARK: - fade
     
     ///
-    private let canFade: Bool = true
+    private let canFade: Bool = false
     ///
     private var fadeTimer: Timer?
     ///

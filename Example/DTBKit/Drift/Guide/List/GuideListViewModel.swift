@@ -47,6 +47,24 @@ class GuideListViewModel {
     
     // MARK: - Data
     
+    func mocks2(completed: (()->())?) {
+        self.groups = [
+            GuideListGroupModel(
+                title: "Step 1.",
+                isSelected: false,
+                isLocked: false,
+                isCompleted: true
+            )
+        ]
+        self.groups.first?.isSelected = true
+        
+        self.groups.forEach({ $0.mocks() })
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            completed?()
+        }
+    }
+    
     func mocks(completed: (()->())?) {
         self.groups = [
             GuideListGroupModel(
@@ -78,7 +96,7 @@ class GuideListViewModel {
         
         self.groups.forEach({ $0.mocks() })
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             completed?()
         }
     }

@@ -33,9 +33,10 @@ class GuideGroupCell: UICollectionViewCell {
         bottomHint.isHidden = isSelected ? false : true
         if data?.isCompleted == true {
             stateImageView.image = DriftAdapter.imageNamed("guide_success")
+        } else if data?.isLocked == true {
+            stateImageView.image = DriftAdapter.imageNamed("guide_lock")
         } else {
-            let name = (data?.isLocked == true) ? "guide_lock" : "guide_unlock"
-            stateImageView.image = DriftAdapter.imageNamed(name)
+            stateImageView.image = nil
         }
     }
     
@@ -56,11 +57,17 @@ class GuideGroupCell: UICollectionViewCell {
     }
     
     private func referSize(_ boxSize: CGSize) -> CGSize {
-        let iSize = CGSize(width: 14.0, height: 14.0)
+        var iSize = CGSize(width: 14.0, height: 14.0)
+        var tGap: CGFloat = 4.0
+        if (stateImageView.image == nil) || (stateImageView.isHidden == true) {
+            iSize = .zero
+            tGap = 0.0
+        }
+        
         let tSize = titleLabel.sizeThatFits(boxSize)
         let myHeight = max(iSize.height, tSize.height) + 12.0 + 1.0
         return CGSize(
-            width: iSize.width + 4.0 + tSize.width,
+            width: iSize.width + tGap + tSize.width,
             height: max(boxSize.height, myHeight)
         )
     }
@@ -68,13 +75,21 @@ class GuideGroupCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        stateImageView.bounds = CGRect(x: 0, y: 0, width: 14.0, height: 14.0)
-        stateImageView.center = CGPoint(x: 7.0, y: bounds.midY)
+        var tGap: CGFloat = 4.0
+        if (stateImageView.image == nil) || (stateImageView.isHidden == true) {
+            stateImageView.bounds = .zero
+            stateImageView.center = CGPoint(x: 0.0, y: bounds.midY)
+            tGap = 0.0
+        } else {
+            stateImageView.bounds = CGRect(x: 0, y: 0, width: 14.0, height: 14.0)
+            stateImageView.center = CGPoint(x: 7.0, y: bounds.midY)
+            tGap = 4.0
+        }
         
         let tSize = titleLabel.sizeThatFits(bounds.size)
         titleLabel.bounds = CGRect(x: 0, y: 0, width: tSize.width, height: tSize.height)
         titleLabel.center = CGPoint(
-            x: stateImageView.frame.maxX + 4.0 + (tSize.width / 2.0),
+            x: stateImageView.frame.maxX + tGap + (tSize.width / 2.0),
             y: bounds.midY
         )
         

@@ -35,6 +35,12 @@ class GuideListView: UIView {
     
     func reloadData() {
         groupView.setupItems(with: viewModel.groupList)
+        let showGroup = viewModel.groupList.count > 1
+        groupView.isHidden = showGroup ? false : true
+        groupView.snp.updateConstraints { make in
+            make.height.equalTo(showGroup ? 48.0 : 0.0)
+        }
+        
         countsLabel.text = viewModel.getCountsText()
         tableView.reloadData()
     }
@@ -83,7 +89,7 @@ class GuideListView: UIView {
         groupView.snp.makeConstraints { make in
             make.top.equalTo(hintLabel.snp.bottom).offset(0)
             make.left.right.equalTo(box)
-            make.height.equalTo(48.0)
+            make.height.equalTo(0.0)
         }
         refreshView.snp.makeConstraints { make in
             make.top.equalTo(groupView.snp.bottom).offset(12.0)

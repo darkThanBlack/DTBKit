@@ -55,6 +55,9 @@ public class Drift {
         window?.isHidden = false
         
         Drift.shared.mainController?.drift.fireFade(false)
+        
+        navigator.clear()
+        navigator.open()
     }
     
     public func stop() {

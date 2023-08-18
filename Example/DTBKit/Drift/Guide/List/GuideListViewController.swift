@@ -30,8 +30,12 @@ class GuideListViewController: UIViewController {
     }
     
     private func reloadTree() {
-        viewModel.mocks {
+        viewModel.mocks2 {
             self.contentView.reloadData()
+            
+            self.viewModel.mocks {
+                self.contentView.reloadData()
+            }
         }
     }
     

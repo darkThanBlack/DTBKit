@@ -21,10 +21,14 @@ class GuideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
     enum Types {
         ///
         case none
-        // 主视图浮窗 <-> {列表，详情}
-        case present, dismiss
-        // 列表 <-> 详情
-        case push(isDelay: Bool)
+        // 主视图浮窗 -> {列表，详情}
+        case show
+        // 列表 -> 详情
+        case router
+        // 普通 present
+        case present
+        // 普通 dismiss
+        case dismiss
     }
     ///
     private var type: Types = .none
@@ -41,12 +45,14 @@ class GuideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         switch type {
+        case .show:
+            showAnimateTransition(using: transitionContext)
         case .present:
             presentAnimateTransition(using: transitionContext)
         case .dismiss:
             dismissAnimateTransition(using: transitionContext)
-        case .push(let isDelay):
-            pushAnimateTransition(using: transitionContext, isDelay: isDelay)
+        case .router:
+            routerAnimateTransition(using: transitionContext)
         case .none:
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
         }
@@ -64,8 +70,8 @@ class GuideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
         return value
     }
     
-    /// "Present"
-    private func presentAnimateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+    /// "show"
+    private func showAnimateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         guard let toView = transitionContext.view(forKey: .to) else {
             return
         }
@@ -118,6 +124,32 @@ class GuideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
         }
     }
     
+    /// "Present"
+    private func presentAnimateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        guard let toView = transitionContext.view(forKey: .to) else {
+            return
+        }
+        let container = transitionContext.containerView
+        
+        // Step 1.  浮窗隐藏动画
+        Drift.shared.mainController?.drift.fireFade(true)
+        
+        container.addSubview(grayView)
+        grayView.alpha = 0.0
+        grayView.frame = CGRect(origin: .zero, size: self.scSize)
+        
+        self.grayView.alpha = 0
+        container.addSubview(toView)
+        toView.frame = CGRect(x: 0, y: self.scSize.height, width: self.scSize.width, height: self.scSize.height)
+        // Step 2.  普通 present
+        UIView.animate(withDuration: self.duration(0.25), animations: {
+            self.grayView.alpha = 0.35
+            toView.frame = CGRect(origin: .zero, size: self.scSize)
+        }) { _ in
+            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+        }
+    }
+    
     /// "Dismiss"
     private func dismissAnimateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         guard let fromView = transitionContext.view(forKey: .from) else {
@@ -139,9 +171,9 @@ class GuideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
         }
     }
     
-    /// "Push"
+    /// "Router"
     /// [HACK] main router need delay: (dismiss: 0.25) + (bottomLand: 0.2)
-    private func pushAnimateTransition(using transitionContext: UIViewControllerContextTransitioning, isDelay: Bool) {
+    private func routerAnimateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         guard let toView = transitionContext.view(forKey: .to) else {
             return
         }
@@ -168,7 +200,7 @@ class GuideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
             // Step 3.1  [HACK] 应用路由栈页面执行跳转，等待其动画完成
             // Step 3.2  略停顿后再下降一点距离，模拟弹簧压缩效果
             // Setp 3.3  背景渐深
-            UIView.animate(withDuration: self.duration(0.4), delay: isDelay ? 0.3 : 0, options: .curveEaseOut) {
+            UIView.animate(withDuration: self.duration(0.4), delay: 0.3, options: .curveEaseOut) {
                 self.grayView.alpha = 0.2
                 
                 self.bottomLand.frame = CGRect(x: 0, y: self.scSize.height - self.landHeight + (self.landRadius * 2.0), width: self.scSize.width, height: self.landHeight)
