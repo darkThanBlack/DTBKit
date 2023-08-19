@@ -12,7 +12,7 @@
 
 import XCTest
 
-import DTBKit
+import DTBKit_Example
 
 final class DTBTests: XCTestCase {
 }

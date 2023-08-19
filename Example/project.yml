@@ -1,19 +1,25 @@
+# https://help.apple.com/xcode/mac/9.0/index.html?localePath=en.lproj#/dev7fe737ce0
+
 name: DTBKit
 attributes:
   ORGANIZATIONNAME: darkThanBlack
 targets:
   DTBKit_Example:
     scheme:
-     buildImplicitDependencies: true
+      testTargets:
+        - DTBKit_Tests
+      gatherCoverageData: true
     type: application
     platform: [iOS]
-    platformSuffix: "" # 去掉平台后缀名，否则默认生成的target会带有"_iOS"后缀
+    
+    # 禁用自动后缀名
+    platformSuffix: ""
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: org.darkThanBlack.demo.DTBKit # https://help.apple.com/xcode/mac/9.0/index.html?localePath=en.lproj#/dev7fe737ce0
+        PRODUCT_BUNDLE_IDENTIFIER: org.darkThanBlack.demo.DTBKit
         IPHONEOS_DEPLOYMENT_TARGET: 11.0
         SWIFT_VERSION: 5.0
-        TARGETED_DEVICE_FAMILY: 1 # 1 代表device只有iPhone
+        TARGETED_DEVICE_FAMILY: 1  # iPhone
         EXCLUDED_ARCHS[sdk=iphonesimulator*]: arm64
         UILaunchStoryboardName: LaunchScreen
         FRAMEWORK_SEARCH_PATHS:
@@ -63,11 +69,25 @@ targets:
 #      - path: "../DTBKit/Tests/"
 #        group: "Unit Tests"
     
-#  DTBKit_Tests:
-#    type: bundle.unit-test
-#    platform: [iOS]
-#    platformSuffix: "" # 去掉平台后缀名，否则默认生成的target会带有"_iOS"后缀
-#    sources:
-#      - Tests
-#    settings:
-#      TEST_HOST: $(BUILT_PRODUCTS_DIR)/DTBKit_Example.app/DTBKit_Example
+  DTBKit_Tests:
+    type: bundle.unit-test
+    platform: [iOS]
+    
+    # 禁用自动后缀名
+    platformSuffix: ""
+    sources:
+      - path: "../DTBKit/Tests/"
+        group: "Unit Tests"
+    settings:
+      # 以前没有 ``BUNDLE_EXECUTABLE_FOLDER_PATH`` 定义
+      # https://developer.apple.com/forums/thread/723699
+      TEST_HOST: $(BUILT_PRODUCTS_DIR)/DTBKit_Example.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/DTBKit_Example
+      PRODUCT_BUNDLE_IDENTIFIER: org.darkThanBlack.demo.DTBKit
+      BUNDLE_LOADER: $(TEST_HOST)
+      GENERATE_INFOPLIST_FILE: true
+      IPHONEOS_DEPLOYMENT_TARGET: 11.0
+      SWIFT_VERSION: 5.0
+      EXCLUDED_ARCHS[sdk=iphonesimulator*]: arm64
+      CLANG_CXX_LANGUAGE_STANDARD: "gnu++20"
+    dependencies:
+      - target: DTBKit_Example
