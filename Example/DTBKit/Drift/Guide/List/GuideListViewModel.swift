@@ -91,6 +91,31 @@ class GuideListViewModel {
                 isLocked: true,
                 isCompleted: false
             ),
+        ] + [
+            GuideListGroupModel(
+                title: "Step 1.",
+                isSelected: false,
+                isLocked: false,
+                isCompleted: true
+            ),
+            GuideListGroupModel(
+                title: "第二步",
+                isSelected: false,
+                isLocked: false,
+                isCompleted: false
+            ),
+            GuideListGroupModel(
+                title: "第三步标题很长很长很长",
+                isSelected: false,
+                isLocked: false,
+                isCompleted: false
+            ),
+            GuideListGroupModel(
+                title: "第四步",
+                isSelected: false,
+                isLocked: true,
+                isCompleted: false
+            ),
         ]
         self.groups.first?.isSelected = true
         

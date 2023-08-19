@@ -140,6 +140,7 @@ class GuideListView: UIView {
     
     private lazy var groupView: GuideGroupView = {
         let groupView = GuideGroupView()
+        groupView.isHidden = true
         return groupView
     }()
     

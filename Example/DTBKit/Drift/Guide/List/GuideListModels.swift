@@ -56,8 +56,8 @@ class GuideListGroupModel: GuideGroupItemDataSource {
             return GuideListCellModel(
                 title: "任务标题过长过长过长过长过长过长过长过长过长过长过长过长过长",
                 detail: "任务说明过长过长过长过长过长过长过长过长过长过长过长过长过长过长过长过长过长过长过长过长过长过长过长过长过长过长",
-                roles: "角色：老师，校长，etc...  过长过长过长过长过长过长过长过长过长过长过长",
-                inferTime: "耗时：5分钟 过长过长过长过长过长",
+                roles: nil,
+                inferTime: nil,
                 bizType: bizType
             )
         })

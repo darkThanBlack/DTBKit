@@ -81,10 +81,14 @@ class GuideListCell: UITableViewCell {
         timeLabel.text = model?.inferTime
         
         reload(type: model?.bizType ?? .unknown)
+        
+        updateLeftBox()
+        updateRightBox()
     }
     
     private func reload(type: BizTypes) {
-        rightView.subviews.forEach({ $0.isHidden = true })
+        [rightHintLabel, rightButton, rightStateIcon, rightStateLabel, timeLabel].forEach({ $0.isHidden = true })
+        
         timeLabel.isHidden = false
         switch type {
         case .unknown, .webOnly:
@@ -140,72 +144,136 @@ class GuideListCell: UITableViewCell {
     //MARK: View
     
     private func loadViews(in box: UIView) {
+        box.addSubview(leftBox)
+        box.addSubview(rightBox)
+        
+        leftBox.snp.makeConstraints { make in
+            make.left.equalTo(box.snp.left).offset(16.0)
+            make.centerY.equalTo(box)
+            
+            make.top.greaterThanOrEqualTo(box.snp.top).inset(16.0)
+            make.bottom.greaterThanOrEqualTo(box.snp.bottom).inset(16.0)
+        }
+        rightBox.snp.makeConstraints { make in
+            make.left.equalTo(leftBox.snp.right).offset(16.0)
+            make.right.equalTo(box.snp.right).offset(-0)
+            make.width.equalTo(110.0)
+            make.centerY.equalTo(box)
+            
+            make.top.greaterThanOrEqualTo(box.snp.top).inset(16.0)
+            make.bottom.greaterThanOrEqualTo(box.snp.bottom).inset(16.0)
+        }
+        
+        loadLeftSubViews(in: leftBox)
+        loadRightSubViews(in: rightBox)
+    }
+    
+    private func loadLeftSubViews(in box: UIView) {
         box.addSubview(titleLabel)
         box.addSubview(detailLabel)
         box.addSubview(roleIcon)
         box.addSubview(roleLabel)
-        box.addSubview(rightView)
-        
-        loadRightSubViews(in: rightView)
-        rightView.subviews.forEach({ $0.isHidden = true })
         
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(box.snp.top).offset(16.0)
-            make.left.equalTo(box.snp.left).offset(16.0)
-            make.right.equalTo(rightView.snp.left).offset(-16.0)
+            make.top.left.right.equalTo(box)
         }
-        detailLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(8.0)
-            make.left.equalTo(titleLabel.snp.left)
-            make.width.lessThanOrEqualTo(titleLabel.snp.width)
-        }
-        roleIcon.snp.makeConstraints { make in
-            make.top.greaterThanOrEqualTo(detailLabel.snp.bottom).offset(16.0)
-            make.left.equalTo(titleLabel.snp.left)
-            make.bottom.equalTo(box.snp.bottom).offset(-18.0)
-            make.width.height.equalTo(14.0)
-        }
-        roleLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(roleIcon.snp.centerY)
-            make.left.equalTo(roleIcon.snp.right).offset(4.0)
-            make.right.lessThanOrEqualTo(titleLabel.snp.right).offset(-0)
-        }
-        rightView.snp.makeConstraints { make in
-            make.top.equalTo(box.snp.top).offset(16.0)
-            make.right.equalTo(box.snp.right).offset(-0)
-            make.bottom.equalTo(box.snp.bottom).offset(-16.0)
-            make.width.equalTo(110.0)
+        
+        updateLeftBox()
+    }
+    
+    private func updateLeftBox() {
+        if let text = roleLabel.text, text.isEmpty == false {
+            [roleIcon, roleLabel].forEach({ $0.isHidden = false })
+            
+            detailLabel.snp.remakeConstraints { make in
+                make.top.equalTo(titleLabel.snp.bottom).offset(8.0)
+                make.left.equalTo(titleLabel.snp.left)
+                make.width.lessThanOrEqualTo(titleLabel.snp.width)
+            }
+            roleIcon.snp.remakeConstraints { make in
+                make.top.greaterThanOrEqualTo(detailLabel.snp.bottom).offset(16.0)
+                make.left.equalTo(titleLabel.snp.left)
+                make.width.height.equalTo(14.0)
+                
+                make.bottom.equalToSuperview().offset(-0.0)
+            }
+            roleLabel.snp.remakeConstraints { make in
+                make.centerY.equalTo(roleIcon.snp.centerY)
+                make.left.equalTo(roleIcon.snp.right).offset(4.0)
+                make.right.lessThanOrEqualTo(titleLabel.snp.right).offset(-0)
+            }
+        } else {
+            [roleIcon, roleLabel].forEach({ $0.isHidden = true })
+            
+            detailLabel.snp.remakeConstraints { make in
+                make.top.equalTo(titleLabel.snp.bottom).offset(8.0)
+                make.left.equalTo(titleLabel.snp.left)
+                make.width.lessThanOrEqualTo(titleLabel.snp.width)
+                
+                make.bottom.equalToSuperview().offset(-0.0)
+            }
+            roleIcon.snp.remakeConstraints { _ in
+            }
+            roleLabel.snp.remakeConstraints { _ in
+            }
         }
     }
     
     /// 右侧布局
     private func loadRightSubViews(in box: UIView) {
+        [rightHintLabel, rightButton, rightStateIcon, rightStateLabel, timeLabel].forEach({ $0.isHidden = true })
+        
+        box.addSubview(rightStateBox)
+        box.addSubview(timeLabel)
+        
+        loadRightStateSubViews(in: rightStateBox)
+        
+        updateRightBox()
+    }
+    
+    private func updateRightBox() {
+        if let text = timeLabel.text, text.isEmpty == false {
+            [timeLabel].forEach({ $0.isHidden = false })
+            
+            rightStateBox.snp.remakeConstraints { make in
+                make.top.left.right.equalToSuperview()
+                make.bottom.lessThanOrEqualTo(timeLabel.snp.top).offset(-8.0)
+            }
+            timeLabel.snp.remakeConstraints { make in
+                make.bottom.centerX.equalToSuperview()
+                make.width.lessThanOrEqualToSuperview().offset(-24.0)
+            }
+        } else {
+            [timeLabel].forEach({ $0.isHidden = true })
+            
+            rightStateBox.snp.remakeConstraints { make in
+                make.left.right.equalToSuperview()
+                make.centerY.equalToSuperview()
+            }
+            timeLabel.snp.remakeConstraints { _ in
+            }
+        }
+    }
+    
+    private func loadRightStateSubViews(in box: UIView) {
         box.addSubview(rightHintLabel)
         box.addSubview(rightButton)
         box.addSubview(rightStateIcon)
         box.addSubview(rightStateLabel)
-        
-        box.addSubview(timeLabel)
-        
-        timeLabel.snp.makeConstraints { make in
-            make.centerX.equalTo(box.snp.centerX)
-            make.bottom.equalTo(box.snp.bottom).offset(0.0)
-            make.width.lessThanOrEqualTo(box.snp.width).offset(-24.0)
-        }
         
         rightHintLabel.snp.makeConstraints { make in
             make.top.equalTo(box.snp.top).offset(8.0)
             make.left.equalTo(box.snp.left).offset(12.0)
             make.right.equalTo(box.snp.right).offset(-12.0)
             
-            make.bottom.lessThanOrEqualTo(timeLabel.snp.top).offset(-8.0)
+            make.bottom.lessThanOrEqualTo(box.snp.bottom).offset(-0.0)
         }
         rightButton.snp.makeConstraints { make in
             make.top.equalTo(box.snp.top).offset(12.0)
             make.centerX.equalTo(box.snp.centerX)
             make.width.lessThanOrEqualTo(box.snp.width)
             
-            make.bottom.lessThanOrEqualTo(timeLabel.snp.top).offset(-8.0)
+            make.bottom.lessThanOrEqualTo(box.snp.bottom).offset(-0.0)
         }
         rightStateIcon.snp.makeConstraints { make in
             make.top.centerX.equalTo(box)
@@ -215,7 +283,7 @@ class GuideListCell: UITableViewCell {
             make.centerX.equalTo(rightStateIcon.snp.centerX)
             make.top.equalTo(rightStateIcon.snp.bottom).offset(4.0)
             
-            make.bottom.lessThanOrEqualTo(timeLabel.snp.top).offset(-8.0)
+            make.bottom.lessThanOrEqualTo(box.snp.bottom).offset(-0.0)
         }
     }
     
@@ -226,6 +294,24 @@ class GuideListCell: UITableViewCell {
         cardBox.layer.masksToBounds = true
         cardBox.layer.cornerRadius = 5.0
         return cardBox
+    }()
+    
+    /// 左侧布局容器
+    private lazy var leftBox: UIView = {
+        let leftBox = UIView()
+        return leftBox
+    }()
+    
+    /// 右侧布局容器
+    private lazy var rightBox: UIView = {
+        let rightBox = UIView()
+        return rightBox
+    }()
+    
+    /// 右侧状态布局容器
+    private lazy var rightStateBox: UIView = {
+        let rightStateBox = UIView()
+        return rightStateBox
     }()
     
     private lazy var titleLabel: UILabel = {
@@ -270,12 +356,6 @@ class GuideListCell: UITableViewCell {
         timeLabel.layer.masksToBounds = true
         timeLabel.layer.cornerRadius = 2.0
         return timeLabel
-    }()
-    
-    /// 右侧容器
-    private lazy var rightView: UIView = {
-        let rightView = UIView()
-        return rightView
     }()
     
     /// 仅文字

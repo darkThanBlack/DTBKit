@@ -24,8 +24,13 @@ class GuideGroupView: UIView {
     
     ///
     func setupItems(with datas: [GuideGroupItemDataSource]) {
+        let needScroll = self.items.firstIndex(where: { $0.isSelected }) != datas.firstIndex(where: { $0.isSelected })
         self.items = datas
         collectionView.reloadData()
+        
+        if needScroll, let index = datas.firstIndex(where: { $0.isSelected }) {
+            collectionView.scrollToItem(at: IndexPath(row: index, section: 0), at: .centeredHorizontally, animated: true)
+        }
     }
     
     //MARK: Life Cycle
