@@ -39,6 +39,7 @@
 		9D01FF2535AD554BC4BEDB1F /* XMColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8D2A2CEE6175DC48EA0908 /* XMColor.swift */; };
 		A0A53992AC00B66FC30B36DE /* GuideListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17C870D9760C123DAB99D77 /* GuideListCell.swift */; };
 		A1348D0AEC21FEC0D41CBBE1 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1E7982283574061EF2C6745 /* Launch Screen.storyboard */; };
+		A25AC2012A95AD7A0099163B /* SimpleWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25AC2002A95AD7A0099163B /* SimpleWebViewController.swift */; };
 		A735232D860682E7B7E7ECB0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F814B4B829198871353120F8 /* Images.xcassets */; };
 		A9DE99B858E334528346CE4B /* AlertAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABA054619FB46334287D932 /* AlertAnimation.swift */; };
 		ACE6BAC40FBC6503D94CB4FC /* ui-kit.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C32B3577F677B75582FDB7F /* ui-kit.xcassets */; };
@@ -76,9 +77,9 @@
 		0B5E6ECB7B179BA0F3581379 /* GuideRefreshAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideRefreshAlertController.swift; sourceTree = "<group>"; };
 		118A740DE77F04184DA01AE5 /* GuideContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideContainerView.swift; sourceTree = "<group>"; };
 		13081FE5021003818B4C997E /* Pods_DTBKit_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DTBKit_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		271C5701FBC0F1C84F6316FA /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		271C5701FBC0F1C84F6316FA /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		3A125D0742C22AB72E2FB031 /* UIImageView+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+DTBKit.swift"; sourceTree = "<group>"; };
-		3C7D3B41655E7FCD0EEE3DDE /* DTBKit.podspec */ = {isa = PBXFileReference; name = DTBKit.podspec; path = ../DTBKit.podspec; sourceTree = "<group>"; };
+		3C7D3B41655E7FCD0EEE3DDE /* DTBKit.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = DTBKit.podspec; path = ../DTBKit.podspec; sourceTree = "<group>"; };
 		3D43E54B5D507D690F7859E1 /* DriftAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriftAdapter.swift; sourceTree = "<group>"; };
 		4077018B3676CD26160A07E9 /* DTBNavigations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTBNavigations.swift; sourceTree = "<group>"; };
 		40B6C890B0C51B40ACDB9737 /* GuideListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideListView.swift; sourceTree = "<group>"; };
@@ -87,7 +88,7 @@
 		5AA75639F4BCCE3CFCB62F65 /* EdgeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeLabel.swift; sourceTree = "<group>"; };
 		5C32B3577F677B75582FDB7F /* ui-kit.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "ui-kit.xcassets"; sourceTree = "<group>"; };
 		5DB234E74BDEEC74FE1FC611 /* GuideListModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideListModels.swift; sourceTree = "<group>"; };
-		5E640FCA5DA1C76456068E49 /* Podfile */ = {isa = PBXFileReference; path = Podfile; sourceTree = "<group>"; };
+		5E640FCA5DA1C76456068E49 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		6ABA054619FB46334287D932 /* AlertAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertAnimation.swift; sourceTree = "<group>"; };
 		6BCB5799833552A14B00212E /* DriftMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriftMainViewController.swift; sourceTree = "<group>"; };
 		704A366BC07569D76B34F19E /* GuideListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideListViewController.swift; sourceTree = "<group>"; };
@@ -95,7 +96,7 @@
 		70B7C80B5F60A9B0123B9530 /* project.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = project.yml; sourceTree = "<group>"; };
 		72606BB1D63D3B45B7923CF9 /* DTBMaths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTBMaths.swift; sourceTree = "<group>"; };
 		73C534D0DD58E8AF5BE72CF0 /* DriftWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriftWindow.swift; sourceTree = "<group>"; };
-		76F0BA395FE35F6B3FE4809A /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		76F0BA395FE35F6B3FE4809A /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		7ABCB8D0050F9150920865BD /* GuideDocsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideDocsView.swift; sourceTree = "<group>"; };
 		880F5AF957A305E51F456B50 /* Pods-DTBKit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DTBKit_Example.debug.xcconfig"; path = "Target Support Files/Pods-DTBKit_Example/Pods-DTBKit_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		881598D80582636EC3A51695 /* basic.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = basic.xcassets; sourceTree = "<group>"; };
@@ -104,11 +105,12 @@
 		8DC825259B4A2BC75D4CAEBE /* DemoEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoEntry.swift; sourceTree = "<group>"; };
 		8E4FFC93197A65209474029C /* Pods-DTBKit_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DTBKit_Example.release.xcconfig"; path = "Target Support Files/Pods-DTBKit_Example/Pods-DTBKit_Example.release.xcconfig"; sourceTree = "<group>"; };
 		917B7BC13391455F649E814E /* GuideGroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideGroupCell.swift; sourceTree = "<group>"; };
+		A25AC2002A95AD7A0099163B /* SimpleWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleWebViewController.swift; sourceTree = "<group>"; };
 		A2DBC495036F1740D7C926FB /* GuideRefreshView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideRefreshView.swift; sourceTree = "<group>"; };
-		A94332BD9942E3A20F8AC621 /* DTBKit_Example.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = DTBKit_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A94332BD9942E3A20F8AC621 /* DTBKit_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DTBKit_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB470419225C0F4E263C23C7 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		AB8D2A2CEE6175DC48EA0908 /* XMColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMColor.swift; sourceTree = "<group>"; };
-		AD3822F1BFE14ECBE1DF3A18 /* LICENSE */ = {isa = PBXFileReference; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		AD3822F1BFE14ECBE1DF3A18 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		ADD89C181F30AA5BDF38ADEC /* Drift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drift.swift; sourceTree = "<group>"; };
 		AE55E81DA208AECBCBA770CF /* GuideNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideNavigator.swift; sourceTree = "<group>"; };
 		B37A3E6078E4415F13BA5C2C /* GuideDocsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideDocsViewController.swift; sourceTree = "<group>"; };
@@ -128,7 +130,7 @@
 		E8013B5645F272A042C7BD3A /* DTBColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTBColors.swift; sourceTree = "<group>"; };
 		EE4DF3E3D21A9580A1E88BB8 /* ArrayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayTests.swift; sourceTree = "<group>"; };
 		F07719E41192E51E26324668 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		F2DCF0C710372F5B71633BAC /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		F2DCF0C710372F5B71633BAC /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		F6725B6655AC6711A2CD4342 /* DTBKit_Tests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = DTBKit_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F814B4B829198871353120F8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		FA92A28BC222C5268E1F2F70 /* DemoContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoContentView.swift; sourceTree = "<group>"; };
@@ -281,6 +283,7 @@
 		8B751F8645EE2A075856B6D1 /* DTBKit */ = {
 			isa = PBXGroup;
 			children = (
+				A25AC1FF2A95AD370099163B /* WebView */,
 				CDAF59F97655EB8E78958AD5 /* AppDelegate.swift */,
 				8DC825259B4A2BC75D4CAEBE /* DemoEntry.swift */,
 				8CB035E2CD0BB15B35B6ADEC /* Exported.swift */,
@@ -322,6 +325,14 @@
 			);
 			name = Assets;
 			path = ../DTBKit/Assets;
+			sourceTree = "<group>";
+		};
+		A25AC1FF2A95AD370099163B /* WebView */ = {
+			isa = PBXGroup;
+			children = (
+				A25AC2002A95AD7A0099163B /* SimpleWebViewController.swift */,
+			);
+			path = WebView;
 			sourceTree = "<group>";
 		};
 		A81283478D9B4385B76A3F82 /* Common */ = {
@@ -401,7 +412,6 @@
 				880F5AF957A305E51F456B50 /* Pods-DTBKit_Example.debug.xcconfig */,
 				8E4FFC93197A65209474029C /* Pods-DTBKit_Example.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -472,8 +482,6 @@
 			attributes = {
 				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = darkThanBlack;
-				TargetAttributes = {
-				};
 			};
 			buildConfigurationList = 37C9BF844CAB5607F72F8B75 /* Build configuration list for PBXProject "DTBKit" */;
 			compatibilityVersion = "Xcode 10.0";
@@ -580,6 +588,7 @@
 				157FB71B468A437899BB1211 /* GuideContainerView.swift in Sources */,
 				0CEAA9B819E42D0EB1269281 /* GuideDocsView.swift in Sources */,
 				40415FAD78A5B8FB028AE0CC /* GuideDocsViewController.swift in Sources */,
+				A25AC2012A95AD7A0099163B /* SimpleWebViewController.swift in Sources */,
 				22A7AA5670645966EF291B10 /* GuideDriftView.swift in Sources */,
 				54303D60788E9B31419018EB /* GuideGroupCell.swift in Sources */,
 				AE178DC83F7A96DB5160AEFC /* GuideGroupView.swift in Sources */,
@@ -713,6 +722,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 97TMNN6J92;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -826,6 +836,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 97TMNN6J92;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				FRAMEWORK_SEARCH_PATHS = (
