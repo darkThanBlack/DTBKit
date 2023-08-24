@@ -40,6 +40,7 @@
 		A0A53992AC00B66FC30B36DE /* GuideListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17C870D9760C123DAB99D77 /* GuideListCell.swift */; };
 		A1348D0AEC21FEC0D41CBBE1 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1E7982283574061EF2C6745 /* Launch Screen.storyboard */; };
 		A25AC2012A95AD7A0099163B /* SimpleWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25AC2002A95AD7A0099163B /* SimpleWebViewController.swift */; };
+		A2FA963E2A972851003941C7 /* GuideEnterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FA963D2A972851003941C7 /* GuideEnterView.swift */; };
 		A735232D860682E7B7E7ECB0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F814B4B829198871353120F8 /* Images.xcassets */; };
 		A9DE99B858E334528346CE4B /* AlertAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABA054619FB46334287D932 /* AlertAnimation.swift */; };
 		ACE6BAC40FBC6503D94CB4FC /* ui-kit.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C32B3577F677B75582FDB7F /* ui-kit.xcassets */; };
@@ -107,6 +108,7 @@
 		917B7BC13391455F649E814E /* GuideGroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideGroupCell.swift; sourceTree = "<group>"; };
 		A25AC2002A95AD7A0099163B /* SimpleWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleWebViewController.swift; sourceTree = "<group>"; };
 		A2DBC495036F1740D7C926FB /* GuideRefreshView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideRefreshView.swift; sourceTree = "<group>"; };
+		A2FA963D2A972851003941C7 /* GuideEnterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideEnterView.swift; sourceTree = "<group>"; };
 		A94332BD9942E3A20F8AC621 /* DTBKit_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DTBKit_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB470419225C0F4E263C23C7 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		AB8D2A2CEE6175DC48EA0908 /* XMColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMColor.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 			children = (
 				4DF8CED02A592CCD03969B5D /* GuideDriftView.swift */,
 				AE55E81DA208AECBCBA770CF /* GuideNavigator.swift */,
+				A2FA963D2A972851003941C7 /* GuideEnterView.swift */,
 				A81283478D9B4385B76A3F82 /* Common */,
 				F049321A45E4D93C7A47019F /* Docs */,
 				3E71188D7B1B792A41DFC6E6 /* List */,
@@ -576,6 +579,7 @@
 				E0478EC70F456DA31671C482 /* DTBNavigations.swift in Sources */,
 				26BBB83FC4DA650DDC3329EC /* DemoContentView.swift in Sources */,
 				3AC23554A53955C5AF50A390 /* DemoEntry.swift in Sources */,
+				A2FA963E2A972851003941C7 /* GuideEnterView.swift in Sources */,
 				FD226C822096E72DA8C373FA /* DemoNavigationView.swift in Sources */,
 				994927E52ACBEB040FB72EFD /* Drift.swift in Sources */,
 				FAED2479F8A046848CC1761E /* DriftAdapter.swift in Sources */,

@@ -33,8 +33,11 @@ class GuideListViewController: UIViewController {
 //        viewModel.mocks2 {
 //            self.contentView.reloadData()
             
+        self.contentView.updateHUD(true)
             self.viewModel.mocks {
                 self.contentView.reloadData()
+                
+                self.contentView.updateHUD(false)
             }
 //        }
     }

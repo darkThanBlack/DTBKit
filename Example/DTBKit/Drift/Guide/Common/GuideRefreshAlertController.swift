@@ -23,9 +23,7 @@ class GuideRefreshAlertController: UIViewController {
     
     @objc private func doneButtonEvent(button: UIButton) {
         dismiss(animated: true)
-//        guard titles.isEmpty == false else {
-//            return
-//        }
+        
         completedHandler?()
     }
     
@@ -65,8 +63,9 @@ class GuideRefreshAlertController: UIViewController {
         titleLabel.text = titles.isEmpty ? "刷新成功，暂时没有新的任务完成" : "恭喜你，成功完成了以下任务"
         doneButton.setTitle(titles.isEmpty ? "去完成任务" : "继续完成任务", for: .normal)
         
+        let count: CGFloat = min(5, CGFloat(titles.count))
         tableView.snp.updateConstraints { make in
-            make.height.equalTo(titles.isEmpty ? 0.0 : 150.0)
+            make.height.equalTo(count * 26.0)
         }
         tableView.reloadData()
     }
@@ -97,7 +96,7 @@ class GuideRefreshAlertController: UIViewController {
             make.top.equalTo(titleLabel.snp.bottom).offset(32.0)
             make.left.equalTo(box.snp.left).offset(24.0)
             make.right.equalTo(box.snp.right).offset(-24.0)
-            make.height.equalTo(150.0)
+            make.height.equalTo(0.0)
         }
         doneButton.snp.makeConstraints { make in
             make.centerX.equalTo(box.snp.centerX)
@@ -143,7 +142,7 @@ class GuideRefreshAlertController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
-        tableView.estimatedRowHeight = 44.0
+        tableView.rowHeight = 26.0
         if #available(iOS 11.0, *) {
             tableView.contentInsetAdjustmentBehavior = .never
         } else {
@@ -217,9 +216,8 @@ class GuideRefreshAlertCell: UITableViewCell {
         box.addSubview(titleLabel)
         
         hintImageView.snp.makeConstraints { make in
-            make.top.equalTo(box.snp.top).offset(4.0)
+            make.centerY.equalToSuperview()
             make.left.equalTo(box.snp.left).offset(0)
-            make.bottom.equalTo(box.snp.bottom).offset(-4.0)
             make.width.height.equalTo(18.0)
         }
         titleLabel.snp.makeConstraints { make in

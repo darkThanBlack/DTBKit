@@ -29,7 +29,11 @@ class GuideGroupView: UIView {
         collectionView.reloadData()
         
         if needScroll, let index = datas.firstIndex(where: { $0.isSelected }) {
-            collectionView.scrollToItem(at: IndexPath(row: index, section: 0), at: .centeredHorizontally, animated: true)
+            if index == 0 {
+                collectionView.setContentOffset(CGPoint(x: 0, y: collectionView.contentOffset.y), animated: true)
+            } else {
+                collectionView.scrollToItem(at: IndexPath(row: index, section: 0), at: .centeredHorizontally, animated: true)
+            }
         }
     }
     

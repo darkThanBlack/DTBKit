@@ -24,6 +24,11 @@ protocol GuideDocsViewDelegate: AnyObject {
 /// 新手引导 - 任务指南
 class GuideDocsView: UIView {
     
+    ///
+    func updateHUD(_ isShow: Bool) {
+        backgroundView.updateHUD(isShow)
+    }
+    
     func load(url: String) {
         if let theUrl = URL(string: url) {
             DispatchQueue.main.async {

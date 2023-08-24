@@ -316,7 +316,7 @@ class GuideListCell: UITableViewCell {
     
     private lazy var titleLabel: UILabel = {
         let titleLabel = UILabel()
-        titleLabel.font = UIFont.systemFont(ofSize: 15.0, weight: .regular)
+        titleLabel.font = UIFont.systemFont(ofSize: 15.0, weight: .medium)
         titleLabel.textColor = DriftAdapter.color_333333()
         return titleLabel
     }()

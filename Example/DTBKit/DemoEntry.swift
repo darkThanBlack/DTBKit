@@ -74,8 +74,20 @@ class DemoEntry {
         case .guide:
             Drift.shared.start()
         case .webview:
-            let vc = SimpleWebViewController()
-            Navigate.topMost()?.navigationController?.pushViewController(vc, animated: true)
+//            let vc = SimpleWebViewController()
+//            Navigate.topMost()?.navigationController?.pushViewController(vc, animated: true)
+            SimpleVisualViewController.show(in: {
+                let enterView = GuideEnterView()
+                enterView.closeable = true
+                return enterView
+            }, behavior: nil, layouter: { son, father in
+                father.addSubview(son)
+                son.snp.makeConstraints { make in
+                    make.centerY.equalToSuperview()
+                    make.left.equalToSuperview().offset(0)
+                    make.right.equalToSuperview().offset(-0)
+                }
+            })
         }
     }
 }

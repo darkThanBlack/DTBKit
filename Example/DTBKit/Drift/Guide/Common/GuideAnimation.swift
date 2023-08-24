@@ -91,35 +91,23 @@ class GuideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
         
         // Step 2.1  背景略微变深
         // Step 2.2  浮岛从浮窗当前位置缩放到屏幕最底部
-        UIView.animate(withDuration: duration(0.2), delay: 0.2, options: .curveEaseIn) {
-            self.grayView.alpha = 0.2
+        UIView.animate(withDuration: duration(0.3), delay: 0.2, options: .curveEaseIn) {
+            self.grayView.alpha = 0.1
             
             self.bottomLand.alpha = 1.0
             self.bottomLand.backgroundColor = .white
             self.bottomLand.frame = CGRect(x: 0, y: self.scSize.height - (self.landRadius * 2), width: self.scSize.width, height: self.landHeight)
         } completion: { _ in
-            // Step 3.  浮岛从底部弹出，弹簧
-            UIView.animate(withDuration: self.duration(0.2), delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseInOut) {
-                self.bottomLand.frame = CGRect(x: 0, y: self.scSize.height - self.landHeight + self.landRadius, width: self.scSize.width, height: self.landHeight)
+            container.addSubview(toView)
+            toView.frame = CGRect(x: 0, y: self.bottomLand.frame.origin.y, width: self.scSize.width, height: self.scSize.height)
+            // Step 3.  从浮岛顶部开始普通 present 效果
+            UIView.animate(withDuration: self.duration(0.3), delay: 0.0, options: .curveEaseInOut) {
+                self.grayView.alpha = 0.35
+                toView.frame = CGRect(origin: .zero, size: self.scSize)
             } completion: { _ in
-                // Step 4.1  略停顿后再下降一点距离，模拟弹簧压缩效果
-                // Setp 4.2  背景继续变深
-                UIView.animate(withDuration: self.duration(0.4), delay: self.duration(0.1), options: .curveEaseOut) {
-                    self.grayView.alpha = 0.35
-                    
-                    self.bottomLand.frame = CGRect(x: 0, y: self.scSize.height - self.landHeight + (self.landRadius * 2.0), width: self.scSize.width, height: self.landHeight)
-                } completion: { _ in
-                    container.addSubview(toView)
-                    toView.frame = CGRect(x: 0, y: self.bottomLand.frame.origin.y, width: self.scSize.width, height: self.scSize.height)
-                    // Step 5.  从浮岛顶部开始普通 present 效果
-                    UIView.animate(withDuration: self.duration(0.2), delay: 0.0, options: .curveEaseInOut) {
-                        toView.frame = CGRect(origin: .zero, size: self.scSize)
-                    } completion: { _ in
-                        // Finish.  移除浮岛，保留背景
-                        self.bottomLand.removeFromSuperview()
-                        transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-                    }
-                }
+                // Finish.  移除浮岛，保留背景
+                self.bottomLand.removeFromSuperview()
+                transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
             }
         }
     }
@@ -142,7 +130,7 @@ class GuideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
         container.addSubview(toView)
         toView.frame = CGRect(x: 0, y: self.scSize.height, width: self.scSize.width, height: self.scSize.height)
         // Step 2.  普通 present
-        UIView.animate(withDuration: self.duration(0.25), animations: {
+        UIView.animate(withDuration: self.duration(0.3), animations: {
             self.grayView.alpha = 0.35
             toView.frame = CGRect(origin: .zero, size: self.scSize)
         }) { _ in
@@ -157,7 +145,7 @@ class GuideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
         }
         
         // Step 1.  普通 dismiss
-        UIView.animate(withDuration: self.duration(0.25), animations: {
+        UIView.animate(withDuration: self.duration(0.3), animations: {
             self.grayView.alpha = 0
             fromView.frame = CGRect(x: 0, y: self.scSize.height, width: self.scSize.width, height: self.scSize.height)
         }) { _ in
@@ -208,7 +196,7 @@ class GuideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
                 container.addSubview(toView)
                 toView.frame = CGRect(x: 0, y: self.bottomLand.frame.origin.y, width: self.scSize.width, height: self.scSize.height)
                 // Step 4.  从浮岛顶部开始普通 present 效果
-                UIView.animate(withDuration: self.duration(0.2), delay: 0.0, options: .curveEaseInOut) {
+                UIView.animate(withDuration: self.duration(0.3), delay: 0.0, options: .curveEaseInOut) {
                     self.grayView.alpha = 0.35
                     toView.frame = CGRect(origin: .zero, size: self.scSize)
                 } completion: { _ in

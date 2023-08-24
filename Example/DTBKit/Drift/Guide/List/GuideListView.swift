@@ -45,6 +45,11 @@ class GuideListView: UIView {
         tableView.reloadData()
     }
     
+    ///
+    func updateHUD(_ isShow: Bool) {
+        backgroundView.updateHUD(isShow)
+    }
+    
     private let viewModel: GuideListViewModel
     
     init(viewModel: GuideListViewModel) {
@@ -82,7 +87,7 @@ class GuideListView: UIView {
             make.right.equalTo(box.snp.right).offset(-16.0)
         }
         hintLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(2.0)
+            make.top.equalTo(titleLabel.snp.bottom).offset(8.0)
             make.left.equalTo(box.snp.left).offset(16.0)
             make.right.equalTo(box.snp.right).offset(-16.0)
         }

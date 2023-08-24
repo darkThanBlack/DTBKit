@@ -93,8 +93,8 @@ class GuideGroupCell: UICollectionViewCell {
             y: bounds.midY
         )
         
-        bottomHint.bounds = CGRect(x: 0, y: 0, width: 32.0, height: 1.0)
-        bottomHint.center = CGPoint(x: bounds.midX, y: bounds.maxY - 0.5)
+        bottomHint.bounds = CGRect(x: 0, y: 0, width: 32.0, height: 2.0)
+        bottomHint.center = CGPoint(x: bounds.midX, y: bounds.maxY - (2.0 / 2))
     }
     
     private lazy var stateImageView: UIImageView = {

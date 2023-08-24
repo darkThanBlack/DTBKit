@@ -50,7 +50,7 @@ class GuideDriftView: UIView {
     //MARK: - Event
     
     @objc private func closeButtonEvent(button: UIButton) {
-        let alert = UIAlertController(title: "提示", message: "浮窗将被关闭，您可以在首页入口处重新开启", preferredStyle: .alert)
+        let alert = UIAlertController(title: "确定关闭浮窗？", message: "确定后，浮窗将被关闭，您可在工作页面的启动任务入口中重新开启", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "取消", style: .default))
         alert.addAction(UIAlertAction(title: "确定", style: .default, handler: { _ in
             Drift.shared.stop()

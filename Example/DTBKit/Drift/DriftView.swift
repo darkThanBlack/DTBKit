@@ -80,8 +80,10 @@ class DriftView: UIView {
     
     //MARK: - fade
     
-    ///
-    private let canFade: Bool = false
+    /// 显隐效果
+    private let canFade: Bool = true
+    /// 自动隐藏效果
+    private let canDelay: Bool = false
     ///
     private var fadeTimer: Timer?
     ///
@@ -93,7 +95,7 @@ class DriftView: UIView {
     private func fadeTimerReStart() {
         fadeCounts = fadeDelayTime
         
-        guard fadeTimer == nil else { return }
+        guard fadeTimer == nil, canDelay == true else { return }
         fadeTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { [weak self] timer in
             self?.fadeTimerEvent(timer)
         })

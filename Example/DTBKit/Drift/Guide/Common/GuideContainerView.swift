@@ -31,10 +31,24 @@ class GuideContainerView: UIView {
         return contentView
     }()
     
+    ///
+    func updateHUD(_ isShow: Bool) {
+        if isShow {
+            contentView.isUserInteractionEnabled = false
+            hudView.isHidden = false
+            hudView.startAnimating()
+        } else {
+            contentView.isUserInteractionEnabled = true
+            hudView.isHidden = true
+            hudView.stopAnimating()
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         loadViews(in: self)
+        loadHudViews()
     }
     
     required init?(coder: NSCoder) {
@@ -81,7 +95,7 @@ class GuideContainerView: UIView {
         closeImageView.snp.makeConstraints { make in
             make.centerY.equalTo(titleLabel.snp.centerY)
             make.right.equalTo(box.snp.right).offset(-16.0)
-            make.width.height.equalTo(10.0)
+            make.width.height.equalTo(22.0)
         }
         closeButton.snp.makeConstraints { make in
             make.centerX.equalTo(closeImageView.snp.centerX)
@@ -92,6 +106,13 @@ class GuideContainerView: UIView {
         contentView.snp.makeConstraints { make in
             make.top.equalTo(closeImageView.snp.bottom).offset(16.0)
             make.left.right.bottom.equalTo(box)
+        }
+    }
+    
+    private func loadHudViews() {
+        self.addSubview(hudView)
+        hudView.snp.makeConstraints { make in
+            make.centerX.centerY.equalTo(contentView)
         }
     }
     
@@ -109,7 +130,7 @@ class GuideContainerView: UIView {
     }()
     
     private lazy var closeImageView: UIImageView = {
-        let closeImageView = UIImageView(image: DriftAdapter.imageNamed("ic_arrow_list_common_down"))
+        let closeImageView = UIImageView(image: DriftAdapter.imageNamed("guide_dismiss_arrow"))
         closeImageView.contentMode = .scaleAspectFit
         return closeImageView
     }()
@@ -127,5 +148,12 @@ class GuideContainerView: UIView {
         gradientImageView.contentMode = .scaleAspectFill
         gradientImageView.image = DriftAdapter.imageNamed("guide_header_bg")
         return gradientImageView
+    }()
+    
+    private lazy var hudView: UIActivityIndicatorView = {
+        let hudView = UIActivityIndicatorView(style: .gray)
+        hudView.isHidden = true
+        hudView.hidesWhenStopped = true
+        return hudView
     }()
 }
