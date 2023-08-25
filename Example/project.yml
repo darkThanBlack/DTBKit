@@ -1,3 +1,4 @@
+# https://github.com/yonaskolb/XcodeGen/blob/master/Docs/ProjectSpec.md
 # https://help.apple.com/xcode/mac/9.0/index.html?localePath=en.lproj#/dev7fe737ce0
 
 name: DTBKit
@@ -12,7 +13,6 @@ targets:
     type: application
     platform: [iOS]
     
-    # 禁用自动后缀名
     platformSuffix: ""
     settings:
       base:
@@ -68,12 +68,17 @@ targets:
       ## Tests
 #      - path: "../DTBKit/Tests/"
 #        group: "Unit Tests"
+
+  DTBKit_Basic:
+    type: framework
+    platform: [iOS]
+    sources:
+      - path: "../DTBKit/Basic"
     
   DTBKit_Tests:
     type: bundle.unit-test
     platform: [iOS]
     
-    # 禁用自动后缀名
     platformSuffix: ""
     sources:
       - path: "../DTBKit/Tests/"

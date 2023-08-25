@@ -121,7 +121,7 @@ class GuideListViewModel {
         
         self.groups.forEach({ $0.mocks() })
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             completed?()
         }
     }

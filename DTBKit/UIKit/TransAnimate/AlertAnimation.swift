@@ -74,8 +74,13 @@ public class AlertAnimation: NSObject, UIViewControllerAnimatedTransitioning {
     
     //MARK: - UIViewControllerAnimatedTransitioning
     
+    /// Debug helper
+    private func duration(_ value: TimeInterval) -> TimeInterval {
+        return value
+    }
+    
     public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return 0.3
+        return duration(0.3)
     }
     
     public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
@@ -93,6 +98,8 @@ public class AlertAnimation: NSObject, UIViewControllerAnimatedTransitioning {
         }
     }
     
+    //MARK: - Private
+    
     private func done(with context: UIViewControllerContextTransitioning) {
         context.completeTransition(!context.transitionWasCancelled)
     }
@@ -108,11 +115,19 @@ public class AlertAnimation: NSObject, UIViewControllerAnimatedTransitioning {
         container.addSubview(backgroundView)
         container.addSubview(toView)
         
+        backgroundView.frame = container.bounds
         backgroundView.alpha = 0
-        toView.frame = CGRect(x: 0, y: scSize.height, width: scSize.width, height: scSize.height)
+        
+        toView.frame = CGRect(
+            x: 0,
+            y: container.bounds.size.height,
+            width: container.bounds.size.width,
+            height: container.bounds.size.height
+        )
+        
         UIView.animate(withDuration: 0.3, animations: {
             self.backgroundView.alpha = 0.35
-            toView.frame = CGRect(origin: .zero, size: self.scSize)
+            toView.frame = container.bounds
         }) { _ in
             self.done(with: context)
         }
@@ -124,13 +139,19 @@ public class AlertAnimation: NSObject, UIViewControllerAnimatedTransitioning {
             self.done(with: context)
             return
         }
-        // let container = context.containerView
+        let container = context.containerView
         
         backgroundView.alpha = 0.35
-        fromView.frame = CGRect(origin: .zero, size: self.scSize)
+        fromView.frame = container.bounds
+        
         UIView.animate(withDuration: 0.3, animations: {
             self.backgroundView.alpha = 0
-            fromView.frame = CGRect(x: 0, y: self.scSize.height, width: self.scSize.width, height: self.scSize.height)
+            fromView.frame = CGRect(
+                x: 0,
+                y: container.bounds.size.height,
+                width: container.bounds.size.width,
+                height: container.bounds.size.height
+            )
         }) { _ in
             self.backgroundView.removeFromSuperview()
             fromView.removeFromSuperview()
@@ -150,14 +171,18 @@ public class AlertAnimation: NSObject, UIViewControllerAnimatedTransitioning {
         container.addSubview(backgroundView)
         container.addSubview(toView)
         
+        backgroundView.frame = container.bounds
         backgroundView.alpha = 0
+        
+        toView.frame = container.bounds
         toView.alpha = 0.0
-        toView.center = CGPoint(x: scSize.width / 2.0, y: scSize.height / 2.0)
-        toView.bounds = .zero
-        UIView.animate(withDuration: 0.3, animations: {
+        
+        toView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+        
+        UIView.animate(withDuration: duration(0.3), animations: {
             self.backgroundView.alpha = 0.35
             toView.alpha = 1.0
-            toView.bounds = CGRect(origin: .zero, size: self.scSize)
+            toView.transform = .identity
         }) { _ in
             self.done(with: context)
         }
@@ -169,16 +194,19 @@ public class AlertAnimation: NSObject, UIViewControllerAnimatedTransitioning {
             self.done(with: context)
             return
         }
-        // let container = context.containerView
+        let container = context.containerView
         
         self.backgroundView.alpha = 0.35
+        
+        fromView.frame = container.bounds
         fromView.alpha = 1.0
-        fromView.center = CGPoint(x: scSize.width / 2.0, y: scSize.height / 2.0)
-        fromView.bounds = CGRect(origin: .zero, size: self.scSize)
-        UIView.animate(withDuration: 0.3, animations: {
+        
+        fromView.transform = .identity
+        
+        UIView.animate(withDuration: duration(0.3), animations: {
             self.backgroundView.alpha = 0
             fromView.alpha = 0.0
-            fromView.bounds = .zero
+            fromView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
         }) { _ in
             self.backgroundView.removeFromSuperview()
             fromView.removeFromSuperview()
@@ -191,7 +219,6 @@ public class AlertAnimation: NSObject, UIViewControllerAnimatedTransitioning {
     private lazy var backgroundView: UIView = {
         let backgrounds = UIView()
         backgrounds.backgroundColor = .black
-        backgrounds.frame = CGRect(origin: .zero, size: scSize)
         backgrounds.alpha = 0
         return backgrounds
     }()
