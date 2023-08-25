@@ -6,18 +6,15 @@ attributes:
   ORGANIZATIONNAME: darkThanBlack
 targets:
   DTBKit_Example:
-    scheme:
-      testTargets:
-        - DTBKit_Tests
-      gatherCoverageData: true
     type: application
     platform: [iOS]
-    
     platformSuffix: ""
+    scheme:
+      buildImplicitDependencies: true
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: org.darkThanBlack.demo.DTBKit
-        IPHONEOS_DEPLOYMENT_TARGET: 11.0
+        IPHONEOS_DEPLOYMENT_TARGET: 10.0
         SWIFT_VERSION: 5.0
         TARGETED_DEVICE_FAMILY: 1  # iPhone
         EXCLUDED_ARCHS[sdk=iphonesimulator*]: arm64
@@ -72,27 +69,38 @@ targets:
   DTBKit_Basic:
     type: framework
     platform: [iOS]
+    platformSuffix: ""
+    deploymentTarget:
+      iOS: 10.0
+    scheme:
+      testTargets:
+        - DTBKit_Tests
+      gatherCoverageData: true
     sources:
+      - path: "../DTBKit/DTBKit.swift"
       - path: "../DTBKit/Basic"
-    
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: true
+
   DTBKit_Tests:
     type: bundle.unit-test
     platform: [iOS]
-    
     platformSuffix: ""
+    
     sources:
       - path: "../DTBKit/Tests/"
         group: "Unit Tests"
     settings:
       # 以前没有 ``BUNDLE_EXECUTABLE_FOLDER_PATH`` 定义
       # https://developer.apple.com/forums/thread/723699
-      TEST_HOST: $(BUILT_PRODUCTS_DIR)/DTBKit_Example.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/DTBKit_Example
+      # TEST_HOST: $(BUILT_PRODUCTS_DIR)/DTBKit_Example.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/DTBKit_Example
       PRODUCT_BUNDLE_IDENTIFIER: org.darkThanBlack.demo.DTBKit
       BUNDLE_LOADER: $(TEST_HOST)
       GENERATE_INFOPLIST_FILE: true
-      IPHONEOS_DEPLOYMENT_TARGET: 11.0
+      IPHONEOS_DEPLOYMENT_TARGET: 10.0
       SWIFT_VERSION: 5.0
       EXCLUDED_ARCHS[sdk=iphonesimulator*]: arm64
       CLANG_CXX_LANGUAGE_STANDARD: "gnu++20"
     dependencies:
-      - target: DTBKit_Example
+      - target: DTBKit_Basic
