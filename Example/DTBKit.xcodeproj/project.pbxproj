@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0169083FFEF6AE744A5BDE01 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDAF59F97655EB8E78958AD5 /* AppDelegate.swift */; };
 		03B83AED951D41B5E8247261 /* GuideNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50C5446D35072D81448F188 /* GuideNavigationController.swift */; };
+		0A6653C7305C8353C7E61FEA /* MathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7830E622F04A3AA897816301 /* MathTests.swift */; };
 		0AB6E0E0EF00BCDCDED30FB9 /* DriftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBE098124BFB2B965DF53E1 /* DriftView.swift */; };
 		0C1A172E134B1257FB303B8A /* DTBKit.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 3C7D3B41655E7FCD0EEE3DDE /* DTBKit.podspec */; };
 		0CEAA9B819E42D0EB1269281 /* GuideDocsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCB8D0050F9150920865BD /* GuideDocsView.swift */; };
@@ -24,6 +25,7 @@
 		3A9B01ED6B8CAEC69307A5D3 /* SimpleVisualViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD38C5FAE384D56B19938045 /* SimpleVisualViewController.swift */; };
 		3AC23554A53955C5AF50A390 /* DemoEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC825259B4A2BC75D4CAEBE /* DemoEntry.swift */; };
 		3D405FF2CB63F28EA098DF30 /* DTBApps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6691108411C11BF5B2735C9F /* DTBApps.swift */; };
+		3DBFB3F32E6F295E6FD488F2 /* DTBBasicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25FD8787B72EC0EF28984D2 /* DTBBasicTests.swift */; };
 		3EAB011FEDDD7DC2A3F2EA27 /* GuideEnterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED25071A1D39F442331A160 /* GuideEnterView.swift */; };
 		40415FAD78A5B8FB028AE0CC /* GuideDocsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37A3E6078E4415F13BA5C2C /* GuideDocsViewController.swift */; };
 		4290ED3021DC6BBBD5A93D47 /* UIButton+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D02212131A6DE0B3263433 /* UIButton+DTBKit.swift */; };
@@ -32,7 +34,6 @@
 		542E80D07C4C720334876FB4 /* UIImageView+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B12DECD91A6E0AE5EC1F07 /* UIImageView+DTBKit.swift */; };
 		54303D60788E9B31419018EB /* GuideGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917B7BC13391455F649E814E /* GuideGroupCell.swift */; };
 		55AA6E22F2382D71B31F7AAA /* DriftMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCB5799833552A14B00212E /* DriftMainViewController.swift */; };
-		5D09532B40E844BEDB428C71 /* ArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4DF3E3D21A9580A1E88BB8 /* ArrayTests.swift */; };
 		608B71882E8C2689D6FFA3CF /* UIImageView+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B12DECD91A6E0AE5EC1F07 /* UIImageView+DTBKit.swift */; };
 		666C2050BE2EBB7E874D732B /* GuideListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B6C890B0C51B40ACDB9737 /* GuideListView.swift */; };
 		66F19A1005CEDC2EDDBFDF6A /* Exported.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB035E2CD0BB15B35B6ADEC /* Exported.swift */; };
@@ -45,7 +46,6 @@
 		7AD3A1FD1CB434F8A57D1AE2 /* DTBNavigations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D985B8C735F3D6D784A44DB /* DTBNavigations.swift */; };
 		7CF58AE26EC8F27ABBC74059 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB470419225C0F4E263C23C7 /* HomeViewController.swift */; };
 		839D75B740DCBBD5925D3560 /* DTBKit_Basic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2FD6971A0E7BF727498C59 /* DTBKit_Basic.framework */; };
-		8B0F402A74C9C1AC68763493 /* DTBTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D45D1A30057986AEBA4F20 /* DTBTests.swift */; };
 		8DD734649787D05EF6D0203A /* EdgeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA75639F4BCCE3CFCB62F65 /* EdgeLabel.swift */; };
 		994927E52ACBEB040FB72EFD /* Drift.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD89C181F30AA5BDF38ADEC /* Drift.swift */; };
 		9A3ECCB36D1EBF5729CC9064 /* DTBApps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6691108411C11BF5B2735C9F /* DTBApps.swift */; };
@@ -63,10 +63,10 @@
 		BC1BD050E1C053BEEEECA11A /* GuideAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C7C32BAB75A5E72D732E5 /* GuideAnimation.swift */; };
 		BDBB8C6B4588D4721BBE6CE5 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D9099D1384E801AE7056DEE1 /* README.md */; };
 		C913F57DFEDE8100F34DF656 /* GuideListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08052F62729C3302D29567E1 /* GuideListViewModel.swift */; };
+		CAC48BEDAFE348570CABBF36 /* ArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0453409D1C44E09800DD04FC /* ArrayTests.swift */; };
 		CE4EC0F7FA3C9D7A673AEDE2 /* DTBMaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F596A31642CACC46A87F1B /* DTBMaths.swift */; };
 		D48F87C194A07414C778BE13 /* GuideRefreshAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5E6ECB7B179BA0F3581379 /* GuideRefreshAlertController.swift */; };
 		DB62217F2600BABC79DCA7DE /* DTBKit_Basic.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA2FD6971A0E7BF727498C59 /* DTBKit_Basic.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		DE8C43ED636CC4947B7EB4F9 /* MathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7076E0D1A9405127CC9AB8F1 /* MathTests.swift */; };
 		E85EFD5DB74F8C80C23DFB37 /* DriftWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C534D0DD58E8AF5BE72CF0 /* DriftWindow.swift */; };
 		FAED2479F8A046848CC1761E /* DriftAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D43E54B5D507D690F7859E1 /* DriftAdapter.swift */; };
 		FD226C822096E72DA8C373FA /* DemoNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA191678C2B68D0C9BDC1380 /* DemoNavigationView.swift */; };
@@ -97,6 +97,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0453409D1C44E09800DD04FC /* ArrayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayTests.swift; sourceTree = "<group>"; };
 		08052F62729C3302D29567E1 /* GuideListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideListViewModel.swift; sourceTree = "<group>"; };
 		0B5E6ECB7B179BA0F3581379 /* GuideRefreshAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideRefreshAlertController.swift; sourceTree = "<group>"; };
 		118A740DE77F04184DA01AE5 /* GuideContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideContainerView.swift; sourceTree = "<group>"; };
@@ -117,9 +118,9 @@
 		6ABA054619FB46334287D932 /* AlertAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertAnimation.swift; sourceTree = "<group>"; };
 		6BCB5799833552A14B00212E /* DriftMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriftMainViewController.swift; sourceTree = "<group>"; };
 		704A366BC07569D76B34F19E /* GuideListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideListViewController.swift; sourceTree = "<group>"; };
-		7076E0D1A9405127CC9AB8F1 /* MathTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathTests.swift; sourceTree = "<group>"; };
 		70B7C80B5F60A9B0123B9530 /* project.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = project.yml; sourceTree = "<group>"; };
 		73C534D0DD58E8AF5BE72CF0 /* DriftWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriftWindow.swift; sourceTree = "<group>"; };
+		7830E622F04A3AA897816301 /* MathTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathTests.swift; sourceTree = "<group>"; };
 		7ABCB8D0050F9150920865BD /* GuideDocsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideDocsView.swift; sourceTree = "<group>"; };
 		881598D80582636EC3A51695 /* basic.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = basic.xcassets; sourceTree = "<group>"; };
 		8CB035E2CD0BB15B35B6ADEC /* Exported.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exported.swift; sourceTree = "<group>"; };
@@ -140,17 +141,16 @@
 		BC6E7EE8D53328AC3713FE97 /* DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DTBKit.swift; path = ../DTBKit/DTBKit.swift; sourceTree = "<group>"; };
 		BD38C5FAE384D56B19938045 /* SimpleVisualViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleVisualViewController.swift; sourceTree = "<group>"; };
 		C1E7982283574061EF2C6745 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		C25FD8787B72EC0EF28984D2 /* DTBBasicTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTBBasicTests.swift; sourceTree = "<group>"; };
 		C50C5446D35072D81448F188 /* GuideNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideNavigationController.swift; sourceTree = "<group>"; };
 		CCBE098124BFB2B965DF53E1 /* DriftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriftView.swift; sourceTree = "<group>"; };
 		CDAF59F97655EB8E78958AD5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D17C870D9760C123DAB99D77 /* GuideListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideListCell.swift; sourceTree = "<group>"; };
 		D3AC342F155A915761C34299 /* DTBColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTBColors.swift; sourceTree = "<group>"; };
-		D8D45D1A30057986AEBA4F20 /* DTBTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTBTests.swift; sourceTree = "<group>"; };
 		D9099D1384E801AE7056DEE1 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		DA191678C2B68D0C9BDC1380 /* DemoNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoNavigationView.swift; sourceTree = "<group>"; };
 		E09C7C32BAB75A5E72D732E5 /* GuideAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideAnimation.swift; sourceTree = "<group>"; };
 		ED4BF22ECC505B7533EF4441 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
-		EE4DF3E3D21A9580A1E88BB8 /* ArrayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayTests.swift; sourceTree = "<group>"; };
 		EED25071A1D39F442331A160 /* GuideEnterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideEnterView.swift; sourceTree = "<group>"; };
 		F07719E41192E51E26324668 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		F1D02212131A6DE0B3263433 /* UIButton+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+DTBKit.swift"; sourceTree = "<group>"; };
@@ -178,6 +178,17 @@
 				BB16CC9B82C3A96393CE14B5 /* SimpleWebViewController.swift */,
 			);
 			path = WebView;
+			sourceTree = "<group>";
+		};
+		0EA38C81F61EF6BC4C2C2D86 /* BasicTests */ = {
+			isa = PBXGroup;
+			children = (
+				0453409D1C44E09800DD04FC /* ArrayTests.swift */,
+				C25FD8787B72EC0EF28984D2 /* DTBBasicTests.swift */,
+				7830E622F04A3AA897816301 /* MathTests.swift */,
+			);
+			name = BasicTests;
+			path = ../DTBKit/BasicTests;
 			sourceTree = "<group>";
 		};
 		143D382ADE74995B70BEB580 /* TransAnimate */ = {
@@ -235,17 +246,6 @@
 				60B12DECD91A6E0AE5EC1F07 /* UIImageView+DTBKit.swift */,
 			);
 			path = Foundations;
-			sourceTree = "<group>";
-		};
-		58B0C9655276DB39167B018D /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-				EE4DF3E3D21A9580A1E88BB8 /* ArrayTests.swift */,
-				D8D45D1A30057986AEBA4F20 /* DTBTests.swift */,
-				7076E0D1A9405127CC9AB8F1 /* MathTests.swift */,
-			);
-			name = Tests;
-			path = ../DTBKit/Tests;
 			sourceTree = "<group>";
 		};
 		62AAEF6B6B49128E3CFA8D4B /* APP */ = {
@@ -381,7 +381,7 @@
 		C4299C39FE41BDD991CA453B /* Unit Tests */ = {
 			isa = PBXGroup;
 			children = (
-				58B0C9655276DB39167B018D /* Tests */,
+				0EA38C81F61EF6BC4C2C2D86 /* BasicTests */,
 			);
 			name = "Unit Tests";
 			sourceTree = "<group>";
@@ -623,9 +623,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5D09532B40E844BEDB428C71 /* ArrayTests.swift in Sources */,
-				8B0F402A74C9C1AC68763493 /* DTBTests.swift in Sources */,
-				DE8C43ED636CC4947B7EB4F9 /* MathTests.swift in Sources */,
+				CAC48BEDAFE348570CABBF36 /* ArrayTests.swift in Sources */,
+				3DBFB3F32E6F295E6FD488F2 /* DTBBasicTests.swift in Sources */,
+				0A6653C7305C8353C7E61FEA /* MathTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

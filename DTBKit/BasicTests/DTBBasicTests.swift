@@ -14,5 +14,5 @@ import XCTest
 
 import DTBKit_Basic
 
-final class DTBTests: XCTestCase {
+final class DTBBasicTests: XCTestCase {
 }

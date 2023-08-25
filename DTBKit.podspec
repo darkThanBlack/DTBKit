@@ -35,10 +35,10 @@ TODO: Add long description of the pod here.
   #   'DTBKit' => ['DTBKit/Assets/*.xcassets']
   # }
   
-  s.test_spec 'Tests' do |t|
-    t.framework = 'XCTest'
-    t.source_files = 'DTBKit/Tests/**/*'
-  end
+  # s.test_spec 'Tests' do |t|
+  #   t.framework = 'XCTest'
+  #   t.source_files = 'DTBKit/Tests/**/*'
+  # end
   
   s.subspec 'Basic' do |ss|
     ss.source_files = 'DTBKit/Basic/**/*'

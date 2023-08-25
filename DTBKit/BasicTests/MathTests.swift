@@ -113,4 +113,9 @@ final class MathTests: XCTestCase {
         }
         aspect()
     }
+    
+    func testCGRect() throws {
+        
+        
+    }
 }

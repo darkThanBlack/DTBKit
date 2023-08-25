@@ -145,7 +145,7 @@ extension DTBKitWrapper where Base == CGRect {
         return me.size.dtb.isEmpty
     }
     
-    public func absorbable(in barrier: CGSize) -> CGRect {
+    public func absorb(barrier: CGSize) -> CGRect {
         return CGRect(
             x: me.origin.x,
             y: me.origin.y,
@@ -154,13 +154,8 @@ extension DTBKitWrapper where Base == CGRect {
         )
     }
     
-//    public func absorbInside(in barrier: CGSize) -> CGRect {
-//        var result = absorbable(in: barrier)
-//
-//    }
-    
-    func frameInside(value: CGRect, barrier: CGRect) -> CGRect {
-        var newFrame = value
+    public func inside(barrier: CGRect) -> CGRect {
+        var newFrame = me
         
         if newFrame.origin.x < 0 {
             newFrame.origin.x = 0

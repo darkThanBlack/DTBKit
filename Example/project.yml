@@ -62,10 +62,7 @@ targets:
       - path: "../DTBKit/Assets"
         group: "Resources"
       
-      ## Tests
-#      - path: "../DTBKit/Tests/"
-#        group: "Unit Tests"
-
+      
   DTBKit_Basic:
     type: framework
     platform: [iOS]
@@ -89,7 +86,7 @@ targets:
     platformSuffix: ""
     
     sources:
-      - path: "../DTBKit/Tests/"
+      - path: "../DTBKit/BasicTests/"
         group: "Unit Tests"
     settings:
       # 以前没有 ``BUNDLE_EXECUTABLE_FOLDER_PATH`` 定义
