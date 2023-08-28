@@ -8,7 +8,7 @@ target 'DTBKit_Example' do
 #  pod 'DTBKit', :path => '../', :testspecs => ['Tests']
   
   pod 'SnapKit', '5.0.1'
-  pod 'URLNavigator', '2.3.0'
+#  pod 'URLNavigator', '2.3.0'
   
   pod 'DoraemonKit/Core', '~> 3.0.4', configurations: %w[Debug] # 必选
   
@@ -20,7 +20,7 @@ end
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
-      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '11.0'
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '10.0'
       config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'arm64'
     end
   end

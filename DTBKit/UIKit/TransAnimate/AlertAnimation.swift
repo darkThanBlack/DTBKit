@@ -125,7 +125,7 @@ public class AlertAnimation: NSObject, UIViewControllerAnimatedTransitioning {
             height: container.bounds.size.height
         )
         
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: duration(0.3), animations: {
             self.backgroundView.alpha = 0.35
             toView.frame = container.bounds
         }) { _ in
@@ -144,7 +144,7 @@ public class AlertAnimation: NSObject, UIViewControllerAnimatedTransitioning {
         backgroundView.alpha = 0.35
         fromView.frame = container.bounds
         
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: duration(0.3), animations: {
             self.backgroundView.alpha = 0
             fromView.frame = CGRect(
                 x: 0,

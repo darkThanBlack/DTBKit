@@ -14,17 +14,18 @@
 import Foundation
 import UIKit
 
-//MARK: - Namespaces
+//MARK: -
 
-///
+/// Wrapper
 public struct DTBKitWrapper<Base> {
+    /// Same as ``self``
     public let me: Base
     public init(_ base: Base) {
         self.me = base
     }
 }
 
-/// namespace for class
+/// For ``class``
 public protocol DTBKitable: AnyObject {}
 
 extension DTBKitable {
@@ -35,7 +36,7 @@ extension DTBKitable {
     }
 }
 
-/// namespace for struct
+/// For ``struct``
 public protocol DTBKitableValue {}
 
 extension DTBKitableValue {
@@ -49,15 +50,12 @@ extension DTBKitableValue {
 //MARK: - Static funcs
 
 ///
-public enum App {}
-
-///
-public enum Navigate {}
+public enum DTB {}
 
 ///
 public enum Color {}
 
-// MARK: - Submodule: Basic
+// MARK: - DTBKit/Basic
 
 extension CGFloat: DTBKitableValue {}
 
@@ -67,11 +65,10 @@ extension CGRect: DTBKitableValue {}
 
 extension Array: DTBKitableValue {}
 
+extension UIViewController: DTBKitable {}
+
 extension UIImage: DTBKitable {}
 
 extension UIImageView: DTBKitable {}
 
 extension UIButton: DTBKitable {}
-
-extension UIViewController: DTBKitable {}
-

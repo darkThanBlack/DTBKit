@@ -10,7 +10,9 @@ targets:
     platform: [iOS]
     platformSuffix: ""
     scheme:
-      buildImplicitDependencies: true
+#      buildImplicitDependencies: true
+      testTargets:
+        - DTBKit_Tests
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: org.darkThanBlack.demo.DTBKit
@@ -63,22 +65,22 @@ targets:
         group: "Resources"
       
       
-  DTBKit_Basic:
-    type: framework
-    platform: [iOS]
-    platformSuffix: ""
-    deploymentTarget:
-      iOS: 10.0
-    scheme:
-      testTargets:
-        - DTBKit_Tests
-      gatherCoverageData: true
-    sources:
-      - path: "../DTBKit/DTBKit.swift"
-      - path: "../DTBKit/Basic"
-    settings:
-      base:
-        GENERATE_INFOPLIST_FILE: true
+#  DTBKit_Basic:
+#    type: framework
+#    platform: [iOS]
+#    platformSuffix: ""
+#    deploymentTarget:
+#      iOS: 10.0
+#    scheme:
+#      testTargets:
+#        - DTBKit_Tests
+#      gatherCoverageData: true
+#    sources:
+#      - path: "../DTBKit/DTBKit.swift"
+#      - path: "../DTBKit/Basic"
+#    settings:
+#      base:
+#        GENERATE_INFOPLIST_FILE: true
 
   DTBKit_Tests:
     type: bundle.unit-test
@@ -100,4 +102,5 @@ targets:
       EXCLUDED_ARCHS[sdk=iphonesimulator*]: arm64
       CLANG_CXX_LANGUAGE_STANDARD: "gnu++20"
     dependencies:
-      - target: DTBKit_Basic
+#      - target: DTBKit_Basic
+      - target: DTBKit_Example

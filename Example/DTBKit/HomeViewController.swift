@@ -81,12 +81,21 @@ class HomeViewController: UIViewController {
         box.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: box.safeAreaLayoutGuide.topAnchor),
-            tableView.leftAnchor.constraint(equalTo: box.leftAnchor),
-            tableView.rightAnchor.constraint(equalTo: box.rightAnchor),
-            tableView.bottomAnchor.constraint(equalTo: box.safeAreaLayoutGuide.bottomAnchor),
-        ])
+        if #available(iOS 11.0, *) {
+            NSLayoutConstraint.activate([
+                tableView.topAnchor.constraint(equalTo: box.safeAreaLayoutGuide.topAnchor),
+                tableView.leftAnchor.constraint(equalTo: box.leftAnchor),
+                tableView.rightAnchor.constraint(equalTo: box.rightAnchor),
+                tableView.bottomAnchor.constraint(equalTo: box.safeAreaLayoutGuide.bottomAnchor),
+            ])
+        } else {
+            NSLayoutConstraint.activate([
+                tableView.topAnchor.constraint(equalTo: box.topAnchor),
+                tableView.leftAnchor.constraint(equalTo: box.leftAnchor),
+                tableView.rightAnchor.constraint(equalTo: box.rightAnchor),
+                tableView.bottomAnchor.constraint(equalTo: box.bottomAnchor),
+            ])
+        }
     }
     
     private lazy var tableView: UITableView = {

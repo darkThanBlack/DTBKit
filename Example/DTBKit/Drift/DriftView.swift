@@ -20,7 +20,10 @@ class DriftView: UIView {
     ///
     func fireAbsorb() {
         let father = superview?.bounds ?? UIScreen.main.bounds
-        let barrier = father.inset(by: superview?.safeAreaInsets ?? .zero)
+        var barrier = father
+        if #available(iOS 11.0, *) {
+            barrier = father.inset(by: superview?.safeAreaInsets ?? .zero)
+        }
         let newFrame = absorbHorizonal(frame, barrier: barrier)
         UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseInOut) {
             self.frame = newFrame

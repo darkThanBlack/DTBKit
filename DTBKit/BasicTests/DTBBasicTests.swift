@@ -12,7 +12,8 @@
 
 import XCTest
 
-import DTBKit_Basic
+//import DTBKit_Basic
+import DTBKit_Example
 
 final class DTBBasicTests: XCTestCase {
 }

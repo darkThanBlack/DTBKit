@@ -47,7 +47,7 @@ class SimpleVisualViewController: UIViewController {
         )
         let appWindow = Drift.shared.appWindow
         assert(appWindow?.rootViewController != nil)
-        Navigate.topMost(appWindow?.rootViewController)?.navigationController?.pushViewController(simpleVC, animated: true)
+        DTB.topMost?.navigationController?.pushViewController(simpleVC, animated: true)
     }
     
     init(
