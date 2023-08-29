@@ -36,14 +36,14 @@ extension DTB {
     /// [refer](https://stackoverflow.com/questions/57134259)
     public static func keyWindow() -> UIWindow? {
         
-        func step1() -> UIWindow? {
+        func style3() -> UIWindow? {
             if #available(iOS 15.0, *) {
                 return scene()?.keyWindow
             }
             return nil
         }
         
-        func step2() -> UIWindow? {
+        func style2() -> UIWindow? {
             if #available(iOS 13.0, *) {
                 return scene()?
                     .windows
@@ -52,10 +52,10 @@ extension DTB {
             return nil
         }
         
-        func step3() -> UIWindow? {
+        func style1() -> UIWindow? {
             return UIApplication.shared.keyWindow
         }
-        return step1() ?? step2() ?? step3()
+        return style3() ?? style2() ?? style1()
     }
     
     /// Top most view controller in general
@@ -111,14 +111,17 @@ extension DTB {
         guard let controller = topMost else {
             return false
         }
+        // pop
         if let nav = controller.navigationController ?? (controller as? UINavigationController) {
             nav.popViewController(animated: animated)
             return true
         }
+        // dismiss
         if controller.presentingViewController != nil {
             controller.dismiss(animated: animated)
             return true
         }
+        // child remove
         if controller.parent != nil {
             controller.willMove(toParent: nil)
             controller.view.removeFromSuperview()
@@ -128,48 +131,36 @@ extension DTB {
         return false
     }
     
-    /// Status bar height, do not use it in general
+    /// Status bar height
     ///
     /// * I suggest using "safe area" instead of "const px" whenever possible.
     /// * Anyway, do *NOT* use it before ``window.makeKeyAndVisable``
     ///
-    /// Sample code with "auto layout" + "safe area" may like:
-    /// ```
-    ///    let father = UIView()
-    ///    let son = UIView()
-    ///    [father, son].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
-    ///    if #available(iOS 11.0, *) {
-    ///        son.topAnchor.constraint(equalTo: father.safeAreaLayoutGuide.topAnchor, constant: 0.0).isActive = true
-    ///    } else {
-    ///        son.topAnchor.constraint(equalTo: father.topAnchor, constant: 0.0).isActive = true
-    ///    }
-    /// ```
+    /// * 仅用于老代码兼容，新代码不应再使用
+    /// * 同时注意不要在 ``window.makeKeyAndVisable`` 之前，一般也就是首页布局中调用
     ///
-    /// Sample code with "frame" + "safe area" may like:
-    /// ```
-    ///    if #available(iOS 11.0, *) {
-    ///        son.frame.origin.x = father.safeAreaInsets.top + 8.0
-    ///    } else {
-    ///        son.frame.origin.x = 8.0
-    ///    }
-    /// ```
+    /// [best practices](https://darkthanblack.github.io/blogs/05-bp-statusbar)
     public static var statusBarHeight: CGFloat {
         get {
-            ///
-            func oldHeight() -> CGFloat {
-                let height = UIApplication.shared.statusBarFrame.size.height
-                if #available(iOS 11.0, *) {
-                    return keyWindow()?.safeAreaInsets.top ?? height
-                } else {
-                    return height
+            
+            func style3() -> CGFloat? {
+                if #available(iOS 13.0, *) {
+                    return scene()?.statusBarManager?.statusBarFrame.size.height
                 }
+                return nil
             }
             
-            if #available(iOS 13.0, *) {
-                return scene()?.statusBarManager?.statusBarFrame.size.height ?? oldHeight()
-            } else {
-                return oldHeight()
+            func style2() -> CGFloat? {
+                if #available(iOS 11.0, *) {
+                    return keyWindow()?.safeAreaInsets.top
+                }
+                return nil
             }
+            
+            func style1() -> CGFloat {
+                return UIApplication.shared.statusBarFrame.size.height
+            }
+            return style3() ?? style2() ?? style1()
         }
         set {}
     }

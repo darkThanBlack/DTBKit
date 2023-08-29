@@ -57,6 +57,8 @@ public enum Color {}
 
 // MARK: - DTBKit/Basic
 
+extension Double: DTBKitableValue {}
+
 extension CGFloat: DTBKitableValue {}
 
 extension CGSize: DTBKitableValue {}

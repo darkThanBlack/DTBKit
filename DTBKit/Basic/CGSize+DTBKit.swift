@@ -1,8 +1,8 @@
 //
-//  DTBMaths.swift
+//  CGSize+DTBKit.swift
 //  DTBKit_Example
 //
-//  Created by moonShadow on 2023/6/30
+//  Created by moonShadow on 2023/8/29
 //  Copyright © 2023 darkThanBlack. All rights reserved.
 //
 //  LICENSE: SAME AS REPOSITORY
@@ -12,15 +12,11 @@
 
 import UIKit
 
-extension DTBKitWrapper where Base == CGFloat {
-    
-    ///  x/0 -> x/1
-    public func div(_ f: CGFloat) -> CGFloat {
-        return me / (f == 0.0 ? 1.0 : f)
-    }
-}
-
-/// Size width and height always >= 0.0 semantically
+/// Size width and height always >= 0.0 semantically.
+///
+/// 从语义上来考虑，"大小" 的 "宽" 和 "高" 应当不小于 0，否则应该用 CGPoint 来实现。此处的代码均保证了这一点。
+///
+/// More info in ``MathTests.swift``
 extension DTBKitWrapper where Base == CGSize {
     
     // MARK: - basic
@@ -92,7 +88,7 @@ extension DTBKitWrapper where Base == CGSize {
     
     // MARK: - aspect
     
-    ///
+    /// Same as ``UIImageView.contentMode``
     public func aspectFit(to target: CGSize) -> CGSize {
         if isEmpty || target.dtb.isEmpty {
             return .zero
@@ -110,7 +106,7 @@ extension DTBKitWrapper where Base == CGSize {
         }
     }
     
-    ///
+    /// Same as ``UIImageView.contentMode``
     public func aspectFill(to target: CGSize) -> CGSize {
         if isEmpty || target.dtb.isEmpty {
             return .zero
@@ -135,45 +131,4 @@ extension DTBKitWrapper where Base == CGSize {
     public func pureSmall(than s: CGSize) -> Bool {
         return (me.width <= s.width) && (me.height <= s.height)
     }
-}
-
-extension DTBKitWrapper where Base == CGRect {
-    
-    //MARK: - absorb
-    
-    public var isEmpty: Bool {
-        return me.size.dtb.isEmpty
-    }
-    
-    public func absorb(barrier: CGSize) -> CGRect {
-        return CGRect(
-            x: me.origin.x,
-            y: me.origin.y,
-            width: min(me.width, max(barrier.width, 0)),
-            height: min(me.height, max(barrier.height, 0))
-        )
-    }
-    
-    public func inside(barrier: CGRect) -> CGRect {
-        var newFrame = me
-        
-        if newFrame.origin.x < 0 {
-            newFrame.origin.x = 0
-        }
-        
-        if newFrame.origin.x > (barrier.size.width - newFrame.size.width) {
-            newFrame.origin.x = barrier.size.width - newFrame.size.width
-        }
-        
-        if newFrame.origin.y < 0 {
-            newFrame.origin.y = 0
-        }
-        
-        if newFrame.origin.y > (barrier.size.height - newFrame.size.height) {
-            newFrame.origin.y = barrier.size.height - newFrame.size.height
-        }
-        
-        return newFrame
-    }
-    
 }

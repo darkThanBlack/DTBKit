@@ -16,7 +16,7 @@ extension DemoCellModel {
     
     enum CellType: String, CaseIterable {
         
-        case edgeLabel, bundleImage, guide, webview
+        case edgeLabel, bundleImage, guide, webView, tableView
         
         var desc: String? {
             switch self {
@@ -73,7 +73,7 @@ class DemoEntry {
             }, behavior: .center)
         case .guide:
             Drift.shared.start()
-        case .webview:
+        case .webView:
 //            let vc = SimpleWebViewController()
 //            Navigate.topMost()?.navigationController?.pushViewController(vc, animated: true)
             SimpleVisualViewController.show(in: {
@@ -88,6 +88,9 @@ class DemoEntry {
                     make.right.equalToSuperview().offset(-0)
                 }
             })
+        case .tableView:
+            let vc = SimpleTableViewController()
+            DTB.topMost?.navigationController?.pushViewController(vc, animated: true)
         }
     }
 }
