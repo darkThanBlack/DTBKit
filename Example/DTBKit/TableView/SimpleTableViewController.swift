@@ -12,6 +12,10 @@
 
 import UIKit
 
+protocol DTBCellTestable {
+    
+}
+
 ///
 class SimpleTableViewController: UIViewController {
     
@@ -19,33 +23,89 @@ class SimpleTableViewController: UIViewController {
         super.viewDidLoad()
         
         loadViews(in: view)
+        
+        mocks()
+    }
+    
+    private var datas: [XMDotSegmentCellModel] = []
+    
+    private func mocks() {
+        datas = [
+            XMDotSegmentCellModel(
+                title: "左侧标题",
+                options: [
+                    XMDotSegmentItemModel(
+                        primaryKey: "1",
+                        title: "选项1",
+                        isSelected: true
+                    ),
+                    XMDotSegmentItemModel(
+                        primaryKey: "2",
+                        title: "选项2很长很长很长很长很长很长很长很长很长",
+                        isSelected: false
+                    )
+                ],
+                showSingleLine: true
+            ),
+            XMDotSegmentCellModel(
+                title: "左侧标题",
+                options: [
+                    XMDotSegmentItemModel(
+                        primaryKey: "3",
+                        title: "选项1",
+                        isSelected: false
+                    ),
+                    XMDotSegmentItemModel(
+                        primaryKey: "4",
+                        title: "选项2很长很长很长很长很长很长很长很长很长",
+                        isSelected: true
+                    ),
+                    XMDotSegmentItemModel(
+                        primaryKey: "5",
+                        title: "选项2",
+                        isSelected: true
+                    ),
+                    XMDotSegmentItemModel(
+                        primaryKey: "6",
+                        title: "选项2",
+                        isSelected: true
+                    )
+                ],
+                showSingleLine: false
+            )
+        ]
+        
+        tableView.reloadData()
     }
     
     //MARK: View
     
     private func loadViews(in box: UIView) {
-        
-        
-        
+        box.addSubview(tableView)
+        tableView.snp.makeConstraints { make in
+            if #available(iOS 11.0, *) {
+                make.top.left.right.bottom.equalTo(box.safeAreaLayoutGuide)
+            } else {
+                make.top.left.right.bottom.equalTo(box)
+            }
+        }
     }
     
-    //MARK: Event
-    
-//    private lazy var tableView: UITableView = {
-//        let tableView = UITableView(frame: .zero, style: .plain)
-//        tableView.backgroundColor = <#Color#>
-//        tableView.delegate = self
-//        tableView.dataSource = self
-//        tableView.separatorStyle = .none
-//        tableView.estimatedRowHeight = 44.0
-//        if #available(iOS 11.0, *) {
-//            tableView.contentInsetAdjustmentBehavior = .never
-//        } else {
-//            self.automaticallyAdjustsScrollViewInsets = false
-//        }
-//        // tableView.register(<#Cell#>.self, forCellReuseIdentifier: String(describing: <#Cell#>.self))
-//        return tableView
-//    }()
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .plain)
+        tableView.backgroundColor = .white
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.separatorStyle = .none
+        tableView.estimatedRowHeight = 44.0
+        if #available(iOS 11.0, *) {
+            tableView.contentInsetAdjustmentBehavior = .never
+        } else {
+            self.automaticallyAdjustsScrollViewInsets = false
+        }
+         tableView.register(XMDotSegmentCell.self, forCellReuseIdentifier: String(describing: XMDotSegmentCell.self))
+        return tableView
+    }()
 }
 
 extension SimpleTableViewController: UITableViewDelegate {
@@ -56,14 +116,39 @@ extension SimpleTableViewController: UITableViewDelegate {
 
 extension SimpleTableViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return [].count
+        return datas.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: <#Cell#>.self)) as? <#Cell#> else {
-//            return UITableViewCell()
-//        }
+        guard indexPath.row < datas.count else {
+            return UITableViewCell()
+        }
+        
+        if let model = datas[indexPath.row] as? XMDotSegmentCellDataSource,
+           let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: XMDotSegmentCell.self)) as? XMDotSegmentCell {
+            
+            cell.config(with: model)
+            cell.delegate = self
+            return cell
+        }
         
         return UITableViewCell()
+    }
+}
+
+extension SimpleTableViewController: XMDotSegmentCellDelegate {
+    
+    func dotSegmentCellDidTap(_ cell: UITableViewCell?, at key: String?) {
+        guard let c = cell, let indexPath = tableView.indexPath(for: c) else {
+            return
+        }
+        
+        if let sIndex = datas.firstIndex(where: { $0.options.contains(where: { $0.primaryKey == key }) }) {
+            for (index, _) in datas[sIndex].options.enumerated() {
+                datas[sIndex].options[index].isSelected = datas[sIndex].options[index].primaryKey == key
+            }
+        }
+        
+        tableView.reloadData()
     }
 }
