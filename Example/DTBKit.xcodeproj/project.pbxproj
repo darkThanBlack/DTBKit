@@ -42,6 +42,7 @@
 		A24B82DF2A9F14D800BE49B7 /* XMDotSegmentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24B82DE2A9F14D800BE49B7 /* XMDotSegmentCell.swift */; };
 		A24B82E22A9F162600BE49B7 /* XMVisual.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24B82E12A9F162600BE49B7 /* XMVisual.swift */; };
 		A24B82E42A9F427600BE49B7 /* XMAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24B82E32A9F427600BE49B7 /* XMAdapter.swift */; };
+		A24B82E62AA043E900BE49B7 /* XMDotSegmentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24B82E52AA043E900BE49B7 /* XMDotSegmentItem.swift */; };
 		A735232D860682E7B7E7ECB0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F814B4B829198871353120F8 /* Images.xcassets */; };
 		A9DE99B858E334528346CE4B /* AlertAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABA054619FB46334287D932 /* AlertAnimation.swift */; };
 		AB3E36DAA3E1FB94F7E84874 /* CGRect+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88629093E8C4B902768DC1C /* CGRect+DTBKit.swift */; };
@@ -118,6 +119,7 @@
 		A24B82DE2A9F14D800BE49B7 /* XMDotSegmentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMDotSegmentCell.swift; sourceTree = "<group>"; };
 		A24B82E12A9F162600BE49B7 /* XMVisual.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMVisual.swift; sourceTree = "<group>"; };
 		A24B82E32A9F427600BE49B7 /* XMAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMAdapter.swift; sourceTree = "<group>"; };
+		A24B82E52AA043E900BE49B7 /* XMDotSegmentItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMDotSegmentItem.swift; sourceTree = "<group>"; };
 		A2DBC495036F1740D7C926FB /* GuideRefreshView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideRefreshView.swift; sourceTree = "<group>"; };
 		A94332BD9942E3A20F8AC621 /* DTBKit_Example.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = DTBKit_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA675032521C27E39603894A /* Pods_DTBKit_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DTBKit_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -344,6 +346,7 @@
 			isa = PBXGroup;
 			children = (
 				A24B82DE2A9F14D800BE49B7 /* XMDotSegmentCell.swift */,
+				A24B82E52AA043E900BE49B7 /* XMDotSegmentItem.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -588,6 +591,7 @@
 				996CFED17A4B1BDD6EE9648A /* DTBKit.swift in Sources */,
 				D95BC46FA0D8EC0986C59BF8 /* DTBStatics.swift in Sources */,
 				A24B82E22A9F162600BE49B7 /* XMVisual.swift in Sources */,
+				A24B82E62AA043E900BE49B7 /* XMDotSegmentItem.swift in Sources */,
 				26BBB83FC4DA650DDC3329EC /* DemoContentView.swift in Sources */,
 				3AC23554A53955C5AF50A390 /* DemoEntry.swift in Sources */,
 				FD226C822096E72DA8C373FA /* DemoNavigationView.swift in Sources */,

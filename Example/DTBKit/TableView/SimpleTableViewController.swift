@@ -138,14 +138,14 @@ extension SimpleTableViewController: UITableViewDataSource {
 
 extension SimpleTableViewController: XMDotSegmentCellDelegate {
     
-    func dotSegmentCellDidTap(_ cell: UITableViewCell?, at key: String?) {
+    func dotSegmentCellDidTap(_ cell: UITableViewCell?, cellKey: String?, itemKey: String?) {
         guard let c = cell, let indexPath = tableView.indexPath(for: c) else {
             return
         }
         
-        if let sIndex = datas.firstIndex(where: { $0.options.contains(where: { $0.primaryKey == key }) }) {
+        if let sIndex = datas.firstIndex(where: { $0.options.contains(where: { $0.primaryKey == itemKey }) }) {
             for (index, _) in datas[sIndex].options.enumerated() {
-                datas[sIndex].options[index].isSelected = datas[sIndex].options[index].primaryKey == key
+                datas[sIndex].options[index].isSelected = datas[sIndex].options[index].primaryKey == itemKey
             }
         }
         

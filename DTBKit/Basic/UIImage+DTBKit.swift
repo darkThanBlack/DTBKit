@@ -184,7 +184,7 @@ extension DTBKitWrapper where Base: UIImage {
             bytesPerRow: bytesPerRow,
             space: CGColorSpaceCreateDeviceRGB(),
             bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
-        ) else  {
+        ) else {
             return nil
         }
         let rect = CGRect(x: 0, y: 0, width: w, height: h)

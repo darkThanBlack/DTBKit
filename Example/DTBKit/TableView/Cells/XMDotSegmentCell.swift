@@ -15,6 +15,8 @@ import UIKit
 /// 默认实现
 struct XMDotSegmentCellModel: XMDotSegmentCellDataSource {
     
+    var primaryKey: String?
+    
     var title: String?
     
     var options: [XMDotSegmentItemDataSource]
@@ -44,18 +46,20 @@ protocol XMDotSegmentItemDataSource {
 
 /// Cell - 互斥单选
 protocol XMDotSegmentCellDataSource {
-    ///
+    /// 单行唯一标识
+    var primaryKey: String? { get }
+    /// 左侧标题
     var title: String? { get }
-    /// count == 2
+    /// 右侧选项
     var options: [XMDotSegmentItemDataSource] { get }
-    ///
+    /// 分隔线
     var showSingleLine: Bool { get }
 }
 
 /// Cell - 互斥单选
 protocol XMDotSegmentCellDelegate: AnyObject {
     /// 点击某个选项
-    func dotSegmentCellDidTap(_ cell: UITableViewCell?, at key: String?)
+    func dotSegmentCellDidTap(_ cell: UITableViewCell?, cellKey: String?, itemKey: String?)
 }
 
 /// Cell - 互斥单选
@@ -89,7 +93,7 @@ class XMDotSegmentCell: UITableViewCell {
                 button.title = model.title
                 button.state = model.isSelected ? .selected : .unSelect
                 button.eventHandler = { [weak self] _ in
-                    self?.delegate?.dotSegmentCellDidTap(self, at: model.primaryKey)
+                    self?.delegate?.dotSegmentCellDidTap(self, cellKey: data.primaryKey, itemKey: model.primaryKey)
                 }
             }, completedHandler: { [weak self] in
                 self?.setNeedsLayout()
@@ -159,111 +163,5 @@ class XMDotSegmentCell: UITableViewCell {
         let singleLine = UIView()
         singleLine.backgroundColor = XMVisual.Color.White.D
         return singleLine
-    }()
-}
-
-//MARK: -
-
-/// 橘色圆圈 + 标题
-public class XMDotSegmentItem: UIView {
-    
-    ///
-    public enum States {
-        /// 选中
-        case selected
-        /// 未选中
-        case unSelect
-        /// 禁用
-        case disable
-        
-        var iconName: String {
-            switch self {
-            case .selected:  return "ic_the_selected"
-            case .unSelect:  return "ic_unselected"
-            case .disable:   return "ic_unselected_disabled"
-            }
-        }
-    }
-    
-    /// 唯一标识, 用于代替 `tag`
-    public var primaryKey: String?
-    
-    /// 状态
-    public var state: States = .unSelect {
-        didSet {
-            dotImageView.image = UIImage(named: state.iconName)
-        }
-    }
-    
-    /// 标题
-    public var title: String? = nil {
-        didSet {
-            titleLabel.text = title
-        }
-    }
-    
-    /// 单击事件
-    /// 即使 ``disable`` 状态也会触发, 便于实现 ``toast`` 等业务
-    public var eventHandler: ((XMDotSegmentItem)->())?
-    
-    public init(
-        key: String? = nil,
-        title: String? = nil,
-        state: States? = .unSelect,
-        eventHandler: ((XMDotSegmentItem)->())? = nil
-    ) {
-        super.init(frame: .zero)
-        
-        self.primaryKey = key
-        self.title = title
-        self.state = state ?? .unSelect
-        self.eventHandler = eventHandler
-        
-        loadViews(in: self)
-        
-        self.isUserInteractionEnabled = true
-        let singleTap = UITapGestureRecognizer(target: self, action: #selector(singleTapEvent(gesture:)))
-        singleTap.numberOfTapsRequired = 1
-        singleTap.numberOfTouchesRequired = 1
-        self.addGestureRecognizer(singleTap)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    @objc private func singleTapEvent(gesture: UITapGestureRecognizer) {
-        eventHandler?(self)
-    }
-    
-    //MARK: View
-    
-    private func loadViews(in box: UIView) {
-        box.addSubview(dotImageView)
-        box.addSubview(titleLabel)
-        
-        dotImageView.snp.makeConstraints { make in
-            make.left.centerY.equalTo(box)
-            make.width.height.equalTo(18.0)
-        }
-        titleLabel.snp.makeConstraints { make in
-            make.top.right.bottom.equalTo(box)
-            make.left.equalTo(dotImageView.snp.right).offset(8.0)
-            make.height.greaterThanOrEqualTo(18.0)
-        }
-    }
-    
-    private lazy var dotImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
-    
-    private lazy var titleLabel: UILabel = {
-        let titleLabel = UILabel()
-        titleLabel.font = UIFont.systemFont(ofSize: 15.0, weight: .regular)
-        titleLabel.textColor = XMVisual.Color.Gray.A
-        titleLabel.text = " "
-        return titleLabel
     }()
 }
