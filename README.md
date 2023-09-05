@@ -8,19 +8,42 @@
 
 
 
-#### What is this？
+## What is this？
 
 A personal bundle kit for best practices.
 
 
 
-#### How do I develop it?
+## Usage - samples
 
-Use ``xcodegen`` in example proj.
+```shell
+# Clone / download to local.
+$ cd ~
+$ git@github.com:darkThanBlack/DTBKit.git
+
+# Command line tool: xcodegen needed;
+# Run xcodegen in ``example`` folder.
+$ cd ~/DTBKit/Example
+$ xcodegen
+
+# Command line tool: cocoapods needed;
+# Run pod.
+$ pod install
+
+# Read sample codes.
+$ open DTBkit.workspace
+```
+
+Read source codes first.
 
 
 
+## Usage - cocoapods
 
+```ruby
+# NOT release yet!
+pod 'DTBKit', :path => '../', :testspecs => ['Tests']
+```
 
 
 

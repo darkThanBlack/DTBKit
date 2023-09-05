@@ -40,4 +40,8 @@ extension DTBKitWrapper where Base: UIButton {
     ) {
         me.setImage(DTBKitWrapper<UIImage?>(named: name, bundleName: bundleName, frameworkName: frameworkName, classType: classType, types: types)?.me, for: state)
     }
+    
+    public func setTitle(_ value: String?) {
+        me.setTitle(value, for: .normal)
+    }
 }
