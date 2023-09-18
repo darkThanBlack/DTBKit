@@ -1,15 +1,19 @@
 //
 //  AppDelegate.swift
-//  DTBKit
+//  Demo
 //
-//  Created by moonShadow on 06/28/2023.
-//  Copyright (c) 2023 moonShadow. All rights reserved.
+//  Created by moonShadow on 2023/9/18
+//  
 //
+//  LICENSE: SAME AS REPOSITORY
+//  Contact me: [GitHub](https://github.com/darkThanBlack)
+//
+    
 
 import UIKit
 
 #if DEBUG
-import DoraemonKit
+//import DoraemonKit
 #endif
 
 @UIApplicationMain
@@ -31,12 +35,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         adapter()
         debugger()
         
+//        Drift.shared.appWindow = window
+        
         return true
     }
     
     private func debugger() {
 #if DEBUG
-        DoraemonManager.shareInstance().install()
+//        DoraemonManager.shareInstance().install()
 #endif
     }
     

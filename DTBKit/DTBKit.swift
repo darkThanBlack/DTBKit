@@ -55,22 +55,3 @@ public enum DTB {}
 ///
 public enum Color {}
 
-// MARK: - DTBKit/Basic
-
-extension Double: DTBKitableValue {}
-
-extension CGFloat: DTBKitableValue {}
-
-extension CGSize: DTBKitableValue {}
-
-extension CGRect: DTBKitableValue {}
-
-extension Array: DTBKitableValue {}
-
-extension UIViewController: DTBKitable {}
-
-extension UIImage: DTBKitable {}
-
-extension UIImageView: DTBKitable {}
-
-extension UIButton: DTBKitable {}
