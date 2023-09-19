@@ -31,21 +31,29 @@
 
 
 
+## Demo
+
+> 提供工程实践和集成示例。
+
+接口设计： [命名空间配合链式语法](https://darkthanblack.github.io/blogs/06-bp-namespace/)
+
+
+
 ## Example
 
-> 主工程。
+> 开发工程。
 
 
 
 ## Basic
 
-> 可以直接引入的工程最佳实践。
+> 基础类型扩展。
 
 
 
 ## UIKit
 
-> 业务代码。
+> UI 层扩展。
 
 
 
