@@ -44,6 +44,7 @@
 		A2C027332AB7FF86006F6F39 /* DriftAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C0271D2AB7FF86006F6F39 /* DriftAdapter.swift */; };
 		A2C027342AB7FF86006F6F39 /* DriftMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C0271E2AB7FF86006F6F39 /* DriftMainViewController.swift */; };
 		A2C027352AB7FF86006F6F39 /* DriftWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C0271F2AB7FF86006F6F39 /* DriftWindow.swift */; };
+		A2E0D1432ABAFFC200A6F622 /* XMColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E0D1422ABAFFC100A6F622 /* XMColor.swift */; };
 		B04346E4065DF8818E1FB8D6 /* Pods_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C03B13EF3997B5D195D5482 /* Pods_Demo.framework */; };
 /* End PBXBuildFile section */
 
@@ -90,6 +91,7 @@
 		A2C0271D2AB7FF86006F6F39 /* DriftAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriftAdapter.swift; sourceTree = "<group>"; };
 		A2C0271E2AB7FF86006F6F39 /* DriftMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriftMainViewController.swift; sourceTree = "<group>"; };
 		A2C0271F2AB7FF86006F6F39 /* DriftWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriftWindow.swift; sourceTree = "<group>"; };
+		A2E0D1422ABAFFC100A6F622 /* XMColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMColor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +173,7 @@
 		A2C026EC2AB7FDDD006F6F39 /* Adapter */ = {
 			isa = PBXGroup;
 			children = (
+				A2E0D1422ABAFFC100A6F622 /* XMColor.swift */,
 				A2C026ED2AB7FDDD006F6F39 /* XMAdapter.swift */,
 				A2C026EE2AB7FDDD006F6F39 /* XMVisual.swift */,
 			);
@@ -426,6 +429,7 @@
 				A2C027322AB7FF86006F6F39 /* DriftView.swift in Sources */,
 				A2C027262AB7FF86006F6F39 /* GuideAnimation.swift in Sources */,
 				A2C0272C2AB7FF86006F6F39 /* GuideListViewController.swift in Sources */,
+				A2E0D1432ABAFFC200A6F622 /* XMColor.swift in Sources */,
 				A2C026FE2AB7FDDD006F6F39 /* SimpleTableViewController.swift in Sources */,
 				A2C026FC2AB7FDDD006F6F39 /* XMDotSegmentCell.swift in Sources */,
 				A2C026FD2AB7FDDD006F6F39 /* XMDotSegmentItem.swift in Sources */,

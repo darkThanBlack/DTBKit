@@ -122,7 +122,7 @@ extension DemoEntry {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let content = UIView()
-        content.backgroundColor = Color.XM.White.I
+        content.backgroundColor = .lightGray
         content.frame = CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 30.0)
         
         let label = UILabel()
@@ -220,14 +220,14 @@ class DemoCell: UITableViewCell {
     private lazy var detailLabel: UILabel = {
         let detailLabel = UILabel()
         detailLabel.font = UIFont.systemFont(ofSize: 11.0, weight: .regular)
-        detailLabel.textColor = Color.XM.LightGray.A
+        detailLabel.textColor = .lightText
         detailLabel.numberOfLines = 0
         return detailLabel
     }()
     
     private lazy var singleLine: UIView = {
         let singleLine = UIView()
-        singleLine.backgroundColor = Color.XM.White.D
+        singleLine.backgroundColor = .lightGray
         return singleLine
     }()
 }
