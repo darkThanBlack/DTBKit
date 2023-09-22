@@ -25,8 +25,8 @@
 		A1348D0AEC21FEC0D41CBBE1 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1E7982283574061EF2C6745 /* Launch Screen.storyboard */; };
 		A24B82E22A9F162600BE49B7 /* XMVisual.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24B82E12A9F162600BE49B7 /* XMVisual.swift */; };
 		A24B82E42A9F427600BE49B7 /* XMAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24B82E32A9F427600BE49B7 /* XMAdapter.swift */; };
-		A2BFE7E82AB81F220095734C /* DTBKit+Basic.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BFE7E72AB81F220095734C /* DTBKit+Basic.swift */; };
-		A2BFE7EA2AB81F990095734C /* DTBKit+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BFE7E92AB81F980095734C /* DTBKit+UIKit.swift */; };
+		A2E187CF2ABD603500369911 /* UILabel+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E187CE2ABD603500369911 /* UILabel+Chain.swift */; };
+		A2E187D22ABD625200369911 /* UIView+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E187D12ABD625200369911 /* UIView+Chain.swift */; };
 		A735232D860682E7B7E7ECB0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F814B4B829198871353120F8 /* Images.xcassets */; };
 		A9DE99B858E334528346CE4B /* AlertAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABA054619FB46334287D932 /* AlertAnimation.swift */; };
 		AB3E36DAA3E1FB94F7E84874 /* CGRect+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88629093E8C4B902768DC1C /* CGRect+DTBKit.swift */; };
@@ -80,8 +80,8 @@
 		8DC825259B4A2BC75D4CAEBE /* DemoEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoEntry.swift; sourceTree = "<group>"; };
 		A24B82E12A9F162600BE49B7 /* XMVisual.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMVisual.swift; sourceTree = "<group>"; };
 		A24B82E32A9F427600BE49B7 /* XMAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMAdapter.swift; sourceTree = "<group>"; };
-		A2BFE7E72AB81F220095734C /* DTBKit+Basic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DTBKit+Basic.swift"; sourceTree = "<group>"; };
-		A2BFE7E92AB81F980095734C /* DTBKit+UIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DTBKit+UIKit.swift"; sourceTree = "<group>"; };
+		A2E187CE2ABD603500369911 /* UILabel+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Chain.swift"; sourceTree = "<group>"; };
+		A2E187D12ABD625200369911 /* UIView+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Chain.swift"; sourceTree = "<group>"; };
 		A94332BD9942E3A20F8AC621 /* DTBKit_Example.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = DTBKit_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA675032521C27E39603894A /* Pods_DTBKit_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DTBKit_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB470419225C0F4E263C23C7 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -129,7 +129,6 @@
 			isa = PBXGroup;
 			children = (
 				76F0BA395FE35F6B3FE4809A /* .gitkeep */,
-				A2BFE7E72AB81F220095734C /* DTBKit+Basic.swift */,
 				2FE6BEDEB0816C6E8EAE8759 /* Array+DTBKit.swift */,
 				E88629093E8C4B902768DC1C /* CGRect+DTBKit.swift */,
 				3B1DC9D4C9D135658E78C968 /* CGSize+DTBKit.swift */,
@@ -161,8 +160,8 @@
 		3CF4BA5C21F365DBA62A397F /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				A2E187D02ABD604800369911 /* Chain */,
 				F2DCF0C710372F5B71633BAC /* .gitkeep */,
-				A2BFE7E92AB81F980095734C /* DTBKit+UIKit.swift */,
 				1BC5A9712C90E46F7419CFA9 /* UIButton+DTBKit.swift */,
 				F0194B484DDF428C20847439 /* UIImage+DTBKit.swift */,
 				3920D423B2F0AF2570827977 /* UIImageView+DTBKit.swift */,
@@ -245,6 +244,15 @@
 				A24B82E32A9F427600BE49B7 /* XMAdapter.swift */,
 			);
 			path = Adapter;
+			sourceTree = "<group>";
+		};
+		A2E187D02ABD604800369911 /* Chain */ = {
+			isa = PBXGroup;
+			children = (
+				A2E187CE2ABD603500369911 /* UILabel+Chain.swift */,
+				A2E187D12ABD625200369911 /* UIView+Chain.swift */,
+			);
+			path = Chain;
 			sourceTree = "<group>";
 		};
 		BC12DD552C2444C5241138E9 = {
@@ -431,14 +439,15 @@
 				0169083FFEF6AE744A5BDE01 /* AppDelegate.swift in Sources */,
 				2A0D4B06DD0C14E942474621 /* Array+DTBKit.swift in Sources */,
 				AB3E36DAA3E1FB94F7E84874 /* CGRect+DTBKit.swift in Sources */,
-				A2BFE7E82AB81F220095734C /* DTBKit+Basic.swift in Sources */,
 				C09CF354446DF8B9AFCEAF08 /* CGSize+DTBKit.swift in Sources */,
+				A2E187CF2ABD603500369911 /* UILabel+Chain.swift in Sources */,
 				B4BC9D451D37CC8F4786ECD5 /* DTBColors.swift in Sources */,
 				996CFED17A4B1BDD6EE9648A /* DTBKit.swift in Sources */,
 				D95BC46FA0D8EC0986C59BF8 /* DTBStatics.swift in Sources */,
 				A24B82E22A9F162600BE49B7 /* XMVisual.swift in Sources */,
 				26BBB83FC4DA650DDC3329EC /* DemoContentView.swift in Sources */,
 				3AC23554A53955C5AF50A390 /* DemoEntry.swift in Sources */,
+				A2E187D22ABD625200369911 /* UIView+Chain.swift in Sources */,
 				FD226C822096E72DA8C373FA /* DemoNavigationView.swift in Sources */,
 				8DD734649787D05EF6D0203A /* EdgeLabel.swift in Sources */,
 				66F19A1005CEDC2EDDBFDF6A /* Exported.swift in Sources */,
@@ -446,7 +455,6 @@
 				A24B82E42A9F427600BE49B7 /* XMAdapter.swift in Sources */,
 				7CF58AE26EC8F27ABBC74059 /* HomeViewController.swift in Sources */,
 				5BCB985228038DA98D80924F /* Int+DTBKit.swift in Sources */,
-				A2BFE7EA2AB81F990095734C /* DTBKit+UIKit.swift in Sources */,
 				3A9B01ED6B8CAEC69307A5D3 /* SimpleVisualViewController.swift in Sources */,
 				FCA935EAAE7899139DF2925E /* UIButton+DTBKit.swift in Sources */,
 				E540AD66DBB179688BC7ED31 /* UIImage+DTBKit.swift in Sources */,

@@ -12,9 +12,9 @@
 
 import Foundation
 
-extension Int: DTBKitableValue {}
+extension Int: DTBKitStructable {}
 
-extension Int64: DTBKitableValue {}
+extension Int64: DTBKitStructable {}
 
 extension DTBKitWrapper where Base: FixedWidthInteger {
     
