@@ -76,6 +76,13 @@ extension DemoEntry: UITableViewDelegate {
                 return label
             }, behavior: .center)
         case .bundleImage:
+            
+            func test() {
+                let res = UIView().dtb.set.backgroundColor(.red).tag(100).isUserInteractionEnabled(true)
+                
+            }
+            
+            test()
             break
         }
     }

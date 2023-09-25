@@ -14,45 +14,18 @@
 import Foundation
 import UIKit
 
-//MARK: - Protocol
+//MARK: - Name space
 
 /// For ``class``
 public protocol DTBKitable: AnyObject {}
 
-/// For ``class``, use "var"
-public protocol DTBKitMutable: AnyObject {}
-
-/// For ``class``, use "weak"
-public protocol DTBKitWeakable: AnyObject {}
-
 /// For ``struct``
 public protocol DTBKitStructable {}
-
-/// For ``struct``, use "inout" / "&"
-public protocol DTBKitStructMutable {}
-
-//MARK: - Interface
 
 extension DTBKitable {
     ///
     public var dtb: DTBKitWrapper<Self> {
         get { return DTBKitWrapper(self) }
-        set { }
-    }
-}
-
-extension DTBKitMutable {
-    ///
-    public var dtb: DTBKitMutableWrapper<Self> {
-        get { return DTBKitMutableWrapper(self) }
-        set { }
-    }
-}
-
-extension DTBKitWeakable {
-    ///
-    public var dtb: DTBKitWeakWrapper<Self> {
-        get { return DTBKitWeakWrapper(self) }
         set { }
     }
 }
@@ -65,60 +38,44 @@ extension DTBKitStructable {
     }
 }
 
-extension DTBKitStructMutable {
-    ///
-    public var dtb: DTBKitWrapper<Self> {
-        get { return DTBKitWrapper(self) }
-        set { }
-    }
-}
-
-//MARK: - Wrapper
-
 ///
 public struct DTBKitWrapper<Base> {
     let me: Base
-    public init(_ base: Base) { self.me = base }
+    public init(_ value: Base) { self.me = value }
     
     public var done: Base { return me }
 }
 
-///
-public struct DTBKitMutableWrapper<Base> {
-    var me: Base
-    public init(_ base: Base) { self.me = base }
-    
-    public var done: Base { return me }
+//MARK: - Chain
+
+protocol DTBKitChainable {
+    associatedtype ChainT
+    var me: ChainT { get }
 }
 
-///
-public struct DTBKitWeakWrapper<Base: AnyObject> {
-    weak var me: Base?
-    public init(_ base: Base) { self.me = base }
-    
-    public var done: Base? { return me }
-}
-
-///
-public struct DTBKitStructMutableWrapper<Base> {
-    var me: Base
-    public init(_ base: inout Base) { self.me = base }
-    
-    public var done: Base { return me }
-}
-
-//MARK: - Candy
-
-public protocol DTBKitChainCandyable: DTBKitWeakable {}
-
-extension DTBKitWeakWrapper {
+extension DTBKitChainable {
     ///
-    public var set: Self {
-        get { return self }
+    public var set: DTBKitChainWrapper<ChainT> {
+        get { return DTBKitChainWrapper(me) }
         set { }
     }
 }
 
+///
+public struct DTBKitChainWrapper<Base> {
+    let me: Base
+    public init(_ value: Base) { self.me = value }
+    
+    //[DEPRESSED]
+    //@dynamicMemberLookup
+    //    subscript<T>(dynamicMember keyPath: WritableKeyPath<Base, T>) -> ((T) -> (DTBKitChainWrapper<Base>)) {
+    //        var n = me
+    //        return { value in
+    //            n[keyPath: keyPath] = value
+    //            return DTBKitChainWrapper(n)
+    //        }
+    //    }
+}
 
 //MARK: - Static funcs
 
@@ -143,10 +100,9 @@ extension Array: DTBKitStructable {}
 
 extension UIImage: DTBKitable {}
 
-extension UIView: DTBKitWeakable, DTBKitChainCandyable {}
+extension UIView: DTBKitable {}
 
-//extension UILabel: DTBKitable {}
-//
-//extension UIImageView: DTBKitable {}
-//
-//extension UIButton: DTBKitable {}
+extension DTBKitWrapper: DTBKitChainable where Base: UIView {
+    public typealias ChainT = Base
+}
+
