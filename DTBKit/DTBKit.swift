@@ -40,42 +40,62 @@ extension DTBKitStructable {
 
 ///
 public struct DTBKitWrapper<Base> {
-    let me: Base
+    internal let me: Base
     public init(_ value: Base) { self.me = value }
-    
-    public var done: Base { return me }
+}
+
+/// Basic operators
+extension DTBKitWrapper {
+    public var unbox: Base { return me }
 }
 
 //MARK: - Chain
 
-protocol DTBKitChainable {
-    associatedtype ChainT
-    var me: ChainT { get }
-}
+// [FUTURE]
 
-extension DTBKitChainable {
-    ///
-    public var set: DTBKitChainWrapper<ChainT> {
-        get { return DTBKitChainWrapper(me) }
-        set { }
-    }
-}
+// [Style1] any protocol
+//    public func set() -> Self where Self: DTBKitChainable { return self }
 
-///
-public struct DTBKitChainWrapper<Base> {
-    let me: Base
-    public init(_ value: Base) { self.me = value }
-    
-    //[DEPRESSED]
-    //@dynamicMemberLookup
-    //    subscript<T>(dynamicMember keyPath: WritableKeyPath<Base, T>) -> ((T) -> (DTBKitChainWrapper<Base>)) {
-    //        var n = me
-    //        return { value in
-    //            n[keyPath: keyPath] = value
-    //            return DTBKitChainWrapper(n)
-    //        }
-    //    }
-}
+// [Style2] another wrapper
+//public protocol DTBKitChainable {
+//    associatedtype ChainT
+//    var obj: ChainT { get }
+//}
+//
+//extension DTBKitChainable {
+//    ///
+//    public var set: DTBKitChainWrapper<ChainT> {
+//        get { return DTBKitChainWrapper(obj) }
+//        set { }
+//    }
+//}
+//
+/////
+//public struct DTBKitChainWrapper<Base> {
+//    internal let me: Base
+//    public init(_ value: Base) { self.me = value }
+//}
+//
+///// Syntax candy
+//extension DTBKitChainWrapper {
+//    public var then: DTBKitWrapper<Base> { return DTBKitWrapper(me) }
+//    public var unBox: Base { return me }
+//    public func done() {}
+//}
+
+// [DEPRESSED]
+
+// [Style3] key-path
+// 1: always hint get only property
+// 2: confilct with ``Chainable``
+//@dynamicMemberLookup
+//    subscript<T>(dynamicMember keyPath: WritableKeyPath<Base, T>) -> ((T) -> (DTBKitChainWrapper<Base>)) {
+//        var n = me
+//        return { value in
+//            n[keyPath: keyPath] = value
+//            return DTBKitChainWrapper(n)
+//        }
+//    }
 
 //MARK: - Static funcs
 
@@ -84,7 +104,6 @@ public enum DTB {}
 
 ///
 public enum Color {}
-
 
 //MARK: - Defines
 
@@ -102,7 +121,7 @@ extension UIImage: DTBKitable {}
 
 extension UIView: DTBKitable {}
 
-extension DTBKitWrapper: DTBKitChainable where Base: UIView {
-    public typealias ChainT = Base
-}
+//extension DTBKitWrapper: DTBKitChainable where Base: UIView {
+//    public typealias ChainT = Base
+//}
 

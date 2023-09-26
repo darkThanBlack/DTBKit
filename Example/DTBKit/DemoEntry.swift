@@ -78,7 +78,7 @@ extension DemoEntry: UITableViewDelegate {
         case .bundleImage:
             
             func test() {
-                let res = UIView().dtb.set.backgroundColor(.red).tag(100).isUserInteractionEnabled(true)
+                UIView().dtb.isUserInteractionEnabled(true)
                 
             }
             
