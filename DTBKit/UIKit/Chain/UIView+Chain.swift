@@ -93,12 +93,8 @@ extension DTBKitWrapper where Base: UIView {
         me.autoresizingMask = value
         return self
     }
-
+    
     /// Auto set converted size
-    ///
-    /// - Parameters:
-    ///   - value: same as ``size``
-    ///   - setter: you can convert result size to another
     @discardableResult
     public func sizeThatFits(_ value: CGSize, setter: ((_ size: CGSize)->(CGSize))?) -> Self {
         if let nSize = setter?(me.sizeThatFits(value)) {
@@ -299,7 +295,61 @@ extension DTBKitWrapper where Base: UIView {
 /// Same as ``@interface UIView(UIViewGestureRecognizers)``
 extension DTBKitWrapper where Base: UIView {
 
-
-
+    @discardableResult
+    public func gestureRecognizers(_ value: [UIGestureRecognizer]?) -> Self {
+        me.gestureRecognizers = value
+        return self
+    }
+    
+    @discardableResult
+    public func addGestureRecognizer(_ gestureRecognizer: UIGestureRecognizer) -> Self {
+        me.addGestureRecognizer(gestureRecognizer)
+        return self
+    }
+    
+    @discardableResult
+    public func removeGestureRecognizer(_ gestureRecognizer: UIGestureRecognizer) -> Self {
+        me.removeGestureRecognizer(gestureRecognizer)
+        return self
+    }
 }
 
+/// Same as ``@interface UIView(UIViewMotionEffects)``
+extension DTBKitWrapper where Base: UIView {
+    
+    @discardableResult
+    public func addMotionEffect(_ effect: UIMotionEffect) -> Self {
+        me.addMotionEffect(effect)
+        return self
+    }
+    
+    @discardableResult
+    public func removeMotionEffect(_ effect: UIMotionEffect) -> Self {
+        me.removeMotionEffect(effect)
+        return self
+    }
+    
+    /// Auto set converted effects
+    @discardableResult
+    public func motionEffects(_ setter: ((_ effects: [UIMotionEffect]) -> ([UIMotionEffect]))?) -> Self {
+        if let effects = setter?(me.motionEffects) {
+            me.motionEffects = effects
+        }
+        return self
+    }
+}
+
+/// Same as ``@interface UIView(UIConstraintBasedCompatibility)``
+extension DTBKitWrapper where Base: UIView {
+    
+    @discardableResult
+    public func translatesAutoresizingMaskIntoConstraints(_ value: Bool) -> Self {
+        me.translatesAutoresizingMaskIntoConstraints = value
+        return self
+    }
+}
+
+/// Same as ``@interface UIView(UIConstraintBasedLayoutLayering)``
+extension DTBKitWrapper where Base: UIView {
+    
+}
