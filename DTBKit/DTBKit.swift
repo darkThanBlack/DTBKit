@@ -42,14 +42,23 @@ extension DTBKitStructable {
 public struct DTBKitWrapper<Base> {
     internal let me: Base
     public init(_ value: Base) { self.me = value }
-}
-
-/// Basic operators
-extension DTBKitWrapper {
+    
     public var unbox: Base { return me }
 }
 
 //MARK: - Chain
+
+public protocol DTBKitChainable {}
+
+/// Chain operators
+extension DTBKitWrapper where Base: DTBKitChainable {
+    
+    @discardableResult
+    func update(_ setter: ((Base) -> (Void))) -> Self {
+        setter(me)
+        return self
+    }
+}
 
 // [FUTURE]
 
@@ -119,7 +128,7 @@ extension Array: DTBKitStructable {}
 
 extension UIImage: DTBKitable {}
 
-extension UIView: DTBKitable {}
+extension UIView: DTBKitable, DTBKitChainable {}
 
 //extension DTBKitWrapper: DTBKitChainable where Base: UIView {
 //    public typealias ChainT = Base

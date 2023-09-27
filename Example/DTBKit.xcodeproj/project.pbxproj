@@ -136,6 +136,7 @@
 				643C0D6EE99781EBB2520DCF /* DTBStatics.swift */,
 				C3FF0A320E09622621359C0D /* Float+DTBKit.swift */,
 				78775B07CCC6B6E13A0F0C3E /* Int+DTBKit.swift */,
+				A2E187D12ABD625200369911 /* UIView+Chain.swift */,
 			);
 			name = Basic;
 			path = ../DTBKit/Basic;
@@ -160,7 +161,7 @@
 		3CF4BA5C21F365DBA62A397F /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
-				A2E187D02ABD604800369911 /* Chain */,
+				A2E187CE2ABD603500369911 /* UILabel+Chain.swift */,
 				F2DCF0C710372F5B71633BAC /* .gitkeep */,
 				1BC5A9712C90E46F7419CFA9 /* UIButton+DTBKit.swift */,
 				F0194B484DDF428C20847439 /* UIImage+DTBKit.swift */,
@@ -244,15 +245,6 @@
 				A24B82E32A9F427600BE49B7 /* XMAdapter.swift */,
 			);
 			path = Adapter;
-			sourceTree = "<group>";
-		};
-		A2E187D02ABD604800369911 /* Chain */ = {
-			isa = PBXGroup;
-			children = (
-				A2E187CE2ABD603500369911 /* UILabel+Chain.swift */,
-				A2E187D12ABD625200369911 /* UIView+Chain.swift */,
-			);
-			path = Chain;
 			sourceTree = "<group>";
 		};
 		BC12DD552C2444C5241138E9 = {
