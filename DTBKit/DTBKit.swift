@@ -14,7 +14,7 @@
 import Foundation
 import UIKit
 
-//MARK: - Name space
+//MARK: - Prefix
 
 /// For ``class``
 public protocol DTBKitable: AnyObject {}
@@ -28,12 +28,22 @@ extension DTBKitable {
         get { return DTBKitWrapper(self) }
         set { }
     }
+    
+    static public var dtb: DTBkitStaticWrapper<Self> {
+        get { return DTBkitStaticWrapper() }
+        set { }
+    }
 }
 
 extension DTBKitStructable {
     ///
     public var dtb: DTBKitWrapper<Self> {
         get { return DTBKitWrapper(self) }
+        set { }
+    }
+    
+    static public var dtb: DTBkitStaticWrapper<Self> {
+        get { return DTBkitStaticWrapper() }
         set { }
     }
 }
@@ -43,20 +53,58 @@ public struct DTBKitWrapper<Base> {
     internal let me: Base
     public init(_ value: Base) { self.me = value }
     
-    public var unbox: Base { return me }
+    public var value: Base { return me }
+}
+
+///
+public struct DTBkitStaticWrapper<T> {
+    
+    internal var serials: [(() -> Bool)] = []
 }
 
 //MARK: - Chain
 
+///
 public protocol DTBKitChainable {}
 
-/// Chain operators
 extension DTBKitWrapper where Base: DTBKitChainable {
     
+    public var get: Base { return me }
+    
     @discardableResult
-    func update(_ setter: ((Base) -> (Void))) -> Self {
+    public func update(_ setter: ((Base) -> Void)) -> Self {
         setter(me)
         return self
+    }
+}
+
+extension DTBkitStaticWrapper where T: DTBKitChainable {
+    
+    public mutating func then(_ task: @escaping (() -> Void)) -> Self {
+        self.serials.append({
+            let _ = task()
+            return true
+        })
+        return self
+    }
+    
+    public mutating func done(_ completed: (() -> Void)? = nil) {
+        self.serials.append({
+            completed?()
+            return true
+        })
+        fire()
+    }
+    
+    public mutating func fire() {
+        guard serials.count > 0 else {
+            serials.removeAll()
+            return
+        }
+        if let _ = self.serials.first?() {
+            serials.removeFirst()
+        }
+        fire()
     }
 }
 
@@ -106,13 +154,14 @@ extension DTBKitWrapper where Base: DTBKitChainable {
 //        }
 //    }
 
-//MARK: - Static funcs
+//MARK: - Static
 
 ///
 public enum DTB {}
 
 ///
 public enum Color {}
+
 
 //MARK: - Defines
 

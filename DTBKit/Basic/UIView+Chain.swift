@@ -11,25 +11,27 @@
 
 import UIKit
 
-//
-// Type 1:
-// 1> iOS 11.0 +
-// 2> func without results
-// 3> sort as UIKit
-//
-// Type 2:
-// 1> iOS *
-// 2> func return another types
-//
-// Type 3:
-// 1> static / class func
-//
-// Type 4:
-// 1> custom helper
-//
+/// discuss.
+///
+/// Type 1:
+/// 1> @available(iOS 11.0, *)  2> func without results
+/// => Use directly
+///
+/// Type 2:
+/// 1> func return another types
+/// => Specify in ``DTBKitChainable``, use ``update:`` func
+///
+/// Type 3:
+/// 1> static / class func
+/// => Specify in ``DTBkitStaticWrapper``
+///
+/// Type 4:
+/// 1> custom helper
+/// => Mark as ``custom``
+///
 
 ///
-extension DTBKitWrapper where Base: UIView {
+extension DTBKitWrapper where Base == UIView {
     
     @discardableResult
     public func isUserInteractionEnabled(_ value: Bool) -> Self {
@@ -98,6 +100,12 @@ extension DTBKitWrapper where Base: UIView {
     @discardableResult
     public func autoresizingMask(_ value: UIView.AutoresizingMask) -> Self {
         me.autoresizingMask = value
+        return self
+    }
+    
+    @discardableResult
+    public func sizeThatFits(_ size: CGSize, setter: ((_ base: Base, _ result: CGSize) -> Void)) -> Self {
+        setter(me, me.sizeThatFits(size))
         return self
     }
     
@@ -276,6 +284,36 @@ extension DTBKitWrapper where Base: UIView {
 // UIViewAnimation
 
 // UIViewAnimationWithBlocks
+
+extension DTBkitStaticWrapper where T: UIView {
+    
+//    @discardableResult
+//    public func animate(withDuration duration: TimeInterval, delay: TimeInterval, options: UIView.AnimationOptions = [], animations: @escaping () -> Void, completion: ((Bool) -> Void)? = nil) -> Self {
+//        T.animate(withDuration: duration, delay: delay, options: options, animations: animations, completion: completion)
+//        return self
+//    }
+}
+
+//@available(iOS 4.0, *)
+//open class func animate(withDuration duration: TimeInterval, delay: TimeInterval, options: UIView.AnimationOptions = [], animations: @escaping () -> Void, completion: ((Bool) -> Void)? = nil)
+//
+//@available(iOS 4.0, *)
+//open class func animate(withDuration duration: TimeInterval, animations: @escaping () -> Void, completion: ((Bool) -> Void)? = nil)
+//
+//@available(iOS 4.0, *)
+//open class func animate(withDuration duration: TimeInterval, animations: @escaping () -> Void)
+//
+//@available(iOS 7.0, *)
+//open class func animate(withDuration duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping dampingRatio: CGFloat, initialSpringVelocity velocity: CGFloat, options: UIView.AnimationOptions = [], animations: @escaping () -> Void, completion: ((Bool) -> Void)? = nil)
+//
+//@available(iOS 4.0, *)
+//open class func transition(with view: UIView, duration: TimeInterval, options: UIView.AnimationOptions = [], animations: (() -> Void)?, completion: ((Bool) -> Void)? = nil)
+//
+//@available(iOS 4.0, *)
+//open class func transition(from fromView: UIView, to toView: UIView, duration: TimeInterval, options: UIView.AnimationOptions = [], completion: ((Bool) -> Void)? = nil)
+//
+//@available(iOS 7.0, *)
+//open class func perform(_ animation: UIView.SystemAnimation, on views: [UIView], options: UIView.AnimationOptions = [], animations parallelAnimations: (() -> Void)?, completion: ((Bool) -> Void)? = nil)
 
 // UIViewKeyframeAnimations
 

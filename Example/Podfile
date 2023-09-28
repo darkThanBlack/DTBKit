@@ -7,10 +7,10 @@ target 'DTBKit_Example' do
 #  Change development pods to xcodegen
 #  pod 'DTBKit', :path => '../', :testspecs => ['Tests']
   
-  pod 'SnapKit', '5.0.1'
+#  pod 'SnapKit', '5.0.1'
 #  pod 'URLNavigator', '2.3.0'
   
-  pod 'DoraemonKit/Core', '~> 3.0.4', configurations: %w[Debug] # 必选
+#  pod 'DoraemonKit/Core', '~> 3.0.4', configurations: %w[Debug] # 必选
   
 #  target 'DTBKit_Tests' do
 #    inherit! :search_paths

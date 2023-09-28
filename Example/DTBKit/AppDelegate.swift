@@ -9,7 +9,7 @@
 import UIKit
 
 #if DEBUG
-import DoraemonKit
+//import DoraemonKit
 #endif
 
 @UIApplicationMain
@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private func debugger() {
 #if DEBUG
-        DoraemonManager.shareInstance().install()
+//        DoraemonManager.shareInstance().install()
 #endif
     }
     
