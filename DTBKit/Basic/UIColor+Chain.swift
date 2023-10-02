@@ -1,19 +1,23 @@
 //
-//  UIColor+DTBKit.swift
+//  UIColor+Chain.swift
 //  DTBKit
 //
-//  Created by moonShadow on 2023/6/28.
-//  Copyright © 2023 darkThanBlack. All rights reserved.
+//  Created by moonShadow on 2023/10/2
+//  
 //
+//  LICENSE: SAME AS REPOSITORY
+//  Contact me: [GitHub](https://github.com/darkThanBlack)
+//
+    
 
 import UIKit
 
-extension Color {
+extension DTBKitStaticWrapper where T: UIColor {
     
     /// Darkable hex color
     ///
     /// sample: 0xFF8534 -> UIColor
-    public static func hex(_ def: Int64, alpha: CGFloat = 1.0, dark: Int64? = nil, darkAlpha: CGFloat? = nil) -> UIColor {
+    public func hex(_ def: Int64, alpha: CGFloat = 1.0, dark: Int64? = nil, darkAlpha: CGFloat? = nil) -> UIColor {
         ///
         func actual(hex: Int64, a: CGFloat) -> UIColor {
             return UIColor(
@@ -38,4 +42,5 @@ extension Color {
         }
         return actual(hex: def, a: alpha)
     }
+
 }

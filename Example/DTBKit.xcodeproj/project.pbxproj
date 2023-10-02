@@ -8,39 +8,38 @@
 
 /* Begin PBXBuildFile section */
 		0169083FFEF6AE744A5BDE01 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDAF59F97655EB8E78958AD5 /* AppDelegate.swift */; };
+		09DC8ED730832699B142CE8E /* UILabel+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E3B0C8A388F500EEFBBD18 /* UILabel+Chain.swift */; };
 		0A6653C7305C8353C7E61FEA /* MathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7830E622F04A3AA897816301 /* MathTests.swift */; };
+		0AB4D2C66A0F0EECAA6F8799 /* UIImageView+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99D8D4406A6A35C49B36BC7 /* UIImageView+DTBKit.swift */; };
 		0C1A172E134B1257FB303B8A /* DTBKit.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 3C7D3B41655E7FCD0EEE3DDE /* DTBKit.podspec */; };
+		0C9BAA4653C7BCD4EE3C6319 /* UIImage+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00EA82F0995BF6E8973A6D5 /* UIImage+DTBKit.swift */; };
 		0D95639B99F2A5832783FEF1 /* project.yml in Resources */ = {isa = PBXBuildFile; fileRef = 70B7C80B5F60A9B0123B9530 /* project.yml */; };
+		10D143059B7C47AAE3F5D58A /* UIColor+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B04EC27C02A56B6AEF33BFF /* UIColor+Chain.swift */; };
 		26BBB83FC4DA650DDC3329EC /* DemoContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA92A28BC222C5268E1F2F70 /* DemoContentView.swift */; };
+		28C203D5ECC80206C4531753 /* XMVisual.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC79DBBABD41BA9E6BB9DE7 /* XMVisual.swift */; };
 		2A0D4B06DD0C14E942474621 /* Array+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE6BEDEB0816C6E8EAE8759 /* Array+DTBKit.swift */; };
 		3A9B01ED6B8CAEC69307A5D3 /* SimpleVisualViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD38C5FAE384D56B19938045 /* SimpleVisualViewController.swift */; };
 		3AC23554A53955C5AF50A390 /* DemoEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC825259B4A2BC75D4CAEBE /* DemoEntry.swift */; };
 		3DBFB3F32E6F295E6FD488F2 /* DTBBasicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25FD8787B72EC0EF28984D2 /* DTBBasicTests.swift */; };
-		547A791C29AA5B169C3E2C6A /* UIImageView+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3920D423B2F0AF2570827977 /* UIImageView+DTBKit.swift */; };
 		5BCB985228038DA98D80924F /* Int+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78775B07CCC6B6E13A0F0C3E /* Int+DTBKit.swift */; };
 		66F19A1005CEDC2EDDBFDF6A /* Exported.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB035E2CD0BB15B35B6ADEC /* Exported.swift */; };
+		7044B1CE7BEC3ACA046D5BE4 /* XMAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B572977781D9FB2B2B5729C /* XMAdapter.swift */; };
+		761BA29A4F0528040F84EA14 /* UIView+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEB95CEB9E8D8FA35BF7B3F /* UIView+Chain.swift */; };
 		7CF58AE26EC8F27ABBC74059 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB470419225C0F4E263C23C7 /* HomeViewController.swift */; };
 		8DD734649787D05EF6D0203A /* EdgeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA75639F4BCCE3CFCB62F65 /* EdgeLabel.swift */; };
+		95BF21178FD9E6742477E32C /* UIButton+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74138F430445054FA724E0B8 /* UIButton+DTBKit.swift */; };
 		996CFED17A4B1BDD6EE9648A /* DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EC983BB0CCCB17419FBFBA /* DTBKit.swift */; };
 		A1348D0AEC21FEC0D41CBBE1 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1E7982283574061EF2C6745 /* Launch Screen.storyboard */; };
-		A24B82E22A9F162600BE49B7 /* XMVisual.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24B82E12A9F162600BE49B7 /* XMVisual.swift */; };
-		A24B82E42A9F427600BE49B7 /* XMAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24B82E32A9F427600BE49B7 /* XMAdapter.swift */; };
-		A2E187CF2ABD603500369911 /* UILabel+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E187CE2ABD603500369911 /* UILabel+Chain.swift */; };
-		A2E187D22ABD625200369911 /* UIView+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E187D12ABD625200369911 /* UIView+Chain.swift */; };
 		A735232D860682E7B7E7ECB0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F814B4B829198871353120F8 /* Images.xcassets */; };
 		A9DE99B858E334528346CE4B /* AlertAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABA054619FB46334287D932 /* AlertAnimation.swift */; };
 		AB3E36DAA3E1FB94F7E84874 /* CGRect+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88629093E8C4B902768DC1C /* CGRect+DTBKit.swift */; };
 		ACE6BAC40FBC6503D94CB4FC /* ui-kit.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C32B3577F677B75582FDB7F /* ui-kit.xcassets */; };
 		B3B9577BA8721D8698D7CF5D /* basic.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 881598D80582636EC3A51695 /* basic.xcassets */; };
-		B4BC9D451D37CC8F4786ECD5 /* DTBColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E980B991E4F4BC9A1296C21 /* DTBColors.swift */; };
 		BDBB8C6B4588D4721BBE6CE5 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D9099D1384E801AE7056DEE1 /* README.md */; };
 		C09CF354446DF8B9AFCEAF08 /* CGSize+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1DC9D4C9D135658E78C968 /* CGSize+DTBKit.swift */; };
 		CAC48BEDAFE348570CABBF36 /* ArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0453409D1C44E09800DD04FC /* ArrayTests.swift */; };
 		D4FDECD70AF7A8BDD54689BD /* Float+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FF0A320E09622621359C0D /* Float+DTBKit.swift */; };
 		D95BC46FA0D8EC0986C59BF8 /* DTBStatics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643C0D6EE99781EBB2520DCF /* DTBStatics.swift */; };
-		E540AD66DBB179688BC7ED31 /* UIImage+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0194B484DDF428C20847439 /* UIImage+DTBKit.swift */; };
-		FBA4C2A41E21AA689F8BF7DE /* Pods_DTBKit_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA675032521C27E39603894A /* Pods_DTBKit_Example.framework */; };
-		FCA935EAAE7899139DF2925E /* UIButton+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC5A9712C90E46F7419CFA9 /* UIButton+DTBKit.swift */; };
 		FD226C822096E72DA8C373FA /* DemoNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA191678C2B68D0C9BDC1380 /* DemoNavigationView.swift */; };
 /* End PBXBuildFile section */
 
@@ -56,62 +55,48 @@
 
 /* Begin PBXFileReference section */
 		00EC983BB0CCCB17419FBFBA /* DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DTBKit.swift; path = ../DTBKit/DTBKit.swift; sourceTree = "<group>"; };
-		0392A52C0D3C9930F74D6338 /* Pods-DTBKit_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DTBKit_Example.release.xcconfig"; path = "Target Support Files/Pods-DTBKit_Example/Pods-DTBKit_Example.release.xcconfig"; sourceTree = "<group>"; };
 		0453409D1C44E09800DD04FC /* ArrayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayTests.swift; sourceTree = "<group>"; };
-		0E980B991E4F4BC9A1296C21 /* DTBColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTBColors.swift; sourceTree = "<group>"; };
-		1BC5A9712C90E46F7419CFA9 /* UIButton+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+DTBKit.swift"; sourceTree = "<group>"; };
-		271C5701FBC0F1C84F6316FA /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		271C5701FBC0F1C84F6316FA /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
 		2FE6BEDEB0816C6E8EAE8759 /* Array+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+DTBKit.swift"; sourceTree = "<group>"; };
-		3920D423B2F0AF2570827977 /* UIImageView+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+DTBKit.swift"; sourceTree = "<group>"; };
+		3B04EC27C02A56B6AEF33BFF /* UIColor+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Chain.swift"; sourceTree = "<group>"; };
 		3B1DC9D4C9D135658E78C968 /* CGSize+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+DTBKit.swift"; sourceTree = "<group>"; };
-		3C7D3B41655E7FCD0EEE3DDE /* DTBKit.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = DTBKit.podspec; path = ../DTBKit.podspec; sourceTree = "<group>"; };
+		3C7D3B41655E7FCD0EEE3DDE /* DTBKit.podspec */ = {isa = PBXFileReference; name = DTBKit.podspec; path = ../DTBKit.podspec; sourceTree = "<group>"; };
+		4B572977781D9FB2B2B5729C /* XMAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMAdapter.swift; sourceTree = "<group>"; };
 		5AA75639F4BCCE3CFCB62F65 /* EdgeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeLabel.swift; sourceTree = "<group>"; };
 		5C32B3577F677B75582FDB7F /* ui-kit.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "ui-kit.xcassets"; sourceTree = "<group>"; };
-		5E640FCA5DA1C76456068E49 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		5E640FCA5DA1C76456068E49 /* Podfile */ = {isa = PBXFileReference; path = Podfile; sourceTree = "<group>"; };
 		643C0D6EE99781EBB2520DCF /* DTBStatics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTBStatics.swift; sourceTree = "<group>"; };
 		6ABA054619FB46334287D932 /* AlertAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertAnimation.swift; sourceTree = "<group>"; };
 		70B7C80B5F60A9B0123B9530 /* project.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = project.yml; sourceTree = "<group>"; };
-		76F0BA395FE35F6B3FE4809A /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		74138F430445054FA724E0B8 /* UIButton+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+DTBKit.swift"; sourceTree = "<group>"; };
+		76F0BA395FE35F6B3FE4809A /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
 		7830E622F04A3AA897816301 /* MathTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathTests.swift; sourceTree = "<group>"; };
 		78775B07CCC6B6E13A0F0C3E /* Int+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+DTBKit.swift"; sourceTree = "<group>"; };
 		881598D80582636EC3A51695 /* basic.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = basic.xcassets; sourceTree = "<group>"; };
-		88A66D2E65E1F61E56C714FD /* Pods-DTBKit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DTBKit_Example.debug.xcconfig"; path = "Target Support Files/Pods-DTBKit_Example/Pods-DTBKit_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		8CB035E2CD0BB15B35B6ADEC /* Exported.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exported.swift; sourceTree = "<group>"; };
 		8DC825259B4A2BC75D4CAEBE /* DemoEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoEntry.swift; sourceTree = "<group>"; };
-		A24B82E12A9F162600BE49B7 /* XMVisual.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMVisual.swift; sourceTree = "<group>"; };
-		A24B82E32A9F427600BE49B7 /* XMAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMAdapter.swift; sourceTree = "<group>"; };
-		A2E187CE2ABD603500369911 /* UILabel+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Chain.swift"; sourceTree = "<group>"; };
-		A2E187D12ABD625200369911 /* UIView+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Chain.swift"; sourceTree = "<group>"; };
 		A94332BD9942E3A20F8AC621 /* DTBKit_Example.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = DTBKit_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		AA675032521C27E39603894A /* Pods_DTBKit_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DTBKit_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A99D8D4406A6A35C49B36BC7 /* UIImageView+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+DTBKit.swift"; sourceTree = "<group>"; };
 		AB470419225C0F4E263C23C7 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		AD3822F1BFE14ECBE1DF3A18 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		AD3822F1BFE14ECBE1DF3A18 /* LICENSE */ = {isa = PBXFileReference; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		BD38C5FAE384D56B19938045 /* SimpleVisualViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleVisualViewController.swift; sourceTree = "<group>"; };
 		C1E7982283574061EF2C6745 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		C25FD8787B72EC0EF28984D2 /* DTBBasicTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTBBasicTests.swift; sourceTree = "<group>"; };
 		C3FF0A320E09622621359C0D /* Float+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Float+DTBKit.swift"; sourceTree = "<group>"; };
 		CDAF59F97655EB8E78958AD5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D00EA82F0995BF6E8973A6D5 /* UIImage+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+DTBKit.swift"; sourceTree = "<group>"; };
 		D9099D1384E801AE7056DEE1 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		DA191678C2B68D0C9BDC1380 /* DemoNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoNavigationView.swift; sourceTree = "<group>"; };
+		DAEB95CEB9E8D8FA35BF7B3F /* UIView+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Chain.swift"; sourceTree = "<group>"; };
+		E5E3B0C8A388F500EEFBBD18 /* UILabel+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Chain.swift"; sourceTree = "<group>"; };
 		E88629093E8C4B902768DC1C /* CGRect+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+DTBKit.swift"; sourceTree = "<group>"; };
-		F0194B484DDF428C20847439 /* UIImage+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+DTBKit.swift"; sourceTree = "<group>"; };
+		EBC79DBBABD41BA9E6BB9DE7 /* XMVisual.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMVisual.swift; sourceTree = "<group>"; };
 		F07719E41192E51E26324668 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		F2DCF0C710372F5B71633BAC /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		F2DCF0C710372F5B71633BAC /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
 		F6725B6655AC6711A2CD4342 /* DTBKit_Tests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = DTBKit_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F814B4B829198871353120F8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		FA92A28BC222C5268E1F2F70 /* DemoContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFrameworksBuildPhase section */
-		D8A1460D14F2230FAB872DBD /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				FBA4C2A41E21AA689F8BF7DE /* Pods_DTBKit_Example.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		0EA38C81F61EF6BC4C2C2D86 /* BasicTests */ = {
@@ -132,11 +117,11 @@
 				2FE6BEDEB0816C6E8EAE8759 /* Array+DTBKit.swift */,
 				E88629093E8C4B902768DC1C /* CGRect+DTBKit.swift */,
 				3B1DC9D4C9D135658E78C968 /* CGSize+DTBKit.swift */,
-				0E980B991E4F4BC9A1296C21 /* DTBColors.swift */,
 				643C0D6EE99781EBB2520DCF /* DTBStatics.swift */,
 				C3FF0A320E09622621359C0D /* Float+DTBKit.swift */,
 				78775B07CCC6B6E13A0F0C3E /* Int+DTBKit.swift */,
-				A2E187D12ABD625200369911 /* UIView+Chain.swift */,
+				3B04EC27C02A56B6AEF33BFF /* UIColor+Chain.swift */,
+				DAEB95CEB9E8D8FA35BF7B3F /* UIView+Chain.swift */,
 			);
 			name = Basic;
 			path = ../DTBKit/Basic;
@@ -150,36 +135,19 @@
 			path = TransAnimate;
 			sourceTree = "<group>";
 		};
-		18B47A4882055F3567FBEAE6 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				AA675032521C27E39603894A /* Pods_DTBKit_Example.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		3CF4BA5C21F365DBA62A397F /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
-				A2E187CE2ABD603500369911 /* UILabel+Chain.swift */,
 				F2DCF0C710372F5B71633BAC /* .gitkeep */,
-				1BC5A9712C90E46F7419CFA9 /* UIButton+DTBKit.swift */,
-				F0194B484DDF428C20847439 /* UIImage+DTBKit.swift */,
-				3920D423B2F0AF2570827977 /* UIImageView+DTBKit.swift */,
 				5AA75639F4BCCE3CFCB62F65 /* EdgeLabel.swift */,
+				74138F430445054FA724E0B8 /* UIButton+DTBKit.swift */,
+				D00EA82F0995BF6E8973A6D5 /* UIImage+DTBKit.swift */,
+				A99D8D4406A6A35C49B36BC7 /* UIImageView+DTBKit.swift */,
+				E5E3B0C8A388F500EEFBBD18 /* UILabel+Chain.swift */,
 				143D382ADE74995B70BEB580 /* TransAnimate */,
 			);
 			name = UIKit;
 			path = ../DTBKit/UIKit;
-			sourceTree = "<group>";
-		};
-		5B722FE598E9AA9DE17C0AAB /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				88A66D2E65E1F61E56C714FD /* Pods-DTBKit_Example.debug.xcconfig */,
-				0392A52C0D3C9930F74D6338 /* Pods-DTBKit_Example.release.xcconfig */,
-			);
-			path = Pods;
 			sourceTree = "<group>";
 		};
 		88030DA478C3BC8517A7C58D /* Source Codes */ = {
@@ -195,7 +163,6 @@
 		8B751F8645EE2A075856B6D1 /* DTBKit */ = {
 			isa = PBXGroup;
 			children = (
-				A24B82E02A9F161900BE49B7 /* Adapter */,
 				CDAF59F97655EB8E78958AD5 /* AppDelegate.swift */,
 				8DC825259B4A2BC75D4CAEBE /* DemoEntry.swift */,
 				8CB035E2CD0BB15B35B6ADEC /* Exported.swift */,
@@ -203,6 +170,7 @@
 				F814B4B829198871353120F8 /* Images.xcassets */,
 				F07719E41192E51E26324668 /* Info.plist */,
 				C1E7982283574061EF2C6745 /* Launch Screen.storyboard */,
+				CA9A6405DF9CE7EA8CA22EB2 /* Adapter */,
 				8FDBCC3AAE2C80787FD33853 /* DemoMenuUI */,
 			);
 			path = DTBKit;
@@ -238,15 +206,6 @@
 			path = ../DTBKit/Assets;
 			sourceTree = "<group>";
 		};
-		A24B82E02A9F161900BE49B7 /* Adapter */ = {
-			isa = PBXGroup;
-			children = (
-				A24B82E12A9F162600BE49B7 /* XMVisual.swift */,
-				A24B82E32A9F427600BE49B7 /* XMAdapter.swift */,
-			);
-			path = Adapter;
-			sourceTree = "<group>";
-		};
 		BC12DD552C2444C5241138E9 = {
 			isa = PBXGroup;
 			children = (
@@ -256,8 +215,6 @@
 				88030DA478C3BC8517A7C58D /* Source Codes */,
 				C4299C39FE41BDD991CA453B /* Unit Tests */,
 				9F12C675ED584F082B757A84 /* Products */,
-				5B722FE598E9AA9DE17C0AAB /* Pods */,
-				18B47A4882055F3567FBEAE6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -267,6 +224,15 @@
 				0EA38C81F61EF6BC4C2C2D86 /* BasicTests */,
 			);
 			name = "Unit Tests";
+			sourceTree = "<group>";
+		};
+		CA9A6405DF9CE7EA8CA22EB2 /* Adapter */ = {
+			isa = PBXGroup;
+			children = (
+				4B572977781D9FB2B2B5729C /* XMAdapter.swift */,
+				EBC79DBBABD41BA9E6BB9DE7 /* XMVisual.swift */,
+			);
+			path = Adapter;
 			sourceTree = "<group>";
 		};
 		D4AD1857E48DF31880954735 /* Examples */ = {
@@ -320,10 +286,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F1F58F71037EE1DBDB0C6ADC /* Build configuration list for PBXNativeTarget "DTBKit_Example" */;
 			buildPhases = (
-				E6AA20767463D7B3FE976FD1 /* [CP] Check Pods Manifest.lock */,
 				1189F6771834ACEE127E70C3 /* Sources */,
 				6055D51056365702E0FA6C1C /* Resources */,
-				D8A1460D14F2230FAB872DBD /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -342,6 +306,8 @@
 			attributes = {
 				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = darkThanBlack;
+				TargetAttributes = {
+				};
 			};
 			buildConfigurationList = 37C9BF844CAB5607F72F8B75 /* Build configuration list for PBXProject "DTBKit" */;
 			compatibilityVersion = "Xcode 10.0";
@@ -352,7 +318,6 @@
 				en,
 			);
 			mainGroup = BC12DD552C2444C5241138E9;
-			productRefGroup = 9F12C675ED584F082B757A84 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -379,31 +344,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		E6AA20767463D7B3FE976FD1 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-DTBKit_Example-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		1189F6771834ACEE127E70C3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -414,25 +354,25 @@
 				2A0D4B06DD0C14E942474621 /* Array+DTBKit.swift in Sources */,
 				AB3E36DAA3E1FB94F7E84874 /* CGRect+DTBKit.swift in Sources */,
 				C09CF354446DF8B9AFCEAF08 /* CGSize+DTBKit.swift in Sources */,
-				A2E187CF2ABD603500369911 /* UILabel+Chain.swift in Sources */,
-				B4BC9D451D37CC8F4786ECD5 /* DTBColors.swift in Sources */,
 				996CFED17A4B1BDD6EE9648A /* DTBKit.swift in Sources */,
 				D95BC46FA0D8EC0986C59BF8 /* DTBStatics.swift in Sources */,
-				A24B82E22A9F162600BE49B7 /* XMVisual.swift in Sources */,
 				26BBB83FC4DA650DDC3329EC /* DemoContentView.swift in Sources */,
 				3AC23554A53955C5AF50A390 /* DemoEntry.swift in Sources */,
-				A2E187D22ABD625200369911 /* UIView+Chain.swift in Sources */,
 				FD226C822096E72DA8C373FA /* DemoNavigationView.swift in Sources */,
 				8DD734649787D05EF6D0203A /* EdgeLabel.swift in Sources */,
 				66F19A1005CEDC2EDDBFDF6A /* Exported.swift in Sources */,
 				D4FDECD70AF7A8BDD54689BD /* Float+DTBKit.swift in Sources */,
-				A24B82E42A9F427600BE49B7 /* XMAdapter.swift in Sources */,
 				7CF58AE26EC8F27ABBC74059 /* HomeViewController.swift in Sources */,
 				5BCB985228038DA98D80924F /* Int+DTBKit.swift in Sources */,
 				3A9B01ED6B8CAEC69307A5D3 /* SimpleVisualViewController.swift in Sources */,
-				FCA935EAAE7899139DF2925E /* UIButton+DTBKit.swift in Sources */,
-				E540AD66DBB179688BC7ED31 /* UIImage+DTBKit.swift in Sources */,
-				547A791C29AA5B169C3E2C6A /* UIImageView+DTBKit.swift in Sources */,
+				95BF21178FD9E6742477E32C /* UIButton+DTBKit.swift in Sources */,
+				10D143059B7C47AAE3F5D58A /* UIColor+Chain.swift in Sources */,
+				0C9BAA4653C7BCD4EE3C6319 /* UIImage+DTBKit.swift in Sources */,
+				0AB4D2C66A0F0EECAA6F8799 /* UIImageView+DTBKit.swift in Sources */,
+				09DC8ED730832699B142CE8E /* UILabel+Chain.swift in Sources */,
+				761BA29A4F0528040F84EA14 /* UIView+Chain.swift in Sources */,
+				7044B1CE7BEC3ACA046D5BE4 /* XMAdapter.swift in Sources */,
+				28C203D5ECC80206C4531753 /* XMVisual.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -543,7 +483,6 @@
 		};
 		BAA8C2FA7D56E81C5ABCEC56 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0392A52C0D3C9930F74D6338 /* Pods-DTBKit_Example.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -560,8 +499,12 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D DTBKitable";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+				);
+				OTHER_SWIFT_FLAGS = (
+					"$(inherited) -D COCOAPODS -D DTBKitable",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.darkThanBlack.demo.DTBKit;
 				PRODUCT_NAME = DTBKit_Example;
 				SDKROOT = iphoneos;
@@ -656,7 +599,6 @@
 		};
 		F2A043E7593DC7E625CA69FC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 88A66D2E65E1F61E56C714FD /* Pods-DTBKit_Example.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -673,8 +615,12 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D DTBKitable";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+				);
+				OTHER_SWIFT_FLAGS = (
+					"$(inherited) -D COCOAPODS -D DTBKitable",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.darkThanBlack.demo.DTBKit;
 				PRODUCT_NAME = DTBKit_Example;
 				SDKROOT = iphoneos;

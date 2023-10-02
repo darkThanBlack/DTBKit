@@ -14,36 +14,54 @@
 import Foundation
 import UIKit
 
-//MARK: - Prefix
+//MARK: - Name spaces
 
-/// For ``class``
+/// Indicate which one implements the namespace for ``class``
+///
+/// Use the sample code to convert it to a special name for your own project:
+/// ```
+/// extension DTBKitable {
+///    public var your_proj_prefix: DTBKitWrapper<Self> { return dtb }
+/// }
+/// ```
 public protocol DTBKitable: AnyObject {}
 
-/// For ``struct``
+/// Indicate which one implements the namespace for ``struct``
+///
+/// Use the sample code to convert it to a special name for your own project:
+/// ```
+/// extension DTBKitStructable {
+///    public var your_proj_prefix: DTBKitWrapper<Self> { return dtb }
+/// }
+/// ```
 public protocol DTBKitStructable {}
 
 extension DTBKitable {
-    ///
+    
+    /// Namespace for instance method, e.g. ``UIView().dtb``
     public var dtb: DTBKitWrapper<Self> {
         get { return DTBKitWrapper(self) }
         set { }
     }
     
-    static public var dtb: DTBkitStaticWrapper<Self> {
-        get { return DTBkitStaticWrapper() }
+    /// Namespace for static method, e.g. ``UIView.dtb``
+    static public var dtb: DTBKitStaticWrapper<Self> {
+        get { return DTBKitStaticWrapper() }
         set { }
     }
 }
 
 extension DTBKitStructable {
-    ///
+    
+    /// Namespace for instance method, e.g. ``UIView().dtb``
     public var dtb: DTBKitWrapper<Self> {
         get { return DTBKitWrapper(self) }
         set { }
     }
     
-    static public var dtb: DTBkitStaticWrapper<Self> {
-        get { return DTBkitStaticWrapper() }
+    /// Namespace for static method, e.g. ``UIView.dtb``
+    static public var dtb: DTBKitStaticWrapper<Self> {
+        get { return DTBKitStaticWrapper() }
         set { }
     }
 }
@@ -53,24 +71,46 @@ public struct DTBKitWrapper<Base> {
     internal let me: Base
     public init(_ value: Base) { self.me = value }
     
+    /// Default unbox
+    ///
+    /// For example:
+    /// ```
+    ///     let label = UILabel().dtb.text("title").value
+    /// ```
     public var value: Base { return me }
 }
 
 ///
-public struct DTBkitStaticWrapper<T> {
+public struct DTBKitStaticWrapper<T> {
     
     internal var serials: [(() -> Bool)] = []
 }
 
 //MARK: - Chain
 
-///
+/// Indicate which one supports "Chainable"
 public protocol DTBKitChainable {}
 
+/// Chain syntax candy
 extension DTBKitWrapper where Base: DTBKitChainable {
     
-    public var get: Base { return me }
+    /// Same as ``.value``
+    public var `get`: Base { return me }
     
+    /// Same as ``.dtb``
+    public var `set`: Self { return self }
+    
+    /// Custom update action
+    ///
+    /// For example:
+    /// ```
+    ///    UIView().dtb
+    ///        .update { value in
+    ///            let nSize = value.sizeThatFits(UIScreen.main.bounds.size)
+    ///            value.bounds = .init(origin: .zero, size: nSize)
+    ///        }
+    ///        .center(CGPoint(x: 20.0, y: 20.0))
+    /// ```
     @discardableResult
     public func update(_ setter: ((Base) -> Void)) -> Self {
         setter(me)
@@ -78,8 +118,11 @@ extension DTBKitWrapper where Base: DTBKitChainable {
     }
 }
 
-extension DTBkitStaticWrapper where T: DTBKitChainable {
+//MARK: - Promise
+
+extension DTBKitStaticWrapper where T: DTBKitChainable {
     
+    /// [UNSTABLE]
     public mutating func then(_ task: @escaping (() -> Void)) -> Self {
         self.serials.append({
             let _ = task()
@@ -88,6 +131,7 @@ extension DTBkitStaticWrapper where T: DTBKitChainable {
         return self
     }
     
+    /// [UNSTABLE]
     public mutating func done(_ completed: (() -> Void)? = nil) {
         self.serials.append({
             completed?()
@@ -96,9 +140,9 @@ extension DTBkitStaticWrapper where T: DTBKitChainable {
         fire()
     }
     
-    public mutating func fire() {
+    /// [UNSTABLE]
+    mutating func fire() {
         guard serials.count > 0 else {
-            serials.removeAll()
             return
         }
         if let _ = self.serials.first?() {
@@ -108,60 +152,10 @@ extension DTBkitStaticWrapper where T: DTBKitChainable {
     }
 }
 
-// [FUTURE]
-
-// [Style1] any protocol
-//    public func set() -> Self where Self: DTBKitChainable { return self }
-
-// [Style2] another wrapper
-//public protocol DTBKitChainable {
-//    associatedtype ChainT
-//    var obj: ChainT { get }
-//}
-//
-//extension DTBKitChainable {
-//    ///
-//    public var set: DTBKitChainWrapper<ChainT> {
-//        get { return DTBKitChainWrapper(obj) }
-//        set { }
-//    }
-//}
-//
-/////
-//public struct DTBKitChainWrapper<Base> {
-//    internal let me: Base
-//    public init(_ value: Base) { self.me = value }
-//}
-//
-///// Syntax candy
-//extension DTBKitChainWrapper {
-//    public var then: DTBKitWrapper<Base> { return DTBKitWrapper(me) }
-//    public var unBox: Base { return me }
-//    public func done() {}
-//}
-
-// [DEPRESSED]
-
-// [Style3] key-path
-// 1: always hint get only property
-// 2: confilct with ``Chainable``
-//@dynamicMemberLookup
-//    subscript<T>(dynamicMember keyPath: WritableKeyPath<Base, T>) -> ((T) -> (DTBKitChainWrapper<Base>)) {
-//        var n = me
-//        return { value in
-//            n[keyPath: keyPath] = value
-//            return DTBKitChainWrapper(n)
-//        }
-//    }
-
 //MARK: - Static
 
 ///
 public enum DTB {}
-
-///
-public enum Color {}
-
 
 //MARK: - Defines
 
@@ -175,11 +169,9 @@ extension CGRect: DTBKitStructable {}
 
 extension Array: DTBKitStructable {}
 
+extension UIColor: DTBKitable {}
+
 extension UIImage: DTBKitable {}
 
 extension UIView: DTBKitable, DTBKitChainable {}
-
-//extension DTBKitWrapper: DTBKitChainable where Base: UIView {
-//    public typealias ChainT = Base
-//}
 

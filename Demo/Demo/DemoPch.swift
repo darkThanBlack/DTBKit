@@ -11,3 +11,17 @@
     
 @_exported import DTBKit
 @_exported import SnapKit
+
+extension DTBKitable {
+    
+    ///
+    public var xm: DTBKitWrapper<Self> {
+        return dtb
+    }
+    
+    ///
+    static public var xm: DTBKitStaticWrapper<Self> {
+        get { return dtb }
+        set { }
+    }
+}

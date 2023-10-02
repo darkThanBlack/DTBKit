@@ -23,7 +23,7 @@ import UIKit
 ///
 /// Type 3:
 /// 1> static / class func
-/// => Specify in ``DTBkitStaticWrapper``
+/// => Specify in ``DTBKitStaticWrapper``
 ///
 /// Type 4:
 /// 1> custom helper
@@ -76,6 +76,20 @@ extension DTBKitWrapper where Base: UIView {
     @discardableResult
     public func transform(_ value: CGAffineTransform) -> Self {
         me.transform = value
+        return self
+    }
+    
+    @available(iOS 13.0, *)
+    @discardableResult
+    public func transform3D(_ value: CATransform3D) -> Self {
+        me.transform3D = value
+        return self
+    }
+    
+    @available(iOS 16.0, *)
+    @discardableResult
+    public func anchorPoint(_ value: CGPoint) -> Self {
+        me.anchorPoint = value
         return self
     }
     
@@ -285,7 +299,7 @@ extension DTBKitWrapper where Base: UIView {
 
 // UIViewAnimationWithBlocks
 
-extension DTBkitStaticWrapper where T: UIView {
+extension DTBKitStaticWrapper where T: UIView {
     
 //    @discardableResult
 //    public func animate(withDuration duration: TimeInterval, delay: TimeInterval, options: UIView.AnimationOptions = [], animations: @escaping () -> Void, completion: ((Bool) -> Void)? = nil) -> Self {
@@ -293,27 +307,6 @@ extension DTBkitStaticWrapper where T: UIView {
 //        return self
 //    }
 }
-
-//@available(iOS 4.0, *)
-//open class func animate(withDuration duration: TimeInterval, delay: TimeInterval, options: UIView.AnimationOptions = [], animations: @escaping () -> Void, completion: ((Bool) -> Void)? = nil)
-//
-//@available(iOS 4.0, *)
-//open class func animate(withDuration duration: TimeInterval, animations: @escaping () -> Void, completion: ((Bool) -> Void)? = nil)
-//
-//@available(iOS 4.0, *)
-//open class func animate(withDuration duration: TimeInterval, animations: @escaping () -> Void)
-//
-//@available(iOS 7.0, *)
-//open class func animate(withDuration duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping dampingRatio: CGFloat, initialSpringVelocity velocity: CGFloat, options: UIView.AnimationOptions = [], animations: @escaping () -> Void, completion: ((Bool) -> Void)? = nil)
-//
-//@available(iOS 4.0, *)
-//open class func transition(with view: UIView, duration: TimeInterval, options: UIView.AnimationOptions = [], animations: (() -> Void)?, completion: ((Bool) -> Void)? = nil)
-//
-//@available(iOS 4.0, *)
-//open class func transition(from fromView: UIView, to toView: UIView, duration: TimeInterval, options: UIView.AnimationOptions = [], completion: ((Bool) -> Void)? = nil)
-//
-//@available(iOS 7.0, *)
-//open class func perform(_ animation: UIView.SystemAnimation, on views: [UIView], options: UIView.AnimationOptions = [], animations parallelAnimations: (() -> Void)?, completion: ((Bool) -> Void)? = nil)
 
 // UIViewKeyframeAnimations
 
