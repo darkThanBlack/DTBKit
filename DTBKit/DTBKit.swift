@@ -26,15 +26,8 @@ import UIKit
 /// ```
 public protocol DTBKitable: AnyObject {}
 
-/// Indicate which one implements the namespace for ``struct``
-///
-/// Use the sample code to convert it to a special name for your own project:
-/// ```
-/// extension DTBKitStructable {
-///    public var your_proj_prefix: DTBKitWrapper<Self> { return dtb }
-/// }
-/// ```
-public protocol DTBKitStructable {}
+/// See ``DTBKitable``
+public protocol DTBKitMutable: AnyObject {}
 
 extension DTBKitable {
     
@@ -51,6 +44,34 @@ extension DTBKitable {
     }
 }
 
+extension DTBKitMutable {
+    
+    /// Namespace for instance method, e.g. ``UIView().dtb``
+    public var dtb: DTBKitMutableWrapper<Self> {
+        get { return DTBKitMutableWrapper(self) }
+        set { }
+    }
+    
+    /// Namespace for static method, e.g. ``UIView.dtb``
+    static public var dtb: DTBKitStaticWrapper<Self> {
+        get { return DTBKitStaticWrapper() }
+        set { }
+    }
+}
+
+/// Indicate which one implements the namespace for ``struct``
+///
+/// Use the sample code to convert it to a special name for your own project:
+/// ```
+/// extension DTBKitStructable {
+///    public var your_proj_prefix: DTBKitWrapper<Self> { return dtb }
+/// }
+/// ```
+public protocol DTBKitStructable {}
+
+/// See ``DTBKitStructable``
+public protocol DTBKitStructMutable {}
+
 extension DTBKitStructable {
     
     /// Namespace for instance method, e.g. ``UIView().dtb``
@@ -65,6 +86,23 @@ extension DTBKitStructable {
         set { }
     }
 }
+
+extension DTBKitStructMutable {
+    
+    /// Namespace for instance method, e.g. ``UIView().dtb``
+    public var dtb: DTBKitMutableWrapper<Self> {
+        get { return DTBKitMutableWrapper(self) }
+        set { }
+    }
+    
+    /// Namespace for static method, e.g. ``UIView.dtb``
+    static public var dtb: DTBKitStaticWrapper<Self> {
+        get { return DTBKitStaticWrapper() }
+        set { }
+    }
+}
+
+//MARK: - Wrapper
 
 ///
 public struct DTBKitWrapper<Base> {
@@ -81,8 +119,18 @@ public struct DTBKitWrapper<Base> {
 }
 
 ///
+public struct DTBKitMutableWrapper<Base> {
+    internal var me: Base
+    public init(_ value: Base) { self.me = value }
+    
+    /// Default unbox
+    public var value: Base { return me }
+}
+
+///
 public struct DTBKitStaticWrapper<T> {
     
+    /// [UNSTABLE]
     internal var serials: [(() -> Bool)] = []
 }
 
@@ -118,7 +166,7 @@ extension DTBKitWrapper where Base: DTBKitChainable {
     }
 }
 
-//MARK: - Promise
+//MARK: - UNSTABLE: promise like
 
 extension DTBKitStaticWrapper where T: DTBKitChainable {
     
@@ -163,7 +211,7 @@ extension Double: DTBKitStructable {}
 
 extension CGFloat: DTBKitStructable {}
 
-extension CGSize: DTBKitStructable {}
+extension CGSize: DTBKitStructMutable, DTBKitChainable {}
 
 extension CGRect: DTBKitStructable {}
 

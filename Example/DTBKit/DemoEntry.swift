@@ -79,7 +79,7 @@ extension DemoEntry: UITableViewDelegate {
             
             func test() {
                 UIView().dtb.isUserInteractionEnabled(true)
-                
+                var s = CGSize.zero
             }
             
             test()

@@ -70,7 +70,7 @@ class HomeViewController: UIViewController {
         
         navigationController?.setNavigationBarHidden(false, animated: false)
         
-        view.backgroundColor = Color.hex(0xFAFAFA)
+        view.backgroundColor = UIColor.dtb.hex(0xFAFAFA)
         
         loadViews(in: view)
         

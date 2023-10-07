@@ -31,7 +31,7 @@ import UIKit
 ///
 
 ///
-extension DTBKitWrapper where Base == UIView {
+extension DTBKitWrapper where Base: UIView & DTBKitChainable {
     
     @discardableResult
     public func isUserInteractionEnabled(_ value: Bool) -> Self {

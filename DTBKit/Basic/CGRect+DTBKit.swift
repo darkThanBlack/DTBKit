@@ -12,13 +12,33 @@
 
 import UIKit
 
+// Size width and height will always >= 0.0 semantically.
+
+/// Basic
 extension DTBKitWrapper where Base == CGRect {
     
-    //MARK: - absorb
+    /// >= 0.0
+    public var width: CGFloat {
+        return me.size.dtb.width
+    }
     
+    /// >= 0.0
+    public var height: CGFloat {
+        return me.size.dtb.height
+    }
+    
+    ///
     public var isEmpty: Bool {
         return me.size.dtb.isEmpty
     }
+    
+}
+
+//Coordinate
+
+/// Drift absorb
+extension DTBKitWrapper where Base == CGRect {
+    
     
     public func absorb(barrier: CGSize) -> CGRect {
         return CGRect(
@@ -50,5 +70,4 @@ extension DTBKitWrapper where Base == CGRect {
         
         return newFrame
     }
-    
 }

@@ -163,7 +163,7 @@ extension DTBKitWrapper where Base: UIImage {
     /// - Parameter value: result max side
     /// - Returns: UIImage?
     public func scale(to value: CGFloat) -> UIImage? {
-        let nSize = me.size.dtb.aspectFit(to: CGSize(width: value, height: value))
+        let nSize = me.size.dtb.aspectFit(to: CGSize(width: value, height: value)).value
         guard nSize.dtb.isEmpty == false else {
             return nil
         }

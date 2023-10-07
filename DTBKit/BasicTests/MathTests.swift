@@ -61,37 +61,31 @@ final class MathTests: XCTestCase {
             XCTAssert(bad.dtb.inSquare == .zero)
             XCTAssert(normal.dtb.inSquare == CGSize(width: 10.0, height: 10.0))
             XCTAssert(normal.dtb.outSquare == CGSize(width: 20.0, height: 20.0))
-            
-            XCTAssert(bad.dtb.pureSmall(than: normal) == true)
-            XCTAssert(normal.dtb.pureSmall(than: bad) == false)
         }
-        basics()
         
         func margin() {
-            XCTAssert(bad.dtb.margin(all: 2.0) == CGSize(width: 4.0, height: 4.0))
-            XCTAssert(normal.dtb.margin(all: 1.0) == CGSize(width: 12.0, height: 22.0))
+            XCTAssert(bad.dtb.margin(all: 2.0).value == CGSize(width: 4.0, height: 4.0))
+            XCTAssert(normal.dtb.margin(all: 1.0).value == CGSize(width: 12.0, height: 22.0))
             
-            XCTAssert(bad.dtb.margin(dx: 1.0, dy: 2.0) == CGSize(width: 2.0, height: 4.0))
-            XCTAssert(normal.dtb.margin(dx: 2.0, dy: 2.0) == CGSize(width: 14.0, height: 24.0))
+            XCTAssert(bad.dtb.margin(dx: 1.0, dy: 2.0).value == CGSize(width: 2.0, height: 4.0))
+            XCTAssert(normal.dtb.margin(dx: 2.0, dy: 2.0).value == CGSize(width: 14.0, height: 24.0))
             
-            XCTAssert(bad.dtb.margin(only: insetBig) == CGSize(width: 6.0, height: 40.0))
-            XCTAssert(bad.dtb.margin(only: insetNormal) == CGSize(width: 6.0, height: 4.0))
-            XCTAssert(normal.dtb.margin(only: insetNormal) == CGSize(width: 16.0, height: 24.0))
+            XCTAssert(bad.dtb.margin(only: insetBig).value == CGSize(width: 6.0, height: 40.0))
+            XCTAssert(bad.dtb.margin(only: insetNormal).value == CGSize(width: 6.0, height: 4.0))
+            XCTAssert(normal.dtb.margin(only: insetNormal).value == CGSize(width: 16.0, height: 24.0))
         }
-        margin()
         
         func padding() {
-            XCTAssert(bad.dtb.padding(all: 1.0) == .zero)
-            XCTAssert(normal.dtb.padding(all: 1.0) == CGSize(width: 8.0, height: 18.0))
+            XCTAssert(bad.dtb.padding(all: 1.0).value == .zero)
+            XCTAssert(normal.dtb.padding(all: 1.0).value == CGSize(width: 8.0, height: 18.0))
             
-            XCTAssert(bad.dtb.padding(dx: 1.0, dy: 2.0) == .zero)
-            XCTAssert(normal.dtb.padding(dx: 2.0, dy: 2.0) == CGSize(width: 6.0, height: 16.0))
+            XCTAssert(bad.dtb.padding(dx: 1.0, dy: 2.0).value == .zero)
+            XCTAssert(normal.dtb.padding(dx: 2.0, dy: 2.0).value == CGSize(width: 6.0, height: 16.0))
             
-            XCTAssert(bad.dtb.padding(only: insetNormal) == .zero)
-            XCTAssert(normal.dtb.padding(only: insetNormal) == CGSize(width: 4.0, height: 16.0))
-            XCTAssert(normal.dtb.padding(only: insetBig) == CGSize(width: 4.0, height: 0.0))
+            XCTAssert(bad.dtb.padding(only: insetNormal).value == .zero)
+            XCTAssert(normal.dtb.padding(only: insetNormal).value == CGSize(width: 4.0, height: 16.0))
+            XCTAssert(normal.dtb.padding(only: insetBig).value == CGSize(width: 4.0, height: 0.0))
         }
-        padding()
         
         func aspect() {
             let s1 = CGSize(width: 200.0, height: 100.0)
@@ -99,18 +93,22 @@ final class MathTests: XCTestCase {
             
             let content = CGSize(width: 400.0, height: 400.0)
             
-            XCTAssert(content.dtb.aspectFit(to: .zero) == .zero)
-            XCTAssert(CGSize.zero.dtb.aspectFit(to: content) == .zero)
+            XCTAssert(content.dtb.aspectFit(to: .zero).value == .zero)
+            XCTAssert(CGSize.zero.dtb.aspectFit(to: content).value == .zero)
             
-            XCTAssert(s1.dtb.aspectFit(to: content) == CGSize(width: content.width, height: 200.0))
-            XCTAssert(s2.dtb.aspectFit(to: content) == CGSize(width: 200.0, height: content.height))
+            XCTAssert(s1.dtb.aspectFit(to: content).value == CGSize(width: content.width, height: 200.0))
+            XCTAssert(s2.dtb.aspectFit(to: content).value == CGSize(width: 200.0, height: content.height))
             
-            XCTAssert(content.dtb.aspectFill(to: .zero) == .zero)
-            XCTAssert(CGSize.zero.dtb.aspectFill(to: content) == .zero)
+            XCTAssert(content.dtb.aspectFill(to: .zero).value == .zero)
+            XCTAssert(CGSize.zero.dtb.aspectFill(to: content).value == .zero)
             
-            XCTAssert(s1.dtb.aspectFill(to: content) == CGSize(width: 800.0, height: content.height))
-            XCTAssert(s2.dtb.aspectFill(to: content) == CGSize(width: content.width, height: 800.0))
+            XCTAssert(s1.dtb.aspectFill(to: content).value == CGSize(width: 800.0, height: content.height))
+            XCTAssert(s2.dtb.aspectFill(to: content).value == CGSize(width: content.width, height: 800.0))
         }
+        
+        basics()
+        margin()
+        padding()
         aspect()
     }
     

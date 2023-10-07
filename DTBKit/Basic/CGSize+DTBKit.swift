@@ -8,127 +8,158 @@
 //  LICENSE: SAME AS REPOSITORY
 //  Contact me: [GitHub](https://github.com/darkThanBlack)
 //
-    
+
 
 import UIKit
 
-/// Size width and height always >= 0.0 semantically.
-///
-/// 从语义上来考虑，"大小" 的 "宽" 和 "高" 应当不小于 0，否则应该用 CGPoint 来实现。此处的代码均保证了这一点。
-///
-/// More info in ``MathTests.swift``
-extension DTBKitWrapper where Base == CGSize {
+// Size width and height will always >= 0.0 semantically.
+//
+// Uni test: ``MathTests.swift``
+
+/// Basic
+extension DTBKitMutableWrapper where Base == CGSize {
     
-    // MARK: - basic
+    /// >= 0.0
+    public var width: CGFloat {
+        return max(me.width, 0)
+    }
+    
+    /// >= 0.0
+    public var height: CGFloat {
+        return max(me.height, 0)
+    }
+    
+    /// width & height >= 0
+    @discardableResult
+    public func safe() -> Self {
+        guard isEmpty else { return self }
+        return CGSize(width: width, height: height).dtb
+    }
     
     ///
     public var isEmpty: Bool {
-        return (me.width <= 0) || (me.height <= 0)
+        return (width == 0) || (height == 0)
     }
+    
     ///
-    public var safe: CGSize {
-        guard isEmpty else {
-            return me
-        }
-        return CGSize(width: max(me.width, 0), height: max(me.height, 0))
+    public var isSquare: Bool {
+        return width == height
     }
+    
     ///
     public var center: CGPoint {
-        return CGPoint(x: max(me.width, 0) / 2.0, y: max(me.height, 0) / 2.0)
+        return CGPoint(x: width / 2.0, y: height / 2.0)
     }
+    
+    ///
+    public var area: CGFloat {
+        return width * height
+    }
+    
     ///
     public var longer: CGFloat {
-        return max(max(me.width, me.height), 0)
+        return max(width, height)
     }
+    
     ///
     public var shorter: CGFloat {
-        return max(min(me.width, me.height), 0)
+        return min(width, height)
     }
+}
+
+/// Flow box
+extension DTBKitMutableWrapper where Base == CGSize {
     
-    // MARK: - flow box
-    
-    ///
+    /// Inscribe
     public var inSquare: CGSize {
         return CGSize(width: shorter, height: shorter)
     }
-    ///
+    
+    /// Circumscribe
     public var outSquare: CGSize {
         return CGSize(width: longer, height: longer)
     }
+    
     ///
-    public func margin(all value: CGFloat) -> CGSize {
+    @discardableResult
+    public func margin(all value: CGFloat) -> Self {
         return margin(dx: value, dy: value)
     }
+    
     ///
-    public func margin(dx: CGFloat, dy: CGFloat) -> CGSize {
+    @discardableResult
+    public func margin(dx: CGFloat, dy: CGFloat) -> Self {
         return margin(only: UIEdgeInsets(top: dy, left: dx, bottom: dy, right: dx))
     }
+    
     ///
-    public func margin(only insets: UIEdgeInsets) -> CGSize {
+    @discardableResult
+    public func margin(only insets: UIEdgeInsets) -> Self {
         return CGSize(
-            width: safe.width + insets.left + insets.right,
-            height: safe.height + insets.top + insets.bottom
-        ).dtb.safe
+            width: width + insets.left + insets.right,
+            height: height + insets.top + insets.bottom
+        ).dtb.safe()
     }
+    
     ///
-    public func padding(all value: CGFloat) -> CGSize {
+    @discardableResult
+    public func padding(all value: CGFloat) -> Self {
         return padding(dx: value, dy: value)
     }
+    
     ///
-    public func padding(dx: CGFloat, dy: CGFloat) -> CGSize {
+    @discardableResult
+    public func padding(dx: CGFloat, dy: CGFloat) -> Self {
         return padding(only: UIEdgeInsets(top: dy, left: dx, bottom: dy, right: dx))
     }
-    ///
-    public func padding(only insets: UIEdgeInsets) -> CGSize {
-        return CGSize(
-            width: me.dtb.safe.width - (insets.left + insets.right),
-            height: me.dtb.safe.height - (insets.top + insets.bottom)
-        ).dtb.safe
-    }
     
-    // MARK: - aspect
+    ///
+    @discardableResult
+    public func padding(only insets: UIEdgeInsets) -> Self {
+        return CGSize(
+            width: width - (insets.left + insets.right),
+            height: height - (insets.top + insets.bottom)
+        ).dtb.safe()
+    }
+}
+
+/// Aspect
+extension DTBKitMutableWrapper where Base == CGSize {
     
     /// Same as ``UIImageView.contentMode``
-    public func aspectFit(to target: CGSize) -> CGSize {
+    public func aspectFit(to target: CGSize) -> Self {
         if isEmpty || target.dtb.isEmpty {
-            return .zero
+            return CGSize.zero.dtb
         }
         if me.width > me.height {
             return CGSize(
                 width: target.width,
                 height: target.width * me.height / me.width
-            )
+            ).dtb
         } else {
             return CGSize(
                 width: target.height * me.width / me.height,
                 height: target.height
-            )
+            ).dtb
         }
     }
     
     /// Same as ``UIImageView.contentMode``
-    public func aspectFill(to target: CGSize) -> CGSize {
+    public func aspectFill(to target: CGSize) -> Self {
         if isEmpty || target.dtb.isEmpty {
-            return .zero
+            return CGSize.zero.dtb
         }
         
         if me.width < me.height {
             return CGSize(
                 width: target.width,
                 height: target.width * me.height / me.width
-            )
+            ).dtb
         } else {
             return CGSize(
                 width: target.height * me.width / me.height,
                 height: target.height
-            )
+            ).dtb
         }
-    }
-    
-    // MARK: - other
-    
-    /// (W && H) <= S
-    public func pureSmall(than s: CGSize) -> Bool {
-        return (me.width <= s.width) && (me.height <= s.height)
     }
 }
