@@ -30,6 +30,8 @@
 		95BF21178FD9E6742477E32C /* UIButton+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74138F430445054FA724E0B8 /* UIButton+DTBKit.swift */; };
 		996CFED17A4B1BDD6EE9648A /* DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EC983BB0CCCB17419FBFBA /* DTBKit.swift */; };
 		A1348D0AEC21FEC0D41CBBE1 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1E7982283574061EF2C6745 /* Launch Screen.storyboard */; };
+		A249FA4D2AD2607500647866 /* NumberFormatter+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A249FA4C2AD2607500647866 /* NumberFormatter+Chain.swift */; };
+		A249FA4F2AD285E600647866 /* String+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A249FA4E2AD285E600647866 /* String+DTBKit.swift */; };
 		A2A298312AD0FE9C008A36BE /* CGSize+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A298302AD0FE9C008A36BE /* CGSize+Chain.swift */; };
 		A735232D860682E7B7E7ECB0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F814B4B829198871353120F8 /* Images.xcassets */; };
 		A9DE99B858E334528346CE4B /* AlertAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABA054619FB46334287D932 /* AlertAnimation.swift */; };
@@ -76,6 +78,8 @@
 		881598D80582636EC3A51695 /* basic.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = basic.xcassets; sourceTree = "<group>"; };
 		8CB035E2CD0BB15B35B6ADEC /* Exported.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exported.swift; sourceTree = "<group>"; };
 		8DC825259B4A2BC75D4CAEBE /* DemoEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoEntry.swift; sourceTree = "<group>"; };
+		A249FA4C2AD2607500647866 /* NumberFormatter+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NumberFormatter+Chain.swift"; sourceTree = "<group>"; };
+		A249FA4E2AD285E600647866 /* String+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+DTBKit.swift"; sourceTree = "<group>"; };
 		A2A298302AD0FE9C008A36BE /* CGSize+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+Chain.swift"; sourceTree = "<group>"; };
 		A94332BD9942E3A20F8AC621 /* DTBKit_Example.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = DTBKit_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A99D8D4406A6A35C49B36BC7 /* UIImageView+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+DTBKit.swift"; sourceTree = "<group>"; };
@@ -121,10 +125,12 @@
 				3B1DC9D4C9D135658E78C968 /* CGSize+DTBKit.swift */,
 				A2A298302AD0FE9C008A36BE /* CGSize+Chain.swift */,
 				643C0D6EE99781EBB2520DCF /* DTBStatics.swift */,
+				A249FA4E2AD285E600647866 /* String+DTBKit.swift */,
 				C3FF0A320E09622621359C0D /* Double+DTBKit.swift */,
 				78775B07CCC6B6E13A0F0C3E /* Int+DTBKit.swift */,
 				3B04EC27C02A56B6AEF33BFF /* UIColor+Chain.swift */,
 				DAEB95CEB9E8D8FA35BF7B3F /* UIView+Chain.swift */,
+				A249FA4C2AD2607500647866 /* NumberFormatter+Chain.swift */,
 			);
 			name = Basic;
 			path = ../DTBKit/Basic;
@@ -363,6 +369,8 @@
 				FD226C822096E72DA8C373FA /* DemoNavigationView.swift in Sources */,
 				8DD734649787D05EF6D0203A /* EdgeLabel.swift in Sources */,
 				66F19A1005CEDC2EDDBFDF6A /* Exported.swift in Sources */,
+				A249FA4F2AD285E600647866 /* String+DTBKit.swift in Sources */,
+				A249FA4D2AD2607500647866 /* NumberFormatter+Chain.swift in Sources */,
 				D4FDECD70AF7A8BDD54689BD /* Double+DTBKit.swift in Sources */,
 				7CF58AE26EC8F27ABBC74059 /* HomeViewController.swift in Sources */,
 				5BCB985228038DA98D80924F /* Int+DTBKit.swift in Sources */,

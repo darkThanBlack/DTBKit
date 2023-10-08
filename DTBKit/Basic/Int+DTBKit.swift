@@ -12,10 +12,6 @@
 
 import Foundation
 
-extension Int: DTBKitStructable {}
-
-extension Int64: DTBKitStructable {}
-
 extension DTBKitWrapper where Base: FixedWidthInteger {
     
 }
@@ -23,6 +19,7 @@ extension DTBKitWrapper where Base: FixedWidthInteger {
 extension DTBKitWrapper where Base == Int64 {
     
     func square() -> Int64 {
+        
         return me * me
     }
 }

@@ -207,9 +207,17 @@ public enum DTB {}
 
 //MARK: - Defines
 
+extension Int: DTBKitStructable {}
+
+extension Int64: DTBKitStructable {}
+
 extension Double: DTBKitStructable {}
 
-extension CGFloat: DTBKitStructable {}
+extension NSNumber: DTBKitable {}
+
+extension String: DTBKitStructable {}
+
+extension NumberFormatter: DTBKitable, DTBKitChainable {}
 
 extension CGSize: DTBKitStructMutable, DTBKitChainable {}
 
