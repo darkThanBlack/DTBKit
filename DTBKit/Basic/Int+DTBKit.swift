@@ -12,8 +12,12 @@
 
 import Foundation
 
+/// Convert
 extension DTBKitWrapper where Base: FixedWidthInteger {
     
+//    public var number: DTBKitWrapper<NSNumber> {
+//        return NSNumber(value: me).dtb
+//    }
 }
 
 extension DTBKitWrapper where Base == Int64 {

@@ -53,7 +53,7 @@ extension DTBKitWrapper where Base: UIView & DTBKitChainable {
 }
 
 /// Same as ``@interface UIView(UIViewGeometry)``
-extension DTBKitWrapper where Base: UIView {
+extension DTBKitWrapper where Base: UIView & DTBKitChainable {
     
     @discardableResult
     public func frame(_ value: CGRect) -> Self {
@@ -131,7 +131,7 @@ extension DTBKitWrapper where Base: UIView {
 }
 
 /// Same as ``@interface UIView(UIViewHierarchy)``
-extension DTBKitWrapper where Base: UIView {
+extension DTBKitWrapper where Base: UIView & DTBKitChainable {
     
     @discardableResult
     public func removeFromSuperview() -> Self {
@@ -226,7 +226,7 @@ extension DTBKitWrapper where Base: UIView {
 }
 
 /// Same as ``@interface UIView(UIViewRendering)``
-extension DTBKitWrapper where Base: UIView {
+extension DTBKitWrapper where Base: UIView & DTBKitChainable {
     
     @discardableResult
     public func setNeedsDisplay() -> Self {
@@ -299,19 +299,10 @@ extension DTBKitWrapper where Base: UIView {
 
 // UIViewAnimationWithBlocks
 
-extension DTBKitStaticWrapper where T: UIView {
-    
-//    @discardableResult
-//    public func animate(withDuration duration: TimeInterval, delay: TimeInterval, options: UIView.AnimationOptions = [], animations: @escaping () -> Void, completion: ((Bool) -> Void)? = nil) -> Self {
-//        T.animate(withDuration: duration, delay: delay, options: options, animations: animations, completion: completion)
-//        return self
-//    }
-}
-
 // UIViewKeyframeAnimations
 
 /// Same as ``@interface UIView(UIViewGestureRecognizers)``
-extension DTBKitWrapper where Base: UIView {
+extension DTBKitWrapper where Base: UIView & DTBKitChainable {
     
     @discardableResult
     public func gestureRecognizers(_ value: [UIGestureRecognizer]?) -> Self {
@@ -333,7 +324,7 @@ extension DTBKitWrapper where Base: UIView {
 }
 
 /// Same as ``@interface UIView(UIViewMotionEffects)``
-extension DTBKitWrapper where Base: UIView {
+extension DTBKitWrapper where Base: UIView & DTBKitChainable {
     
     @discardableResult
     public func addMotionEffect(_ effect: UIMotionEffect) -> Self {
@@ -351,7 +342,7 @@ extension DTBKitWrapper where Base: UIView {
 // UIConstraintBasedLayoutInstallingConstraints
 
 /// Same as ``@interface UIView(UIConstraintBasedLayoutCoreMethods)``
-extension DTBKitWrapper where Base: UIView {
+extension DTBKitWrapper where Base: UIView & DTBKitChainable {
     
     @discardableResult
     public func setNeedsUpdateConstraints() -> Self {
@@ -361,7 +352,7 @@ extension DTBKitWrapper where Base: UIView {
 }
 
 /// Same as ``@interface UIView(UIConstraintBasedCompatibility)``
-extension DTBKitWrapper where Base: UIView {
+extension DTBKitWrapper where Base: UIView & DTBKitChainable {
     
     @discardableResult
     public func translatesAutoresizingMaskIntoConstraints(_ value: Bool) -> Self {
@@ -371,7 +362,7 @@ extension DTBKitWrapper where Base: UIView {
 }
 
 /// Same as ``@interface UIView(UIConstraintBasedLayoutLayering)``
-extension DTBKitWrapper where Base: UIView {
+extension DTBKitWrapper where Base: UIView & DTBKitChainable {
     
     @discardableResult
     public func invalidateIntrinsicContentSize() -> Self {
@@ -393,7 +384,7 @@ extension DTBKitWrapper where Base: UIView {
 }
 
 /// Same as ``@interface UIView(UILayoutGuideSupport)``
-extension DTBKitWrapper where Base: UIView {
+extension DTBKitWrapper where Base: UIView & DTBKitChainable {
     
     @discardableResult
     public func addLayoutGuide(_ layoutGuide: UILayoutGuide) -> Self {

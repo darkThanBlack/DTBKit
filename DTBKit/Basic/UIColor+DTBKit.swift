@@ -3,12 +3,11 @@
 //  DTBKit
 //
 //  Created by moonShadow on 2023/10/2
-//  
+//  Copyright © 2023 darkThanBlack. All rights reserved.
 //
 //  LICENSE: SAME AS REPOSITORY
 //  Contact me: [GitHub](https://github.com/darkThanBlack)
 //
-    
 
 import UIKit
 
@@ -42,5 +41,4 @@ extension DTBKitStaticWrapper where T: UIColor {
         }
         return actual(hex: def, a: alpha)
     }
-
 }

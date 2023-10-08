@@ -38,7 +38,7 @@ extension DTBKitable {
     }
     
     /// Namespace for static method, e.g. ``UIView.dtb``
-    static public var dtb: DTBKitStaticWrapper<Self> {
+    public static var dtb: DTBKitStaticWrapper<Self> {
         get { return DTBKitStaticWrapper() }
         set { }
     }
@@ -53,7 +53,7 @@ extension DTBKitMutable {
     }
     
     /// Namespace for static method, e.g. ``UIView.dtb``
-    static public var dtb: DTBKitStaticWrapper<Self> {
+    public static var dtb: DTBKitStaticWrapper<Self> {
         get { return DTBKitStaticWrapper() }
         set { }
     }
@@ -81,7 +81,7 @@ extension DTBKitStructable {
     }
     
     /// Namespace for static method, e.g. ``UIView.dtb``
-    static public var dtb: DTBKitStaticWrapper<Self> {
+    public static var dtb: DTBKitStaticWrapper<Self> {
         get { return DTBKitStaticWrapper() }
         set { }
     }
@@ -96,7 +96,7 @@ extension DTBKitStructMutable {
     }
     
     /// Namespace for static method, e.g. ``UIView.dtb``
-    static public var dtb: DTBKitStaticWrapper<Self> {
+    public static var dtb: DTBKitStaticWrapper<Self> {
         get { return DTBKitStaticWrapper() }
         set { }
     }
