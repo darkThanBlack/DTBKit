@@ -19,10 +19,19 @@ extension DTBKitMutableWrapper where Base == Double {
         return max(me, 0)
     }
     
-    public static func test_div() {
-        
-        
+    public var `int`: DTBKitWrapper<Int> {
+        return Int(me).dtb
     }
+    
+    public var `int64`: DTBKitWrapper<Int64> {
+        return Int64(me).dtb
+    }
+}
+
+//    /// for uni test
+//    public static func test_div() {
+//
+//    }
     
 //    public static func / (lhs: Base, rhs: DTBKitWrapper<Base>) -> Base {
 //        print("override 01")
@@ -34,4 +43,3 @@ extension DTBKitMutableWrapper where Base == Double {
 //        return lhs.me / rhs.me
 //    }
     
-}
