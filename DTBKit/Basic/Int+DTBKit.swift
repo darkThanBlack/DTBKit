@@ -81,19 +81,47 @@ extension DTBKitWrapper where Base == Int64 {
         return ((value + [me]).min() ?? me).dtb
     }
     
+    /// Swift.min
+    public func `min`(_ value: Double...) -> DTBKitWrapper<Double> {
+        return ((value + [Double(me)]).min() ?? Double(me)).dtb
+    }
+    
     /// Swift.max
     public func `max`(_ value: Int64...) -> Self {
         return ((value + [me]).max() ?? me).dtb
     }
     
-    /// >= value
+    /// Swift.max
+    public func `max`(_ value: Double...) -> DTBKitWrapper<Double> {
+        return ((value + [Double(me)]).max() ?? Double(me)).dtb
+    }
+    
+    /// >=
     public func bigger(than value: Int64) -> Self {
         return Swift.min(value, me).dtb
     }
     
-    /// <= value
+    /// >=
+    public func bigger(than value: Double) -> DTBKitWrapper<Double> {
+        return Swift.min(value, Double(me)).dtb
+    }
+    
+    /// <=
     public func smaller(than value: Int64) -> Self {
         return Swift.max(value, me).dtb
+    }
+    
+    /// <=
+    public func smaller(than value: Double) -> DTBKitWrapper<Double> {
+        return Swift.max(value, Double(me)).dtb
+    }
+    
+    /// 0 -> def
+    public func nonZero(_ def: Int64 = 1) -> Self {
+        guard me != 0 else {
+            return (def == 0 ? 1 : def).dtb
+        }
+        return self
     }
     
     /// Use math words: "=", ">", ">=", "<", "<=" to compare
@@ -151,17 +179,58 @@ extension DTBKitWrapper where Base == Int64 {
     }
 }
 
-///
+/// Arithmetic
 extension DTBKitWrapper where Base == Int64 {
     
+    /// +
+    public func plus(_ value: Int64) -> Self {
+        return (me + value).dtb
+    }
+    
+    /// +
+    public func plus(_ value: Double) -> DTBKitWrapper<Double> {
+        return (Double(me) + value).dtb
+    }
+    
+    /// -
+    public func minus(_ value: Int64) -> Self {
+        return (me - value).dtb
+    }
+    
+    /// -
+    public func minus(_ value: Double) -> DTBKitWrapper<Double> {
+        return (Double(me) - value).dtb
+    }
+    
+    /// *
+    public func multi(_ value: Int64) -> Self {
+        return (me * value).dtb
+    }
+    
+    /// *
+    public func multi(_ value: Double) -> DTBKitWrapper<Double> {
+        return (Double(me) * value).dtb
+    }
+    
+    /// "/"
+    public func div(_ value: Int64) -> DTBKitWrapper<Double>? {
+        guard value != 0 else { return nil }
+        return (Double(me) / Double(value)).dtb
+    }
+    
+    /// "/"
+    public func div(_ value: Double) -> DTBKitWrapper<Double>? {
+        guard value != 0 else { return nil }
+        return (Double(me) / value).dtb
+    }
+    
     ///
-    public func div100() -> Double {
-        return Double(me)
+    public func div100() -> DTBKitWrapper<Double> {
+        return (Double(me) / 100.0).dtb
     }
     
     ///
     public func div100() -> String {
-        return "\(Double(me) / 100.0)"
+        return "\(div100().value)"
     }
-    
 }
