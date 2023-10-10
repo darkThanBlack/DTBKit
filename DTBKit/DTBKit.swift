@@ -116,6 +116,18 @@ public struct DTBKitWrapper<Base> {
     ///     let label = UILabel().dtb.text("title").value
     /// ```
     public var value: Base { return me }
+    
+    func check(_ handler: (() -> Bool)) -> Self? {
+        return handler() ? self : nil
+    }
+    
+    public func `continue`(when handler: ((Base) -> Bool)) -> Self? {
+        return handler(me) ? self : nil
+    }
+    
+    public func stop(when handler: ((Base) -> Bool)) -> Self? {
+        return handler(me) ? nil : self
+    }
 }
 
 ///
@@ -209,11 +221,19 @@ public enum DTB {}
 
 extension Int: DTBKitStructable {}
 
+extension Int8: DTBKitStructable {}
+
+extension Int16: DTBKitStructable {}
+
+extension Int32: DTBKitStructable {}
+
 extension Int64: DTBKitStructable {}
 
 extension Float: DTBKitStructable {}
 
 extension Double: DTBKitStructable {}
+
+extension Float80: DTBKitStructable {}
 
 extension NSNumber: DTBKitable {}
 
