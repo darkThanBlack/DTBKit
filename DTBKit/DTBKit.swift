@@ -205,25 +205,33 @@ extension DTBKitStaticWrapper where T: DTBKitChainable {
 ///
 public enum DTB {}
 
-//MARK: - Defines
+//MARK: -
 
 extension Int: DTBKitStructable {}
 
 extension Int64: DTBKitStructable {}
 
+extension Float: DTBKitStructable {}
+
 extension Double: DTBKitStructable {}
 
 extension NSNumber: DTBKitable {}
 
-extension String: DTBKitStructable {}
-
 extension NumberFormatter: DTBKitable, DTBKitChainable {}
+
+//MARK: -
+
+extension String: DTBKitStructable {}
 
 extension CGSize: DTBKitStructMutable, DTBKitChainable {}
 
 extension CGRect: DTBKitStructable {}
 
+//MARK: -
+
 extension Array: DTBKitStructable {}
+
+//MARK: -
 
 extension UIColor: DTBKitable {}
 

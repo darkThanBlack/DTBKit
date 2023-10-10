@@ -48,6 +48,11 @@ extension DTBKitWrapper where Base: FixedWidthInteger {
     }
     
     ///
+    public var float: DTBKitWrapper<Float> {
+        return Float(me).dtb
+    }
+    
+    ///
     public var double: DTBKitWrapper<Double> {
         return Double(me).dtb
     }

@@ -12,21 +12,37 @@
 
 import Foundation
 
-extension DTBKitMutableWrapper where Base == Double {
+extension DTBKitWrapper where Base: BinaryFloatingPoint {
     
-    /// >= 0
-    public var nonNegative: Double {
-        return max(me, 0)
+    ///
+    public func positiveOrZero() -> Self? {
+        
+        return self
     }
     
-    public var `int`: DTBKitWrapper<Int> {
-        return Int(me).dtb
+    ///
+    public var `float`: DTBKitWrapper<Float>? {
+        if let value = me as? Float {
+            return Float(exactly: value)?.dtb
+        }
+        if let value = me as? Double {
+            return Float(exactly: value)?.dtb
+        }
+        return nil
     }
     
-    public var `int64`: DTBKitWrapper<Int64> {
-        return Int64(me).dtb
+    ///
+    public var `double`: DTBKitWrapper<Double>? {
+        if let value = me as? Double {
+            return Double(value).dtb
+        }
+        if let value = me as? Float {
+            return Double(value).dtb
+        }
+        return nil
     }
 }
+
 
 //    /// for uni test
 //    public static func test_div() {
