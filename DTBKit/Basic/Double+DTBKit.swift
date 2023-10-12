@@ -14,21 +14,19 @@ import Foundation
 
 /// Type convert
 ///
-/// 1. Use exactly init.
-/// 2. "NaN" value will be nil.
-/// 3. Convert high bits to low bits will be nil.
-/// 4. Not allow get low bits value.
+/// 1. "init" vs. "exactly init"
+/// 2. "NaN" vs. nil
+/// 3. "high bits to low bits" vs. nil
 extension DTBKitWrapper where Base: BinaryFloatingPoint {
     
-    /// Default type, use it to start extra action.
-    ///
-    /// Sample: ``Float(1.0).dtb.safe?.max(2).value``
+    /// 1. Use "exactly init";
+    /// 2. Disable "high bits to low bits".
     public var safe: DTBKitWrapper<Double>? {
-        return self.double
+        return self.exactlyDouble
     }
     
     ///
-    public var `float`: DTBKitWrapper<Float>? {
+    public var exactlyFloat: DTBKitWrapper<Float>? {
         if let value = me as? Float {
             return Float(exactly: value)?.dtb
         }
@@ -39,7 +37,7 @@ extension DTBKitWrapper where Base: BinaryFloatingPoint {
     }
     
     ///
-    public var `double`: DTBKitWrapper<Double>? {
+    public var exactlyDouble: DTBKitWrapper<Double>? {
         if let value = me as? Float {
             return Double(exactly: value)?.dtb
         }
@@ -50,17 +48,17 @@ extension DTBKitWrapper where Base: BinaryFloatingPoint {
     }
     
     ///
-    public var `int`: DTBKitWrapper<Int>? {
+    public var exactlyInt: DTBKitWrapper<Int>? {
         return Int(exactly: me)?.dtb
     }
     
     ///
-    public var `int64`: DTBKitWrapper<Int64>? {
+    public var exactlyInt64: DTBKitWrapper<Int64>? {
         return Int64(exactly: me)?.dtb
     }
     
     ///
-    public var ns: DTBKitWrapper<NSNumber>? {
+    public var exactlyNS: DTBKitWrapper<NSNumber>? {
         if let value = me as? Float {
             return NSNumber(value: value).dtb
         }
@@ -68,11 +66,74 @@ extension DTBKitWrapper where Base: BinaryFloatingPoint {
             return NSNumber(value: value).dtb
         }
         return nil
+    }
+    
+    /// Force convert. Recommended to use ``safe`` convert.
+    public var unSafe: DTBKitWrapper<Double> {
+        return Double(me).dtb
+    }
+    
+    ///
+    public var `float`: DTBKitWrapper<Float> {
+        return Float(me).dtb
+    }
+    
+    ///
+    public var `double`: DTBKitWrapper<Double> {
+        return Double(me).dtb
+    }
+    
+    ///
+    public var forceInt: DTBKitWrapper<Int> {
+        return Int(me).dtb
+    }
+    
+    ///
+    public var forceInt64: DTBKitWrapper<Int64> {
+        return Int64(me).dtb
+    }
+    
+    ///
+    public func `int`(_ roundRule: FloatingPointRoundingRule? = nil) -> DTBKitWrapper<Int> {
+        if let rule = roundRule {
+            return Int(me.rounded(rule)).dtb
+        }
+        return Int(me.rounded()).dtb
+    }
+    
+    ///
+    public func `int64`(_ roundRule: FloatingPointRoundingRule? = nil) -> DTBKitWrapper<Int64> {
+        if let rule = roundRule {
+            return Int64(me.rounded(rule)).dtb
+        }
+        return Int64(me.rounded()).dtb
+    }
+    
+    ///
+    public func rounded(_ roundRule: FloatingPointRoundingRule? = nil) -> Self {
+        if let rule = roundRule {
+            return DTBKitWrapper(me.rounded(rule))
+        }
+        return DTBKitWrapper(me.rounded())
+    }
+    
+    ///
+    public var `ns`: DTBKitWrapper<NSNumber> {
+        return NSNumber(value: double.value).dtb
     }
     
     ///
     public var string: DTBKitWrapper<String> {
         return "\(me)".dtb
+    }
+    
+    
+    public func `string`(formatterChainer: ((_ formatter: DTBKitWrapper<NumberFormatter>)->())) -> DTBKitWrapper<String> {
+        var formatter = NumberFormatter()
+        formatterChainer(formatter.dtb)
+        if let ns = exactlyNS?.value,
+           
+        return formatter.string(from: )?.dtb
     }
 }
 
@@ -90,12 +151,12 @@ extension DTBKitWrapper where Base == Double {
     }
     
     /// >= value
-    public func bigger(than value: Double) -> Self {
+    public func setMin(_ value: Double) -> Self {
         return Swift.min(value, me).dtb
     }
     
     /// <= value
-    public func smaller(than value: Double) -> Self {
+    public func setMax(_ value: Double) -> Self {
         return Swift.max(value, me).dtb
     }
     
@@ -155,3 +216,74 @@ extension DTBKitWrapper where Base == Double {
     }
 }
 
+/// Arithmetic: four
+extension DTBKitWrapper where Base == Double {
+    
+    /// +
+    public func plus(_ value: Double) -> Self {
+        return (me + value).dtb
+    }
+    
+    /// +
+    public func plus(_ value: Int64) -> Self {
+        return (me + Double(value)).dtb
+    }
+    
+    /// -
+    public func minus(_ value: Double) -> Self {
+        return (me - value).dtb
+    }
+    
+    /// -
+    public func minus(_ value: Int64) -> Self {
+        return (me - Double(value)).dtb
+    }
+    
+    /// *
+    public func multi(_ value: Double) -> Self {
+        return (me * value).dtb
+    }
+    
+    /// *
+    public func multi(_ value: Int64) -> Self {
+        return (me * Double(value)).dtb
+    }
+    
+    /// "/"
+    public func div(_ value: Int64) -> Self? {
+        guard value != 0 else { return nil }
+        return (me / Double(value)).dtb
+    }
+    
+    /// "/"
+    public func div(_ value: Double) -> Self? {
+        guard value != 0 else { return nil }
+        return (me / value).dtb
+    }
+    
+    /// "/"
+    public func div(nonNull value: Int64) -> Self {
+        return (me / Double(value)).dtb
+    }
+    
+    /// "/"
+    public func div(nonNull value: Double) -> Self {
+        return (me / value).dtb
+    }
+}
+
+/// Arithmetic: C
+extension DTBKitWrapper where Base == Double {
+    
+    ///
+    public func abs() -> Self {
+        return Swift.abs(me).dtb
+    }
+}
+
+/// Arithmetic: biz
+extension DTBKitWrapper where Base == Double {
+    
+    
+    
+}

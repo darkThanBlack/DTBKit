@@ -14,27 +14,35 @@ import Foundation
 
 /// Type convert
 ///
-/// 1. Use exactly init.
-/// 2. "NaN" value will be nil.
-/// 3. Convert high bits to low bits will be nil.
-/// 4. Not allow get low bits value.
+/// 1. "init" vs. "exactly init"
+/// 2. "NaN" vs. nil
+/// 3. "high bits to low bits" vs. nil
 extension DTBKitWrapper where Base: SignedInteger {
     
-    /// Default type, use it to start extra action.
-    ///
-    /// Sample: ``Float(1.0).dtb.safe?.max(2).value``
+    /// 1. Use "exactly init";
+    /// 2. Disable "high bits to low bits".
     public var safe: DTBKitWrapper<Int64>? {
-        return self.int64
+        return self.exactlyInt64
     }
     
     ///
-    public var `int`: DTBKitWrapper<Int>? {
+    public var exactlyInt: DTBKitWrapper<Int>? {
         return Int(exactly: me)?.dtb
     }
     
     ///
-    public var `int64`: DTBKitWrapper<Int64>? {
+    public var exactlyInt64: DTBKitWrapper<Int64>? {
         return Int64(exactly: me)?.dtb
+    }
+    
+    ///
+    public var exactlyFloat: DTBKitWrapper<Float>? {
+        return Float(exactly: me)?.dtb
+    }
+    
+    ///
+    public var exactlyDouble: DTBKitWrapper<Double>? {
+        return Double(exactly: me)?.dtb
     }
     
     ///
@@ -57,14 +65,28 @@ extension DTBKitWrapper where Base: SignedInteger {
         return nil
     }
     
-    ///
-    public var float: DTBKitWrapper<Float>? {
-        return Float(exactly: me)?.dtb
+    /// Force convert. Recommended to use ``safe`` convert.
+    public var unSafe: DTBKitWrapper<Int64> {
+        return Int64(me).dtb
+    }
+    
+    public var `int`: DTBKitWrapper<Int> {
+        return Int(me).dtb
     }
     
     ///
-    public var double: DTBKitWrapper<Double>? {
-        return Double(exactly: me)?.dtb
+    public var `int64`: DTBKitWrapper<Int64> {
+        return Int64(me).dtb
+    }
+    
+    ///
+    public var `float`: DTBKitWrapper<Float> {
+        return Float(me).dtb
+    }
+    
+    ///
+    public var `double`: DTBKitWrapper<Double> {
+        return Double(me).dtb
     }
     
     ///
@@ -96,23 +118,23 @@ extension DTBKitWrapper where Base == Int64 {
         return ((value + [Double(me)]).max() ?? Double(me)).dtb
     }
     
-    /// >=
-    public func bigger(than value: Int64) -> Self {
+    /// >= value
+    public func setMin(_ value: Int64) -> Self {
         return Swift.min(value, me).dtb
     }
     
-    /// >=
-    public func bigger(than value: Double) -> DTBKitWrapper<Double> {
+    /// >= value
+    public func setMin(_ value: Double) -> DTBKitWrapper<Double> {
         return Swift.min(value, Double(me)).dtb
     }
     
-    /// <=
-    public func smaller(than value: Int64) -> Self {
+    /// <= value
+    public func setMax(_ value: Int64) -> Self {
         return Swift.max(value, me).dtb
     }
     
-    /// <=
-    public func smaller(than value: Double) -> DTBKitWrapper<Double> {
+    /// <= value
+    public func setMax(_ value: Double) -> DTBKitWrapper<Double> {
         return Swift.max(value, Double(me)).dtb
     }
     
@@ -179,7 +201,7 @@ extension DTBKitWrapper where Base == Int64 {
     }
 }
 
-/// Arithmetic
+/// Arithmetic: four
 extension DTBKitWrapper where Base == Int64 {
     
     /// +
@@ -224,13 +246,29 @@ extension DTBKitWrapper where Base == Int64 {
         return (Double(me) / value).dtb
     }
     
-    ///
-    public func div100() -> DTBKitWrapper<Double> {
-        return (Double(me) / 100.0).dtb
+    /// "/"
+    public func div(nonNull value: Int64) -> DTBKitWrapper<Double> {
+        return (Double(me) / Double(value)).dtb
     }
     
-    ///
-    public func div100() -> String {
-        return "\(div100().value)"
+    /// "/"
+    public func div(nonNull value: Double) -> DTBKitWrapper<Double> {
+        return (Double(me) / value).dtb
     }
+}
+
+/// Arithmetic: C
+extension DTBKitWrapper where Base == Int64 {
+    
+    ///
+    public func abs() -> Self {
+        return Swift.abs(me).dtb
+    }
+}
+
+/// Arithmetic: biz
+extension DTBKitWrapper where Base == Int64 {
+    
+    
+    
 }
