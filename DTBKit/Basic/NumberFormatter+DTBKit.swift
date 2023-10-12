@@ -24,14 +24,20 @@ extension DTBKitWrapper where Base: NumberFormatter {
         guard let value = string else { return nil }
         return me.number(from: value)?.dtb
     }
+    
+    ///
+    @discardableResult
+    public func decimal(_ value: Int = 2) -> Self {
+        me.numberStyle = .decimal
+        me.minimumFractionDigits = value
+        me.maximumFractionDigits = value
+        return self
+    }
+    
+    
 }
 
 extension DTBKitStaticWrapper where T: NumberFormatter {
-    
-    ///
-    var shared: DTBKitWrapper<NumberFormatter> {
-        return DTBKitSingleton.shared.numberFormatter
-    }
     
     //    @available(iOS 4.0, *)
     //    open class func localizedString(from num: NSNumber, number nstyle: NumberFormatter.Style) -> String

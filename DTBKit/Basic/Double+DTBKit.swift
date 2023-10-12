@@ -132,10 +132,16 @@ extension DTBKitWrapper where Base == Double {
     }
     
     ///
+    public func `string`(formatter: NumberFormatter) -> DTBKitWrapper<String>? {
+        if let ns = exactlyNS?.value {
+            return formatter.string(from: ns)?.dtb
+        }
+        return nil
+    }
+    
+    ///
     public func `string`(formatterChainer: ((_ formatter: DTBKitWrapper<NumberFormatter>)->())) -> DTBKitWrapper<String>? {
-        var formatter = NumberFormatter.dtb.shared
-        formatterChainer(formatter)
-        return formatter.string(from: exactlyNS?.value)
+        return NumberFormatter().dtb.update(formatterChainer).string(from: exactlyNS?.value)
     }
     
     

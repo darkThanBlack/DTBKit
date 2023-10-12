@@ -160,7 +160,7 @@ extension DTBKitWrapper where Base: DTBKitChainable {
     /// Same as ``.dtb``
     public var `set`: Self { return self }
     
-    /// Custom update action
+    /// Custom update action, auto unbox
     ///
     /// For example:
     /// ```
@@ -174,6 +174,13 @@ extension DTBKitWrapper where Base: DTBKitChainable {
     @discardableResult
     public func update(_ setter: ((Base) -> Void)) -> Self {
         setter(me)
+        return self
+    }
+    
+    /// Custom update action.
+    @discardableResult
+    public func update(_ chainer: ((Self) -> Void)) -> Self {
+        chainer(self)
         return self
     }
 }

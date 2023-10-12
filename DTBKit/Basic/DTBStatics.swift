@@ -11,23 +11,6 @@
 
 import UIKit
 
-///
-public class DTBKitSingleton {
-    
-    public static let shared = DTBKitSingleton()
-    private init() {}
-    
-    /// Use same instance when middle class needed, such as `Formatter()`, or sth.
-    public var allowMemoryShare: Bool = true
-    
-    private let numberFormatter_ = NumberFormatter().dtb
-    
-    ///
-    var numberFormatter: DTBKitWrapper<NumberFormatter> {
-        return allowMemoryShare ? numberFormatter_ : NumberFormatter().dtb
-    }
-}
-
 extension DTB {
     
     /// Current scene in general
