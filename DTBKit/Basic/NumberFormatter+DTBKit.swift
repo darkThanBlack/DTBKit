@@ -14,17 +14,24 @@ import UIKit
 extension DTBKitWrapper where Base: NumberFormatter {
     
     @discardableResult
-    public func string(from number: NSNumber) -> DTBKitWrapper<String>? {
-        return me.string(from: number)?.dtb
+    public func string(from number: NSNumber?) -> DTBKitWrapper<String>? {
+        guard let value = number else { return nil }
+        return me.string(from: value)?.dtb
     }
     
     @discardableResult
-    public func number(from string: String) -> DTBKitWrapper<NSNumber>? {
-        return me.number(from: string)?.dtb
+    public func number(from string: String?) -> DTBKitWrapper<NSNumber>? {
+        guard let value = string else { return nil }
+        return me.number(from: value)?.dtb
     }
 }
 
 extension DTBKitStaticWrapper where T: NumberFormatter {
+    
+    ///
+    var shared: DTBKitWrapper<NumberFormatter> {
+        return DTBKitSingleton.shared.numberFormatter
+    }
     
     //    @available(iOS 4.0, *)
     //    open class func localizedString(from num: NSNumber, number nstyle: NumberFormatter.Style) -> String

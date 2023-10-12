@@ -121,20 +121,24 @@ extension DTBKitWrapper where Base: BinaryFloatingPoint {
     public var `ns`: DTBKitWrapper<NSNumber> {
         return NSNumber(value: double.value).dtb
     }
+}
+
+/// String
+extension DTBKitWrapper where Base == Double {
     
     ///
     public var string: DTBKitWrapper<String> {
         return "\(me)".dtb
     }
     
-    
-    public func `string`(formatterChainer: ((_ formatter: DTBKitWrapper<NumberFormatter>)->())) -> DTBKitWrapper<String> {
-        var formatter = NumberFormatter()
-        formatterChainer(formatter.dtb)
-        if let ns = exactlyNS?.value,
-           
-        return formatter.string(from: )?.dtb
+    ///
+    public func `string`(formatterChainer: ((_ formatter: DTBKitWrapper<NumberFormatter>)->())) -> DTBKitWrapper<String>? {
+        var formatter = NumberFormatter.dtb.shared
+        formatterChainer(formatter)
+        return formatter.string(from: exactlyNS?.value)
     }
+    
+    
 }
 
 /// Compare
