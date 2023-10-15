@@ -46,7 +46,7 @@ extension DTBKitWrapper where Base: SignedInteger {
     }
     
     ///
-    public var ns: DTBKitWrapper<NSNumber>? {
+    public var exactlyNS: DTBKitWrapper<NSNumber>? {
         if let value = me as? Int {
             return NSNumber(value: value).dtb
         }
@@ -70,6 +70,7 @@ extension DTBKitWrapper where Base: SignedInteger {
         return Int64(me).dtb
     }
     
+    ///
     public var `int`: DTBKitWrapper<Int> {
         return Int(me).dtb
     }
@@ -87,6 +88,11 @@ extension DTBKitWrapper where Base: SignedInteger {
     ///
     public var `double`: DTBKitWrapper<Double> {
         return Double(me).dtb
+    }
+    
+    ///
+    public var `ns`: DTBKitWrapper<NSNumber> {
+        return NSNumber(value: int64.value).dtb
     }
     
     ///
@@ -235,24 +241,24 @@ extension DTBKitWrapper where Base == Int64 {
     }
     
     /// "/"
-    public func div(_ value: Int64) -> DTBKitWrapper<Double>? {
+    public func div(any value: Int64) -> DTBKitWrapper<Double>? {
         guard value != 0 else { return nil }
         return (Double(me) / Double(value)).dtb
     }
     
     /// "/"
-    public func div(_ value: Double) -> DTBKitWrapper<Double>? {
-        guard value != 0 else { return nil }
+    public func div(any value: Double) -> DTBKitWrapper<Double>? {
+        guard value.isNaN == false, value != 0 else { return nil }
         return (Double(me) / value).dtb
     }
     
     /// "/"
-    public func div(nonNull value: Int64) -> DTBKitWrapper<Double> {
+    public func div(_ value: Int64) -> DTBKitWrapper<Double> {
         return (Double(me) / Double(value)).dtb
     }
     
     /// "/"
-    public func div(nonNull value: Double) -> DTBKitWrapper<Double> {
+    public func div(_ value: Double) -> DTBKitWrapper<Double> {
         return (Double(me) / value).dtb
     }
 }
@@ -269,6 +275,8 @@ extension DTBKitWrapper where Base == Int64 {
 /// Arithmetic: biz
 extension DTBKitWrapper where Base == Int64 {
     
-    
-    
+    ///
+    public func div100() -> DTBKitWrapper<String>? {
+        return div(100.0).string(NumberFormatter.dtb.multi)
+    }
 }

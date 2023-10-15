@@ -132,19 +132,9 @@ extension DTBKitWrapper where Base == Double {
     }
     
     ///
-    public func `string`(formatter: NumberFormatter) -> DTBKitWrapper<String>? {
-        if let ns = exactlyNS?.value {
-            return formatter.string(from: ns)?.dtb
-        }
-        return nil
+    public func `string`(_ formatter: DTBKitWrapper<NumberFormatter> = NumberFormatter().dtb) -> DTBKitWrapper<String>? {
+        return formatter.string(from: exactlyNS?.value)
     }
-    
-    ///
-    public func `string`(formatterChainer: ((_ formatter: DTBKitWrapper<NumberFormatter>)->())) -> DTBKitWrapper<String>? {
-        return NumberFormatter().dtb.update(formatterChainer).string(from: exactlyNS?.value)
-    }
-    
-    
 }
 
 /// Compare
@@ -260,24 +250,24 @@ extension DTBKitWrapper where Base == Double {
     }
     
     /// "/"
-    public func div(_ value: Int64) -> Self? {
+    public func div(any value: Int64) -> Self? {
         guard value != 0 else { return nil }
         return (me / Double(value)).dtb
     }
     
     /// "/"
-    public func div(_ value: Double) -> Self? {
-        guard value != 0 else { return nil }
+    public func div(any value: Double) -> Self? {
+        guard value.isNaN == false, value != 0 else { return nil }
         return (me / value).dtb
     }
     
     /// "/"
-    public func div(nonNull value: Int64) -> Self {
+    public func div(_ value: Int64) -> Self {
         return (me / Double(value)).dtb
     }
     
     /// "/"
-    public func div(nonNull value: Double) -> Self {
+    public func div(_ value: Double) -> Self {
         return (me / value).dtb
     }
 }

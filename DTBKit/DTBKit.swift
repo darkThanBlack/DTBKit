@@ -179,8 +179,8 @@ extension DTBKitWrapper where Base: DTBKitChainable {
     
     /// Custom update action.
     @discardableResult
-    public func update(_ chainer: ((Self) -> Void)) -> Self {
-        chainer(self)
+    func update(_ chainer: ((Self) -> Void)?) -> Self {
+        chainer?(self)
         return self
     }
 }
