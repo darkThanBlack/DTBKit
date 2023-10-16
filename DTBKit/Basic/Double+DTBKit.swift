@@ -21,7 +21,7 @@ extension DTBKitWrapper where Base: BinaryFloatingPoint {
     
     /// 1. Use "exactly init";
     /// 2. Disable "high bits to low bits".
-    public var safe: DTBKitWrapper<Double>? {
+    public var safely: DTBKitWrapper<Double>? {
         return self.exactlyDouble
     }
     
@@ -150,18 +150,20 @@ extension DTBKitWrapper where Base == Double {
         return ((value + [me]).max() ?? me).dtb
     }
     
-    /// >= value
-    public func setMin(_ value: Double) -> Self {
-        return Swift.min(value, me).dtb
+    /// >= value ? self : value
+    public func greater(_ value: Double) -> Self {
+        return me > value ? self : value.dtb
     }
     
-    /// <= value
-    public func setMax(_ value: Double) -> Self {
-        return Swift.max(value, me).dtb
+    /// <= value ? self : value
+    public func less(_ value: Double) -> Self {
+        return me < value ? self : value.dtb
     }
     
-    /// Use math words: "=", ">", ">=", "<", "<=" to compare
-    public func `compare`(_ mathStr: String, to value: Double) -> Self? {
+    /// Use math words: "=", ">", ">=", "<", "<=" to compare.
+    ///
+    ///
+    public func isVaild(_ mathStr: String, to value: Double) -> Self? {
         return check {
             let str = mathStr.trimmingCharacters(in: .whitespaces)
             switch str {
@@ -175,7 +177,7 @@ extension DTBKitWrapper where Base == Double {
         }
     }
     
-    /// Use math words: "[]", "(]", "[)", "()" to compare
+    /// Use math words: "[]", "(]", "[)", "()" to compare.
     ///
     /// Sample:
     /// ```
@@ -183,7 +185,7 @@ extension DTBKitWrapper where Base == Double {
     ///     (1.0).dtb.in("[1, 3)")  // true
     ///     (2.0).dtb.in("[)", (1, 3))  // true
     /// ```
-    public func `in`(_ mathStr: String, to value: (min: Double, max: Double)? = nil) -> Self? {
+    public func isIn(_ mathStr: String, to value: (min: Double, max: Double)? = nil) -> Self? {
         
         func actual(_ controls: (String, String), values: (Double, Double)) -> Bool {
             switch controls {

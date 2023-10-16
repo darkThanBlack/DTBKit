@@ -131,3 +131,5 @@ extension DTBKitStructMutable {
 // @available(*, message: "Use .xm.string(NumberFormatter.xm.multi) instead.")
 //func toString(maxDecimal: Int, splitDigit: Int? = nil, prefix: String? = nil, isRound: Bool = true) -> String? {
 
+// @available(*, message: "Use .xm.string(NumberFormatter.xm.multi.suffix("+")) instead.")
+//func toSymbolString() -> String? {

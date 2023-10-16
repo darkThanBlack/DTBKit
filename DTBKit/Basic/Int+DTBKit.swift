@@ -21,7 +21,7 @@ extension DTBKitWrapper where Base: SignedInteger {
     
     /// 1. Use "exactly init";
     /// 2. Disable "high bits to low bits".
-    public var safe: DTBKitWrapper<Int64>? {
+    public var safely: DTBKitWrapper<Int64>? {
         return self.exactlyInt64
     }
     
@@ -106,64 +106,32 @@ extension DTBKitWrapper where Base == Int64 {
     
     /// Swift.min
     public func `min`(_ value: Int64...) -> Self {
-        return ((value + [me]).min() ?? me).dtb
-    }
-    
-    /// Swift.min
-    public func `min`(_ value: Double...) -> DTBKitWrapper<Double> {
-        return ((value + [Double(me)]).min() ?? Double(me)).dtb
+        return Swift.min(value.min() ?? me, me).dtb
     }
     
     /// Swift.max
     public func `max`(_ value: Int64...) -> Self {
-        return ((value + [me]).max() ?? me).dtb
-    }
-    
-    /// Swift.max
-    public func `max`(_ value: Double...) -> DTBKitWrapper<Double> {
-        return ((value + [Double(me)]).max() ?? Double(me)).dtb
+        return Swift.max(value.max() ?? me, me).dtb
     }
     
     /// >= value
-    public func setMin(_ value: Int64) -> Self {
-        return Swift.min(value, me).dtb
-    }
-    
-    /// >= value
-    public func setMin(_ value: Double) -> DTBKitWrapper<Double> {
-        return Swift.min(value, Double(me)).dtb
+    public func greater(_ value: Int64) -> Self {
+        return me > value ? self : value.dtb
     }
     
     /// <= value
-    public func setMax(_ value: Int64) -> Self {
-        return Swift.max(value, me).dtb
-    }
-    
-    /// <= value
-    public func setMax(_ value: Double) -> DTBKitWrapper<Double> {
-        return Swift.max(value, Double(me)).dtb
+    public func less(_ value: Int64) -> Self {
+        return me < value ? self : value.dtb
     }
     
     /// 0 -> def
     public func nonZero(_ def: Int64 = 1) -> Self {
-        guard me != 0 else {
-            return (def == 0 ? 1 : def).dtb
-        }
-        return self
+        return me == 0 ? def.dtb : self
     }
     
     /// Use math words: "=", ">", ">=", "<", "<=" to compare
-    public func `compare`(_ mathStr: String, to value: Int64) -> Self? {
-        return check {
-            switch mathStr {
-                case "=", "==", "===":  return me == value
-                case ">":  return me > value
-                case ">=": return me >= value
-                case "<":  return me < value
-                case "<=": return me <= value
-                default: return false
-            }
-        }
+    public func isVaild(_ mathStr: String, to value: Int64) -> Self? {
+        return double.isVaild(mathStr, to: Double(value))?.int64()
     }
     
     /// Use math words: "[]", "(]", "[)", "()" to compare
@@ -174,35 +142,11 @@ extension DTBKitWrapper where Base == Int64 {
     ///     (1.0).dtb.in("[1, 3)")  // true
     ///     (2.0).dtb.in("[)", (1, 3))  // true
     /// ```
-    public func `in`(_ mathStr: String, to value: (min: Int64, max: Int64)? = nil) -> Self? {
-        
-        func actual(_ controls: (String, String), values: (Int64, Int64)) -> Bool {
-            switch controls {
-                case ("[", "]"):  return (values.0 <= me) && (me <= values.1)
-                case ("(", "]"):  return (values.0 <  me) && (me <= values.1)
-                case ("[", ")"):  return (values.0 <= me) && (me <  values.1)
-                case ("(", ")"):  return (values.0 <  me) && (me <  values.1)
-                default:  return false
-            }
-        }
-        return check {
-            var str = mathStr.trimmingCharacters(in: .whitespaces)
-            
-            if let values = value,
-               ["[]", "(]", "[)", "()"].contains(str),
-               let left = mathStr.first, let right = mathStr.last {
-                return actual((String(left), String(right)), values: values)
-            }
-            
-            let leftChar = String(str.removeFirst())
-            let rightChar = String(str.removeLast())
-            guard let leftStr = str.components(separatedBy: ",").first,
-                  let leftValue = Int64(leftStr),
-                  let rightStr = str.components(separatedBy: ",").last,
-                  let rightValue = Int64(rightStr) else {
-                return false
-            }
-            return actual((leftChar, rightChar), values: (leftValue, rightValue))
+    public func isIn(_ mathStr: String, to value: (min: Int64, max: Int64)? = nil) -> Self? {
+        if let v = value {
+            return double.isIn(mathStr, to: (Double(v.min), Double(v.max)))?.int64()
+        } else {
+            return double.isIn(mathStr)?.int64()
         }
     }
 }

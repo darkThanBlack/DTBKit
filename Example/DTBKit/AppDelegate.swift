@@ -31,6 +31,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         adapter()
         debugger()
         
+//        print(Int64(Date().timeIntervalSince1970 * 1000))
+//        
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
+//            print(Int64(Date().timeIntervalSince1970 * 1000))
+//        })
+        
         return true
     }
     

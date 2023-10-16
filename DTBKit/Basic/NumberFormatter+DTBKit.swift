@@ -72,7 +72,7 @@ extension DTBKitWrapper where Base: NumberFormatter {
     
     ///
     @discardableResult
-    public func `suffix`(_ positive: String, negative: String? = nil) -> Self {
+    public func `suffix`(_ positive: String, _ negative: String? = nil) -> Self {
         me.positiveSuffix = positive
         me.negativeSuffix = negative ?? positive
         return self
