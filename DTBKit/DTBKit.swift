@@ -258,6 +258,8 @@ extension CGRect: DTBKitStructable {}
 
 extension Array: DTBKitStructable {}
 
+extension Dictionary: DTBKitStructable {}
+
 //MARK: -
 
 extension UIColor: DTBKitable {}
