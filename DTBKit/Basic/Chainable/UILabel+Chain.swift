@@ -92,8 +92,8 @@ extension DTBKitWrapper where Base: UILabel & DTBKitChainable {
         return self
     }
     
-    @discardableResult
     @available(iOS 14.0, *)
+    @discardableResult
     public func lineBreakStrategy(_ value: NSParagraphStyle.LineBreakStrategy) -> Self {
         me.lineBreakStrategy = value
         return self

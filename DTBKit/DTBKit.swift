@@ -16,7 +16,7 @@ import UIKit
 
 //MARK: - Name spaces
 
-/// Indicate which one implements the namespace for ``class``
+/// Indicate which one implements the namespace for ``class``.
 ///
 /// Use the sample code to convert it to a special name for your own project:
 /// ```
@@ -41,7 +41,7 @@ extension DTBKitable {
     }
 }
 
-/// Indicate which one implements the namespace for ``struct``
+/// Indicate which one implements the namespace for ``struct``.
 ///
 /// Use the sample code to convert it to a special name for your own project:
 /// ```
@@ -53,13 +53,17 @@ public protocol DTBKitStructable {}
 
 extension DTBKitStructable {
     
-    /// Namespace for instance method, e.g. ``UIView().dtb``
+    /// Namespace for instance method.
+    ///
+    /// Usage example: ``UIView().dtb``
     public var dtb: DTBKitWrapper<Self> {
         get { return DTBKitWrapper(self) }
         set { }
     }
     
-    /// Namespace for static method, e.g. ``UIView.dtb``
+    /// Namespace for static method.
+    ///
+    /// Usage example: ``UIView.dtb``
     public static var dtb: DTBKitStaticWrapper<Self> {
         get { return DTBKitStaticWrapper() }
         set { }
@@ -68,14 +72,14 @@ extension DTBKitStructable {
 
 //MARK: - Wrapper
 
-///
+/// Mainly instance wrapper.
 public struct DTBKitWrapper<Base> {
     internal let me: Base
     public init(_ value: Base) { self.me = value }
     
-    /// Default unbox
+    /// Default unbox, use it to get actual value.
     ///
-    /// For example:
+    /// Usage example:
     /// ```
     ///     let label = UILabel().dtb.text("title").value
     /// ```
@@ -86,14 +90,14 @@ public struct DTBKitWrapper<Base> {
     }
 }
 
-///
+/// Mainly static wrapper.
 public struct DTBKitStaticWrapper<T> {
     
     /// [UNSTABLE]
     internal var serials: [(() -> Bool)] = []
 }
 
-/// Struct chain supporter.
+/// In order to support struct "chainable".
 public class DTBKitMutableWrapper<Base> {
     internal var me: Base
     public init(_ value: Base) { self.me = value }
@@ -101,15 +105,15 @@ public class DTBKitMutableWrapper<Base> {
 
 //MARK: - Chain
 
-/// Indicate which one supports "Chainable".
+/// Indicate which one supports "chainable".
 public protocol DTBKitChainable {}
 
 /// Class only.
 extension DTBKitWrapper where Base: DTBKitable & DTBKitChainable {
     
-    /// Custom update action, auto unbox.
+    /// Custom updates, auto unbox.
     ///
-    /// For example:
+    /// Usage example:
     /// ```
     ///    UIView().dtb
     ///        .update { value in
@@ -128,7 +132,15 @@ extension DTBKitWrapper where Base: DTBKitable & DTBKitChainable {
 /// Struct only.
 extension DTBKitWrapper where Base: DTBKitStructable & DTBKitChainable {
     
+    /// Simply wrap object to class value.
     ///
+    /// Since no object is explicitly held at creation time, "mutating" does not suffice.
+    ///
+    /// Usage example:
+    /// ```
+    ///     var result = CGSize().dtb.set.width(1.0).value
+    ///     result.dtb.set.height(2.0)
+    /// ```
     public var `set`: DTBKitMutableWrapper<Base> {
         get { return DTBKitMutableWrapper(me) }
         set { }
@@ -138,10 +150,10 @@ extension DTBKitWrapper where Base: DTBKitStructable & DTBKitChainable {
 /// Syntax.
 extension DTBKitMutableWrapper where Base: DTBKitStructable & DTBKitChainable {
     
-    ///
+    /// Convert back to mainly wrapper to use other methods.
     public var then: DTBKitWrapper<Base> { return me.dtb }
     
-    ///
+    /// Unbox.
     public var value: Base { return me }
 }
 
