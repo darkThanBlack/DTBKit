@@ -12,9 +12,6 @@
 
 import UIKit
 
-extension DTBKitWrapper where Base == Dictionary<NSAttributedString.Key, Any> {
-    
-    public func test01() {
-        
-    }
-}
+//extension DTBKitWrapper where Base == Dictionary<NSAttributedString.Key, Any> {
+//    
+//}

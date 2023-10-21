@@ -44,8 +44,8 @@ extension DTBKitWrapper where Base == CGRect {
         return CGRect(
             x: me.origin.x,
             y: me.origin.y,
-            width: min(me.width, max(barrier.width, 0)),
-            height: min(me.height, max(barrier.height, 0))
+            width: Swift.min(me.width, Swift.max(barrier.width, 0)),
+            height: Swift.min(me.height, Swift.max(barrier.height, 0))
         )
     }
     

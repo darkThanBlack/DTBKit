@@ -17,16 +17,16 @@ import UIKit
 // Uni test: ``MathTests.swift``
 
 /// Basic
-extension DTBKitMutableWrapper where Base == CGSize {
+extension DTBKitWrapper where Base == CGSize {
     
     /// >= 0.0
     public var width: CGFloat {
-        return max(me.width, 0)
+        return Swift.max(me.width, 0)
     }
     
     /// >= 0.0
     public var height: CGFloat {
-        return max(me.height, 0)
+        return Swift.max(me.height, 0)
     }
     
     /// width & height >= 0
@@ -58,17 +58,17 @@ extension DTBKitMutableWrapper where Base == CGSize {
     
     ///
     public var longer: CGFloat {
-        return max(width, height)
+        return Swift.max(width, height)
     }
     
     ///
     public var shorter: CGFloat {
-        return min(width, height)
+        return Swift.min(width, height)
     }
 }
 
 /// Flow box
-extension DTBKitMutableWrapper where Base == CGSize {
+extension DTBKitWrapper where Base == CGSize {
     
     /// Inscribe
     public var inSquare: CGSize {
@@ -124,7 +124,7 @@ extension DTBKitMutableWrapper where Base == CGSize {
 }
 
 /// Aspect
-extension DTBKitMutableWrapper where Base == CGSize {
+extension DTBKitWrapper where Base == CGSize {
     
     /// Same as ``UIImageView.contentMode``
     public func aspectFit(to target: CGSize) -> Self {

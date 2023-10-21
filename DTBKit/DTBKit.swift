@@ -26,29 +26,11 @@ import UIKit
 /// ```
 public protocol DTBKitable: AnyObject {}
 
-/// See ``DTBKitable``
-public protocol DTBKitMutable: AnyObject {}
-
 extension DTBKitable {
     
     /// Namespace for instance method, e.g. ``UIView().dtb``
     public var dtb: DTBKitWrapper<Self> {
         get { return DTBKitWrapper(self) }
-        set { }
-    }
-    
-    /// Namespace for static method, e.g. ``UIView.dtb``
-    public static var dtb: DTBKitStaticWrapper<Self> {
-        get { return DTBKitStaticWrapper() }
-        set { }
-    }
-}
-
-extension DTBKitMutable {
-    
-    /// Namespace for instance method, e.g. ``UIView().dtb``
-    public var dtb: DTBKitMutableWrapper<Self> {
-        get { return DTBKitMutableWrapper(self) }
         set { }
     }
     
@@ -69,29 +51,11 @@ extension DTBKitMutable {
 /// ```
 public protocol DTBKitStructable {}
 
-/// See ``DTBKitStructable``
-public protocol DTBKitStructMutable {}
-
 extension DTBKitStructable {
     
     /// Namespace for instance method, e.g. ``UIView().dtb``
     public var dtb: DTBKitWrapper<Self> {
         get { return DTBKitWrapper(self) }
-        set { }
-    }
-    
-    /// Namespace for static method, e.g. ``UIView.dtb``
-    public static var dtb: DTBKitStaticWrapper<Self> {
-        get { return DTBKitStaticWrapper() }
-        set { }
-    }
-}
-
-extension DTBKitStructMutable {
-    
-    /// Namespace for instance method, e.g. ``UIView().dtb``
-    public var dtb: DTBKitMutableWrapper<Self> {
-        get { return DTBKitMutableWrapper(self) }
         set { }
     }
     
@@ -117,26 +81,9 @@ public struct DTBKitWrapper<Base> {
     /// ```
     public var value: Base { return me }
     
-    func check(_ handler: (() -> Bool)) -> Self? {
+    internal func check(_ handler: (() -> Bool)) -> Self? {
         return handler() ? self : nil
     }
-    
-    public func `continue`(when handler: ((Base) -> Bool)) -> Self? {
-        return handler(me) ? self : nil
-    }
-    
-    public func stop(when handler: ((Base) -> Bool)) -> Self? {
-        return handler(me) ? nil : self
-    }
-}
-
-///
-public struct DTBKitMutableWrapper<Base> {
-    internal var me: Base
-    public init(_ value: Base) { self.me = value }
-    
-    /// Default unbox
-    public var value: Base { return me }
 }
 
 ///
@@ -146,21 +93,21 @@ public struct DTBKitStaticWrapper<T> {
     internal var serials: [(() -> Bool)] = []
 }
 
+/// Struct chain supporter.
+public class DTBKitMutableWrapper<Base> {
+    internal var me: Base
+    public init(_ value: Base) { self.me = value }
+}
+
 //MARK: - Chain
 
-/// Indicate which one supports "Chainable"
+/// Indicate which one supports "Chainable".
 public protocol DTBKitChainable {}
 
-/// Chain syntax candy
-extension DTBKitWrapper where Base: DTBKitChainable {
+/// Class only.
+extension DTBKitWrapper where Base: DTBKitable & DTBKitChainable {
     
-    /// Same as ``.value``
-    public var `get`: Base { return me }
-    
-    /// Same as ``.dtb``
-    public var `set`: Self { return self }
-    
-    /// Custom update action, auto unbox
+    /// Custom update action, auto unbox.
     ///
     /// For example:
     /// ```
@@ -176,13 +123,26 @@ extension DTBKitWrapper where Base: DTBKitChainable {
         setter(me)
         return self
     }
+}
+
+/// Struct only.
+extension DTBKitWrapper where Base: DTBKitStructable & DTBKitChainable {
     
-    /// Custom update action.
-    @discardableResult
-    func update(_ chainer: ((Self) -> Void)?) -> Self {
-        chainer?(self)
-        return self
+    ///
+    public var `set`: DTBKitMutableWrapper<Base> {
+        get { return DTBKitMutableWrapper(me) }
+        set { }
     }
+}
+
+/// Syntax.
+extension DTBKitMutableWrapper where Base: DTBKitStructable & DTBKitChainable {
+    
+    ///
+    public var then: DTBKitWrapper<Base> { return me.dtb }
+    
+    ///
+    public var value: Base { return me }
 }
 
 //MARK: - UNSTABLE: promise like
@@ -250,7 +210,7 @@ extension NumberFormatter: DTBKitable, DTBKitChainable {}
 
 extension String: DTBKitStructable {}
 
-extension CGSize: DTBKitStructMutable, DTBKitChainable {}
+extension CGSize: DTBKitStructable, DTBKitChainable {}
 
 extension CGRect: DTBKitStructable {}
 
@@ -258,7 +218,7 @@ extension CGRect: DTBKitStructable {}
 
 extension Array: DTBKitStructable {}
 
-extension Dictionary: DTBKitStructable {}
+extension Dictionary: DTBKitStructable, DTBKitChainable {}
 
 //MARK: -
 

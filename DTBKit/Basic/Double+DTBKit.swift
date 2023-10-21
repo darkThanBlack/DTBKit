@@ -141,12 +141,12 @@ extension DTBKitWrapper where Base == Double {
 extension DTBKitWrapper where Base == Double {
     
     /// Swift.min
-    public func `min`(_ value: Double...) -> Self {
+    public func `min`(_ value: Double...) -> Self where Base == Double {
         return ((value + [me]).min() ?? me).dtb
     }
     
     /// Swift.max
-    public func `max`(_ value: Double...) -> Self {
+    public func `max`(_ value: Double...) -> Self where Base == Double {
         return ((value + [me]).max() ?? me).dtb
     }
     

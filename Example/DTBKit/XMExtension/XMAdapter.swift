@@ -19,22 +19,10 @@ extension DTBKitable {
     public static var xm: DTBKitStaticWrapper<Self> { return dtb }
 }
 
-extension DTBKitMutable {
-    public var xm: DTBKitMutableWrapper<Self> { return dtb }
-    public static var xm: DTBKitStaticWrapper<Self> { return dtb }
-}
-
 extension DTBKitStructable {
     public var xm: DTBKitWrapper<Self> { return dtb }
     public static var xm: DTBKitStaticWrapper<Self> { return dtb }
 }
-
-extension DTBKitStructMutable {
-    public var xm: DTBKitMutableWrapper<Self> { return dtb }
-    public static var xm: DTBKitStaticWrapper<Self> { return dtb }
-}
-
-
 
 //MARK: - playground
 

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0169083FFEF6AE744A5BDE01 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDAF59F97655EB8E78958AD5 /* AppDelegate.swift */; };
-		09DC8ED730832699B142CE8E /* UILabel+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E3B0C8A388F500EEFBBD18 /* UILabel+Chain.swift */; };
 		0A6653C7305C8353C7E61FEA /* MathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7830E622F04A3AA897816301 /* MathTests.swift */; };
 		0AB4D2C66A0F0EECAA6F8799 /* UIImageView+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99D8D4406A6A35C49B36BC7 /* UIImageView+DTBKit.swift */; };
 		0C1A172E134B1257FB303B8A /* DTBKit.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 3C7D3B41655E7FCD0EEE3DDE /* DTBKit.podspec */; };
@@ -35,6 +34,7 @@
 		A1348D0AEC21FEC0D41CBBE1 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1E7982283574061EF2C6745 /* Launch Screen.storyboard */; };
 		A20229E72AE2296300E333A4 /* UILabel+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20229E62AE2296300E333A4 /* UILabel+Chain.swift */; };
 		A2146CD82AE29DAF002E06CE /* Dictionary+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2146CD72AE29DAF002E06CE /* Dictionary+DTBKit.swift */; };
+		A2146CDA2AE406B0002E06CE /* AttributedStringKey+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2146CD92AE406B0002E06CE /* AttributedStringKey+Chain.swift */; };
 		A249FA4D2AD2607500647866 /* NumberFormatter+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A249FA4C2AD2607500647866 /* NumberFormatter+Chain.swift */; };
 		A249FA4F2AD285E600647866 /* String+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A249FA4E2AD285E600647866 /* String+DTBKit.swift */; };
 		A2A298312AD0FE9C008A36BE /* CGSize+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A298302AD0FE9C008A36BE /* CGSize+Chain.swift */; };
@@ -89,6 +89,7 @@
 		8DC825259B4A2BC75D4CAEBE /* DemoEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoEntry.swift; sourceTree = "<group>"; };
 		A20229E62AE2296300E333A4 /* UILabel+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Chain.swift"; sourceTree = "<group>"; };
 		A2146CD72AE29DAF002E06CE /* Dictionary+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+DTBKit.swift"; sourceTree = "<group>"; };
+		A2146CD92AE406B0002E06CE /* AttributedStringKey+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AttributedStringKey+Chain.swift"; sourceTree = "<group>"; };
 		A249FA4C2AD2607500647866 /* NumberFormatter+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NumberFormatter+Chain.swift"; sourceTree = "<group>"; };
 		A249FA4E2AD285E600647866 /* String+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+DTBKit.swift"; sourceTree = "<group>"; };
 		A2A298302AD0FE9C008A36BE /* CGSize+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+Chain.swift"; sourceTree = "<group>"; };
@@ -105,7 +106,6 @@
 		D9099D1384E801AE7056DEE1 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		DA191678C2B68D0C9BDC1380 /* DemoNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoNavigationView.swift; sourceTree = "<group>"; };
 		DAEB95CEB9E8D8FA35BF7B3F /* UIView+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Chain.swift"; sourceTree = "<group>"; };
-		E5E3B0C8A388F500EEFBBD18 /* UILabel+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Chain.swift"; sourceTree = "<group>"; };
 		E88629093E8C4B902768DC1C /* CGRect+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+DTBKit.swift"; sourceTree = "<group>"; };
 		F07719E41192E51E26324668 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		F2DCF0C710372F5B71633BAC /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
@@ -164,7 +164,6 @@
 				74138F430445054FA724E0B8 /* UIButton+DTBKit.swift */,
 				D00EA82F0995BF6E8973A6D5 /* UIImage+DTBKit.swift */,
 				A99D8D4406A6A35C49B36BC7 /* UIImageView+DTBKit.swift */,
-				E5E3B0C8A388F500EEFBBD18 /* UILabel+Chain.swift */,
 				143D382ADE74995B70BEB580 /* TransAnimate */,
 			);
 			name = UIKit;
@@ -184,6 +183,7 @@
 		88D2D3A22AD320CA00C24416 /* Chainable */ = {
 			isa = PBXGroup;
 			children = (
+				A2146CD92AE406B0002E06CE /* AttributedStringKey+Chain.swift */,
 				A2A298302AD0FE9C008A36BE /* CGSize+Chain.swift */,
 				DAEB95CEB9E8D8FA35BF7B3F /* UIView+Chain.swift */,
 				A249FA4C2AD2607500647866 /* NumberFormatter+Chain.swift */,
@@ -403,10 +403,10 @@
 				88D2D3A42AD3210600C24416 /* NumberFormatter+DTBKit.swift in Sources */,
 				3A9B01ED6B8CAEC69307A5D3 /* SimpleVisualViewController.swift in Sources */,
 				95BF21178FD9E6742477E32C /* UIButton+DTBKit.swift in Sources */,
+				A2146CDA2AE406B0002E06CE /* AttributedStringKey+Chain.swift in Sources */,
 				10D143059B7C47AAE3F5D58A /* UIColor+DTBKit.swift in Sources */,
 				0C9BAA4653C7BCD4EE3C6319 /* UIImage+DTBKit.swift in Sources */,
 				0AB4D2C66A0F0EECAA6F8799 /* UIImageView+DTBKit.swift in Sources */,
-				09DC8ED730832699B142CE8E /* UILabel+Chain.swift in Sources */,
 				88D2D3A12AD3206D00C24416 /* UIView+DTBKit.swift in Sources */,
 				761BA29A4F0528040F84EA14 /* UIView+Chain.swift in Sources */,
 				7044B1CE7BEC3ACA046D5BE4 /* XMAdapter.swift in Sources */,

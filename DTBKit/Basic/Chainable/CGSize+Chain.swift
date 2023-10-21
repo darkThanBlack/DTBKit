@@ -15,13 +15,13 @@ import UIKit
 extension DTBKitMutableWrapper where Base == CGSize {
     
     @discardableResult
-    public mutating func width(_ value: CGFloat) -> Self where Base: DTBKitChainable {
+    public func width(_ value: CGFloat) -> Self where Base: DTBKitChainable {
         me.width = value
         return self
     }
     
     @discardableResult
-    public mutating func height(_ value: CGFloat) -> Self where Base: DTBKitChainable {
+    public func height(_ value: CGFloat) -> Self where Base: DTBKitChainable {
         me.height = value
         return self
     }
