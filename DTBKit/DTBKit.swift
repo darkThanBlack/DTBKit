@@ -234,6 +234,12 @@ extension Dictionary: DTBKitStructable, DTBKitChainable {}
 
 //MARK: -
 
+extension NSString: DTBKitable {}
+
+extension NSMutableAttributedString: DTBKitable, DTBKitChainable {}
+
+extension NSRange: DTBKitStructable {}
+
 extension UIColor: DTBKitable {}
 
 extension UIImage: DTBKitable {}

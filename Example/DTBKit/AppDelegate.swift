@@ -37,6 +37,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            print(Int64(Date().timeIntervalSince1970 * 1000))
 //        })
         
+//        let a = "".dtb.nsAttr.append(items: [(String, [NSAttributedString.Key : Any]?)])
+        
+        /// 检查对象引用情况
+        ///
+        /// a, b, c 为不同对象
+        func mem_cow_01() {
+            let a: [NSAttributedString.Key : Any] = [:].dtb.set.font(.systemFont(ofSize: 13)).value
+            let b = a.dtb.set.foregroundColor(.white).value
+            let c = b.dtb.set.font(.systemFont(ofSize: 15.0)).value
+            b.dtb.set.foregroundColor(.black)
+            
+            print("\(a[.font]) \n \(b[.foregroundColor]) \n \(c[.font])")
+        }
+        
+        /// 检查对象引用情况
+        ///
+        /// a, b, c 为同一对象
+        func mem_cow_02() {
+            let a = UILabel().dtb.text("a").value
+            let b = a.dtb.isUserInteractionEnabled(false).value
+            let c = b.dtb.text("c").value
+            b.dtb.text("b")
+            
+            print("\(a.text) \n \(b.text) \n \(c.text)")
+        }
+        
+        mem_cow_01()
+        mem_cow_02()
+        
         return true
     }
     
