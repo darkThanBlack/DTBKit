@@ -1,8 +1,8 @@
 //
-//  String+DTBKit.swift
+//  NSMutableAttributedString+Chain.swift
 //  DTBKit_Example
 //
-//  Created by moonShadow on 2023/10/8
+//  Created by moonShadow on 2023/10/23
 //  Copyright © 2023 darkThanBlack. All rights reserved.
 //
 //  LICENSE: SAME AS REPOSITORY
@@ -12,10 +12,3 @@
 
 import UIKit
 
-extension DTBKitWrapper where Base == String {
-    
-    ///
-    var count: Int {
-        return me.utf16.count
-    }
-}

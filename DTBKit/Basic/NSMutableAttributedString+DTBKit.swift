@@ -12,3 +12,8 @@
 
 import UIKit
 
+extension DTBKitWrapper where Base: NSMutableAttributedString {
+    
+    
+    
+}
