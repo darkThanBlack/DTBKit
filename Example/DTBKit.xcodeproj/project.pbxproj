@@ -34,7 +34,8 @@
 		A1348D0AEC21FEC0D41CBBE1 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1E7982283574061EF2C6745 /* Launch Screen.storyboard */; };
 		A20229E72AE2296300E333A4 /* UILabel+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20229E62AE2296300E333A4 /* UILabel+Chain.swift */; };
 		A2146CD82AE29DAF002E06CE /* Dictionary+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2146CD72AE29DAF002E06CE /* Dictionary+DTBKit.swift */; };
-		A2146CDA2AE406B0002E06CE /* AttributedStringKey+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2146CD92AE406B0002E06CE /* AttributedStringKey+Chain.swift */; };
+		A2146CDA2AE406B0002E06CE /* NSAttributedStringKey+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2146CD92AE406B0002E06CE /* NSAttributedStringKey+Chain.swift */; };
+		A2146CDC2AE588A4002E06CE /* NSMutableAttributedString+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2146CDB2AE588A4002E06CE /* NSMutableAttributedString+DTBKit.swift */; };
 		A249FA4D2AD2607500647866 /* NumberFormatter+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A249FA4C2AD2607500647866 /* NumberFormatter+Chain.swift */; };
 		A249FA4F2AD285E600647866 /* String+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A249FA4E2AD285E600647866 /* String+DTBKit.swift */; };
 		A2A298312AD0FE9C008A36BE /* CGSize+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A298302AD0FE9C008A36BE /* CGSize+Chain.swift */; };
@@ -89,7 +90,8 @@
 		8DC825259B4A2BC75D4CAEBE /* DemoEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoEntry.swift; sourceTree = "<group>"; };
 		A20229E62AE2296300E333A4 /* UILabel+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Chain.swift"; sourceTree = "<group>"; };
 		A2146CD72AE29DAF002E06CE /* Dictionary+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+DTBKit.swift"; sourceTree = "<group>"; };
-		A2146CD92AE406B0002E06CE /* AttributedStringKey+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AttributedStringKey+Chain.swift"; sourceTree = "<group>"; };
+		A2146CD92AE406B0002E06CE /* NSAttributedStringKey+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedStringKey+Chain.swift"; sourceTree = "<group>"; };
+		A2146CDB2AE588A4002E06CE /* NSMutableAttributedString+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+DTBKit.swift"; sourceTree = "<group>"; };
 		A249FA4C2AD2607500647866 /* NumberFormatter+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NumberFormatter+Chain.swift"; sourceTree = "<group>"; };
 		A249FA4E2AD285E600647866 /* String+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+DTBKit.swift"; sourceTree = "<group>"; };
 		A2A298302AD0FE9C008A36BE /* CGSize+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+Chain.swift"; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				3B1DC9D4C9D135658E78C968 /* CGSize+DTBKit.swift */,
 				643C0D6EE99781EBB2520DCF /* DTBStatics.swift */,
 				A249FA4E2AD285E600647866 /* String+DTBKit.swift */,
+				A2146CDB2AE588A4002E06CE /* NSMutableAttributedString+DTBKit.swift */,
 				C3FF0A320E09622621359C0D /* Double+DTBKit.swift */,
 				78775B07CCC6B6E13A0F0C3E /* Int+DTBKit.swift */,
 				3B04EC27C02A56B6AEF33BFF /* UIColor+DTBKit.swift */,
@@ -183,7 +186,7 @@
 		88D2D3A22AD320CA00C24416 /* Chainable */ = {
 			isa = PBXGroup;
 			children = (
-				A2146CD92AE406B0002E06CE /* AttributedStringKey+Chain.swift */,
+				A2146CD92AE406B0002E06CE /* NSAttributedStringKey+Chain.swift */,
 				A2A298302AD0FE9C008A36BE /* CGSize+Chain.swift */,
 				DAEB95CEB9E8D8FA35BF7B3F /* UIView+Chain.swift */,
 				A249FA4C2AD2607500647866 /* NumberFormatter+Chain.swift */,
@@ -402,8 +405,9 @@
 				5BCB985228038DA98D80924F /* Int+DTBKit.swift in Sources */,
 				88D2D3A42AD3210600C24416 /* NumberFormatter+DTBKit.swift in Sources */,
 				3A9B01ED6B8CAEC69307A5D3 /* SimpleVisualViewController.swift in Sources */,
+				A2146CDC2AE588A4002E06CE /* NSMutableAttributedString+DTBKit.swift in Sources */,
 				95BF21178FD9E6742477E32C /* UIButton+DTBKit.swift in Sources */,
-				A2146CDA2AE406B0002E06CE /* AttributedStringKey+Chain.swift in Sources */,
+				A2146CDA2AE406B0002E06CE /* NSAttributedStringKey+Chain.swift in Sources */,
 				10D143059B7C47AAE3F5D58A /* UIColor+DTBKit.swift in Sources */,
 				0C9BAA4653C7BCD4EE3C6319 /* UIImage+DTBKit.swift in Sources */,
 				0AB4D2C66A0F0EECAA6F8799 /* UIImageView+DTBKit.swift in Sources */,

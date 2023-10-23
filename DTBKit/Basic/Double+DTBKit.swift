@@ -226,19 +226,9 @@ extension DTBKitWrapper where Base == Double {
         return (me + value).dtb
     }
     
-    /// +
-    public func plus(_ value: Int64) -> Self {
-        return (me + Double(value)).dtb
-    }
-    
     /// -
     public func minus(_ value: Double) -> Self {
         return (me - value).dtb
-    }
-    
-    /// -
-    public func minus(_ value: Int64) -> Self {
-        return (me - Double(value)).dtb
     }
     
     /// *
@@ -246,30 +236,14 @@ extension DTBKitWrapper where Base == Double {
         return (me * value).dtb
     }
     
-    /// *
-    public func multi(_ value: Int64) -> Self {
-        return (me * Double(value)).dtb
-    }
-    
     /// "/"
-    public func div(any value: Int64) -> Self? {
-        guard value != 0 else { return nil }
-        return (me / Double(value)).dtb
-    }
-    
-    /// "/"
-    public func div(any value: Double) -> Self? {
+    public func div(_ value: Double) -> Self? {
         guard value.isNaN == false, value != 0 else { return nil }
         return (me / value).dtb
     }
     
     /// "/"
-    public func div(_ value: Int64) -> Self {
-        return (me / Double(value)).dtb
-    }
-    
-    /// "/"
-    public func div(_ value: Double) -> Self {
+    public func div(nonNull value: Double) -> Self {
         return (me / value).dtb
     }
 }

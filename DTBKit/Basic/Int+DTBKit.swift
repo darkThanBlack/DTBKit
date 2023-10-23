@@ -159,19 +159,9 @@ extension DTBKitWrapper where Base == Int64 {
         return (me + value).dtb
     }
     
-    /// +
-    public func plus(_ value: Double) -> DTBKitWrapper<Double> {
-        return (Double(me) + value).dtb
-    }
-    
     /// -
     public func minus(_ value: Int64) -> Self {
         return (me - value).dtb
-    }
-    
-    /// -
-    public func minus(_ value: Double) -> DTBKitWrapper<Double> {
-        return (Double(me) - value).dtb
     }
     
     /// *
@@ -179,30 +169,14 @@ extension DTBKitWrapper where Base == Int64 {
         return (me * value).dtb
     }
     
-    /// *
-    public func multi(_ value: Double) -> DTBKitWrapper<Double> {
-        return (Double(me) * value).dtb
-    }
-    
     /// "/"
-    public func div(any value: Int64) -> DTBKitWrapper<Double>? {
-        guard value != 0 else { return nil }
-        return (Double(me) / Double(value)).dtb
-    }
-    
-    /// "/"
-    public func div(any value: Double) -> DTBKitWrapper<Double>? {
+    public func div(_ value: Double) -> DTBKitWrapper<Double>? {
         guard value.isNaN == false, value != 0 else { return nil }
         return (Double(me) / value).dtb
     }
     
     /// "/"
-    public func div(_ value: Int64) -> DTBKitWrapper<Double> {
-        return (Double(me) / Double(value)).dtb
-    }
-    
-    /// "/"
-    public func div(_ value: Double) -> DTBKitWrapper<Double> {
+    public func div(nonNull value: Double) -> DTBKitWrapper<Double> {
         return (Double(me) / value).dtb
     }
 }
@@ -221,6 +195,6 @@ extension DTBKitWrapper where Base == Int64 {
     
     ///
     public func div100() -> DTBKitWrapper<String>? {
-        return div(100.0).string(NumberFormatter.dtb.multi)
+        return div(nonNull: 100.0).string(NumberFormatter.dtb.multi)
     }
 }
