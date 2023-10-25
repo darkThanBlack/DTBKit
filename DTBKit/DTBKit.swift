@@ -244,3 +244,4 @@ extension UIImage: DTBKitable {}
 
 extension UIView: DTBKitable, DTBKitChainable {}
 
+extension UIViewController: DTBKitable {}

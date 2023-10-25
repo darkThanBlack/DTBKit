@@ -38,6 +38,7 @@
 		A2146CDC2AE588A4002E06CE /* NSMutableAttributedString+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2146CDB2AE588A4002E06CE /* NSMutableAttributedString+DTBKit.swift */; };
 		A249FA4D2AD2607500647866 /* NumberFormatter+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A249FA4C2AD2607500647866 /* NumberFormatter+Chain.swift */; };
 		A249FA4F2AD285E600647866 /* String+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A249FA4E2AD285E600647866 /* String+DTBKit.swift */; };
+		A270CC552AE93BF20082533E /* UIViewController+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A270CC542AE93BF20082533E /* UIViewController+DTBKit.swift */; };
 		A2A298312AD0FE9C008A36BE /* CGSize+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A298302AD0FE9C008A36BE /* CGSize+Chain.swift */; };
 		A2D707A82AE6886E005D3A7E /* NSMutableParagraphStyle+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D707A72AE6886D005D3A7E /* NSMutableParagraphStyle+Chain.swift */; };
 		A2D707AA2AE68A58005D3A7E /* NSMutableAttributedString+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D707A92AE68A58005D3A7E /* NSMutableAttributedString+Chain.swift */; };
@@ -96,6 +97,7 @@
 		A2146CDB2AE588A4002E06CE /* NSMutableAttributedString+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+DTBKit.swift"; sourceTree = "<group>"; };
 		A249FA4C2AD2607500647866 /* NumberFormatter+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NumberFormatter+Chain.swift"; sourceTree = "<group>"; };
 		A249FA4E2AD285E600647866 /* String+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+DTBKit.swift"; sourceTree = "<group>"; };
+		A270CC542AE93BF20082533E /* UIViewController+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+DTBKit.swift"; sourceTree = "<group>"; };
 		A2A298302AD0FE9C008A36BE /* CGSize+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+Chain.swift"; sourceTree = "<group>"; };
 		A2D707A72AE6886D005D3A7E /* NSMutableParagraphStyle+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableParagraphStyle+Chain.swift"; sourceTree = "<group>"; };
 		A2D707A92AE68A58005D3A7E /* NSMutableAttributedString+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Chain.swift"; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 				3B04EC27C02A56B6AEF33BFF /* UIColor+DTBKit.swift */,
 				88D2D3A02AD3206D00C24416 /* UIView+DTBKit.swift */,
 				88D2D3A32AD3210600C24416 /* NumberFormatter+DTBKit.swift */,
+				A270CC542AE93BF20082533E /* UIViewController+DTBKit.swift */,
 			);
 			name = Basic;
 			path = ../DTBKit/Basic;
@@ -413,6 +416,7 @@
 				3A9B01ED6B8CAEC69307A5D3 /* SimpleVisualViewController.swift in Sources */,
 				A2146CDC2AE588A4002E06CE /* NSMutableAttributedString+DTBKit.swift in Sources */,
 				95BF21178FD9E6742477E32C /* UIButton+DTBKit.swift in Sources */,
+				A270CC552AE93BF20082533E /* UIViewController+DTBKit.swift in Sources */,
 				A2146CDA2AE406B0002E06CE /* NSAttributedStringKey+Chain.swift in Sources */,
 				10D143059B7C47AAE3F5D58A /* UIColor+DTBKit.swift in Sources */,
 				0C9BAA4653C7BCD4EE3C6319 /* UIImage+DTBKit.swift in Sources */,

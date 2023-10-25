@@ -88,7 +88,7 @@ extension DemoEntry: UITableViewDelegate {
             break
         case .phoneCall:
             
-            let tels = ["18069757227", "tel:18069757227", "telprompt:18069757227", "telprompt://18069757227", "400-6677-456", "+(86) 18069757227", "+8618069757227"]
+            let tels = ["10086", "tel:10086", "telprompt:10086", "telprompt://10086", "400-1234-567", "+(86) 10086", "+10086"]
             
             func parser(_ phoneStr: String) -> String {
                 var result = phoneStr
