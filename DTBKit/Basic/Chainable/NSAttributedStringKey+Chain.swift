@@ -12,7 +12,20 @@
 
 import UIKit
 
+/// Create attributes dictionary chainable.
 ///
+/// 通过链式语法创建字典以支持强类型检查。
+///
+/// Sample:
+/// ```
+///     NSAttributedString(
+///         string: "str",
+///         attributes: [:].dtb.set
+///             .font(.systemFont(ofSize: 13.0))
+///             .foregroundColor(.white)
+///             .value
+///     )
+/// ```
 extension DTBKitMutableWrapper where Base == Dictionary<NSAttributedString.Key, Any> {
     
     @discardableResult

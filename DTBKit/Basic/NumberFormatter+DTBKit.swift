@@ -11,6 +11,34 @@
 
 import UIKit
 
+/// Def value.
+extension DTBKitStaticWrapper where T: NumberFormatter {
+    
+    func ttt() {
+        
+    }
+    
+    ///
+    public var `fixed`: DTBKitWrapper<NumberFormatter> {
+        return NumberFormatter().dtb.decimal().rounded()
+    }
+    
+    ///
+    public var `multi`: DTBKitWrapper<NumberFormatter> {
+        return NumberFormatter().dtb.maxDecimal().rounded()
+    }
+    
+    ///
+    public var CNY: DTBKitWrapper<NumberFormatter> {
+        return fixed.split().prefix("¥")
+    }
+    
+    ///
+    public var RMB: DTBKitWrapper<NumberFormatter> {
+        return multi.split().suffix("元")
+    }
+}
+
 /// Fast chainable
 extension DTBKitWrapper where Base: NumberFormatter {
     
@@ -77,43 +105,4 @@ extension DTBKitWrapper where Base: NumberFormatter {
         me.negativeSuffix = negative ?? positive
         return self
     }
-}
-
-/// Default values
-///
-/// [refer](https://juejin.cn/post/6844903774645911559)
-extension DTBKitWrapper where Base: NumberFormatter {
-    
-}
-
-
-/// Def value
-extension DTBKitStaticWrapper where T: NumberFormatter {
-    
-    ///
-    public var `fixed`: DTBKitWrapper<NumberFormatter> {
-        return NumberFormatter().dtb.decimal().rounded()
-    }
-    
-    ///
-    public var `multi`: DTBKitWrapper<NumberFormatter> {
-        return NumberFormatter().dtb.maxDecimal().rounded()
-    }
-    
-    ///
-    public var CNY: DTBKitWrapper<NumberFormatter> {
-        return fixed.split().prefix("¥")
-    }
-    
-    ///
-    public var RMB: DTBKitWrapper<NumberFormatter> {
-        return multi.split().suffix("元")
-    }
-    
-    //    @available(iOS 4.0, *)
-    //    open class func localizedString(from num: NSNumber, number nstyle: NumberFormatter.Style) -> String
-    //
-    //    open class func defaultFormatterBehavior() -> NumberFormatter.Behavior
-    //
-    //    open class func setDefaultFormatterBehavior(_ behavior: NumberFormatter.Behavior)
 }

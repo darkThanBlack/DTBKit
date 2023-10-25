@@ -24,6 +24,7 @@
 		7044B1CE7BEC3ACA046D5BE4 /* XMAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B572977781D9FB2B2B5729C /* XMAdapter.swift */; };
 		761BA29A4F0528040F84EA14 /* UIView+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEB95CEB9E8D8FA35BF7B3F /* UIView+Chain.swift */; };
 		7CF58AE26EC8F27ABBC74059 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB470419225C0F4E263C23C7 /* HomeViewController.swift */; };
+		883F42B82AE9759800F6D56D /* UIWindow+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883F42B72AE9759800F6D56D /* UIWindow+DTBKit.swift */; };
 		88D2D3A12AD3206D00C24416 /* UIView+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D2D3A02AD3206D00C24416 /* UIView+DTBKit.swift */; };
 		88D2D3A42AD3210600C24416 /* NumberFormatter+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D2D3A32AD3210600C24416 /* NumberFormatter+DTBKit.swift */; };
 		88EBBD7F2AD3279700AF4C6F /* Int+XMKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88EBBD7E2AD3279700AF4C6F /* Int+XMKit.swift */; };
@@ -85,6 +86,7 @@
 		7830E622F04A3AA897816301 /* MathTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathTests.swift; sourceTree = "<group>"; };
 		78775B07CCC6B6E13A0F0C3E /* Int+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+DTBKit.swift"; sourceTree = "<group>"; };
 		881598D80582636EC3A51695 /* basic.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = basic.xcassets; sourceTree = "<group>"; };
+		883F42B72AE9759800F6D56D /* UIWindow+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+DTBKit.swift"; sourceTree = "<group>"; };
 		88D2D3A02AD3206D00C24416 /* UIView+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+DTBKit.swift"; sourceTree = "<group>"; };
 		88D2D3A32AD3210600C24416 /* NumberFormatter+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NumberFormatter+DTBKit.swift"; sourceTree = "<group>"; };
 		88EBBD7E2AD3279700AF4C6F /* Int+XMKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+XMKit.swift"; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				78775B07CCC6B6E13A0F0C3E /* Int+DTBKit.swift */,
 				3B04EC27C02A56B6AEF33BFF /* UIColor+DTBKit.swift */,
 				88D2D3A02AD3206D00C24416 /* UIView+DTBKit.swift */,
+				883F42B72AE9759800F6D56D /* UIWindow+DTBKit.swift */,
 				88D2D3A32AD3210600C24416 /* NumberFormatter+DTBKit.swift */,
 				A270CC542AE93BF20082533E /* UIViewController+DTBKit.swift */,
 			);
@@ -418,6 +421,7 @@
 				95BF21178FD9E6742477E32C /* UIButton+DTBKit.swift in Sources */,
 				A270CC552AE93BF20082533E /* UIViewController+DTBKit.swift in Sources */,
 				A2146CDA2AE406B0002E06CE /* NSAttributedStringKey+Chain.swift in Sources */,
+				883F42B82AE9759800F6D56D /* UIWindow+DTBKit.swift in Sources */,
 				10D143059B7C47AAE3F5D58A /* UIColor+DTBKit.swift in Sources */,
 				0C9BAA4653C7BCD4EE3C6319 /* UIImage+DTBKit.swift in Sources */,
 				0AB4D2C66A0F0EECAA6F8799 /* UIImageView+DTBKit.swift in Sources */,

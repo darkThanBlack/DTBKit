@@ -12,6 +12,7 @@
 
 import UIKit
 
+///
 extension DTBKitWrapper where Base: NSString {
     
     @discardableResult
@@ -20,6 +21,7 @@ extension DTBKitWrapper where Base: NSString {
     }
 }
 
+///
 extension DTBKitWrapper where Base == String {
     
     ///
@@ -45,7 +47,5 @@ extension DTBKitWrapper where Base == String {
         }
         return false
     }
-    
-    
     
 }

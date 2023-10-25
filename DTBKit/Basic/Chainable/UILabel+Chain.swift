@@ -12,6 +12,7 @@
 
 import UIKit
 
+///
 extension DTBKitWrapper where Base: UILabel & DTBKitChainable {
     
     @discardableResult

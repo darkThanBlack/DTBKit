@@ -12,6 +12,7 @@
 
 import UIKit
 
+///
 extension DTBKitWrapper where Base: NSMutableAttributedString {
     
     ///
@@ -19,11 +20,14 @@ extension DTBKitWrapper where Base: NSMutableAttributedString {
         return me.string.dtb
     }
     
-    public var mstr: DTBKitWrapper<NSMutableString> {
+    ///
+    public var mStr: DTBKitWrapper<NSMutableString> {
         return me.mutableString.dtb
     }
     
     /// Multi append.
+    ///
+    /// 一次性添加多个。
     ///
     /// For example:
     /// ```
@@ -32,6 +36,7 @@ extension DTBKitWrapper where Base: NSMutableAttributedString {
     ///       ("", [:].dtb.set.foregroundColor(.white).value)
     ///   ])
     /// ```
+    @discardableResult
     public func append(items: [(_: String, _: [NSAttributedString.Key: Any]?)]) -> Self {
         items.forEach({
             me.append(NSAttributedString(string: $0.0, attributes: $0.1))
@@ -39,7 +44,10 @@ extension DTBKitWrapper where Base: NSMutableAttributedString {
         return self
     }
     
-    /// Search with range.
+    /// Same as ``setAttributes:``, search subString with nsRange.
+    ///
+    /// 没搜索到则不做处理。
+    @discardableResult
     public func reset(_ subString: String, attrs: [NSAttributedString.Key : Any]? = nil) -> Self {
         let range = str.ns.range(of: subString).value
         guard str.has(nsRange: range) else {
@@ -49,7 +57,10 @@ extension DTBKitWrapper where Base: NSMutableAttributedString {
         return self
     }
     
-    /// Search with range.
+    /// Same as ``addAttributes``, search subString with nsRange.
+    ///
+    /// 没搜索到则不做处理。
+    @discardableResult
     public func add(_ subString: String, attrs: [NSAttributedString.Key : Any]) -> Self {
         let range = str.ns.range(of: subString).value
         guard str.has(nsRange: range) else {

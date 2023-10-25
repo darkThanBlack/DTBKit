@@ -14,9 +14,11 @@ import UIKit
 
 extension DTBKitStaticWrapper where T: UIViewController {
     
-    
+    /// Recursion get the top most view controller.
+    ///
+    /// 递归取栈顶。
     public func topMost() -> DTBKitWrapper<UIViewController>? {
-        return DTB.keyWindow()?.rootViewController?.dtb.topMost
+        return UIWindow.dtb.keyWindow()?.value.rootViewController?.dtb.topMost
     }
 }
 
@@ -45,7 +47,7 @@ extension DTBKitWrapper where Base == UIViewController {
         // UIPageController
         if let pageViewController = me as? UIPageViewController,
            pageViewController.viewControllers?.count == 1 {
-            return pageViewController.viewControllers?.first?.dtb.topMost()
+            return pageViewController.viewControllers?.first?.dtb.topMost
         }
         // child view controller
         for subview in me.view?.subviews ?? [] {

@@ -14,6 +14,8 @@ import Foundation
 
 /// Type convert
 ///
+/// 基础类型转换。
+///
 /// 1. "init" vs. "exactly init"
 /// 2. "NaN" vs. nil
 /// 3. "high bits to low bits" vs. nil
@@ -68,7 +70,7 @@ extension DTBKitWrapper where Base: BinaryFloatingPoint {
         return nil
     }
     
-    /// Force convert. Recommended to use ``safe`` convert.
+    /// Force convert.
     public var unSafe: DTBKitWrapper<Double> {
         return Double(me).dtb
     }
@@ -124,6 +126,8 @@ extension DTBKitWrapper where Base: BinaryFloatingPoint {
 }
 
 /// String
+///
+/// 字符串处理。
 extension DTBKitWrapper where Base == Double {
     
     ///
@@ -131,13 +135,23 @@ extension DTBKitWrapper where Base == Double {
         return "\(me)".dtb
     }
     
+    /// Convert to string.
     ///
-    public func `string`(_ formatter: DTBKitWrapper<NumberFormatter> = NumberFormatter().dtb) -> DTBKitWrapper<String>? {
-        return formatter.string(from: exactlyNS?.value)
+    /// 转字符串。
+    ///
+    /// For example:
+    /// ```
+    ///     let a = 1.0.dtb.string(.dtb.CNY.value).value
+    ///     let b = 2.dtb.double.string(NumberFormatter().dtb.decimal(2).rounded(.halfDown).prefix("¥", negative: "-¥").value)
+    /// ```
+    public func `string`(_ formatter: NumberFormatter) -> DTBKitWrapper<String>? {
+        return formatter.dtb.string(from: exactlyNS?.value)
     }
 }
 
-/// Compare
+/// Compare.
+///
+/// 比较。
 extension DTBKitWrapper where Base == Double {
     
     /// Swift.min
@@ -160,9 +174,20 @@ extension DTBKitWrapper where Base == Double {
         return me < value ? self : value.dtb
     }
     
+    /// me == 0 ? 1 : me
+    public func nonZero(_ def: Double = 1.0) -> Self {
+        return me == 0 ? def.dtb : self
+    }
+    
     /// Use math words: "=", ">", ">=", "<", "<=" to compare.
     ///
+    /// 合法性检查，使用数学上的不等式符号。
     ///
+    /// Sample:
+    /// ```
+    ///     let a = 1.0.dtb.isVaild("<", to: 3)?.value   // a == 1
+    ///     let b = 2.0.dtb.isVaild("==", to: 1)?.value  // b == nil
+    /// ```
     public func isVaild(_ mathStr: String, to value: Double) -> Self? {
         return check {
             let str = mathStr.trimmingCharacters(in: .whitespaces)
@@ -178,6 +203,8 @@ extension DTBKitWrapper where Base == Double {
     }
     
     /// Use math words: "[]", "(]", "[)", "()" to compare.
+    ///
+    /// 合法性检查，允许使用数学上的开闭区间符号。
     ///
     /// Sample:
     /// ```
@@ -219,6 +246,8 @@ extension DTBKitWrapper where Base == Double {
 }
 
 /// Arithmetic: four
+///
+/// 四则运算。
 extension DTBKitWrapper where Base == Double {
     
     /// +
@@ -249,6 +278,8 @@ extension DTBKitWrapper where Base == Double {
 }
 
 /// Arithmetic: C
+///
+/// 基础 C 函数。
 extension DTBKitWrapper where Base == Double {
     
     ///
@@ -258,6 +289,8 @@ extension DTBKitWrapper where Base == Double {
 }
 
 /// Arithmetic: biz
+///
+/// 业务扩展。
 extension DTBKitWrapper where Base == Double {
     
     

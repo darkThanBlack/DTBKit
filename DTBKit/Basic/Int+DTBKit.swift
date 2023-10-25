@@ -102,6 +102,8 @@ extension DTBKitWrapper where Base: SignedInteger {
 }
 
 /// Compare
+///
+/// 比较。
 extension DTBKitWrapper where Base == Int64 {
     
     /// Swift.min
@@ -114,27 +116,31 @@ extension DTBKitWrapper where Base == Int64 {
         return Swift.max(value.max() ?? me, me).dtb
     }
     
-    /// >= value
+    /// > value ? me : value
     public func greater(_ value: Int64) -> Self {
         return me > value ? self : value.dtb
     }
     
-    /// <= value
+    /// < value ? me : value
     public func less(_ value: Int64) -> Self {
         return me < value ? self : value.dtb
     }
     
-    /// 0 -> def
+    /// me == 0 ? 1 : me
     public func nonZero(_ def: Int64 = 1) -> Self {
         return me == 0 ? def.dtb : self
     }
     
-    /// Use math words: "=", ">", ">=", "<", "<=" to compare
+    /// Use math words: "=", ">", ">=", "<", "<=" to compare.
+    ///
+    /// 合法性检查，使用数学上的不等式符号。
     public func isVaild(_ mathStr: String, to value: Int64) -> Self? {
         return double.isVaild(mathStr, to: Double(value))?.int64()
     }
     
-    /// Use math words: "[]", "(]", "[)", "()" to compare
+    /// Use math words: "[]", "(]", "[)", "()" to compare.
+    ///
+    /// 合法性检查，使用数学上的开闭区间符号。
     ///
     /// Sample:
     /// ```
@@ -152,6 +158,8 @@ extension DTBKitWrapper where Base == Int64 {
 }
 
 /// Arithmetic: four
+///
+/// 四则运算。
 extension DTBKitWrapper where Base == Int64 {
     
     /// +
@@ -182,6 +190,8 @@ extension DTBKitWrapper where Base == Int64 {
 }
 
 /// Arithmetic: C
+///
+/// 基础 C 函数。
 extension DTBKitWrapper where Base == Int64 {
     
     ///
@@ -191,10 +201,12 @@ extension DTBKitWrapper where Base == Int64 {
 }
 
 /// Arithmetic: biz
+///
+/// 业务扩展。
 extension DTBKitWrapper where Base == Int64 {
     
     ///
     public func div100() -> DTBKitWrapper<String>? {
-        return div(nonNull: 100.0).string(NumberFormatter.dtb.multi)
+        return div(nonNull: 100.0).string(.dtb.multi.value)
     }
 }
