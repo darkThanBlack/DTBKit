@@ -212,8 +212,6 @@ extension Float: DTBKitStructable {}
 
 extension Double: DTBKitStructable {}
 
-extension Float80: DTBKitStructable {}
-
 extension NSNumber: DTBKitable {}
 
 extension NumberFormatter: DTBKitable, DTBKitChainable {}

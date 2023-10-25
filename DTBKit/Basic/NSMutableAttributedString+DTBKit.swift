@@ -39,8 +39,8 @@ extension DTBKitWrapper where Base: NSMutableAttributedString {
         return self
     }
     
-    /// Reset, search with range.
-    func reset(_ subString: String, attrs: [NSAttributedString.Key : Any]? = nil) -> Self {
+    /// Search with range.
+    public func reset(_ subString: String, attrs: [NSAttributedString.Key : Any]? = nil) -> Self {
         let range = str.ns.range(of: subString).value
         guard str.has(nsRange: range) else {
             return self
@@ -49,20 +49,13 @@ extension DTBKitWrapper where Base: NSMutableAttributedString {
         return self
     }
     
-    /// Add, search with range.
-    func add(_ subString: String, attrs: [NSAttributedString.Key : Any]) -> Self {
+    /// Search with range.
+    public func add(_ subString: String, attrs: [NSAttributedString.Key : Any]) -> Self {
         let range = str.ns.range(of: subString).value
         guard str.has(nsRange: range) else {
             return self
         }
         me.addAttributes(attrs, range: range)
         return self
-    }
-        
-    func ttttt() {
-        NSMutableAttributedString().dtb.append(items:[
-            ("", [:].dtb.set.font(UIFont.systemFont(ofSize: 13.0)).value),
-            ("", [:].dtb.set.foregroundColor(.white).value)
-        ])
     }
 }
