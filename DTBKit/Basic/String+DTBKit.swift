@@ -21,17 +21,25 @@ extension DTBKitWrapper where Base: NSString {
     }
 }
 
-///
+/// NS Adapter
 extension DTBKitWrapper where Base == String {
-    
-    ///
-    public var count: Int {
-        return me.utf16.count
-    }
     
     ///
     public var ns: DTBKitWrapper<NSString> {
         return NSString(string: me).dtb
+    }
+    
+    /// Adapter for NSString.length.
+    ///
+    /// 使用 NS 系列 API 时必须注意 String 和 NSString 根本不同；
+    /// 如果对此没有了解，建议全部使用 NSString 来处理。
+    ///
+    /// ```
+    ///     let a = "".utf16.count
+    ///     let b = NSString(string: "").length
+    /// ```
+    public var nsCount: Int {
+        return me.utf16.count
     }
     
     ///
@@ -47,5 +55,5 @@ extension DTBKitWrapper where Base == String {
         }
         return false
     }
-    
 }
+
