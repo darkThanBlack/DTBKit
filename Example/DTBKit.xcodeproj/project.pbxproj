@@ -156,6 +156,9 @@
 				883F42B72AE9759800F6D56D /* UIWindow+DTBKit.swift */,
 				88D2D3A32AD3210600C24416 /* NumberFormatter+DTBKit.swift */,
 				A270CC542AE93BF20082533E /* UIViewController+DTBKit.swift */,
+				74138F430445054FA724E0B8 /* UIButton+DTBKit.swift */,
+				D00EA82F0995BF6E8973A6D5 /* UIImage+DTBKit.swift */,
+				A99D8D4406A6A35C49B36BC7 /* UIImageView+DTBKit.swift */,
 			);
 			name = Basic;
 			path = ../DTBKit/Basic;
@@ -174,9 +177,6 @@
 			children = (
 				F2DCF0C710372F5B71633BAC /* .gitkeep */,
 				5AA75639F4BCCE3CFCB62F65 /* EdgeLabel.swift */,
-				74138F430445054FA724E0B8 /* UIButton+DTBKit.swift */,
-				D00EA82F0995BF6E8973A6D5 /* UIImage+DTBKit.swift */,
-				A99D8D4406A6A35C49B36BC7 /* UIImageView+DTBKit.swift */,
 				143D382ADE74995B70BEB580 /* TransAnimate */,
 			);
 			name = UIKit;

@@ -143,7 +143,7 @@ extension DTBKitStaticWrapper where T: UIImage {
 
 // MARK: -
 
-///
+/// Convert
 extension DTBKitWrapper where Base: UIImage {
     
     ///
@@ -157,7 +157,12 @@ extension DTBKitWrapper where Base: UIImage {
         return CIImage(image: me)?.dtb
     }
     
-    /// Down sampling.
+}
+
+/// Redraw
+extension DTBKitWrapper where Base: UIImage {
+    
+    /// Down sampling - fit
     ///
     /// 图片下采样。将图片等比缩放至最长边与传入的 value 相等。
     ///
