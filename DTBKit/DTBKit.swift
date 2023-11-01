@@ -281,6 +281,10 @@ extension NSRange: DTBKitStructable {}
 
 extension UIColor: DTBKitable {}
 
+extension CIImage: DTBKitable {}
+
+extension CGImage: DTBKitable {}
+
 extension UIImage: DTBKitable {}
 
 extension UIView: DTBKitable, DTBKitChainable {}

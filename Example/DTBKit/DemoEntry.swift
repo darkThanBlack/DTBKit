@@ -121,7 +121,7 @@ extension DemoEntry: UITableViewDelegate {
                     }
                 }))
             }
-            DTB.topMost?.present(alert, animated: true)
+            UIViewController.dtb.topMost()?.present(alert, animated: true)
             
             break
         }

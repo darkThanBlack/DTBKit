@@ -12,9 +12,10 @@
 
 import UIKit
 
-extension DTBKitWrapper where Base == UIImage? {
+///
+extension DTBKitStaticWrapper where T: UIImage {
     
-    /// Create resource image by name
+    /// Create resource image by name.
     ///
     /// Will recursion searh all "types" in:
     ///
@@ -51,13 +52,13 @@ extension DTBKitWrapper where Base == UIImage? {
     ///   - frameworkName: ``/*.framework/``，default is equal to "bundleName"
     ///   - classType: ``Bundle(for: )``, pass ``nil`` or ``self``
     ///   - types: image suffix
-    public init?(
-        named name: String,
+    public func named(
+        _ name: String,
         bundleName: String? = nil,
         frameworkName: String? = nil,
         classType: AnyClass? = nil,
         types: [String] = ["png", "jpg", "webp", "jpeg"]
-    ) where Base == UIImage? {
+    ) -> UIImage? {
         ///
         func bundleImage(
             named name: String,
@@ -116,8 +117,7 @@ extension DTBKitWrapper where Base == UIImage? {
         
         // Default
         if bundleName == nil, let image = UIImage(named: name) {
-            me = image
-            return
+            return image
         }
         // Proj.{SPM, Pods, framework, ...}
         var bundle: Bundle? = nil
@@ -130,39 +130,43 @@ extension DTBKitWrapper where Base == UIImage? {
 #endif
         if let third = bundle,
            let image = image(main: third) {
-            me = image
-            return
+            return image
         }
         // Proj.main
         if let image = image(main: Bundle.main) {
-            me = image
-            return
+            return image
         }
         // Proj.xcassets
-        me = UIImage(named: name)
+        return UIImage(named: name)
     }
 }
 
+// MARK: -
+
+///
 extension DTBKitWrapper where Base: UIImage {
     
-    /// Convert
-    public func ci() -> CIImage? {
+    ///
+    public func ci() -> DTBKitWrapper<CIImage>? {
         if let ci = me.ciImage {
-            return ci
+            return ci.dtb
         }
         if let cg = me.cgImage {
-            return CIImage(cgImage: cg)
+            return CIImage(cgImage: cg).dtb
         }
-        return CIImage(image: me)
+        return CIImage(image: me)?.dtb
     }
     
-    /// Down sampling
+    /// Down sampling.
+    ///
+    /// 图片下采样。将图片等比缩放至最长边与传入的 value 相等。
     ///
     /// [refer](https://juejin.cn/post/6844903988077281288#heading-2)
     ///
-    /// - Parameter value: result max side
-    /// - Returns: UIImage?
-    public func scale(to value: CGFloat) -> UIImage? {
+    /// - Parameter value: result will aspect fit to value.
+    ///
+    /// - Returns: nil if scale fail.
+    public func scale(to value: CGFloat) -> DTBKitWrapper<UIImage>? {
         let nSize = me.size.dtb.aspectFit(to: CGSize(width: value, height: value)).value
         guard nSize.dtb.isEmpty == false else {
             return nil
@@ -192,6 +196,6 @@ extension DTBKitWrapper where Base: UIImage {
         guard let ref = context.makeImage() else {
             return nil
         }
-        return UIImage(cgImage: ref, scale: me.scale, orientation: me.imageOrientation)
+        return UIImage(cgImage: ref, scale: me.scale, orientation: me.imageOrientation).dtb
     }
 }

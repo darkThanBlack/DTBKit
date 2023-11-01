@@ -12,16 +12,48 @@
 
 import UIKit
 
+///
 extension DTBKitStaticWrapper where T: UIViewController {
     
     /// Recursion get the top most view controller.
     ///
     /// 递归取栈顶。
-    public func topMost() -> DTBKitWrapper<UIViewController>? {
-        return UIWindow.dtb.keyWindow()?.value.rootViewController?.dtb.topMost
+    public func topMost() -> UIViewController? {
+        return UIWindow.dtb.keyWindow()?.value.rootViewController?.dtb.topMost?.value
+    }
+    
+    /// Try pop / dismiss / remove top most view controller
+    ///
+    /// 依次尝试各种方法去移除 ``topMost``，在诸如 ``WKWebView`` 内部的场景下可能会用到。
+    ///
+    /// - Returns: success == true
+    @discardableResult
+    public func popAnyway(animated: Bool = true) -> Bool {
+        guard let controller = topMost() else {
+            return false
+        }
+        // pop
+        if let nav = controller.navigationController ?? (controller as? UINavigationController) {
+            nav.popViewController(animated: animated)
+            return true
+        }
+        // dismiss
+        if controller.presentingViewController != nil {
+            controller.dismiss(animated: animated)
+            return true
+        }
+        // remove child
+        if controller.parent != nil {
+            controller.willMove(toParent: nil)
+            controller.view.removeFromSuperview()
+            controller.removeFromParent()
+            return true
+        }
+        return false
     }
 }
 
+///
 extension DTBKitWrapper where Base == UIViewController {
     
     /// Recursion get the top most view controller.
