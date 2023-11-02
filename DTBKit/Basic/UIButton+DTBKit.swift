@@ -17,7 +17,7 @@ extension DTBKitWrapper where Base: UIButton {
     
     /// Create resource image by name.
     ///
-    /// Same as ``UIImage.dtb.named(:)``.
+    /// See ``UIImage.dtb.named()`` for more information.
     @discardableResult
     public func setImageNamed(
         _ name: String,

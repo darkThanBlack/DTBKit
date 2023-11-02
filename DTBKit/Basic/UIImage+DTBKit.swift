@@ -34,16 +34,6 @@ extension DTBKitStaticWrapper where T: UIImage {
     /// * ``Proj.{SPM, Pods, framework, ...}/``
     ///   * when your code is third part
     ///
-    /// Sample:
-    /// ```
-    ///   // type is UIImage?
-    ///   let image = DTBKitWrapper<UIImage?>(named: "logo", bundleName: "DTBKit")?.me
-    ///
-    ///   // or you can use UIImageView extension in ``UIImageView+DTBKit.swift``
-    ///   let imageView = UIImageView()
-    ///   imageView.dtb.setImage(named: "logo", bundleName: "DTBKit-UIKit", frameworkName: "DTBKit")
-    /// ```
-    ///
     /// [refer](https://juejin.cn/post/6844903559931117581)
     ///
     /// - Parameters:
@@ -162,7 +152,7 @@ extension DTBKitWrapper where Base: UIImage {
 /// Redraw
 extension DTBKitWrapper where Base: UIImage {
     
-    /// Down sampling - fit
+    /// Down sampling to fit.
     ///
     /// 图片下采样。将图片等比缩放至最长边与传入的 value 相等。
     ///
