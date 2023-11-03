@@ -11,23 +11,103 @@
 
 ## 这是什么？
 
-一组个人开发套件，旨在展示各个场景下的最佳实践。
+> 一组个人开发套件，旨在展示各个场景下的最佳实践；
+>
+> 着力于业务代码跨项目间的无痛迁移。
+
+
+
+对于第二点可能需要一些额外解释，当业务发展或开发新项目时，我们一般希望
+
+* 复用一部分代码
+* 同时将项目隔离开
+
+这个话题非常宏大，总之，我认为
+
+* 严格的模块化对独立开发者和小型团队来说并不现实；
+
+*  ``KingFisher`` 首创的隔离方式非常优秀，但要想推广至整个业务工程则需要考虑更多。
+
+本工程即是对该问题的一些思考。
 
 
 
 ## 使用
 
-下载/克隆仓库到本地；
+查看示例：推荐安装 ``xcodegen``，进入到 ``Example`` 目录下后命令行执行 ``xcodegen`` 和 ``pod install`` 。
 
-安装 ``xcodegen``，``cd`` 到 ``Example`` 目录下，运行 ``xcodegen``；
+工程采用 cocoapods 结构，但尚未正式发布，使用时需要使用类似于
 
-运行 ``pod install``。
+```ruby
+pod 'DTBKit', git: 'https://github.com/darkThanBlack/DTBKit', commit: 'dd3acb'
+```
 
-采用 cocoapods 结构，但尚未发布。
+的形式指明仓库地址和版本号。
+
+说明文档和注释注定不会非常完善，使用前请通读源码。
 
 
 
-请通读源码。
+代码的用法很简单，首先在理论上，
+
+* 任何对象都可以拥有一个特殊的"命名空间"，以 ``UIView`` 为例，你可以：
+
+    ```swift
+    /// 调用
+    UIView().dtb
+    /// 静态方法
+    UIView.dtb
+    ```
+
+* 假设你有一个业务方法叫 ``test``，你可以：
+
+    ```swift
+    UIView().dtb.test()
+    ```
+
+* 对你自己的新工程或者新业务，你可以将 ``dtb`` 这三个字换成任意自己喜欢的名字：
+
+    ```swift
+    UIView().xm
+    ```
+
+* 假设在新业务里有一个业务方法叫 ``test2``：
+
+    ```swift
+    UIView().xm.test()
+    UIView().dtb.test()
+    
+    UIView().xm.test2()
+    UIView().dtb.test()  // 编译出错
+    ```
+
+* 对新业务 ``xm`` 来说，它可以直接调用 ``dtb`` 空间内的所有方法，而对于在 ``xm`` 空间内的方法， ``dtb`` 则无法调用，也不会有代码提示。
+
+
+
+修改引用对象的属性：
+
+```swift
+/// 业务代码
+private lazy var titleLabel: UILabel = {
+    let label = UILabel()
+    label.backgroundColor = .white
+    label.textColor = .black
+    label.font = .systemFont(ofSize: 13.0, weight: .regular)
+    return label
+}()
+
+/// 等价于
+private lazy var titleLabel: UILabel = {
+    return UILabel().dtb
+        .backgroundColor(.white)
+        .textColor(.black)
+        .font(.systemFont(ofSize: 13.0, weight: .regular))
+        .value
+}()
+```
+
+
 
 
 

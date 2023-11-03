@@ -41,6 +41,8 @@ targets:
         group: "Metadata"
       - path: "../README.md"
         group: "Metadata"
+      - path: "../README.zh-CN.md"
+        group: "Metadata"
       - path: "../LICENSE"
         group: "Metadata"
       - path: "Podfile"

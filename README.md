@@ -4,7 +4,7 @@
 
 
 
-[English](https://github.com/darkThanBlack/DTBKit/README.md) |  [简体中文](https://github.com/darkThanBlack/DTBKit/README.zh-CN.md)
+[English](https://github.com/darkThanBlack/DTBKit/README.md) |  [简体中文](https://github.com/darkThanBlack/DTBKit/blob/main/README.zh-CN.md)
 
 
 
