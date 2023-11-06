@@ -5,7 +5,7 @@
 
 
 
-[English](https://github.com/darkThanBlack/DTBKit/README.md) |  [简体中文](https://github.com/darkThanBlack/DTBKit/README.zh-CN.md)
+[English](https://github.com/darkThanBlack/DTBKit/blob/main/README.md) |  [简体中文](https://github.com/darkThanBlack/DTBKit/README.zh-CN.md)
 
 
 
@@ -32,7 +32,7 @@
 
 
 
-## 使用
+## 快速开始
 
 查看示例：推荐安装 ``xcodegen``，进入到 ``Example`` 目录下后命令行执行 ``xcodegen`` 和 ``pod install`` 。
 
@@ -59,13 +59,13 @@ pod 'DTBKit', git: 'https://github.com/darkThanBlack/DTBKit', commit: 'dd3acb'
     UIView.dtb
     ```
 
-* 假设你有一个业务方法叫 ``test``，你可以：
+* 随后，假设你有一个业务方法叫 ``test``，你可以：
 
     ```swift
     UIView().dtb.test()
     ```
 
-* 对你自己的新工程或者新业务，你可以将 ``dtb`` 这三个字换成任意自己喜欢的名字：
+* 对于你自己的新工程或者新业务，你可以将 ``dtb`` 这三个字换成任意自己喜欢的名字：
 
     ```swift
     UIView().xm
@@ -83,31 +83,12 @@ pod 'DTBKit', git: 'https://github.com/darkThanBlack/DTBKit', commit: 'dd3acb'
 
 * 对新业务 ``xm`` 来说，它可以直接调用 ``dtb`` 空间内的所有方法，而对于在 ``xm`` 空间内的方法， ``dtb`` 则无法调用，也不会有代码提示。
 
+* 有些方法支持链式调用，会返回一个以 ``wrapper`` 名称结尾的对象，而所有的 ``wrapper`` 对象都有 ``value`` 属性，用于获取内部的真实对象：
 
-
-修改引用对象的属性：
-
-```swift
-/// 业务代码
-private lazy var titleLabel: UILabel = {
-    let label = UILabel()
-    label.backgroundColor = .white
-    label.textColor = .black
-    label.font = .systemFont(ofSize: 13.0, weight: .regular)
-    return label
-}()
-
-/// 等价于
-private lazy var titleLabel: UILabel = {
-    return UILabel().dtb
-        .backgroundColor(.white)
-        .textColor(.black)
-        .font(.systemFont(ofSize: 13.0, weight: .regular))
-        .value
-}()
-```
-
-
+    ```swift
+    let titleLabel = UILabel().dtb.title("moon").value
+    titleLabel.backgroundColor = .white
+    ```
 
 
 

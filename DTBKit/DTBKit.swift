@@ -277,7 +277,7 @@ extension NSString: DTBKitable {}
 
 extension NSMutableAttributedString: DTBKitable, DTBKitChainable {}
 
-extension NSRange: DTBKitStructable {}
+extension NSRange: DTBKitStructable, DTBKitChainable {}
 
 extension UIColor: DTBKitable {}
 

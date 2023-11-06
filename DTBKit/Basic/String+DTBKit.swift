@@ -31,7 +31,7 @@ extension DTBKitWrapper where Base == String {
     
     /// Adapter for NSString.length.
     ///
-    /// 使用 NS 系列 API 时必须注意 String 和 NSString 根本不同；
+    /// 使用 NS 系列 API 时必须注意 String 和 NSString 的根本不同；
     /// 如果对此没有了解，建议全部使用 NSString 来处理。
     ///
     /// ```
@@ -49,7 +49,8 @@ extension DTBKitWrapper where Base == String {
     
     ///
     public func has(nsRange: NSRange) -> Bool {
-        if nsRange.location < ns.value.length,
+        if nsRange.dtb.isEmpty == false,
+           nsRange.location < ns.value.length,
            nsRange.location + nsRange.length < ns.value.length {
             return true
         }

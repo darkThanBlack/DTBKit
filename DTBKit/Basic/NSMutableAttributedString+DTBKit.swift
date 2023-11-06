@@ -48,7 +48,7 @@ extension DTBKitWrapper where Base: NSMutableAttributedString {
     ///
     /// 没搜索到则不做处理。
     @discardableResult
-    public func reset(_ subString: String, attrs: [NSAttributedString.Key : Any]? = nil) -> Self {
+    public func setSub(_ subString: String, attrs: [NSAttributedString.Key : Any]? = nil) -> Self {
         let range = str.ns.range(of: subString).value
         guard str.has(nsRange: range) else {
             return self
@@ -61,7 +61,7 @@ extension DTBKitWrapper where Base: NSMutableAttributedString {
     ///
     /// 没搜索到则不做处理。
     @discardableResult
-    public func add(_ subString: String, attrs: [NSAttributedString.Key : Any]) -> Self {
+    public func addSub(_ subString: String, attrs: [NSAttributedString.Key : Any]) -> Self {
         let range = str.ns.range(of: subString).value
         guard str.has(nsRange: range) else {
             return self
