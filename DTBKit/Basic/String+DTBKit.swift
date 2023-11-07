@@ -12,16 +12,7 @@
 
 import UIKit
 
-///
-extension DTBKitWrapper where Base: NSString {
-    
-    @discardableResult
-    public func range(of searchString: String) -> DTBKitWrapper<NSRange> {
-        return me.range(of: searchString).dtb
-    }
-}
-
-/// NS Adapter
+/// NSString
 extension DTBKitWrapper where Base == String {
     
     ///
@@ -37,6 +28,7 @@ extension DTBKitWrapper where Base == String {
     /// ```
     ///     let a = "".utf16.count
     ///     let b = NSString(string: "").length
+    ///     // (a == b) == true
     /// ```
     public var nsCount: Int {
         return me.utf16.count
@@ -58,3 +50,18 @@ extension DTBKitWrapper where Base == String {
     }
 }
 
+/// Regular
+extension DTBKitWrapper where Base == String {
+    
+    ///
+    public func predicate(matches: String) -> Bool {
+        return NSPredicate(format: "SELF MATCHES %@", matches).evaluate(with: me)
+    }
+}
+
+extension DTBKitStaticWrapper {
+    
+    public var phoneNumber: String {
+        return "^\\d{11}$"
+    }
+}

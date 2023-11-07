@@ -135,21 +135,24 @@ extension DTBKitWrapper where Base == Double {
         return "\(me)".dtb
     }
     
-    /// Convert to string.
+    /// Convert to string with numberFormatter.
     ///
     /// 转字符串。
     ///
     /// For example:
     /// ```
-    ///     let a = 1.0.dtb.string(.dtb.CNY.value).value
-    ///     let b = 2.dtb.double.string(NumberFormatter().dtb.decimal(2).rounded(.halfDown).prefix("¥", negative: "-¥").value)
+    ///     /// Use preset formatter
+    ///     let a = 2.1.dtb.toString(.dtb.CNY)?.value
+    ///
+    ///     /// Custom formatter
+    ///     let b = 2.dtb.double.toString(NumberFormatter().dtb.decimal(2).rounded(.halfDown).prefix("¥", negative: "-¥").value)
     /// ```
-    public func `string`(_ formatter: NumberFormatter) -> DTBKitWrapper<String>? {
-        return formatter.dtb.string(from: exactlyNS?.value)
+    public func toString(_ formatter: NumberFormatter) -> DTBKitWrapper<String>? {
+        return formatter.dtb.string(from: ns.value)
     }
 }
 
-/// Compare.
+/// Compare
 ///
 /// 比较。
 extension DTBKitWrapper where Base == Double {

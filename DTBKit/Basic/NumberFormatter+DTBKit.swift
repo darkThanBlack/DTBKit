@@ -11,31 +11,35 @@
 
 import UIKit
 
-/// Def value.
+/// Preset formatter
+///
+/// 通过静态方法提供一些预置格式。
+///
+/// For example:
+/// ```
+///     let a = 2.1.dtb.toString(.dtb.CNY)?.value
+///     // a == "¥2.10"
+/// ```
 extension DTBKitStaticWrapper where T: NumberFormatter {
     
-    func ttt() {
-        
+    ///
+    public var `fixed`: NumberFormatter {
+        return NumberFormatter().dtb.decimal().rounded().value
     }
     
     ///
-    public var `fixed`: DTBKitWrapper<NumberFormatter> {
-        return NumberFormatter().dtb.decimal().rounded()
+    public var `multi`: NumberFormatter {
+        return NumberFormatter().dtb.maxDecimal().rounded().value
     }
     
     ///
-    public var `multi`: DTBKitWrapper<NumberFormatter> {
-        return NumberFormatter().dtb.maxDecimal().rounded()
+    public var CNY: NumberFormatter {
+        return NumberFormatter().dtb.decimal().rounded().split().prefix("¥").value
     }
     
     ///
-    public var CNY: DTBKitWrapper<NumberFormatter> {
-        return fixed.split().prefix("¥")
-    }
-    
-    ///
-    public var RMB: DTBKitWrapper<NumberFormatter> {
-        return multi.split().suffix("元")
+    public var RMB: NumberFormatter {
+        return NumberFormatter().dtb.maxDecimal().rounded().split().suffix("元").value
     }
 }
 

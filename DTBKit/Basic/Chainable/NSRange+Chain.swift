@@ -12,20 +12,20 @@
 
 import UIKit
 
-/// Range location and length will always >= 0.0 and not NSNotFound semantically.
+///
 extension DTBKitMutableWrapper where Base == NSRange {
     
     ///
     @discardableResult
     public func location(_ value: Int) -> Self where Base: DTBKitChainable {
-        me.location = max(0, value == NSNotFound ? 0 : value)
+        me.location = value
         return self
     }
     
     ///
     @discardableResult
     public func length(_ value: Int) -> Self where Base: DTBKitChainable {
-        me.length = max(0, value == NSNotFound ? 0 : value)
+        me.length = max(0, value)
         return self
     }
 }

@@ -12,8 +12,6 @@
 
 import UIKit
 
-// Range location and length will always >= 0.0 and not NSNotFound semantically.
-
 ///
 extension DTBKitWrapper where Base == NSRange {
     

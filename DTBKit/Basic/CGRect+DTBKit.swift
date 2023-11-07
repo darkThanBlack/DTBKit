@@ -39,7 +39,7 @@ extension DTBKitWrapper where Base == CGRect {
 /// Drift absorb
 extension DTBKitWrapper where Base == CGRect {
     
-    
+    ///
     public func absorb(barrier: CGSize) -> CGRect {
         return CGRect(
             x: me.origin.x,
@@ -49,6 +49,7 @@ extension DTBKitWrapper where Base == CGRect {
         )
     }
     
+    ///
     public func inside(barrier: CGRect) -> CGRect {
         var newFrame = me
         
