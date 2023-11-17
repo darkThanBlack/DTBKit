@@ -134,8 +134,8 @@ extension DTBKitWrapper where Base == Int64 {
     /// Use math words: "=", ">", ">=", "<", "<=" to compare.
     ///
     /// 合法性检查，使用数学上的不等式符号。
-    public func isVaild(_ mathStr: String, to value: Int64) -> Self? {
-        return double.isVaild(mathStr, to: Double(value))?.int64()
+    public func isVaild(_ mathStr: String, to value: Int64) -> Bool? {
+        return double.isVaild(mathStr, to: Double(value))
     }
     
     /// Use math words: "[]", "(]", "[)", "()" to compare.
@@ -148,11 +148,11 @@ extension DTBKitWrapper where Base == Int64 {
     ///     (1.0).dtb.in("[1, 3)")  // true
     ///     (2.0).dtb.in("[)", (1, 3))  // true
     /// ```
-    public func isIn(_ mathStr: String, to value: (min: Int64, max: Int64)? = nil) -> Self? {
+    public func isIn(_ mathStr: String, to value: (min: Int64, max: Int64)? = nil) -> Bool? {
         if let v = value {
-            return double.isIn(mathStr, to: (Double(v.min), Double(v.max)))?.int64()
+            return double.isIn(mathStr, to: (Double(v.min), Double(v.max)))
         } else {
-            return double.isIn(mathStr)?.int64()
+            return double.isIn(mathStr)
         }
     }
 }
@@ -207,6 +207,6 @@ extension DTBKitWrapper where Base == Int64 {
     
     ///
     public func div100() -> DTBKitWrapper<String>? {
-        return div(nonNull: 100.0).string(.dtb.multi.value)
+        return div(nonNull: 100.0).toString(.dtb.multi)
     }
 }

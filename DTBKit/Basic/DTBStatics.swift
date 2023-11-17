@@ -11,6 +11,20 @@
 
 import UIKit
 
+/// 内存复用
+struct DTBPerformance {
+    
+    ///
+    static let decimalBehavior = NSDecimalNumberHandler(
+        roundingMode: .plain,
+        scale: 2,
+        raiseOnExactness: false,
+        raiseOnOverflow: false,
+        raiseOnUnderflow: false,
+        raiseOnDivideByZero: true
+    )
+}
+
 extension DTB {
     
     /// Status bar height

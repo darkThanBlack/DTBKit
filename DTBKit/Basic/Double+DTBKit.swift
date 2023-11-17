@@ -130,14 +130,16 @@ extension DTBKitWrapper where Base: BinaryFloatingPoint {
 /// 字符串处理。
 extension DTBKitWrapper where Base == Double {
     
+    /// Convert to string.
     ///
+    /// 转字符串。
     public var string: DTBKitWrapper<String> {
         return "\(me)".dtb
     }
     
     /// Convert to string with numberFormatter.
     ///
-    /// 转字符串。
+    /// 格式化字符串。
     ///
     /// For example:
     /// ```
@@ -149,6 +151,13 @@ extension DTBKitWrapper where Base == Double {
     /// ```
     public func toString(_ formatter: NumberFormatter) -> DTBKitWrapper<String>? {
         return formatter.dtb.string(from: ns.value)
+    }
+    
+    /// Convert to NSDecimalNumber with behavior.
+    ///
+    /// 开始高精度处理。
+    public func toDecimal() -> DTBKitWrapper<NSDecimalNumber> {
+        return NSDecimalNumber(string: "\(me)").dtb
     }
 }
 
@@ -191,17 +200,15 @@ extension DTBKitWrapper where Base == Double {
     ///     let a = 1.0.dtb.isVaild("<", to: 3)?.value   // a == 1
     ///     let b = 2.0.dtb.isVaild("==", to: 1)?.value  // b == nil
     /// ```
-    public func isVaild(_ mathStr: String, to value: Double) -> Self? {
-        return check {
-            let str = mathStr.trimmingCharacters(in: .whitespaces)
-            switch str {
-                case "=", "==", "===":  return me == value
-                case ">":  return me >  value
-                case ">=": return me >= value
-                case "<":  return me <  value
-                case "<=": return me <= value
-                default: return false
-            }
+    public func isVaild(_ mathStr: String, to value: Double) -> Bool {
+        let str = mathStr.trimmingCharacters(in: .whitespaces)
+        switch str {
+            case "=", "==", "===":  return me == value
+            case ">":  return me >  value
+            case ">=": return me >= value
+            case "<":  return me <  value
+            case "<=": return me <= value
+            default: return false
         }
     }
     
@@ -215,7 +222,7 @@ extension DTBKitWrapper where Base == Double {
     ///     (1.0).dtb.in("[1, 3)")  // true
     ///     (2.0).dtb.in("[)", (1, 3))  // true
     /// ```
-    public func isIn(_ mathStr: String, to value: (min: Double, max: Double)? = nil) -> Self? {
+    public func isIn(_ mathStr: String, to value: (min: Double, max: Double)? = nil) -> Bool? {
         
         func actual(_ controls: (String, String), values: (Double, Double)) -> Bool {
             switch controls {
@@ -226,25 +233,23 @@ extension DTBKitWrapper where Base == Double {
                 default:  return false
             }
         }
-        return check {
-            var str = mathStr.trimmingCharacters(in: .whitespaces)
-            
-            if let values = value,
-               ["[]", "(]", "[)", "()"].contains(str),
-               let left = mathStr.first, let right = mathStr.last {
-                return actual((String(left), String(right)), values: values)
-            }
-            
-            let leftChar = String(str.removeFirst())
-            let rightChar = String(str.removeLast())
-            guard let leftStr = str.components(separatedBy: ",").first,
-                  let leftValue = Double(leftStr),
-                  let rightStr = str.components(separatedBy: ",").last,
-                  let rightValue = Double(rightStr) else {
-                return false
-            }
-            return actual((leftChar, rightChar), values: (leftValue, rightValue))
+        var str = mathStr.trimmingCharacters(in: .whitespaces)
+        
+        if let values = value,
+           ["[]", "(]", "[)", "()"].contains(str),
+           let left = mathStr.first, let right = mathStr.last {
+            return actual((String(left), String(right)), values: values)
         }
+        
+        let leftChar = String(str.removeFirst())
+        let rightChar = String(str.removeLast())
+        guard let leftStr = str.components(separatedBy: ",").first,
+              let leftValue = Double(leftStr),
+              let rightStr = str.components(separatedBy: ",").last,
+              let rightValue = Double(rightStr) else {
+            return false
+        }
+        return actual((leftChar, rightChar), values: (leftValue, rightValue))
     }
 }
 

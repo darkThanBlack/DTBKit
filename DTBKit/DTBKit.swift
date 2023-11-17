@@ -105,8 +105,9 @@ public struct DTBKitWrapper<Base> {
     /// ```
     public var value: Base { return me }
     
-    internal func check(_ handler: (() -> Bool)) -> Self? {
-        return handler() ? self : nil
+    ///
+    public func filter(_ handler: ((Self) -> Bool)) -> Self? {
+        return handler(self) ? self : nil
     }
 }
 

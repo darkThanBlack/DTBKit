@@ -38,6 +38,10 @@
 		A25729572AF8E331005EA672 /* NSRange+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25729562AF8E331005EA672 /* NSRange+DTBKit.swift */; };
 		A25729592AF8E580005EA672 /* NSRange+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25729582AF8E580005EA672 /* NSRange+Chain.swift */; };
 		A257295B2AF9CD56005EA672 /* NSString+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A257295A2AF9CD56005EA672 /* NSString+DTBKit.swift */; };
+		A2CB31002B067635000CF466 /* NumberFormatter+Preset.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2CB30FF2B067635000CF466 /* NumberFormatter+Preset.swift */; };
+		A2CB31022B067662000CF466 /* DTBKitStringRegulars.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2CB31012B067662000CF466 /* DTBKitStringRegulars.swift */; };
+		A2CB31042B067EEE000CF466 /* NSDecimalNumber+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2CB31032B067EEE000CF466 /* NSDecimalNumber+DTBKit.swift */; };
+		A2CB31072B0700FF000CF466 /* NSDecimalTypeAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2CB31062B0700FF000CF466 /* NSDecimalTypeAdapter.swift */; };
 		A735232D860682E7B7E7ECB0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F814B4B829198871353120F8 /* Images.xcassets */; };
 		A9DE99B858E334528346CE4B /* AlertAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABA054619FB46334287D932 /* AlertAnimation.swift */; };
 		AB3E36DAA3E1FB94F7E84874 /* CGRect+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88629093E8C4B902768DC1C /* CGRect+DTBKit.swift */; };
@@ -106,6 +110,10 @@
 		A25729562AF8E331005EA672 /* NSRange+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSRange+DTBKit.swift"; sourceTree = "<group>"; };
 		A25729582AF8E580005EA672 /* NSRange+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSRange+Chain.swift"; sourceTree = "<group>"; };
 		A257295A2AF9CD56005EA672 /* NSString+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSString+DTBKit.swift"; sourceTree = "<group>"; };
+		A2CB30FF2B067635000CF466 /* NumberFormatter+Preset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NumberFormatter+Preset.swift"; sourceTree = "<group>"; };
+		A2CB31012B067662000CF466 /* DTBKitStringRegulars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTBKitStringRegulars.swift; sourceTree = "<group>"; };
+		A2CB31032B067EEE000CF466 /* NSDecimalNumber+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSDecimalNumber+DTBKit.swift"; sourceTree = "<group>"; };
+		A2CB31062B0700FF000CF466 /* NSDecimalTypeAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSDecimalTypeAdapter.swift; sourceTree = "<group>"; };
 		A94332BD9942E3A20F8AC621 /* DTBKit_Example.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = DTBKit_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB470419225C0F4E263C23C7 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		AD3822F1BFE14ECBE1DF3A18 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
@@ -148,6 +156,8 @@
 		128CE0D5562F0055DF8376EC /* Basic */ = {
 			isa = PBXGroup;
 			children = (
+				A2CB31052B0700E6000CF466 /* TypeAdapter */,
+				A2CB30FE2B067610000CF466 /* Preset */,
 				76F0BA395FE35F6B3FE4809A /* .gitkeep */,
 				2FE6BEDEB0816C6E8EAE8759 /* Array+DTBKit.swift */,
 				E88629093E8C4B902768DC1C /* CGRect+DTBKit.swift */,
@@ -155,6 +165,7 @@
 				A25729562AF8E331005EA672 /* NSRange+DTBKit.swift */,
 				679CABB45C3586EDF31B9C80 /* Dictionary+DTBKit.swift */,
 				452D7A04FD4584ED7C2FA3DA /* Double+DTBKit.swift */,
+				A2CB31032B067EEE000CF466 /* NSDecimalNumber+DTBKit.swift */,
 				643C0D6EE99781EBB2520DCF /* DTBStatics.swift */,
 				78775B07CCC6B6E13A0F0C3E /* Int+DTBKit.swift */,
 				7E7AF5AB1220AB72A70116B7 /* NSMutableAttributedString+DTBKit.swift */,
@@ -262,6 +273,23 @@
 			);
 			name = Assets;
 			path = ../DTBKit/Assets;
+			sourceTree = "<group>";
+		};
+		A2CB30FE2B067610000CF466 /* Preset */ = {
+			isa = PBXGroup;
+			children = (
+				A2CB30FF2B067635000CF466 /* NumberFormatter+Preset.swift */,
+				A2CB31012B067662000CF466 /* DTBKitStringRegulars.swift */,
+			);
+			path = Preset;
+			sourceTree = "<group>";
+		};
+		A2CB31052B0700E6000CF466 /* TypeAdapter */ = {
+			isa = PBXGroup;
+			children = (
+				A2CB31062B0700FF000CF466 /* NSDecimalTypeAdapter.swift */,
+			);
+			path = TypeAdapter;
 			sourceTree = "<group>";
 		};
 		B71E3ADCD2777C6D80D7ECAE /* XMExtension */ = {
@@ -412,11 +440,13 @@
 				2A0D4B06DD0C14E942474621 /* Array+DTBKit.swift in Sources */,
 				A257295B2AF9CD56005EA672 /* NSString+DTBKit.swift in Sources */,
 				AB3E36DAA3E1FB94F7E84874 /* CGRect+DTBKit.swift in Sources */,
+				A2CB31042B067EEE000CF466 /* NSDecimalNumber+DTBKit.swift in Sources */,
 				F91B539AA53E30580B143CF6 /* CGSize+Chain.swift in Sources */,
 				C09CF354446DF8B9AFCEAF08 /* CGSize+DTBKit.swift in Sources */,
 				996CFED17A4B1BDD6EE9648A /* DTBKit.swift in Sources */,
 				D95BC46FA0D8EC0986C59BF8 /* DTBStatics.swift in Sources */,
 				26BBB83FC4DA650DDC3329EC /* DemoContentView.swift in Sources */,
+				A2CB31002B067635000CF466 /* NumberFormatter+Preset.swift in Sources */,
 				3AC23554A53955C5AF50A390 /* DemoEntry.swift in Sources */,
 				FD226C822096E72DA8C373FA /* DemoNavigationView.swift in Sources */,
 				1D203217D1EBA6FACF2FD671 /* Dictionary+DTBKit.swift in Sources */,
@@ -441,7 +471,9 @@
 				E540AD66DBB179688BC7ED31 /* UIImage+DTBKit.swift in Sources */,
 				547A791C29AA5B169C3E2C6A /* UIImageView+DTBKit.swift in Sources */,
 				687D000EFF0C56DC759F50E9 /* UILabel+Chain.swift in Sources */,
+				A2CB31072B0700FF000CF466 /* NSDecimalTypeAdapter.swift in Sources */,
 				08C96E3F7C64BD81F741AE53 /* UIView+Chain.swift in Sources */,
+				A2CB31022B067662000CF466 /* DTBKitStringRegulars.swift in Sources */,
 				CCF1345781F9925C0D218A07 /* UIView+DTBKit.swift in Sources */,
 				DD7375F5628A1A444D8B7C17 /* UIViewController+DTBKit.swift in Sources */,
 				1272A31D6B8FC5BA507F445D /* UIWindow+DTBKit.swift in Sources */,

@@ -54,14 +54,19 @@ extension DTBKitWrapper where Base == String {
 extension DTBKitWrapper where Base == String {
     
     ///
-    public func predicate(matches: String) -> Bool {
-        return NSPredicate(format: "SELF MATCHES %@", matches).evaluate(with: me)
+    public func isMatches(_ exp: String) -> Bool {
+        return NSPredicate(format: "SELF MATCHES %@", exp).evaluate(with: me)
+    }
+    
+    ///
+    public func isRegular(_ value: DTBKitStringRegulars) -> Bool {
+        return isMatches(value.exp)
     }
 }
 
-extension DTBKitStaticWrapper {
+
+extension DTBKitWrapper where Base == String {
     
-    public var phoneNumber: String {
-        return "^\\d{11}$"
-    }
+    
+    
 }

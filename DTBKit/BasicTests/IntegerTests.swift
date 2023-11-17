@@ -38,14 +38,14 @@ final class IntegerTests: XCTestCase {
         XCTAssert(0.dtb.unSafe.nonZero().value == 1)
         
         XCTAssert(1.dtb.int64.isVaild(">=", to: 2) == nil)
-        XCTAssert(Int64(1).dtb.isVaild(">=", to: 0)?.value == 1)
+        XCTAssert(Int64(1).dtb.isVaild(">=", to: 0) == true)
         
         XCTAssert(1.dtb.int64.isVaild(">=", to: 2) == nil)
-        XCTAssert(Int64(1).dtb.isVaild(">=", to: 0)?.value == 1)
+        XCTAssert(Int64(1).dtb.isVaild(">=", to: 0) == true)
         
         XCTAssert(1.dtb.int64.isIn("(1, 2]") == nil)
-        XCTAssert(1.dtb.int64.isIn("[1, 2]")?.value == 1)
-        XCTAssert((-2).dtb.int64.isIn("(, )", to: (-3, -1))?.value == -2)
+        XCTAssert(1.dtb.int64.isIn("[1, 2]") == true)
+        XCTAssert((-2).dtb.int64.isIn("(, )", to: (-3, -1)) == true)
         
         
     }
