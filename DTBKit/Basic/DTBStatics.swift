@@ -21,7 +21,7 @@ struct DTBPerformance {
         raiseOnExactness: false,
         raiseOnOverflow: false,
         raiseOnUnderflow: false,
-        raiseOnDivideByZero: true
+        raiseOnDivideByZero: false
     )
 }
 

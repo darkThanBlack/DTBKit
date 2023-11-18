@@ -153,10 +153,17 @@ extension DTBKitWrapper where Base == Double {
         return formatter.dtb.string(from: ns.value)
     }
     
+    /// Convert to Decimal with behavior.
+    ///
+    /// 精度处理。
+    public var decimal: DTBKitWrapper<Decimal> {
+        return Decimal(me).dtb
+    }
+    
     /// Convert to NSDecimalNumber with behavior.
     ///
-    /// 开始高精度处理。
-    public func toDecimal() -> DTBKitWrapper<NSDecimalNumber> {
+    /// 精度处理。
+    public var nsDecimal: DTBKitWrapper<NSDecimalNumber> {
         return NSDecimalNumber(string: "\(me)").dtb
     }
 }

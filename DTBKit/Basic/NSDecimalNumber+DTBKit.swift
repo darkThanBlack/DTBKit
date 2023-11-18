@@ -35,7 +35,7 @@ extension DTBKitWrapper where Base == NSDecimalNumber {
     /// "+", Use ``DTBPerformance.decimalBehavior``
     public func plus(_ value: Any, scale: Int16 = 2, rounding: NSDecimalNumber.RoundingMode = .plain) -> Self? {
         guard let target = anyString(value) else { return nil }
-        let behavior = ((scale == 2) && (rounding == .plain)) ? DTBPerformance.decimalBehavior : NSDecimalNumberHandler(roundingMode: rounding, scale: scale, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
+        let behavior = ((scale == 2) && (rounding == .plain)) ? DTBPerformance.decimalBehavior : NSDecimalNumberHandler(roundingMode: rounding, scale: scale, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: false)
         return me.adding(NSDecimalNumber(string: target), withBehavior: behavior).dtb
     }
     
@@ -48,7 +48,7 @@ extension DTBKitWrapper where Base == NSDecimalNumber {
     /// "-", Use ``DTBPerformance.decimalBehavior``
     public func minus(_ value: Any, scale: Int16 = 2, rounding: NSDecimalNumber.RoundingMode = .plain) -> Self? {
         guard let target = anyString(value) else { return nil }
-        let behavior = ((scale == 2) && (rounding == .plain)) ? DTBPerformance.decimalBehavior : NSDecimalNumberHandler(roundingMode: rounding, scale: scale, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
+        let behavior = ((scale == 2) && (rounding == .plain)) ? DTBPerformance.decimalBehavior : NSDecimalNumberHandler(roundingMode: rounding, scale: scale, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: false)
         return me.subtracting(NSDecimalNumber(string: target), withBehavior: behavior).dtb
     }
     
@@ -61,7 +61,7 @@ extension DTBKitWrapper where Base == NSDecimalNumber {
     /// "*", Use ``DTBPerformance.decimalBehavior``
     public func multi(_ value: Any, scale: Int16 = 2, rounding: NSDecimalNumber.RoundingMode = .plain) -> Self? {
         guard let target = anyString(value) else { return nil }
-        let behavior = ((scale == 2) && (rounding == .plain)) ? DTBPerformance.decimalBehavior : NSDecimalNumberHandler(roundingMode: rounding, scale: scale, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
+        let behavior = ((scale == 2) && (rounding == .plain)) ? DTBPerformance.decimalBehavior : NSDecimalNumberHandler(roundingMode: rounding, scale: scale, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: false)
         return me.multiplying(by: NSDecimalNumber(string: target), withBehavior: behavior).dtb
     }
     
@@ -74,7 +74,7 @@ extension DTBKitWrapper where Base == NSDecimalNumber {
     /// "/", Use ``DTBPerformance.decimalBehavior``
     public func div(_ value: Any, scale: Int16 = 2, rounding: NSDecimalNumber.RoundingMode = .plain) -> Self? {
         guard let target = anyString(value), Double(target) != 0.0 else { return nil }
-        let behavior = ((scale == 2) && (rounding == .plain)) ? DTBPerformance.decimalBehavior : NSDecimalNumberHandler(roundingMode: rounding, scale: scale, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
+        let behavior = ((scale == 2) && (rounding == .plain)) ? DTBPerformance.decimalBehavior : NSDecimalNumberHandler(roundingMode: rounding, scale: scale, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: false)
         return me.multiplying(by: NSDecimalNumber(string: target), withBehavior: behavior).dtb
     }
     
@@ -85,7 +85,7 @@ extension DTBKitWrapper where Base == NSDecimalNumber {
     
     /// "^", Use ``DTBPerformance.decimalBehavior``
     public func power(_ value: Int, scale: Int16 = 2, rounding: NSDecimalNumber.RoundingMode = .plain) -> Self? {
-        let behavior = ((scale == 2) && (rounding == .plain)) ? DTBPerformance.decimalBehavior : NSDecimalNumberHandler(roundingMode: rounding, scale: scale, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
+        let behavior = ((scale == 2) && (rounding == .plain)) ? DTBPerformance.decimalBehavior : NSDecimalNumberHandler(roundingMode: rounding, scale: scale, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: false)
         return me.raising(toPower: value, withBehavior: behavior).dtb
     }
     
@@ -96,7 +96,7 @@ extension DTBKitWrapper where Base == NSDecimalNumber {
     
     /// "* 10^", Use ``DTBPerformance.decimalBehavior``
     public func multiPower10(_ value: Int16, scale: Int16 = 2, rounding: NSDecimalNumber.RoundingMode = .plain) -> Self? {
-        let behavior = ((scale == 2) && (rounding == .plain)) ? DTBPerformance.decimalBehavior : NSDecimalNumberHandler(roundingMode: rounding, scale: scale, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
+        let behavior = ((scale == 2) && (rounding == .plain)) ? DTBPerformance.decimalBehavior : NSDecimalNumberHandler(roundingMode: rounding, scale: scale, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: false)
         return me.multiplying(byPowerOf10: value, withBehavior: behavior).dtb
     }
 }

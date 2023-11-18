@@ -258,6 +258,10 @@ extension NSNumber: DTBKitable {}
 
 extension NumberFormatter: DTBKitable, DTBKitChainable {}
 
+extension Decimal: DTBKitStructable {}
+
+extension NSDecimalNumber: DTBKitable {}
+
 //MARK: -
 
 extension String: DTBKitStructable {}

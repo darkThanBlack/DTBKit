@@ -23,6 +23,11 @@ public struct DTBKitStringRegulars {
 }
 
 /// Default regular
+///
+/// Usage:
+/// ```
+///     "".dtb.isRegular(.phoneNumber)
+/// ```
 extension DTBKitStringRegulars {
     
     /// "^\\d{11}$"
