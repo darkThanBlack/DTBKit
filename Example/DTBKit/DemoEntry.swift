@@ -16,7 +16,7 @@ extension DemoCellModel {
     
     enum CellType: String, CaseIterable {
         
-        case edgeLabel, playGround, phoneCall
+        case edgeLabel, playGround, phoneCall, hexColor
         
         var desc: String? {
             switch self {
@@ -124,6 +124,37 @@ extension DemoEntry: UITableViewDelegate {
             UIViewController.dtb.topMost()?.present(alert, animated: true)
             
             break
+        case .hexColor:
+            SimpleVisualViewController.show(in: {
+                let label = EdgeLabel()
+                label.text = "hex color"
+                label.textColor = .systemRed
+                label.backgroundColor = DemoEntry.convertHashHex("#FF8534")
+                label.edgeInsets = UIEdgeInsets(top: 4.0, left: 16.0, bottom: 8.0, right: 32.0)
+                return label
+            }, behavior: .center)
         }
+    }
+    
+    /// #FF8534 -> UIColor
+    /// 0xFF8534 -> UIColor
+    private static func convertHashHex(_ value: String) -> UIColor? {
+        let preCheck = value.trimmingCharacters(in: .whitespaces).lowercased()
+        var aligned = preCheck
+        ["#", "0x"].forEach { item in
+            aligned = value.replacingOccurrences(of: item, with: "")
+        }
+        guard aligned.count == 6 else {
+            return nil
+        }
+        guard let num = Int(aligned, radix: 16) else {
+            return nil
+        }
+        return UIColor(
+            red: CGFloat((Float((num & 0xff0000) >> 16)) / 255.0),
+            green: CGFloat((Float((num & 0x00ff00) >> 8)) / 255.0),
+            blue: CGFloat((Float((num & 0x0000ff) >> 0)) / 255.0),
+            alpha: 1.0
+        )
     }
 }
