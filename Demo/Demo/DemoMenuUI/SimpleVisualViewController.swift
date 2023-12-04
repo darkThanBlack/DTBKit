@@ -45,7 +45,7 @@ class SimpleVisualViewController: UIViewController {
             layouter: layouter,
             navigationable: navigationable
         )
-        DTB.topMost?.navigationController?.pushViewController(simpleVC, animated: true)
+        UIViewController.dtb.topMost()?.navigationController?.pushViewController(simpleVC, animated: true)
     }
     
     init(

@@ -15,7 +15,7 @@ import UIKit
 class DriftAdapter {
     
     static func imageNamed(_ name: String) -> UIImage? {
-        return DTBKitWrapper(named: name, bundleName: "DTBKit-UIKit", frameworkName: "DTBKit")?.value
+        return UIImage.dtb.named(name, bundleName: "DTBKit-UIKit", frameworkName: "DTBKit")
     }
     
     static func makeToast(_ message: String?) {
