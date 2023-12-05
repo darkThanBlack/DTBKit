@@ -133,6 +133,11 @@ extension DemoEntry: UITableViewDelegate {
                 label.edgeInsets = UIEdgeInsets(top: 4.0, left: 16.0, bottom: 8.0, right: 32.0)
                 return label
             }, behavior: .center)
+            
+//            let test = "https://dev.xiaomai5.com/poster-page/pagetwo/index.html?id=1731585995723845634&shareType=STUDY_PLAN&aid=1635486434794536962&b=553635&deviceVersion=16.4&instId=1265190592995299330&p=iOS&saasV=5.0&tid=1635486434794536962&token=ecddcf73ddcd40d7b8484e32adae84f3&uid=1630460942907846657&userType=B&v=5.11.51&vn=5.11.51&xmversion=5.0"
+//            let baseUrl = URL(string: "")
+//            let com = URLComponents(string: test)
+//            print("")
         }
     }
     

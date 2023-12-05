@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2835CFC7CE95B5F023BD65D7 /* Pods_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D7C707A67B1D7E84B35D526 /* Pods_Demo.framework */; };
 		A28AFEBF2B1DD7C000D2921D /* GPSCheckInManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28AFEBE2B1DD7C000D2921D /* GPSCheckInManager.swift */; };
 		A2BFE7EC2AB825FD0095734C /* DemoEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BFE7EB2AB825FD0095734C /* DemoEntry.swift */; };
 		A2C026D52AB7FCB1006F6F39 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C026D42AB7FCB1006F6F39 /* AppDelegate.swift */; };
@@ -45,13 +46,14 @@
 		A2C027332AB7FF86006F6F39 /* DriftAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C0271D2AB7FF86006F6F39 /* DriftAdapter.swift */; };
 		A2C027342AB7FF86006F6F39 /* DriftMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C0271E2AB7FF86006F6F39 /* DriftMainViewController.swift */; };
 		A2C027352AB7FF86006F6F39 /* DriftWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C0271F2AB7FF86006F6F39 /* DriftWindow.swift */; };
-		B04346E4065DF8818E1FB8D6 /* Pods_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C03B13EF3997B5D195D5482 /* Pods_Demo.framework */; };
+		A2C31F642B1F4739004E0AAE /* XMAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C31F632B1F4739004E0AAE /* XMAuthManager.swift */; };
+		A2D673E92B1F143C00FB2362 /* GPSMockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D673E82B1F143C00FB2362 /* GPSMockViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		23AACECBECCD52A644EC477A /* Pods-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Demo.debug.xcconfig"; path = "Target Support Files/Pods-Demo/Pods-Demo.debug.xcconfig"; sourceTree = "<group>"; };
+		4D7C707A67B1D7E84B35D526 /* Pods_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E76E3403E3158EF5C91AEF2 /* Pods-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Demo.release.xcconfig"; path = "Target Support Files/Pods-Demo/Pods-Demo.release.xcconfig"; sourceTree = "<group>"; };
-		6C03B13EF3997B5D195D5482 /* Pods_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A28AFEBE2B1DD7C000D2921D /* GPSCheckInManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSCheckInManager.swift; sourceTree = "<group>"; };
 		A2BFE7EB2AB825FD0095734C /* DemoEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoEntry.swift; sourceTree = "<group>"; };
 		A2C026D12AB7FCB1006F6F39 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -92,6 +94,8 @@
 		A2C0271D2AB7FF86006F6F39 /* DriftAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriftAdapter.swift; sourceTree = "<group>"; };
 		A2C0271E2AB7FF86006F6F39 /* DriftMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriftMainViewController.swift; sourceTree = "<group>"; };
 		A2C0271F2AB7FF86006F6F39 /* DriftWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriftWindow.swift; sourceTree = "<group>"; };
+		A2C31F632B1F4739004E0AAE /* XMAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMAuthManager.swift; sourceTree = "<group>"; };
+		A2D673E82B1F143C00FB2362 /* GPSMockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSMockViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,7 +103,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B04346E4065DF8818E1FB8D6 /* Pods_Demo.framework in Frameworks */,
+				2835CFC7CE95B5F023BD65D7 /* Pods_Demo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,7 +113,7 @@
 		23C99ACEBDC91244E59F76DA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6C03B13EF3997B5D195D5482 /* Pods_Demo.framework */,
+				4D7C707A67B1D7E84B35D526 /* Pods_Demo.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -127,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				A28AFEBE2B1DD7C000D2921D /* GPSCheckInManager.swift */,
+				A2D673E82B1F143C00FB2362 /* GPSMockViewController.swift */,
 			);
 			path = GPS;
 			sourceTree = "<group>";
@@ -184,6 +189,7 @@
 			children = (
 				A2C026ED2AB7FDDD006F6F39 /* XMAdapter.swift */,
 				A2C026EE2AB7FDDD006F6F39 /* XMVisual.swift */,
+				A2C31F632B1F4739004E0AAE /* XMAuthManager.swift */,
 			);
 			path = Adapter;
 			sourceTree = "<group>";
@@ -302,7 +308,7 @@
 				A2C026CD2AB7FCB1006F6F39 /* Sources */,
 				A2C026CE2AB7FCB1006F6F39 /* Frameworks */,
 				A2C026CF2AB7FCB1006F6F39 /* Resources */,
-				57208C111A85EC3C0AC6130D /* [CP] Embed Pods Frameworks */,
+				BCA9849ED95B57CD8D24B06E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -381,7 +387,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		57208C111A85EC3C0AC6130D /* [CP] Embed Pods Frameworks */ = {
+		BCA9849ED95B57CD8D24B06E /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -429,12 +435,14 @@
 				A2C026F92AB7FDDD006F6F39 /* DemoNavigationView.swift in Sources */,
 				A2C027002AB7FDDD006F6F39 /* SimpleWebViewController.swift in Sources */,
 				A2C027302AB7FF86006F6F39 /* GuideDriftView.swift in Sources */,
+				A2C31F642B1F4739004E0AAE /* XMAuthManager.swift in Sources */,
 				A2C027232AB7FF86006F6F39 /* GuideNavigationController.swift in Sources */,
 				A2C0272B2AB7FF86006F6F39 /* GuideListViewModel.swift in Sources */,
 				A2C027242AB7FF86006F6F39 /* GuideRefreshAlertController.swift in Sources */,
 				A2C027312AB7FF86006F6F39 /* Drift.swift in Sources */,
 				A2C027282AB7FF86006F6F39 /* GuideListView.swift in Sources */,
 				A2C027352AB7FF86006F6F39 /* DriftWindow.swift in Sources */,
+				A2D673E92B1F143C00FB2362 /* GPSMockViewController.swift in Sources */,
 				A2C027322AB7FF86006F6F39 /* DriftView.swift in Sources */,
 				A2C027262AB7FF86006F6F39 /* GuideAnimation.swift in Sources */,
 				A2C0272C2AB7FF86006F6F39 /* GuideListViewController.swift in Sources */,

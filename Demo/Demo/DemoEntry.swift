@@ -76,7 +76,8 @@ extension DemoEntry: UITableViewDelegate {
                 return label
             }, behavior: .center)
         case .bundleImage:
-            break
+            let vc = GPSMockViewController()
+            UIViewController.dtb.topMost()?.navigationController?.pushViewController(vc, animated: true)
         }
     }
 }
