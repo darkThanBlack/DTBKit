@@ -14,10 +14,10 @@ import UIKit
 import MapKit
 import SnapKit
 
-///GPSMock
-class GPSMockViewController: UIViewController {
+/// 
+class GPSMockViewController: UIViewController, XMAuthManagerDelegate {
     
-    
+    private lazy var auths = XMAuthManager(delegate: self)
     
     //MARK: Life Cycle
     
@@ -26,11 +26,19 @@ class GPSMockViewController: UIViewController {
         
         view.backgroundColor = .white
         
+        auths.startAuthorizations(with: [.location(.whenInUse)]) { success in
+            guard success else {
+                return
+            }
+            self.mapView.setCenter(self.mapView.userLocation.coordinate, animated: true)
+        }
+        
         loadViews(in: view)
     }
     
     @objc private func removeButtonEvent(button: UIButton) {
         GPSCheckInManager.shared.stopMonitor()
+        mapView.removeOverlays(mapView.overlays)
     }
     
     enum FieldKeys: String {
@@ -54,6 +62,23 @@ class GPSMockViewController: UIViewController {
     }
     
     private var creating: CreatingModel?
+    
+    @objc private func actionsButtonEvent(button: UIButton) {
+        let alert = UIAlertController(title: "Menu", message: "desc.", preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "add", style: .default, handler: { _ in
+            self.addButtonEvent(button: button)
+        }))
+        alert.addAction(UIAlertAction(title: "remove", style: .default, handler: { _ in
+            self.removeButtonEvent(button: button)
+        }))
+        alert.addAction(UIAlertAction(title: "user loc.", style: .default, handler: { _ in
+            self.mapView.zoomLevel = 15
+            self.mapView.setCenter(self.mapView.region.center, animated: true)
+        }))
+        alert.addAction(UIAlertAction(title: "cancel", style: .cancel))
+        
+        present(alert, animated: true)
+    }
     
     @objc private func addButtonEvent(button: UIButton) {
         let alert = UIAlertController(title: "添加围栏", message: "圆形: 经纬度+半径", preferredStyle: .alert)
@@ -80,9 +105,10 @@ class GPSMockViewController: UIViewController {
             }
             GPSCheckInManager.shared.addMonitor(lati: model.lati, longi: model.longi, radius: model.radius)
             
-            let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: model.lati, longitude: model.longi), latitudinalMeters: model.radius, longitudinalMeters: model.radius)
-            self.mapView.setRegion(region, animated: true)
-            self.mapView.setCenter(region.center, animated: true)
+            self.mapView.zoomLevel = 15
+            let circle = MKCircle(center: CLLocationCoordinate2D(latitude: model.lati, longitude: model.longi), radius: model.radius)
+            self.mapView.addOverlay(circle)
+            self.mapView.setCenter(circle.coordinate, animated: true)
         }))
         present(alert, animated: true)
     }
@@ -107,10 +133,36 @@ class GPSMockViewController: UIViewController {
     
     private func loadViews(in box: UIView) {
         box.addSubview(mapView)
+        box.addSubview(actionsButton)
+//        box.addSubview(addButton)
+//        box.addSubview(removeButton)
+        
         mapView.snp.makeConstraints { make in
             make.top.left.right.bottom.equalTo(box)
         }
+        actionsButton.snp.makeConstraints { make in
+            make.centerX.equalTo(box.snp.centerX)
+            make.top.equalTo(box.snp.top).offset(120.0)
+        }
+
+//        addButton.snp.makeConstraints { make in
+//            make.centerX.equalTo(box.snp.centerX)
+//            make.top.equalTo(box.snp.top).offset(120.0)
+//        }
+//        removeButton.snp.makeConstraints { make in
+//            make.centerX.equalTo(box.snp.centerX)
+//            make.top.equalTo(box.snp.top).offset(160.0)
+//        }
     }
+    
+    private lazy var actionsButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.backgroundColor = .white
+        button.setTitleColor(.black, for: .normal)
+        button.setTitle("Actions", for: .normal)
+        button.addTarget(self, action: #selector(actionsButtonEvent(button:)), for: .touchUpInside)
+        return button
+    }()
     
     private lazy var addButton: UIButton = {
         let addButton = UIButton(type: .custom)
@@ -130,14 +182,48 @@ class GPSMockViewController: UIViewController {
     
     private lazy var mapView: MKMapView = {
         let view = MKMapView()
+        view.delegate = self
         view.mapType = .hybrid
-        view.userTrackingMode = .followWithHeading
         view.showsCompass = true
         view.showsScale = true
         view.showsUserLocation = true
+        view.userTrackingMode = .followWithHeading
         return view
     }()
-    
-    
 }
 
+extension GPSMockViewController: MKMapViewDelegate {
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if overlay.isKind(of: MKCircle.self) {
+            let render = MKCircleRenderer(overlay: overlay)
+            render.fillColor = UIColor.yellow
+            return render
+        }
+        return MKOverlayPathRenderer(overlay: overlay)
+    }
+}
+
+extension MKMapView {
+    //缩放级别
+    var zoomLevel: Int {
+        //获取缩放级别
+        get {
+            return Int(log2(360 * (Double(self.frame.size.width/256) / self.region.span.longitudeDelta)) + 1)
+        }
+        //设置缩放级别
+        set (newZoomLevel) {
+            setCenterCoordinate(coordinate: self.centerCoordinate, zoomLevel: newZoomLevel, animated: true)
+        }
+    }
+     
+    //设置缩放级别时调用
+    private func setCenterCoordinate(coordinate: CLLocationCoordinate2D, zoomLevel: Int, animated: Bool) {
+        let span = MKCoordinateSpan(latitudeDelta: 0, longitudeDelta: 360 / pow(2, Double(zoomLevel)) * Double(self.frame.size.width) / 256)
+        let region = MKCoordinateRegion(center: self.centerCoordinate, span: span)
+        setRegion(region, animated: animated)
+        
+//        let span = MKCoordinateSpanMake(0, 360 / pow(2, Double(zoomLevel)) * Double(self.frame.size.width) / 256)
+//        setRegion(MKCoordinateRegionMake(centerCoordinate, span), animated: animated)
+    }
+}

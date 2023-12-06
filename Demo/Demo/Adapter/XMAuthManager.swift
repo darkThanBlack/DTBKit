@@ -9,6 +9,7 @@
 import UIKit
 import AVFoundation
 import CoreBluetooth
+import CoreLocation
 
 /// 申请多个系统权限
 public protocol XMAuthManagerDelegate: UIViewController {
@@ -25,11 +26,11 @@ public extension XMAuthManagerDelegate {
     }
     /// 展示 Toast - 默认实现
     func needShowAuthHints(with toast: String) {
-        view.makeToast(toast)
+        // view.makeToast(toast)
     }
 }
 
-/// 申请多个系统权限
+/// 简单申请多个系统权限
 public class XMAuthManager: NSObject {
     
     /// 位置
@@ -45,10 +46,16 @@ public class XMAuthManager: NSObject {
         /// 蓝牙
         case bluetooth
         /// 位置
-        case location(style: LocationAuthStyles)
+        case location(_ style: XMAuthManager.LocationAuthStyles)
     }
     
     private weak var delegate: XMAuthManagerDelegate?
+    
+    /// 内存管理 - 蓝牙
+    private var bltHandler: BluetoothHandler? = nil
+    
+    /// 内存管理 - 定位
+    private var locHandler: LocationHandler? = nil
     
     public init(delegate: XMAuthManagerDelegate? = nil) {
         self.delegate = delegate
@@ -71,49 +78,52 @@ public class XMAuthManager: NSObject {
             }
         })
     }
+    
     /// 递归，依次处理需要申请的权限
     private func getAuthorization(with types: [AuthType], index: Int, allCompleted: ((_ success: Bool)->())?) {
-        if index < types.count {
-            let type = types[index]
-            
-            switch type {
-            case .camera:
-                getCameraAuthorization(completed: { (success) in
-                    if success {
-                        self.getAuthorization(with: types, index: index + 1, allCompleted: allCompleted)
-                    } else {
-                        allCompleted?(false)
-                    }
-                })
-            case .mike:
-                getMikeAuthorization(completed: { (success) in
-                    if success {
-                        self.getAuthorization(with: types, index: index + 1, allCompleted: allCompleted)
-                    } else {
-                        allCompleted?(false)
-                    }
-                })
-            case .bluetooth:
-                getBluetoothAuthorization(completed: { (success) in
-                    if success {
-                        self.getAuthorization(with: types, index: index + 1, allCompleted: allCompleted)
-                    } else {
-                        allCompleted?(false)
-                    }
-                })
-            case .location(let style: LocationAuthStyles):
-                switch style {
-                case.whenInUse:
-                    break
-                case .always:
-                    break
-                }
-            }
-        } else {
+        guard index < types.count else {
             allCompleted?(true)
+            return
+        }
+        
+        let type = types[index]
+        switch type {
+        case .camera:
+            getCameraAuthorization(completed: { (success) in
+                if success {
+                    self.getAuthorization(with: types, index: index + 1, allCompleted: allCompleted)
+                } else {
+                    allCompleted?(false)
+                }
+            })
+        case .mike:
+            getMikeAuthorization(completed: { (success) in
+                if success {
+                    self.getAuthorization(with: types, index: index + 1, allCompleted: allCompleted)
+                } else {
+                    allCompleted?(false)
+                }
+            })
+        case .bluetooth:
+            getBluetoothAuthorization(completed: { (success) in
+                if success {
+                    self.getAuthorization(with: types, index: index + 1, allCompleted: allCompleted)
+                } else {
+                    allCompleted?(false)
+                }
+            })
+        case .location(let style):
+            getLocationAuthorization(style: style, completed: { (success) in
+                if success {
+                    self.getAuthorization(with: types, index: index + 1, allCompleted: allCompleted)
+                } else {
+                    allCompleted?(false)
+                }
+            })
         }
     }
     
+    /// 打开系统设置
     private func openSysSetting() {
         if let url = URL(string: UIApplication.openSettingsURLString) {
             UIApplication.shared.open(url, options: [:]) { (success) in
@@ -124,6 +134,7 @@ public class XMAuthManager: NSObject {
         }
     }
     
+    ///
     private func getCameraAuthorization(completed: ((_ success: Bool)->())?) {
         let videoAuthorStatus = AVCaptureDevice.authorizationStatus(for: .video)
         switch videoAuthorStatus {
@@ -146,6 +157,7 @@ public class XMAuthManager: NSObject {
         }
     }
     
+    ///
     private func getMikeAuthorization(completed: ((_ success: Bool)->())?) {
         let videoAuthorStatus = AVCaptureDevice.authorizationStatus(for: .audio)
         switch videoAuthorStatus {
@@ -168,28 +180,13 @@ public class XMAuthManager: NSObject {
         }
     }
     
-    //MARK: - 蓝牙连接对象销毁？
-    
-    @objc(XMAuthManagerBluetoothProcessor)
-    class BluetoothProcessor: NSObject, CBCentralManagerDelegate {
-        
-        var didUpdateStateHandler: ((CBManagerState)->())?
-        
-        func centralManagerDidUpdateState(_ central: CBCentralManager) {
-            didUpdateStateHandler?(central.state)
-        }
-    }
-    
-    private var btManager: CBCentralManager?
-    
-    private var btProcessor: BluetoothProcessor?
-    
+    ///
     private func getBluetoothAuthorization(completed: ((_ success: Bool)->())?) {
-        let processor = BluetoothProcessor()
-        processor.didUpdateStateHandler = { [weak self] state in
+        let handler = BluetoothHandler()
+        self.bltHandler = handler
+        handler.didUpdateHandler = { [weak self] state in
             defer {
-                self?.btProcessor = nil
-                self?.btManager = nil
+                self?.bltHandler = nil
             }
             switch state {
             case .poweredOn:
@@ -215,44 +212,106 @@ public class XMAuthManager: NSObject {
                 completed?(false)
             }
         }
-        
-        let manager = CBCentralManager(
-            delegate: processor,
-            queue: nil,
-            options: [
-                //蓝牙power没打开时alert提示框 iOS11设置页里关闭才会弹
-                CBCentralManagerOptionShowPowerAlertKey: true
-//                CBCentralManagerOptionRestoreIdentifierKey: "XMAuthManagerBluetoothManagerKey"
-            ]
-        )
-        
-        self.btProcessor = processor
-        self.btManager = manager
     }
     
     ///
     private func getLocationAuthorization(style: LocationAuthStyles, completed: ((_ success: Bool)->())?) {
-        let manager = CLLocationManager()
-        let state = manager.authorizationStatus
-//        switch state {
-//        case .notDetermined:
-//            switch style {
-//            case .whenInUse:
-//                break
-//            case .always:
-//                break
-//            }
-//        case .restricted:
-//            <#code#>
-//        case .denied:
-//            <#code#>
-//        case .authorizedAlways:
-//            <#code#>
-//        case .authorizedWhenInUse:
-//            <#code#>
-//        case .authorized:
-//            <#code#>
-//        }
+        let handler = LocationHandler()
+        switch handler.getStatus {
+        case .notDetermined:
+            self.locHandler = handler
+            handler.didUpdateHandler = { [weak self] status in
+                defer {
+                    self?.locHandler = nil
+                }
+                switch status {
+                case .notDetermined, .restricted, .denied:
+                    completed?(false)
+                case .authorized, .authorizedWhenInUse, .authorizedAlways:
+                    completed?(true)
+                }
+            }
+            switch style {
+            case .whenInUse:
+                handler.requestWhenInUse()
+            case .always:
+                handler.requestAlways()
+            }
+        case .restricted, .denied:
+            let alert = UIAlertController(title: "提示", message: "您已经关闭了本应用的定位权限，相关功能可能无法正常使用，是否需要现在去开启？", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "取消", style: .default, handler: nil))
+            alert.addAction(UIAlertAction(title: "去设置", style: .default, handler: { (_) in
+                self.openSysSetting()
+            }))
+            self.delegate?.needShowAuthHints(with: alert)
+            completed?(false)
+        case .authorized, .authorizedWhenInUse, .authorizedAlways:
+            completed?(true)
+        }
+    }
+}
+
+// MARK: - Handlers
+
+extension XMAuthManager {
+    
+    /// 蓝牙
+    @objc(XMAuthManagerBluetoothHandler)
+    class BluetoothHandler: NSObject, CBCentralManagerDelegate {
+        
+        var didUpdateHandler: ((CBManagerState)->())?
+        
+        private lazy var manager: CBCentralManager = {
+            return CBCentralManager(
+                delegate: self,
+                queue: nil,
+                options: [
+                    CBCentralManagerOptionShowPowerAlertKey: true
+                ]
+            )
+        }()
+        
+        func centralManagerDidUpdateState(_ central: CBCentralManager) {
+            didUpdateHandler?(central.state)
+        }
     }
     
+    /// 定位
+    @objc(XMAuthManagerLocationHandler)
+    class LocationHandler: NSObject, CLLocationManagerDelegate {
+        
+        var getStatus: CLAuthorizationStatus {
+            if #available(iOS 14.0, *) {
+                return manager.authorizationStatus
+            } else {
+                return CLLocationManager.authorizationStatus()
+            }
+        }
+        
+        func requestWhenInUse() {
+            manager.requestWhenInUseAuthorization()
+        }
+        
+        func requestAlways() {
+            manager.requestAlwaysAuthorization()
+        }
+        
+        var didUpdateHandler: ((CLAuthorizationStatus)->())?
+        
+        private lazy var manager: CLLocationManager = {
+            let manager = CLLocationManager()
+            manager.delegate = self
+            return manager
+        }()
+        
+        @available(iOS, introduced: 4.2, deprecated: 14.0)
+        func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+            didUpdateHandler?(status)
+        }
+        
+        @available(iOS 14.0, *)
+        func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+            didUpdateHandler?(manager.authorizationStatus)
+        }
+    }
 }
