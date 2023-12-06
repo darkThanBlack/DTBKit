@@ -14,7 +14,7 @@ import UIKit
 import MapKit
 import SnapKit
 
-/// 
+///
 class GPSMockViewController: UIViewController, XMAuthManagerDelegate {
     
     private lazy var auths = XMAuthManager(delegate: self)
@@ -73,7 +73,9 @@ class GPSMockViewController: UIViewController, XMAuthManagerDelegate {
         }))
         alert.addAction(UIAlertAction(title: "user loc.", style: .default, handler: { _ in
             self.mapView.zoomLevel = 15
-            self.mapView.setCenter(self.mapView.region.center, animated: true)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                self.mapView.setCenter(self.mapView.userLocation.coordinate, animated: true)
+            }
         }))
         alert.addAction(UIAlertAction(title: "cancel", style: .cancel))
         
@@ -213,7 +215,7 @@ extension MKMapView {
         }
         //设置缩放级别
         set (newZoomLevel) {
-            setCenterCoordinate(coordinate: self.centerCoordinate, zoomLevel: newZoomLevel, animated: true)
+            setCenterCoordinate(coordinate: self.centerCoordinate, zoomLevel: newZoomLevel, animated: false)
         }
     }
      

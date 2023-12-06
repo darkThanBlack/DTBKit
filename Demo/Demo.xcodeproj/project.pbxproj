@@ -96,6 +96,7 @@
 		A2C0271F2AB7FF86006F6F39 /* DriftWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriftWindow.swift; sourceTree = "<group>"; };
 		A2C31F632B1F4739004E0AAE /* XMAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMAuthManager.swift; sourceTree = "<group>"; };
 		A2D673E82B1F143C00FB2362 /* GPSMockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSMockViewController.swift; sourceTree = "<group>"; };
+		A2E42B5F2B207F3800135B8F /* track02.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = track02.gpx; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +133,7 @@
 			children = (
 				A28AFEBE2B1DD7C000D2921D /* GPSCheckInManager.swift */,
 				A2D673E82B1F143C00FB2362 /* GPSMockViewController.swift */,
+				A2E42B5F2B207F3800135B8F /* track02.gpx */,
 			);
 			path = GPS;
 			sourceTree = "<group>";

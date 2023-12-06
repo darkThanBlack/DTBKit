@@ -27,13 +27,18 @@ class GPSCheckInManager: NSObject {
         loc.monitoredRegions.forEach({ loc.stopMonitoring(for: $0) })
     }
     
-    func addMonitor(lati: CLLocationDegrees, longi: CLLocationDegrees, radius: CLLocationDistance) {
-        let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: lati, longitude: longi), radius: radius, identifier: UUID().uuidString)
-        loc.startMonitoring(for: region)
+    func checkOnce() {
+        if let first = loc.monitoredRegions.first {
+            loc.requestState(for: first)
+        }
     }
     
-    func startMonitor() {
+    func addMonitor(lati: CLLocationDegrees, longi: CLLocationDegrees, radius: CLLocationDistance) {
+        let identifier = UUID().uuidString
+        let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: lati, longitude: longi), radius: radius, identifier: identifier)
+        loc.startMonitoring(for: region)
         
+        print("region added: identifier=\(identifier)")
     }
     
     private lazy var loc: CLLocationManager = {
@@ -41,12 +46,21 @@ class GPSCheckInManager: NSObject {
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBest
         manager.distanceFilter = kCLDistanceFilterNone
-        // CLCircularRegion(center: <#T##CLLocationCoordinate2D#>, radius: <#T##CLLocationDistance#>, identifier: <#T##String#>)
         return manager
     }()
-    
 }
 
 extension GPSCheckInManager: CLLocationManagerDelegate {
     
+    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
+        print("didEnterRegion: identifier=\(region.identifier)")
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
+        print("didExitRegion: identifier=\(region.identifier)")
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
+        print("didDetermineState: identifier=\(region.identifier), state=\(state)")
+    }
 }
