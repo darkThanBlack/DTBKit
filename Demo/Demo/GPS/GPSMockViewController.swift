@@ -19,6 +19,8 @@ class GPSMockViewController: UIViewController, XMAuthManagerDelegate {
     
     private lazy var auths = XMAuthManager(delegate: self)
     
+    private lazy var lbs = XMLBSManager()
+    
     //MARK: Life Cycle
     
     override func viewDidLoad() {
@@ -36,8 +38,20 @@ class GPSMockViewController: UIViewController, XMAuthManagerDelegate {
         loadViews(in: view)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        lbs.startLocation()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        lbs.stopLocation()
+    }
+    
     @objc private func removeButtonEvent(button: UIButton) {
-        GPSCheckInManager.shared.stopMonitor()
+        lbs.stopMonitor()
         mapView.removeOverlays(mapView.overlays)
     }
     
@@ -105,10 +119,10 @@ class GPSMockViewController: UIViewController, XMAuthManagerDelegate {
                 self.creating = nil
                 return
             }
-            GPSCheckInManager.shared.addMonitor(lati: model.lati, longi: model.longi, radius: model.radius)
+            self.lbs.addMonitor(lati: model.lati, longi: model.longi, radius: model.radius)
             
             self.mapView.zoomLevel = 15
-            let circle = MKCircle(center: CLLocationCoordinate2D(latitude: model.lati, longitude: model.longi), radius: model.radius)
+            let circle = MKCircle(center: XMLBSUtil.transformWGSToGCJ(wgsLocation: CLLocationCoordinate2D(latitude: model.lati, longitude: model.longi)), radius: model.radius)
             self.mapView.addOverlay(circle)
             self.mapView.setCenter(circle.coordinate, animated: true)
         }))

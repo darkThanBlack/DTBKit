@@ -217,10 +217,19 @@ public class XMAuthManager: NSObject {
     ///
     private func getLocationAuthorization(style: LocationAuthStyles, completed: ((_ success: Bool)->())?) {
         let handler = LocationHandler()
+        print("MOON__Log  handler.getStatus=\(handler.getStatus.rawValue)")
         switch handler.getStatus {
         case .notDetermined:
+            switch style {
+            case .whenInUse:
+                handler.requestWhenInUse()
+            case .always:
+                handler.requestAlways()
+            }
+            
             self.locHandler = handler
             handler.didUpdateHandler = { [weak self] status in
+                print("MOON__Log  didUpdateHandler status=\(status.rawValue)")
                 defer {
                     self?.locHandler = nil
                 }
@@ -229,13 +238,9 @@ public class XMAuthManager: NSObject {
                     completed?(false)
                 case .authorized, .authorizedWhenInUse, .authorizedAlways:
                     completed?(true)
+                @unknown default:
+                    completed?(false)
                 }
-            }
-            switch style {
-            case .whenInUse:
-                handler.requestWhenInUse()
-            case .always:
-                handler.requestAlways()
             }
         case .restricted, .denied:
             let alert = UIAlertController(title: "提示", message: "您已经关闭了本应用的定位权限，相关功能可能无法正常使用，是否需要现在去开启？", preferredStyle: .alert)
@@ -247,6 +252,8 @@ public class XMAuthManager: NSObject {
             completed?(false)
         case .authorized, .authorizedWhenInUse, .authorizedAlways:
             completed?(true)
+        @unknown default:
+            completed?(false)
         }
     }
 }
@@ -306,11 +313,13 @@ extension XMAuthManager {
         
         @available(iOS, introduced: 4.2, deprecated: 14.0)
         func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+            print("MOON__LOG  < iOS 14.0, didChangeAuthorization, status=\(status.rawValue)")
             didUpdateHandler?(status)
         }
         
         @available(iOS 14.0, *)
         func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+            print("MOON__LOG  > iOS 14.0, locationManagerDidChangeAuthorization, status=\(manager.authorizationStatus.rawValue)")
             didUpdateHandler?(manager.authorizationStatus)
         }
     }
