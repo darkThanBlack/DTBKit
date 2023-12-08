@@ -13,32 +13,32 @@
 import UIKit
 import CoreLocation
 
-import Butterfly_Business
+//import Butterfly_Business
 
 ///
 struct TJStaffCheckInRegionModel {
     
     /// WGS84
     let region: CLCircularRegion
-    
+
     let id: Int64
-    
+
     let name: String?
-    
-    init?(addressVO: EmployeeAttendanceAddressVO) {
-        guard addressVO.state != .ON,
-            let addressId = addressVO.id,
-              let lati = addressVO.latitude, lati > 0,
-              let longi = addressVO.longitude, longi > 0,
-              let radius = addressVO.attendanceRange, radius > 0 else {
-            return nil
-        }
-        self.id = addressId
-        
-        let center = XMLBSUtil.transformGCJToWGS(location: CLLocationCoordinate2D(latitude: lati, longitude: longi))
-        self.region = CLCircularRegion(center: center, radius: CLLocationDistance(radius), identifier: UUID().uuidString)
-        self.name = addressVO.title
-    }
+
+//    init?(addressVO: EmployeeAttendanceAddressVO) {
+//        guard addressVO.state != .ON,
+//            let addressId = addressVO.id,
+//              let lati = addressVO.latitude, lati > 0,
+//              let longi = addressVO.longitude, longi > 0,
+//              let radius = addressVO.attendanceRange, radius > 0 else {
+//            return nil
+//        }
+//        self.id = addressId
+//
+//        let center = XMLBSUtil.transformGCJToWGS(location: CLLocationCoordinate2D(latitude: lati, longitude: longi))
+//        self.region = CLCircularRegion(center: center, radius: CLLocationDistance(radius), identifier: UUID().uuidString)
+//        self.name = addressVO.title
+//    }
 }
 
 ///
@@ -107,7 +107,7 @@ extension TJStaffCheckInManager: CLLocationManagerDelegate {
 //WGS-84：是国际标准，GPS坐标（Google Earth使用、或者GPS模块）
 //GCJ-02：中国坐标偏移标准，Google Map、高德、腾讯使用
 //BD-09： 百度坐标偏移标准，Baidu Map使用
-fileprivate class XMLBSUtil {
+class XMLBSUtil {
     
     // 圆周率
     // let pi = 3.14159265358979324;

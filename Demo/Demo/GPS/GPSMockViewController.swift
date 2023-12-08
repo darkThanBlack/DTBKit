@@ -15,11 +15,11 @@ import MapKit
 import SnapKit
 
 ///
-class GPSMockViewController: UIViewController, XMAuthManagerDelegate {
+class GPSMockViewController: UIViewController {
     
-    private lazy var auths = XMAuthManager(delegate: self)
+    private lazy var auths = XMAuthManager()
     
-    private lazy var lbs = XMLBSManager()
+    private lazy var lbs = TJStaffCheckInManager()
     
     //MARK: Life Cycle
     
@@ -37,6 +37,12 @@ class GPSMockViewController: UIViewController, XMAuthManagerDelegate {
         
         loadViews(in: view)
     }
+    
+    private lazy var manager: CLLocationManager = {
+        let manager = CLLocationManager()
+//        manager.delegate = self
+        return manager
+    }()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -119,7 +125,7 @@ class GPSMockViewController: UIViewController, XMAuthManagerDelegate {
                 self.creating = nil
                 return
             }
-            self.lbs.addMonitor(lati: model.lati, longi: model.longi, radius: model.radius)
+//            self.lbs.addMonitor(lati: model.lati, longi: model.longi, radius: model.radius)
             
             self.mapView.zoomLevel = 15
             let circle = MKCircle(center: XMLBSUtil.transformWGSToGCJ(wgsLocation: CLLocationCoordinate2D(latitude: model.lati, longitude: model.longi)), radius: model.radius)

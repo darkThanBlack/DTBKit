@@ -11,26 +11,9 @@ import AVFoundation
 import CoreBluetooth
 import CoreLocation
 
-/// 申请多个系统权限
-public protocol XMAuthManagerDelegate: UIViewController {
-    /// 展示 Alert
-    func needShowAuthHints(with alert: UIAlertController)
-    /// 展示 Toast
-    func needShowAuthHints(with toast: String)
-}
-
-public extension XMAuthManagerDelegate {
-    /// 展示 Alert - 默认实现
-    func needShowAuthHints(with alert: UIAlertController) {
-        present(alert, animated: true, completion: nil)
-    }
-    /// 展示 Toast - 默认实现
-    func needShowAuthHints(with toast: String) {
-        // view.makeToast(toast)
-    }
-}
-
 /// 简单申请多个系统权限
+///
+/// 需要由 vc 持有，避免在申请过程中被提前释放
 public class XMAuthManager: NSObject {
     
     /// 位置
@@ -49,23 +32,11 @@ public class XMAuthManager: NSObject {
         case location(_ style: XMAuthManager.LocationAuthStyles)
     }
     
-    private weak var delegate: XMAuthManagerDelegate?
-    
     /// 内存管理 - 蓝牙
     private var bltHandler: BluetoothHandler? = nil
     
     /// 内存管理 - 定位
     private var locHandler: LocationHandler? = nil
-    
-    public init(delegate: XMAuthManagerDelegate? = nil) {
-        self.delegate = delegate
-        
-        super.init()
-    }
-    
-    public func bind(delegate: XMAuthManagerDelegate?) {
-        self.delegate = delegate
-    }
     
     /// 开始申请系统权限
     /// - Parameters:
@@ -123,12 +94,21 @@ public class XMAuthManager: NSObject {
         }
     }
     
+    /// 展示 Alert
+    private func needShowAuthHints(with alert: UIAlertController) {
+        UIViewController.dtb.topMost()?.present(alert, animated: true)
+    }
+    /// 展示 Toast
+    private func needShowAuthHints(with toast: String) {
+//        UIViewController.dtb.topMost()?.view.makeToast(toast)
+    }
+    
     /// 打开系统设置
     private func openSysSetting() {
         if let url = URL(string: UIApplication.openSettingsURLString) {
             UIApplication.shared.open(url, options: [:]) { (success) in
                 if success == false {
-                    self.delegate?.needShowAuthHints(with: "自动跳转失败，请手动前往 iPhone 的 “设置 - 隐私” 页面")
+                    self.needShowAuthHints(with: "自动跳转失败，请手动前往 iPhone 的 “设置 - 隐私” 页面")
                 }
             }
         }
@@ -150,7 +130,7 @@ public class XMAuthManager: NSObject {
             alert.addAction(UIAlertAction(title: "去设置", style: .default, handler: { (_) in
                 self.openSysSetting()
             }))
-            delegate?.needShowAuthHints(with: alert)
+            needShowAuthHints(with: alert)
             completed?(false)
         @unknown default:
             break
@@ -173,7 +153,7 @@ public class XMAuthManager: NSObject {
             alert.addAction(UIAlertAction(title: "去设置", style: .default, handler: { (_) in
                 self.openSysSetting()
             }))
-            delegate?.needShowAuthHints(with: alert)
+            needShowAuthHints(with: alert)
             completed?(false)
         @unknown default:
             break
@@ -197,18 +177,18 @@ public class XMAuthManager: NSObject {
                 alert.addAction(UIAlertAction(title: "去设置", style: .default, handler: { (_) in
                     self?.openSysSetting()
                 }))
-                self?.delegate?.needShowAuthHints(with: alert)
+                self?.needShowAuthHints(with: alert)
                 completed?(false)
             case .poweredOff:
                 completed?(false)
             case .unsupported:
-                self?.delegate?.needShowAuthHints(with: "当前设备不支持蓝牙")
+                self?.needShowAuthHints(with: "当前设备不支持蓝牙")
                 completed?(false)
             case .resetting, .unknown:
-                self?.delegate?.needShowAuthHints(with: "蓝牙权限未知错误")
+                self?.needShowAuthHints(with: "蓝牙权限未知错误")
                 completed?(false)
             @unknown default:
-                self?.delegate?.needShowAuthHints(with: "蓝牙权限未知错误")
+                self?.needShowAuthHints(with: "蓝牙权限未知错误")
                 completed?(false)
             }
         }
@@ -220,27 +200,28 @@ public class XMAuthManager: NSObject {
         print("MOON__Log  handler.getStatus=\(handler.getStatus.rawValue)")
         switch handler.getStatus {
         case .notDetermined:
+            self.locHandler = handler
+            handler.didUpdateHandler = { [weak self] status in
+                print("MOON__Log  didUpdateHandler status=\(status.rawValue)")
+                switch status {
+                case .notDetermined:
+                    break  // 避免过早销毁
+                case .restricted, .denied:
+                    completed?(false)
+                    self?.locHandler = nil
+                case .authorized, .authorizedWhenInUse, .authorizedAlways:
+                    completed?(true)
+                    self?.locHandler = nil
+                @unknown default:
+                    completed?(false)
+                    self?.locHandler = nil
+                }
+            }
             switch style {
             case .whenInUse:
                 handler.requestWhenInUse()
             case .always:
                 handler.requestAlways()
-            }
-            
-            self.locHandler = handler
-            handler.didUpdateHandler = { [weak self] status in
-                print("MOON__Log  didUpdateHandler status=\(status.rawValue)")
-                defer {
-                    self?.locHandler = nil
-                }
-                switch status {
-                case .notDetermined, .restricted, .denied:
-                    completed?(false)
-                case .authorized, .authorizedWhenInUse, .authorizedAlways:
-                    completed?(true)
-                @unknown default:
-                    completed?(false)
-                }
             }
         case .restricted, .denied:
             let alert = UIAlertController(title: "提示", message: "您已经关闭了本应用的定位权限，相关功能可能无法正常使用，是否需要现在去开启？", preferredStyle: .alert)
@@ -248,7 +229,7 @@ public class XMAuthManager: NSObject {
             alert.addAction(UIAlertAction(title: "去设置", style: .default, handler: { (_) in
                 self.openSysSetting()
             }))
-            self.delegate?.needShowAuthHints(with: alert)
+            self.needShowAuthHints(with: alert)
             completed?(false)
         case .authorized, .authorizedWhenInUse, .authorizedAlways:
             completed?(true)
