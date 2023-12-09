@@ -12,6 +12,8 @@
 @_exported import DTBKit
 @_exported import SnapKit
 
+import CoreLocation
+
 extension DTBKitable {
     
     ///
@@ -25,3 +27,5 @@ extension DTBKitable {
         set { }
     }
 }
+
+extension CLLocationCoordinate2D: DTBKitStructable {}
