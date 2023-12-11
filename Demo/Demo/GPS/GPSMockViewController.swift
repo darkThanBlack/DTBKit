@@ -21,7 +21,64 @@ class GPSMockViewController: UIViewController {
     
     private lazy var lbs = TJStaffCheckInManager()
     
+    //MARK: - Timer
+    
+    private var timer: Timer?
+    
+    private var timeCount: Int = 0
+    
+    private func timerFire() {
+        if self.timer == nil {
+            let t = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(timeHandler), userInfo: nil, repeats: true)
+            t.fire()
+            self.timer = t
+        }
+    }
+    
+    private func timerInvalidate() {
+        self.timer?.invalidate()
+        self.timer = nil
+    }
+    
+    @objc private func timeHandler() {
+        self.timeCount += 1
+        guard self.timeCount % 2 == 0 else {
+            return
+        }
+        
+        var extraText = ""
+        if states != .NO_PERMISSIONS {
+            if let region = lbs.currentRegion {
+                states = .IN_RANGE
+                extraText = "\n name=\(region.name ?? "")"
+            } else {
+                states = .OUT_RANGE
+            }
+        }
+        
+        stateLabel.text = states.rawValue + extraText
+    }
+    
+    enum CheckInStates: String {
+        /// 初始状态 定位中
+        case LOCATION_INIT
+        /// 无权限
+        case NO_PERMISSIONS
+        /// 在考勤范围内
+        case IN_RANGE
+        /// 不在考勤范围内
+        case OUT_RANGE
+    }
+    
+    private var states: CheckInStates = .LOCATION_INIT
+    
     //MARK: Life Cycle
+    
+    deinit {
+        print("MOON__LOG  mock deinit successfuly...")
+        
+        lbs.stopLocation()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,31 +86,35 @@ class GPSMockViewController: UIViewController {
         view.backgroundColor = .white
         
         auths.startAuthorizations(with: [.location(.whenInUse)]) { success in
-            guard success else {
-                return
+            self.states = success ? .LOCATION_INIT : .NO_PERMISSIONS
+            
+            if success {
+                self.lbs.startLocation()
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                    self.mapView.zoomLevel = 15
+                    self.mapView.setCenter(self.mapView.userLocation.coordinate, animated: true)
+                    
+                    self.lbs.locationCallback = { [weak self] p in
+                        self?.mapView.centerCoordinate = p
+                    }
+                }
             }
-            self.mapView.setCenter(self.mapView.userLocation.coordinate, animated: true)
         }
         
         loadViews(in: view)
     }
     
-    private lazy var manager: CLLocationManager = {
-        let manager = CLLocationManager()
-//        manager.delegate = self
-        return manager
-    }()
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        lbs.startLocation()
+        timerFire()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        lbs.stopLocation()
+        timerInvalidate()
     }
     
     @objc private func removeButtonEvent(button: UIButton) {
@@ -63,6 +124,14 @@ class GPSMockViewController: UIViewController {
     
     enum FieldKeys: String {
         case enter_latitude, enter_longitude, enter_radius
+        
+        var desc: String {
+            switch self {
+            case .enter_latitude:  return "(纬度)"
+            case .enter_longitude: return "(经度)"
+            case .enter_radius:    return "(半径)"
+            }
+        }
     }
     
     class CreatingModel {
@@ -85,13 +154,13 @@ class GPSMockViewController: UIViewController {
     
     @objc private func actionsButtonEvent(button: UIButton) {
         let alert = UIAlertController(title: "Menu", message: "desc.", preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "add", style: .default, handler: { _ in
+        alert.addAction(UIAlertAction(title: "添加区域", style: .default, handler: { _ in
             self.addButtonEvent(button: button)
         }))
-        alert.addAction(UIAlertAction(title: "remove", style: .default, handler: { _ in
+        alert.addAction(UIAlertAction(title: "移除区域", style: .default, handler: { _ in
             self.removeButtonEvent(button: button)
         }))
-        alert.addAction(UIAlertAction(title: "user loc.", style: .default, handler: { _ in
+        alert.addAction(UIAlertAction(title: "当前用户位置", style: .default, handler: { _ in
             self.mapView.zoomLevel = 15
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 self.mapView.setCenter(self.mapView.userLocation.coordinate, animated: true)
@@ -103,18 +172,18 @@ class GPSMockViewController: UIViewController {
     }
     
     @objc private func addButtonEvent(button: UIButton) {
-        let alert = UIAlertController(title: "添加围栏", message: "圆形: 经纬度+半径", preferredStyle: .alert)
+        let alert = UIAlertController(title: "添加区域", message: "圆形: 经纬度+半径", preferredStyle: .alert)
         creating = CreatingModel(lati: 0, longi: 0, radius: 0)
         alert.addTextField { field in
-            field.placeholder = FieldKeys.enter_latitude.rawValue
+            field.placeholder = FieldKeys.enter_latitude.rawValue + "," + FieldKeys.enter_latitude.desc
             NotificationCenter.default.addObserver(self, selector: #selector(self.textFieldDidChanged), name: UITextField.textDidChangeNotification, object: field)
         }
         alert.addTextField { field in
-            field.placeholder = FieldKeys.enter_longitude.rawValue
+            field.placeholder = FieldKeys.enter_longitude.rawValue + "," + FieldKeys.enter_longitude.desc
             NotificationCenter.default.addObserver(self, selector: #selector(self.textFieldDidChanged), name: UITextField.textDidChangeNotification, object: field)
         }
         alert.addTextField { field in
-            field.placeholder = FieldKeys.enter_radius.rawValue
+            field.placeholder = FieldKeys.enter_radius.rawValue + "," + FieldKeys.enter_radius.desc
             NotificationCenter.default.addObserver(self, selector: #selector(self.textFieldDidChanged), name: UITextField.textDidChangeNotification, object: field)
         }
         alert.addAction(UIAlertAction(title: "取消", style: .default, handler: { _ in
@@ -125,10 +194,11 @@ class GPSMockViewController: UIViewController {
                 self.creating = nil
                 return
             }
-//            self.lbs.addMonitor(lati: model.lati, longi: model.longi, radius: model.radius)
+            let key = UUID().uuidString
+            self.lbs.addMonitor(list: [TJStaffCheckInRegionModel(region: CLCircularRegion(center: CLLocationCoordinate2D(latitude: model.lati, longitude: model.longi), radius: model.radius, identifier: key), id: 0, name: key)])
             
             self.mapView.zoomLevel = 15
-            let circle = MKCircle(center: XMLBSUtil.transformWGSToGCJ(wgsLocation: CLLocationCoordinate2D(latitude: model.lati, longitude: model.longi)), radius: model.radius)
+            let circle = MKCircle(center: CLLocationCoordinate2D(latitude: model.lati, longitude: model.longi).dtb.isWGS.toGCJ, radius: model.radius)
             self.mapView.addOverlay(circle)
             self.mapView.setCenter(circle.coordinate, animated: true)
         }))
@@ -138,7 +208,8 @@ class GPSMockViewController: UIViewController {
     @objc private func textFieldDidChanged(_ notification: Notification) {
         guard let field = notification.object as? UITextField,
               let value = Double(field.text ?? ""),
-              let key = FieldKeys(rawValue: field.placeholder ?? "") else {
+              let rawValue = field.placeholder?.split(separator: ",").first,
+              let key = FieldKeys(rawValue: String(rawValue)) else {
             return
         }
         switch key {
@@ -156,8 +227,7 @@ class GPSMockViewController: UIViewController {
     private func loadViews(in box: UIView) {
         box.addSubview(mapView)
         box.addSubview(actionsButton)
-//        box.addSubview(addButton)
-//        box.addSubview(removeButton)
+        box.addSubview(stateLabel)
         
         mapView.snp.makeConstraints { make in
             make.top.left.right.bottom.equalTo(box)
@@ -166,41 +236,12 @@ class GPSMockViewController: UIViewController {
             make.centerX.equalTo(box.snp.centerX)
             make.top.equalTo(box.snp.top).offset(120.0)
         }
-
-//        addButton.snp.makeConstraints { make in
-//            make.centerX.equalTo(box.snp.centerX)
-//            make.top.equalTo(box.snp.top).offset(120.0)
-//        }
-//        removeButton.snp.makeConstraints { make in
-//            make.centerX.equalTo(box.snp.centerX)
-//            make.top.equalTo(box.snp.top).offset(160.0)
-//        }
+        stateLabel.snp.makeConstraints { make in
+            make.centerX.equalTo(box.snp.centerX)
+            make.top.equalTo(actionsButton.snp.bottom).offset(16.0)
+            make.width.lessThanOrEqualToSuperview()
+        }
     }
-    
-    private lazy var actionsButton: UIButton = {
-        let button = UIButton(type: .custom)
-        button.backgroundColor = .white
-        button.setTitleColor(.black, for: .normal)
-        button.setTitle("Actions", for: .normal)
-        button.addTarget(self, action: #selector(actionsButtonEvent(button:)), for: .touchUpInside)
-        return button
-    }()
-    
-    private lazy var addButton: UIButton = {
-        let addButton = UIButton(type: .custom)
-        addButton.backgroundColor = .green
-        addButton.setTitle("add", for: .normal)
-        addButton.addTarget(self, action: #selector(addButtonEvent(button:)), for: .touchUpInside)
-        return addButton
-    }()
-    
-    private lazy var removeButton: UIButton = {
-        let removeButton = UIButton(type: .custom)
-        removeButton.backgroundColor = .green
-        removeButton.setTitle("remove", for: .normal)
-        removeButton.addTarget(self, action: #selector(removeButtonEvent(button:)), for: .touchUpInside)
-        return removeButton
-    }()
     
     private lazy var mapView: MKMapView = {
         let view = MKMapView()
@@ -211,6 +252,25 @@ class GPSMockViewController: UIViewController {
         view.showsUserLocation = true
         view.userTrackingMode = .followWithHeading
         return view
+    }()
+    
+    private lazy var actionsButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = .white
+        button.setTitleColor(.black, for: .normal)
+        button.setTitle("菜单", for: .normal)
+        button.addTarget(self, action: #selector(actionsButtonEvent(button:)), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var stateLabel: UILabel = {
+        let stateLabel = UILabel()
+        stateLabel.font = UIFont.systemFont(ofSize: 15.0, weight: .regular)
+        stateLabel.textColor = .orange
+        stateLabel.text = " "
+        stateLabel.numberOfLines = 0
+        stateLabel.textAlignment = .center
+        return stateLabel
     }()
 }
 
@@ -223,6 +283,13 @@ extension GPSMockViewController: MKMapViewDelegate {
             return render
         }
         return MKOverlayPathRenderer(overlay: overlay)
+    }
+    
+    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+        if let p = userLocation.location?.coordinate {
+            print("MOON__Log  userLocation latitude=\(p.latitude), longitude=\(p.longitude)")
+//            mapView.centerCoordinate = p
+        }
     }
 }
 

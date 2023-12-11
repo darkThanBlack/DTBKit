@@ -260,7 +260,7 @@ extension NumberFormatter: DTBKitable, DTBKitChainable {}
 
 extension Decimal: DTBKitStructable {}
 
-extension NSDecimalNumber: DTBKitable {}
+//extension NSDecimalNumber: DTBKitable {}
 
 //MARK: -
 
