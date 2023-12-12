@@ -1,9 +1,9 @@
 //
-//  TJStaffCheckInManager.swift
-//  XMBundleLN
+//  CLLocationCoordinate2D+DTBKit.swift
+//  DTBKit_Example
 //
-//  Created by moonShadow on 2023/12/7
-//  Copyright © 2023 jiejing. All rights reserved.
+//  Created by moonShadow on 2023/12/12
+//  Copyright © 2023 darkThanBlack. All rights reserved.
 //
 //  LICENSE: SAME AS REPOSITORY
 //  Contact me: [GitHub](https://github.com/darkThanBlack)
@@ -12,100 +12,6 @@
 
 import UIKit
 import CoreLocation
-
-//import Butterfly_Business
-
-///
-struct TJStaffCheckInRegionModel {
-    
-    /// WGS84
-    let region: CLCircularRegion
-
-    let id: Int64
-
-    let name: String?
-    
-    init(region: CLCircularRegion, id: Int64, name: String?) {
-        self.region = region
-        self.id = id
-        self.name = name
-    }
-
-//    init?(addressVO: EmployeeAttendanceAddressVO) {
-//        guard addressVO.state != .ON,
-//            let addressId = addressVO.id,
-//              let lati = addressVO.latitude, lati > 0,
-//              let longi = addressVO.longitude, longi > 0,
-//              let radius = addressVO.attendanceRange, radius > 0 else {
-//            return nil
-//        }
-//        self.id = addressId
-//
-//        let center = XMLBSUtil.transformGCJToWGS(location: CLLocationCoordinate2D(latitude: lati, longitude: longi))
-//        self.region = CLCircularRegion(center: center, radius: CLLocationDistance(radius), identifier: UUID().uuidString)
-//        self.name = addressVO.title
-//    }
-}
-
-///
-class TJStaffCheckInManager: NSObject {
-    
-    private var regions: [TJStaffCheckInRegionModel] = []
-    
-    private var currentRegionKey: String? = nil
-    
-    var currentRegion: TJStaffCheckInRegionModel? {
-        return regions.first(where: { $0.region.identifier == currentRegionKey })
-    }
-    
-    func stopMonitor() {
-        regions.removeAll()
-    }
-    
-    func addMonitor(list: [TJStaffCheckInRegionModel]) {
-        self.regions += list
-    }
-    
-    func startLocation() {
-        loc.startUpdatingLocation()
-    }
-    
-    func stopLocation() {
-        loc.stopUpdatingLocation()
-    }
-    
-    private lazy var loc: CLLocationManager = {
-        let manager = CLLocationManager()
-        manager.delegate = self
-        manager.desiredAccuracy = kCLLocationAccuracyBest
-        manager.distanceFilter = kCLDistanceFilterNone
-        return manager
-    }()
-    
-    var locationCallback: ((CLLocationCoordinate2D)->())?
-}
-
-extension TJStaffCheckInManager: CLLocationManagerDelegate {
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let coordinate = locations.last?.coordinate else {
-            return
-        }
-        print("MOON__LOG  lati=\(coordinate.latitude), longti=\(coordinate.longitude)")
-        
-        if let model = regions.first(where: { $0.region.contains(coordinate) }) {
-            currentRegionKey = model.region.identifier
-            print("MOON__LOG  is in region id=\(model.region.identifier)")
-        } else {
-            currentRegionKey = nil
-            print("MOON__LOG  not in all...")
-        }
-        
-        locationCallback?(coordinate)
-    }
-}
-
-//MARK: -
 
 /// Add type mark to reduce conversion frequency.
 ///
@@ -169,9 +75,12 @@ public struct DTBKitCoordinate2DTransfer {
     }
 }
 
+/// Chain tranform
+///
+/// 链式转换
 extension DTBKitWrapper where Base == CLLocationCoordinate2D {
     
-    /// Chain tranform, mark as WGS
+    /// Mark it as WGS
     ///
     /// For example:
     /// ```
@@ -182,7 +91,7 @@ extension DTBKitWrapper where Base == CLLocationCoordinate2D {
         return DTBKitCoordinate2DTransfer(wgs: self.value)
     }
     
-    /// Chain tranform, mark as GCJ
+    /// Mark it as GCJ
     ///
     /// For example:
     /// ```
@@ -193,7 +102,7 @@ extension DTBKitWrapper where Base == CLLocationCoordinate2D {
         return DTBKitCoordinate2DTransfer(gcj: self.value)
     }
     
-    /// Chain tranform, mark as BD
+    /// Mark it as BD
     ///
     /// For example:
     /// ```
@@ -205,6 +114,7 @@ extension DTBKitWrapper where Base == CLLocationCoordinate2D {
     }
 }
 
+///
 extension DTBKitStaticWrapper where T == CLLocationCoordinate2D {
     
     /// WGS-84 --> GCJ-02

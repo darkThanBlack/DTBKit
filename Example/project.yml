@@ -61,7 +61,9 @@ targets:
         group: "Source Codes"
       - path: "../DTBKit/UIKit"
         group: "Source Codes"
-      
+      - path: "../DTBKit/Map"
+        group: "Source Codes"
+        
       ## Resources
       - path: "../DTBKit/Assets"
         group: "Resources"

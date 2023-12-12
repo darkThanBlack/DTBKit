@@ -52,9 +52,13 @@ A personal bundle kit for best practices.
     ss.resource_bundles = {
       'DTBKit-UIKit' => ['DTBKit/Assets/ui-kit.xcassets']
     }
-    
     ss.dependency 'DTBKit/Basic'
     # ss.dependency 'SnapKit', '5.0.1'
+  end
+  
+  s.subspec 'Map' do |ss|
+    ss.source_files = 'DTBKit/Map/**/*'
+    ss.dependency 'DTBKit/Basic'
   end
   
   # s.public_header_files = 'Pod/Classes/**/*.h'

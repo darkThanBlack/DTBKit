@@ -27,5 +27,3 @@ extension DTBKitable {
         set { }
     }
 }
-
-extension CLLocationCoordinate2D: DTBKitStructable {}

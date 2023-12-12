@@ -56,7 +56,9 @@ class GPSMockViewController: UIViewController {
             }
         }
         
-        stateLabel.text = states.rawValue + extraText
+        stateLabel.text = "业务状态\n" + states.rawValue + extraText
+        view.setNeedsLayout()
+        view.layoutIfNeeded()
     }
     
     enum CheckInStates: String {
@@ -94,10 +96,6 @@ class GPSMockViewController: UIViewController {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                     self.mapView.zoomLevel = 15
                     self.mapView.setCenter(self.mapView.userLocation.coordinate, animated: true)
-                    
-                    self.lbs.locationCallback = { [weak self] p in
-                        self?.mapView.centerCoordinate = p
-                    }
                 }
             }
         }
@@ -127,9 +125,9 @@ class GPSMockViewController: UIViewController {
         
         var desc: String {
             switch self {
-            case .enter_latitude:  return "(纬度)"
-            case .enter_longitude: return "(经度)"
-            case .enter_radius:    return "(半径)"
+            case .enter_latitude:  return "(纬度, GCJ02)"
+            case .enter_longitude: return "(经度, GCJ02)"
+            case .enter_radius:    return "(半径, m)"
             }
         }
     }
@@ -153,7 +151,7 @@ class GPSMockViewController: UIViewController {
     private var creating: CreatingModel?
     
     @objc private func actionsButtonEvent(button: UIButton) {
-        let alert = UIAlertController(title: "Menu", message: "desc.", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "功能菜单", message: "虚拟定位需使用 WGS84 坐标系", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "添加区域", style: .default, handler: { _ in
             self.addButtonEvent(button: button)
         }))
@@ -198,9 +196,11 @@ class GPSMockViewController: UIViewController {
             self.lbs.addMonitor(list: [TJStaffCheckInRegionModel(region: CLCircularRegion(center: CLLocationCoordinate2D(latitude: model.lati, longitude: model.longi), radius: model.radius, identifier: key), id: 0, name: key)])
             
             self.mapView.zoomLevel = 15
-            let circle = MKCircle(center: CLLocationCoordinate2D(latitude: model.lati, longitude: model.longi).dtb.isWGS.toGCJ, radius: model.radius)
+            let circle = MKCircle(center: CLLocationCoordinate2D(latitude: model.lati, longitude: model.longi), radius: model.radius)
             self.mapView.addOverlay(circle)
             self.mapView.setCenter(circle.coordinate, animated: true)
+            
+            self.lbs.checkRegionContains(coordinate: self.mapView.userLocation.coordinate)
         }))
         present(alert, animated: true)
     }
@@ -224,23 +224,33 @@ class GPSMockViewController: UIViewController {
     
     //MARK: View
     
+    override func viewDidLayoutSubviews() {
+        mapView.frame = view.bounds
+        actionsButton.bounds = CGRect(x: 0, y: 0, width: 50.0, height: 30.0)
+        actionsButton.center = CGPoint(x: view.bounds.width / 2.0, y: 150.0)
+        
+        let size = stateLabel.sizeThatFits(CGSize(width: 200.0, height: view.bounds.size.height))
+        stateLabel.bounds = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        stateLabel.center = CGPoint(x: view.bounds.width / 2.0, y: actionsButton.frame.maxY + size.height / 2.0 + 16.0)
+    }
+    
     private func loadViews(in box: UIView) {
         box.addSubview(mapView)
         box.addSubview(actionsButton)
         box.addSubview(stateLabel)
         
-        mapView.snp.makeConstraints { make in
-            make.top.left.right.bottom.equalTo(box)
-        }
-        actionsButton.snp.makeConstraints { make in
-            make.centerX.equalTo(box.snp.centerX)
-            make.top.equalTo(box.snp.top).offset(120.0)
-        }
-        stateLabel.snp.makeConstraints { make in
-            make.centerX.equalTo(box.snp.centerX)
-            make.top.equalTo(actionsButton.snp.bottom).offset(16.0)
-            make.width.lessThanOrEqualToSuperview()
-        }
+//        mapView.snp.makeConstraints { make in
+//            make.top.left.right.bottom.equalTo(box)
+//        }
+//        actionsButton.snp.makeConstraints { make in
+//            make.centerX.equalTo(box.snp.centerX)
+//            make.top.equalTo(box.snp.top).offset(120.0)
+//        }
+//        stateLabel.snp.makeConstraints { make in
+//            make.centerX.equalTo(actionsButton.snp.centerX)
+//            make.top.equalTo(actionsButton.snp.bottom).offset(16.0)
+//            make.width.lessThanOrEqualToSuperview()
+//        }
     }
     
     private lazy var mapView: MKMapView = {
@@ -265,6 +275,7 @@ class GPSMockViewController: UIViewController {
     
     private lazy var stateLabel: UILabel = {
         let stateLabel = UILabel()
+        stateLabel.backgroundColor = .white
         stateLabel.font = UIFont.systemFont(ofSize: 15.0, weight: .regular)
         stateLabel.textColor = .orange
         stateLabel.text = " "
@@ -283,13 +294,6 @@ extension GPSMockViewController: MKMapViewDelegate {
             return render
         }
         return MKOverlayPathRenderer(overlay: overlay)
-    }
-    
-    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
-        if let p = userLocation.location?.coordinate {
-            print("MOON__Log  userLocation latitude=\(p.latitude), longitude=\(p.longitude)")
-//            mapView.centerCoordinate = p
-        }
     }
 }
 

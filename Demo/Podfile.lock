@@ -6,7 +6,13 @@ PODS:
     - GCDWebServer/WebUploader
   - DoraemonKit/WithGPS (3.1.3):
     - DoraemonKit/Core
+  - DTBKit (0.1.0):
+    - DTBKit/Basic (= 0.1.0)
+    - DTBKit/Map (= 0.1.0)
+    - DTBKit/UIKit (= 0.1.0)
   - DTBKit/Basic (0.1.0)
+  - DTBKit/Map (0.1.0):
+    - DTBKit/Basic
   - DTBKit/UIKit (0.1.0):
     - DTBKit/Basic
   - FMDB (2.7.5):
@@ -24,6 +30,8 @@ PODS:
 DEPENDENCIES:
   - DoraemonKit/Core (= 3.1.3)
   - DoraemonKit/WithGPS (= 3.1.3)
+  - DTBKit (from `../`)
+  - DTBKit/Map (from `../`)
   - DTBKit/UIKit (from `../`)
   - SnapKit (= 5.0.1)
 
@@ -40,11 +48,11 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   DoraemonKit: 7448814a80d9ca56bc8db9105c464b7ec2e62623
-  DTBKit: 901a1fb57bef26ac43c9bdf7b3ff5b600f81bfe3
+  DTBKit: 57f1a20817401baa64cc7a29ff8e7fc9a8f4855b
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
-PODFILE CHECKSUM: effb21c6b43f1effb9ff5d764026e807239309be
+PODFILE CHECKSUM: fe003184688212415217c559af25159b932bb315
 
 COCOAPODS: 1.12.1
