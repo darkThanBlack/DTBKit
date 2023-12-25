@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		0169083FFEF6AE744A5BDE01 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDAF59F97655EB8E78958AD5 /* AppDelegate.swift */; };
 		08C96E3F7C64BD81F741AE53 /* UIView+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = D532AC4ECE58C61452330FE6 /* UIView+Chain.swift */; };
-		0A6653C7305C8353C7E61FEA /* MathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7830E622F04A3AA897816301 /* MathTests.swift */; };
+		0A6653C7305C8353C7E61FEA /* CGSizeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7830E622F04A3AA897816301 /* CGSizeTests.swift */; };
 		0C1A172E134B1257FB303B8A /* DTBKit.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 3C7D3B41655E7FCD0EEE3DDE /* DTBKit.podspec */; };
 		0D95639B99F2A5832783FEF1 /* project.yml in Resources */ = {isa = PBXBuildFile; fileRef = 70B7C80B5F60A9B0123B9530 /* project.yml */; };
 		0F64E1844071317D1476A995 /* CLLocationCoordinate2D+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57CE57AC008A95B63221C0C /* CLLocationCoordinate2D+DTBKit.swift */; };
@@ -43,6 +43,7 @@
 		A1348D0AEC21FEC0D41CBBE1 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1E7982283574061EF2C6745 /* Launch Screen.storyboard */; };
 		A19AD5535633410E788CC75C /* NSString+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C64E0D719607893FA456DB /* NSString+DTBKit.swift */; };
 		A2AFDD9B2B283E4A00C80B3D /* MKWebView+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AFDD9A2B283E4A00C80B3D /* MKWebView+DTBKit.swift */; };
+		A2C112882B395DF7006390CD /* CGRectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C112872B395DF7006390CD /* CGRectTests.swift */; };
 		A735232D860682E7B7E7ECB0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F814B4B829198871353120F8 /* Images.xcassets */; };
 		A9DE99B858E334528346CE4B /* AlertAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABA054619FB46334287D932 /* AlertAnimation.swift */; };
 		AB3E36DAA3E1FB94F7E84874 /* CGRect+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88629093E8C4B902768DC1C /* CGRect+DTBKit.swift */; };
@@ -105,7 +106,7 @@
 		6B6A36E32E026E46E5902A8A /* NumberFormatter+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NumberFormatter+Chain.swift"; sourceTree = "<group>"; };
 		70B7C80B5F60A9B0123B9530 /* project.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = project.yml; sourceTree = "<group>"; };
 		76F0BA395FE35F6B3FE4809A /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
-		7830E622F04A3AA897816301 /* MathTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathTests.swift; sourceTree = "<group>"; };
+		7830E622F04A3AA897816301 /* CGSizeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGSizeTests.swift; sourceTree = "<group>"; };
 		78775B07CCC6B6E13A0F0C3E /* Int+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+DTBKit.swift"; sourceTree = "<group>"; };
 		7E7AF5AB1220AB72A70116B7 /* NSMutableAttributedString+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+DTBKit.swift"; sourceTree = "<group>"; };
 		7F2FCA141218D38057E977BE /* DTBKit+Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DTBKit+Map.swift"; sourceTree = "<group>"; };
@@ -117,6 +118,7 @@
 		8E8A62935A2045157D726ABE /* Int+XMKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+XMKit.swift"; sourceTree = "<group>"; };
 		9F630BA642462333777F345D /* UIViewController+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+DTBKit.swift"; sourceTree = "<group>"; };
 		A2AFDD9A2B283E4A00C80B3D /* MKWebView+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKWebView+DTBKit.swift"; sourceTree = "<group>"; };
+		A2C112872B395DF7006390CD /* CGRectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGRectTests.swift; sourceTree = "<group>"; };
 		A94332BD9942E3A20F8AC621 /* DTBKit_Example.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = DTBKit_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB470419225C0F4E263C23C7 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		AD3822F1BFE14ECBE1DF3A18 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
@@ -153,7 +155,8 @@
 				0453409D1C44E09800DD04FC /* ArrayTests.swift */,
 				C25FD8787B72EC0EF28984D2 /* DTBBasicTests.swift */,
 				C2AA24A241C15C9783146849 /* IntegerTests.swift */,
-				7830E622F04A3AA897816301 /* MathTests.swift */,
+				7830E622F04A3AA897816301 /* CGSizeTests.swift */,
+				A2C112872B395DF7006390CD /* CGRectTests.swift */,
 			);
 			name = BasicTests;
 			path = ../DTBKit/BasicTests;
@@ -507,9 +510,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				CAC48BEDAFE348570CABBF36 /* ArrayTests.swift in Sources */,
+				A2C112882B395DF7006390CD /* CGRectTests.swift in Sources */,
 				3DBFB3F32E6F295E6FD488F2 /* DTBBasicTests.swift in Sources */,
 				B4490CC1C699377594B729EE /* IntegerTests.swift in Sources */,
-				0A6653C7305C8353C7E61FEA /* MathTests.swift in Sources */,
+				0A6653C7305C8353C7E61FEA /* CGSizeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

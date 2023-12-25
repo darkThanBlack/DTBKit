@@ -19,19 +19,18 @@ extension DTBKitWrapper where Base == CGRect {
     
     /// >= 0.0
     public var width: CGFloat {
-        return me.size.dtb.width
+        return Swift.max(me.size.width, 0)
     }
     
     /// >= 0.0
     public var height: CGFloat {
-        return me.size.dtb.height
+        return Swift.max(me.size.height, 0)
     }
     
     ///
     public var isEmpty: Bool {
-        return me.size.dtb.isEmpty
+        return (width == 0) || (height == 0)
     }
-    
 }
 
 //Coordinate

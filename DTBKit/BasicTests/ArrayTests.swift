@@ -25,7 +25,9 @@ final class ArrayTests: XCTestCase {
     func testIndex() throws {
         let list = [1, 2, 3]
         
+        XCTAssert(list.dtb[-1] == nil)
         XCTAssert(list.dtb[0] == 1)
+        XCTAssert(list.dtb[2] == 3)
         XCTAssert(list.dtb[3] == nil)
     }
 }

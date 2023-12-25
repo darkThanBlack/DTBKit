@@ -27,10 +27,6 @@ final class MathTests: XCTestCase {
     // MARK: - Number
     
     func testNumberBasic() throws {
-        let d1: Double = 3.0
-//        XCTAssert(d1.dtb.div(2) == (d1 / 2.0))
-//        XCTAssert(d1.dtb.div(0) == d1)
-//        XCTAssert(d1.dtb.div(-1) == (d1 / -1))
     }
     
     // MARK: - CGSize
@@ -110,10 +106,5 @@ final class MathTests: XCTestCase {
         margin()
         padding()
         aspect()
-    }
-    
-    func testCGRect() throws {
-        
-        
     }
 }

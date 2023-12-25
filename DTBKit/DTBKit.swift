@@ -84,6 +84,10 @@ extension DTBKitStructable {
         get { return DTBKitStaticWrapper() }
         set { }
     }
+    
+    public var dtb_set: DTBKitMutableWrapper<Self> {
+        return DTBKitMutableWrapper(self)
+    }
 }
 
 //MARK: - Wrapper
@@ -167,8 +171,8 @@ extension DTBKitWrapper where Base: DTBKitStructable & DTBKitChainable {
     ///
     /// Since no object is explicitly held at creation time, "mutating" does not suffice.
     ///
-    /// 要想达到类似于修改值类型属性的效果，需要先用该关键字进行一次转换，``mutating`` 和 ``keyPath`` 等系统特性都有各自的不便之处。
-    /// 并且一定要注意使用时每个对象的内存地址也是不同的。
+    /// struct 需要先用该关键字进行一次转换以达到类似 ``mutating`` 的效果， ``keyPath`` 等系统特性都有各自的不便之处。
+    /// 并且一定要注意每次调用后，每个对象的内存地址也是不同的。
     ///
     /// Usage example:
     /// ```
@@ -183,10 +187,10 @@ extension DTBKitWrapper where Base: DTBKitStructable & DTBKitChainable {
     ///    print("a != b != c")
     ///    print("a, b, c 内存地址不同！")
     /// ```
-    public var `set`: DTBKitMutableWrapper<Base> {
-        get { return DTBKitMutableWrapper(me) }
-        set { }
-    }
+//    public var `set`: DTBKitMutableWrapper<Base> {
+//        get { return DTBKitMutableWrapper(me) }
+//        set { }
+//    }
 }
 
 /// Struct chain syntax.

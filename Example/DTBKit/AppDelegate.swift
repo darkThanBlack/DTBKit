@@ -43,12 +43,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ///
         /// a, b, c 为不同对象
         func mem_cow_01() {
-            let a: [NSAttributedString.Key : Any] = [:].dtb.set.font(.systemFont(ofSize: 13)).value
-            let b = a.dtb.set.foregroundColor(.white).value
-            let c = b.dtb.set.font(.systemFont(ofSize: 15.0)).value
-            b.dtb.set.foregroundColor(.black)
-            
-            print("\(a[.font]) \n \(b[.foregroundColor]) \n \(c[.font])")
+//            let a: [NSAttributedString.Key : Any] = [:].dtb.set.font(.systemFont(ofSize: 13)).value
+//            let b = a.dtb.set.foregroundColor(.white).value
+//            let c = b.dtb.set.font(.systemFont(ofSize: 15.0)).value
+//            b.dtb.set.foregroundColor(.black)
+//
+//            print("\(a[.font]) \n \(b[.foregroundColor]) \n \(c[.font])")
         }
         
         /// 检查对象引用情况
