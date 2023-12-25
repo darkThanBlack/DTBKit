@@ -43,6 +43,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ///
         /// a, b, c 为不同对象
         func mem_cow_01() {
+            var d1 = CGSize(width: 1, height: 2)
+            
+            withUnsafePointer(to: &d1) { ptr in
+                print("d1=\(ptr)")
+            }
+            
+//            d1[.font] = UIFont.systemFont(ofSize: 14.0)
+//            var d2 = d1
+//            d2[.font] = UIFont.systemFont(ofSize: 15.0)
+            
+            func setup<T>(_ def: inout T, handler: ((inout T) -> Void)) {
+                handler(&def)
+            }
+            
+            setup(&d1, handler: { tmp in
+                withUnsafePointer(to: &tmp) { ptr in
+                    print("tmp_before=\(ptr)")
+                }
+                tmp.width = 3
+                withUnsafePointer(to: &tmp) { ptr in
+                    print("tmp_after=\(ptr)")
+                }
+//                return tmp
+            })
+            
+//            withUnsafePointer(to: &d2) { ptr in
+//                print("d2=\(ptr)")
+//            }
+            
+            print("")
+            
 //            let a: [NSAttributedString.Key : Any] = [:].dtb.set.font(.systemFont(ofSize: 13)).value
 //            let b = a.dtb.set.foregroundColor(.white).value
 //            let c = b.dtb.set.font(.systemFont(ofSize: 15.0)).value
