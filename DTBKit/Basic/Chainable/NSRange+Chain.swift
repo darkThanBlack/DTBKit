@@ -12,7 +12,7 @@
 
 import UIKit
 
-///
+/// Length will always >= 0.0 semantically.
 extension DTBKitMutableWrapper where Base == NSRange {
     
     ///
@@ -22,7 +22,7 @@ extension DTBKitMutableWrapper where Base == NSRange {
         return self
     }
     
-    ///
+    /// Always >= 0.0.
     @discardableResult
     public func length(_ value: Int) -> Self where Base: DTBKitChainable {
         me.length = max(0, value)

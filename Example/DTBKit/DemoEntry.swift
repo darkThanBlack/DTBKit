@@ -14,12 +14,14 @@ import UIKit
 ///
 extension DemoCellModel {
     
-    enum CellType: String, CaseIterable {
+    enum BaseCellType: String, CaseIterable {
         
-        case edgeLabel, playGround, phoneCall, hexColor
+        case chain_struct, chain_class, edgeLabel, playGround, phoneCall, hexColor
         
         var desc: String? {
             switch self {
+            case .chain_struct:  return "值类型内存状态测试"
+            case .chain_class:   return "引用类型内存状态测试"
             case .edgeLabel:  return "带内边距的 UILabel"
             default:
                 return nil
@@ -33,16 +35,18 @@ extension DemoSectionModel {
     
     enum SectionType: String, CaseIterable {
         
-        case `default`
+        case base
         
         var desc: String? {
-            return nil
+            switch self {
+            case .base:  return nil
+            }
         }
         
-        var cells: [DemoCellModel.CellType] {
+        var cells: [DemoCellModel.BaseCellType] {
             switch self {
-            case .default:
-                return DemoCellModel.CellType.allCases
+            case .base:
+                return DemoCellModel.BaseCellType.allCases
             }
         }
     }
@@ -66,6 +70,68 @@ extension DemoEntry: UITableViewDelegate {
         let cellModel = sections[indexPath.section].cells[indexPath.row]
         
         switch cellModel.type {
+        case .chain_struct:
+            /// Note: The situation may different when a supports "copy-on-write".
+            ///
+            /// 注意: 当 a 支持 COW 时情况有所不同。
+            func mem_test() {
+                var a = CGSize.dtb.create.width(1).height(2)
+                var original = a.value
+                print("a.width=\(a.value.width)")
+                withUnsafePointer(to: &a, { ptr in
+                    print("a.ptr=\(ptr)")
+                })
+                
+                print("STEP 01")
+                a.width(2)
+                print("a.width=\(a.value.width)")
+                withUnsafePointer(to: &a, { ptr in
+                    print("a.ptr=\(ptr)")
+                })
+                
+                print("STEP 02")
+                var b = a.width(3)
+                
+                print("a.width=\(a.value.width)")
+                print("b.width=\(b.value.width)")
+                withUnsafePointer(to: &a, { ptr in
+                    print("a.ptr=\(ptr)")
+                })
+                withUnsafePointer(to: &b, { ptr in
+                    print("b.ptr=\(ptr)")
+                })
+                
+                print("STEP 03")
+                var result = b.width(4).value
+                
+                print("original=\(original.width)")
+                print("result.width=\(result.width)")
+                withUnsafePointer(to: &original, { ptr in
+                    print("original.ptr=\(ptr)")
+                })
+                withUnsafePointer(to: &result, { ptr in
+                    print("result.ptr=\(ptr)")
+                })
+            }
+            mem_test()
+        case .chain_class:
+            /// a, b, c 对象相同
+            func mem_test_02() {
+                let a = UILabel().dtb.text("a").value
+                let b = a.dtb.isUserInteractionEnabled(false).value
+                let c = b.dtb.text("c").value
+                b.dtb.text("b")
+                
+                print("a.text=\(a.text!)")
+                print("a.ptr=\(Unmanaged<AnyObject>.passUnretained(a).toOpaque())")
+                
+                print("b.text=\(b.text!)")
+                print("b.ptr=\(Unmanaged<AnyObject>.passUnretained(a).toOpaque())")
+
+                print("c.text=\(c.text!)")
+                print("c.ptr=\(Unmanaged<AnyObject>.passUnretained(a).toOpaque())")
+            }
+            mem_test_02()
         case .edgeLabel:
             SimpleVisualViewController.show(in: {
                 let label = EdgeLabel()

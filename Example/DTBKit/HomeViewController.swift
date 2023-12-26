@@ -40,7 +40,7 @@ extension DemoSectionModel: DemoDescribable {
 
 struct DemoCellModel {
     
-    let type: CellType
+    let type: BaseCellType
 }
 
 extension DemoCellModel: DemoDescribable {
@@ -220,7 +220,7 @@ class DemoCell: UITableViewCell {
     private lazy var detailLabel: UILabel = {
         let detailLabel = UILabel()
         detailLabel.font = UIFont.systemFont(ofSize: 11.0, weight: .regular)
-        detailLabel.textColor = .lightText
+        detailLabel.textColor = .lightGray
         detailLabel.numberOfLines = 0
         return detailLabel
     }()

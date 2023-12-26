@@ -16,25 +16,26 @@ import UIKit
 
 //MARK: - Name spaces
 
+/// Static name space.
+///
+/// 静态常量。
+public enum DTB {}
+
 /// Indicate which one implements the namespace for ``class``.
 ///
 /// 核心的引用对象协议。
-///
-/// Use the sample code to convert it to a special name for your own project:
-/// ```
-/// extension DTBKitable {
-///    public var your_proj_prefix: DTBKitWrapper<Self> { return dtb }
-/// }
-/// ```
 public protocol DTBKitable: AnyObject {}
 
 extension DTBKitable {
     
     /// Namespace for instance method.
     ///
-    /// 隔离成员函数。
+    /// 成员函数。
     ///
-    /// Usage: ``UIView().dtb``
+    /// Usage example:
+    /// ```
+    ///     UIView().dtb
+    /// ```
     public var dtb: DTBKitWrapper<Self> {
         get { return DTBKitWrapper(self) }
         set { }
@@ -42,9 +43,12 @@ extension DTBKitable {
     
     /// Namespace for static method.
     ///
-    /// 隔离静态方法。
+    /// 静态方法。
     ///
-    ///  Usage: ``UIView.dtb``
+    /// Usage example:
+    /// ```
+    ///     UIView.dtb
+    /// ```
     public static var dtb: DTBKitStaticWrapper<Self> {
         get { return DTBKitStaticWrapper() }
         set { }
@@ -54,22 +58,18 @@ extension DTBKitable {
 /// Indicate which one implements the namespace for ``struct``.
 ///
 /// 核心的值对象协议。
-///
-/// Use the sample code to convert it to a special name for your own project:
-/// ```
-/// extension DTBKitStructable {
-///    public var your_proj_prefix: DTBKitWrapper<Self> { return dtb }
-/// }
-/// ```
 public protocol DTBKitStructable {}
 
 extension DTBKitStructable {
     
     /// Namespace for instance method.
     ///
-    /// 隔离成员函数。
+    /// 成员函数。
     ///
-    /// Usage: ``UIView().dtb``
+    /// Usage example:
+    /// ```
+    ///     UIView().dtb
+    /// ```
     public var dtb: DTBKitWrapper<Self> {
         get { return DTBKitWrapper(self) }
         set { }
@@ -77,16 +77,15 @@ extension DTBKitStructable {
     
     /// Namespace for static method.
     ///
-    /// 隔离静态方法。
+    /// 静态方法。
     ///
-    /// Usage: ``UIView.dtb``
+    /// Usage example:
+    /// ```
+    ///     UIView.dtb
+    /// ```
     public static var dtb: DTBKitStaticWrapper<Self> {
         get { return DTBKitStaticWrapper() }
         set { }
-    }
-    
-    public var dtb_set: DTBKitMutableWrapper<Self> {
-        return DTBKitMutableWrapper(self)
     }
 }
 
@@ -94,14 +93,14 @@ extension DTBKitStructable {
 
 /// Mainly instance wrapper.
 ///
-/// 对象类型容器。
+/// 对象容器。
 public struct DTBKitWrapper<Base> {
     internal let me: Base
     public init(_ value: Base) { self.me = value }
     
     /// Default unbox, use it to get actual value.
     ///
-    /// 默认关键字，拆箱。
+    /// 默认拆箱关键字。
     ///
     /// Usage example:
     /// ```
@@ -109,8 +108,8 @@ public struct DTBKitWrapper<Base> {
     /// ```
     public var value: Base { return me }
     
-    ///
-    public func filter(_ handler: ((Self) -> Bool)) -> Self? {
+    /// [UNSTABLE]
+    internal func filter(_ handler: ((Self) -> Bool)) -> Self? {
         return handler(self) ? self : nil
     }
 }
@@ -120,13 +119,13 @@ public struct DTBKitWrapper<Base> {
 /// 静态方法容器。
 public struct DTBKitStaticWrapper<T> {
     
-    /// [UNSTABLE] 施工中
+    /// [UNSTABLE]
     internal var serials: [(() -> Bool)] = []
 }
 
-/// In order to support struct "chainable".
+/// Support struct "chainable". In order to prevent ambiguity in memory semantics when used by business parties, currently only static methods are allowed to be used for quick creation.
 ///
-/// 因为值类型无法直接修改，专门提供一个容器。
+/// 可变值类型容器。为了防止业务方使用时在内存语义上出现歧义，目前只允许用静态方法快速创建对象时使用。
 public class DTBKitMutableWrapper<Base> {
     internal var me: Base
     public init(_ value: Base) { self.me = value }
@@ -134,11 +133,9 @@ public class DTBKitMutableWrapper<Base> {
 
 //MARK: - Chain
 
-/// Indicate which one supports "chainable".
+/// Indicate which one supports "chainable". In order to prevent ambiguity in memory semantics when used by business parties, it is only recommended to use reference types.
 ///
-/// 标明哪些对象支持通过链式语法来修改属性，并提供了额外的关键字。
-///
-/// 注意引用类型和值类型完全不同。
+/// 标明支持通过链式语法来修改属性，并提供了额外的关键字。为了防止业务方使用时在内存语义上出现歧义，只建议引用类型使用。
 public protocol DTBKitChainable {}
 
 /// Class only.
@@ -146,7 +143,7 @@ extension DTBKitWrapper where Base: DTBKitable & DTBKitChainable {
     
     /// Custom updates, auto unbox.
     ///
-    /// 任意的引用类型都可以通过此方法自行拆箱更新。
+    /// 通用的自行拆箱更新。
     ///
     /// Usage example:
     /// ```
@@ -164,46 +161,126 @@ extension DTBKitWrapper where Base: DTBKitable & DTBKitChainable {
     }
 }
 
-/// Struct only.
-extension DTBKitWrapper where Base: DTBKitStructable & DTBKitChainable {
+/// Indicate which one supports "chainable". The chain syntax of value types can be implemented to a certain extent, but this conflicts with the basic semantics of copy during assignment, so it is currently limited to use in rapid creation.
+///
+/// 标明支持通过链式语法来修改属性，并提供了额外的关键字。值类型的链式语法可以在一定程度上实现，但这样和赋值时 copy 的基本语义冲突，所以目前限制在快速创建时使用。
+public protocol DTBKitStructChainable: DTBKitChainable {
     
-    /// Simply wrap object to class value.
+    /// [PRIVATE] Provide default init object for ``DTBKitStaticWrapper``. Do not use.
     ///
-    /// Since no object is explicitly held at creation time, "mutating" does not suffice.
+    /// 向类方法提供默认创建的对象。不要外部使用。
+    static func dtb_def_() -> Self
+}
+
+/// Struct only.
+extension DTBKitStaticWrapper where T: DTBKitStructable & DTBKitStructChainable {
+    
+    /// Allows chaining syntax to quickly create objects. Note: Unless you understand the characteristics of value types, it is not recommended to use intermediate variables in procedures. Please refer to ``DemoEntry.swift`` for details.
     ///
-    /// struct 需要先用该关键字进行一次转换以达到类似 ``mutating`` 的效果， ``keyPath`` 等系统特性都有各自的不便之处。
-    /// 并且一定要注意每次调用后，每个对象的内存地址也是不同的。
+    /// 允许用链式语法来快速创建对象。注意：除非你理解值类型的特性，否则过程中不建议使用中间变量。具体请参照 ``DemoEntry.swift``。
     ///
     /// Usage example:
     /// ```
-    ///     var result = CGSize().dtb.set.width(1.0).value
-    ///     result.dtb.set.height(2.0)
+    ///    let dict: [NSAttributedString.Key: Any] = .dtb.create
+    ///        .foregroundColor(UIColor.black)
+    ///        .font(UIFont.systemFont(ofSize: 13.0))
+    ///        .value
     ///
-    ///    let a = [:]
-    ///    let b = a.dtb.set.foregroundColor(.white).value
-    ///    let c = b.dtb.set.font(.systemFont(ofSize: 15.0)).value
-    ///    b.dtb.set.foregroundColor(.black)
-    ///
-    ///    print("a != b != c")
-    ///    print("a, b, c 内存地址不同！")
+    ///    var a = CGSize.dtb.create.width(1).height(2).value
     /// ```
-//    public var `set`: DTBKitMutableWrapper<Base> {
-//        get { return DTBKitMutableWrapper(me) }
-//        set { }
-//    }
+    public var create: DTBKitMutableWrapper<T> {
+        return DTBKitMutableWrapper(T.dtb_def_())
+    }
 }
 
 /// Struct chain syntax.
+///
+/// 额外关键字。
 extension DTBKitMutableWrapper where Base: DTBKitStructable & DTBKitChainable {
     
-    /// Convert back to mainly wrapper to use other methods.
-    public var then: DTBKitWrapper<Base> { return me.dtb }
+    /// [UNSTABLE] Convert back to mainly wrapper to use other methods.
+    ///
+    /// 转换为通用扩展以便使用其他能力。
+    internal var then: DTBKitWrapper<Base> { return me.dtb }
     
-    /// Unbox.
+    /// Default unbox, use it to get actual value.
+    ///
+    /// 默认拆箱关键字。
     public var value: Base { return me }
 }
 
-//MARK: - UNSTABLE: 施工中
+//MARK: - Declare
+
+extension Int: DTBKitStructable {}
+
+extension Int8: DTBKitStructable {}
+
+extension Int16: DTBKitStructable {}
+
+extension Int32: DTBKitStructable {}
+
+extension Int64: DTBKitStructable {}
+
+extension Float: DTBKitStructable {}
+
+extension Double: DTBKitStructable {}
+
+extension NSNumber: DTBKitable {}
+
+extension NumberFormatter: DTBKitable, DTBKitChainable {}
+
+extension Decimal: DTBKitStructable {}
+
+//MARK: -
+
+extension String: DTBKitStructable {}
+
+extension CGSize: DTBKitStructable, DTBKitStructChainable {
+    public static func dtb_def_() -> CGSize {
+        return .zero
+    }
+}
+
+extension CGRect: DTBKitStructable {}
+
+//MARK: -
+
+extension Array: DTBKitStructable {}
+
+extension Dictionary: DTBKitStructable, DTBKitStructChainable {
+    public static func dtb_def_() -> Dictionary {
+        return [:]
+    }
+}
+
+//MARK: -
+
+extension NSString: DTBKitable {}
+
+extension NSMutableAttributedString: DTBKitable, DTBKitChainable {}
+
+extension NSRange: DTBKitStructable, DTBKitStructChainable {
+    public static func dtb_def_() -> NSRange {
+        return NSRange(location: 0, length: 0)
+    }
+}
+
+extension UIColor: DTBKitable {}
+
+extension CIImage: DTBKitable {}
+
+extension CGImage: DTBKitable {}
+
+extension UIImage: DTBKitable {}
+
+extension UIView: DTBKitable, DTBKitChainable {}
+
+extension UIViewController: DTBKitable {}
+
+@available(iOS 13.0, *)
+extension UIWindowScene: DTBKitable {}
+
+//MARK: - UNSTABLE
 
 extension DTBKitStaticWrapper where T: DTBKitChainable {
     
@@ -236,69 +313,3 @@ extension DTBKitStaticWrapper where T: DTBKitChainable {
         fire()
     }
 }
-
-//MARK: - Static
-
-///
-public enum DTB {}
-
-//MARK: -
-
-extension Int: DTBKitStructable {}
-
-extension Int8: DTBKitStructable {}
-
-extension Int16: DTBKitStructable {}
-
-extension Int32: DTBKitStructable {}
-
-extension Int64: DTBKitStructable {}
-
-extension Float: DTBKitStructable {}
-
-extension Double: DTBKitStructable {}
-
-extension NSNumber: DTBKitable {}
-
-extension NumberFormatter: DTBKitable, DTBKitChainable {}
-
-extension Decimal: DTBKitStructable {}
-
-//extension NSDecimalNumber: DTBKitable {}
-
-//MARK: -
-
-extension String: DTBKitStructable {}
-
-extension CGSize: DTBKitStructable, DTBKitChainable {}
-
-extension CGRect: DTBKitStructable {}
-
-//MARK: -
-
-extension Array: DTBKitStructable {}
-
-extension Dictionary: DTBKitStructable, DTBKitChainable {}
-
-//MARK: -
-
-extension NSString: DTBKitable {}
-
-extension NSMutableAttributedString: DTBKitable, DTBKitChainable {}
-
-extension NSRange: DTBKitStructable, DTBKitChainable {}
-
-extension UIColor: DTBKitable {}
-
-extension CIImage: DTBKitable {}
-
-extension CGImage: DTBKitable {}
-
-extension UIImage: DTBKitable {}
-
-extension UIView: DTBKitable, DTBKitChainable {}
-
-extension UIViewController: DTBKitable {}
-
-@available(iOS 13.0, *)
-extension UIWindowScene: DTBKitable {}

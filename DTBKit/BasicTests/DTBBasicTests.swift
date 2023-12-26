@@ -19,20 +19,16 @@ final class DTBBasicTests: XCTestCase {
     
     func testChainer() throws {
         
-        func chain_another_wrapper() {
+        func chainer() {
+            var a: CGSize = .dtb.create.width(1).height(2).value
+            XCTAssert(a.width == 1)
+            XCTAssert(a.height == 2)
             
+            var b: CGSize = .dtb.create.width(-3).height(-4).value
+            XCTAssert(b.width == 0)
+            XCTAssert(b.height == 0)
         }
         
-        func chain_struct() {
-//            var a = CGSize(width: 1, height: 2)
-//            a.dtb.set.width(3)
-//            let b = a.dtb.set.height(4).value
-//            XCTAssert(a.width == 1)
-//            XCTAssert(b.height == 4)
-//            XCTAssert(a != b)
-        }
-        
-        chain_another_wrapper()
-        chain_struct()
+        chainer()
     }
 }
