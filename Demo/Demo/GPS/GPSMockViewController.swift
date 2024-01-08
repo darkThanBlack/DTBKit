@@ -14,7 +14,7 @@ import UIKit
 import MapKit
 import SnapKit
 
-///
+/// https://gpx.studio/
 class GPSMockViewController: UIViewController {
     
     private lazy var auths = XMAuthManager()

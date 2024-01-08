@@ -1,3 +1,18 @@
-PODFILE CHECKSUM: 9851a0a11e587ae6073c58dbe4e6d46be74bda68
+PODS:
+  - DTBKit/Basic (0.1.0)
+  - DTBKit/Basic/Tests (0.1.0)
 
-COCOAPODS: 1.12.1
+DEPENDENCIES:
+  - DTBKit/Basic (from `../`)
+  - DTBKit/Basic/Tests (from `../`)
+
+EXTERNAL SOURCES:
+  DTBKit:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  DTBKit: de8cd7dc0b776628b5d79e08e8dc259200ac59e2
+
+PODFILE CHECKSUM: 4518200e709eb7f2b0ec6d9ed58fdf705532eef5
+
+COCOAPODS: 1.13.0

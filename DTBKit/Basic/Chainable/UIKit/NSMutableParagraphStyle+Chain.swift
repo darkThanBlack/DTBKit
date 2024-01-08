@@ -1,6 +1,6 @@
 //
 //  NSMutableParagraphStyle+Chain.swift
-//  DTBKit_Example
+//  XMKit_Example
 //
 //  Created by moonShadow on 2023/10/23
 //  Copyright © 2023 darkThanBlack. All rights reserved.
@@ -13,7 +13,7 @@
 import UIKit
 
 ///
-extension DTBKitWrapper where Base: NSMutableParagraphStyle & DTBKitChainable {
+extension XMKitWrapper where Base: NSMutableParagraphStyle & XMKitChainable {
     
     @discardableResult
     public func lineSpacing(_ value: CGFloat) -> Self {

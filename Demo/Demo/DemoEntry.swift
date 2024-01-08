@@ -16,7 +16,7 @@ extension DemoCellModel {
     
     enum CellType: String, CaseIterable {
         
-        case edgeLabel, bundleImage
+        case edgeLabel, gps, image
         
         var desc: String? {
             switch self {
@@ -75,8 +75,11 @@ extension DemoEntry: UITableViewDelegate {
                 label.edgeInsets = UIEdgeInsets(top: 4.0, left: 16.0, bottom: 8.0, right: 32.0)
                 return label
             }, behavior: .center)
-        case .bundleImage:
+        case .gps:
             let vc = GPSMockViewController()
+            UIViewController.dtb.topMost()?.navigationController?.pushViewController(vc, animated: true)
+        case .image:
+            let vc = PlaygroundViewController()
             UIViewController.dtb.topMost()?.navigationController?.pushViewController(vc, animated: true)
         }
     }

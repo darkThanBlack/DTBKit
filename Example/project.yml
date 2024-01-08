@@ -11,8 +11,8 @@ targets:
     platformSuffix: ""
     scheme:
 #      buildImplicitDependencies: true
-      testTargets:
-        - DTBKit_Tests
+      # testTargets:
+      #   - DTBKit_Tests
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: org.darkThanBlack.demo.DTBKit
@@ -55,18 +55,18 @@ targets:
         group: "Examples"
       
       ## Sources
-      - path: "../DTBKit/DTBKit.swift"
-        group: "Source Codes"
-      - path: "../DTBKit/Basic"
-        group: "Source Codes"
-      - path: "../DTBKit/UIKit"
-        group: "Source Codes"
-      - path: "../DTBKit/Map"
-        group: "Source Codes"
+      # - path: "../DTBKit/DTBKit.swift"
+      #   group: "Source Codes"
+      # - path: "../DTBKit/Basic"
+      #   group: "Source Codes"
+      # - path: "../DTBKit/UIKit"
+      #   group: "Source Codes"
+      # - path: "../DTBKit/Map"
+      #   group: "Source Codes"
         
-      ## Resources
-      - path: "../DTBKit/Assets"
-        group: "Resources"
+      # ## Resources
+      # - path: "../DTBKit/Assets"
+      #   group: "Resources"
       
       
 #  DTBKit_Basic:
@@ -86,25 +86,25 @@ targets:
 #      base:
 #        GENERATE_INFOPLIST_FILE: true
 
-  DTBKit_Tests:
-    type: bundle.unit-test
-    platform: [iOS]
-    platformSuffix: ""
+#   DTBKit_Tests:
+#     type: bundle.unit-test
+#     platform: [iOS]
+#     platformSuffix: ""
     
-    sources:
-      - path: "../DTBKit/BasicTests/"
-        group: "Unit Tests"
-    settings:
-      # 以前没有 ``BUNDLE_EXECUTABLE_FOLDER_PATH`` 定义
-      # https://developer.apple.com/forums/thread/723699
-      # TEST_HOST: $(BUILT_PRODUCTS_DIR)/DTBKit_Example.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/DTBKit_Example
-      PRODUCT_BUNDLE_IDENTIFIER: org.darkThanBlack.demo.DTBKit
-      BUNDLE_LOADER: $(TEST_HOST)
-      GENERATE_INFOPLIST_FILE: true
-      IPHONEOS_DEPLOYMENT_TARGET: 10.0
-      SWIFT_VERSION: 5.0
-      EXCLUDED_ARCHS[sdk=iphonesimulator*]: arm64
-      CLANG_CXX_LANGUAGE_STANDARD: "gnu++20"
-    dependencies:
-#      - target: DTBKit_Basic
-      - target: DTBKit_Example
+#     sources:
+#       - path: "../DTBKit/BasicTests/"
+#         group: "Unit Tests"
+#     settings:
+#       # 以前没有 ``BUNDLE_EXECUTABLE_FOLDER_PATH`` 定义
+#       # https://developer.apple.com/forums/thread/723699
+#       # TEST_HOST: $(BUILT_PRODUCTS_DIR)/DTBKit_Example.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/DTBKit_Example
+#       PRODUCT_BUNDLE_IDENTIFIER: org.darkThanBlack.demo.DTBKit
+#       BUNDLE_LOADER: $(TEST_HOST)
+#       GENERATE_INFOPLIST_FILE: true
+#       IPHONEOS_DEPLOYMENT_TARGET: 10.0
+#       SWIFT_VERSION: 5.0
+#       EXCLUDED_ARCHS[sdk=iphonesimulator*]: arm64
+#       CLANG_CXX_LANGUAGE_STANDARD: "gnu++20"
+#     dependencies:
+# #      - target: DTBKit_Basic
+#       - target: DTBKit_Example

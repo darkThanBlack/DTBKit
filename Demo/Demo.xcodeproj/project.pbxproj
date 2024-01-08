@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		17C97A1959FB3D936A165344 /* Pods_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03231D6B621BD58362240745 /* Pods_Demo.framework */; };
-		A26114B82B271E1D0092AEB7 /* track01.gpx in Resources */ = {isa = PBXBuildFile; fileRef = A26114B72B271E1D0092AEB7 /* track01.gpx */; };
+		88D53BC42B340BEA0042B151 /* PlaygroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D53BC32B340BEA0042B151 /* PlaygroundViewController.swift */; };
 		A28AFEBF2B1DD7C000D2921D /* TJStaffCheckInManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28AFEBE2B1DD7C000D2921D /* TJStaffCheckInManager.swift */; };
 		A2BFE7EC2AB825FD0095734C /* DemoEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BFE7EB2AB825FD0095734C /* DemoEntry.swift */; };
 		A2C026D52AB7FCB1006F6F39 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C026D42AB7FCB1006F6F39 /* AppDelegate.swift */; };
@@ -55,7 +55,7 @@
 		03231D6B621BD58362240745 /* Pods_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		23AACECBECCD52A644EC477A /* Pods-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Demo.debug.xcconfig"; path = "Target Support Files/Pods-Demo/Pods-Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		4E76E3403E3158EF5C91AEF2 /* Pods-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Demo.release.xcconfig"; path = "Target Support Files/Pods-Demo/Pods-Demo.release.xcconfig"; sourceTree = "<group>"; };
-		A26114B72B271E1D0092AEB7 /* track01.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = track01.gpx; sourceTree = "<group>"; };
+		88D53BC32B340BEA0042B151 /* PlaygroundViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaygroundViewController.swift; sourceTree = "<group>"; };
 		A28AFEBE2B1DD7C000D2921D /* TJStaffCheckInManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TJStaffCheckInManager.swift; sourceTree = "<group>"; };
 		A2BFE7EB2AB825FD0095734C /* DemoEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoEntry.swift; sourceTree = "<group>"; };
 		A2C026D12AB7FCB1006F6F39 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -98,7 +98,6 @@
 		A2C0271F2AB7FF86006F6F39 /* DriftWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriftWindow.swift; sourceTree = "<group>"; };
 		A2C31F632B1F4739004E0AAE /* XMAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMAuthManager.swift; sourceTree = "<group>"; };
 		A2D673E82B1F143C00FB2362 /* GPSMockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSMockViewController.swift; sourceTree = "<group>"; };
-		A2E42B5F2B207F3800135B8F /* track02.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = track02.gpx; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,13 +129,19 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		88D53BC22B340BD00042B151 /* Playground */ = {
+			isa = PBXGroup;
+			children = (
+				88D53BC32B340BEA0042B151 /* PlaygroundViewController.swift */,
+			);
+			path = Playground;
+			sourceTree = "<group>";
+		};
 		A28AFEBD2B1DD79900D2921D /* GPS */ = {
 			isa = PBXGroup;
 			children = (
-				A26114B72B271E1D0092AEB7 /* track01.gpx */,
 				A28AFEBE2B1DD7C000D2921D /* TJStaffCheckInManager.swift */,
 				A2D673E82B1F143C00FB2362 /* GPSMockViewController.swift */,
-				A2E42B5F2B207F3800135B8F /* track02.gpx */,
 			);
 			path = GPS;
 			sourceTree = "<group>";
@@ -162,6 +167,7 @@
 		A2C026D32AB7FCB1006F6F39 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
+				88D53BC22B340BD00042B151 /* Playground */,
 				A28AFEBD2B1DD79900D2921D /* GPS */,
 				A2BFE7EB2AB825FD0095734C /* DemoEntry.swift */,
 				A2C027032AB7FF86006F6F39 /* Drift */,
@@ -364,7 +370,6 @@
 			files = (
 				A2C026E12AB7FCB3006F6F39 /* LaunchScreen.storyboard in Resources */,
 				A2C026DE2AB7FCB3006F6F39 /* Assets.xcassets in Resources */,
-				A26114B82B271E1D0092AEB7 /* track01.gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -434,6 +439,7 @@
 				A2C027222AB7FF86006F6F39 /* GuideDocsViewController.swift in Sources */,
 				A2C026D52AB7FCB1006F6F39 /* AppDelegate.swift in Sources */,
 				A2C027202AB7FF86006F6F39 /* GuideNavigator.swift in Sources */,
+				88D53BC42B340BEA0042B151 /* PlaygroundViewController.swift in Sources */,
 				A2C026F72AB7FDDD006F6F39 /* DemoContentView.swift in Sources */,
 				A2C027272AB7FF86006F6F39 /* GuideListModels.swift in Sources */,
 				A2C026FF2AB7FDDD006F6F39 /* HomeViewController.swift in Sources */,

@@ -63,3 +63,47 @@ public extension Array {
         }
     }
 }
+
+// MARK: L0 - Units.swift
+
+// @available(*, message: "Use .xm.ns instead.")
+//var numberValue: NSNumber {
+
+// @available(*, message: "Use .xm.ns instead.")
+//var numberValue: NSNumber {
+
+// @available(*, message: "Use .xm.div100() instead.")
+//func dividedBy100() -> String {
+
+// @available(*, message: "Use .xm.float.div(100) instead.")
+//var xmFloat: Float64 {
+
+// @available(*, message: "Use .xm.string instead.")
+//var toString: String {
+
+// todo.
+//var xmDuration: String {
+
+// todo.
+//var durationDesp: String {
+
+// @available(*, message: "Use .xm.multi(100).int() instead.")
+//var xmInt: Int {
+
+// @available(*, message: "Use .xm.multi(100).int64() instead.")
+//var xmInt64: Int64 {
+
+// @available(*, message: "Use .xm.multi(100).int64() instead.")
+//var toString: String {
+
+// todo.
+//var toString: String {
+
+// @available(*, message: "Use .xm.string(NumberFormatter.xm.fixed) instead.")
+//func toString(decimal: Int = 2, splitDigit: Int? = nil, prefix: String? = nil, isRound: Bool = true) -> String? {
+
+// @available(*, message: "Use .xm.string(NumberFormatter.xm.multi) instead.")
+//func toString(maxDecimal: Int, splitDigit: Int? = nil, prefix: String? = nil, isRound: Bool = true) -> String? {
+
+// @available(*, message: "Use .xm.string(NumberFormatter.xm.multi.suffix("+")) instead.")
+//func toSymbolString() -> String? {

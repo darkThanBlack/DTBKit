@@ -23,23 +23,18 @@ DESC
 
   s.ios.deployment_target = '11.0'
   s.swift_versions = '4.2'
-  # s.source_files = 'DTBKit/DTBKit.swift'
-  
-  # s.resource_bundles = {
-  #   'DTBKit' => ['DTBKit/Assets/*.xcassets']
-  # }
-  
-  #
-  # s.test_spec 'Tests' do |t|
-  #   t.framework = 'XCTest'
-  #   t.source_files = 'DTBKit/Tests/**/*'
-  # end
   
   s.subspec 'Basic' do |ss|
     ss.source_files = 'DTBKit/DTBKit.swift', 'DTBKit/Basic/**/*'
     ss.resource_bundles = {
       'DTBKit-Basic' => ['DTBKit/Assets/basic.xcassets']
     }
+
+    ss.test_spec 'Tests' do |t|
+      t.framework = 'XCTest'
+      t.requires_app_host = true
+      t.source_files = 'DTBKit/Tests/**/*'
+    end
   end
   
   s.subspec 'UIKit' do |ss|
