@@ -1,10 +1,13 @@
 PODS:
   - DTBKit/Basic (0.1.0)
   - DTBKit/Basic/Tests (0.1.0)
+  - DTBKit/UIKit (0.1.0):
+    - DTBKit/Basic
 
 DEPENDENCIES:
   - DTBKit/Basic (from `../`)
   - DTBKit/Basic/Tests (from `../`)
+  - DTBKit/UIKit (from `../`)
 
 EXTERNAL SOURCES:
   DTBKit:
@@ -13,6 +16,6 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   DTBKit: de8cd7dc0b776628b5d79e08e8dc259200ac59e2
 
-PODFILE CHECKSUM: 4518200e709eb7f2b0ec6d9ed58fdf705532eef5
+PODFILE CHECKSUM: a07b9579999079ad504e9f278f77eb50cbd7cd6e
 
 COCOAPODS: 1.13.0

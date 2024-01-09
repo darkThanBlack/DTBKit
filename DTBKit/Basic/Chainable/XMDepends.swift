@@ -15,3 +15,15 @@ import UIKit
 public typealias XMKitWrapper = DTBKitWrapper
 
 public typealias XMKitMutableWrapper = DTBKitMutableWrapper
+
+public typealias XMKitChainable = DTBKitChainable
+
+extension DTBKitable {
+    public var xm: DTBKitWrapper<Self> { return dtb }
+    public static var xm: DTBKitStaticWrapper<Self> { return dtb }
+}
+
+extension DTBKitStructable {
+    public var xm: DTBKitWrapper<Self> { return dtb }
+    public static var xm: DTBKitStaticWrapper<Self> { return dtb }
+}

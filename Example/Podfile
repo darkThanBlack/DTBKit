@@ -6,7 +6,7 @@ target 'DTBKit_Example' do
   
 #  Change development pods to xcodegen
   pod 'DTBKit/Basic', :path => '../', :testspecs => ['Tests']
-  
+  pod 'DTBKit/UIKit', :path => '../'
   
 #  pod 'SnapKit', '5.0.1'
 #  pod 'URLNavigator', '2.3.0'
