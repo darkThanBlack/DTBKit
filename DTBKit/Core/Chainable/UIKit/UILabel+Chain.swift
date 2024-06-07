@@ -1,6 +1,6 @@
 //
 //  UILabel+Chain.swift
-//  XMKit_Example
+//  DTBKit_Example
 //
 //  Created by moonShadow on 2023/10/20
 //  Copyright © 2023 darkThanBlack. All rights reserved.
@@ -13,7 +13,7 @@
 import UIKit
 
 ///
-extension XMKitWrapper where Base: UILabel & XMKitChainable {
+extension DTBKitWrapper where Base: UILabel & DTBKitChainable {
     
     @discardableResult
     public func text(_ value: String?) -> Self {

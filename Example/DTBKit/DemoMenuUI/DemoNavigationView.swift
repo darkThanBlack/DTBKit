@@ -9,7 +9,7 @@
 //  Contact me: [GitHub](https://github.com/darkThanBlack)
 //
     
-import UIKit
+import DTBKit
 
 ///
 class DemoNavigationView: UIView {

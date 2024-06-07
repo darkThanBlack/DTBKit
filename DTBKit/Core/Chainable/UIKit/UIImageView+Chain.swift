@@ -1,6 +1,6 @@
 //
 //  UIImageView+Chain.swift
-//  XMKit
+//  DTBKit
 //
 //  Created by moonShadow on 2024/1/3
 //  
@@ -12,7 +12,7 @@
 
 import UIKit
 
-extension XMKitWrapper where Base: UIImageView & XMKitChainable {
+extension DTBKitWrapper where Base: UIImageView & DTBKitChainable {
     
     @discardableResult
     public func image(_ value: UIImage?) -> Self {

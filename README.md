@@ -69,16 +69,16 @@ The usage of the code is very simple. First of all, in theory,
 * For your own new project or business, you can replace the three words ``dtb`` with any name you like:
 
      ```swift
-     UIView().xm
+     UIView().dtb
      ```
 
 * Suppose there is a business method called ``test2`` in the new business:
 
      ```swift
-     UIView().xm.test()
+     UIView().dtb.test()
      UIView().dtb.test()
         
-     UIView().xm.test2()
+     UIView().dtb.test2()
      UIView().dtb.test() // Compilation error
      ```
 

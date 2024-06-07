@@ -1,6 +1,6 @@
 //
 //  UIStackView+Chain.swift
-//  XMKit
+//  DTBKit
 //
 //  Created by moonShadow on 2024/1/4
 //  
@@ -12,7 +12,7 @@
 
 import UIKit
 
-extension XMKitWrapper where Base: UIStackView {
+extension DTBKitWrapper where Base: UIStackView {
     
     @discardableResult
     public func axis(_ value: NSLayoutConstraint.Axis) -> Self {

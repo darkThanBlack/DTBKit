@@ -1,6 +1,6 @@
 //
 //  UIView+Chain.swift
-//  XMKit_Example
+//  DTBKit_Example
 //
 //  Created by moonShadow on 2023/9/22
 //  Copyright © 2023 darkThanBlack. All rights reserved.
@@ -19,11 +19,11 @@ import UIKit
 ///
 /// Type 2:
 /// 1> func return another types
-/// => Specify in ``XMKitChainable``, use ``update:`` func
+/// => Specify in ``DTBKitChainable``, use ``update:`` func
 ///
 /// Type 3:
 /// 1> static / class func
-/// => Specify in ``XMKitStaticWrapper``
+/// => Specify in ``DTBKitStaticWrapper``
 ///
 /// Type 4:
 /// 1> custom helper
@@ -31,7 +31,7 @@ import UIKit
 ///
 
 ///
-extension XMKitWrapper where Base: UIView & XMKitChainable {
+extension DTBKitWrapper where Base: UIView & DTBKitChainable {
     
     @discardableResult
     public func isUserInteractionEnabled(_ value: Bool) -> Self {
@@ -50,10 +50,41 @@ extension XMKitWrapper where Base: UIView & XMKitChainable {
         me.backgroundColor = value
         return self
     }
+    
+    @discardableResult
+    public func cornerRadius(_ value: CGFloat) -> Self {
+        me.layer.cornerRadius = value
+        return self
+    }
+    
+    @discardableResult
+    public func borderWidth(_ value: CGFloat) -> Self {
+        me.layer.borderWidth = value
+        return self
+    }
+    
+    @discardableResult
+    public func borderColor(_ value: UIColor) -> Self {
+        me.layer.borderColor = value.cgColor
+        return self
+    }
+    
+    /// 切圆角
+    @discardableResult
+    public func clipCorner(radii: CGFloat, corners: UIRectCorner) -> Self {
+        let maskPath = UIBezierPath(roundedRect: me.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radii, height: radii))
+        
+        let maskLayer = CAShapeLayer()
+        maskLayer.frame = me.bounds
+        maskLayer.path = maskPath.cgPath
+        me.layer.mask = maskLayer
+        
+        return self
+    }
 }
 
 /// Same as ``@interface UIView(UIViewGeometry)``
-extension XMKitWrapper where Base: UIView & XMKitChainable {
+extension DTBKitWrapper where Base: UIView & DTBKitChainable {
     
     @discardableResult
     public func frame(_ value: CGRect) -> Self {
@@ -131,7 +162,7 @@ extension XMKitWrapper where Base: UIView & XMKitChainable {
 }
 
 /// Same as ``@interface UIView(UIViewHierarchy)``
-extension XMKitWrapper where Base: UIView & XMKitChainable {
+extension DTBKitWrapper where Base: UIView & DTBKitChainable {
     
     @discardableResult
     public func removeFromSuperview() -> Self {
@@ -182,8 +213,8 @@ extension XMKitWrapper where Base: UIView & XMKitChainable {
     }
     
     @discardableResult
-    public func viewWithTag(_ tag: Int) -> XMKitWrapper<UIView>? {
-        return me.viewWithTag(tag)?.xm
+    public func viewWithTag(_ tag: Int) -> DTBKitWrapper<UIView>? {
+        return me.viewWithTag(tag)?.dtb
     }
     
     @discardableResult
@@ -226,7 +257,7 @@ extension XMKitWrapper where Base: UIView & XMKitChainable {
 }
 
 /// Same as ``@interface UIView(UIViewRendering)``
-extension XMKitWrapper where Base: UIView & XMKitChainable {
+extension DTBKitWrapper where Base: UIView & DTBKitChainable {
     
     @discardableResult
     public func setNeedsDisplay() -> Self {
@@ -302,7 +333,7 @@ extension XMKitWrapper where Base: UIView & XMKitChainable {
 // UIViewKeyframeAnimations
 
 /// Same as ``@interface UIView(UIViewGestureRecognizers)``
-extension XMKitWrapper where Base: UIView & XMKitChainable {
+extension DTBKitWrapper where Base: UIView & DTBKitChainable {
     
     @discardableResult
     public func gestureRecognizers(_ value: [UIGestureRecognizer]?) -> Self {
@@ -324,7 +355,7 @@ extension XMKitWrapper where Base: UIView & XMKitChainable {
 }
 
 /// Same as ``@interface UIView(UIViewMotionEffects)``
-extension XMKitWrapper where Base: UIView & XMKitChainable {
+extension DTBKitWrapper where Base: UIView & DTBKitChainable {
     
     @discardableResult
     public func addMotionEffect(_ effect: UIMotionEffect) -> Self {
@@ -342,7 +373,7 @@ extension XMKitWrapper where Base: UIView & XMKitChainable {
 // UIConstraintBasedLayoutInstallingConstraints
 
 /// Same as ``@interface UIView(UIConstraintBasedLayoutCoreMethods)``
-extension XMKitWrapper where Base: UIView & XMKitChainable {
+extension DTBKitWrapper where Base: UIView & DTBKitChainable {
     
     @discardableResult
     public func setNeedsUpdateConstraints() -> Self {
@@ -352,7 +383,7 @@ extension XMKitWrapper where Base: UIView & XMKitChainable {
 }
 
 /// Same as ``@interface UIView(UIConstraintBasedCompatibility)``
-extension XMKitWrapper where Base: UIView & XMKitChainable {
+extension DTBKitWrapper where Base: UIView & DTBKitChainable {
     
     @discardableResult
     public func translatesAutoresizingMaskIntoConstraints(_ value: Bool) -> Self {
@@ -362,7 +393,7 @@ extension XMKitWrapper where Base: UIView & XMKitChainable {
 }
 
 /// Same as ``@interface UIView(UIConstraintBasedLayoutLayering)``
-extension XMKitWrapper where Base: UIView & XMKitChainable {
+extension DTBKitWrapper where Base: UIView & DTBKitChainable {
     
     @discardableResult
     public func invalidateIntrinsicContentSize() -> Self {
@@ -384,7 +415,7 @@ extension XMKitWrapper where Base: UIView & XMKitChainable {
 }
 
 /// Same as ``@interface UIView(UILayoutGuideSupport)``
-extension XMKitWrapper where Base: UIView & XMKitChainable {
+extension DTBKitWrapper where Base: UIView & DTBKitChainable {
     
     @discardableResult
     public func addLayoutGuide(_ layoutGuide: UILayoutGuide) -> Self {

@@ -18,7 +18,7 @@ import UIKit
 
 /// Static name space.
 ///
-/// 静态常量。
+/// 静态对象命名空间。
 public enum DTB {}
 
 /// Indicate which one implements the namespace for ``class``.
@@ -109,7 +109,7 @@ public struct DTBKitWrapper<Base> {
     public var value: Base { return me }
     
     /// [UNSTABLE]
-    internal func filter(_ handler: ((Self) -> Bool)) -> Self? {
+    internal func filter_(_ handler: ((Self) -> Bool)) -> Self? {
         return handler(self) ? self : nil
     }
 }
@@ -117,11 +117,7 @@ public struct DTBKitWrapper<Base> {
 /// Mainly static wrapper.
 ///
 /// 静态方法容器。
-public struct DTBKitStaticWrapper<T> {
-    
-    /// [UNSTABLE]
-    internal var serials: [(() -> Bool)] = []
-}
+public struct DTBKitStaticWrapper<T> {}
 
 /// Support struct "chainable". In order to prevent ambiguity in memory semantics when used by business parties, currently only static methods are allowed to be used for quick creation.
 ///
@@ -139,24 +135,26 @@ public class DTBKitMutableWrapper<Base> {
 public protocol DTBKitChainable {}
 
 /// Class only.
-extension DTBKitWrapper where Base: DTBKitable & DTBKitChainable {
+extension DTBKitWrapper where Base: DTBKitable {
     
-    /// Custom updates, auto unbox.
+    /// Custom updates, auto unbox, sync.
     ///
-    /// 通用的自行拆箱更新。
+    /// 通用的自行拆箱更新，均为同步操作。
     ///
     /// Usage example:
     /// ```
     ///    UIView().dtb
-    ///        .update { value in
+    ///        .when(true) { value in
     ///            let nSize = value.sizeThatFits(UIScreen.main.bounds.size)
     ///            value.bounds = .init(origin: .zero, size: nSize)
     ///        }
     ///        .center(CGPoint(x: 20.0, y: 20.0))
     /// ```
     @discardableResult
-    public func update(_ setter: ((Base) -> Void)) -> Self {
-        setter(me)
+    public func when(_ condition: @autoclosure (() -> Bool) = true, handler: ((Base) -> Void)?) -> Self {
+        if condition() {
+            handler?(me)
+        }
         return self
     }
 }
@@ -209,7 +207,7 @@ extension DTBKitMutableWrapper where Base: DTBKitStructable & DTBKitChainable {
     public var value: Base { return me }
 }
 
-//MARK: - Declare
+//MARK: -
 
 extension Int: DTBKitStructable {}
 
@@ -225,15 +223,13 @@ extension Float: DTBKitStructable {}
 
 extension Double: DTBKitStructable {}
 
-extension NSNumber: DTBKitable {}
-
-extension NumberFormatter: DTBKitable, DTBKitChainable {}
-
-extension Decimal: DTBKitStructable {}
+extension Date: DTBKitStructable {}
 
 //MARK: -
 
 extension String: DTBKitStructable {}
+
+extension CGFloat: DTBKitStructable {}
 
 extension CGSize: DTBKitStructable, DTBKitStructChainable {
     public static func dtb_def_() -> CGSize {
@@ -253,11 +249,7 @@ extension Dictionary: DTBKitStructable, DTBKitStructChainable {
     }
 }
 
-//MARK: -
-
-extension NSString: DTBKitable {}
-
-extension NSMutableAttributedString: DTBKitable, DTBKitChainable {}
+//MARK: - Foundation
 
 extension NSRange: DTBKitStructable, DTBKitStructChainable {
     public static func dtb_def_() -> NSRange {
@@ -265,11 +257,32 @@ extension NSRange: DTBKitStructable, DTBKitStructChainable {
     }
 }
 
+extension UIEdgeInsets: DTBKitStructable, DTBKitStructChainable {
+    public static func dtb_def_() -> UIEdgeInsets { return .zero }
+}
+
+extension CGImage: DTBKitable {}
+
+@available(iOS 13.0, *)
+extension UIWindowScene: DTBKitable {}
+
+// MARK: - NSObjects
+
+// extension NSObject: DTBKitable {}
+
+extension NSNumber: DTBKitable {}
+
+extension NumberFormatter: DTBKitable, DTBKitChainable {}
+
+extension NSString: DTBKitable {}
+
+extension NSMutableAttributedString: DTBKitable, DTBKitChainable {}
+
+extension NSMutableParagraphStyle: DTBKitable, DTBKitChainable {}
+
 extension UIColor: DTBKitable {}
 
 extension CIImage: DTBKitable {}
-
-extension CGImage: DTBKitable {}
 
 extension UIImage: DTBKitable {}
 
@@ -277,39 +290,44 @@ extension UIView: DTBKitable, DTBKitChainable {}
 
 extension UIViewController: DTBKitable {}
 
-@available(iOS 13.0, *)
-extension UIWindowScene: DTBKitable {}
+extension UIScreen: DTBKitable {}
+
+extension Bundle: DTBKitable {}
+
+extension UIFont: DTBKitable {}
 
 //MARK: - UNSTABLE
 
+extension Decimal: DTBKitStructable {}
+
 extension DTBKitStaticWrapper where T: DTBKitChainable {
     
-    /// [UNSTABLE]
-    mutating func then(_ task: @escaping (() -> Void)) -> Self {
-        self.serials.append({
-            let _ = task()
-            return true
-        })
-        return self
-    }
-    
-    /// [UNSTABLE]
-    mutating func done(_ completed: (() -> Void)? = nil) {
-        self.serials.append({
-            completed?()
-            return true
-        })
-        fire()
-    }
-    
-    /// [UNSTABLE]
-    mutating func fire() {
-        guard serials.count > 0 else {
-            return
-        }
-        if let _ = self.serials.first?() {
-            serials.removeFirst()
-        }
-        fire()
-    }
+//    /// [UNSTABLE]
+//    mutating func then(_ task: @escaping (() -> Void)) -> Self {
+//        self.serials.append({
+//            let _ = task()
+//            return true
+//        })
+//        return self
+//    }
+//
+//    /// [UNSTABLE]
+//    mutating func done(_ completed: (() -> Void)? = nil) {
+//        self.serials.append({
+//            completed?()
+//            return true
+//        })
+//        fire()
+//    }
+//
+//    /// [UNSTABLE]
+//    mutating func fire() {
+//        guard serials.count > 0 else {
+//            return
+//        }
+//        if let _ = self.serials.first?() {
+//            serials.removeFirst()
+//        }
+//        fire()
+//    }
 }

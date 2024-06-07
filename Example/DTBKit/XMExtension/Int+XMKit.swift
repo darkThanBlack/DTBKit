@@ -1,5 +1,5 @@
 //
-//  Int+XMKit.swift
+//  Int+DTBKit.swift
 //  DTBKit_Example
 //
 //  Created by moonShadow on 2023/10/9
@@ -10,7 +10,7 @@
 //
     
 
-import UIKit
+import DTBKit
 
 extension DTBKitWrapper where Base: FixedWidthInteger {
     

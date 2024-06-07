@@ -6,7 +6,7 @@
 //  Copyright © 2023 darkThanBlack. All rights reserved.
 //
 
-import UIKit
+import DTBKit
 
 @_exported import DTBKit
 

@@ -68,16 +68,16 @@ pod 'DTBKit', git: 'https://github.com/darkThanBlack/DTBKit', commit: 'dd3acb'
 * 对于你自己的新工程或者新业务，你可以将 ``dtb`` 这三个字换成任意自己喜欢的名字：
 
     ```swift
-    UIView().xm
+    UIView().dtb
     ```
 
 * 假设在新业务里有一个业务方法叫 ``test2``：
 
     ```swift
-    UIView().xm.test()
+    UIView().dtb.test()
     UIView().dtb.test()
     
-    UIView().xm.test2()
+    UIView().dtb.test2()
     UIView().dtb.test()  // 编译出错
     ```
 

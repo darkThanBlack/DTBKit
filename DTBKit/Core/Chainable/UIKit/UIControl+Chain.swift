@@ -1,6 +1,6 @@
 //
 //  UIControl+Chain.swift
-//  XMKit
+//  DTBKit
 //
 //  Created by moonShadow on 2024/1/4
 //  
@@ -12,7 +12,7 @@
 
 import UIKit
 
-extension XMKitWrapper where Base: UIControl {
+extension DTBKitWrapper where Base: UIControl {
     
     @discardableResult
     public func addTarget(_ target: Any?, action: Selector, for controlEvents: UIControl.Event) -> Self {

@@ -1,6 +1,6 @@
 //
-//  AttributedStringKey+XMKit.swift
-//  XMKit_Example
+//  AttributedStringKey+DTBKit.swift
+//  DTBKit_Example
 //
 //  Created by moonShadow on 2023/10/21
 //  Copyright © 2023 darkThanBlack. All rights reserved.
@@ -20,13 +20,13 @@ import UIKit
 /// ```
 ///     NSAttributedString(
 ///         string: "str",
-///         attributes: .xm.create
+///         attributes: .dtb.create
 ///             .font(.systemFont(ofSize: 13.0))
 ///             .foregroundColor(.white)
 ///             .value
 ///     )
 /// ```
-extension XMKitMutableWrapper where Base == Dictionary<NSAttributedString.Key, Any> {
+extension DTBKitMutableWrapper where Base == Dictionary<NSAttributedString.Key, Any> {
     
     @discardableResult
     public func font(_ value: UIFont) -> Self {

@@ -1,6 +1,6 @@
 //
 //  UIButton+Chain.swift
-//  XMKit
+//  DTBKit
 //
 //  Created by moonShadow on 2024/1/4
 //  
@@ -12,7 +12,7 @@
 
 import UIKit
 
-extension XMKitWrapper where Base: UIButton {
+extension DTBKitWrapper where Base: UIButton {
     
     @discardableResult
     public func setTitle(_ title: String?, for state: UIControl.State) -> Self {

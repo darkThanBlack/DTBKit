@@ -1,6 +1,6 @@
 //
 //  NumberFormatter+Chain.swift
-//  XMKit_Example
+//  DTBKit_Example
 //
 //  Created by moonShadow on 2023/10/8
 //  Copyright © 2023 darkThanBlack. All rights reserved.
@@ -13,7 +13,7 @@
 import UIKit
 
 ///
-extension XMKitWrapper where Base: NumberFormatter & XMKitChainable {
+extension DTBKitWrapper where Base: NumberFormatter & DTBKitChainable {
     
     @discardableResult
     public func formattingContext(_ value: Formatter.Context) -> Self {

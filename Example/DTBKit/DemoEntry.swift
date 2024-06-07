@@ -8,8 +8,8 @@
 //  LICENSE: SAME AS REPOSITORY
 //  Contact me: [GitHub](https://github.com/darkThanBlack)
 //
-    
-import UIKit
+
+import DTBKit
 
 ///
 extension DemoCellModel {
@@ -117,7 +117,8 @@ extension DemoEntry: UITableViewDelegate {
         case .chain_class:
             /// a, b, c 对象相同
             func mem_test_02() {
-                let a = UILabel().dtb.text("a").value
+                var l = UILabel()
+                let a = l.dtb.text("a").value
                 let b = a.dtb.isUserInteractionEnabled(false).value
                 let c = b.dtb.text("c").value
                 b.dtb.text("b")

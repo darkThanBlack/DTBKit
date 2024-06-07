@@ -5,6 +5,7 @@ platform :ios, '11.0'
 target 'DTBKit_Example' do
   
 #  Change development pods to xcodegen
+  pod 'DTBKit/Core', :path => '../'
   pod 'DTBKit/Basic', :path => '../', :testspecs => ['Tests']
   pod 'DTBKit/UIKit', :path => '../'
   

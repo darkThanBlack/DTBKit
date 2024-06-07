@@ -1,6 +1,6 @@
 //
 //  NSMutableAttributedString+Chain.swift
-//  XMKit_Example
+//  DTBKit_Example
 //
 //  Created by moonShadow on 2023/10/23
 //  Copyright © 2023 darkThanBlack. All rights reserved.
@@ -13,7 +13,7 @@
 import UIKit
 
 ///
-extension XMKitWrapper where Base: NSMutableAttributedString & XMKitChainable {
+extension DTBKitWrapper where Base: NSMutableAttributedString & DTBKitChainable {
     
     @discardableResult
     public func replaceCharacters(in range: NSRange, with str: String) -> Self {
@@ -29,7 +29,7 @@ extension XMKitWrapper where Base: NSMutableAttributedString & XMKitChainable {
 }
 
 /// NSExtendedMutableAttributedString
-extension XMKitWrapper where Base: NSMutableAttributedString & XMKitChainable {
+extension DTBKitWrapper where Base: NSMutableAttributedString & DTBKitChainable {
     
     @discardableResult
     public func addAttribute(_ name: NSAttributedString.Key, value: Any, range: NSRange) -> Self {

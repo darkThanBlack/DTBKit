@@ -12,7 +12,7 @@
 
 import UIKit
 
-extension XMKitWrapper where Base: UITableView {
+extension DTBKitWrapper where Base: UITableView {
     
     @discardableResult
     public func dataSource(_ value: UITableViewDataSource?) -> Self {
@@ -153,7 +153,7 @@ extension XMKitWrapper where Base: UITableView {
 }
 
 /// Reloading and Updating
-extension XMKitWrapper where Base: UITableView {
+extension DTBKitWrapper where Base: UITableView {
     
     @available(iOS 11.0, *)
     @discardableResult
@@ -285,7 +285,7 @@ extension XMKitWrapper where Base: UITableView {
 }
 
 /// Appearance
-extension XMKitWrapper where Base: UITableView {
+extension DTBKitWrapper where Base: UITableView {
     
     @discardableResult
     public func sectionIndexMinimumDisplayRowCount(_ value: Int) -> Self {
@@ -381,7 +381,7 @@ extension XMKitWrapper where Base: UITableView {
 }
 
 /// Focus
-extension XMKitWrapper where Base: UITableView {
+extension DTBKitWrapper where Base: UITableView {
     
     
     @discardableResult
@@ -413,7 +413,7 @@ extension XMKitWrapper where Base: UITableView {
 }
 
 /// Drag & Drop
-extension XMKitWrapper where Base: UITableView {
+extension DTBKitWrapper where Base: UITableView {
     
     @available(iOS 11.0, *)
     @discardableResult
