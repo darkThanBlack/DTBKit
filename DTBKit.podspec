@@ -25,7 +25,12 @@ DESC
   s.swift_versions = '4.2'
   
   s.subspec 'Core' do |ss|
-    ss.source_files = 'DTBKit/Core/DTBKit.swift', 'DTBKit/Core/**/*'
+    ss.source_files = 'DTBKit/Core/**/*'
+  end
+  
+  s.subspec 'Chain' do |ss|
+    ss.source_files = 'DTBKit/Chain/**/*'
+    ss.dependency 'DTBKit/Core'
   end
   
   s.subspec 'Basic' do |ss|

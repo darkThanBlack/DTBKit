@@ -31,6 +31,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         adapter()
         debugger()
         
+        UILabel().dtb.text("123")
+        UITextView().dtb.text("456")
+        
         return true
     }
     

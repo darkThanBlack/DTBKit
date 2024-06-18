@@ -3,6 +3,8 @@ PODS:
     - DTBKit/Core
   - DTBKit/Basic/Tests (0.1.0):
     - DTBKit/Core
+  - DTBKit/Chain (0.1.0):
+    - DTBKit/Core
   - DTBKit/Core (0.1.0)
   - DTBKit/UIKit (0.1.0):
     - DTBKit/Basic
@@ -10,6 +12,7 @@ PODS:
 DEPENDENCIES:
   - DTBKit/Basic (from `../`)
   - DTBKit/Basic/Tests (from `../`)
+  - DTBKit/Chain (from `../`)
   - DTBKit/Core (from `../`)
   - DTBKit/UIKit (from `../`)
 
@@ -18,8 +21,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  DTBKit: 8e8824752bc1371cd46fa30ddc8f387cf6d89d86
+  DTBKit: a704b2e6cedb686a5922a79932ae3d213ec04a5d
 
-PODFILE CHECKSUM: f8bd43702602c59023ffc9de2f7cbd5b3f6044fc
+PODFILE CHECKSUM: 1b968e448bcc3089079d49c1fddf8295c1ef4a21
 
 COCOAPODS: 1.12.1
