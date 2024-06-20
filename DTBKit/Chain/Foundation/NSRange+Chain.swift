@@ -12,20 +12,24 @@
 
 import UIKit
 
-/// Length will always >= 0.0 semantically.
+extension DTBKitStaticWrapper where T == NSRange {
+    
+    public func create(_ location: Int, _ length: Int) -> T {
+        return NSRange(location: location, length: length)
+    }
+}
+
 extension DTBKitMutableWrapper where Base == NSRange {
     
-    ///
     @discardableResult
     public func location(_ value: Int) -> Self where Base: DTBKitChainable {
         me.location = value
         return self
     }
     
-    /// Always >= 0.0.
     @discardableResult
     public func length(_ value: Int) -> Self where Base: DTBKitChainable {
-        me.length = max(0, value)
+        me.length = value
         return self
     }
 }

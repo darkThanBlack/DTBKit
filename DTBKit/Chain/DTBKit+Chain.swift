@@ -12,7 +12,7 @@
 import Foundation
 import UIKit
 
-//MARK: - Chain
+//MARK: - Class Chain
 
 /// Indicate which one supports "chainable". In order to prevent ambiguity in memory semantics when used by business parties, it is only recommended to use reference types.
 ///
@@ -29,22 +29,20 @@ extension DTBKitWrapper where Base: DTBKitable {
     /// Usage example:
     /// ```
     ///    UIView().dtb
-    ///        .when(true) { value in
+    ///        .when(1 > 0) { value in
     ///            let nSize = value.sizeThatFits(UIScreen.main.bounds.size)
     ///            value.bounds = .init(origin: .zero, size: nSize)
     ///        }
     ///        .center(CGPoint(x: 20.0, y: 20.0))
     /// ```
     @discardableResult
-    public func when(_ condition: @autoclosure (() -> Bool) = true, handler: ((Base) -> Void)?) -> Self {
+    public func when(_ condition: @autoclosure (() -> Bool) = true, _ handler: ((Base) -> Void)?) -> Self {
         if condition() {
             handler?(me)
         }
         return self
     }
 }
-
-extension NSObject: DTBKitChainable {}
 
 // MARK: - Struct Chain
 
@@ -73,11 +71,19 @@ extension DTBKitStaticWrapper where T: DTBKitStructable & DTBKitStructChainable 
     ///        .font(UIFont.systemFont(ofSize: 13.0))
     ///        .value
     ///
-    ///    var a = CGSize.dtb.create.width(1).height(2).value
+    ///    var a = CGSize.dtb.create.height(2).width(1).value
     /// ```
     public var create: DTBKitMutableWrapper<T> {
         return DTBKitMutableWrapper(T.def_())
     }
+}
+
+/// Support struct "chainable". In order to prevent ambiguity in memory semantics when used by business parties, currently only static methods are allowed to be used for quick creation.
+///
+/// 可变值类型容器。为了防止业务方使用时在内存语义上出现歧义，目前只允许用静态方法快速创建对象时使用。
+public class DTBKitMutableWrapper<Base> {
+    internal var me: Base
+    public init(_ value: Base) { self.me = value }
 }
 
 /// Struct chain syntax.
@@ -85,38 +91,42 @@ extension DTBKitStaticWrapper where T: DTBKitStructable & DTBKitStructChainable 
 /// 额外关键字。
 extension DTBKitMutableWrapper where Base: DTBKitStructable & DTBKitChainable {
     
-    /// [UNSTABLE] Convert back to mainly wrapper to use other methods.
-    ///
-    /// 转换为通用扩展以便使用其他能力。
-    internal var then: DTBKitWrapper<Base> { return me.dtb }
-    
     /// Default unbox, use it to get actual value.
     ///
     /// 默认拆箱关键字。
     public var value: Base { return me }
 }
 
-extension CGSize: DTBKitStructChainable {
-    public static func def_() -> CGSize {
+//MARK: - Class 只管实现就好了
+
+extension NSObject: DTBKitChainable {}
+
+//MARK: - Struct 要考虑的事情就多了
+
+extension CGSize: DTBKitStructable, DTBKitStructChainable {
+    public static func def_() -> Self {
         return .zero
     }
 }
 
-extension Dictionary: DTBKitStructChainable {
-    public static func def_() -> Dictionary {
+extension CGRect: DTBKitStructable, DTBKitStructChainable {
+    public static func def_() -> Self {
+        return .zero
+    }
+}
+
+extension Dictionary: DTBKitStructable, DTBKitStructChainable {
+    public static func def_() -> Self {
         return [:]
     }
 }
 
-//MARK: - Foundation
-
-extension NSRange: DTBKitStructChainable {
-    public static func def_() -> NSRange {
+extension NSRange: DTBKitStructable, DTBKitStructChainable {
+    public static func def_() -> Self {
         return NSRange(location: 0, length: 0)
     }
 }
 
-extension UIEdgeInsets: DTBKitStructChainable {
+extension UIEdgeInsets: DTBKitStructable, DTBKitStructChainable {
     public static func def_() -> UIEdgeInsets { return .zero }
 }
-

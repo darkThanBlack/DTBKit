@@ -1,8 +1,8 @@
 PODS:
   - DTBKit/Basic (0.1.0):
-    - DTBKit/Core
+    - DTBKit/Chain
   - DTBKit/Basic/Tests (0.1.0):
-    - DTBKit/Core
+    - DTBKit/Chain
   - DTBKit/Chain (0.1.0):
     - DTBKit/Core
   - DTBKit/Core (0.1.0)
@@ -21,7 +21,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  DTBKit: a704b2e6cedb686a5922a79932ae3d213ec04a5d
+  DTBKit: f0695961caca30ffb249c496eecb03f617bb41b6
 
 PODFILE CHECKSUM: 1b968e448bcc3089079d49c1fddf8295c1ef4a21
 

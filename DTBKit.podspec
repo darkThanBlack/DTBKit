@@ -38,7 +38,7 @@ DESC
     ss.resource_bundles = {
       'DTBKit-Basic' => ['DTBKit/Assets/basic.xcassets']
     }
-    ss.dependency 'DTBKit/Core'
+    ss.dependency 'DTBKit/Chain'
     
     ss.test_spec 'Tests' do |t|
       t.framework = 'XCTest'

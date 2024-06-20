@@ -12,20 +12,67 @@
 
 import UIKit
 
-/// Size width and height will always >= 0.0 semantically.
-extension DTBKitMutableWrapper where Base == CGSize {
+extension DTBKitStaticWrapper where T == CGSize {
     
-    /// Always >= 0.0.
+    public func create(_ width: CGFloat, _ height: CGFloat) -> T {
+        return CGSize(width: width, height: height)
+    }
+}
+
+extension DTBKitMutableWrapper where Base == CGSize, Base: DTBKitStructChainable {
+    
     @discardableResult
-    public func width(_ value: CGFloat) -> Self where Base: DTBKitChainable {
-        me.width = max(0, value)
+    public func width(_ value: CGFloat) -> Self {
+        me.width = value
         return self
     }
     
-    /// Always >= 0.0.
     @discardableResult
-    public func height(_ value: CGFloat) -> Self where Base: DTBKitChainable {
-        me.height = max(0, value)
+    public func height(_ value: CGFloat) -> Self {
+        me.height = value
+        return self
+    }
+}
+
+extension DTBKitStaticWrapper where T == CGRect {
+    
+}
+
+extension DTBKitMutableWrapper where Base == CGRect, Base: DTBKitStructChainable {
+
+    @discardableResult
+    public func origin(_ value: CGPoint) -> Self {
+        me.origin = value
+        return self
+    }
+    
+    @discardableResult
+    public func size(_ value: CGSize) -> Self {
+        me.size = value
+        return self
+    }
+    
+    @discardableResult
+    public func x(_ value: Double) -> Self {
+        me.origin.x = value
+        return self
+    }
+    
+    @discardableResult
+    public func y(_ value: Double) -> Self {
+        me.origin.y = value
+        return self
+    }
+    
+    @discardableResult
+    public func width(_ value: CGFloat) -> Self {
+        me.size.width = value
+        return self
+    }
+    
+    @discardableResult
+    public func height(_ value: CGFloat) -> Self {
+        me.size.height = value
         return self
     }
 }
