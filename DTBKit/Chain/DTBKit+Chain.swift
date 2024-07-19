@@ -103,30 +103,16 @@ extension NSObject: DTBKitChainable {}
 
 //MARK: - Struct 要考虑的事情就多了
 
-extension CGSize: DTBKitStructable, DTBKitStructChainable {
-    public static func def_() -> Self {
-        return .zero
-    }
-}
-
-extension CGRect: DTBKitStructable, DTBKitStructChainable {
-    public static func def_() -> Self {
-        return .zero
-    }
-}
-
 extension Dictionary: DTBKitStructable, DTBKitStructChainable {
     public static func def_() -> Self {
         return [:]
     }
 }
 
-extension NSRange: DTBKitStructable, DTBKitStructChainable {
-    public static func def_() -> Self {
-        return NSRange(location: 0, length: 0)
-    }
-}
+extension CGSize: DTBKitStructable {}
 
-extension UIEdgeInsets: DTBKitStructable, DTBKitStructChainable {
-    public static func def_() -> UIEdgeInsets { return .zero }
-}
+extension CGRect: DTBKitStructable {}
+
+extension NSRange: DTBKitStructable {}
+
+extension UIEdgeInsets: DTBKitStructable {}

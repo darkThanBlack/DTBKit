@@ -18,18 +18,3 @@ extension DTBKitStaticWrapper where T == NSRange {
         return NSRange(location: location, length: length)
     }
 }
-
-extension DTBKitMutableWrapper where Base == NSRange {
-    
-    @discardableResult
-    public func location(_ value: Int) -> Self where Base: DTBKitChainable {
-        me.location = value
-        return self
-    }
-    
-    @discardableResult
-    public func length(_ value: Int) -> Self where Base: DTBKitChainable {
-        me.length = value
-        return self
-    }
-}

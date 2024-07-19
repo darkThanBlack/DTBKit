@@ -49,6 +49,8 @@ The documentation and comments are bound to not be perfect, so please read the s
 
 
 
+#### Intro
+
 The usage of the code is very simple. First of all, in theory,
 
 * Any object can have a special "namespace". Taking ``UIView`` as an example, you can:
@@ -90,6 +92,22 @@ The usage of the code is very simple. First of all, in theory,
      let titleLabel = UILabel().dtb.title("moon").value
      titleLabel.backgroundColor = .white
      ```
+
+
+
+#### Keyword conventions
+
+Common English words are **definitely** used up by various programming languages and frameworks, so you need to be very careful in naming, and allow users to agree on the words they are used to.
+
+Currently, the use of the framework only needs to pay attention to the following logic:
+
+* Object methods start with ``UIView().dtb``
+
+* Class methods start with ``UIView.dtb``
+
+* Most objects will implement class methods named ``create``, which are used when creating objects
+
+* ``value``, all boxed objects will implement this property, used for unpacking
 
 
 
