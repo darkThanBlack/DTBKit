@@ -14,6 +14,7 @@ import UIKit
 
 extension DTBKitStaticWrapper where T == NSRange {
     
+    /// location | length
     public func create(_ location: Int, _ length: Int) -> T {
         return NSRange(location: location, length: length)
     }

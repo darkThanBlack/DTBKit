@@ -14,6 +14,7 @@ import UIKit
 
 extension DTBKitStaticWrapper where T == CGSize {
     
+    /// width | height
     public func create(_ width: CGFloat, _ height: CGFloat) -> T {
         return CGSize(width: width, height: height)
     }

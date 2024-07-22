@@ -60,4 +60,123 @@ extension DTB {
         }
         set {}
     }
+    
+    public enum DebugTypes {
+        
+        case original
+        
+        case simple
+        
+        case fully
+        
+        case warning
+        
+        case error
+        
+        case assert
+    }
+    
+    public static func print(
+        _ item: @autoclosure (() -> Any),
+        type: DTB.DebugTypes = .original,
+        file: String = #file,
+        line: Int = #line,
+        function: String = #function
+    ) {
+        switch type {
+        case .original:
+#if DEBUG
+            Swift.print(item())
+#endif
+            break
+        case .simple:
+#if DEBUG
+            Swift.print("Sport Log file=\(file) line=\(line) function=\(function) \n\(item())")
+#endif
+            break
+        case .fully:
+#if DEBUG
+            Swift.print("Sport Log file=\(file) line=\(line) function=\(function)")
+            Swift.debugPrint("\(item())")
+#endif
+            break
+        case .warning:
+#if DEBUG
+            Swift.print("Sport WARNING file=\(file) line=\(line) function=\(function)")
+            Swift.debugPrint("\(item())")
+#endif
+            break
+        case .error:
+#if DEBUG
+            Swift.print("Sport ERROR file=\(file) line=\(line) function=\(function)")
+            Swift.debugPrint("\(item())")
+#else
+            // TODO: 堆栈打印 / 日志上报
+#endif
+            break
+        case .assert:
+#if DEBUG
+            assert(false, "\(item())")
+#else
+            // TODO: 堆栈打印 / 日志上报
+#endif
+            break
+        }
+    }
+    
+    /// hf means "high fidelity"
+    ///
+    /// 高保真
+    public enum HFBehaviors {
+        
+        /// 默认按设计图宽度等比缩放；参见 ``XM.Performance.designBaseSize``
+        case scale
+    }
+    
+    /// Notification name define
+    ///
+    /// 通知标识
+    ///
+    /// Usage example:
+    /// ```
+    ///     NotificationCenter.xm.post(.xm.appRestart)
+    /// ```
+    public struct Notifications {
+        
+        public let key: Notification.Name
+        
+        init(key: String) {
+            self.key = Notification.Name(rawValue: key)
+        }
+    }
+    
+    public struct UserDefaults {
+        
+        public let key: String
+        
+        init(key: String) {
+            self.key = key
+        }
+    }
+    
+    /// String regular
+    ///
+    /// 正则表达式定义
+    ///
+    /// Usage example:
+    /// ```
+    ///     extension XM.Regulars {
+    ///         public static func phone() -> Self {}
+    ///     }
+    ///
+    ///     let success: Bool = "123".xm.isRegular(.phone())
+    /// ```
+    public struct Regulars {
+        
+        public let exp: String
+        
+        init(exp: String) {
+            self.exp = exp
+        }
+    }
 }

@@ -74,44 +74,46 @@ extension DemoEntry: UITableViewDelegate {
             /// Note: The situation may different when a supports "copy-on-write".
             ///
             /// 注意: 当 a 支持 COW 时情况有所不同。
+            ///
+            /// [DEPRESSED] struct 转 class 再赋值的情况，如果是有具体定义的属性，相应的 create 方法能解决绝大多数情况下的问题，故 mutable 协议主要用于应对 dict 的创建。
             func mem_test() {
-                var a = CGSize.dtb.create.width(1).height(2)
-                var original = a.value
-                print("a.width=\(a.value.width)")
-                withUnsafePointer(to: &a, { ptr in
-                    print("a.ptr=\(ptr)")
-                })
-                
-                print("STEP 01")
-                a.width(2)
-                print("a.width=\(a.value.width)")
-                withUnsafePointer(to: &a, { ptr in
-                    print("a.ptr=\(ptr)")
-                })
-                
-                print("STEP 02")
-                var b = a.width(3)
-                
-                print("a.width=\(a.value.width)")
-                print("b.width=\(b.value.width)")
-                withUnsafePointer(to: &a, { ptr in
-                    print("a.ptr=\(ptr)")
-                })
-                withUnsafePointer(to: &b, { ptr in
-                    print("b.ptr=\(ptr)")
-                })
-                
-                print("STEP 03")
-                var result = b.width(4).value
-                
-                print("original=\(original.width)")
-                print("result.width=\(result.width)")
-                withUnsafePointer(to: &original, { ptr in
-                    print("original.ptr=\(ptr)")
-                })
-                withUnsafePointer(to: &result, { ptr in
-                    print("result.ptr=\(ptr)")
-                })
+//                var a = CGSize.dtb.create(1, 2).dtb
+//                var original = a.value
+//                print("a.width=\(a.value.width)")
+//                withUnsafePointer(to: &a, { ptr in
+//                    print("a.ptr=\(ptr)")
+//                })
+//                
+//                print("STEP 01")
+//                a.width(2)
+//                print("a.width=\(a.value.width)")
+//                withUnsafePointer(to: &a, { ptr in
+//                    print("a.ptr=\(ptr)")
+//                })
+//                
+//                print("STEP 02")
+//                var b = a.width(3)
+//                
+//                print("a.width=\(a.value.width)")
+//                print("b.width=\(b.value.width)")
+//                withUnsafePointer(to: &a, { ptr in
+//                    print("a.ptr=\(ptr)")
+//                })
+//                withUnsafePointer(to: &b, { ptr in
+//                    print("b.ptr=\(ptr)")
+//                })
+//                
+//                print("STEP 03")
+//                var result = b.width(4).value
+//                
+//                print("original=\(original.width)")
+//                print("result.width=\(result.width)")
+//                withUnsafePointer(to: &original, { ptr in
+//                    print("original.ptr=\(ptr)")
+//                })
+//                withUnsafePointer(to: &result, { ptr in
+//                    print("result.ptr=\(ptr)")
+//                })
             }
             mem_test()
         case .chain_class:
