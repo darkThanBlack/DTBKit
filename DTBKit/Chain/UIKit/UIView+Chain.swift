@@ -52,33 +52,8 @@ extension DTBKitWrapper where Base: UIView & DTBKitChainable {
     }
     
     @discardableResult
-    public func cornerRadius(_ value: CGFloat) -> Self {
-        me.layer.cornerRadius = value
-        return self
-    }
-    
-    @discardableResult
-    public func borderWidth(_ value: CGFloat) -> Self {
-        me.layer.borderWidth = value
-        return self
-    }
-    
-    @discardableResult
-    public func borderColor(_ value: UIColor) -> Self {
-        me.layer.borderColor = value.cgColor
-        return self
-    }
-    
-    /// 切圆角
-    @discardableResult
-    public func clipCorner(radii: CGFloat, corners: UIRectCorner) -> Self {
-        let maskPath = UIBezierPath(roundedRect: me.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radii, height: radii))
-        
-        let maskLayer = CAShapeLayer()
-        maskLayer.frame = me.bounds
-        maskLayer.path = maskPath.cgPath
-        me.layer.mask = maskLayer
-        
+    public func layer(_ handler: ((DTBKitWrapper<CALayer>) -> Void)?) -> Self {
+        handler?(me.layer.dtb)
         return self
     }
 }
@@ -426,8 +401,26 @@ extension DTBKitWrapper where Base: UIView & DTBKitChainable {
     @discardableResult
     public func removeLayoutGuide(_ layoutGuide: UILayoutGuide) -> Self {
         me.removeLayoutGuide(layoutGuide)
-        me.snapshotView(afterScreenUpdates: true)
         return self
+    }
+}
+
+/// Same as ``@interface UIView (UISnapshotting)``
+extension DTBKitWrapper where Base: UIView & DTBKitChainable {
+    
+    @discardableResult
+    public func snapshotView(afterScreenUpdates afterUpdates: Bool) -> UIView? {
+        return me.snapshotView(afterScreenUpdates: afterUpdates)
+    }
+    
+    @discardableResult
+    public func resizableSnapshotView(from rect: CGRect, afterScreenUpdates afterUpdates: Bool, withCapInsets capInsets: UIEdgeInsets) -> UIView? {
+        return me.resizableSnapshotView(from: rect, afterScreenUpdates: afterUpdates, withCapInsets: capInsets)
+    }
+    
+    @discardableResult
+    public func drawHierarchy(in rect: CGRect, afterScreenUpdates afterUpdates: Bool) -> Bool {
+        return me.drawHierarchy(in: rect, afterScreenUpdates: afterUpdates)
     }
 }
 

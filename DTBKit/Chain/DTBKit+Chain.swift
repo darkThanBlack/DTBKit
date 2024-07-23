@@ -36,7 +36,7 @@ extension DTBKitWrapper where Base: DTBKitable {
     ///        .center(CGPoint(x: 20.0, y: 20.0))
     /// ```
     @discardableResult
-    public func when(_ condition: @autoclosure (() -> Bool) = true, _ handler: ((Base) -> Void)?) -> Self {
+    public func when(_ condition: @autoclosure (() -> Bool), _ handler: ((Base) -> Void)?) -> Self {
         if condition() {
             handler?(me)
         }
