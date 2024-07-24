@@ -30,12 +30,12 @@ extension DTBKitWrapper where Base == String {
     ///     let b = NSString(string: "").length
     ///     // (a == b) == true
     /// ```
-    public var nsCount: Int {
+    public var count: Int {
         return me.utf16.count
     }
     
     ///
-    public var nsAttr: DTBKitWrapper<NSMutableAttributedString> {
+    public var attr: DTBKitWrapper<NSMutableAttributedString> {
         return NSMutableAttributedString(string: me).dtb
     }
     

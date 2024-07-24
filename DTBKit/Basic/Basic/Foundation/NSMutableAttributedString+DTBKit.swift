@@ -25,22 +25,24 @@ extension DTBKitWrapper where Base: NSMutableAttributedString {
         return me.mutableString.dtb
     }
     
-    /// Multi append.
+    
+    /// Append.
     ///
-    /// 一次性添加多个。
-    ///
-    /// For example:
+    /// Example:
     /// ```
-    ///   NSMutableAttributedString().dtb.append(items:[
-    ///       ("", [:].dtb.set.font(.systemFont(ofSize: 13.0)).value),
-    ///       ("", [:].dtb.set.foregroundColor(.white).value)
-    ///   ])
+    /// let attr = "".dtb.attr.append(
+    ///     "text",
+    ///     .dtb.create
+    ///         .foregroundColor(.black)
+    ///         .font(.systemFont(ofSize: 13.0))
+    ///         .value
+    /// ).value
     /// ```
     @discardableResult
-    public func append(items: [(_: String, _: [NSAttributedString.Key: Any]?)]) -> Self {
-        items.forEach({
-            me.append(NSAttributedString(string: $0.0, attributes: $0.1))
-        })
+    public func append(_ string: String?, _ attributes: [NSAttributedString.Key: Any]?) -> Self {
+        if let str = string, str.isEmpty == false {
+            me.append(NSAttributedString(string: str, attributes: attributes))
+        }
         return self
     }
     

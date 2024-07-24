@@ -11,25 +11,6 @@
 
 import UIKit
 
-/// discuss.
-///
-/// Type 1:
-/// 1> @available(iOS 11.0, *)  2> func without results
-/// => Use directly
-///
-/// Type 2:
-/// 1> func return another types
-/// => Specify in ``DTBKitChainable``, use ``update:`` func
-///
-/// Type 3:
-/// 1> static / class func
-/// => Specify in ``DTBKitStaticWrapper``
-///
-/// Type 4:
-/// 1> custom helper
-/// => Mark as ``custom``
-///
-
 ///
 extension DTBKitWrapper where Base: UIView & DTBKitChainable {
     
