@@ -14,7 +14,29 @@ import UIKit
 
 extension DTBKitWrapper where Base: CALayer & DTBKitChainable {
     
-    func create() {
-        
+    @discardableResult
+    public func masksToBounds(_ value: Bool) -> Self {
+        me.masksToBounds = value
+        return self
     }
+    
+    @discardableResult
+    public func cornerRadius(_ value: CGFloat) -> Self {
+        me.cornerRadius = value
+        return self
+    }
+    
+    @discardableResult
+    public func borderWidth(_ value: CGFloat) -> Self {
+        me.borderWidth = value
+        return self
+    }
+    
+    @discardableResult
+    public func borderColor(_ value: CGColor) -> Self {
+        me.borderColor = value
+        return self
+    }
+    
+    // etc.
 }
