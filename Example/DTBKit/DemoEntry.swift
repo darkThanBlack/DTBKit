@@ -154,7 +154,8 @@ extension DemoEntry: UITableViewDelegate {
             
             print("result=\(isPhoneNumber("182****9683"))")
             
-            break
+            let cc = SetupVC()
+            cc.fire()
         case .phoneCall:
             
             let tels = ["10086", "tel:10086", "telprompt:10086", "telprompt://10086", "400-1234-567", "+(86) 10086", "+10086"]
@@ -230,5 +231,55 @@ extension DemoEntry: UITableViewDelegate {
             blue: CGFloat((Float((num & 0x0000ff) >> 0)) / 255.0),
             alpha: 1.0
         )
+    }
+}
+
+
+// --- protocol text
+
+
+protocol CommonSetupable: AnyObject {
+    
+    var title: String? { get set }
+}
+
+class Request: CommonSetupable {
+    
+    var title: String?
+    
+    init(title: String? = nil) {
+        self.title = title
+    }
+}
+
+protocol CommonSetuper {
+    
+    associatedtype ModelType: CommonSetupable
+    
+    var model: ModelType? { get set }
+    
+    func setup()
+}
+
+extension CommonSetuper {
+    
+    func setup() {
+        model?.title = "2"
+    }
+}
+
+class SetupVC: CommonSetuper {
+
+    var model: Request? = Request(title: "1")
+    
+//    var model: CommonSetupable? {
+//        get { return request }
+//        set { self.request = newValue as? Request }
+//    }
+    
+    func fire() {
+        print(model?.title)
+        setup()
+        print(model?.title)
     }
 }

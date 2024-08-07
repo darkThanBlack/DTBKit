@@ -20,17 +20,17 @@
 		A735232D860682E7B7E7ECB0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F814B4B829198871353120F8 /* Images.xcassets */; };
 		AB6CE0D0B8FAB93B0A7DDCED /* README.zh-CN.md in Resources */ = {isa = PBXBuildFile; fileRef = 87450B16048921C68D6A5A10 /* README.zh-CN.md */; };
 		BDBB8C6B4588D4721BBE6CE5 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D9099D1384E801AE7056DEE1 /* README.md */; };
-		D3FB58D33BA6636379E4F489 /* Pods_DTBKit_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F9A9C28D288261566FEAD96 /* Pods_DTBKit_Example.framework */; };
+		D8E95BB60A40B3E625E91856 /* Pods_DTBKit_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3849BE153E331BD119F4B52 /* Pods_DTBKit_Example.framework */; };
 		FD226C822096E72DA8C373FA /* DemoNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA191678C2B68D0C9BDC1380 /* DemoNavigationView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3C7D3B41655E7FCD0EEE3DDE /* DTBKit.podspec */ = {isa = PBXFileReference; name = DTBKit.podspec; path = ../DTBKit.podspec; sourceTree = "<group>"; };
+		4E9E5DA9E5208592D76DB91F /* Pods-DTBKit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DTBKit_Example.debug.xcconfig"; path = "Target Support Files/Pods-DTBKit_Example/Pods-DTBKit_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		5E640FCA5DA1C76456068E49 /* Podfile */ = {isa = PBXFileReference; path = Podfile; sourceTree = "<group>"; };
-		6F9A9C28D288261566FEAD96 /* Pods_DTBKit_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DTBKit_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		70B7C80B5F60A9B0123B9530 /* project.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = project.yml; sourceTree = "<group>"; };
+		86038B72AEAE554BA4828B84 /* Pods-DTBKit_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DTBKit_Example.release.xcconfig"; path = "Target Support Files/Pods-DTBKit_Example/Pods-DTBKit_Example.release.xcconfig"; sourceTree = "<group>"; };
 		87450B16048921C68D6A5A10 /* README.zh-CN.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = "README.zh-CN.md"; path = "../README.zh-CN.md"; sourceTree = "<group>"; };
-		8835DE3CB5FDAC9766ACDBA5 /* Pods-DTBKit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DTBKit_Example.debug.xcconfig"; path = "Target Support Files/Pods-DTBKit_Example/Pods-DTBKit_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		8CB035E2CD0BB15B35B6ADEC /* Exported.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exported.swift; sourceTree = "<group>"; };
 		8DC825259B4A2BC75D4CAEBE /* DemoEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoEntry.swift; sourceTree = "<group>"; };
 		8E8A62935A2045157D726ABE /* Int+XMKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+XMKit.swift"; sourceTree = "<group>"; };
@@ -38,46 +38,28 @@
 		AB470419225C0F4E263C23C7 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		AD3822F1BFE14ECBE1DF3A18 /* LICENSE */ = {isa = PBXFileReference; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		BD38C5FAE384D56B19938045 /* SimpleVisualViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleVisualViewController.swift; sourceTree = "<group>"; };
-		C17BEDB7B178BF608D126F02 /* Pods-DTBKit_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DTBKit_Example.release.xcconfig"; path = "Target Support Files/Pods-DTBKit_Example/Pods-DTBKit_Example.release.xcconfig"; sourceTree = "<group>"; };
 		C1E7982283574061EF2C6745 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		CDAF59F97655EB8E78958AD5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D9099D1384E801AE7056DEE1 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		DA191678C2B68D0C9BDC1380 /* DemoNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoNavigationView.swift; sourceTree = "<group>"; };
 		F07719E41192E51E26324668 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		F3849BE153E331BD119F4B52 /* Pods_DTBKit_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DTBKit_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F814B4B829198871353120F8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		FA92A28BC222C5268E1F2F70 /* DemoContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		2CD5A661DE784F229023D96F /* Frameworks */ = {
+		03D6B172D950A45473CB35BA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3FB58D33BA6636379E4F489 /* Pods_DTBKit_Example.framework in Frameworks */,
+				D8E95BB60A40B3E625E91856 /* Pods_DTBKit_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		28EEC95305F0B1C095BB994E /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				6F9A9C28D288261566FEAD96 /* Pods_DTBKit_Example.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		78CC2C4A28BF72E791066B3B /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				8835DE3CB5FDAC9766ACDBA5 /* Pods-DTBKit_Example.debug.xcconfig */,
-				C17BEDB7B178BF608D126F02 /* Pods-DTBKit_Example.release.xcconfig */,
-			);
-			name = Pods;
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		8B751F8645EE2A075856B6D1 /* DTBKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -112,6 +94,16 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		9F898AE6F43BB935A8D2D43F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4E9E5DA9E5208592D76DB91F /* Pods-DTBKit_Example.debug.xcconfig */,
+				86038B72AEAE554BA4828B84 /* Pods-DTBKit_Example.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		B71E3ADCD2777C6D80D7ECAE /* XMExtension */ = {
 			isa = PBXGroup;
 			children = (
@@ -126,8 +118,8 @@
 				D4AD1857E48DF31880954735 /* Examples */,
 				FE361C91F82EDA0008C24741 /* Metadata */,
 				9F12C675ED584F082B757A84 /* Products */,
-				78CC2C4A28BF72E791066B3B /* Pods */,
-				28EEC95305F0B1C095BB994E /* Frameworks */,
+				9F898AE6F43BB935A8D2D43F /* Pods */,
+				F6AF2AC5F0B7539621DE507A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -137,6 +129,14 @@
 				8B751F8645EE2A075856B6D1 /* DTBKit */,
 			);
 			name = Examples;
+			sourceTree = "<group>";
+		};
+		F6AF2AC5F0B7539621DE507A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F3849BE153E331BD119F4B52 /* Pods_DTBKit_Example.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		FE361C91F82EDA0008C24741 /* Metadata */ = {
@@ -159,11 +159,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F1F58F71037EE1DBDB0C6ADC /* Build configuration list for PBXNativeTarget "DTBKit_Example" */;
 			buildPhases = (
-				31BACB6611B626C625A67D17 /* [CP] Check Pods Manifest.lock */,
+				6598BCA04EB2213237E173D9 /* [CP] Check Pods Manifest.lock */,
 				1189F6771834ACEE127E70C3 /* Sources */,
 				6055D51056365702E0FA6C1C /* Resources */,
-				2CD5A661DE784F229023D96F /* Frameworks */,
-				11087DFC413B05C5D757D908 /* [CP] Embed Pods Frameworks */,
+				03D6B172D950A45473CB35BA /* Frameworks */,
+				43CE89ED817722FA41B078C3 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -221,7 +221,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		11087DFC413B05C5D757D908 /* [CP] Embed Pods Frameworks */ = {
+		43CE89ED817722FA41B078C3 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -238,7 +238,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DTBKit_Example/Pods-DTBKit_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		31BACB6611B626C625A67D17 /* [CP] Check Pods Manifest.lock */ = {
+		6598BCA04EB2213237E173D9 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -345,7 +345,7 @@
 		};
 		BAA8C2FA7D56E81C5ABCEC56 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C17BEDB7B178BF608D126F02 /* Pods-DTBKit_Example.release.xcconfig */;
+			baseConfigurationReference = 86038B72AEAE554BA4828B84 /* Pods-DTBKit_Example.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -435,7 +435,7 @@
 		};
 		F2A043E7593DC7E625CA69FC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8835DE3CB5FDAC9766ACDBA5 /* Pods-DTBKit_Example.debug.xcconfig */;
+			baseConfigurationReference = 4E9E5DA9E5208592D76DB91F /* Pods-DTBKit_Example.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;

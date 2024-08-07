@@ -25,7 +25,6 @@ extension DTBKitWrapper where Base: NSMutableAttributedString {
         return me.mutableString.dtb
     }
     
-    
     /// Append.
     ///
     /// Example:

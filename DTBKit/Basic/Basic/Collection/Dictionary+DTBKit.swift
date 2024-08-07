@@ -12,6 +12,3 @@
 
 import UIKit
 
-//extension DTBKitWrapper where Base == Dictionary<NSAttributedString.Key, Any> {
-//    
-//}
