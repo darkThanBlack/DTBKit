@@ -16,6 +16,13 @@ extension DTBKitWrapper where Base: UIButton {
     
     @available(iOS 15.0, *)
     @discardableResult
+    public func configuration(_ value: UIButton.Configuration?) -> Self {
+        me.configuration = value
+        return self
+    }
+    
+    @available(iOS 15.0, *)
+    @discardableResult
     public func setNeedsUpdateConfiguration() -> Self {
         me.setNeedsUpdateConfiguration()
         return self
@@ -55,7 +62,6 @@ extension DTBKitWrapper where Base: UIButton {
         me.role = value
         return self
     }
-
     
     @available(iOS 13.4, *)
     @discardableResult
@@ -129,11 +135,52 @@ extension DTBKitWrapper where Base: UIButton {
         return self
     }
     
-    // [DEPRESSED] on iOS 15.0
-    
+    @available(iOS, introduced: 2.0, deprecated: 15.0, message: "This property is ignored when using UIButtonConfiguration")
     @discardableResult
     public func contentEdgeInsets(_ value: UIEdgeInsets) -> Self {
         me.contentEdgeInsets = value
+        return self
+    }
+    
+    @available(iOS, introduced: 2.0, deprecated: 15.0, message: "This property is ignored when using UIButtonConfiguration")
+    @discardableResult
+    public func titleEdgeInsets(_ value: UIEdgeInsets) -> Self {
+        me.titleEdgeInsets = value
+        return self
+    }
+    
+    @available(iOS, introduced: 2.0, deprecated: 15.0, message: "This property is ignored when using UIButtonConfiguration")
+    @discardableResult
+    public func imageEdgeInsets(_ value: UIEdgeInsets) -> Self {
+        me.imageEdgeInsets = value
+        return self
+    }
+    
+    @available(iOS, introduced: 2.0, deprecated: 15.0, message: "This property is ignored when using UIButtonConfiguration, you may customize to replicate this behavior via a configurationUpdateHandler")
+    @discardableResult
+    public func reversesTitleShadowWhenHighlighted(_ value: Bool) -> Self {
+        me.reversesTitleShadowWhenHighlighted = value
+        return self
+    }
+    
+    @available(iOS, introduced: 2.0, deprecated: 15.0, message: "This property is ignored when using UIButtonConfiguration, you may customize to replicate this behavior via a configurationUpdateHandler")
+    @discardableResult
+    public func adjustsImageWhenHighlighted(_ value: Bool) -> Self {
+        me.adjustsImageWhenHighlighted = value
+        return self
+    }
+    
+    @available(iOS, introduced: 2.0, deprecated: 15.0, message: "This property is ignored when using UIButtonConfiguration, you may customize to replicate this behavior via a configurationUpdateHandler")
+    @discardableResult
+    public func adjustsImageWhenDisabled(_ value: Bool) -> Self {
+        me.adjustsImageWhenDisabled = value
+        return self
+    }
+    
+    @available(iOS, introduced: 2.0, deprecated: 15.0, message: "This property is ignored when using UIButtonConfiguration")
+    @discardableResult
+    public func showsTouchWhenHighlighted(_ value: Bool) -> Self {
+        me.showsTouchWhenHighlighted = value
         return self
     }
 }
