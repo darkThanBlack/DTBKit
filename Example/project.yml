@@ -16,8 +16,8 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: org.darkThanBlack.demo.DTBKit
-        IPHONEOS_DEPLOYMENT_TARGET: 11.0
-        SWIFT_VERSION: 4.2
+        IPHONEOS_DEPLOYMENT_TARGET: 12.0
+        SWIFT_VERSION: 5.0
         # 1: iPhone
         TARGETED_DEVICE_FAMILY: 1
         # 注释以便 Xcode 15.3 Uni-Test 成功运行

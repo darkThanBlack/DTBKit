@@ -13,11 +13,11 @@
 		26BBB83FC4DA650DDC3329EC /* DemoContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA92A28BC222C5268E1F2F70 /* DemoContentView.swift */; };
 		3A9B01ED6B8CAEC69307A5D3 /* SimpleVisualViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD38C5FAE384D56B19938045 /* SimpleVisualViewController.swift */; };
 		3AC23554A53955C5AF50A390 /* DemoEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC825259B4A2BC75D4CAEBE /* DemoEntry.swift */; };
-		43F0EA6F799D4A81F3AF104E /* Pods_DTBKit_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4652F484F816605410ADCFA /* Pods_DTBKit_Example.framework */; };
 		4897D1F22628757CD19CB981 /* Int+XMKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8A62935A2045157D726ABE /* Int+XMKit.swift */; };
 		66F19A1005CEDC2EDDBFDF6A /* Exported.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB035E2CD0BB15B35B6ADEC /* Exported.swift */; };
 		7CF58AE26EC8F27ABBC74059 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB470419225C0F4E263C23C7 /* HomeViewController.swift */; };
 		A1348D0AEC21FEC0D41CBBE1 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1E7982283574061EF2C6745 /* Launch Screen.storyboard */; };
+		A27B50CF48790A2114A11711 /* Pods_DTBKit_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD6FE3C73A614123476173F6 /* Pods_DTBKit_Example.framework */; };
 		A735232D860682E7B7E7ECB0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F814B4B829198871353120F8 /* Images.xcassets */; };
 		AB6CE0D0B8FAB93B0A7DDCED /* README.zh-CN.md in Resources */ = {isa = PBXBuildFile; fileRef = 87450B16048921C68D6A5A10 /* README.zh-CN.md */; };
 		BDBB8C6B4588D4721BBE6CE5 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D9099D1384E801AE7056DEE1 /* README.md */; };
@@ -26,48 +26,46 @@
 
 /* Begin PBXFileReference section */
 		3C7D3B41655E7FCD0EEE3DDE /* DTBKit.podspec */ = {isa = PBXFileReference; name = DTBKit.podspec; path = ../DTBKit.podspec; sourceTree = "<group>"; };
+		518F37686C47DEA70A45502F /* Pods-DTBKit_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DTBKit_Example.release.xcconfig"; path = "Target Support Files/Pods-DTBKit_Example/Pods-DTBKit_Example.release.xcconfig"; sourceTree = "<group>"; };
+		5E0C41F8861E296F314E06CA /* Pods-DTBKit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DTBKit_Example.debug.xcconfig"; path = "Target Support Files/Pods-DTBKit_Example/Pods-DTBKit_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		5E640FCA5DA1C76456068E49 /* Podfile */ = {isa = PBXFileReference; path = Podfile; sourceTree = "<group>"; };
 		70B7C80B5F60A9B0123B9530 /* project.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = project.yml; sourceTree = "<group>"; };
 		87450B16048921C68D6A5A10 /* README.zh-CN.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = "README.zh-CN.md"; path = "../README.zh-CN.md"; sourceTree = "<group>"; };
 		8CB035E2CD0BB15B35B6ADEC /* Exported.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exported.swift; sourceTree = "<group>"; };
 		8DC825259B4A2BC75D4CAEBE /* DemoEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoEntry.swift; sourceTree = "<group>"; };
 		8E8A62935A2045157D726ABE /* Int+XMKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+XMKit.swift"; sourceTree = "<group>"; };
-		A136E0DABEA8815E12CFE60E /* Pods-DTBKit_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DTBKit_Example.release.xcconfig"; path = "Target Support Files/Pods-DTBKit_Example/Pods-DTBKit_Example.release.xcconfig"; sourceTree = "<group>"; };
 		A94332BD9942E3A20F8AC621 /* DTBKit_Example.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = DTBKit_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB470419225C0F4E263C23C7 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		AD3822F1BFE14ECBE1DF3A18 /* LICENSE */ = {isa = PBXFileReference; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		BD38C5FAE384D56B19938045 /* SimpleVisualViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleVisualViewController.swift; sourceTree = "<group>"; };
 		C1E7982283574061EF2C6745 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		CDAF59F97655EB8E78958AD5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D8BD6C7A1963DE124F9102F9 /* Pods-DTBKit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DTBKit_Example.debug.xcconfig"; path = "Target Support Files/Pods-DTBKit_Example/Pods-DTBKit_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		D9099D1384E801AE7056DEE1 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		DA191678C2B68D0C9BDC1380 /* DemoNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoNavigationView.swift; sourceTree = "<group>"; };
 		F07719E41192E51E26324668 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		F4652F484F816605410ADCFA /* Pods_DTBKit_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DTBKit_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F814B4B829198871353120F8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		FA92A28BC222C5268E1F2F70 /* DemoContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoContentView.swift; sourceTree = "<group>"; };
+		FD6FE3C73A614123476173F6 /* Pods_DTBKit_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DTBKit_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		E52B7B1419410FCFE0ED86F1 /* Frameworks */ = {
+		4DD2AF900DE077263A83B070 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				43F0EA6F799D4A81F3AF104E /* Pods_DTBKit_Example.framework in Frameworks */,
+				A27B50CF48790A2114A11711 /* Pods_DTBKit_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1BE0F084B86EA6BF31529892 /* Pods */ = {
+		77723CE9D7F2648D30FA2D5F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D8BD6C7A1963DE124F9102F9 /* Pods-DTBKit_Example.debug.xcconfig */,
-				A136E0DABEA8815E12CFE60E /* Pods-DTBKit_Example.release.xcconfig */,
+				FD6FE3C73A614123476173F6 /* Pods_DTBKit_Example.framework */,
 			);
-			name = Pods;
-			path = Pods;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		8B751F8645EE2A075856B6D1 /* DTBKit */ = {
@@ -104,14 +102,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A417124BD8D8B72095ED2CCA /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				F4652F484F816605410ADCFA /* Pods_DTBKit_Example.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		B71E3ADCD2777C6D80D7ECAE /* XMExtension */ = {
 			isa = PBXGroup;
 			children = (
@@ -126,9 +116,19 @@
 				D4AD1857E48DF31880954735 /* Examples */,
 				FE361C91F82EDA0008C24741 /* Metadata */,
 				9F12C675ED584F082B757A84 /* Products */,
-				1BE0F084B86EA6BF31529892 /* Pods */,
-				A417124BD8D8B72095ED2CCA /* Frameworks */,
+				CD187C6E085E68808C31897E /* Pods */,
+				77723CE9D7F2648D30FA2D5F /* Frameworks */,
 			);
+			sourceTree = "<group>";
+		};
+		CD187C6E085E68808C31897E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5E0C41F8861E296F314E06CA /* Pods-DTBKit_Example.debug.xcconfig */,
+				518F37686C47DEA70A45502F /* Pods-DTBKit_Example.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		D4AD1857E48DF31880954735 /* Examples */ = {
@@ -159,11 +159,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F1F58F71037EE1DBDB0C6ADC /* Build configuration list for PBXNativeTarget "DTBKit_Example" */;
 			buildPhases = (
-				520F83ECFF8EC1E40E447AC8 /* [CP] Check Pods Manifest.lock */,
+				746DE2E7DFFB949578F4A450 /* [CP] Check Pods Manifest.lock */,
 				1189F6771834ACEE127E70C3 /* Sources */,
 				6055D51056365702E0FA6C1C /* Resources */,
-				E52B7B1419410FCFE0ED86F1 /* Frameworks */,
-				0F02AD825C41A11B370D401F /* [CP] Embed Pods Frameworks */,
+				4DD2AF900DE077263A83B070 /* Frameworks */,
+				6A41EE64CF493F52B9D01E09 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -221,7 +221,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0F02AD825C41A11B370D401F /* [CP] Embed Pods Frameworks */ = {
+		6A41EE64CF493F52B9D01E09 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -238,7 +238,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DTBKit_Example/Pods-DTBKit_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		520F83ECFF8EC1E40E447AC8 /* [CP] Check Pods Manifest.lock */ = {
+		746DE2E7DFFB949578F4A450 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -345,7 +345,7 @@
 		};
 		BAA8C2FA7D56E81C5ABCEC56 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A136E0DABEA8815E12CFE60E /* Pods-DTBKit_Example.release.xcconfig */;
+			baseConfigurationReference = 518F37686C47DEA70A45502F /* Pods-DTBKit_Example.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -356,7 +356,7 @@
 					"$(PODS_CONFIGURATION_BUILD_DIR)/DTBKit",
 				);
 				INFOPLIST_FILE = DTBKit/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -366,7 +366,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.darkThanBlack.demo.DTBKit;
 				PRODUCT_NAME = DTBKit_Example;
 				SDKROOT = iphoneos;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				UILaunchStoryboardName = LaunchScreen;
 				WARNING_CFLAGS = (
@@ -435,7 +435,7 @@
 		};
 		F2A043E7593DC7E625CA69FC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D8BD6C7A1963DE124F9102F9 /* Pods-DTBKit_Example.debug.xcconfig */;
+			baseConfigurationReference = 5E0C41F8861E296F314E06CA /* Pods-DTBKit_Example.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -446,7 +446,7 @@
 					"$(PODS_CONFIGURATION_BUILD_DIR)/DTBKit",
 				);
 				INFOPLIST_FILE = DTBKit/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -456,7 +456,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.darkThanBlack.demo.DTBKit;
 				PRODUCT_NAME = DTBKit_Example;
 				SDKROOT = iphoneos;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				UILaunchStoryboardName = LaunchScreen;
 				WARNING_CFLAGS = (
