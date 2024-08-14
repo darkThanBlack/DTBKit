@@ -33,107 +33,208 @@ This project is some reflection on this issue.
 
 
 
-## Quick Start
+## Start
 
-View the example: It is recommended to install ``xcodegen``, enter the ``Example`` directory and execute ``xcodegen`` and ``pod install`` on the command line.
 
-The project uses the cocoapods structure, but it has not been officially released. When using it, you need to use something similar to
 
-```ruby
-pod 'DTBKit', git: 'https://github.com/darkThanBlack/DTBKit', commit: 'dd3acb'
+#### Run example
+
+需要先通过 ``homebrew`` 安装 ``xcodegen``，用来生成 ``*.xcodeproj`` 文件。
+
+```shell
+# Use script
+cd Scripts
+chmod +x ci.sh
+./ci.sh
+b1
+
+# Same as:
+cd Example
+xcodegen
+pod install
 ```
 
-Specify the warehouse address and version number in the form.
 
-The documentation and comments are bound to not be perfect, so please read the source code thoroughly before using it.
+
+#### Cocoapods
+
+```ruby
+# Add to main project podfile:
+source 'https://github.com/darkThanBlack/Specs.git'
+# then:
+pod 'DTBKit/Core', tag: '0.0.1'
+
+# Or:
+pod 'DTBKit/Core', git: 'https://github.com/darkThanBlack/DTBKit', commit: '3f93179af6c2caa1e8bd0c418820947fe1aae899'
+```
 
 
 
 #### Intro
 
-The usage of the code is very simple. First of all, in theory,
-
 * Any object can have a special "namespace". Taking ``UIView`` as an example, you can:
 
-     ```swift
-     /// transfer
-     UIView().dtb
-     /// static method
-     UIView.dtb
-     ```
+    ```swift
+    /// 
+    UIView().dtb
+    /// static / class func
+    UIView.dtb
+    ```
 
-* Then, assuming you have a business method called ``test``, you can:
+* Then, you can call ``test`` func like this:
 
-     ```swift
-     UIView().dtb.test()
-     ```
+    ```swift
+    UIView().dtb.test()
+    ```
 
-* For your own new project or business, you can replace the three words ``dtb`` with any name you like:
+* For different project / module, you can replace ``dtb`` with your own definition:
 
-     ```swift
-     UIView().dtb
-     ```
+    ```swift
+    UIView().xm.test()
+    ```
 
-* Suppose there is a business method called ``test2`` in the new business:
+* Add your own methods:
 
-     ```swift
-     UIView().dtb.test()
-     UIView().dtb.test()
-        
-     UIView().dtb.test2()
-     UIView().dtb.test() // Compilation error
-     ```
+    ```swift
+    UIView().xm.test2()
+    ```
 
-* For the new business ``xm``, it can directly call all methods in the ``dtb`` space. However, for the methods in the ``xm`` space, ``dtb`` cannot be called, and There will be no code prompts.
+* Most of them is chainable:
 
-* Some methods support chain calls and will return an object ending with a ``wrapper`` name, and all ``wrapper`` objects have a ``value`` attribute, which is used to obtain the internal real object:
-
-     ```swift
-     let titleLabel = UILabel().dtb.title("moon").value
-     titleLabel.backgroundColor = .white
-     ```
+    ```swift
+    let titleLabel = UILabel().dtb.title("moon").value
+    titleLabel.backgroundColor = .white
+    ```
 
 
 
-#### Keyword conventions
+#### Conventions
 
 Common English words are **definitely** used up by various programming languages and frameworks, so you need to be very careful in naming, and allow users to agree on the words they are used to.
 
 Currently, the use of the framework only needs to pay attention to the following logic:
 
 * Object methods start with ``UIView().dtb``
-
 * Class methods start with ``UIView.dtb``
-
 * Most objects will implement class methods named ``create``, which are used when creating objects
-
 * ``value``, all boxed objects will implement this property, used for unpacking
 
 
 
-## Demo
+#### Extension
 
-> How to import DTBKit & best practices.
+Add the following code to main project:
+
+```swift
+// === NAMESPACE CONVERT ===
+
+@_exported import DTBKit
+
+// - Core
+
+public typealias XM = DTB
+
+public typealias XMKitable = DTBKitable
+
+public typealias XMKitStructable = DTBKitStructable
+
+public typealias XMKitWrapper = DTBKitWrapper
+
+public typealias XMKitStaticWrapper = DTBKitStaticWrapper
+
+extension XMKitable {
+    
+    public var xm: XMKitWrapper<Self> {
+        return dtb
+    }
+    
+    public static var xm: XMKitStaticWrapper<Self> {
+        return dtb
+    }
+}
+
+extension XMKitStructable {
+    
+    public var xm: XMKitWrapper<Self> {
+        return dtb
+    }
+    
+    public static var xm: XMKitStaticWrapper<Self> {
+        return dtb
+    }
+}
+
+extension XMKitWrapper {
+    
+    internal var me: Base { return value }
+}
+
+// - Chain
+
+public typealias XMKitChainable = DTBKitChainable
+
+public typealias XMKitStructChainable = DTBKitStructChainable
+
+public typealias XMKitMutableWrapper = DTBKitMutableWrapper
+
+```
+
+
+
+#### Private Cocoapods
+
+Move the above code into your private library, and
+
+```ruby
+# private dependency Unable to specify version
+ss.dependency 'DTBKit/Core'
+
+# So add source to your private library's main project
+source 'https://github.com/darkThanBlack/Specs.git'
+
+# Or:
+pod 'DTBKit/Core', git: 'https://github.com/darkThanBlack/DTBKit', commit: '3f93179af6c2caa1e8bd0c418820947fe1aae899'
+```
+
+
+
+#### Tests
+
+Cocoapods test supported:
+
+```ruby
+pod 'DTBKit/Basic', :testspecs => ['Tests']
+```
+
+ Xcode > Schemes > Select ``DTBKit``,  ``Command + U`` .
 
 
 
 ## Example
 
-> Main dev proj.
+> Main dev proj & Test Cases.
+
+## Core
+
+> Namespace declaration.
+
+
+
+## Chain
+
+> Fast create.
 
 
 
 ## Basic
 
-> Static. Full test.
+> Basic helper methods.
 
 
 
 ## UIKit
 
-> Refer for UI bundles. 
-
-
+> UIKit helper methods.
 
 
 
@@ -146,3 +247,9 @@ moonShadow.
 ## License
 
 DTBKit is available under the MIT license. See the LICENSE file for more info.
+
+
+
+## Edited
+
+> Update: 2024/08/14    README - Start
