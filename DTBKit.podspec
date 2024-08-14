@@ -29,7 +29,7 @@ DESC
   end
   
   s.subspec 'Chain' do |ss|
-    ss.source_files = 'DTBKit/Chain/DTBKit+Chain.swift', 'DTBKit/Chain/Foundation/**/*'
+    ss.source_files = 'DTBKit/Chain/**/*'
     ss.dependency 'DTBKit/Core'
   end
   
