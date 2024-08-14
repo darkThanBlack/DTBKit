@@ -12,6 +12,8 @@
 
 import UIKit
 
+extension CGSize: DTBKitStructable {}
+
 extension DTBKitStaticWrapper where T == CGSize {
     
     /// width | height

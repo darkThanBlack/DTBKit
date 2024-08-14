@@ -12,6 +12,8 @@
 
 import UIKit
 
+extension CGRect: DTBKitStructable {}
+
 extension DTBKitStaticWrapper where T == CGRect {
     
     /// x | y | width | height

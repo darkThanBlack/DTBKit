@@ -108,11 +108,3 @@ extension Dictionary: DTBKitStructable, DTBKitStructChainable {
         return [:]
     }
 }
-
-extension CGSize: DTBKitStructable {}
-
-extension CGRect: DTBKitStructable {}
-
-extension NSRange: DTBKitStructable {}
-
-extension UIEdgeInsets: DTBKitStructable {}

@@ -12,6 +12,8 @@
 
 import UIKit
 
+extension NSRange: DTBKitStructable {}
+
 extension DTBKitStaticWrapper where T == NSRange {
     
     /// location | length

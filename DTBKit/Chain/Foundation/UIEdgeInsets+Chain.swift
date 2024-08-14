@@ -12,6 +12,8 @@
 
 import UIKit
 
+extension UIEdgeInsets: DTBKitStructable {}
+
 extension DTBKitStaticWrapper where T == UIEdgeInsets {
     
     /// top | left | bottom | right

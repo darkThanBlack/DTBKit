@@ -89,6 +89,7 @@ extension DTBKitStructable {
 /// Mainly instance wrapper.
 ///
 /// 对象容器。
+@dynamicMemberLookup
 public struct DTBKitWrapper<Base> {
     internal let me: Base
     public init(_ value: Base) { self.me = value }
@@ -102,6 +103,17 @@ public struct DTBKitWrapper<Base> {
     ///     let label = UILabel().dtb.text("title").value
     /// ```
     public var value: Base { return me }
+    
+    /// Chainable for any property.
+    ///
+    /// 链式语法兼容
+    public subscript<Value>(dynamicMember keyPath: WritableKeyPath<Base, Value>) -> ((Value) -> DTBKitWrapper<Base>) {
+        var subject = self.me
+        return { value in
+            subject[keyPath: keyPath] = value
+            return self
+        }
+    }
 }
 
 /// Mainly static wrapper.
