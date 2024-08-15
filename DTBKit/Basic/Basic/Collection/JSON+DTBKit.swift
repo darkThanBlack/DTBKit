@@ -13,7 +13,7 @@
 import Foundation
 
 ///
-public extension DTBKitWrapper {
+public extension DTBKitWrapper where Base: Collection {
     
     /// System json parser.
     ///

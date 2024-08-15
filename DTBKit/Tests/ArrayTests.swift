@@ -13,15 +13,7 @@
 import XCTest
 
 final class ArrayTests: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
+    
     func testIndex() throws {
         let list = [1, 2, 3]
         
@@ -29,5 +21,6 @@ final class ArrayTests: XCTestCase {
         XCTAssert(list.dtb[0] == 1)
         XCTAssert(list.dtb[2] == 3)
         XCTAssert(list.dtb[3] == nil)
+        XCTAssert(list.dtb[nil] == nil)
     }
 }

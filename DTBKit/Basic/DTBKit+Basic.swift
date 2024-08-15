@@ -12,16 +12,6 @@
 import Foundation
 import UIKit
 
-extension Int: DTBKitStructable {}
-
-extension Int8: DTBKitStructable {}
-
-extension Int16: DTBKitStructable {}
-
-extension Int32: DTBKitStructable {}
-
-extension Int64: DTBKitStructable {}
-
 extension Float: DTBKitStructable {}
 
 extension Double: DTBKitStructable {}

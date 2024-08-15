@@ -12,6 +12,16 @@
 
 import Foundation
 
+extension Int: DTBKitStructable {}
+
+extension Int8: DTBKitStructable {}
+
+extension Int16: DTBKitStructable {}
+
+extension Int32: DTBKitStructable {}
+
+extension Int64: DTBKitStructable {}
+
 ///
 extension DTBKitWrapper where Base: SignedInteger {
     
