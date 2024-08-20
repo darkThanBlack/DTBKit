@@ -12,27 +12,6 @@
 
 import UIKit
 
-// Size width and height will always >= 0.0 semantically.
-
-/// Basic
-extension DTBKitWrapper where Base == CGRect {
-    
-    /// >= 0.0
-    public var width: CGFloat {
-        return Swift.max(me.size.width, 0)
-    }
-    
-    /// >= 0.0
-    public var height: CGFloat {
-        return Swift.max(me.size.height, 0)
-    }
-    
-    ///
-    public var isEmpty: Bool {
-        return (width == 0) || (height == 0)
-    }
-}
-
 //Coordinate
 
 /// Drift absorb

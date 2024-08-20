@@ -119,32 +119,6 @@ extension DTB {
         case scale
     }
     
-    /// Notification name define
-    ///
-    /// 通知标识
-    ///
-    /// Usage example:
-    /// ```
-    ///     NotificationCenter.xm.post(.xm.appRestart)
-    /// ```
-    public struct Notifications {
-        
-        public let key: Notification.Name
-        
-        init(key: String) {
-            self.key = Notification.Name(rawValue: key)
-        }
-    }
-    
-    public struct UserDefaults {
-        
-        public let key: String
-        
-        init(key: String) {
-            self.key = key
-        }
-    }
-    
     /// String regular
     ///
     /// 正则表达式定义

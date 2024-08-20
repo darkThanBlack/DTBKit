@@ -87,7 +87,7 @@ extension DTBKitWrapper where Base: BinaryFloatingPoint {
     public func hf(_ behavior: DTB.HFBehaviors = .scale) -> CGFloat {
         switch behavior {
         case .scale:
-            return CGFloat(me) * UIScreen.main.bounds.size.width / DTB.Performance.shared.designBaseSize.width
+            return CGFloat(me) * UIScreen.main.bounds.size.width / DTB.Configuration.shared.designBaseSize.width
         }
     }
 }

@@ -36,7 +36,7 @@ DESC
   s.subspec 'Basic' do |ss|
     ss.source_files = 'DTBKit/DTBKit.swift', 'DTBKit/Basic/**/*'
     ss.resource_bundles = {
-      'DTBKit-Basic' => ['DTBKit/Assets/basic.xcassets']
+      'DTBKit-Basic' => ['DTBKit/Resources/basic.xcassets', 'DTBKit/Resources/basic.bundle']
     }
     ss.dependency 'DTBKit/Chain'
     
@@ -50,7 +50,7 @@ DESC
   s.subspec 'UIKit' do |ss|
     ss.source_files = 'DTBKit/UIKit/**/*'
     ss.resource_bundles = {
-      'DTBKit-UIKit' => ['DTBKit/Assets/ui-kit.xcassets']
+      'DTBKit-UIKit' => ['DTBKit/Resources/ui-kit.xcassets']
     }
     ss.dependency 'DTBKit/Basic'
     # ss.dependency 'SnapKit', '5.0.1'

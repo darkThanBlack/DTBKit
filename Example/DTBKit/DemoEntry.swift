@@ -16,7 +16,7 @@ extension DemoCellModel {
     
     enum BaseCellType: String, CaseIterable {
         
-        case chain_struct, chain_class, edgeLabel, playGround, phoneCall, hexColor
+        case chain_struct, chain_class, edgeLabel, playGround, phoneCall, hexColor, bundle
         
         var desc: String? {
             switch self {
@@ -208,6 +208,29 @@ extension DemoEntry: UITableViewDelegate {
 //            let baseUrl = URL(string: "")
 //            let com = URLComponents(string: test)
 //            print("")
+            
+        case .bundle:
+            func check(_ bundle: Bundle) {
+                if let path = bundle.path(forResource: "dtb_logo", ofType: "png"),
+                   let img = UIImage(contentsOfFile: path) {
+                    print("got it final")
+                }
+            }
+            
+            if let bundle = Bundle.dtb.create("test-home") {
+                print("got it 01")
+                check(bundle)
+            }
+            
+            if let bundle = Bundle.dtb.create("DTBKit-Basic") {
+                print("got it 02")
+                check(bundle)
+            }
+            
+            if let bundle = Bundle.dtb.create("test-nested") {
+                print("got it 03")
+                check(bundle)
+            }
         }
     }
     

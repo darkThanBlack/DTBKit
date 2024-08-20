@@ -12,33 +12,30 @@
 
 import UIKit
 
-// Size width and height will always >= 0.0 semantically.
-//
 // Uni test: ``MathTests.swift``
 
 /// Basic
 extension DTBKitWrapper where Base == CGSize {
     
     /// >= 0.0
-    public var width: CGFloat {
+    internal var width: CGFloat {
         return Swift.max(me.width, 0)
     }
     
     /// >= 0.0
-    public var height: CGFloat {
+    internal var height: CGFloat {
         return Swift.max(me.height, 0)
     }
     
     /// width & height >= 0
     @discardableResult
-    public func safe() -> Self {
-        guard isEmpty else { return self }
+    internal func safe() -> Self {
         return CGSize(width: width, height: height).dtb
     }
     
     ///
     public var isEmpty: Bool {
-        return (width == 0) || (height == 0)
+        return (width <= 0) || (height <= 0)
     }
     
     ///
@@ -131,17 +128,10 @@ extension DTBKitWrapper where Base == CGSize {
         if isEmpty || target.dtb.isEmpty {
             return CGSize.zero.dtb
         }
-        if me.width > me.height {
-            return CGSize(
-                width: target.width,
-                height: target.width * me.height / me.width
-            ).dtb
-        } else {
-            return CGSize(
-                width: target.height * me.width / me.height,
-                height: target.height
-            ).dtb
-        }
+        let scaleX = target.width / me.width
+        let scaleY = target.height / me.height
+        let scale = Swift.min(scaleX, scaleY)
+        return CGSize(width: me.width * scale, height: me.height * scale).dtb
     }
     
     /// Same as ``UIImageView.contentMode``
@@ -149,17 +139,9 @@ extension DTBKitWrapper where Base == CGSize {
         if isEmpty || target.dtb.isEmpty {
             return CGSize.zero.dtb
         }
-        
-        if me.width < me.height {
-            return CGSize(
-                width: target.width,
-                height: target.width * me.height / me.width
-            ).dtb
-        } else {
-            return CGSize(
-                width: target.height * me.width / me.height,
-                height: target.height
-            ).dtb
-        }
+        let scaleX = target.width / me.width
+        let scaleY = target.height / me.height
+        let scale = Swift.max(scaleX, scaleY)
+        return CGSize(width: me.width * scale, height: me.height * scale).dtb
     }
 }
