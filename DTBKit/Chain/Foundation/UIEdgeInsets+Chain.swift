@@ -25,7 +25,7 @@ extension DTBKitStaticWrapper where T == UIEdgeInsets {
         return UIEdgeInsets(top: top, left: left, bottom: bottom, right: right)
     }
     
-    public func create(h horizontal: CGFloat = 0, v vertical: CGFloat = 0) -> T {
+    public func create(horizontal: CGFloat = 0, vertical: CGFloat = 0) -> T {
         return UIEdgeInsets(top: vertical, left: horizontal, bottom: vertical, right: horizontal)
     }
     

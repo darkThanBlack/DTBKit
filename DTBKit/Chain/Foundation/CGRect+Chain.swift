@@ -21,7 +21,11 @@ extension DTBKitStaticWrapper where T == CGRect {
         return CGRect(x: x, y: y, width: width, height: height)
     }
     
-    public func create(origin: CGPoint = .zero, size: CGSize) -> T {
+    public func create(x: CGFloat = 0, y: CGFloat = 0, width: CGFloat = 0, height: CGFloat = 0) -> T {
+        return CGRect(x: x, y: y, width: width, height: height)
+    }
+    
+    public func create(origin: CGPoint = .zero, size: CGSize = .zero) -> T {
         return CGRect(origin: origin, size: size)
     }
 }

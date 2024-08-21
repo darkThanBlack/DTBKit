@@ -21,7 +21,11 @@ extension DTBKitStaticWrapper where T == CGSize {
         return CGSize(width: width, height: height)
     }
     
-    public func create(_ square: CGFloat) -> T {
+    public func create(width: CGFloat = 0, height: CGFloat = 0) -> T {
+        return CGSize(width: width, height: height)
+    }
+    
+    public func create(square: CGFloat) -> T {
         return CGSize(width: square, height: square)
     }
 }
