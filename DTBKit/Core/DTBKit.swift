@@ -13,12 +13,34 @@
 
 import Foundation
 
-//MARK: - Name spaces
-
 /// Static name space.
 ///
 /// 静态对象命名空间。
 public enum DTB {}
+
+extension DTB {
+    
+    /// 用于声明带类型推断的静态常量。
+    ///
+    /// Represents a `Key` with an associated generic value type.
+    /// 
+    /// Special thanks: ``DefaultsKit``
+    ///
+    /// Example:
+    /// ```
+    ///     let key = DTB.ConstKey<[String: Any]>("myUserDefaultsKey")
+    /// ```
+    public struct ConstKey<ValueType> {
+        
+        public let key_: String
+        
+        public init(_ key: String) {
+            self.key_ = key
+        }
+    }
+}
+
+//MARK: - Name spaces
 
 /// Indicate which one implements the namespace for ``class``.
 ///

@@ -14,26 +14,6 @@ import UIKit
 
 extension DTB {
     
-    /// 用于声明带类型推断的静态常量。
-    ///
-    /// Represents a `Key` with an associated generic value type.
-    ///
-    /// Example:
-    /// ```
-    ///     let key = DTB.ConstKey<[String: Any]>("myUserDefaultsKey")
-    /// ```
-    public struct ConstKey<ValueType> {
-        
-        internal let key_: String
-        
-        public init(_ key: String) {
-            self.key_ = key
-        }
-    }
-}
-
-extension DTB {
-    
     /// 应用级数据 / 内存处理 / 其他
     public static let app = AppManager.shared
 }
@@ -109,30 +89,21 @@ public final class AppManager {
     /// 在手机桌面上显示的应用名称
     ///
     /// App name on iPhone desktop. ``CFBundleDisplayName``.
-    public let displayName: String = {
-        if let result = (Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String) {
-            return result
-        }
-        return ""
-    }()
+    public var displayName: String {
+        return (Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String) ?? ""
+    }
     
     /// 版本号
     ///
     /// ``CFBundleShortVersionString``
-    public let version: String = {
-        if let result = (Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String) {
-            return result
-        }
-        return ""
-    }()
+    public var version: String {
+        return (Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String) ?? ""
+    }
     
     /// 构建号
     ///
     /// ``CFBundleVersion``
-    public let build: String = {
-        if let result = (Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String) {
-            return result
-        }
-        return ""
-    }()
+    public var build: String {
+        return (Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String) ?? ""
+    }
 }
