@@ -17,7 +17,6 @@ extension DTBKitStaticWrapper where T: UIImage {
     
     /// Create resource image by name.
     ///
-    /// Will recursion searh all "types" in:
     ///
     /// * ``Proj.xcassets``
     ///   * same as ``UIImage(named:)``
@@ -37,97 +36,77 @@ extension DTBKitStaticWrapper where T: UIImage {
     /// [refer](https://juejin.cn/post/6844903559931117581)
     ///
     /// - Parameters:
-    ///   - name: image name
-    ///   - bundleName: ``/*.bundle/``
-    ///   - frameworkName: ``/*.framework/``，default is equal to "bundleName"
-    ///   - classType: ``Bundle(for: )``, pass ``nil`` or ``self``
-    ///   - types: image suffix
-    public func named(
-        _ name: String,
-        bundleName: String? = nil,
-        frameworkName: String? = nil,
-        classType: AnyClass? = nil,
-        types: [String] = ["png", "jpg", "webp", "jpeg"]
-    ) -> UIImage? {
+    ///   - imageName: imageName description
+    ///   - bundle: bundle description
+    /// - Returns: description
+    public func create(_ imageName: String?, bundle: Bundle? = nil) -> UIImage? {
+        guard let name = imageName, name.isEmpty == false else {
+            return nil
+        }
+        
+        let cacheKey = DTB.ConstKey<[String: String]>("DTBKitBundleImagePathKey")
+        
+        /// 尝试在指定的 bundle 中创建
         ///
-        func bundleImage(
-            named name: String,
-            type: String,
-            mainBundle: Bundle
-        ) -> UIImage? {
-            ///
-            func create(by target: Bundle) -> UIImage? {
-                if let image = UIImage(named: name, in: target, compatibleWith: nil) {
-                    return image
+        /// Search image with name in specify bundle.
+        func createWithBundle(_ target: Bundle) -> UIImage? {
+            // ``*.{xcassets, car}/name.*``
+            if let result = UIImage(named: name, in: target, compatibleWith: nil) {
+                return result
+            }
+            // ``**/*/name.type``
+            for type in DTB.Configuration.shared.supportImageTypes {
+                if let path = target.path(forResource: name, ofType: type),
+                   let result = UIImage(contentsOfFile: path) {
+                    return result
                 }
-                if let path = target.path(forResource: name, ofType: type) {
-                    return UIImage(contentsOfFile: path)
-                }
-                return nil
-            }
-            // main/*.*
-            if let image = create(by: mainBundle) {
-                return image
-            }
-            guard let biz = bundleName else {
-                return nil
-            }
-            // main/*.bundle/*.*
-            if let path = mainBundle.path(forResource: biz, ofType: "bundle"),
-               let bundle = Bundle(path: path),
-               let image = create(by: bundle) {
-                return image
-            }
-            // main/*.bundle/*.{xcassets, car}/*.*
-            if let path = mainBundle.resourcePath,
-               let bundle = Bundle(path: path + "/\(biz).bundle"),
-               let image = create(by: bundle) {
-                return image
-            }
-            // main/Frameworks/*.framework/*.bundle/*.*
-            if let path = mainBundle.resourcePath,
-               let bundle = Bundle(path: path + "/Frameworks/\(frameworkName ?? biz).framework/\(biz).bundle"),
-               let image = create(by: bundle) {
-                return image
             }
             return nil
         }
         
-        /// recursion for every type
-        func image(index: Int = 0, main: Bundle) -> UIImage? {
-            guard index < types.count else {
-                return nil
-            }
-            if let image = bundleImage(named: name, type: types[index], mainBundle: main) {
-                return image
-            } else {
-                return image(index: index + 1, main: main)
-            }
-        }
-        
-        // Default
-        if bundleName == nil, let image = UIImage(named: name) {
-            return image
-        }
-        // Proj.{SPM, Pods, framework, ...}
-        var bundle: Bundle? = nil
+        if let imageBundle = bundle {
+            // Specify bundle
+            return createWithBundle(imageBundle)
+        } else {
+            // SPM
 #if SWIFT_PACKAGE
-        bundle = SWIFTPM_MODULE_BUNDLE
-#else
-        if let t = classType {
-            bundle = Bundle(for: t)
-        }
+            if let result = createWithBundle(SWIFTPM_MODULE_BUNDLE) {
+                return result
+            }
 #endif
-        if let third = bundle,
-           let image = image(main: third) {
-            return image
+            // check cached name
+            var cacheDict = DTB.app.readMemory(cacheKey) ?? [:]
+            if let path = cacheDict[name],
+                path.isEmpty == false,
+               let result = UIImage(contentsOfFile: path) {
+                return result
+            }
+            
+            // search sub paths
+            let subPaths: [String] = {
+                var paths: [String] = []
+                let suffixs = DTB.Configuration.shared.supportImageTypes.compactMap({ "\(name).\($0)" })
+                if let mainPath = Bundle.main.resourcePath,
+                   let dirEnum = FileManager.default.enumerator(atPath: mainPath) {
+                    while let file = dirEnum.nextObject() as? String {
+                        if suffixs.contains(where: { file.hasSuffix($0) }) {
+                            paths.append("\(mainPath)/\(file)")
+                        }
+                    }
+                }
+                return paths
+            }()
+            for path in subPaths {
+                if let result = UIImage(contentsOfFile: path) {
+                    cacheDict[name] = path
+                    DTB.app.writeMemory(cacheDict, key: cacheKey)
+                    return result
+                }
+            }
+            
+            // ``Proj.xcassets``
+            return UIImage(named: name)
         }
-        // Proj.main
-        if let image = image(main: Bundle.main) {
-            return image
-        }
-        // Proj.xcassets
-        return UIImage(named: name)
     }
 }
 

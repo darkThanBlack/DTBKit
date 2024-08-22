@@ -1,5 +1,5 @@
 //
-//  DTBPerformance.swift
+//  DTBConfiguration.swift
 //  DTBKit
 //
 //  Created by moonShadow on 2024/7/24
@@ -30,6 +30,8 @@ extension DTB {
         
         var designBaseSize = CGSize(width: 375.0, height: 667.0)
         
+        var supportImageTypes = ["png", "jpg", "webp", "jpeg"]
+        
         /// 参见 ``NSDecimalNumber+DTBKit``
         ///
         /// 精度计算默认配置
@@ -42,6 +44,13 @@ extension DTB {
         /// 设计稿基础尺寸
         public func updateDesignBaseSize(_ value: CGSize) {
             self.designBaseSize = value
+        }
+        
+        /// 参见 ``UIImage.xm.create()``
+        ///
+        /// 在 bundle 里按 name 搜索图片时的 type 参数
+        public func updateSupportImageTypes(_ value: [String]) {
+            self.supportImageTypes = value
         }
     }
 }

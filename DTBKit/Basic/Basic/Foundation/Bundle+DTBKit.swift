@@ -24,7 +24,7 @@ extension DTBKitStaticWrapper where T: Bundle {
     /// - Returns: Bundle
     public func create(_ name: String, cacheable: Bool = true) -> Bundle? {
         
-        let key = DTB.ConstKey<[String: String]>("DTBPerformanceBundleKey")
+        let key = DTB.ConstKey<[String: String]>("DTBKitLoadedBundles")
         
         if cacheable,
            let identifier = DTB.app.readMemory(key)?[name],
@@ -58,6 +58,7 @@ extension DTBKitStaticWrapper where T: Bundle {
                 }
             }
         }
+        
         return nil
     }
 }

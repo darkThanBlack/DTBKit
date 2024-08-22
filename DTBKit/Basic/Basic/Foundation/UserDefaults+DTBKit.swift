@@ -56,7 +56,7 @@ extension DTBKitStaticWrapper where T: UserDefaults {
     ///
     public func write<Value: Codable>(codable: Value, key: DTB.ConstKey<Value>) {
         if let data = try? JSONEncoder().encode(codable) {
-            UserDefaults.standard.set(codable, forKey: key.key_)
+            UserDefaults.standard.set(data, forKey: key.key_)
             UserDefaults.standard.synchronize()
         }
     }
