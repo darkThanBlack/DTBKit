@@ -108,7 +108,7 @@ pod 'DTBKit/Core', git: 'https://github.com/darkThanBlack/DTBKit', commit: '3f93
 
 
 
-#### Conventions
+#### How to use default methods?
 
 Common English words are **definitely** used up by various programming languages and frameworks, so you need to be very careful in naming, and allow users to agree on the words they are used to.
 
@@ -121,67 +121,143 @@ Currently, the use of the framework only needs to pay attention to the following
 
 
 
-#### Extension
+#### How to replace the name?
 
-Add the following code to main project:
+For example, the default call looks like this:
+
+```swift
+if (DTB.app.version == "1.0.0") {
+UIView().dtb.toast("is old version")
+}
+```
+
+You may want to replace the prefix and property name with ``XM`` and ``xm`` to match your own project naming conventions:
+
+```swift
+if (XM.app.version == "1.0.0") {
+UIView().xm.toast("is old version")
+}
+```
+
+Then, create a new ``DTBKit+XM.swift`` file and add the following code:
 
 ```swift
 // === NAMESPACE CONVERT ===
 
-@_exported import DTBKit
+import DTBKit
 
 // - Core
 
-public typealias XM = DTB
+public typealias XM = DTBKit.DTB
 
-public typealias XMKitable = DTBKitable
+public typealias XMKitable = DTBKit.DTBKitable
 
-public typealias XMKitStructable = DTBKitStructable
+public typealias XMKitStructable = DTBKit.DTBKitStructable
 
-public typealias XMKitWrapper = DTBKitWrapper
+public typealias XMKitWrapper = DTBKit.DTBKitWrapper
 
-public typealias XMKitStaticWrapper = DTBKitStaticWrapper
+public typealias XMKitStaticWrapper = DTBKit.DTBKitStaticWrapper
 
 extension XMKitable {
-    
+
+public var xm: XMKitWrapper<Self> { return dtb }
+
+public static var xm: XMKitStaticWrapper<Self> { return dtb }
+}
+
+extension XMKitStructable {
+
+public var xm: XMKitWrapper<Self> { return dtb }
+
+public static var xm: XMKitStaticWrapper<Self> { return dtb }
+}
+```
+
+If you use other sub-repositories at the same time, follow the same pattern:
+
+```swift
+// - Chain
+
+public typealias XMKitChainable = DTBKit.DTBKitChainable
+
+public typealias XMKitStructChainable = DTBKit.DTBKitStructChainable
+
+public typealias XMKitMutableWrapper = DTBKit.DTBKitMutableWrapper
+```
+
+Now, the new method call can be used within the scope of the ``DTBKit+XM.swift`` file.
+
+
+
+#### How to add custom methods?
+
+Refer to the source code and add the corresponding ``extension`` to ``wrapper``.
+
+
+
+#### How to modulize?
+
+The control of the scope depends entirely on your control over the extension and protocol declaration files themselves.
+
+For example, if there is a main project Main, with a custom module XM and a module Other, both of which depend on the basic module Basic. First, make the following adjustments to ``DTBKit+XM.swift`` in module XM: 
+
+```swift
+public typealias XMKitWrapper = DTBKit.DTBKitWrapper
+
+public typealias XMKitStaticWrapper = DTBKit.DTBKitStaticWrapper
+
+public protocol XMKitable: AnyObject {}
+
+public protocol XMKitStructable {}
+
+extension XMKitable {
+
     public var xm: XMKitWrapper<Self> {
-        return dtb
+        return XMKitWrapper(self)
     }
-    
+
     public static var xm: XMKitStaticWrapper<Self> {
-        return dtb
+        return XMKitStaticWrapper()
     }
 }
 
 extension XMKitStructable {
-    
+
     public var xm: XMKitWrapper<Self> {
-        return dtb
+        return XMKitWrapper(self)
     }
-    
+
     public static var xm: XMKitStaticWrapper<Self> {
-        return dtb
+        return XMKitStaticWrapper()
     }
 }
-
-extension XMKitWrapper {
-    
-    internal var me: Base { return value }
-}
-
-// - Chain
-
-public typealias XMKitChainable = DTBKitChainable
-
-public typealias XMKitStructChainable = DTBKitStructChainable
-
-public typealias XMKitMutableWrapper = DTBKitMutableWrapper
-
 ```
 
+Now we have a clean ``protocol``:
+
+* The object still does not have the ``xm`` attribute;
+
+* The ``xm`` attribute itself cannot use methods implemented in other modules, including those provided by ``DTBKit`` itself;
+
+Next, create ``CGSize+XM.swift`` in the XM module and write some business:
+
+```swift
+// Mark 1
+extension CGSize: XMKitStructable {}
+
+// Mark 2
+extension XMKitWrapper where Base == CGSize {
+	public func area() -> CGFloat {
+		return me.width * me.height
+	}
+}
+```
+
+Obviously, when CGSize can use the ``xm`` attribute depends on the scope of ``Mark 1``, and the scope of CGSize The methods of the ``xm`` attribute depend on the scope of ``Mark 2``. You can combine the above methods to achieve what you need.
 
 
-#### Private Cocoapods
+
+#### How to use in your private cocoapods?
 
 Move the above code into your private library, and
 
@@ -198,7 +274,7 @@ pod 'DTBKit/Core', git: 'https://github.com/darkThanBlack/DTBKit', commit: '3f93
 
 
 
-#### Tests
+#### Unit Tests
 
 Cocoapods test supported:
 
@@ -210,9 +286,17 @@ pod 'DTBKit/Basic', :testspecs => ['Tests']
 
 
 
+## Blogs
+
+ [Namespace & Chain](https://darkthanblack.github.io/blogs/06-bp-namespace/)
+
+
+
 ## Example
 
 > Main dev proj & Test Cases.
+
+
 
 ## Core
 

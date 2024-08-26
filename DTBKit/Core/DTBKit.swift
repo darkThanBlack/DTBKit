@@ -113,7 +113,7 @@ extension DTBKitStructable {
 /// 对象容器。
 @dynamicMemberLookup
 public struct DTBKitWrapper<Base> {
-    internal let me: Base
+    public let me: Base
     public init(_ value: Base) { self.me = value }
     
     /// Default unbox, use it to get actual value.
@@ -141,7 +141,9 @@ public struct DTBKitWrapper<Base> {
 /// Mainly static wrapper.
 ///
 /// 静态方法容器。
-public struct DTBKitStaticWrapper<T> {}
+public struct DTBKitStaticWrapper<T> {
+    public init() {}
+}
 
 //MARK: - Implementation
 

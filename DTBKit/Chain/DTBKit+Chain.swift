@@ -82,7 +82,7 @@ extension DTBKitStaticWrapper where T: DTBKitStructable & DTBKitStructChainable 
 ///
 /// 可变值类型容器。为了防止业务方使用时在内存语义上出现歧义，目前只允许用静态方法快速创建对象时使用。
 public class DTBKitMutableWrapper<Base> {
-    internal var me: Base
+    public var me: Base
     public init(_ value: Base) { self.me = value }
 }
 

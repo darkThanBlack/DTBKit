@@ -107,7 +107,7 @@ pod 'DTBKit/Core', git: 'https://github.com/darkThanBlack/DTBKit', commit: '3f93
 
 
 
-#### 约定俗成
+#### 如何使用提供的方法？
 
 常见的英文单词**肯定**都被各类编程语言和框架瓜分殆尽，所以在命名上需要非常谨慎，并允许用户自行约定习惯的词汇。
 
@@ -120,67 +120,142 @@ pod 'DTBKit/Core', git: 'https://github.com/darkThanBlack/DTBKit', commit: '3f93
 
 
 
-#### 扩展
+#### 如何替换名称？
 
-将以下代码添加到工程中，具体实现自行调整：
+举个例子，默认的调用类似于：
+
+```swift
+if (DTB.app.version == "1.0.0") {
+    UIView().dtb.toast("is old version")
+}
+```
+
+你希望将前缀和属性名替换为 ``XM`` 和 ``xm``，以符合你自己的工程命名规则：
+
+```swift
+if (XM.app.version == "1.0.0") {
+    UIView().xm.toast("is old version")
+}
+```
+
+那么，新建一个 ``DTBKit+XM.swift`` 文件，添加以下所示代码：
 
 ```swift
 // === NAMESPACE CONVERT ===
 
-@_exported import DTBKit
+import DTBKit
 
 // - Core
 
-public typealias XM = DTB
+public typealias XM = DTBKit.DTB
 
-public typealias XMKitable = DTBKitable
+public typealias XMKitable = DTBKit.DTBKitable
 
-public typealias XMKitStructable = DTBKitStructable
+public typealias XMKitStructable = DTBKit.DTBKitStructable
 
-public typealias XMKitWrapper = DTBKitWrapper
+public typealias XMKitWrapper = DTBKit.DTBKitWrapper
 
-public typealias XMKitStaticWrapper = DTBKitStaticWrapper
+public typealias XMKitStaticWrapper = DTBKit.DTBKitStaticWrapper
 
 extension XMKitable {
-    
+
+    public var xm: XMKitWrapper<Self> { return dtb }
+
+    public static var xm: XMKitStaticWrapper<Self> { return dtb }
+}
+
+extension XMKitStructable {
+
+    public var xm: XMKitWrapper<Self> { return dtb }
+
+    public static var xm: XMKitStaticWrapper<Self> { return dtb }
+}
+```
+
+如果同时用了其他的子仓库，依葫芦画瓢：
+
+```swift
+// - Chain
+
+public typealias XMKitChainable = DTBKit.DTBKitChainable
+
+public typealias XMKitStructChainable = DTBKit.DTBKitStructChainable
+
+public typealias XMKitMutableWrapper = DTBKit.DTBKitMutableWrapper
+```
+
+现在， ``DTBKit+XM.swift`` 文件的作用域内，即可使用新方法调用。
+
+
+
+#### 如何增加自定义方法？
+
+参考源码，对 ``wrapper`` 增加相应的 ``extension`` 即可。
+
+
+
+#### 如何隔离作用域？
+
+作用域的控制完全取决于你自己对 extension 和 protocol 声明文件本身的控制。
+
+举个例子，假如有主工程 Main，拥有自定义的模块 XM 和 模块 Other，两者同时依赖于基础模块 Basic。首先，对模块 XM 中的 ``DTBKit+XM.swift`` 做如下调整：
+
+```swift
+public typealias XMKitWrapper = DTBKit.DTBKitWrapper
+
+public typealias XMKitStaticWrapper = DTBKit.DTBKitStaticWrapper
+
+public protocol XMKitable: AnyObject {}
+
+public protocol XMKitStructable {}
+
+extension XMKitable {
+
     public var xm: XMKitWrapper<Self> {
-        return dtb
+        return XMKitWrapper(self)
     }
-    
+
     public static var xm: XMKitStaticWrapper<Self> {
-        return dtb
+        return XMKitStaticWrapper()
     }
 }
 
 extension XMKitStructable {
-    
+
     public var xm: XMKitWrapper<Self> {
-        return dtb
+        return XMKitWrapper(self)
     }
-    
+
     public static var xm: XMKitStaticWrapper<Self> {
-        return dtb
+        return XMKitStaticWrapper()
     }
 }
-
-extension XMKitWrapper {
-    
-    internal var me: Base { return value }
-}
-
-// - Chain
-
-public typealias XMKitChainable = DTBKitChainable
-
-public typealias XMKitStructChainable = DTBKitStructChainable
-
-public typealias XMKitMutableWrapper = DTBKitMutableWrapper
-
 ```
 
+这样，我们得到了一个干净的 ``protocol``，现在
+
+* 对象依然未拥有 ``xm`` 属性；
+* ``xm`` 属性本身无法使用在其他模块中实现的方法，包括 ``DTBKit`` 本身提供的；
+
+接着，在 XM 模块中创建 ``CGSize+XM.swift``，写一点业务：
+
+```swift
+// Mark 1
+extension CGSize: XMKitStructable {}
+
+// Mark 2
+extension XMKitWrapper where Base == CGSize {
+	public func area() -> CGFloat {
+		return me.width * me.height
+	}
+}
+```
+
+很明显，CGSize 在什么时候可以使用 ``xm`` 属性，取决于 ``Mark 1`` 的作用域，而 CGSize 的 ``xm`` 属性拥有哪些方法，取决于 ``Mark 2`` 的作用域。你只要将以上几种方式结合起来按需实现即可。
 
 
-#### 私有 Cocoapods
+
+#### 如何在你的私有 Cocoapods 中使用？
 
 直接将以上代码放到你的私有库中，同时
 
@@ -197,9 +272,9 @@ pod 'DTBKit/Core', git: 'https://github.com/darkThanBlack/DTBKit', commit: '3f93
 
 
 
-#### 测试
+#### 单元测试
 
-支持直接通过 cocoapods 测试，或者直接运行 ``Example`` 工程：
+已支持 cocoapods 单元测试：
 
 ```ruby
 pod 'DTBKit/Basic', :testspecs => ['Tests']
@@ -211,7 +286,7 @@ pod 'DTBKit/Basic', :testspecs => ['Tests']
 
 ## 源码解析
 
- [命名空间配合链式语法](https://darkthanblack.github.io/blogs/06-bp-namespace/)
+ [如何设计命名空间与链式语法](https://darkthanblack.github.io/blogs/06-bp-namespace/)
 
 
 
