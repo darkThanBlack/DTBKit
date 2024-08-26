@@ -39,17 +39,21 @@ This project is some reflection on this issue.
 
 #### Run example
 
-需要先通过 ``homebrew`` 安装 ``xcodegen``，用来生成 ``*.xcodeproj`` 文件。
+``xcodegen`` is needed, install it from ``homebrew`` firstly:
 
 ```shell
+# install tools
+brew install xcodegen
+
 # Use script
-cd Scripts
+cd DTBKit/Scripts
 chmod +x ci.sh
 ./ci.sh
+# shell option
 b1
 
 # Same as:
-cd Example
+cd DTBKit/Example
 xcodegen
 pod install
 ```
