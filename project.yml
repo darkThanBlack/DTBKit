@@ -37,9 +37,7 @@ targets:
           - $(PODS_CONFIGURATION_BUILD_DIR)/DTBKit
         LIBRARY_SEARCH_PATHS:
           - $(inherited)
-        # 注释以消除 pod 警告
-        # OTHER_SWIFT_FLAGS:
-        #   - "$(inherited) -D COCOAPODS -D DTBKitable"
+        EXCLUDED_ARCHS[sdk=iphonesimulator*]: arm64
         ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES: $(inherited)
         ENABLE_BITCODE: true
         WARNING_CFLAGS:
