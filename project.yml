@@ -27,6 +27,7 @@ targets:
         CFBundleSupportedPlatforms: [iPhoneOS]
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
     settings:
+      EXCLUDED_ARCHS[sdk=iphonesimulator*]: arm64
       base:
         PRODUCT_BUNDLE_IDENTIFIER: darkThanBlack.carthage.DTBKit
         IPHONEOS_DEPLOYMENT_TARGET: 11.0
@@ -37,7 +38,6 @@ targets:
           - $(PODS_CONFIGURATION_BUILD_DIR)/DTBKit
         LIBRARY_SEARCH_PATHS:
           - $(inherited)
-        EXCLUDED_ARCHS[sdk=iphonesimulator*]: arm64
         ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES: $(inherited)
         ENABLE_BITCODE: true
         WARNING_CFLAGS:
