@@ -102,6 +102,7 @@
 		A35044049FA419AD4B54B658 /* test-nested.bundle */ = {isa = PBXFileReference; lastKnownFileType = wrapper.cfbundle; path = "test-nested.bundle"; sourceTree = "<group>"; };
 		A38B929DF1B4503B248B8C8B /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
 		AD930159C8093671DFCEF0EC /* UIEdgeInsets+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIEdgeInsets+Chain.swift"; sourceTree = "<group>"; };
+		ADE36A8A66253C1BDC1953F5 /* info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = info.plist; sourceTree = "<group>"; };
 		B407CCBEF41A432CA452CB2A /* NumberFormatter+Preset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NumberFormatter+Preset.swift"; sourceTree = "<group>"; };
 		BB8A8C77B7C6327E4BD0AD81 /* NSRange+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSRange+DTBKit.swift"; sourceTree = "<group>"; };
 		C15C7BA7417E321F3DD9FA11 /* NumberFormatter+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NumberFormatter+Chain.swift"; sourceTree = "<group>"; };
@@ -287,6 +288,7 @@
 		CB54B66E47136852323BD861 /* DTBKit */ = {
 			isa = PBXGroup;
 			children = (
+				ADE36A8A66253C1BDC1953F5 /* info.plist */,
 				16D1AA80C48375AA377BE041 /* Basic */,
 				4232EC369C641143646C3449 /* Chain */,
 				780C8939BBFE4A3138446DC2 /* Core */,
@@ -521,6 +523,7 @@
 					"$(inherited)",
 					"$(PODS_CONFIGURATION_BUILD_DIR)/DTBKit",
 				);
+				INFOPLIST_FILE = DTBKit/info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -561,6 +564,7 @@
 					"$(inherited)",
 					"$(PODS_CONFIGURATION_BUILD_DIR)/DTBKit",
 				);
+				INFOPLIST_FILE = DTBKit/info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (

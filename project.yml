@@ -12,6 +12,20 @@ targets:
     scheme:
       management:
         shared: true
+    info:
+      path: DTBKit/info.plist
+      properties:
+        CFBundleAllowMixedLocalizations: true
+        CFBundleDevelopmentRegion: zh_CN
+        CFBundleDisplayName: DTBKit
+        CFBundleExecutable: $(EXECUTABLE_NAME)
+        CFBundleGetInfoString: ""
+        CFBundleIdentifier: $(PRODUCT_BUNDLE_IDENTIFIER)
+        CFBundleInfoDictionaryVersion: "6.0"
+        CFBundlePackageType: APPL
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleSupportedPlatforms: [iPhoneOS]
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: darkThanBlack.carthage.DTBKit
