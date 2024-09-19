@@ -87,6 +87,8 @@ extension TJStaffCheckInManager: CLLocationManagerDelegate {
         }
         print("MOON__LOG  lati=\(coordinate.latitude), longti=\(coordinate.longitude)")
         
-        checkRegionContains(coordinate: coordinate.dtb.isWGS.toGCJ)
+        // FIXME:
+//        checkRegionContains(coordinate: coordinate.dtb.isWGS.toGCJ)
+        checkRegionContains(coordinate: coordinate)
     }
 }

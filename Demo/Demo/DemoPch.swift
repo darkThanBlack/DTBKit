@@ -9,21 +9,21 @@
 //  Contact me: [GitHub](https://github.com/darkThanBlack)
 //
     
-//@_exported import DTBKit
+@_exported import DTBKit
 @_exported import SnapKit
 
 import CoreLocation
 
-//extension DTBKitable {
-//    
-//    ///
-//    public var xm: DTBKitWrapper<Self> {
-//        return dtb
-//    }
-//    
-//    ///
-//    static public var xm: DTBKitStaticWrapper<Self> {
-//        get { return dtb }
-//        set { }
-//    }
-//}
+extension DTBKitable {
+    
+    ///
+    public var xm: DTBKitWrapper<Self> {
+        return dtb
+    }
+    
+    ///
+    static public var xm: DTBKitStaticWrapper<Self> {
+        get { return dtb }
+        set { }
+    }
+}

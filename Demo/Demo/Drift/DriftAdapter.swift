@@ -10,12 +10,12 @@
 //
     
 
-import UIKit
+import DTBKit
 
 class DriftAdapter {
     
     static func imageNamed(_ name: String) -> UIImage? {
-        return UIImage.dtb.named(name, bundleName: "DTBKit-UIKit", frameworkName: "DTBKit")
+        return UIImage.dtb.create(name)
     }
     
     static func makeToast(_ message: String?) {

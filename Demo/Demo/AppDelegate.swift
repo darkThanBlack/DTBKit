@@ -34,12 +34,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         adapter()
         debugger()
-        UIView().dtb
-            .update { value in
-                let nSize = value.sizeThatFits(UIScreen.main.bounds.size)
-                value.bounds = .init(origin: .zero, size: nSize)
-            }
-            .center(CGPoint(x: 20.0, y: 20.0))
         
         //        Drift.shared.appWindow = window
         
