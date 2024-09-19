@@ -8,9 +8,9 @@ target 'Demo' do
 
 #  pod 'DTBKit', :path => '../', :testspecs => ['Tests']
   
-  pod 'DTBKit', :path => '../'
-  pod 'DTBKit/UIKit', :path => '../'
-  pod 'DTBKit/Map', :path => '../'
+#  pod 'DTBKit', :path => '../'
+#  pod 'DTBKit/UIKit', :path => '../'
+#  pod 'DTBKit/Map', :path => '../'
   
   pod 'SnapKit', '5.0.1'
 #  pod 'URLNavigator', '2.3.0'

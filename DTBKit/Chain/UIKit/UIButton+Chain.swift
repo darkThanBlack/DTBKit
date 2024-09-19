@@ -12,6 +12,39 @@
 
 import UIKit
 
+/// Custom
+extension DTBKitWrapper where Base: UIButton {
+    
+    @discardableResult
+    public func setImage(
+        _ normal: UIImage?,
+        highlighted: UIImage? = nil,
+        disabled: UIImage? = nil,
+        selected: UIImage? = nil
+    ) -> Self {
+        me.setImage(normal, for: .normal)
+        me.setImage(highlighted, for: .highlighted)
+        me.setImage(disabled, for: .disabled)
+        me.setImage(selected, for: .selected)
+        return self
+    }
+    
+    @discardableResult
+    public func setTitle(
+        _ normal: String?,
+        highlighted: String? = nil,
+        disabled: String? = nil,
+        selected: String? = nil
+    ) -> Self {
+        me.setTitle(normal, for: .normal)
+        me.setTitle(highlighted, for: .highlighted)
+        me.setTitle(disabled, for: .disabled)
+        me.setTitle(selected, for: .selected)
+        return self
+    }
+}
+
+/// System
 extension DTBKitWrapper where Base: UIButton {
     
     @available(iOS 15.0, *)

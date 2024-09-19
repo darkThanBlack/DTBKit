@@ -21,7 +21,7 @@ DESC
   s.source           = { :git => 'https://github.com/darkThanBlack/DTBKit.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://darkthanblack.github.io/'
 
-  s.ios.deployment_target = '12.0'
+  s.ios.deployment_target = '11.0'
   s.swift_versions = '5.0'
   
   s.subspec 'Core' do |ss|
