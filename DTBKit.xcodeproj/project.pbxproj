@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -94,13 +94,13 @@
 		78160F407EEAAD21922AB7B1 /* UIWindow+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+DTBKit.swift"; sourceTree = "<group>"; };
 		81CED2767914140277CA3537 /* UserDefaults+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+DTBKit.swift"; sourceTree = "<group>"; };
 		88D6831CF636A2448BC86666 /* EdgeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeLabel.swift; sourceTree = "<group>"; };
-		8BD3573F865ADED7EA91419E /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		8BD3573F865ADED7EA91419E /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
 		8F98624F9168290C71D1131D /* DTBStatics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTBStatics.swift; sourceTree = "<group>"; };
 		987AC5E1635F6DA20EE53BE9 /* UIColor+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+DTBKit.swift"; sourceTree = "<group>"; };
 		9A0B59F06A65CF3AFC120034 /* CGSize+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+DTBKit.swift"; sourceTree = "<group>"; };
 		9FD48BC09F8DBFE727DEB66C /* DTBKit+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DTBKit+Chain.swift"; sourceTree = "<group>"; };
 		A35044049FA419AD4B54B658 /* test-nested.bundle */ = {isa = PBXFileReference; lastKnownFileType = wrapper.cfbundle; path = "test-nested.bundle"; sourceTree = "<group>"; };
-		A38B929DF1B4503B248B8C8B /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		A38B929DF1B4503B248B8C8B /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
 		AD930159C8093671DFCEF0EC /* UIEdgeInsets+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIEdgeInsets+Chain.swift"; sourceTree = "<group>"; };
 		B407CCBEF41A432CA452CB2A /* NumberFormatter+Preset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NumberFormatter+Preset.swift"; sourceTree = "<group>"; };
 		BB8A8C77B7C6327E4BD0AD81 /* NSRange+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSRange+DTBKit.swift"; sourceTree = "<group>"; };
@@ -110,7 +110,7 @@
 		D0E1B35A3689259497E4482F /* NSString+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSString+DTBKit.swift"; sourceTree = "<group>"; };
 		D5D0426BCC65CD05C6E3D935 /* Double+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+DTBKit.swift"; sourceTree = "<group>"; };
 		DAC554FE82E4CFB12A24504B /* UIButton+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Chain.swift"; sourceTree = "<group>"; };
-		E6AEC424848BB0D9A5C1165A /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		E6AEC424848BB0D9A5C1165A /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
 		EBE54D449864D6D599A7160F /* DTBKitStringRegulars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTBKitStringRegulars.swift; sourceTree = "<group>"; };
 		F4FEFF15EE8D504E39CAEEE7 /* DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTBKit.swift; sourceTree = "<group>"; };
 		F672C382A93F53906D5012C4 /* DTBKit+Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DTBKit+Map.swift"; sourceTree = "<group>"; };
@@ -352,6 +352,8 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1430;
 				ORGANIZATIONNAME = darkThanBlack;
+				TargetAttributes = {
+				};
 			};
 			buildConfigurationList = 37C9BF844CAB5607F72F8B75 /* Build configuration list for PBXProject "DTBKit" */;
 			compatibilityVersion = "Xcode 14.0";
@@ -525,7 +527,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = darkThanBlack.carthage.DTBKit;
 				PRODUCT_NAME = DTBKit;
 				SDKROOT = iphoneos;
@@ -563,7 +567,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = darkThanBlack.carthage.DTBKit;
 				PRODUCT_NAME = DTBKit;
 				SDKROOT = iphoneos;
