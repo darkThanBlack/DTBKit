@@ -1,7 +1,7 @@
 # https://github.com/yonaskolb/XcodeGen/blob/master/Docs/ProjectSpec.md
 # https://help.apple.com/xcode/mac/9.0/index.html?localePath=en.lproj#/dev7fe737ce0
 
-name: DTBKit
+name: Example
 attributes:
   ORGANIZATIONNAME: darkThanBlack
 targets:
@@ -54,8 +54,7 @@ targets:
         group: "Metadata"
       
       ## Examples
-      - path: "DTBKit"
-        group: "Examples"
+      - path: "Example"
       
       ## Sources
       # - path: "../DTBKit/DTBKit.swift"

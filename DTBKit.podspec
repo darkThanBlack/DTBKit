@@ -25,39 +25,39 @@ DESC
   s.swift_versions = '5.0'
   
   s.subspec 'Core' do |ss|
-    ss.source_files = 'DTBKit/Core/**/*'
+    ss.source_files = 'Sources/Core/**/*'
   end
   
   s.subspec 'Chain' do |ss|
-    ss.source_files = 'DTBKit/Chain/**/*'
+    ss.source_files = 'Sources/Chain/**/*'
     ss.dependency 'DTBKit/Core'
   end
   
   s.subspec 'Basic' do |ss|
-    ss.source_files = 'DTBKit/DTBKit.swift', 'DTBKit/Basic/**/*'
+    ss.source_files = 'DTBKit/Basic/**/*'
     ss.resource_bundles = {
-      'DTBKit-Basic' => ['DTBKit/Resources/basic.xcassets', 'DTBKit/Resources/test-nested.bundle']
+      'DTBKit-Basic' => ['Sources/Resources/basic.xcassets', 'Sources/Resources/test-nested.bundle']
     }
     ss.dependency 'DTBKit/Chain'
     
     ss.test_spec 'Tests' do |t|
       t.framework = 'XCTest'
       t.requires_app_host = false
-      t.source_files = 'DTBKit/Tests/**/*'
+      t.source_files = 'Tests/**/*'
     end
   end
   
   s.subspec 'UIKit' do |ss|
-    ss.source_files = 'DTBKit/UIKit/**/*'
+    ss.source_files = 'Sources/UIKit/**/*'
     ss.resource_bundles = {
-      'DTBKit-UIKit' => ['DTBKit/Resources/ui-kit.xcassets']
+      'DTBKit-UIKit' => ['Sources/Resources/ui-kit.xcassets']
     }
     ss.dependency 'DTBKit/Basic'
     # ss.dependency 'SnapKit', '5.0.1'
   end
   
   s.subspec 'Map' do |ss|
-    ss.source_files = 'DTBKit/Map/**/*'
+    ss.source_files = 'Sources/Map/**/*'
     ss.dependency 'DTBKit/Basic'
   end
   

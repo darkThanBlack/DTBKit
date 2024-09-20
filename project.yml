@@ -13,7 +13,7 @@ targets:
       management:
         shared: true
     info:
-      path: DTBKit/info.plist
+      path: Sources/info.plist
       properties:
         CFBundleAllowMixedLocalizations: true
         CFBundleDevelopmentRegion: zh_CN
@@ -46,6 +46,6 @@ targets:
         - -Wno-strict-prototypes
         - -Wno-implicit-retain-self
     sources:
-      - path: "./DTBKit"
+      - path: "./Sources"
         excludes:
           - "/Tests"
