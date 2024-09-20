@@ -34,7 +34,7 @@ DESC
   end
   
   s.subspec 'Basic' do |ss|
-    ss.source_files = 'DTBKit/Basic/**/*'
+    ss.source_files = 'Sources/Basic/**/*'
     ss.resource_bundles = {
       'DTBKit-Basic' => ['Sources/Resources/basic.xcassets', 'Sources/Resources/test-nested.bundle']
     }
