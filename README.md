@@ -338,6 +338,22 @@ DTBKit is available under the MIT license. See the LICENSE file for more info.
 
 
 
+### Docs
+
+```shell
+jazzy \
+  --clean \
+  --author darkThanBlack \
+  --author_url https://darkthanblack.github.io \
+  --source-host github \
+  --source-host-url https://github.com/darkThanBlack/DTBKit \
+  --exclude "Sources/Chain/*" \
+  --output docs/output \
+  --theme apple
+```
+
+
+
 ## Edited
 
 > Update: 2024/08/14    README - Start

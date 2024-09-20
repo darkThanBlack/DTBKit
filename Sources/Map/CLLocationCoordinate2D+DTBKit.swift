@@ -52,7 +52,7 @@ public struct DTBKitCoordinate2DTransfer {
         switch type {
         case .WGS_84:  return coordinate
         case .GCJ_02:  return CLLocationCoordinate2D.dtb.getWGSFromGCJ(coordinate)
-        case .BD_09:   return  CLLocationCoordinate2D.dtb.getWGSFromBD(coordinate)
+        case .BD_09:   return CLLocationCoordinate2D.dtb.getWGSFromBD(coordinate)
         }
     }
     
@@ -61,7 +61,7 @@ public struct DTBKitCoordinate2DTransfer {
         switch type {
         case .WGS_84:  return CLLocationCoordinate2D.dtb.getGCJFromWGS(coordinate)
         case .GCJ_02:  return coordinate
-        case .BD_09:   return  CLLocationCoordinate2D.dtb.getGCJFromBD(coordinate)
+        case .BD_09:   return CLLocationCoordinate2D.dtb.getGCJFromBD(coordinate)
         }
     }
     
@@ -70,7 +70,7 @@ public struct DTBKitCoordinate2DTransfer {
         switch type {
         case .WGS_84:  return CLLocationCoordinate2D.dtb.getBDFromWGS(coordinate)
         case .GCJ_02:  return CLLocationCoordinate2D.dtb.getBDFromGCJ(coordinate)
-        case .BD_09:   return  coordinate
+        case .BD_09:   return coordinate
         }
     }
 }
@@ -124,7 +124,7 @@ extension DTBKitStaticWrapper where T == CLLocationCoordinate2D {
         /// 偏心率
         let ee: Double = 0.00669342162296594323
         
-        /// 维度
+        /// 纬度
         func getLatitudeWith(x: Double, y: Double) -> Double {
             var lat = -100.0 + 2.0 * x + 3.0 * y + 0.2 * y * y + 0.1 * x * y
             lat += 0.2 * sqrt(fabs(x))
@@ -254,7 +254,7 @@ extension DTBKitStaticWrapper where T == CLLocationCoordinate2D {
     }
     
     /// 获取两点之间的距离 (米)
-    public func distanceBetween(p1:CLLocationCoordinate2D, p2:CLLocationCoordinate2D) -> CLLocationDistance {
+    public func distanceBetween(p1: CLLocationCoordinate2D, p2: CLLocationCoordinate2D) -> CLLocationDistance {
         /// 地球平均半径
         let r = 6371004.0
         

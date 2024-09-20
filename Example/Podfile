@@ -9,7 +9,8 @@ target 'DTBKit_Example' do
   pod 'DTBKit/Chain', :path => '../'
   pod 'DTBKit/Basic', :path => '../', :testspecs => ['Tests']
   pod 'DTBKit/UIKit', :path => '../'
-  
+  pod 'DTBKit/Map', :path => '../'
+
 #  pod 'SnapKit', '5.0.1'
 #  pod 'URLNavigator', '2.3.0'
   
