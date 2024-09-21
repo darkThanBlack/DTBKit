@@ -341,6 +341,11 @@ DTBKit is available under the MIT license. See the LICENSE file for more info.
 ### Docs
 
 ```shell
+git checkout main;
+git add .;
+git commit . -m 'daily';
+git pull --ff;
+git push;
 jazzy \
   --clean \
   --author darkThanBlack \
@@ -348,8 +353,16 @@ jazzy \
   --source-host github \
   --source-host-url https://github.com/darkThanBlack/DTBKit \
   --exclude "Sources/Chain/*" \
-  --output docs/output \
-  --theme apple
+  --output docs \
+  --theme apple;
+mv docs ~/Documents/docs;
+git checkout gh-pages;
+git pull --ff;
+mv ~/Documents/docs ./;
+rm -rf ~/Documents/docs;
+git add .;
+git commit . -m 'deploy from jazzy';
+git push
 ```
 
 
