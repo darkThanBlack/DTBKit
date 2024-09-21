@@ -13,6 +13,11 @@
 import UIKit
 
 /// To wrapper exp string
+/// 语法糖包装: 正则表达式
+///
+/// ```
+/// "".dtb.isRegular(.phoneNumber)
+/// ```
 public struct DTBKitStringRegulars {
     
     public let exp: String
@@ -22,12 +27,6 @@ public struct DTBKitStringRegulars {
     }
 }
 
-/// Default regular
-///
-/// Usage:
-/// ```
-///     "".dtb.isRegular(.phoneNumber)
-/// ```
 extension DTBKitStringRegulars {
     
     /// "^\\d{11}$"

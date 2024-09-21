@@ -280,7 +280,10 @@ pod 'DTBKit/Core', git: 'https://github.com/darkThanBlack/DTBKit', commit: '3f93
 pod 'DTBKit/Basic', :testspecs => ['Tests']
 ```
 
-在 Xcode 的 Schemes 中选择 ``DTBKit``，``Command + U`` 即可。
+1. 以 Example 工程为例，打开后，在 Schemes 中直接选择 DTBKit；如果没有，在 manager 里面自行添加；
+2. 任意选一个已经编译/运行通过的模拟器或真机；
+3. ``Command + U`` 执行测试即可；
+4. 代码覆盖率开关需要自行在 Scheme 里打开。
 
 
 

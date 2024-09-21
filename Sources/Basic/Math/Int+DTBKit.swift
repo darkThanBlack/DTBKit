@@ -23,7 +23,7 @@ extension Int32: DTBKitStructable {}
 extension Int64: DTBKitStructable {}
 
 ///
-extension DTBKitWrapper where Base: SignedInteger {
+extension DTBKitWrapper where Base: FixedWidthInteger & SignedInteger {
     
     ///
     public func toDate() -> Date {
@@ -34,7 +34,7 @@ extension DTBKitWrapper where Base: SignedInteger {
 /// String
 ///
 /// 字符串处理。
-extension DTBKitWrapper where Base: SignedInteger {
+extension DTBKitWrapper where Base: FixedWidthInteger & SignedInteger {
     
     /// Convert to string.
     ///
@@ -62,7 +62,8 @@ extension DTBKitWrapper where Base: SignedInteger {
     /// Convert to NSDecimalNumber with behavior.
     ///
     /// 精度处理。
-    public var nsDecimal: DTBKitWrapper<NSDecimalNumber> {
-        return NSDecimalNumber(string: "\(me)").dtb
+    public var nsDecimal: DTBKitWrapper<NSDecimalNumber>? {
+        let result = NSDecimalNumber(string: "\(me)")
+        return result == NSDecimalNumber.notANumber ? nil : result.dtb
     }
 }

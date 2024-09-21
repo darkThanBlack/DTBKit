@@ -42,6 +42,19 @@ extension DTBKitWrapper where Base: BinaryFloatingPoint {
         return "\(me)".dtb
     }
     
+    /// Convert to ``NSDecimalNumber``.
+    ///
+    /// ```
+    /// 1.dtb.nsDecimal
+    ///     .plus("1.0")
+    ///     .div(3, scale: 3, rounding: .down)
+    ///     .double.value === 0.666
+    /// ```
+    public var nsDecimal: DTBKitWrapper<NSDecimalNumber>? {
+        let result = NSDecimalNumber(string: "\(me)")
+        return result == NSDecimalNumber.notANumber ? nil : result.dtb
+    }
+    
     /// Convert to string with numberFormatter.
     ///
     /// 格式化字符串。
@@ -56,13 +69,6 @@ extension DTBKitWrapper where Base: BinaryFloatingPoint {
     /// ```
     public func toString(_ formatter: NumberFormatter) -> DTBKitWrapper<String>? {
         return formatter.dtb.string(from: NSNumber(value: Double(me)))
-    }
-    
-    /// Convert to NSDecimalNumber with behavior.
-    ///
-    /// 精度处理。
-    public var nsDecimal: DTBKitWrapper<NSDecimalNumber> {
-        return NSDecimalNumber(string: "\(me)").dtb
     }
 }
 
