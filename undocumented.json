@@ -1,0 +1,292 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/xuyiding/Documents/iOS/DTBKit/Sources/Basic/Foundation/NSString+DTBKit.swift",
+      "line": 19,
+      "symbol": "DTBKitWrapper.range(of:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/xuyiding/Documents/iOS/DTBKit/Sources/Basic/Foundation/UserDefaults+DTBKit.swift",
+      "line": 24,
+      "symbol": "DTBKitStaticWrapper.isVaild(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/xuyiding/Documents/iOS/DTBKit/Sources/Basic/Foundation/UserDefaults+DTBKit.swift",
+      "line": 48,
+      "symbol": "DTBKitStaticWrapper.read(codable:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/xuyiding/Documents/iOS/DTBKit/Sources/Basic/Math/Double+DTBKit.swift",
+      "line": 87,
+      "symbol": "DTBKitWrapper.hf(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/xuyiding/Documents/iOS/DTBKit/Sources/Basic/Support/DTBConfiguration.swift",
+      "line": 17,
+      "symbol": "DTB.Configuration",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/xuyiding/Documents/iOS/DTBKit/Sources/Basic/Support/DTBConfiguration.swift",
+      "line": 19,
+      "symbol": "DTB.Configuration.shared",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/xuyiding/Documents/iOS/DTBKit/Sources/Basic/Support/DTBKitStringRegulars.swift",
+      "line": 18,
+      "symbol": "DTBKitStringRegulars.exp",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/xuyiding/Documents/iOS/DTBKit/Sources/Basic/Support/DTBStatics.swift",
+      "line": 50,
+      "symbol": "DTB.DebugTypes",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/xuyiding/Documents/iOS/DTBKit/Sources/Basic/Support/DTBStatics.swift",
+      "line": 52,
+      "symbol": "DTB.DebugTypes.original",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/xuyiding/Documents/iOS/DTBKit/Sources/Basic/Support/DTBStatics.swift",
+      "line": 54,
+      "symbol": "DTB.DebugTypes.simple",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/xuyiding/Documents/iOS/DTBKit/Sources/Basic/Support/DTBStatics.swift",
+      "line": 56,
+      "symbol": "DTB.DebugTypes.fully",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/xuyiding/Documents/iOS/DTBKit/Sources/Basic/Support/DTBStatics.swift",
+      "line": 58,
+      "symbol": "DTB.DebugTypes.warning",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/xuyiding/Documents/iOS/DTBKit/Sources/Basic/Support/DTBStatics.swift",
+      "line": 60,
+      "symbol": "DTB.DebugTypes.error",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/xuyiding/Documents/iOS/DTBKit/Sources/Basic/Support/DTBStatics.swift",
+      "line": 62,
+      "symbol": "DTB.DebugTypes.assert",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/xuyiding/Documents/iOS/DTBKit/Sources/Basic/Support/DTBStatics.swift",
+      "line": 65,
+      "symbol": "DTB.print(_:type:file:line:function:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/xuyiding/Documents/iOS/DTBKit/Sources/Basic/Support/DTBStatics.swift",
+      "line": 136,
+      "symbol": "DTB.Regulars.exp",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/xuyiding/Documents/iOS/DTBKit/Sources/Core/AppManager.swift",
+      "line": 26,
+      "symbol": "AppManager.shared",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/xuyiding/Documents/iOS/DTBKit/Sources/Core/AppManager.swift",
+      "line": 50,
+      "symbol": "AppManager.clearMemory(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/xuyiding/Documents/iOS/DTBKit/Sources/Core/DTBKit.swift",
+      "line": 35,
+      "symbol": "DTB.ConstKey.key_",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/xuyiding/Documents/iOS/DTBKit/Sources/Core/DTBKit.swift",
+      "line": 37,
+      "symbol": "DTB.ConstKey.init(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/xuyiding/Documents/iOS/DTBKit/Sources/Core/DTBKit.swift",
+      "line": 116,
+      "symbol": "DTBKitWrapper.me",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/xuyiding/Documents/iOS/DTBKit/Sources/Core/DTBKit.swift",
+      "line": 117,
+      "symbol": "DTBKitWrapper.init(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/xuyiding/Documents/iOS/DTBKit/Sources/Core/DTBKit.swift",
+      "line": 145,
+      "symbol": "DTBKitStaticWrapper.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/xuyiding/Documents/iOS/DTBKit/Sources/Map/CLLocationCoordinate2D+DTBKit.swift",
+      "line": 31,
+      "symbol": "DTBKitCoordinate2DTransfer.type",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/xuyiding/Documents/iOS/DTBKit/Sources/Map/CLLocationCoordinate2D+DTBKit.swift",
+      "line": 35,
+      "symbol": "DTBKitCoordinate2DTransfer.init(wgs:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/xuyiding/Documents/iOS/DTBKit/Sources/Map/CLLocationCoordinate2D+DTBKit.swift",
+      "line": 40,
+      "symbol": "DTBKitCoordinate2DTransfer.init(gcj:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/xuyiding/Documents/iOS/DTBKit/Sources/Map/CLLocationCoordinate2D+DTBKit.swift",
+      "line": 45,
+      "symbol": "DTBKitCoordinate2DTransfer.init(bd:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/xuyiding/Documents/iOS/DTBKit/Sources/UIKit/EdgeLabel.swift",
+      "line": 24,
+      "symbol": "EdgeLabel.textRect(forBounds:limitedToNumberOfLines:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/xuyiding/Documents/iOS/DTBKit/Sources/UIKit/EdgeLabel.swift",
+      "line": 34,
+      "symbol": "EdgeLabel.drawText(in:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/xuyiding/Documents/iOS/DTBKit/Sources/UIKit/TransAnimate/AlertAnimation.swift",
+      "line": 26,
+      "symbol": "AlertAnimationHandler.type",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/xuyiding/Documents/iOS/DTBKit/Sources/UIKit/TransAnimate/AlertAnimation.swift",
+      "line": 28,
+      "symbol": "AlertAnimationHandler.init(type:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/xuyiding/Documents/iOS/DTBKit/Sources/UIKit/TransAnimate/AlertAnimation.swift",
+      "line": 35,
+      "symbol": "AlertAnimationHandler.animationController(forPresented:presenting:source:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/xuyiding/Documents/iOS/DTBKit/Sources/UIKit/TransAnimate/AlertAnimation.swift",
+      "line": 44,
+      "symbol": "AlertAnimationHandler.animationController(forDismissed:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/xuyiding/Documents/iOS/DTBKit/Sources/UIKit/TransAnimate/AlertAnimation.swift",
+      "line": 57,
+      "symbol": "AlertAnimation.Types",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/xuyiding/Documents/iOS/DTBKit/Sources/UIKit/TransAnimate/AlertAnimation.swift",
+      "line": 58,
+      "symbol": "AlertAnimation.Types.none",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/xuyiding/Documents/iOS/DTBKit/Sources/UIKit/TransAnimate/AlertAnimation.swift",
+      "line": 59,
+      "symbol": "AlertAnimation.Types.dismiss",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/xuyiding/Documents/iOS/DTBKit/Sources/UIKit/TransAnimate/AlertAnimation.swift",
+      "line": 59,
+      "symbol": "AlertAnimation.Types.present",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/xuyiding/Documents/iOS/DTBKit/Sources/UIKit/TransAnimate/AlertAnimation.swift",
+      "line": 60,
+      "symbol": "AlertAnimation.Types.centerHide",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/xuyiding/Documents/iOS/DTBKit/Sources/UIKit/TransAnimate/AlertAnimation.swift",
+      "line": 60,
+      "symbol": "AlertAnimation.Types.centerShow",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/xuyiding/Documents/iOS/DTBKit/Sources/UIKit/TransAnimate/AlertAnimation.swift",
+      "line": 82,
+      "symbol": "AlertAnimation.transitionDuration(using:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/xuyiding/Documents/iOS/DTBKit/Sources/UIKit/TransAnimate/AlertAnimation.swift",
+      "line": 86,
+      "symbol": "AlertAnimation.animateTransition(using:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/xuyiding/Documents/iOS/DTBKit"
+}

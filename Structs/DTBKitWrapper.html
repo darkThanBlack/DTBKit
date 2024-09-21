@@ -1,0 +1,2643 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>DTBKitWrapper Structure Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Struct/DTBKitWrapper" class="dashAnchor"></a>
+    <a title="DTBKitWrapper Structure Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">DTBKit 0.0.1 Docs</a> (82% documented)</p>
+        <p class="header-right"><a href="https://github.com/darkThanBlack/DTBKit"><img src="../img/gh.png" alt="GitHub"/>View on GitHub</a></p>
+        <div class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </div>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">DTBKit</a>
+        <img id="carat" src="../img/carat.png" alt=""/>
+        <a href="../Structs.html">Structures</a>
+        <img id="carat" src="../img/carat.png" alt=""/>
+        DTBKitWrapper Structure Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/AlertAnimation.html">AlertAnimation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AlertAnimation/Types.html">– Types</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AlertAnimationHandler.html">AlertAnimationHandler</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AlertAnimationHandler/Types.html">– Types</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AppManager.html">AppManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/EdgeLabel.html">EdgeLabel</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/DTB.html">DTB</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/DTB/Configuration.html">– Configuration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/DTB/DebugTypes.html">– DebugTypes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/DTB/HFBehaviors.html">– HFBehaviors</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/DTB/Regulars.html">– Regulars</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/DTB/ConstKey.html">– ConstKey</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions.html#/AppKit">AppKit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions.html#/s:Sa">Array</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions.html#/s:14CoreFoundation7CGFloatV">CGFloat</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions.html#/c:@S@CLLocationCoordinate2D">CLLocationCoordinate2D</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions.html#/s:10Foundation4DateV">Date</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions.html#/c:@SA@NSDecimal">Decimal</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions.html#/s:Sd">Double</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions.html#/s:Sf">Float</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions.html#/s:Si">Int</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions.html#/s:s5Int16V">Int16</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions.html#/s:s5Int32V">Int32</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions.html#/s:s5Int64V">Int64</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions.html#/s:s4Int8V">Int8</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions.html#/c:objc(cs)NSObject">NSObject</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions.html#/s:SS">String</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/DTBKitStructable.html">DTBKitStructable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/DTBKitable.html">DTBKitable</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/DTBKitCoordinate2DTransfer.html">DTBKitCoordinate2DTransfer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/DTBKitCoordinate2DTransfer/Types.html">– Types</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/DTBKitStaticWrapper.html">DTBKitStaticWrapper</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/DTBKitStringRegulars.html">DTBKitStringRegulars</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/DTBKitWrapper.html">DTBKitWrapper</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>DTBKitWrapper</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">@dynamicMemberLookup</span>
+<span class="kd">public</span> <span class="kd">struct</span> <span class="kt">DTBKitWrapper</span><span class="o">&lt;</span><span class="kt">Base</span><span class="o">&gt;</span></code></pre>
+
+                </div>
+              </div>
+            <p>Mainly instance wrapper.</p>
+
+<p>对象容器。</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperV2mexvp"></a>
+                    <a name="//apple_ref/swift/Property/me" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperV2mexvp">me</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">me</span><span class="p">:</span> <span class="kt">Base</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVyACyxGxcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVyACyxGxcfc">init(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="n">_</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Base</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperV5valuexvp"></a>
+                    <a name="//apple_ref/swift/Property/value" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperV5valuexvp">value</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Default unbox, use it to get actual value.</p>
+
+<p>默认拆箱关键字。</p>
+
+<p>Usage example:</p>
+<pre class="highlight swift"><code>    <span class="k">let</span> <span class="nv">label</span> <span class="o">=</span> <span class="kt">UILabel</span><span class="p">()</span><span class="o">.</span><span class="n">dtb</span><span class="o">.</span><span class="nf">text</span><span class="p">(</span><span class="s">"title"</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Base</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperV13dynamicMemberACyxGqd__cs15WritableKeyPathCyxqd__G_tcluip"></a>
+                    <a name="//apple_ref/swift/Method/subscript(dynamicMember:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperV13dynamicMemberACyxGqd__cs15WritableKeyPathCyxqd__G_tcluip">subscript(dynamicMember:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Chainable for any property.</p>
+
+<p>链式语法兼容</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">subscript</span><span class="o">&lt;</span><span class="kt">Value</span><span class="o">&gt;</span><span class="p">(</span><span class="n">dynamicMember</span> <span class="nv">keyPath</span><span class="p">:</span> <span class="kt">WritableKeyPath</span><span class="o">&lt;</span><span class="kt">Base</span><span class="p">,</span> <span class="kt">Value</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">((</span><span class="kt">Value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">DTBKitWrapper</span><span class="o">&lt;</span><span class="kt">Base</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVyqd__SgSiSgcSayqd__GRszluip"></a>
+                    <a name="//apple_ref/swift/Method/subscript(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVyqd__SgSiSgcSayqd__GRszluip">subscript(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Safe array</p>
+
+<ul>
+<li>Sample: <code>list[0] =&gt; list.xm[0]</code>
+<code>~=</code>: <code>Swift/Collection/Range</code></li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">subscript</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">index</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">T</span><span class="p">?</span> <span class="k">where</span> <span class="kt">Base</span> <span class="o">==</span> <span class="p">[</span><span class="kt">T</span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Base%60%3A%20%60Collection%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Base`: `Collection`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Base%60%3A%20%60Collection%60"></a>
+                  <h3 class="section-name"><span>Available where <code>Base</code>: <code>Collection</code></span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASlRzlE10jsonStringSSSgyF"></a>
+                    <a name="//apple_ref/swift/Method/jsonString()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASlRzlE10jsonStringSSSgyF">jsonString()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>System json parser.</p>
+
+<p>纯原生解析</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">jsonString</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Base%60%20%3D%3D%20%60String%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Base` == `String`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Base%60%20%3D%3D%20%60String%60"></a>
+                  <h3 class="section-name"><span>Available where <code>Base</code> == <code>String</code></span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASSRszlE4jsonqd__SgylF"></a>
+                    <a name="//apple_ref/swift/Method/json()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASSRszlE4jsonqd__SgylF">json()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>System json parser.</p>
+
+<p>纯原生解析</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="n">json</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">T</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASSRszlE8jsonDictSDySSypGSgyF"></a>
+                    <a name="//apple_ref/swift/Method/jsonDict()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASSRszlE8jsonDictSDySSypGSgyF">jsonDict()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>System json parser.</p>
+
+<p>纯原生解析</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">jsonDict</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">]?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASSRszlE9jsonArraySayypGSgyF"></a>
+                    <a name="//apple_ref/swift/Method/jsonArray()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASSRszlE9jsonArraySayypGSgyF">jsonArray()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>System json parser.</p>
+
+<p>纯原生解析</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">jsonArray</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Any</span><span class="p">]?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Base%60%20%3D%3D%20%60CGRect%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Base` == `CGRect`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Base%60%20%3D%3D%20%60CGRect%60"></a>
+                  <h3 class="section-name"><span>Available where <code>Base</code> == <code>CGRect</code></span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo6CGRectVRszlE6absorb7barrierAESo6CGSizeV_tF"></a>
+                    <a name="//apple_ref/swift/Method/absorb(barrier:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo6CGRectVRszlE6absorb7barrierAESo6CGSizeV_tF">absorb(barrier:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">absorb</span><span class="p">(</span><span class="nv">barrier</span><span class="p">:</span> <span class="kt">CGSize</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">CGRect</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo6CGRectVRszlE6inside7barrierA2E_tF"></a>
+                    <a name="//apple_ref/swift/Method/inside(barrier:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo6CGRectVRszlE6inside7barrierA2E_tF">inside(barrier:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">inside</span><span class="p">(</span><span class="nv">barrier</span><span class="p">:</span> <span class="kt">CGRect</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">CGRect</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Base%60%20%3D%3D%20%60CGSize%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Base` == `CGSize`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Base%60%20%3D%3D%20%60CGSize%60"></a>
+                  <h3 class="section-name"><span>Available where <code>Base</code> == <code>CGSize</code></span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo6CGSizeVRszlE7isEmptySbvp"></a>
+                    <a name="//apple_ref/swift/Property/isEmpty" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo6CGSizeVRszlE7isEmptySbvp">isEmpty</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">isEmpty</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo6CGSizeVRszlE8isSquareSbvp"></a>
+                    <a name="//apple_ref/swift/Property/isSquare" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo6CGSizeVRszlE8isSquareSbvp">isSquare</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">isSquare</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo6CGSizeVRszlE6centerSo7CGPointVvp"></a>
+                    <a name="//apple_ref/swift/Property/center" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo6CGSizeVRszlE6centerSo7CGPointVvp">center</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">center</span><span class="p">:</span> <span class="kt">CGPoint</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo6CGSizeVRszlE4area14CoreFoundation7CGFloatVvp"></a>
+                    <a name="//apple_ref/swift/Property/area" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo6CGSizeVRszlE4area14CoreFoundation7CGFloatVvp">area</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">area</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo6CGSizeVRszlE6longer14CoreFoundation7CGFloatVvp"></a>
+                    <a name="//apple_ref/swift/Property/longer" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo6CGSizeVRszlE6longer14CoreFoundation7CGFloatVvp">longer</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">longer</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo6CGSizeVRszlE7shorter14CoreFoundation7CGFloatVvp"></a>
+                    <a name="//apple_ref/swift/Property/shorter" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo6CGSizeVRszlE7shorter14CoreFoundation7CGFloatVvp">shorter</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">shorter</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo6CGSizeVRszlE8inSquareAEvp"></a>
+                    <a name="//apple_ref/swift/Property/inSquare" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo6CGSizeVRszlE8inSquareAEvp">inSquare</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Inscribe</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">inSquare</span><span class="p">:</span> <span class="kt">CGSize</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo6CGSizeVRszlE9outSquareAEvp"></a>
+                    <a name="//apple_ref/swift/Property/outSquare" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo6CGSizeVRszlE9outSquareAEvp">outSquare</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Circumscribe</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">outSquare</span><span class="p">:</span> <span class="kt">CGSize</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo6CGSizeVRszlE6margin3allACyAEG14CoreFoundation7CGFloatV_tF"></a>
+                    <a name="//apple_ref/swift/Method/margin(all:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo6CGSizeVRszlE6margin3allACyAEG14CoreFoundation7CGFloatV_tF">margin(all:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">margin</span><span class="p">(</span><span class="n">all</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">DTBKitWrapper</span><span class="o">&lt;</span><span class="kt">Base</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo6CGSizeVRszlE6margin2dx2dyACyAEG14CoreFoundation7CGFloatV_ALtF"></a>
+                    <a name="//apple_ref/swift/Method/margin(dx:dy:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo6CGSizeVRszlE6margin2dx2dyACyAEG14CoreFoundation7CGFloatV_ALtF">margin(dx:<wbr>dy:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">margin</span><span class="p">(</span><span class="nv">dx</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">,</span> <span class="nv">dy</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">DTBKitWrapper</span><span class="o">&lt;</span><span class="kt">Base</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo6CGSizeVRszlE6margin4onlyACyAEGSo12UIEdgeInsetsV_tF"></a>
+                    <a name="//apple_ref/swift/Method/margin(only:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo6CGSizeVRszlE6margin4onlyACyAEGSo12UIEdgeInsetsV_tF">margin(only:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">margin</span><span class="p">(</span><span class="n">only</span> <span class="nv">insets</span><span class="p">:</span> <span class="kt">UIEdgeInsets</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">DTBKitWrapper</span><span class="o">&lt;</span><span class="kt">Base</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo6CGSizeVRszlE7padding3allACyAEG14CoreFoundation7CGFloatV_tF"></a>
+                    <a name="//apple_ref/swift/Method/padding(all:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo6CGSizeVRszlE7padding3allACyAEG14CoreFoundation7CGFloatV_tF">padding(all:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">padding</span><span class="p">(</span><span class="n">all</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">DTBKitWrapper</span><span class="o">&lt;</span><span class="kt">Base</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo6CGSizeVRszlE7padding2dx2dyACyAEG14CoreFoundation7CGFloatV_ALtF"></a>
+                    <a name="//apple_ref/swift/Method/padding(dx:dy:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo6CGSizeVRszlE7padding2dx2dyACyAEG14CoreFoundation7CGFloatV_ALtF">padding(dx:<wbr>dy:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">padding</span><span class="p">(</span><span class="nv">dx</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">,</span> <span class="nv">dy</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">DTBKitWrapper</span><span class="o">&lt;</span><span class="kt">Base</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo6CGSizeVRszlE7padding4onlyACyAEGSo12UIEdgeInsetsV_tF"></a>
+                    <a name="//apple_ref/swift/Method/padding(only:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo6CGSizeVRszlE7padding4onlyACyAEGSo12UIEdgeInsetsV_tF">padding(only:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">padding</span><span class="p">(</span><span class="n">only</span> <span class="nv">insets</span><span class="p">:</span> <span class="kt">UIEdgeInsets</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">DTBKitWrapper</span><span class="o">&lt;</span><span class="kt">Base</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo6CGSizeVRszlE9aspectFit2toACyAEGAE_tF"></a>
+                    <a name="//apple_ref/swift/Method/aspectFit(to:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo6CGSizeVRszlE9aspectFit2toACyAEGAE_tF">aspectFit(to:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Same as <code>UIImageView.contentMode</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">aspectFit</span><span class="p">(</span><span class="n">to</span> <span class="nv">target</span><span class="p">:</span> <span class="kt">CGSize</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">DTBKitWrapper</span><span class="o">&lt;</span><span class="kt">Base</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo6CGSizeVRszlE10aspectFill2toACyAEGAE_tF"></a>
+                    <a name="//apple_ref/swift/Method/aspectFill(to:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo6CGSizeVRszlE10aspectFill2toACyAEGAE_tF">aspectFill(to:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Same as <code>UIImageView.contentMode</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">aspectFill</span><span class="p">(</span><span class="n">to</span> <span class="nv">target</span><span class="p">:</span> <span class="kt">CGSize</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">DTBKitWrapper</span><span class="o">&lt;</span><span class="kt">Base</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Base%60%20%3D%3D%20%60NSDecimalNumber%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Base` == `NSDecimalNumber`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Base%60%20%3D%3D%20%60NSDecimalNumber%60"></a>
+                  <h3 class="section-name"><span>Available where <code>Base</code> == <code>NSDecimalNumber</code></span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo15NSDecimalNumberCRszlE4plus_8behaviorACyAEGSgyp_So0cD7HandlerCSgtF"></a>
+                    <a name="//apple_ref/swift/Method/plus(_:behavior:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo15NSDecimalNumberCRszlE4plus_8behaviorACyAEGSgyp_So0cD7HandlerCSgtF">plus(_:<wbr>behavior:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>+</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">plus</span><span class="p">(</span><span class="n">_</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Any</span><span class="p">,</span> <span class="nv">behavior</span><span class="p">:</span> <span class="kt">NSDecimalNumberHandler</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">`</span><span class="nv">Self</span><span class="p">`?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo15NSDecimalNumberCRszlE4plus_5scale8roundingACyAEGSgyp_s5Int16VSo14NSRoundingModeVtF"></a>
+                    <a name="//apple_ref/swift/Method/plus(_:scale:rounding:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo15NSDecimalNumberCRszlE4plus_5scale8roundingACyAEGSgyp_s5Int16VSo14NSRoundingModeVtF">plus(_:<wbr>scale:<wbr>rounding:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>&ldquo;+&rdquo;, Use <code>DTB.Configuration.shared.decimalBehavior</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">plus</span><span class="p">(</span><span class="n">_</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Any</span><span class="p">,</span> <span class="nv">scale</span><span class="p">:</span> <span class="kt">Int16</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="nv">rounding</span><span class="p">:</span> <span class="kt">NSDecimalNumber</span><span class="o">.</span><span class="kt">RoundingMode</span> <span class="o">=</span> <span class="o">.</span><span class="n">plain</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">`</span><span class="nv">Self</span><span class="p">`?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo15NSDecimalNumberCRszlE5minus_8behaviorACyAEGSgyp_So0cD7HandlerCSgtF"></a>
+                    <a name="//apple_ref/swift/Method/minus(_:behavior:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo15NSDecimalNumberCRszlE5minus_8behaviorACyAEGSgyp_So0cD7HandlerCSgtF">minus(_:<wbr>behavior:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>-</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">minus</span><span class="p">(</span><span class="n">_</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Any</span><span class="p">,</span> <span class="nv">behavior</span><span class="p">:</span> <span class="kt">NSDecimalNumberHandler</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">`</span><span class="nv">Self</span><span class="p">`?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo15NSDecimalNumberCRszlE5minus_5scale8roundingACyAEGSgyp_s5Int16VSo14NSRoundingModeVtF"></a>
+                    <a name="//apple_ref/swift/Method/minus(_:scale:rounding:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo15NSDecimalNumberCRszlE5minus_5scale8roundingACyAEGSgyp_s5Int16VSo14NSRoundingModeVtF">minus(_:<wbr>scale:<wbr>rounding:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>&ldquo;-&rdquo;, Use <code>DTB.Configuration.shared.decimalBehavior</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">minus</span><span class="p">(</span><span class="n">_</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Any</span><span class="p">,</span> <span class="nv">scale</span><span class="p">:</span> <span class="kt">Int16</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="nv">rounding</span><span class="p">:</span> <span class="kt">NSDecimalNumber</span><span class="o">.</span><span class="kt">RoundingMode</span> <span class="o">=</span> <span class="o">.</span><span class="n">plain</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">`</span><span class="nv">Self</span><span class="p">`?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo15NSDecimalNumberCRszlE5multi_8behaviorACyAEGSgyp_So0cD7HandlerCSgtF"></a>
+                    <a name="//apple_ref/swift/Method/multi(_:behavior:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo15NSDecimalNumberCRszlE5multi_8behaviorACyAEGSgyp_So0cD7HandlerCSgtF">multi(_:<wbr>behavior:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">multi</span><span class="p">(</span><span class="n">_</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Any</span><span class="p">,</span> <span class="nv">behavior</span><span class="p">:</span> <span class="kt">NSDecimalNumberHandler</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">`</span><span class="nv">Self</span><span class="p">`?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo15NSDecimalNumberCRszlE5multi_5scale8roundingACyAEGSgyp_s5Int16VSo14NSRoundingModeVtF"></a>
+                    <a name="//apple_ref/swift/Method/multi(_:scale:rounding:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo15NSDecimalNumberCRszlE5multi_5scale8roundingACyAEGSgyp_s5Int16VSo14NSRoundingModeVtF">multi(_:<wbr>scale:<wbr>rounding:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>&ldquo;*&rdquo;, Use <code>DTB.Configuration.shared.decimalBehavior</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">multi</span><span class="p">(</span><span class="n">_</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Any</span><span class="p">,</span> <span class="nv">scale</span><span class="p">:</span> <span class="kt">Int16</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="nv">rounding</span><span class="p">:</span> <span class="kt">NSDecimalNumber</span><span class="o">.</span><span class="kt">RoundingMode</span> <span class="o">=</span> <span class="o">.</span><span class="n">plain</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">`</span><span class="nv">Self</span><span class="p">`?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo15NSDecimalNumberCRszlE3div_8behaviorACyAEGSgyp_So0cD7HandlerCSgtF"></a>
+                    <a name="//apple_ref/swift/Method/div(_:behavior:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo15NSDecimalNumberCRszlE3div_8behaviorACyAEGSgyp_So0cD7HandlerCSgtF">div(_:<wbr>behavior:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>/</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">div</span><span class="p">(</span><span class="n">_</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Any</span><span class="p">,</span> <span class="nv">behavior</span><span class="p">:</span> <span class="kt">NSDecimalNumberHandler</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">`</span><span class="nv">Self</span><span class="p">`?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo15NSDecimalNumberCRszlE3div_5scale8roundingACyAEGSgyp_s5Int16VSo14NSRoundingModeVtF"></a>
+                    <a name="//apple_ref/swift/Method/div(_:scale:rounding:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo15NSDecimalNumberCRszlE3div_5scale8roundingACyAEGSgyp_s5Int16VSo14NSRoundingModeVtF">div(_:<wbr>scale:<wbr>rounding:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>&ldquo;/&rdquo;, Use <code>DTB.Configuration.shared.decimalBehavior</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">div</span><span class="p">(</span><span class="n">_</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Any</span><span class="p">,</span> <span class="nv">scale</span><span class="p">:</span> <span class="kt">Int16</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="nv">rounding</span><span class="p">:</span> <span class="kt">NSDecimalNumber</span><span class="o">.</span><span class="kt">RoundingMode</span> <span class="o">=</span> <span class="o">.</span><span class="n">plain</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">`</span><span class="nv">Self</span><span class="p">`?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo15NSDecimalNumberCRszlE5power_8behaviorACyAEGSgSi_So0cD7HandlerCSgtF"></a>
+                    <a name="//apple_ref/swift/Method/power(_:behavior:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo15NSDecimalNumberCRszlE5power_8behaviorACyAEGSgSi_So0cD7HandlerCSgtF">power(_:<wbr>behavior:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>^</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">power</span><span class="p">(</span><span class="n">_</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">behavior</span><span class="p">:</span> <span class="kt">NSDecimalNumberHandler</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">`</span><span class="nv">Self</span><span class="p">`?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo15NSDecimalNumberCRszlE5power_5scale8roundingACyAEGSgSi_s5Int16VSo14NSRoundingModeVtF"></a>
+                    <a name="//apple_ref/swift/Method/power(_:scale:rounding:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo15NSDecimalNumberCRszlE5power_5scale8roundingACyAEGSgSi_s5Int16VSo14NSRoundingModeVtF">power(_:<wbr>scale:<wbr>rounding:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>&ldquo;^&rdquo;, Use <code>DTB.Configuration.shared.decimalBehavior</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">power</span><span class="p">(</span><span class="n">_</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">scale</span><span class="p">:</span> <span class="kt">Int16</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="nv">rounding</span><span class="p">:</span> <span class="kt">NSDecimalNumber</span><span class="o">.</span><span class="kt">RoundingMode</span> <span class="o">=</span> <span class="o">.</span><span class="n">plain</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">`</span><span class="nv">Self</span><span class="p">`?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo15NSDecimalNumberCRszlE12multiPower10_8behaviorACyAEGSgs5Int16V_So0cD7HandlerCSgtF"></a>
+                    <a name="//apple_ref/swift/Method/multiPower10(_:behavior:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo15NSDecimalNumberCRszlE12multiPower10_8behaviorACyAEGSgs5Int16V_So0cD7HandlerCSgtF">multiPower10(_:<wbr>behavior:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>10^</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">multiPower10</span><span class="p">(</span><span class="n">_</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Int16</span><span class="p">,</span> <span class="nv">behavior</span><span class="p">:</span> <span class="kt">NSDecimalNumberHandler</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">`</span><span class="nv">Self</span><span class="p">`?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo15NSDecimalNumberCRszlE12multiPower10_5scale8roundingACyAEGSgs5Int16V_ALSo14NSRoundingModeVtF"></a>
+                    <a name="//apple_ref/swift/Method/multiPower10(_:scale:rounding:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo15NSDecimalNumberCRszlE12multiPower10_5scale8roundingACyAEGSgs5Int16V_ALSo14NSRoundingModeVtF">multiPower10(_:<wbr>scale:<wbr>rounding:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>&ldquo;* 10^&rdquo;, Use <code>DTB.Configuration.shared.decimalBehavior</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">multiPower10</span><span class="p">(</span><span class="n">_</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Int16</span><span class="p">,</span> <span class="nv">scale</span><span class="p">:</span> <span class="kt">Int16</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="nv">rounding</span><span class="p">:</span> <span class="kt">NSDecimalNumber</span><span class="o">.</span><span class="kt">RoundingMode</span> <span class="o">=</span> <span class="o">.</span><span class="n">plain</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">`</span><span class="nv">Self</span><span class="p">`?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Base%60%3A%20%60NSMutableAttributedString%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Base`: `NSMutableAttributedString`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Base%60%3A%20%60NSMutableAttributedString%60"></a>
+                  <h3 class="section-name"><span>Available where <code>Base</code>: <code>NSMutableAttributedString</code></span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo25NSMutableAttributedStringCRbzlE3strACySSGvp"></a>
+                    <a name="//apple_ref/swift/Property/str" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo25NSMutableAttributedStringCRbzlE3strACySSGvp">str</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">str</span><span class="p">:</span> <span class="kt">DTBKitWrapper</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo25NSMutableAttributedStringCRbzlE4mStrACySo0cE0CGvp"></a>
+                    <a name="//apple_ref/swift/Property/mStr" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo25NSMutableAttributedStringCRbzlE4mStrACySo0cE0CGvp">mStr</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">mStr</span><span class="p">:</span> <span class="kt">DTBKitWrapper</span><span class="o">&lt;</span><span class="kt">NSMutableString</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo25NSMutableAttributedStringCRbzlE6appendyACyxGSSSg_SDySo012NSAttributedE3KeyaypGSgtF"></a>
+                    <a name="//apple_ref/swift/Method/append(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo25NSMutableAttributedStringCRbzlE6appendyACyxGSSSg_SDySo012NSAttributedE3KeyaypGSgtF">append(_:<wbr>_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Append.</p>
+
+<p>Example:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">attr</span> <span class="o">=</span> <span class="s">""</span><span class="o">.</span><span class="n">dtb</span><span class="o">.</span><span class="n">attr</span><span class="o">.</span><span class="nf">append</span><span class="p">(</span>
+    <span class="s">"text"</span><span class="p">,</span>
+    <span class="o">.</span><span class="n">dtb</span><span class="o">.</span><span class="n">create</span>
+        <span class="o">.</span><span class="nf">foregroundColor</span><span class="p">(</span><span class="o">.</span><span class="n">black</span><span class="p">)</span>
+        <span class="o">.</span><span class="nf">font</span><span class="p">(</span><span class="o">.</span><span class="nf">systemFont</span><span class="p">(</span><span class="nv">ofSize</span><span class="p">:</span> <span class="mf">13.0</span><span class="p">))</span>
+        <span class="o">.</span><span class="n">value</span>
+<span class="p">)</span><span class="o">.</span><span class="n">value</span>
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">append</span><span class="p">(</span><span class="n">_</span> <span class="nv">string</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="n">_</span> <span class="nv">attributes</span><span class="p">:</span> <span class="p">[</span><span class="kt">NSAttributedString</span><span class="o">.</span><span class="kt">Key</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">]?)</span> <span class="o">-&gt;</span> <span class="kt">DTBKitWrapper</span><span class="o">&lt;</span><span class="kt">Base</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo25NSMutableAttributedStringCRbzlE6setSub_5attrsACyxGSS_SDySo012NSAttributedE3KeyaypGSgtF"></a>
+                    <a name="//apple_ref/swift/Method/setSub(_:attrs:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo25NSMutableAttributedStringCRbzlE6setSub_5attrsACyxGSS_SDySo012NSAttributedE3KeyaypGSgtF">setSub(_:<wbr>attrs:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Same as <code>setAttributes:</code>, search subString with nsRange.</p>
+
+<p>没搜索到则不做处理。</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">setSub</span><span class="p">(</span><span class="n">_</span> <span class="nv">subString</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">attrs</span><span class="p">:</span> <span class="p">[</span><span class="kt">NSAttributedString</span><span class="o">.</span><span class="kt">Key</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">DTBKitWrapper</span><span class="o">&lt;</span><span class="kt">Base</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo25NSMutableAttributedStringCRbzlE6addSub_5attrsACyxGSS_SDySo012NSAttributedE3KeyaypGtF"></a>
+                    <a name="//apple_ref/swift/Method/addSub(_:attrs:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo25NSMutableAttributedStringCRbzlE6addSub_5attrsACyxGSS_SDySo012NSAttributedE3KeyaypGtF">addSub(_:<wbr>attrs:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Same as <code>addAttributes</code>, search subString with nsRange.</p>
+
+<p>没搜索到则不做处理。</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">addSub</span><span class="p">(</span><span class="n">_</span> <span class="nv">subString</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">attrs</span><span class="p">:</span> <span class="p">[</span><span class="kt">NSAttributedString</span><span class="o">.</span><span class="kt">Key</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">DTBKitWrapper</span><span class="o">&lt;</span><span class="kt">Base</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Base%60%20%3D%3D%20%60NSRange%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Base` == `NSRange`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Base%60%20%3D%3D%20%60NSRange%60"></a>
+                  <h3 class="section-name"><span>Available where <code>Base</code> == <code>NSRange</code></span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo8_NSRangeVRszlE7isEmptySbvp"></a>
+                    <a name="//apple_ref/swift/Property/isEmpty" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo8_NSRangeVRszlE7isEmptySbvp">isEmpty</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">isEmpty</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Base%60%3A%20%60NSString%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Base`: `NSString`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Base%60%3A%20%60NSString%60"></a>
+                  <h3 class="section-name"><span>Available where <code>Base</code>: <code>NSString</code></span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo8NSStringCRbzlE5range2ofACySo8_NSRangeVGSS_tF"></a>
+                    <a name="//apple_ref/swift/Method/range(of:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo8NSStringCRbzlE5range2ofACySo8_NSRangeVGSS_tF">range(of:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">range</span><span class="p">(</span><span class="n">of</span> <span class="nv">searchString</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">DTBKitWrapper</span><span class="o">&lt;</span><span class="kt">NSRange</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Base%60%3A%20%60NumberFormatter%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Base`: `NumberFormatter`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Base%60%3A%20%60NumberFormatter%60"></a>
+                  <h3 class="section-name"><span>Available where <code>Base</code>: <code>NumberFormatter</code></span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo17NSNumberFormatterCRbzlE6string4fromACySSGSgSo0C0CSg_tF"></a>
+                    <a name="//apple_ref/swift/Method/string(from:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo17NSNumberFormatterCRbzlE6string4fromACySSGSgSo0C0CSg_tF">string(from:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">string</span><span class="p">(</span><span class="n">from</span> <span class="nv">number</span><span class="p">:</span> <span class="kt">NSNumber</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">DTBKitWrapper</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo17NSNumberFormatterCRbzlE6number4fromACySo0C0CGSgSSSg_tF"></a>
+                    <a name="//apple_ref/swift/Method/number(from:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo17NSNumberFormatterCRbzlE6number4fromACySo0C0CGSgSSSg_tF">number(from:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">number</span><span class="p">(</span><span class="n">from</span> <span class="nv">string</span><span class="p">:</span> <span class="kt">String</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">DTBKitWrapper</span><span class="o">&lt;</span><span class="kt">NSNumber</span><span class="o">&gt;</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo17NSNumberFormatterCRbzlE7decimalyACyxGSiF"></a>
+                    <a name="//apple_ref/swift/Method/decimal(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo17NSNumberFormatterCRbzlE7decimalyACyxGSiF">decimal(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">decimal</span><span class="p">(</span><span class="n">_</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">DTBKitWrapper</span><span class="o">&lt;</span><span class="kt">Base</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo17NSNumberFormatterCRbzlE10maxDecimalyACyxGSiF"></a>
+                    <a name="//apple_ref/swift/Method/maxDecimal(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo17NSNumberFormatterCRbzlE10maxDecimalyACyxGSiF">maxDecimal(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">maxDecimal</span><span class="p">(</span><span class="n">_</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">DTBKitWrapper</span><span class="o">&lt;</span><span class="kt">Base</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo17NSNumberFormatterCRbzlE5split2by4sizeACyxGSS_SitF"></a>
+                    <a name="//apple_ref/swift/Method/split(by:size:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo17NSNumberFormatterCRbzlE5split2by4sizeACyxGSS_SitF">split(by:<wbr>size:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">split</span><span class="p">(</span><span class="n">by</span> <span class="nv">group</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">","</span><span class="p">,</span> <span class="nv">size</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">DTBKitWrapper</span><span class="o">&lt;</span><span class="kt">Base</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo17NSNumberFormatterCRbzlE7roundedyACyxGSo0cD12RoundingModeVF"></a>
+                    <a name="//apple_ref/swift/Method/rounded(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo17NSNumberFormatterCRbzlE7roundedyACyxGSo0cD12RoundingModeVF">rounded(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">rounded</span><span class="p">(</span><span class="n">_</span> <span class="nv">mode</span><span class="p">:</span> <span class="kt">NumberFormatter</span><span class="o">.</span><span class="kt">RoundingMode</span> <span class="o">=</span> <span class="o">.</span><span class="n">halfUp</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">DTBKitWrapper</span><span class="o">&lt;</span><span class="kt">Base</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo17NSNumberFormatterCRbzlE6prefix_8negativeACyxGSS_SSSgtF"></a>
+                    <a name="//apple_ref/swift/Method/prefix(_:negative:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo17NSNumberFormatterCRbzlE6prefix_8negativeACyxGSS_SSSgtF">prefix(_:<wbr>negative:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">prefix</span><span class="p">(</span><span class="n">_</span> <span class="nv">positive</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">negative</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">DTBKitWrapper</span><span class="o">&lt;</span><span class="kt">Base</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo17NSNumberFormatterCRbzlE6suffixyACyxGSS_SSSgtF"></a>
+                    <a name="//apple_ref/swift/Method/suffix(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo17NSNumberFormatterCRbzlE6suffixyACyxGSS_SSSgtF">suffix(_:<wbr>_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">suffix</span><span class="p">(</span><span class="n">_</span> <span class="nv">positive</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">_</span> <span class="nv">negative</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">DTBKitWrapper</span><span class="o">&lt;</span><span class="kt">Base</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Base%60%20%3D%3D%20%60String%602"></a>
+                <a name="//apple_ref/swift/Section/Available where `Base` == `String`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Base%60%20%3D%3D%20%60String%602"></a>
+                  <h3 class="section-name"><span>Available where <code>Base</code> == <code>String</code></span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASSRszlE2nsACySo8NSStringCGvp"></a>
+                    <a name="//apple_ref/swift/Property/ns" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASSRszlE2nsACySo8NSStringCGvp">ns</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">ns</span><span class="p">:</span> <span class="kt">DTBKitWrapper</span><span class="o">&lt;</span><span class="kt">NSString</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASSRszlE5countSivp"></a>
+                    <a name="//apple_ref/swift/Property/count" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASSRszlE5countSivp">count</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Adapter for NSString.length.</p>
+
+<p>使用 NS 系列 API 时必须注意 String 和 NSString 的根本不同；
+如果对此没有了解，建议全部使用 NSString 来处理。</p>
+<pre class="highlight swift"><code>    <span class="k">let</span> <span class="nv">a</span> <span class="o">=</span> <span class="s">""</span><span class="o">.</span><span class="n">utf16</span><span class="o">.</span><span class="n">count</span>
+    <span class="k">let</span> <span class="nv">b</span> <span class="o">=</span> <span class="kt">NSString</span><span class="p">(</span><span class="nv">string</span><span class="p">:</span> <span class="s">""</span><span class="p">)</span><span class="o">.</span><span class="n">length</span>
+    <span class="c1">// (a == b) == true</span>
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">count</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASSRszlE4attrACySo25NSMutableAttributedStringCGvp"></a>
+                    <a name="//apple_ref/swift/Property/attr" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASSRszlE4attrACySo25NSMutableAttributedStringCGvp">attr</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">attr</span><span class="p">:</span> <span class="kt">DTBKitWrapper</span><span class="o">&lt;</span><span class="kt">NSMutableAttributedString</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASSRszlE3has7nsRangeSbSo8_NSRangeV_tF"></a>
+                    <a name="//apple_ref/swift/Method/has(nsRange:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASSRszlE3has7nsRangeSbSo8_NSRangeV_tF">has(nsRange:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">has</span><span class="p">(</span><span class="nv">nsRange</span><span class="p">:</span> <span class="kt">NSRange</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASSRszlE9isMatchesySbSSF"></a>
+                    <a name="//apple_ref/swift/Method/isMatches(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASSRszlE9isMatchesySbSSF">isMatches(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">isMatches</span><span class="p">(</span><span class="n">_</span> <span class="nv">exp</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASSRszlE9isRegularySbAA0A14StringRegularsVF"></a>
+                    <a name="//apple_ref/swift/Method/isRegular(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASSRszlE9isRegularySbAA0A14StringRegularsVF">isRegular(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">isRegular</span><span class="p">(</span><span class="n">_</span> <span class="nv">value</span><span class="p">:</span> <span class="kt"><a href="../Structs/DTBKitStringRegulars.html">DTBKitStringRegulars</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Base%60%3A%20%60BinaryFloatingPoint%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Base`: `BinaryFloatingPoint`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Base%60%3A%20%60BinaryFloatingPoint%60"></a>
+                  <h3 class="section-name"><span>Available where <code>Base</code>: <code>BinaryFloatingPoint</code></span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASBRzlE7roundedyACyxGs25FloatingPointRoundingRuleOSgF"></a>
+                    <a name="//apple_ref/swift/Method/rounded(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASBRzlE7roundedyACyxGs25FloatingPointRoundingRuleOSgF">rounded(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">rounded</span><span class="p">(</span><span class="n">_</span> <span class="nv">roundRule</span><span class="p">:</span> <span class="kt">FloatingPointRoundingRule</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">DTBKitWrapper</span><span class="o">&lt;</span><span class="kt">Base</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASBRzlE6stringACySSGvp"></a>
+                    <a name="//apple_ref/swift/Property/string" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASBRzlE6stringACySSGvp">string</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Convert to string.</p>
+
+<p>转字符串。</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">string</span><span class="p">:</span> <span class="kt">DTBKitWrapper</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASBRzlE8toStringyACySSGSgSo17NSNumberFormatterCF"></a>
+                    <a name="//apple_ref/swift/Method/toString(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASBRzlE8toStringyACySSGSgSo17NSNumberFormatterCF">toString(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Convert to string with numberFormatter.</p>
+
+<p>格式化字符串。</p>
+
+<p>For example:</p>
+<pre class="highlight swift"><code>    <span class="c1">/// Use preset formatter</span>
+    <span class="k">let</span> <span class="nv">a</span> <span class="o">=</span> <span class="mf">2.1</span><span class="o">.</span><span class="n">dtb</span><span class="o">.</span><span class="nf">toString</span><span class="p">(</span><span class="o">.</span><span class="n">dtb</span><span class="o">.</span><span class="kt">CNY</span><span class="p">)?</span><span class="o">.</span><span class="n">value</span>
+
+    <span class="c1">/// Custom formatter</span>
+    <span class="k">let</span> <span class="nv">b</span> <span class="o">=</span> <span class="mi">2</span><span class="o">.</span><span class="n">dtb</span><span class="o">.</span><span class="n">double</span><span class="o">.</span><span class="nf">toString</span><span class="p">(</span><span class="kt">NumberFormatter</span><span class="p">()</span><span class="o">.</span><span class="n">dtb</span><span class="o">.</span><span class="nf">decimal</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="nf">rounded</span><span class="p">(</span><span class="o">.</span><span class="n">halfDown</span><span class="p">)</span><span class="o">.</span><span class="nf">prefix</span><span class="p">(</span><span class="s">"¥"</span><span class="p">,</span> <span class="nv">negative</span><span class="p">:</span> <span class="s">"-¥"</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">toString</span><span class="p">(</span><span class="n">_</span> <span class="nv">formatter</span><span class="p">:</span> <span class="kt">NumberFormatter</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">DTBKitWrapper</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASBRzlE9nsDecimalACySo15NSDecimalNumberCGvp"></a>
+                    <a name="//apple_ref/swift/Property/nsDecimal" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASBRzlE9nsDecimalACySo15NSDecimalNumberCGvp">nsDecimal</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Convert to NSDecimalNumber with behavior.</p>
+
+<p>精度处理。</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">nsDecimal</span><span class="p">:</span> <span class="kt">DTBKitWrapper</span><span class="o">&lt;</span><span class="kt">NSDecimalNumber</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Base%60%20%3D%3D%20%60Double%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Base` == `Double`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Base%60%20%3D%3D%20%60Double%60"></a>
+                  <h3 class="section-name"><span>Available where <code>Base</code> == <code>Double</code></span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASdRszlE6placesyACySdGSiF"></a>
+                    <a name="//apple_ref/swift/Method/places(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASdRszlE6placesyACySdGSiF">places(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Cut dicimal places.</p>
+
+<p>截取小数后 x 位。</p>
+
+<p>Example: <code>1.26.dtb.place(1).value = 1.2</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">places</span><span class="p">(</span><span class="n">_</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">DTBKitWrapper</span><span class="o">&lt;</span><span class="kt">Base</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Base%60%3A%20%60BinaryFloatingPoint%602"></a>
+                <a name="//apple_ref/swift/Section/Available where `Base`: `BinaryFloatingPoint`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Base%60%3A%20%60BinaryFloatingPoint%602"></a>
+                  <h3 class="section-name"><span>Available where <code>Base</code>: <code>BinaryFloatingPoint</code></span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASBRzlE2hfy14CoreFoundation7CGFloatVAA3DTBO11HFBehaviorsOF"></a>
+                    <a name="//apple_ref/swift/Method/hf(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASBRzlE2hfy14CoreFoundation7CGFloatVAA3DTBO11HFBehaviorsOF">hf(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">hf</span><span class="p">(</span><span class="n">_</span> <span class="nv">behavior</span><span class="p">:</span> <span class="kt"><a href="../Enums/DTB.html">DTB</a></span><span class="o">.</span><span class="kt">HFBehaviors</span> <span class="o">=</span> <span class="o">.</span><span class="n">scale</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">CGFloat</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Base%60%3A%20%60SignedInteger%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Base`: `SignedInteger`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Base%60%3A%20%60SignedInteger%60"></a>
+                  <h3 class="section-name"><span>Available where <code>Base</code>: <code>SignedInteger</code></span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASZRzlE6toDate10Foundation0D0VyF"></a>
+                    <a name="//apple_ref/swift/Method/toDate()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASZRzlE6toDate10Foundation0D0VyF">toDate()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">toDate</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Date</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASZRzlE6stringACySSGvp"></a>
+                    <a name="//apple_ref/swift/Property/string" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASZRzlE6stringACySSGvp">string</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Convert to string.</p>
+
+<p>转字符串。</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">string</span><span class="p">:</span> <span class="kt">DTBKitWrapper</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASZRzlE8toStringyACySSGSgSo17NSNumberFormatterCF"></a>
+                    <a name="//apple_ref/swift/Method/toString(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASZRzlE8toStringyACySSGSgSo17NSNumberFormatterCF">toString(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Convert to string with numberFormatter.</p>
+
+<p>格式化字符串。</p>
+
+<p>For example:</p>
+<pre class="highlight swift"><code>    <span class="c1">/// Use preset formatter</span>
+    <span class="k">let</span> <span class="nv">a</span> <span class="o">=</span> <span class="mf">2.1</span><span class="o">.</span><span class="n">dtb</span><span class="o">.</span><span class="nf">toString</span><span class="p">(</span><span class="o">.</span><span class="n">dtb</span><span class="o">.</span><span class="kt">CNY</span><span class="p">)?</span><span class="o">.</span><span class="n">value</span>
+
+    <span class="c1">/// Custom formatter</span>
+    <span class="k">let</span> <span class="nv">b</span> <span class="o">=</span> <span class="mi">2</span><span class="o">.</span><span class="n">dtb</span><span class="o">.</span><span class="n">double</span><span class="o">.</span><span class="nf">toString</span><span class="p">(</span><span class="kt">NumberFormatter</span><span class="p">()</span><span class="o">.</span><span class="n">dtb</span><span class="o">.</span><span class="nf">decimal</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="nf">rounded</span><span class="p">(</span><span class="o">.</span><span class="n">halfDown</span><span class="p">)</span><span class="o">.</span><span class="nf">prefix</span><span class="p">(</span><span class="s">"¥"</span><span class="p">,</span> <span class="nv">negative</span><span class="p">:</span> <span class="s">"-¥"</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">toString</span><span class="p">(</span><span class="n">_</span> <span class="nv">formatter</span><span class="p">:</span> <span class="kt">NumberFormatter</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">DTBKitWrapper</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASZRzlE9nsDecimalACySo15NSDecimalNumberCGvp"></a>
+                    <a name="//apple_ref/swift/Property/nsDecimal" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASZRzlE9nsDecimalACySo15NSDecimalNumberCGvp">nsDecimal</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Convert to NSDecimalNumber with behavior.</p>
+
+<p>精度处理。</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">nsDecimal</span><span class="p">:</span> <span class="kt">DTBKitWrapper</span><span class="o">&lt;</span><span class="kt">NSDecimalNumber</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Base%60%3A%20%60UIImage%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Base`: `UIImage`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Base%60%3A%20%60UIImage%60"></a>
+                  <h3 class="section-name"><span>Available where <code>Base</code>: <code>UIImage</code></span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo7UIImageCRbzlE2ciACySo7CIImageCGSgyF"></a>
+                    <a name="//apple_ref/swift/Method/ci()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo7UIImageCRbzlE2ciACySo7CIImageCGSgyF">ci()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">ci</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">DTBKitWrapper</span><span class="o">&lt;</span><span class="kt">CIImage</span><span class="o">&gt;</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo7UIImageCRbzlE5scale2toACyAEGSg14CoreFoundation7CGFloatV_tF"></a>
+                    <a name="//apple_ref/swift/Method/scale(to:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo7UIImageCRbzlE5scale2toACyAEGSg14CoreFoundation7CGFloatV_tF">scale(to:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Down sampling to fit.</p>
+
+<p>图片下采样。将图片等比缩放至最长边与传入的 value 相等。</p>
+
+<p><a href="https://juejin.cn/post/6844903988077281288#heading-2">refer</a></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">scale</span><span class="p">(</span><span class="n">to</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">DTBKitWrapper</span><span class="o">&lt;</span><span class="kt">UIImage</span><span class="o">&gt;</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>value</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>result will aspect fit to value.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>nil if scale fail.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Base%60%20%3D%3D%20%60UIViewController%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Base` == `UIViewController`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Base%60%20%3D%3D%20%60UIViewController%60"></a>
+                  <h3 class="section-name"><span>Available where <code>Base</code> == <code>UIViewController</code></span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo16UIViewControllerCRszlE7topMostACyAEGSgvp"></a>
+                    <a name="//apple_ref/swift/Property/topMost" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo16UIViewControllerCRszlE7topMostACyAEGSgvp">topMost</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Recursion get the top most view controller.</p>
+
+<p>递归取栈顶。</p>
+
+<p><a href="https://github.com/devxoul/URLNavigator">refer</a></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">topMost</span><span class="p">:</span> <span class="kt">DTBKitWrapper</span><span class="o">&lt;</span><span class="kt">UIViewController</span><span class="o">&gt;</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Base%60%20%3D%3D%20%60CLLocationCoordinate2D%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Base` == `CLLocationCoordinate2D`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Base%60%20%3D%3D%20%60CLLocationCoordinate2D%60"></a>
+                  <h3 class="section-name"><span>Available where <code>Base</code> == <code>CLLocationCoordinate2D</code></span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo22CLLocationCoordinate2DVRszlE5isWGSAA0aD9DTransferVvp"></a>
+                    <a name="//apple_ref/swift/Property/isWGS" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo22CLLocationCoordinate2DVRszlE5isWGSAA0aD9DTransferVvp">isWGS</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Mark it as WGS</p>
+
+<p>For example:</p>
+<pre class="highlight swift"><code> <span class="k">let</span> <span class="nv">p</span> <span class="o">=</span> <span class="kt">CLLocationCoordinate2D</span><span class="p">(</span><span class="nv">latitude</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">,</span> <span class="nv">longitude</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">)</span>  <span class="c1">// WGS</span>
+ <span class="k">let</span> <span class="nv">result</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">dtb</span><span class="o">.</span><span class="n">isWGS</span><span class="o">.</span><span class="n">toGCJ</span>  <span class="c1">// GCJ</span>
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">isWGS</span><span class="p">:</span> <span class="kt"><a href="../Structs/DTBKitCoordinate2DTransfer.html">DTBKitCoordinate2DTransfer</a></span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo22CLLocationCoordinate2DVRszlE5isGCJAA0aD9DTransferVvp"></a>
+                    <a name="//apple_ref/swift/Property/isGCJ" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo22CLLocationCoordinate2DVRszlE5isGCJAA0aD9DTransferVvp">isGCJ</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Mark it as GCJ</p>
+
+<p>For example:</p>
+<pre class="highlight swift"><code> <span class="k">let</span> <span class="nv">p</span> <span class="o">=</span> <span class="kt">CLLocationCoordinate2D</span><span class="p">(</span><span class="nv">latitude</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">,</span> <span class="nv">longitude</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">)</span>  <span class="c1">// GCJ</span>
+ <span class="k">let</span> <span class="nv">result</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">dtb</span><span class="o">.</span><span class="n">isGCJ</span><span class="o">.</span><span class="n">toWGS</span>  <span class="c1">// WGS</span>
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">isGCJ</span><span class="p">:</span> <span class="kt"><a href="../Structs/DTBKitCoordinate2DTransfer.html">DTBKitCoordinate2DTransfer</a></span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo22CLLocationCoordinate2DVRszlE4isBDAA0aD9DTransferVvp"></a>
+                    <a name="//apple_ref/swift/Property/isBD" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo22CLLocationCoordinate2DVRszlE4isBDAA0aD9DTransferVvp">isBD</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Mark it as BD</p>
+
+<p>For example:</p>
+<pre class="highlight swift"><code> <span class="k">let</span> <span class="nv">p</span> <span class="o">=</span> <span class="kt">CLLocationCoordinate2D</span><span class="p">(</span><span class="nv">latitude</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">,</span> <span class="nv">longitude</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">)</span>  <span class="c1">// BD</span>
+ <span class="k">let</span> <span class="nv">result</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">dtb</span><span class="o">.</span><span class="n">isBD</span><span class="o">.</span><span class="n">toGCJ</span>  <span class="c1">// GCJ</span>
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">isBD</span><span class="p">:</span> <span class="kt"><a href="../Structs/DTBKitCoordinate2DTransfer.html">DTBKitCoordinate2DTransfer</a></span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Base%60%3A%20%60MKMapView%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Base`: `MKMapView`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Base%60%3A%20%60MKMapView%60"></a>
+                  <h3 class="section-name"><span>Available where <code>Base</code>: <code>MKMapView</code></span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo9MKMapViewCRbzlE12getZoomLevelSiyF"></a>
+                    <a name="//apple_ref/swift/Method/getZoomLevel()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo9MKMapViewCRbzlE12getZoomLevelSiyF">getZoomLevel()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getZoomLevel</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DTBKit0A7WrapperVAASo9MKMapViewCRbzlE12setZoomLevel_8animatedySi_SbtF"></a>
+                    <a name="//apple_ref/swift/Method/setZoomLevel(_:animated:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DTBKit0A7WrapperVAASo9MKMapViewCRbzlE12setZoomLevel_8animatedySi_SbtF">setZoomLevel(_:<wbr>animated:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">setZoomLevel</span><span class="p">(</span><span class="n">_</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2024 <a class="link" href="https://darkthanblack.github.io" target="_blank" rel="external noopener">darkThanBlack</a>. All rights reserved. (Last updated: 2024-09-21)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</html>
