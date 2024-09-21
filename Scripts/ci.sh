@@ -33,6 +33,40 @@ reopen() {
     cd $SCRIPT_PATH
 }
 
+git_ci() {
+  git checkout main
+  git add .
+  git commit . -m 'daily'
+  git pull --ff
+  git push
+}
+
+jazzy_ci() {
+    cd ..;
+    git checkout main;
+    git add .;
+    git commit . -m 'daily';
+    git pull --ff;
+    git push;
+    jazzy \
+    --clean \
+    --author darkThanBlack \
+    --author_url https://darkthanblack.github.io \
+    --source-host github \
+    --source-host-url https://github.com/darkThanBlack/DTBKit \
+    --exclude "Sources/Chain/*" \
+    --output docs \
+    --theme apple;
+    mv docs ~/Documents/docs;
+    git checkout gh-pages;
+    git pull --ff;
+    mv ~/Documents/docs ./;
+    rm -rf ~/Documents/docs;
+    git add .;
+    git commit . -m 'deploy from jazzy';
+    git push
+}
+
 show_menu() {
     echo """
 ====== 菜单 ======
@@ -41,6 +75,9 @@ a2> 打开 README.md
 
 b1> 重新加载工程
 b2> 重新加载工程，并清除所有缓存
+
+c1> git sync
+c2> jazzy docs deploy
 
 0> 退出
 """
@@ -59,6 +96,10 @@ while read -p "请选择> " idx; do
         reopen
     elif [[ ${idx} == "b2" ]]; then
         reopen "clean"
+    elif [[ ${idx} == "c1" ]]; then
+        git_ci
+    elif [[ ${idx} == "c2" ]]; then
+        jazzy_ci
     else
         show_menu
     fi
