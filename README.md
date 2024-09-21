@@ -338,9 +338,12 @@ DTBKit is available under the MIT license. See the LICENSE file for more info.
 
 
 
-### Docs
+### API docs
+
+Auto created by [jazzy](https://github.com/realm/jazzy) and deploy on ``gh-pages``, you can visit it from [HERE](https://darkthanblack.github.io/DTBKit).
 
 ```shell
+# Deploy scripts
 git checkout main;
 git add .;
 git commit . -m 'daily';
@@ -369,4 +372,9 @@ git push
 
 ## Edited
 
-> Update: 2024/08/14    README - Start
+> Update: 2024/08/14    README - Start.
+>
+> Update: 2024/09/20    Add Carthage / SwiftPM support.
+>
+> Update: 2024/09/21    Deploy jazzy docs on gh-pages.
+

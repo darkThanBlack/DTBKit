@@ -326,7 +326,43 @@ pod 'DTBKit/Basic', :testspecs => ['Tests']
 
 
 
+### 接口文档
+
+在 [这里](https://darkthanblack.github.io/DTBKit) 有一份通过 [jazzy](https://github.com/realm/jazzy) 自动生成的文档。
+
+```shell
+# Deploy scripts
+git checkout main;
+git add .;
+git commit . -m 'daily';
+git pull --ff;
+git push;
+jazzy \
+  --clean \
+  --author darkThanBlack \
+  --author_url https://darkthanblack.github.io \
+  --source-host github \
+  --source-host-url https://github.com/darkThanBlack/DTBKit \
+  --exclude "Sources/Chain/*" \
+  --output docs \
+  --theme apple;
+mv docs ~/Documents/docs;
+git checkout gh-pages;
+git pull --ff;
+mv ~/Documents/docs ./;
+rm -rf ~/Documents/docs;
+git add .;
+git commit . -m 'deploy from jazzy';
+git push
+```
+
+
+
 ## 日志
 
 > Update: 2024/08/14    增加别名集成示例代码。
+>
+> Update: 2024/09/20    Add Carthage / SwiftPM support.
+>
+> Update: 2024/09/21    Deploy jazzy docs on gh-pages.
 
