@@ -15,7 +15,7 @@ import UIKit
 ///
 extension DTBKitWrapper where Base == NSRange {
     
-    ///
+    /// location == NSNotFound or length == 0
     public var isEmpty: Bool {
         return (me.location == NSNotFound) || (me.length == 0)
     }

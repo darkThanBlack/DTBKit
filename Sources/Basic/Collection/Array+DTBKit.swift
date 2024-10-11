@@ -16,6 +16,8 @@ extension DTBKitWrapper {
     
     /// Safe array
     ///
+    /// 数组防越界
+    ///
     /// * Sample: ``list[0] => list.xm[0]``
     /// ``~=``: ``Swift/Collection/Range``
     public subscript<T>(_ index: Int?) -> T? where Base == Array<T> {

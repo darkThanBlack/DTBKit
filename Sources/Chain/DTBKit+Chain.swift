@@ -22,16 +22,16 @@ public protocol DTBKitChainable {}
 /// Class only.
 extension DTBKitWrapper where Base: DTBKitable {
     
-    /// Custom updates, auto unbox, sync.
+    /// Call handler when condition is true. sync.
     ///
-    /// 通用的自行拆箱更新，均为同步操作。
+    /// 语法糖: 当条件判断为 true 时才会执行 handler.
     ///
     /// Usage example:
     /// ```
     ///    UIView().dtb
-    ///        .when(1 > 0) { value in
-    ///            let nSize = value.sizeThatFits(UIScreen.main.bounds.size)
-    ///            value.bounds = .init(origin: .zero, size: nSize)
+    ///        .when(1 > 0) { me in
+    ///            let nSize = me.sizeThatFits(UIScreen.main.bounds.size)
+    ///            me.bounds = .init(origin: .zero, size: nSize)
     ///        }
     ///        .center(CGPoint(x: 20.0, y: 20.0))
     /// ```
@@ -39,6 +39,32 @@ extension DTBKitWrapper where Base: DTBKitable {
     public func when(_ condition: @autoclosure (() -> Bool), _ handler: ((Base) -> Void)?) -> Self {
         if condition() {
             handler?(me)
+        }
+        return self
+    }
+    
+    /// Call handler when provider is not nil. sync.
+    ///
+    /// 语法糖: 当 provider() != nil 时才会执行 handler.
+    ///
+    /// e.g.
+    /// ```
+    ///     public func decimal(
+    ///         _ value: Int = 2,
+    ///         prefix: String? = nil,
+    ///     ) -> NumberFormatter {
+    ///         return NumberFormatter().dtb
+    ///             .decimal(value)
+    ///             .whenNotNull(prefix, { data, me in
+    ///                 me.dtb.prefix(data)
+    ///             })
+    ///             .value
+    ///     }
+    /// ```
+    @discardableResult
+    public func whenNotNull<D>(_ provider: @autoclosure (() -> D?), _ handler: ((D, Base) -> Void)?) -> Self {
+        if let data = provider() {
+            handler?(data, me)
         }
         return self
     }

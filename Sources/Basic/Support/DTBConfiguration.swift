@@ -23,7 +23,7 @@ extension DTB {
         public static let shared = DTB.Configuration()
         private init() {}
         
-        var decimalBehavior = NSDecimalNumberHandler(
+        public private(set) var decimalBehavior = NSDecimalNumberHandler(
             roundingMode: .plain,
             scale: 2,
             raiseOnExactness: false,

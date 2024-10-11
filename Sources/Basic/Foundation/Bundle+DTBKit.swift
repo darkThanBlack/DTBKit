@@ -16,7 +16,7 @@ extension DTBKitStaticWrapper where T: Bundle {
     
     /// Will enumerator main path.
     ///
-    /// 在 main bundle 下的全路径中搜索并创建 bundle.
+    /// 在 main bundle 下的全路径中搜索并创建 bundle，不用再考虑代码/资源位置。
     ///
     /// - Parameters:
     ///   - name: bundle name.

@@ -168,6 +168,31 @@ extension DTBKitWrapper where Base: UIButton {
         return self
     }
     
+    @discardableResult
+    public func titleLabel(_ handler: ((DTBKitWrapper<UILabel>) -> Void)?) -> Self {
+        if let value = me.titleLabel {
+            handler?(value.dtb)
+        }
+        return self
+    }
+    
+    @discardableResult
+    public func imageView(_ handler: ((DTBKitWrapper<UIImageView>) -> Void)?) -> Self {
+        if let value = me.imageView {
+            handler?(value.dtb)
+        }
+        return self
+    }
+    
+    @available(iOS 15.0, *)
+    @discardableResult
+    public func subtitleLabel(_ handler: ((DTBKitWrapper<UILabel>) -> Void)?) -> Self {
+        if let value = me.subtitleLabel {
+            handler?(value.dtb)
+        }
+        return self
+    }
+    
     @available(iOS, introduced: 2.0, deprecated: 15.0, message: "This property is ignored when using UIButtonConfiguration")
     @discardableResult
     public func contentEdgeInsets(_ value: UIEdgeInsets) -> Self {

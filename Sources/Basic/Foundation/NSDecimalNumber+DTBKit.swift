@@ -56,26 +56,30 @@ extension DTBKitWrapper where Base == NSDecimalNumber {
         return me == NSDecimalNumber.notANumber ? nil : me.stringValue.dtb
     }
     
-    /// "+"
+    /// "+" | 精度加法
     ///
-    ///  Note use ``DTB.Configuration.shared.decimalBehavior`` as default value.
+    ///  Use ``DTB.Configuration.shared.decimalBehavior`` as default value when scale && rounding is nil.
+    ///
+    ///  当 scale 和 rounding 都为 nil 时使用 ``DTB.Configuration.shared.decimalBehavior`` 作为默认值。
     ///
     /// - Parameters:
-    ///   - value: NSDecimalNumber / String / Double
-    /// - Returns: ``nil`` when isNaN.
+    /// - value: Support NSDecimalNumber / String / Double / Int64.
+    /// - Returns: ``nil`` when isNaN. | 会过滤 notANumber
     public func plus(_ value: Any?, scale: Int16? = nil, rounding: NSDecimalNumber.RoundingMode? = nil) -> Self? {
         guard let v = getDecimal(value) else { return nil }
         let result = me.adding(v, withBehavior: getBehavior(scale, rounding))
         return result == NSDecimalNumber.notANumber ? nil : result.dtb
     }
     
-    /// "-"
-    /// 
-    /// Note use ``DTB.Configuration.shared.decimalBehavior`` as default value.
+    /// "-" | 精度减法
+    ///
+    ///  Use ``DTB.Configuration.shared.decimalBehavior`` as default value when scale && rounding is nil.
+    ///
+    ///  当 scale 和 rounding 都为 nil 时使用 ``DTB.Configuration.shared.decimalBehavior`` 作为默认值。
     /// 
     /// - Parameters:
-    ///   - value: NSDecimalNumber / String / Double
-    /// - Returns: ``nil`` when isNaN.
+    /// - value: Support NSDecimalNumber / String / Double / Int64.
+    /// - Returns: ``nil`` when isNaN. | 会过滤 notANumber
     public func minus(_ value: Any, scale: Int16? = nil, rounding: NSDecimalNumber.RoundingMode? = nil) -> Self? {
         guard let v = getDecimal(value) else { return nil }
         
@@ -83,56 +87,64 @@ extension DTBKitWrapper where Base == NSDecimalNumber {
         return result == NSDecimalNumber.notANumber ? nil : result.dtb
     }
     
-    /// "*"
+    /// "*" | 精度乘法
     ///
-    /// Note use ``DTB.Configuration.shared.decimalBehavior`` as default value.
+    ///  Use ``DTB.Configuration.shared.decimalBehavior`` as default value when scale && rounding is nil.
+    ///
+    ///  当 scale 和 rounding 都为 nil 时使用 ``DTB.Configuration.shared.decimalBehavior`` 作为默认值。
     ///
     /// - Parameters:
-    ///   - value: NSDecimalNumber / String / Double
-    /// - Returns: ``nil`` when isNaN.
+    /// - value: Support NSDecimalNumber / String / Double / Int64.
+    /// - Returns: ``nil`` when isNaN. | 会过滤 notANumber
     public func multi(_ value: Any, scale: Int16? = nil, rounding: NSDecimalNumber.RoundingMode? = nil) -> Self? {
         guard let v = getDecimal(value) else { return nil }
         let result = me.multiplying(by: v, withBehavior: getBehavior(scale, rounding))
         return result == NSDecimalNumber.notANumber ? nil : result.dtb
     }
     
-    /// "/"
+    /// "/" | 精度除法
     ///
-    /// Note use ``DTB.Configuration.shared.decimalBehavior`` as default value.
+    ///  Use ``DTB.Configuration.shared.decimalBehavior`` as default value when scale && rounding is nil.
+    ///
+    ///  当 scale 和 rounding 都为 nil 时使用 ``DTB.Configuration.shared.decimalBehavior`` 作为默认值。
     ///
     /// - Parameters:
-    ///   - value: NSDecimalNumber / String / Double
-    /// - Returns: ``nil`` when isNaN.
+    /// - value: Support NSDecimalNumber / String / Double / Int64.
+    /// - Returns: ``nil`` when isNaN. | 会过滤 notANumber
     public func div(_ value: Any, scale: Int16? = nil, rounding: NSDecimalNumber.RoundingMode? = nil) -> Self? {
         guard let v = getDecimal(value), 
                 v.doubleValue != 0.0 else {
             return nil
         }
-        let result = me.multiplying(by: v,withBehavior: getBehavior(scale, rounding))
+        let result = me.multiplying(by: v, withBehavior: getBehavior(scale, rounding))
         return result == NSDecimalNumber.notANumber ? nil : result.dtb
     }
     
-    /// "^"
+    /// "^" | 精度 me 的 value 次方
     ///
-    /// Note use ``DTB.Configuration.shared.decimalBehavior`` as default value.
+    ///  Use ``DTB.Configuration.shared.decimalBehavior`` as default value when scale && rounding is nil.
+    ///
+    ///  当 scale 和 rounding 都为 nil 时使用 ``DTB.Configuration.shared.decimalBehavior`` 作为默认值。
     ///
     /// - Parameters:
     ///   - value: ``Int``.
-    /// - Returns: ``nil`` when isNaN.
+    /// - Returns: ``nil`` when isNaN. | 会过滤 notANumber
     public func power(_ value: Int, scale: Int16? = nil, rounding: NSDecimalNumber.RoundingMode? = nil) -> Self? {
-        let result = me.raising(toPower: value,withBehavior: getBehavior(scale, rounding))
+        let result = me.raising(toPower: value, withBehavior: getBehavior(scale, rounding))
         return result == NSDecimalNumber.notANumber ? nil : result.dtb
     }
     
-    /// "* 10^"
+    /// "* 10^" | 精度 10 的幂次方
     ///
-    /// Note use ``DTB.Configuration.shared.decimalBehavior`` as default value.
+    ///  Use ``DTB.Configuration.shared.decimalBehavior`` as default value when scale && rounding is nil.
+    ///
+    ///  当 scale 和 rounding 都为 nil 时使用 ``DTB.Configuration.shared.decimalBehavior`` 作为默认值。
     ///
     /// - Parameters:
     ///   - value: ``Int16``.
-    /// - Returns: ``nil`` when isNaN.
+    /// - Returns: ``nil`` when isNaN. | 会过滤 notANumber
     public func multiPower10(_ value: Int16, scale: Int16? = nil, rounding: NSDecimalNumber.RoundingMode? = nil) -> Self? {
-        let result = me.multiplying(byPowerOf10: value,withBehavior: getBehavior(scale, rounding))
+        let result = me.multiplying(byPowerOf10: value, withBehavior: getBehavior(scale, rounding))
         return result == NSDecimalNumber.notANumber ? nil : result.dtb
     }
 }
