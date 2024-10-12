@@ -12,6 +12,14 @@
 
 import UIKit
 
+/// Adapter
+extension DTBKitAdapterForString where StringParam == String {
+    
+    public func create(_ key: StringParam) -> String {
+        return key
+    }
+}
+
 /// Type converts
 extension DTBKitWrapper where Base == String {
     
@@ -86,7 +94,35 @@ extension DTBKitWrapper where Base == String {
     /// ```
     /// "18212345678".dtb.isRegular(.phoneNumber)
     /// ```
-    public func isRegular(_ value: DTBKitStringRegulars) -> Bool {
+    public func isRegular(_ value: DTB.Regulars) -> Bool {
         return isMatches(value.exp)
+    }
+}
+
+/// Json
+public extension DTBKitWrapper where Base == String {
+    
+    /// System json parser.
+    ///
+    /// 纯原生解析
+    func json<T>() -> T? {
+        guard let data = me.data(using: String.Encoding.utf8, allowLossyConversion: true) else {
+            return  nil
+        }
+        return (try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments)) as? T
+    }
+    
+    /// System json parser.
+    ///
+    /// 纯原生解析
+    func jsonDict() -> [String: Any]? {
+        return json()
+    }
+    
+    /// System json parser.
+    ///
+    /// 纯原生解析
+    func jsonArray() -> [Any]? {
+        return json()
     }
 }

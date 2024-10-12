@@ -14,9 +14,7 @@ import Foundation
 
 extension DTBKitWrapper {
     
-    /// Safe array
-    ///
-    /// 数组防越界
+    /// Safe array | 数组防越界
     ///
     /// * Sample: ``list[0] => list.xm[0]``
     /// ``~=``: ``Swift/Collection/Range``
@@ -28,5 +26,20 @@ extension DTBKitWrapper {
             return nil
         }
         return me[idx]
+    }
+}
+
+///
+public extension DTBKitWrapper where Base: Collection {
+    
+    /// System json parser.
+    ///
+    /// 纯原生解析
+    func jsonString() -> String? where Base: Collection {
+        guard JSONSerialization.isValidJSONObject(me) else {
+            return nil
+        }
+        guard let data = try? JSONSerialization.data(withJSONObject: self, options: []) else { return nil }
+        return String(data: data, encoding: .utf8)
     }
 }

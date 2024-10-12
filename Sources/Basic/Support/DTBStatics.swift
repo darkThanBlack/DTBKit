@@ -25,16 +25,16 @@ extension DTB {
     public static var statusBarHeight: CGFloat {
         get {
             
-            func style3() -> CGFloat? {
-                if #available(iOS 13.0, *) {
-                    return UIWindowScene.dtb.current()?.value.statusBarManager?.statusBarFrame.size.height
-                }
-                return nil
-            }
+//            func style3() -> CGFloat? {
+//                if #available(iOS 13.0, *) {
+//                    return UIWindowScene.dtb.keyScene()?.value.statusBarManager?.statusBarFrame.size.height
+//                }
+//                return nil
+//            }
             
             func style2() -> CGFloat? {
                 if #available(iOS 11.0, *) {
-                    return UIWindow.dtb.keyWindow()?.value.safeAreaInsets.top
+                    return UIWindow.dtb.keyWindow()?.safeAreaInsets.top
                 }
                 return nil
             }
@@ -42,7 +42,7 @@ extension DTB {
             func style1() -> CGFloat {
                 return UIApplication.shared.statusBarFrame.size.height
             }
-            return style3() ?? style2() ?? style1()
+            return style2() ?? style1()
         }
         set {}
     }
@@ -117,26 +117,5 @@ extension DTB {
         
         /// 默认按设计图宽度等比缩放；参见 ``XM.Performance.designBaseSize``
         case scale
-    }
-    
-    /// String regular
-    ///
-    /// 正则表达式定义
-    ///
-    /// Usage example:
-    /// ```
-    ///     extension XM.Regulars {
-    ///         public static func phone() -> Self {}
-    ///     }
-    ///
-    ///     let success: Bool = "123".xm.isRegular(.phone())
-    /// ```
-    public struct Regulars {
-        
-        public let exp: String
-        
-        init(exp: String) {
-            self.exp = exp
-        }
     }
 }

@@ -11,11 +11,19 @@
 
 import UIKit
 
+/// Adapter
+extension DTBKitAdapterForUIColor where ColorParam == Int64 {
+    
+    public func create(_ key: ColorParam) -> UIColor {
+        return UIColor.dtb.hex(key)
+    }
+}
+
 extension DTBKitStaticWrapper where T: UIColor {
     
-    /// Darkable hex color
+    /// hex -> color
     ///
-    /// sample: 0xFF8534 -> UIColor
+    /// e.g. ``label.textColor = .dtb.hex(0xFF8534)``
     public func hex(_ def: Int64, alpha: CGFloat = 1.0, dark: Int64? = nil, darkAlpha: CGFloat? = nil) -> UIColor {
         ///
         func actual(hex: Int64, a: CGFloat) -> UIColor {

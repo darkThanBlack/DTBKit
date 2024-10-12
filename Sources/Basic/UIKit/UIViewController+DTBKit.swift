@@ -19,7 +19,7 @@ extension DTBKitStaticWrapper where T: UIViewController {
     ///
     /// 递归取栈顶。
     public func topMost() -> UIViewController? {
-        return UIWindow.dtb.keyWindow()?.value.rootViewController?.dtb.topMost?.value
+        return UIWindow.dtb.keyWindow()?.rootViewController?.dtb.topMost?.value
     }
     
     /// Try pop / dismiss / remove top most view controller
@@ -89,4 +89,73 @@ extension DTBKitWrapper where Base == UIViewController {
         }
         return self
     }
+    
+    /// Try pop / dismiss / remove top most view controller
+    ///
+    /// 依次尝试各种方法去移除当前控制器；常见业务：``WKWebView``
+    ///
+    /// - Returns: success == true
+    @discardableResult
+    public func popAnyway(animated: Bool = true) -> Bool {
+        // me.pop
+        if let nav = me as? UINavigationController, nav.viewControllers.count > 1 {
+            nav.popViewController(animated: animated)
+            return true
+        }
+        // pop
+        if let nav = me.navigationController {
+            if nav.viewControllers.count > 1 {
+                nav.popViewController(animated: animated)
+                return true
+            }
+            if nav.presentedViewController != nil {
+                nav.dismiss(animated: animated)
+                return true
+            }
+        }
+        // dismiss
+        if me.presentingViewController != nil {
+            me.dismiss(animated: animated)
+            return true
+        }
+        // child
+        if me.parent != nil {
+            // do nth.
+        }
+        return false
+    }
+    
+    /// Try pop / dismiss / remove to window root view controller
+    ///
+    /// 递归移除当前控制器, 返回到 window.rootViewController
+    ///
+    /// - Returns: success == false
+    @discardableResult
+    public func popToMainRootAnyway() -> Bool {
+        // me.pop
+        if let nav = me as? UINavigationController {
+            if nav.viewControllers.count > 1, let root = nav.viewControllers.first {
+                nav.popToRootViewController(animated: false)
+                return root.dtb.popToMainRootAnyway()
+            }
+        }
+        // pop
+        if let nav = me.navigationController {
+            if nav.viewControllers.count > 1, let root = nav.viewControllers.first {
+                nav.popToRootViewController(animated: false)
+                return root.dtb.popToMainRootAnyway()
+            }
+        }
+        // dismiss
+        if let presenting = me.presentingViewController {
+            me.dismiss(animated: false)
+            return presenting.dtb.popToMainRootAnyway()
+        }
+        // child / tabbar / page
+        if let parent = me.parent {
+            return parent.dtb.popToMainRootAnyway()
+        }
+        return false
+    }
+
 }
