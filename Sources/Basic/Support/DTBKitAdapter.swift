@@ -12,13 +12,11 @@
 
 import UIKit
 
-//public typealias DTBKitAdapter2 = DTBKitAdapterForUIWindowScene & DTBKitAdapterForUIWindow
-
 /// Allow change some func behavior.
 ///
 /// 有些方法使用频率高，但又注定与业务高度绑定，使用接口形式以允许重载。
 ///
-/// [refer | 语法参考](https://zhuanlan.zhihu.com/p/80672557)
+/// [refer | 泛型约束重载语法参考](https://zhuanlan.zhihu.com/p/80672557)
 
 // MARK: - UIColor
 
