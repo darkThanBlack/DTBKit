@@ -12,7 +12,17 @@
 
 import UIKit
 
-/// Adapter
+/// See more details in ``dtbkit_adapter.md``
+public protocol DTBKitAdapterForString {
+    
+    associatedtype StringParam = String
+    
+    /// Text generate | 文本生成收口
+    ///
+    /// 便于处理 国际化 等需求
+    func create(_ key: StringParam) -> String
+}
+
 extension DTBKitAdapterForString where StringParam == String {
     
     public func create(_ key: StringParam) -> String {
