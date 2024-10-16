@@ -39,43 +39,38 @@ extension DTBKitWrapper where Base: UITableView {
     // }
     // ```
     
-    /// Use ``String(describing: Cell.self)`` to cell identifier.
+    /// Use ``String(describing: Cell.self)`` to cell identifier | 直接用类名作为重用标识
     ///
-    /// 直接用类名作为重用标识。
+    /// More details in ``dtbkit_explain.md``
     @discardableResult
     public func registerCell<T: UITableViewCell>(_ cellClass: T.Type) -> Self {
         me.register(T.self, forCellReuseIdentifier: String(describing: T.self))
         return self
     }
     
-    /// Use ``String(describing: Cell.self)`` to cell identifier.
+    /// Use ``String(describing: Cell.self)`` to cell identifier | 直接用类名作为重用标识
     ///
-    /// 直接用类名作为重用标识。
+    /// More details in ``dtbkit_explain.md``
     @discardableResult
     public func registerHeaderFooterView<T: UITableViewHeaderFooterView>(_ aClass: T.Type) -> Self {
         me.register(T.self, forHeaderFooterViewReuseIdentifier: String(describing: T.self))
         return self
     }
     
-    /// Use ``String(describing: Cell.self)`` to cell identifier, will trigger assert when got nil.
+    /// Use ``String(describing: Cell.self)`` to cell identifier | 直接用类名作为重用标识
     ///
-    /// 直接用类名作为重用标识，并避免返回可选值。
-    ///
-    /// ``let cell: MyCell = tableView.dtb.dequeueReusableCell(indexPath)``
+    /// More details in ``dtbkit_explain.md``
     public func dequeueReusableCell<T: UITableViewCell>(_ indexPath: IndexPath) -> T {
         if let cell = me.dequeueReusableCell(withIdentifier: String(describing: T.self), for: indexPath) as? T {
             return cell
         }
-        let t = UITableView()
         assert(false)
         return T()
     }
     
-    /// Use ``String(describing: Cell.self)`` to cell identifier, will trigger assert when got nil.
+    /// Use ``String(describing: Cell.self)`` to cell identifier | 直接用类名作为重用标识
     ///
-    /// 直接用类名作为重用标识，并避免返回可选值。
-    ///
-    /// ``let cell: MyCell = tableView.dtb.dequeueReusableCell(indexPath)``
+    /// More details in ``dtbkit_explain.md``
     public func dequeueReusableHeaderFooterView<T: UITableViewHeaderFooterView>() -> T {
         if let cell = me.dequeueReusableHeaderFooterView(withIdentifier: String(describing: T.self)) as? T {
             return cell

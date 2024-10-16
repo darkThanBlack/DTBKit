@@ -21,6 +21,7 @@ extension DTBKitStaticWrapper where T: UserDefaults {
     
     // MARK: - Original
     
+    /// Check is storable value
     public func isVaild<Value>(_ key: DTB.ConstKey<Value>) -> Bool {
         return (Value.self is String.Type)
         || (Value.self is Bool.Type)

@@ -23,7 +23,7 @@ extension DTB {
         public static let shared = DTB.Configuration()
         private init() {}
         
-        public private(set) var decimalBehavior = NSDecimalNumberHandler(
+        var decimalBehavior = NSDecimalNumberHandler(
             roundingMode: .plain,
             scale: 2,
             raiseOnExactness: false,
@@ -35,6 +35,8 @@ extension DTB {
         var designBaseSize = CGSize(width: 375.0, height: 667.0)
         
         var supportImageTypes = ["png", "jpg", "webp", "jpeg"]
+        
+        var dateFormatter = DateFormatter()
         
         /// More detail: ``NSDecimalNumber+DTBKit.swift``
         ///

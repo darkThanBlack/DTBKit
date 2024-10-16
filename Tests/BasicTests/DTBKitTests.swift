@@ -24,5 +24,24 @@ final class DTBKitTests: XCTestCase {
         // FIXME: pure number
         XCTAssert("3.哈".dtb.nsDecimal?.string?.value == "3")
         XCTAssert("哈哈".dtb.nsDecimal?.string?.value == nil)
+        
+        /// 2024-10-17 18:06
+        /// 刚刚
+        /// 3分钟前
+        /// 今天 16:59
+        /// 昨天 18:06
+        /// 10-09 18:06
+        /// 2023-10-16 18:06
+        [
+            Date().dtb.plusDay(1),
+            Date(timeIntervalSince1970: Date().timeIntervalSince1970 - 20),
+            Date(timeIntervalSince1970: Date().timeIntervalSince1970 - 200),
+            Date(timeIntervalSince1970: Date().timeIntervalSince1970 - 4000),
+            Date().dtb.plusDay(-1),
+            Date().dtb.plusWeek(-1),
+            Date().dtb.plusYear(-1)
+        ].forEach { d in
+            print(d.dtb.toDynamic())
+        }
     }
 }

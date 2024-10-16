@@ -22,9 +22,9 @@ extension DTB {
     
     /// 用于声明带类型推断的静态常量。
     ///
-    /// Represents a `Key` with an associated generic value type.
-    /// 
-    /// Special thanks: ``DefaultsKit``
+    /// Represents a `Key` with an associated generic value type. More details in ``dtbkit_explain.md``.
+    ///
+    /// Special thanks: [DefaultsKit](https://github.com/nmdias/DefaultsKit)
     ///
     /// Example:
     /// ```
