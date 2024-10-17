@@ -23,5 +23,3 @@ extension CGFloat: DTBKitStructable {}
 extension Decimal: DTBKitStructable {}
 
 extension Array: DTBKitStructable {}
-
-extension Date: DTBKitStructable {}

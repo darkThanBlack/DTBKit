@@ -36,6 +36,16 @@ extension DTBKitWrapper where Base: FixedWidthInteger & SignedInteger {
 /// 字符串处理。
 extension DTBKitWrapper where Base: FixedWidthInteger & SignedInteger {
     
+    /// From 's' timeStamp (length == 10) | 从 10 位秒级时间戳生成
+    public func sDate() -> DTBKitWrapper<Date>? {
+        return Date.dtb.create(s: Int64(me))?.dtb
+    }
+    
+    /// From 'ms' timeStamp (length == 13) | 从 13 位毫秒级时间戳生成
+    public func msDate() -> DTBKitWrapper<Date>? {
+        return Date.dtb.create(ms: Int64(me))?.dtb
+    }
+    
     /// Convert to string.
     ///
     /// 转字符串。

@@ -12,37 +12,26 @@
 
 import UIKit
 
-extension DTBKitStaticWrapper where T == Date {
-    
-    /// From timeStamp(ms, length == 13) | 从 13 位毫秒时间戳生成
-    func create(ms: Int64?) -> T {
-        guard let t = ms, String(t).count == 13 else {
-            return Date()
-        }
-        return Date(timeIntervalSince1970: TimeInterval(t / 1000))
-    }
-}
-
 extension DTBKitWrapper where Base == Date {
     
     /// Get Int64 by .timeIntervalSince1970
-    public func s() -> Int64 {
+    public var s: Int64 {
         return Int64(me.timeIntervalSince1970)
     }
     
-    /// Get timeStamp(ms, length == 13) | 获取 13 位毫秒时间戳
-    public func ms() -> Int64 {
+    /// Get Int64 by timeIntervalSince1970 * 1000 (length == 13) | 获取 13 位毫秒时间戳
+    public var ms: Int64 {
         return Int64(me.timeIntervalSince1970 * 1000)
     }
     
-    ///
+    /// DateFormatter
     public func toString(_ formatter: @autoclosure (() -> DateFormatter)) -> DTBKitWrapper<String> {
         return formatter().string(from: me).dtb
     }
     
-    ///
+    /// Format string
     public func format(_ str: String = "yyyy-MM-dd HH:mm") -> String {
-        return DateFormatter().dtb.dateFormat(str).value.string(from: me)
+        return DTB.Configuration.shared.dateFormatter.dtb.dateFormat(str).value.string(from: me)
     }
     
     /// Dynamic format string | 动态(分段)时间转换
@@ -59,7 +48,7 @@ extension DTBKitWrapper where Base == Date {
     ///
     /// - Note: Your custom barrier must cover all situations.
     /// - Parameters:
-    ///   - barrier: 
+    ///   - barrier:
     ///     Mapping relationship from the past to the future |
     ///     按从过去到未来顺序的时间-字符串映射关系
     ///   - baseOn:
@@ -117,16 +106,30 @@ extension DTBKitWrapper where Base == Date {
         return same(to: date, [.year])
     }
     
-    /// Get components value by current calendar | 自由取值
-    public func value(for unit: Calendar.Component) -> Int? {
-        return Calendar.current.dateComponents([unit], from: me).value(for: unit)
+    // FIXME: DateComponents
+    
+    /// extension Get dateComponents by Calendar.current | 自由取值
+    public func dateComponents(_ units: Set<Calendar.Component>) -> DateComponents {
+        return Calendar.current.dateComponents(units, from: me)
     }
     
-    /// Adding components value by current calendar | 自由增减
-    public func adding(_ value: Int, unit: Calendar.Component) -> Self? {
-        var components = DateComponents()
-        components.setValue(value, for: unit)
+    /// Get components value by Calendar.current | 自由取值
+//    public func dateComponentsValue(for unit: Calendar.Component) -> DTBKitWrapper<Int>? {
+//        return Calendar.current.dateComponents([unit], from: me).value(for: unit)?.dtb
+//    }
+    
+    /// Adding components value by Calendar.current | 自由增减
+    public func adding(by components: DateComponents) -> Self? {
         return Calendar.current.date(byAdding: components, to: me)?.dtb
+    }
+    
+    /// Adding components value by Calendar.current | 自由增减
+    public func adding(_ value: Int, unit: Calendar.Component) -> Self? {
+        return adding(by: {
+            var components = DateComponents()
+            components.setValue(value, for: unit)
+            return components
+        }())
     }
     
     /// 增减天数
@@ -148,6 +151,16 @@ extension DTBKitWrapper where Base == Date {
     public func addingYear(_ years: Int) -> Self? {
         return adding(years, unit: .year)
     }
+    
+    /// 当年第一天
+    public func startYear() -> Self? {
+        return Calendar.current.date(from: Calendar.current.dateComponents([.year], from: me))?.dtb
+    }
+    
+//    public func endYear() -> Self? {
+//        return Calendar.current.
+//    }
+    
 }
 
 extension DTB {
@@ -193,21 +206,21 @@ extension DTB.DateDynamicBarrierItem {
     /// 昨天 | "昨天 HH:mm"
     public static func yesterday(_ format: String = "HH:mm") -> Self {
         return .init { base, to in
-            return to.dtb.isSameDay(base.dtb.addingDay(-1)) ? "昨天 \(to.dtb.format(format))" : nil
+            return to.dtb.isSameDay(base.dtb.addingDay(-1)?.value) ? "昨天 \(to.dtb.format(format))" : nil
         }
     }
     
     /// 明天 | "明天 HH:mm"
     public static func tomorrow(_ format: String = "HH:mm") -> Self {
         return .init { base, to in
-            return to.dtb.isSameDay(base.dtb.addingDay(1)) ? "明天 \(to.dtb.format("HH:mm"))" : nil
+            return to.dtb.isSameDay(base.dtb.addingDay(1)?.value) ? "明天 \(to.dtb.format(format))" : nil
         }
     }
     
     /// 同一年 | "MM月dd日 EEE HH:mm"
     public static func sameYear(_ format: String = "MM-dd HH:mm") -> Self {
         return .init { base, to in
-            return to.dtb.isSameYear(base) ? to.dtb.format("MM-dd HH:mm") : nil
+            return to.dtb.isSameYear(base) ? to.dtb.format(format) : nil
         }
     }
     
