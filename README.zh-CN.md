@@ -340,6 +340,7 @@ pod 'DTBKit/Basic', :testspecs => ['Tests']
 ```shell
 # Deploy scripts
 git checkout main;
+xcodegen;
 git add .;
 git commit . -m 'daily';
 git pull --ff;
@@ -360,7 +361,8 @@ mv ~/Documents/docs ./;
 rm -rf ~/Documents/docs;
 git add .;
 git commit . -m 'deploy from jazzy';
-git push
+git push;
+git checkout main
 ```
 
 

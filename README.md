@@ -345,6 +345,7 @@ Auto created by [jazzy](https://github.com/realm/jazzy) and deploy on ``gh-pages
 ```shell
 # Deploy scripts
 git checkout main;
+xcodegen;
 git add .;
 git commit . -m 'daily';
 git pull --ff;
@@ -365,7 +366,8 @@ mv ~/Documents/docs ./;
 rm -rf ~/Documents/docs;
 git add .;
 git commit . -m 'deploy from jazzy';
-git push
+git push;
+git checkout main
 ```
 
 
