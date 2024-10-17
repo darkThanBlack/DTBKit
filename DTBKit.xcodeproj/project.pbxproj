@@ -20,10 +20,10 @@
 		2A4ED79C4AEA7960B41EE550 /* Bundle+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE6E3160FCDCFB33E0F0530 /* Bundle+DTBKit.swift */; };
 		325F7DA6728FC0C4BCBEC427 /* CGSize+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9E79A99ADC61860B23B5D1 /* CGSize+Chain.swift */; };
 		389F0F4AF1EBD06E99A81219 /* NumberFormatter+Preset.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC87BC105894C4F3562A31CB /* NumberFormatter+Preset.swift */; };
+		3B0AB476E291968937E84857 /* UICollectionView+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8463ED1991107FEF92CC75E /* UICollectionView+DTBKit.swift */; };
 		3CAE47DF7C6CD2151E1440CF /* UIImage+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501081FB39FDE3BDD5727F6C /* UIImage+DTBKit.swift */; };
 		3E330C92452B3EAE0139C491 /* CGRect+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED96C43C4A7475EE5F761C6E /* CGRect+DTBKit.swift */; };
 		44C5E26EA59B73D8C3033695 /* NSString+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22112DE43ACEBA3650F86154 /* NSString+DTBKit.swift */; };
-		46B38EC122561E0FCE672309 /* Array+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = B193854756EEE659BE729C58 /* Array+DTBKit.swift */; };
 		485FDF61957E42C18EDCF7A0 /* UIEdgeInsets+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5CC46637F5E6854835D215 /* UIEdgeInsets+Chain.swift */; };
 		491C850E77303666432D036C /* UIViewController+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CA207E684C4481B9EBC147 /* UIViewController+DTBKit.swift */; };
 		4AFA6D4B21CD961020F80736 /* NSMutableAttributedString+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFCA83326C10E6F10948733 /* NSMutableAttributedString+DTBKit.swift */; };
@@ -42,12 +42,14 @@
 		8685CF59D8C26F778AC4C389 /* DTBConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A15597820EA3A7F32C4179A /* DTBConfiguration.swift */; };
 		8782CBD29FC1D48C1F77E9F9 /* ui-kit.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 427F59B66989BB724BCA2DDD /* ui-kit.xcassets */; };
 		8A678F5871948E734722E45F /* NSDecimalNumber+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF9E1B9C7639EF837B8C6E3 /* NSDecimalNumber+DTBKit.swift */; };
-		8C772824E7C51E725267D4CA /* JSON+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB00FEDA79F3B0BBAE5BF24B /* JSON+DTBKit.swift */; };
 		916A16FAF638F93DD1DE8D8F /* NSRange+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E63749D1927E38EF969D6 /* NSRange+Chain.swift */; };
+		94B1B8658799BAF60ECCFEDB /* Collection+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3501BF4C607DCBF0A8C78689 /* Collection+DTBKit.swift */; };
 		A2EB79B61ED43444486782F1 /* CALayer+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8272D83E575710B6E26A719F /* CALayer+Chain.swift */; };
+		A3130A0E6228ACFF906BCC23 /* Date+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11128E0A40FCD5CFAFBD1DDB /* Date+DTBKit.swift */; };
 		A3A0664C8D695CFA2F3B9653 /* DTBKit+Basic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC8F9EE2E2D75A292AA1AF2 /* DTBKit+Basic.swift */; };
 		A63A16BB564F59A4035DBFD6 /* DTBStatics.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBB0C6C34D8EF5D820023E4 /* DTBStatics.swift */; };
 		AA3FCB9D99728D6736A6368E /* UITableView+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44D2081C461A6C1962F0DEB /* UITableView+Chain.swift */; };
+		C1EB78649008801BDDFFF4A7 /* UIWindowScene+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9A0DD9D011A3CE2C55A895 /* UIWindowScene+DTBKit.swift */; };
 		C46D8BA472D6537A7C14ACA2 /* UserDefaults+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8264C7767B70815CF22DF3A /* UserDefaults+DTBKit.swift */; };
 		C9356F21237E4FA49AF082CA /* DTBKit+Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653FF0440C77148627E67545 /* DTBKit+Map.swift */; };
 		CEB5D85D62CEA8AD0D56EE60 /* basic.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C62E43F487DE6A9A5388252 /* basic.xcassets */; };
@@ -56,6 +58,8 @@
 		D65D9690EE35B6A9C64D4E12 /* NumberFormatter+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559EB34658F9B17352DA90EF /* NumberFormatter+DTBKit.swift */; };
 		D6B575CDB0FBF080A655833B /* DTBKitStringRegulars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4657F0F40970837EDF268F81 /* DTBKitStringRegulars.swift */; };
 		D85569A56FED84BAAE5BDA58 /* Double+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CBFDF43F00DFD178AA952F /* Double+DTBKit.swift */; };
+		E0A2AB22B2F1C39C1B745A6C /* DTBKitAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936194BFB575967F4CF78ACB /* DTBKitAdapter.swift */; };
+		EAEBA4D7FCD069E2CA5DEF68 /* UITableView+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADEC6A1FE3C8135B14BCD3A /* UITableView+DTBKit.swift */; };
 		F168E2335ED333469E50A194 /* CGSize+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44705354CD2162A18B190D4 /* CGSize+DTBKit.swift */; };
 		F901CCEF64706DAEF10C6ED5 /* UIColor+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FA3212E285D4BD1D92C0E2 /* UIColor+DTBKit.swift */; };
 /* End PBXBuildFile section */
@@ -67,9 +71,12 @@
 		09B0DE4930D22CDC39CC445E /* DTBKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DTBKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A15597820EA3A7F32C4179A /* DTBConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTBConfiguration.swift; sourceTree = "<group>"; };
 		0ACA9A9B995B924CD34D2E5A /* test-nested.bundle */ = {isa = PBXFileReference; lastKnownFileType = wrapper.cfbundle; path = "test-nested.bundle"; sourceTree = "<group>"; };
+		11128E0A40FCD5CFAFBD1DDB /* Date+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+DTBKit.swift"; sourceTree = "<group>"; };
 		12FA3212E285D4BD1D92C0E2 /* UIColor+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+DTBKit.swift"; sourceTree = "<group>"; };
 		22112DE43ACEBA3650F86154 /* NSString+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSString+DTBKit.swift"; sourceTree = "<group>"; };
 		2AF9E1B9C7639EF837B8C6E3 /* NSDecimalNumber+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSDecimalNumber+DTBKit.swift"; sourceTree = "<group>"; };
+		2F9A0DD9D011A3CE2C55A895 /* UIWindowScene+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindowScene+DTBKit.swift"; sourceTree = "<group>"; };
+		3501BF4C607DCBF0A8C78689 /* Collection+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+DTBKit.swift"; sourceTree = "<group>"; };
 		3AE19AECCB61FB02FA6901D8 /* UIView+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Chain.swift"; sourceTree = "<group>"; };
 		427F59B66989BB724BCA2DDD /* ui-kit.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "ui-kit.xcassets"; sourceTree = "<group>"; };
 		4657F0F40970837EDF268F81 /* DTBKitStringRegulars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTBKitStringRegulars.swift; sourceTree = "<group>"; };
@@ -94,20 +101,21 @@
 		85EDCF2F860C4A3FE303A645 /* UITextView+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Chain.swift"; sourceTree = "<group>"; };
 		8B9E79A99ADC61860B23B5D1 /* CGSize+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+Chain.swift"; sourceTree = "<group>"; };
 		91C2C0AA7CA97EE8D10769DB /* String+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+DTBKit.swift"; sourceTree = "<group>"; };
+		936194BFB575967F4CF78ACB /* DTBKitAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTBKitAdapter.swift; sourceTree = "<group>"; };
 		9C47338FA137C5490207AF02 /* DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTBKit.swift; sourceTree = "<group>"; };
 		9C5CC46637F5E6854835D215 /* UIEdgeInsets+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIEdgeInsets+Chain.swift"; sourceTree = "<group>"; };
 		9C62E43F487DE6A9A5388252 /* basic.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = basic.xcassets; sourceTree = "<group>"; };
 		ACA77F9C5BAF8D3A737C7074 /* NSAttributedStringKey+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedStringKey+Chain.swift"; sourceTree = "<group>"; };
-		B193854756EEE659BE729C58 /* Array+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+DTBKit.swift"; sourceTree = "<group>"; };
 		B203F6987A7BF80223651626 /* AlertAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertAnimation.swift; sourceTree = "<group>"; };
 		B440C2EB13B2D3A155850310 /* UIStackView+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Chain.swift"; sourceTree = "<group>"; };
 		B44D2081C461A6C1962F0DEB /* UITableView+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Chain.swift"; sourceTree = "<group>"; };
+		B8463ED1991107FEF92CC75E /* UICollectionView+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+DTBKit.swift"; sourceTree = "<group>"; };
 		B88127AE0347294FDBD90C9F /* Int+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+DTBKit.swift"; sourceTree = "<group>"; };
-		BB00FEDA79F3B0BBAE5BF24B /* JSON+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSON+DTBKit.swift"; sourceTree = "<group>"; };
 		BC011828A1D0225BEEA2348E /* EdgeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeLabel.swift; sourceTree = "<group>"; };
 		BC11AF9181ACD114286B7EE6 /* UIWindow+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+DTBKit.swift"; sourceTree = "<group>"; };
 		BCE3A43F1D95823F40FB5639 /* info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = info.plist; sourceTree = "<group>"; };
 		BFBB0C6C34D8EF5D820023E4 /* DTBStatics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTBStatics.swift; sourceTree = "<group>"; };
+		CADEC6A1FE3C8135B14BCD3A /* UITableView+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+DTBKit.swift"; sourceTree = "<group>"; };
 		CC87BC105894C4F3562A31CB /* NumberFormatter+Preset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NumberFormatter+Preset.swift"; sourceTree = "<group>"; };
 		CEFCA83326C10E6F10948733 /* NSMutableAttributedString+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+DTBKit.swift"; sourceTree = "<group>"; };
 		D301D78A585B4DAA1BA75A36 /* NSMutableParagraphStyle+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableParagraphStyle+Chain.swift"; sourceTree = "<group>"; };
@@ -188,6 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				0A15597820EA3A7F32C4179A /* DTBConfiguration.swift */,
+				936194BFB575967F4CF78ACB /* DTBKitAdapter.swift */,
 				4657F0F40970837EDF268F81 /* DTBKitStringRegulars.swift */,
 				BFBB0C6C34D8EF5D820023E4 /* DTBStatics.swift */,
 				CC87BC105894C4F3562A31CB /* NumberFormatter+Preset.swift */,
@@ -208,8 +217,7 @@
 		744B57599FEE9A461E493679 /* Collection */ = {
 			isa = PBXGroup;
 			children = (
-				B193854756EEE659BE729C58 /* Array+DTBKit.swift */,
-				BB00FEDA79F3B0BBAE5BF24B /* JSON+DTBKit.swift */,
+				3501BF4C607DCBF0A8C78689 /* Collection+DTBKit.swift */,
 			);
 			path = Collection;
 			sourceTree = "<group>";
@@ -228,10 +236,13 @@
 		89905B914D7C898C252F363F /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				B8463ED1991107FEF92CC75E /* UICollectionView+DTBKit.swift */,
 				12FA3212E285D4BD1D92C0E2 /* UIColor+DTBKit.swift */,
 				501081FB39FDE3BDD5727F6C /* UIImage+DTBKit.swift */,
+				CADEC6A1FE3C8135B14BCD3A /* UITableView+DTBKit.swift */,
 				62CA207E684C4481B9EBC147 /* UIViewController+DTBKit.swift */,
 				BC11AF9181ACD114286B7EE6 /* UIWindow+DTBKit.swift */,
+				2F9A0DD9D011A3CE2C55A895 /* UIWindowScene+DTBKit.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -289,6 +300,7 @@
 				5EE6E3160FCDCFB33E0F0530 /* Bundle+DTBKit.swift */,
 				ED96C43C4A7475EE5F761C6E /* CGRect+DTBKit.swift */,
 				D44705354CD2162A18B190D4 /* CGSize+DTBKit.swift */,
+				11128E0A40FCD5CFAFBD1DDB /* Date+DTBKit.swift */,
 				2AF9E1B9C7639EF837B8C6E3 /* NSDecimalNumber+DTBKit.swift */,
 				CEFCA83326C10E6F10948733 /* NSMutableAttributedString+DTBKit.swift */,
 				E18628CEAD3B9598EEAA9BA8 /* NSRange+DTBKit.swift */,
@@ -386,7 +398,6 @@
 			files = (
 				D4B7BE586B0ADA80C1862C6A /* AlertAnimation.swift in Sources */,
 				6600613E2EC296D52D24AA45 /* AppManager.swift in Sources */,
-				46B38EC122561E0FCE672309 /* Array+DTBKit.swift in Sources */,
 				2A4ED79C4AEA7960B41EE550 /* Bundle+DTBKit.swift in Sources */,
 				A2EB79B61ED43444486782F1 /* CALayer+Chain.swift in Sources */,
 				0FB7DF7C5B4CF9B880968616 /* CGRect+Chain.swift in Sources */,
@@ -394,17 +405,19 @@
 				325F7DA6728FC0C4BCBEC427 /* CGSize+Chain.swift in Sources */,
 				F168E2335ED333469E50A194 /* CGSize+DTBKit.swift in Sources */,
 				824199F7A858E21F94B275C7 /* CLLocationCoordinate2D+DTBKit.swift in Sources */,
+				94B1B8658799BAF60ECCFEDB /* Collection+DTBKit.swift in Sources */,
 				8685CF59D8C26F778AC4C389 /* DTBConfiguration.swift in Sources */,
 				A3A0664C8D695CFA2F3B9653 /* DTBKit+Basic.swift in Sources */,
 				7A79F90C0C7CB7118C251F8D /* DTBKit+Chain.swift in Sources */,
 				C9356F21237E4FA49AF082CA /* DTBKit+Map.swift in Sources */,
 				518C337808735C3F4E63421C /* DTBKit.swift in Sources */,
+				E0A2AB22B2F1C39C1B745A6C /* DTBKitAdapter.swift in Sources */,
 				D6B575CDB0FBF080A655833B /* DTBKitStringRegulars.swift in Sources */,
 				A63A16BB564F59A4035DBFD6 /* DTBStatics.swift in Sources */,
+				A3130A0E6228ACFF906BCC23 /* Date+DTBKit.swift in Sources */,
 				D85569A56FED84BAAE5BDA58 /* Double+DTBKit.swift in Sources */,
 				61C0C242F5B5AC890F40EAB1 /* EdgeLabel.swift in Sources */,
 				6A8E1AD3C2EE3500FC8DC4BB /* Int+DTBKit.swift in Sources */,
-				8C772824E7C51E725267D4CA /* JSON+DTBKit.swift in Sources */,
 				83453FB1FC4F07C39A364C6E /* MKWebView+DTBKit.swift in Sources */,
 				D4F4A169021FDC8205B35861 /* NSAttributedStringKey+Chain.swift in Sources */,
 				8A678F5871948E734722E45F /* NSDecimalNumber+DTBKit.swift in Sources */,
@@ -419,6 +432,7 @@
 				389F0F4AF1EBD06E99A81219 /* NumberFormatter+Preset.swift in Sources */,
 				2911C87299A634B9E42A309D /* String+DTBKit.swift in Sources */,
 				2A1F0DB02741557094481690 /* UIButton+Chain.swift in Sources */,
+				3B0AB476E291968937E84857 /* UICollectionView+DTBKit.swift in Sources */,
 				F901CCEF64706DAEF10C6ED5 /* UIColor+DTBKit.swift in Sources */,
 				6772D879E7DED7DE36472DB8 /* UIControl+Chain.swift in Sources */,
 				485FDF61957E42C18EDCF7A0 /* UIEdgeInsets+Chain.swift in Sources */,
@@ -427,10 +441,12 @@
 				0EA79C07D86F338001B2F476 /* UILabel+Chain.swift in Sources */,
 				4D280D1878C9B7A927F031F4 /* UIStackView+Chain.swift in Sources */,
 				AA3FCB9D99728D6736A6368E /* UITableView+Chain.swift in Sources */,
+				EAEBA4D7FCD069E2CA5DEF68 /* UITableView+DTBKit.swift in Sources */,
 				0EBCC6855436BF184080E3D8 /* UITextView+Chain.swift in Sources */,
 				702ED7E017D180F2D2227775 /* UIView+Chain.swift in Sources */,
 				491C850E77303666432D036C /* UIViewController+DTBKit.swift in Sources */,
 				115FD923397D311C9E48A8F2 /* UIWindow+DTBKit.swift in Sources */,
+				C1EB78649008801BDDFFF4A7 /* UIWindowScene+DTBKit.swift in Sources */,
 				C46D8BA472D6537A7C14ACA2 /* UserDefaults+DTBKit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

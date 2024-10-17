@@ -5,7 +5,7 @@
 //  Created by HuChangChang on 2024/1/24.
 //
 
-import Foundation
+import UIKit
 
 extension DTBKitWrapper where Base: UICollectionView {
     
