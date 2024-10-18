@@ -153,14 +153,65 @@ extension DTBKitWrapper where Base == Date {
     }
     
     /// 当年第一天
-    public func startYear() -> Self? {
+    public func startOfYear() -> Self? {
         return Calendar.current.date(from: Calendar.current.dateComponents([.year], from: me))?.dtb
     }
     
-//    public func endYear() -> Self? {
-//        return Calendar.current.
-//    }
+    /// 当月第一天
+    public func startOfMonth() -> Self? {
+        return Calendar.current.date(from: Calendar.current.dateComponents([.year, .month], from: me))?.dtb
+    }
     
+    /// 当周第一天
+    public func startOfWeek() -> Self? {
+        /// 每周的第一天改为周一
+        var C = {
+            var c = Calendar.current
+            c.firstWeekday = 2
+            return c
+        }()
+        guard let now = C.component(.weekday, from: me) == 1 ? me.dtb.addingDay(-1)?.value : me else {
+            return nil
+        }
+        return C.date(from: C.dateComponents([.yearForWeekOfYear, .weekOfYear], from: now))?.dtb
+    }
+    
+    /// 当天第一秒
+    public func startOfDay() -> Self? {
+        return Calendar.current.date(from: {
+            var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: me)
+            components.hour = 0
+            components.minute = 0
+            components.second = 0
+            return components
+        }())?.dtb
+    }
+    
+    /// 当年最后一天
+    public func endOfYear() -> Self? {
+        return startOfYear()?.adding(by: DateComponents(year: 1, second: -1))
+    }
+    
+    /// 当月最后一天
+    public func endOfMonth() -> Self? {
+        return startOfMonth()?.adding(by: DateComponents(month: 1, second: -1))
+    }
+    
+    /// 当周最后一天
+    public func endOfWeek() -> Self? {
+        return startOfWeek()?.adding(by: DateComponents(day: 7, second: -1))
+    }
+    
+    /// 当天最后一秒
+    public func endOfDay() -> Self? {
+        return Calendar.current.date(from: {
+            var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: me)
+            components.hour = 23
+            components.minute = 59
+            components.second = 59
+            return components
+        }())?.dtb
+    }
 }
 
 extension DTB {

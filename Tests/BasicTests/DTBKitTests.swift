@@ -33,13 +33,13 @@ final class DTBKitTests: XCTestCase {
         /// 10-09 18:06
         /// 2023-10-16 18:06
         [
-            Date().dtb.plusDay(1),
+            Date().dtb.addingDay(1)!.value,
             Date(timeIntervalSince1970: Date().timeIntervalSince1970 - 20),
             Date(timeIntervalSince1970: Date().timeIntervalSince1970 - 200),
             Date(timeIntervalSince1970: Date().timeIntervalSince1970 - 4000),
-            Date().dtb.plusDay(-1),
-            Date().dtb.plusWeek(-1),
-            Date().dtb.plusYear(-1)
+            Date().dtb.addingDay(-1)!.value,
+            Date().dtb.addingWeek(-1)!.value,
+            Date().dtb.addingYear(-1)!.value
         ].forEach { d in
             print(d.dtb.toDynamic())
         }
