@@ -61,6 +61,11 @@ DESC
     ss.dependency 'DTBKit/Basic'
   end
   
+  s.subspec 'Gzip' do |ss|
+    ss.source_files = 'Sources/Gzip/**/*'
+    ss.dependency 'DTBKit/Basic'
+  end
+  
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
   # s.dependency 'AFNetworking', '~> 2.3'

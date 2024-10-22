@@ -11,6 +11,7 @@
 		05739C92A2B71BD123872F98 /* Date+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DDB42027F8B3A815049EFF /* Date+Chain.swift */; };
 		0EA79C07D86F338001B2F476 /* UILabel+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B1ED200027376F5655E25F /* UILabel+Chain.swift */; };
 		0EBCC6855436BF184080E3D8 /* UITextView+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85EDCF2F860C4A3FE303A645 /* UITextView+Chain.swift */; };
+		0F9483AC453B1E27BE90AD82 /* Data+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A516588F37C6C2F2E0EA036F /* Data+DTBKit.swift */; };
 		0FB7DF7C5B4CF9B880968616 /* CGRect+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809851DBE699A8E885955171 /* CGRect+Chain.swift */; };
 		115FD923397D311C9E48A8F2 /* UIWindow+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC11AF9181ACD114286B7EE6 /* UIWindow+DTBKit.swift */; };
 		1ED185A5CC2D716B36C0B1A8 /* NSMutableAttributedString+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C05A161EC2C4990535FAE29 /* NSMutableAttributedString+Chain.swift */; };
@@ -31,6 +32,7 @@
 		4D280D1878C9B7A927F031F4 /* UIStackView+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B440C2EB13B2D3A155850310 /* UIStackView+Chain.swift */; };
 		518C337808735C3F4E63421C /* DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C47338FA137C5490207AF02 /* DTBKit.swift */; };
 		61C0C242F5B5AC890F40EAB1 /* EdgeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC011828A1D0225BEEA2348E /* EdgeLabel.swift */; };
+		63BADA66F552C5F124A6D689 /* DTBKit+Gzip.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE551307FFADA04AD94CD42E /* DTBKit+Gzip.swift */; };
 		6600613E2EC296D52D24AA45 /* AppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17FE714422C518B5DB84E7D /* AppManager.swift */; };
 		6772D879E7DED7DE36472DB8 /* UIControl+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5201A76A5B0059D36B740E94 /* UIControl+Chain.swift */; };
 		6A8E1AD3C2EE3500FC8DC4BB /* Int+DTBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88127AE0347294FDBD90C9F /* Int+DTBKit.swift */; };
@@ -108,6 +110,7 @@
 		9C47338FA137C5490207AF02 /* DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTBKit.swift; sourceTree = "<group>"; };
 		9C5CC46637F5E6854835D215 /* UIEdgeInsets+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIEdgeInsets+Chain.swift"; sourceTree = "<group>"; };
 		9C62E43F487DE6A9A5388252 /* basic.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = basic.xcassets; sourceTree = "<group>"; };
+		A516588F37C6C2F2E0EA036F /* Data+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+DTBKit.swift"; sourceTree = "<group>"; };
 		ACA77F9C5BAF8D3A737C7074 /* NSAttributedStringKey+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedStringKey+Chain.swift"; sourceTree = "<group>"; };
 		B203F6987A7BF80223651626 /* AlertAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertAnimation.swift; sourceTree = "<group>"; };
 		B440C2EB13B2D3A155850310 /* UIStackView+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Chain.swift"; sourceTree = "<group>"; };
@@ -127,6 +130,7 @@
 		E17FE714422C518B5DB84E7D /* AppManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppManager.swift; sourceTree = "<group>"; };
 		E18628CEAD3B9598EEAA9BA8 /* NSRange+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSRange+DTBKit.swift"; sourceTree = "<group>"; };
 		ED96C43C4A7475EE5F761C6E /* CGRect+DTBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+DTBKit.swift"; sourceTree = "<group>"; };
+		FE551307FFADA04AD94CD42E /* DTBKit+Gzip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DTBKit+Gzip.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -274,6 +278,14 @@
 			path = Core;
 			sourceTree = "<group>";
 		};
+		B3A4F7DDBD70E7EC23F7E443 /* Gzip */ = {
+			isa = PBXGroup;
+			children = (
+				FE551307FFADA04AD94CD42E /* DTBKit+Gzip.swift */,
+			);
+			path = Gzip;
+			sourceTree = "<group>";
+		};
 		B9EAE46C80C5B034E0CA958E /* Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -281,6 +293,7 @@
 				0AD4E49EA2CFDCEEF4D2A596 /* Basic */,
 				7EE356F42FE6D759EAAEB9D6 /* Chain */,
 				AF7BBD8551BD7ADD2B4669C9 /* Core */,
+				B3A4F7DDBD70E7EC23F7E443 /* Gzip */,
 				6C8E132D324B36E8171E81AD /* Map */,
 				4628CE1A43D245979B8F6125 /* Resources */,
 				F6934E743DC3750023C358A2 /* UIKit */,
@@ -302,6 +315,7 @@
 				5EE6E3160FCDCFB33E0F0530 /* Bundle+DTBKit.swift */,
 				ED96C43C4A7475EE5F761C6E /* CGRect+DTBKit.swift */,
 				D44705354CD2162A18B190D4 /* CGSize+DTBKit.swift */,
+				A516588F37C6C2F2E0EA036F /* Data+DTBKit.swift */,
 				11128E0A40FCD5CFAFBD1DDB /* Date+DTBKit.swift */,
 				61BB2E05D240F28EFBCD1F78 /* DateFormatter+DTBKit.swift */,
 				2AF9E1B9C7639EF837B8C6E3 /* NSDecimalNumber+DTBKit.swift */,
@@ -412,11 +426,13 @@
 				8685CF59D8C26F778AC4C389 /* DTBConfiguration.swift in Sources */,
 				A3A0664C8D695CFA2F3B9653 /* DTBKit+Basic.swift in Sources */,
 				7A79F90C0C7CB7118C251F8D /* DTBKit+Chain.swift in Sources */,
+				63BADA66F552C5F124A6D689 /* DTBKit+Gzip.swift in Sources */,
 				C9356F21237E4FA49AF082CA /* DTBKit+Map.swift in Sources */,
 				518C337808735C3F4E63421C /* DTBKit.swift in Sources */,
 				E0A2AB22B2F1C39C1B745A6C /* DTBKitAdapter.swift in Sources */,
 				D6B575CDB0FBF080A655833B /* DTBKitStringRegulars.swift in Sources */,
 				A63A16BB564F59A4035DBFD6 /* DTBStatics.swift in Sources */,
+				0F9483AC453B1E27BE90AD82 /* Data+DTBKit.swift in Sources */,
 				05739C92A2B71BD123872F98 /* Date+Chain.swift in Sources */,
 				A3130A0E6228ACFF906BCC23 /* Date+DTBKit.swift in Sources */,
 				2B546C4D8E637CA2D375E8AB /* DateFormatter+DTBKit.swift in Sources */,

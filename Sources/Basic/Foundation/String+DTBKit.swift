@@ -112,12 +112,17 @@ extension DTBKitWrapper where Base == String {
 /// Json
 public extension DTBKitWrapper where Base == String {
     
+    /// Encoding to ``Data``
+    func data(_ encoding: String.Encoding = .utf8, _ lossy: Bool = true) -> Data? {
+        return me.data(using: encoding, allowLossyConversion: lossy)
+    }
+    
     /// System json parser.
     ///
     /// 纯原生解析
     func json<T>() -> T? {
         guard let data = me.data(using: String.Encoding.utf8, allowLossyConversion: true) else {
-            return  nil
+            return nil
         }
         return (try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments)) as? T
     }
