@@ -34,6 +34,7 @@ extension DTBKitAdapterForString where StringParam == String {
 extension DTBKitWrapper where Base == String {
     
     /// Convert to ``NSString``.
+    @inline(__always)
     public var ns: DTBKitWrapper<NSString> {
         return NSString(string: me).dtb
     }
@@ -46,22 +47,26 @@ extension DTBKitWrapper where Base == String {
     ///     .div(3, scale: 3, rounding: .down)
     ///     .double.value === 0.666
     /// ```
+    @inline(__always)
     public var nsDecimal: DTBKitWrapper<NSDecimalNumber>? {
         let result = NSDecimalNumber(string: me)
         return result == NSDecimalNumber.notANumber ? nil : result.dtb
     }
     
     /// Convert to ``NSMutableAttributedString``.
+    @inline(__always)
     public var attr: DTBKitWrapper<NSMutableAttributedString> {
         return NSMutableAttributedString(string: me).dtb
     }
     
     /// Convert to ``Int64``.
+    @inline(__always)
     public var int64: DTBKitWrapper<Int64>? {
         return Int64(me)?.dtb
     }
     
     /// Convert to ``Double``.
+    @inline(__always)
     public var double: DTBKitWrapper<Double>? {
         return Double(me)?.dtb
     }
@@ -74,6 +79,7 @@ extension DTBKitWrapper where Base == String {
     ///
     /// 保持取值逻辑与常规理解一致；
     /// 需要背景知识: String 和 NSString 的不同之处。
+    @inline(__always)
     public var count: Int {
         return me.utf16.count
     }
@@ -95,6 +101,7 @@ extension DTBKitWrapper where Base == String {
 extension DTBKitWrapper where Base == String {
     
     /// Use ``NSPredicate`` to fire regular.
+    @inline(__always)
     public func isMatches(_ exp: String) -> Bool {
         return NSPredicate(format: "SELF MATCHES %@", exp).evaluate(with: me)
     }
@@ -104,6 +111,7 @@ extension DTBKitWrapper where Base == String {
     /// ```
     /// "18212345678".dtb.isRegular(.phoneNumber)
     /// ```
+    @inline(__always)
     public func isRegular(_ value: DTB.Regulars) -> Bool {
         return isMatches(value.exp)
     }
@@ -113,6 +121,7 @@ extension DTBKitWrapper where Base == String {
 public extension DTBKitWrapper where Base == String {
     
     /// Encoding to ``Data``
+    @inline(__always)
     func data(_ encoding: String.Encoding = .utf8, _ lossy: Bool = true) -> Data? {
         return me.data(using: encoding, allowLossyConversion: lossy)
     }
@@ -120,6 +129,7 @@ public extension DTBKitWrapper where Base == String {
     /// System json parser.
     ///
     /// 纯原生解析
+    @inline(__always)
     func json<T>() -> T? {
         guard let data = me.data(using: String.Encoding.utf8, allowLossyConversion: true) else {
             return nil
@@ -130,6 +140,7 @@ public extension DTBKitWrapper where Base == String {
     /// System json parser.
     ///
     /// 纯原生解析
+    @inline(__always)
     func jsonDict() -> [String: Any]? {
         return json()
     }
@@ -137,6 +148,7 @@ public extension DTBKitWrapper where Base == String {
     /// System json parser.
     ///
     /// 纯原生解析
+    @inline(__always)
     func jsonArray() -> [Any]? {
         return json()
     }

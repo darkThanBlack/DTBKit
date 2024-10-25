@@ -57,6 +57,8 @@ extension DTBKitable {
     /// ```
     ///     UIView().dtb
     /// ```
+    @inlinable
+    @inline(__always)
     public var dtb: DTBKitWrapper<Self> {
         return DTBKitWrapper(self)
     }
@@ -69,6 +71,8 @@ extension DTBKitable {
     /// ```
     ///     UIView.dtb
     /// ```
+    @inlinable
+    @inline(__always)
     public static var dtb: DTBKitStaticWrapper<Self> {
         return DTBKitStaticWrapper()
     }
@@ -89,6 +93,8 @@ extension DTBKitStructable {
     /// ```
     ///     UIView().dtb
     /// ```
+    @inlinable
+    @inline(__always)
     public var dtb: DTBKitWrapper<Self> {
         return DTBKitWrapper(self)
     }
@@ -101,6 +107,8 @@ extension DTBKitStructable {
     /// ```
     ///     UIView.dtb
     /// ```
+    @inlinable
+    @inline(__always)
     public static var dtb: DTBKitStaticWrapper<Self> {
         return DTBKitStaticWrapper()
     }
@@ -124,6 +132,8 @@ public struct DTBKitWrapper<Base> {
     /// ```
     ///     let label = UILabel().dtb.text("title").value
     /// ```
+    @inlinable
+    @inline(__always)
     public var value: Base { return me }
     
     /// Chainable for any property.
