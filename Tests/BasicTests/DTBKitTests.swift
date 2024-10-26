@@ -17,7 +17,7 @@ import DTBKit
 
 final class DTBKitTests: XCTestCase {
     
-    func testDecimal() throws {
+    func testPlayground() throws {
         
         XCTAssert(1.dtb.nsDecimal?.string?.value == "1")
         XCTAssert("2.0".dtb.nsDecimal?.double?.value == 2.0)
@@ -43,5 +43,13 @@ final class DTBKitTests: XCTestCase {
         ].forEach { d in
             print(d.dtb.toDynamic())
         }
+    }
+    
+    func testBytes() throws {
+        [8, 0, 999999999].forEach({
+            XCTAssert((Int64($0).dtb.bytes().dtb.int64() ?? 0) == $0)
+            XCTAssert((Int32($0).dtb.bytes().dtb.int32() ?? 0) == $0)
+            XCTAssert((Int16($0).dtb.bytes().dtb.int16() ?? 0) == $0)
+        })
     }
 }

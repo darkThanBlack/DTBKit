@@ -87,6 +87,15 @@ public extension DTBKitWrapper where Base == Int64 {
 /// Bytes
 public extension DTBKitWrapper where Base == [UInt8] {
     
+    func int16(offset: Int = 0) -> Int16? {
+        guard (offset + 1) < me.count else {
+            return nil
+        }
+        return 0
+        + (Int16(me[offset + 0]) << 8)
+        + (Int16(me[offset + 1]) << 0)
+    }
+    
     func int32(offset: Int = 0) -> Int32? {
         guard (offset + 3) < me.count else {
             return nil
