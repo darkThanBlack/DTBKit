@@ -96,12 +96,12 @@ public extension DTBKitWrapper where Base == [UInt8] {
         + (Int16(me[offset + 1]) << 0)
     }
     
+    /// same sa ``toInt()``
     func int32(offset: Int = 0) -> Int32? {
         guard (offset + 3) < me.count else {
             return nil
         }
-        return 0
-        + (Int32(me[offset + 0]) << 24)
+        return (Int32(me[offset + 0]) << 24)
         + (Int32(me[offset + 1]) << 16)
         + (Int32(me[offset + 2]) << 8)
         + (Int32(me[offset + 3]) << 0)
@@ -112,14 +112,12 @@ public extension DTBKitWrapper where Base == [UInt8] {
             return nil
         }
         var result: Int64 = 0
-        let high: Int64 = 0
-        + (Int64(me[offset + 0]) << 24)
+        let high: Int64 = (Int64(me[offset + 0]) << 24)
         + (Int64(me[offset + 1]) << 16)
         + (Int64(me[offset + 2]) << 8)
         + (Int64(me[offset + 3]) << 0)
         
-        let low: Int64 = 0
-        + (Int64(me[offset + 4]) << 24)
+        let low: Int64 = (Int64(me[offset + 4]) << 24)
         + (Int64(me[offset + 5]) << 16)
         + (Int64(me[offset + 6]) << 8)
         + (Int64(me[offset + 7]) << 0)
