@@ -87,6 +87,53 @@ public extension DTBKitWrapper where Base == Int64 {
 /// Bytes
 public extension DTBKitWrapper where Base == [UInt8] {
     
+    func int(length: Int, offset: Int = 0) -> Int64? {
+        guard (offset + (length - 1)) < me.count else {
+            return nil
+        }
+        
+        if length == 1 {
+            return 0 +
+            (Int64(me[offset + 0]) << 8) +
+            (Int64(me[offset + 1]) << 0)
+        }
+        
+        if length == 3 {
+            return 0 +
+            (Int64(me[offset + 1]) << 16) +
+            (Int64(me[offset + 2]) << 8) +
+            (Int64(me[offset + 3]) << 0)
+        }
+        
+        if length == 4 {
+            return 0 +
+            (Int64(me[offset + 0]) << 24) +
+            (Int64(me[offset + 1]) << 16) +
+            (Int64(me[offset + 2]) << 8) +
+            (Int64(me[offset + 3]) << 0)
+        }
+        
+        if length == 8 {
+            var result: Int64 = 0
+            let high: Int64 = 0 +
+            (Int64(me[offset + 0]) << 24) +
+            (Int64(me[offset + 1]) << 16) +
+            (Int64(me[offset + 2]) << 8) +
+            (Int64(me[offset + 3]) << 0) +
+            
+            let low: Int64 = 0 +
+            (Int64(me[offset + 4]) << 24) +
+            (Int64(me[offset + 5]) << 16) +
+            (Int64(me[offset + 6]) << 8) +
+            (Int64(me[offset + 7]) << 0)
+            
+            result = high * Int64(0xFFFFFFFF + 1) + low
+            return result
+        }
+        
+        return nil
+    }
+    
     func int16(offset: Int = 0) -> Int16? {
         guard (offset + 1) < me.count else {
             return nil
@@ -96,7 +143,6 @@ public extension DTBKitWrapper where Base == [UInt8] {
         + (Int16(me[offset + 1]) << 0)
     }
     
-    /// same sa ``toInt()``
     func int32(offset: Int = 0) -> Int32? {
         guard (offset + 3) < me.count else {
             return nil
@@ -112,17 +158,19 @@ public extension DTBKitWrapper where Base == [UInt8] {
             return nil
         }
         var result: Int64 = 0
-        let high: Int64 = (Int64(me[offset + 0]) << 24)
-        + (Int64(me[offset + 1]) << 16)
-        + (Int64(me[offset + 2]) << 8)
-        + (Int64(me[offset + 3]) << 0)
+        let high: Int64 = 0 +
+        (Int64(me[offset + 0]) << 24) +
+        (Int64(me[offset + 1]) << 16) +
+        (Int64(me[offset + 2]) << 8) +
+        (Int64(me[offset + 3]) << 0)
         
-        let low: Int64 = (Int64(me[offset + 4]) << 24)
-        + (Int64(me[offset + 5]) << 16)
-        + (Int64(me[offset + 6]) << 8)
-        + (Int64(me[offset + 7]) << 0)
+        let low: Int64 = 0 +
+        (Int64(me[offset + 4]) << 24) +
+        (Int64(me[offset + 5]) << 16) +
+        (Int64(me[offset + 6]) << 8) +
+        (Int64(me[offset + 7]) << 0)
+        
         result = high * Int64(0xFFFFFFFF + 1) + low
-        
         return result
     }
 }
