@@ -115,13 +115,13 @@ public extension DTBKitWrapper where Base == [UInt8] {
         
         if length == 8 {
             var result: Int64 = 0
-            let high: Int64 = 0 +
+            var high: Int64 = 0 +
             (Int64(me[offset + 0]) << 24) +
             (Int64(me[offset + 1]) << 16) +
             (Int64(me[offset + 2]) << 8) +
-            (Int64(me[offset + 3]) << 0) +
+            (Int64(me[offset + 3]) << 0)
             
-            let low: Int64 = 0 +
+            var low: Int64 = 0 +
             (Int64(me[offset + 4]) << 24) +
             (Int64(me[offset + 5]) << 16) +
             (Int64(me[offset + 6]) << 8) +
