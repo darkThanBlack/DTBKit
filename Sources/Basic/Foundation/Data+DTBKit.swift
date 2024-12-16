@@ -100,9 +100,9 @@ public extension DTBKitWrapper where Base == [UInt8] {
         
         if length == 3 {
             return 0 +
-            (Int64(me[offset + 1]) << 16) +
-            (Int64(me[offset + 2]) << 8) +
-            (Int64(me[offset + 3]) << 0)
+            (Int64(me[offset + 0]) << 16) +
+            (Int64(me[offset + 1]) << 8) +
+            (Int64(me[offset + 2]) << 0)
         }
         
         if length == 4 {
