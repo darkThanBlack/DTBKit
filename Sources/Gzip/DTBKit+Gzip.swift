@@ -253,6 +253,14 @@ extension Data {
         
         repeat {
             var stream = z_stream()
+            
+//            stream.zalloc = Z_NULL;
+//            stream.zfree = Z_NULL;
+//            stream.avail_in = (uint)self.length;
+//            stream.next_in = (Bytef *)self.bytes;
+//            stream.total_out = 0;
+//            stream.avail_out = 0;
+
             var status: Int32
             
             status = inflateInit2_(&stream, wBits, ZLIB_VERSION, Int32(DataSize.stream))
