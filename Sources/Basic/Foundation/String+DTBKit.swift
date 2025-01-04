@@ -35,7 +35,7 @@ extension DTBKitWrapper where Base == String {
     
     /// Convert to ``NSString``.
     @inline(__always)
-    public var ns: DTBKitWrapper<NSString> {
+    public func ns() -> DTBKitWrapper<NSString> {
         return NSString(string: me).dtb
     }
     
@@ -89,8 +89,8 @@ extension DTBKitWrapper where Base == String {
     /// 越界检查。
     public func has(nsRange: NSRange) -> Bool {
         if nsRange.dtb.isEmpty == false,
-           nsRange.location < ns.value.length,
-           nsRange.location + nsRange.length < ns.value.length {
+           nsRange.location < ns().value.length,
+           nsRange.location + nsRange.length < ns().value.length {
             return true
         }
         return false

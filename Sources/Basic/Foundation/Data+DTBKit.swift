@@ -15,6 +15,12 @@ import UIKit
 /// Json
 public extension DTBKitWrapper where Base == Data {
     
+    /// Convert to ``NSData``.
+    @inline(__always)
+    func ns() -> DTBKitWrapper<NSData> {
+        return NSData(data: me).dtb
+    }
+    
     /// Encoding to ``String``
     @inline(__always)
     func string(_ encoding: String.Encoding = .utf8) -> DTBKitWrapper<String>? {
