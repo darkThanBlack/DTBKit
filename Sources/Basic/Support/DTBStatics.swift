@@ -118,4 +118,25 @@ extension DTB {
         /// 默认按设计图宽度等比缩放；参见 ``XM.Performance.designBaseSize``
         case scale
     }
+    
+    /// String regular candy | 正则表达式定义
+    ///
+    /// 参见 ``isRegular``
+    ///
+    /// e.g.
+    /// ```
+    ///     extension XM.Regulars {
+    ///         public static func phone() -> Self {}
+    ///     }
+    ///
+    ///     let success: Bool = "123".xm.isRegular(.phone())
+    /// ```
+    public struct Regulars {
+        
+        public let exp: String
+        
+        init(exp: String) {
+            self.exp = exp
+        }
+    }
 }

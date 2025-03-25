@@ -13,7 +13,7 @@
 import UIKit
 
 /// See more details in ``dtbkit_adapter.md``
-public protocol DTBKitAdapterForUIWindow {
+public protocol DTBKitUIWindow {
     
     /// Current window in general for nonscene-based app. I recommended you override this method and get it with hard-coding.
     ///
@@ -35,7 +35,7 @@ public protocol DTBKitAdapterForUIWindow {
     func keyWindow() -> UIWindow?
 }
 
-extension DTBKitAdapterForUIWindow {
+extension DTBKitUIWindow {
     
     public func keyWindow() -> UIWindow? {
         

@@ -12,24 +12,6 @@
 
 import UIKit
 
-/// See more details in ``dtbkit_adapter.md``
-public protocol DTBKitAdapterForString {
-    
-    associatedtype StringParam = String
-    
-    /// Text generate | 文本生成收口
-    ///
-    /// 便于处理 国际化 等需求
-    func create(_ key: StringParam) -> String
-}
-
-extension DTBKitAdapterForString where StringParam == String {
-    
-    public func create(_ key: StringParam) -> String {
-        return key
-    }
-}
-
 /// Type converts
 extension DTBKitWrapper where Base == String {
     
@@ -48,26 +30,26 @@ extension DTBKitWrapper where Base == String {
     ///     .double.value === 0.666
     /// ```
     @inline(__always)
-    public var nsDecimal: DTBKitWrapper<NSDecimalNumber>? {
+    public func nsDecimal() -> DTBKitWrapper<NSDecimalNumber>? {
         let result = NSDecimalNumber(string: me)
         return result == NSDecimalNumber.notANumber ? nil : result.dtb
     }
     
     /// Convert to ``NSMutableAttributedString``.
     @inline(__always)
-    public var attr: DTBKitWrapper<NSMutableAttributedString> {
+    public func attr() -> DTBKitWrapper<NSMutableAttributedString> {
         return NSMutableAttributedString(string: me).dtb
     }
     
     /// Convert to ``Int64``.
     @inline(__always)
-    public var int64: DTBKitWrapper<Int64>? {
+    public func int64() -> DTBKitWrapper<Int64>? {
         return Int64(me)?.dtb
     }
     
     /// Convert to ``Double``.
     @inline(__always)
-    public var double: DTBKitWrapper<Double>? {
+    public func double() -> DTBKitWrapper<Double>? {
         return Double(me)?.dtb
     }
 }
@@ -80,7 +62,7 @@ extension DTBKitWrapper where Base == String {
     /// 保持取值逻辑与常规理解一致；
     /// 需要背景知识: String 和 NSString 的不同之处。
     @inline(__always)
-    public var count: Int {
+    public func count() -> Int {
         return me.utf16.count
     }
     
@@ -88,7 +70,7 @@ extension DTBKitWrapper where Base == String {
     ///
     /// 越界检查。
     public func has(nsRange: NSRange) -> Bool {
-        if nsRange.dtb.isEmpty == false,
+        if nsRange.dtb.isEmpty() == false,
            nsRange.location < ns().value.length,
            nsRange.location + nsRange.length < ns().value.length {
             return true

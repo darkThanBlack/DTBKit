@@ -33,6 +33,11 @@ DESC
     ss.dependency 'DTBKit/Core'
   end
   
+  s.subspec 'i18N' do |ss|
+    ss.source_files = 'Sources/i18N/**/*'
+    ss.dependency 'DTBKit/Core'
+  end
+  
   s.subspec 'Basic' do |ss|
     ss.source_files = 'Sources/Basic/**/*'
     ss.resource_bundles = {

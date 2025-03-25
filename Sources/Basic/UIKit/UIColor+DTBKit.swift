@@ -11,24 +11,6 @@
 
 import UIKit
 
-/// See more details in ``dtbkit_adapter.md``
-public protocol DTBKitAdapterForUIColor {
-    
-    associatedtype ColorParam = Int64
-    
-    /// Color generate | 色值生成收口
-    ///
-    /// 便于处理 暗黑模式 / 主题色 等需求
-    func create(_ key: ColorParam) -> UIColor
-}
-
-extension DTBKitAdapterForUIColor where ColorParam == Int64 {
-    
-    public func create(_ key: ColorParam) -> UIColor {
-        return UIColor.dtb.hex(key)
-    }
-}
-
 extension DTBKitStaticWrapper where T: UIColor {
     
     /// hex -> color

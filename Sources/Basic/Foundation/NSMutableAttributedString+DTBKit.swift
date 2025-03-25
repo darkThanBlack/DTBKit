@@ -16,12 +16,12 @@ import UIKit
 extension DTBKitWrapper where Base: NSMutableAttributedString {
     
     ///
-    public var str: DTBKitWrapper<String> {
+    public func string() -> DTBKitWrapper<String> {
         return me.string.dtb
     }
     
     ///
-    public var mStr: DTBKitWrapper<NSMutableString> {
+    public func mString() -> DTBKitWrapper<NSMutableString> {
         return me.mutableString.dtb
     }
     
@@ -50,8 +50,8 @@ extension DTBKitWrapper where Base: NSMutableAttributedString {
     /// 没搜索到则不做处理。
     @discardableResult
     public func setSub(_ subString: String, attrs: [NSAttributedString.Key : Any]? = nil) -> Self {
-        let range = str.ns().range(of: subString).value
-        guard str.has(nsRange: range) else {
+        let range = string().ns().range(of: subString).value
+        guard string().has(nsRange: range) else {
             return self
         }
         me.setAttributes(attrs, range: range)
@@ -63,8 +63,8 @@ extension DTBKitWrapper where Base: NSMutableAttributedString {
     /// 没搜索到则不做处理。
     @discardableResult
     public func addSub(_ subString: String, attrs: [NSAttributedString.Key : Any]) -> Self {
-        let range = str.ns().range(of: subString).value
-        guard str.has(nsRange: range) else {
+        let range = string().ns().range(of: subString).value
+        guard string().has(nsRange: range) else {
             return self
         }
         me.addAttributes(attrs, range: range)

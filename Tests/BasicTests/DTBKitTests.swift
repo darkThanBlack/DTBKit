@@ -19,11 +19,11 @@ final class DTBKitTests: XCTestCase {
     
     func testPlayground() throws {
         
-        XCTAssert(1.dtb.nsDecimal?.string?.value == "1")
+        XCTAssert(1.dtb.nsDecimal?.string()?.value == "1")
         XCTAssert("2.0".dtb.nsDecimal?.double?.value == 2.0)
         // FIXME: pure number
-        XCTAssert("3.哈".dtb.nsDecimal?.string?.value == "3")
-        XCTAssert("哈哈".dtb.nsDecimal?.string?.value == nil)
+        XCTAssert("3.哈".dtb.nsDecimal?.string()?.value == "3")
+        XCTAssert("哈哈".dtb.nsDecimal?.string()?.value == nil)
         
         /// 2024-10-17 18:06
         /// 刚刚

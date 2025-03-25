@@ -13,7 +13,7 @@ import UIKit
 
 /// See more details in ``dtbkit_adapter.md``
 @available(iOS 13.0, *)
-public protocol DTBKitAdapterForUIWindowScene {
+public protocol DTBKitUIWindowScene {
     
     /// Current scene in general for nonscene-based app.
     ///
@@ -23,7 +23,7 @@ public protocol DTBKitAdapterForUIWindowScene {
 }
 
 @available(iOS 13.0, *)
-extension DTBKitAdapterForUIWindowScene {
+extension DTBKitUIWindowScene {
     
     @available(iOS 13.0, *)
     public func keyScene() -> UIWindowScene? {

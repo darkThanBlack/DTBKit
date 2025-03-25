@@ -15,13 +15,13 @@ import UIKit
 extension DTBKitWrapper where Base == Date {
     
     /// Get Int64 by .timeIntervalSince1970
-    public var s: Int64 {
-        return Int64(me.timeIntervalSince1970)
+    public func s() -> DTBKitWrapper<Int64> {
+        return Int64(me.timeIntervalSince1970).dtb
     }
     
     /// Get Int64 by timeIntervalSince1970 * 1000 (length == 13) | 获取 13 位毫秒时间戳
-    public var ms: Int64 {
-        return Int64(me.timeIntervalSince1970 * 1000)
+    public func ms() -> DTBKitWrapper<Int64> {
+        return Int64(me.timeIntervalSince1970 * 1000).dtb
     }
     
     /// DateFormatter

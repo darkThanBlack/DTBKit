@@ -17,7 +17,7 @@
 
 
 
-#### DTBKitAdapterForUIColor
+#### DTBKitUIColor
 
 绝大多数的项目都会弄一份自己的色值定义来对齐设计规范，或者诸如 ``Color(hex: 0xFF8534)`` 之类的代码充斥着整个项目。为了避免话题太大，我只会点明痛点，简单来说，涉及到颜色的常见麻烦事主要有
 
@@ -40,14 +40,14 @@
 参数个数和类型必然不同，那么上层的抽象接口就无法规定具体参数，所以需要使用 ``associatedtype`` ：
 
 ```swift
-public protocol DTBKitAdapterForUIColor {
+public protocol DTBKitUIColor {
     
     associatedtype ColorParam
     
     func create(_ key: ColorParam) -> UIColor
 }
 
-extension DTBKitStaticWrapper: DTBKitAdapterForUIColor where T: UIColor {}
+extension DTBKitStaticWrapper: DTBKitUIColor where T: UIColor {}
 ```
 
 ``associatedtype`` 可以提供默认值[^1]：
@@ -89,7 +89,7 @@ ProjA.label.backgroundColor = .dtb.create(.background01)
 
 
 
-#### DTBKitAdapterForString
+#### DTBKitString
 
 设计思路大体如上所述，后面就简单地提一下关键点，项目里的静态文本主要考虑
 
@@ -106,11 +106,11 @@ ProjA.label.backgroundColor = .dtb.create(.background01)
 
 
 
-#### DTBKitAdapterForHUD
+#### DTBKitHUD
 
-#### DTBKitAdapterForToast
+#### DTBKitToast
 
-#### DTBKitAdapterForAlert
+#### DTBKitAlert
 
 hud: 菊花圈，例如 [MBProgressHUD](https://github.com/jdg/MBProgressHUD)
 
@@ -122,9 +122,9 @@ alert: ``UIAlertController`` 样式；
 
 
 
-#### DTBKitAdapterForUIWindowScene
+#### DTBKitUIWindowScene
 
-#### DTBKitAdapterForUIWindow
+#### DTBKitUIWindow
 
 无法 100% 保证获取到的 ``keyWindow`` 就是业务所需要的，参见 [BP | 最佳实践](https://darkthanblack.github.io/blogs/04-bp-keywindow)
 

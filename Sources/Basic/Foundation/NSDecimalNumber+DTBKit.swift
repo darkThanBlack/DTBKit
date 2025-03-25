@@ -20,13 +20,13 @@ extension DTBKitWrapper where Base == NSDecimalNumber {
             return d
         }
         if let s = value as? String {
-            return s.dtb.nsDecimal?.value
+            return s.dtb.nsDecimal()?.value
         }
         if let v = value as? Double {
-            return v.dtb.nsDecimal?.value
+            return v.dtb.nsDecimal()?.value
         }
         if let i = value as? Int64 {
-            return i.dtb.nsDecimal?.value
+            return i.dtb.nsDecimal()?.value
         }
         return nil
     }
@@ -47,12 +47,12 @@ extension DTBKitWrapper where Base == NSDecimalNumber {
     }
     
     /// Convert to ``Double``. Return ``nil`` when isNaN.
-    public var double: DTBKitWrapper<Double>? {
+    public func double() -> DTBKitWrapper<Double>? {
         return me == NSDecimalNumber.notANumber ? nil : me.doubleValue.dtb
     }
     
     /// Convert to ``String``. Return ``nil`` when isNaN.
-    public var string: DTBKitWrapper<String>? {
+    public func string() -> DTBKitWrapper<String>? {
         return me == NSDecimalNumber.notANumber ? nil : me.stringValue.dtb
     }
     

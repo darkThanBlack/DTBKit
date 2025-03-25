@@ -18,28 +18,6 @@ import Foundation
 /// 静态对象命名空间。
 public enum DTB {}
 
-extension DTB {
-    
-    /// 用于声明带类型推断的静态常量。
-    ///
-    /// Represents a `Key` with an associated generic value type. More details in ``dtbkit_explain.md``.
-    ///
-    /// Special thanks: [DefaultsKit](https://github.com/nmdias/DefaultsKit)
-    ///
-    /// Example:
-    /// ```
-    ///     let key = DTB.ConstKey<[String: Any]>("myUserDefaultsKey")
-    /// ```
-    public struct ConstKey<ValueType> {
-        
-        public let key_: String
-        
-        public init(_ key: String) {
-            self.key_ = key
-        }
-    }
-}
-
 //MARK: - Name spaces
 
 /// Indicate which one implements the namespace for ``class``.
@@ -57,7 +35,6 @@ extension DTBKitable {
     /// ```
     ///     UIView().dtb
     /// ```
-    @inlinable
     @inline(__always)
     public var dtb: DTBKitWrapper<Self> {
         return DTBKitWrapper(self)
@@ -71,7 +48,6 @@ extension DTBKitable {
     /// ```
     ///     UIView.dtb
     /// ```
-    @inlinable
     @inline(__always)
     public static var dtb: DTBKitStaticWrapper<Self> {
         return DTBKitStaticWrapper()
@@ -93,7 +69,6 @@ extension DTBKitStructable {
     /// ```
     ///     UIView().dtb
     /// ```
-    @inlinable
     @inline(__always)
     public var dtb: DTBKitWrapper<Self> {
         return DTBKitWrapper(self)
@@ -107,7 +82,6 @@ extension DTBKitStructable {
     /// ```
     ///     UIView.dtb
     /// ```
-    @inlinable
     @inline(__always)
     public static var dtb: DTBKitStaticWrapper<Self> {
         return DTBKitStaticWrapper()
@@ -132,7 +106,6 @@ public struct DTBKitWrapper<Base> {
     /// ```
     ///     let label = UILabel().dtb.text("title").value
     /// ```
-    @inlinable
     @inline(__always)
     public var value: Base { return me }
     
@@ -159,3 +132,8 @@ public struct DTBKitStaticWrapper<T> {
 
 ///
 extension NSObject: DTBKitable {}
+
+/// Mark protocol is abstract.
+///
+/// 表明某个接口是抽象接口。
+public protocol DTBKitAbstract {}

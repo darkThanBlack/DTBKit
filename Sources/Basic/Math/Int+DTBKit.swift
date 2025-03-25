@@ -12,17 +12,6 @@
 
 import Foundation
 
-extension Int: DTBKitStructable {}
-
-extension Int8: DTBKitStructable {}
-
-extension Int16: DTBKitStructable {}
-
-extension Int32: DTBKitStructable {}
-
-extension Int64: DTBKitStructable {}
-
-
 /// String
 ///
 /// 字符串处理。
@@ -30,13 +19,13 @@ extension DTBKitWrapper where Base: FixedWidthInteger & SignedInteger {
     
     /// From 's' timeStamp (length == 10) | 从 10 位秒级时间戳生成
     @inline(__always)
-    public var sDate: DTBKitWrapper<Date>? {
+    public func sDate() -> DTBKitWrapper<Date>? {
         return Date.dtb.create(s: Int64(me))?.dtb
     }
     
     /// From 'ms' timeStamp (length == 13) | 从 13 位毫秒级时间戳生成
     @inline(__always)
-    public var msDate: DTBKitWrapper<Date>? {
+    public func msDate() -> DTBKitWrapper<Date>? {
         return Date.dtb.create(ms: Int64(me))?.dtb
     }
     
@@ -44,7 +33,7 @@ extension DTBKitWrapper where Base: FixedWidthInteger & SignedInteger {
     ///
     /// 转字符串。
     @inline(__always)
-    public var string: DTBKitWrapper<String> {
+    public func string() -> DTBKitWrapper<String> {
         return "\(me)".dtb
     }
     
@@ -69,7 +58,7 @@ extension DTBKitWrapper where Base: FixedWidthInteger & SignedInteger {
     ///
     /// 精度处理。
     @inline(__always)
-    public var nsDecimal: DTBKitWrapper<NSDecimalNumber>? {
+    public func nsDecimal() -> DTBKitWrapper<NSDecimalNumber>? {
         let result = NSDecimalNumber(string: "\(me)")
         return result == NSDecimalNumber.notANumber ? nil : result.dtb
     }

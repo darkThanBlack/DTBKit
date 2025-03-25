@@ -21,7 +21,7 @@ extension DTB {
 /// 应用级数据 / 内存处理 / 其他
 ///
 /// Memory dict / App data / etc.
-public final class AppManager {
+public class AppManager {
     
     public static let shared = AppManager()
     private init() {}
@@ -29,7 +29,12 @@ public final class AppManager {
     /// 持有在内存中
     private var memory: [String: Any] = [:]
     
+    /// 持有在内存中，但是弱引用
+    private var weakMemory: [String: DTB.Weaker<AnyObject>] = [:]
+    
     private let mLock = NSLock()
+    
+    private let wLock = NSLock()
     
     /// 从一个被单例持有的字典中读取数据，已加锁。
     public func readMemory<Value>(_ key: DTB.ConstKey<Value>) -> Value? {
@@ -47,31 +52,18 @@ public final class AppManager {
         memory[key.key_] = value
     }
     
+    /// 向一个被单例持有的字典中清除数据，已加锁。
     public func clearMemory<T>(_ key: DTB.ConstKey<T>) {
         writeMemory(nil, key: key)
     }
     
-    /// 弱引用字典包装器
-    private class Weaker {
-        weak var me: AnyObject?
-        
-        init(_ me: AnyObject? = nil) {
-            self.me = me
-        }
-    }
-    
-    /// 持有在内存中，但是弱引用
-    private var weakMemory: [String: Weaker] = [:]
-    
-    private let wLock = NSLock()
-    
     /// 从一个被单例持有的字典中读取弱引用对象，已加锁。
-    public func readWeak<Value: AnyObject>(_ key: DTB.ConstKey<Value>) -> Value? {
+    public func readWeak<T: AnyObject>(_ key: DTB.ConstKey<T>) -> T? {
         wLock.lock()
         defer { wLock.unlock() }
         
-        if let result = weakMemory[key.key_]?.me {
-            return result as? Value
+        if let result = weakMemory[key.key_]?.me as? T {
+            return result
         } else {
             weakMemory[key.key_] = nil
             return nil
@@ -79,31 +71,31 @@ public final class AppManager {
     }
     
     /// 向一个被单例持有的字典中写入弱引用对象，已加锁。
-    public func writeWeak<Value: AnyObject>(_ value: Value?, key: DTB.ConstKey<Value>) {
+    public func writeWeak<T: AnyObject>(_ value: T?, key: DTB.ConstKey<T>) {
         wLock.lock()
         defer { wLock.unlock() }
         
-        weakMemory[key.key_] = Weaker(value)
+        weakMemory[key.key_] = DTB.Weaker(value)
     }
     
     /// 在手机桌面上显示的应用名称
     ///
     /// App name on iPhone desktop. ``CFBundleDisplayName``.
-    public var displayName: String {
+    public func displayName() -> String {
         return (Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String) ?? ""
     }
     
     /// 版本号
     ///
     /// ``CFBundleShortVersionString``
-    public var version: String {
+    public func version() -> String {
         return (Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String) ?? ""
     }
     
     /// 构建号
     ///
     /// ``CFBundleVersion``
-    public var build: String {
+    public func build() -> String {
         return (Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String) ?? ""
     }
 }

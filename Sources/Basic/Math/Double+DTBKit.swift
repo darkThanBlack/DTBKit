@@ -38,7 +38,7 @@ extension DTBKitWrapper where Base: BinaryFloatingPoint {
     /// Convert to string.
     ///
     /// 转字符串。
-    public var string: DTBKitWrapper<String> {
+    public func string() -> DTBKitWrapper<String> {
         return "\(me)".dtb
     }
     
@@ -50,7 +50,7 @@ extension DTBKitWrapper where Base: BinaryFloatingPoint {
     ///     .div(3, scale: 3, rounding: .down)
     ///     .double.value === 0.666
     /// ```
-    public var nsDecimal: DTBKitWrapper<NSDecimalNumber>? {
+    public func nsDecimal() -> DTBKitWrapper<NSDecimalNumber>? {
         let result = NSDecimalNumber(string: "\(me)")
         return result == NSDecimalNumber.notANumber ? nil : result.dtb
     }

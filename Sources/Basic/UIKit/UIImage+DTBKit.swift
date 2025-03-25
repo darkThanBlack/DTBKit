@@ -144,7 +144,7 @@ extension DTBKitWrapper where Base: UIImage {
     /// - Returns: nil if scale fail.
     public func scale(to value: CGFloat) -> DTBKitWrapper<UIImage>? {
         let nSize = me.size.dtb.aspectFit(to: CGSize(width: value, height: value)).value
-        guard nSize.dtb.isEmpty == false else {
+        guard nSize.dtb.isEmpty() == false else {
             return nil
         }
         
