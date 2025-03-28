@@ -12,13 +12,13 @@
 
 import UIKit
 
-extension Date: DTBKitStructable {}
+extension Date: Structable {}
 
-extension DTBKitStaticWrapper where T == Date {
+extension StaticWrapper where T == Date {
     
     /// From 's' timeStamp (length == 10) | 从 10 位秒级时间戳生成
     @inline(__always)
-    func create(s: Int64?) -> T? {
+    public func create(s: Int64?) -> T? {
         guard let t = s, String(t).count == 10 else {
             return nil
         }
@@ -27,7 +27,7 @@ extension DTBKitStaticWrapper where T == Date {
     
     /// From 'ms' timeStamp (length == 13) | 从 13 位毫秒级时间戳生成
     @inline(__always)
-    func create(ms: Int64?) -> T? {
+    public func create(ms: Int64?) -> T? {
         guard let t = ms, String(t).count == 13 else {
             return nil
         }

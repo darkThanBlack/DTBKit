@@ -14,6 +14,6 @@ import UIKit
 
 // MARK: - Abstract, more details in ``dtbkit_adapter.md``
 
-extension DTBKitStaticWrapper: DTBKitUIColor where T: UIColor {}
+extension StaticWrapper: DTBKitUIColor where T: UIColor {}
 
-extension DTBKitStaticWrapper: DTBKitString where T == String {}
+extension StaticWrapper: DTBKitString where T == String {}

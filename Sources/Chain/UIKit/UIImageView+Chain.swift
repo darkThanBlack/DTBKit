@@ -12,7 +12,7 @@
 
 import UIKit
 
-extension DTBKitWrapper where Base: UIImageView & DTBKitChainable {
+extension Wrapper where Base: UIImageView & Chainable {
     
     @discardableResult
     public func image(_ value: UIImage?) -> Self {

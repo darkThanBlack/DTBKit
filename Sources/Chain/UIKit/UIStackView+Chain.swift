@@ -12,7 +12,7 @@
 
 import UIKit
 
-extension DTBKitWrapper where Base: UIStackView {
+extension Wrapper where Base: UIStackView {
     
     @discardableResult
     public func axis(_ value: NSLayoutConstraint.Axis) -> Self {

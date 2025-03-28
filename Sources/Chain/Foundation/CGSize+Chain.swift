@@ -12,9 +12,9 @@
 
 import UIKit
 
-extension CGSize: DTBKitStructable {}
+extension CGSize: Structable {}
 
-extension DTBKitStaticWrapper where T == CGSize {
+extension StaticWrapper where T == CGSize {
     
     /// width | height
     public func create(_ width: CGFloat, _ height: CGFloat) -> T {

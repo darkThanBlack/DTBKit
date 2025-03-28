@@ -17,10 +17,10 @@ import UIKit
 /// Indicate which one supports "chainable". In order to prevent ambiguity in memory semantics when used by business parties, it is only recommended to use reference types.
 ///
 /// 标明支持通过链式语法来修改属性，并提供了额外的关键字。为了防止业务方使用时在内存语义上出现歧义，只建议引用类型使用。
-public protocol DTBKitChainable {}
+public protocol Chainable {}
 
 /// Class only.
-extension DTBKitWrapper where Base: DTBKitable {
+extension Wrapper where Base: Kitable {
     
     /// Call handler when condition is true. sync.
     ///
@@ -75,16 +75,16 @@ extension DTBKitWrapper where Base: DTBKitable {
 /// Indicate which one supports "chainable". The chain syntax of value types can be implemented to a certain extent, but this conflicts with the basic semantics of copy during assignment, so it is currently limited to use in rapid creation.
 ///
 /// 标明支持通过链式语法来修改属性，并提供了额外的关键字。值类型的链式语法可以在一定程度上实现，但这样和赋值时 copy 的基本语义冲突，所以目前限制在快速创建时使用。
-public protocol DTBKitStructChainable: DTBKitChainable {
+public protocol StructChainable: Chainable {
     
-    /// [PRIVATE] Provide default init object for ``DTBKitStaticWrapper``. Do not use.
+    /// [PRIVATE] Provide default init object for ``StaticWrapper``. Do not use.
     ///
     /// 向类方法提供默认创建的对象。不要外部使用。
     static func def_() -> Self
 }
 
 /// Struct only.
-extension DTBKitStaticWrapper where T: DTBKitStructable & DTBKitStructChainable {
+extension StaticWrapper where T: Structable & StructChainable {
     
     /// Allows chaining syntax to quickly create objects. Note: Unless you understand the characteristics of value types, it is not recommended to use intermediate variables in procedures. Please refer to ``DemoEntry.swift`` for details.
     ///
@@ -99,15 +99,15 @@ extension DTBKitStaticWrapper where T: DTBKitStructable & DTBKitStructChainable 
     ///
     ///    var a = CGSize.dtb.create.height(2).width(1).value
     /// ```
-    public var create: DTBKitMutableWrapper<T> {
-        return DTBKitMutableWrapper(T.def_())
+    public var create: MutableWrapper<T> {
+        return MutableWrapper(T.def_())
     }
 }
 
 /// Support struct "chainable". In order to prevent ambiguity in memory semantics when used by business parties, currently only static methods are allowed to be used for quick creation.
 ///
 /// 可变值类型容器。为了防止业务方使用时在内存语义上出现歧义，目前只允许用静态方法快速创建对象时使用。
-public class DTBKitMutableWrapper<Base> {
+public class MutableWrapper<Base> {
     public var me: Base
     public init(_ value: Base) { self.me = value }
 }
@@ -115,7 +115,7 @@ public class DTBKitMutableWrapper<Base> {
 /// Struct chain syntax.
 ///
 /// 额外关键字。
-extension DTBKitMutableWrapper where Base: DTBKitStructable & DTBKitChainable {
+extension MutableWrapper where Base: Structable & Chainable {
     
     /// Default unbox, use it to get actual value.
     ///
@@ -125,11 +125,11 @@ extension DTBKitMutableWrapper where Base: DTBKitStructable & DTBKitChainable {
 
 //MARK: - Class 只管实现就好了
 
-extension NSObject: DTBKitChainable {}
+extension NSObject: Chainable {}
 
 //MARK: - Struct 要考虑的事情就多了
 
-extension Dictionary: DTBKitStructable, DTBKitStructChainable {
+extension Dictionary: Structable, StructChainable {
     public static func def_() -> Self {
         return [:]
     }

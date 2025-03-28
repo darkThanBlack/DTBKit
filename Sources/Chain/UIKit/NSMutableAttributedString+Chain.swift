@@ -13,7 +13,7 @@
 import UIKit
 
 ///
-extension DTBKitWrapper where Base: NSMutableAttributedString & DTBKitChainable {
+extension Wrapper where Base: NSMutableAttributedString & Chainable {
     
     @discardableResult
     public func replaceCharacters(in range: NSRange, with str: String) -> Self {
@@ -29,7 +29,7 @@ extension DTBKitWrapper where Base: NSMutableAttributedString & DTBKitChainable 
 }
 
 /// NSExtendedMutableAttributedString
-extension DTBKitWrapper where Base: NSMutableAttributedString & DTBKitChainable {
+extension Wrapper where Base: NSMutableAttributedString & Chainable {
     
     @discardableResult
     public func addAttribute(_ name: NSAttributedString.Key, value: Any, range: NSRange) -> Self {

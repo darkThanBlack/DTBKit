@@ -13,7 +13,7 @@
 import UIKit
 
 ///
-extension DTBKitStaticWrapper where T: UIViewController {
+extension StaticWrapper where T: UIViewController {
     
     /// Recursion get the top most view controller.
     ///
@@ -54,14 +54,14 @@ extension DTBKitStaticWrapper where T: UIViewController {
 }
 
 ///
-extension DTBKitWrapper where Base == UIViewController {
+extension Wrapper where Base == UIViewController {
     
     /// Recursion get the top most view controller.
     ///
     /// 递归取栈顶。
     ///
     /// [refer](https://github.com/devxoul/URLNavigator)
-    public var topMost: DTBKitWrapper<UIViewController>? {
+    public var topMost: Wrapper<UIViewController>? {
         // presented view controller
         if let presentedViewController = me.presentedViewController {
             return presentedViewController.dtb.topMost

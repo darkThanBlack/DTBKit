@@ -12,7 +12,7 @@
 
 import UIKit
 
-extension DTBKitWrapper where Base: CALayer & DTBKitChainable {
+extension Wrapper where Base: CALayer & Chainable {
     
     @discardableResult
     public func masksToBounds(_ value: Bool) -> Self {

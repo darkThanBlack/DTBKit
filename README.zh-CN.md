@@ -153,13 +153,13 @@ import DTBKit
 
 public typealias XM = DTBKit.DTB
 
-public typealias XMKitable = DTBKit.DTBKitable
+public typealias XMKitable = DTBKit.Kitable
 
-public typealias XMKitStructable = DTBKit.DTBKitStructable
+public typealias XMKitStructable = DTBKit.KitStructable
 
-public typealias XMKitWrapper = DTBKit.DTBKitWrapper
+public typealias XMKitWrapper = DTBKit.Wrapper
 
-public typealias XMKitStaticWrapper = DTBKit.DTBKitStaticWrapper
+public typealias XMKitStaticWrapper = DTBKit.StaticWrapper
 
 extension XMKitable {
 
@@ -181,11 +181,11 @@ extension XMKitStructable {
 ```swift
 // - Chain
 
-public typealias XMKitChainable = DTBKit.DTBKitChainable
+public typealias XMKitChainable = DTBKit.Chainable
 
-public typealias XMKitStructChainable = DTBKit.DTBKitStructChainable
+public typealias XMKitStructChainable = DTBKit.StructChainable
 
-public typealias XMKitMutableWrapper = DTBKit.DTBKitMutableWrapper
+public typealias XMKitMutableWrapper = DTBKit.MutableWrapper
 ```
 
 现在， ``DTBKit+XM.swift`` 文件的作用域内，即可使用新方法调用。
@@ -205,9 +205,9 @@ public typealias XMKitMutableWrapper = DTBKit.DTBKitMutableWrapper
 举个例子，假如有主工程 Main，拥有自定义的模块 XM 和 模块 Other，两者同时依赖于基础模块 Basic。首先，对模块 XM 中的 ``DTBKit+XM.swift`` 做如下调整：
 
 ```swift
-public typealias XMKitWrapper = DTBKit.DTBKitWrapper
+public typealias XMKitWrapper = DTBKit.Wrapper
 
-public typealias XMKitStaticWrapper = DTBKit.DTBKitStaticWrapper
+public typealias XMKitStaticWrapper = DTBKit.StaticWrapper
 
 public protocol XMKitable: AnyObject {}
 

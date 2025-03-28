@@ -13,10 +13,11 @@
 import UIKit
 
 ///
-extension DTBKitWrapper where Base: NSString {
+extension Wrapper where Base: NSString {
     
+    @inline(__always)
     @discardableResult
-    public func range(of searchString: String) -> DTBKitWrapper<NSRange> {
+    public func range(of searchString: String) -> Wrapper<NSRange> {
         return me.range(of: searchString).dtb
     }
 }

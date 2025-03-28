@@ -12,7 +12,7 @@
 
 import UIKit
 
-extension DTBKitWrapper where Base: UIControl {
+extension Wrapper where Base: UIControl {
     
     @discardableResult
     public func isEnabled(_ value: Bool) -> Self {

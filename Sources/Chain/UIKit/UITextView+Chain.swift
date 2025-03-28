@@ -12,7 +12,7 @@
 
 import UIKit
 
-extension DTBKitWrapper where Base: UITextView {
+extension Wrapper where Base: UITextView {
     
     @discardableResult
     public func text(_ value: String?) -> Self {

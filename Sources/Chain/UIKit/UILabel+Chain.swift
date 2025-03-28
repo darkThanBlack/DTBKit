@@ -13,7 +13,7 @@
 import UIKit
 
 ///
-extension DTBKitWrapper where Base: UILabel & DTBKitChainable {
+extension Wrapper where Base: UILabel & Chainable {
     
     @discardableResult
     public func text(_ value: String?) -> Self {

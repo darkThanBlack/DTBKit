@@ -19,26 +19,26 @@ import Foundation
 /// 1. "init" vs. "exactly init"
 /// 2. "NaN" vs. nil
 /// 3. "high bits to low bits" vs. nil
-extension DTBKitWrapper where Base: BinaryFloatingPoint {
+extension Wrapper where Base: BinaryFloatingPoint {
     
     ///
     public func rounded(_ roundRule: FloatingPointRoundingRule? = nil) -> Self {
         if let rule = roundRule {
-            return DTBKitWrapper(me.rounded(rule))
+            return Wrapper(me.rounded(rule))
         }
-        return DTBKitWrapper(me.rounded())
+        return Wrapper(me.rounded())
     }
 }
 
 /// String
 ///
 /// 字符串处理。
-extension DTBKitWrapper where Base: BinaryFloatingPoint {
+extension Wrapper where Base: BinaryFloatingPoint {
     
     /// Convert to string.
     ///
     /// 转字符串。
-    public func string() -> DTBKitWrapper<String> {
+    public func string() -> Wrapper<String> {
         return "\(me)".dtb
     }
     
@@ -50,7 +50,7 @@ extension DTBKitWrapper where Base: BinaryFloatingPoint {
     ///     .div(3, scale: 3, rounding: .down)
     ///     .double.value === 0.666
     /// ```
-    public func nsDecimal() -> DTBKitWrapper<NSDecimalNumber>? {
+    public func nsDecimal() -> Wrapper<NSDecimalNumber>? {
         let result = NSDecimalNumber(string: "\(me)")
         return result == NSDecimalNumber.notANumber ? nil : result.dtb
     }
@@ -67,12 +67,12 @@ extension DTBKitWrapper where Base: BinaryFloatingPoint {
     ///     /// Custom formatter
     ///     let b = 2.dtb.double.toString(NumberFormatter().dtb.decimal(2).rounded(.halfDown).prefix("¥", negative: "-¥").value)
     /// ```
-    public func toString(_ formatter: NumberFormatter) -> DTBKitWrapper<String>? {
+    public func toString(_ formatter: NumberFormatter) -> Wrapper<String>? {
         return formatter.dtb.string(from: NSNumber(value: Double(me)))
     }
 }
 
-extension DTBKitWrapper where Base == Double {
+extension Wrapper where Base == Double {
     
     /// Cut dicimal places.
     ///
@@ -88,7 +88,7 @@ extension DTBKitWrapper where Base == Double {
 /// High fidelity design
 ///
 /// 高保真。
-extension DTBKitWrapper where Base: BinaryFloatingPoint {
+extension Wrapper where Base: BinaryFloatingPoint {
     
     public func hf(_ behavior: DTB.HFBehaviors = .scale) -> CGFloat {
         switch behavior {

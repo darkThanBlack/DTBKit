@@ -13,7 +13,7 @@
 import UIKit
 
 ///
-extension DTBKitWrapper where Base: NumberFormatter & DTBKitChainable {
+extension Wrapper where Base: NumberFormatter & Chainable {
     
     @discardableResult
     public func formattingContext(_ value: Formatter.Context) -> Self {

@@ -13,7 +13,7 @@
 import UIKit
 
 ///
-extension DTBKitWrapper where Base: NSMutableParagraphStyle & DTBKitChainable {
+extension Wrapper where Base: NSMutableParagraphStyle & Chainable {
     
     @discardableResult
     public func lineSpacing(_ value: CGFloat) -> Self {

@@ -12,9 +12,9 @@
 
 import UIKit
 
-extension CGRect: DTBKitStructable {}
+extension CGRect: Structable {}
 
-extension DTBKitStaticWrapper where T == CGRect {
+extension StaticWrapper where T == CGRect {
     
     /// x | y | width | height
     public func create(_ x: CGFloat, _ y: CGFloat, _ width: CGFloat, _ height: CGFloat) -> T {

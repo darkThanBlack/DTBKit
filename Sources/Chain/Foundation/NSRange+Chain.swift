@@ -12,9 +12,9 @@
 
 import UIKit
 
-extension NSRange: DTBKitStructable {}
+extension NSRange: Structable {}
 
-extension DTBKitStaticWrapper where T == NSRange {
+extension StaticWrapper where T == NSRange {
     
     /// location | length
     public func create(_ location: Int, _ length: Int) -> T {

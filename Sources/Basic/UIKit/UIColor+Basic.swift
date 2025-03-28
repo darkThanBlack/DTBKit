@@ -11,7 +11,7 @@
 
 import UIKit
 
-extension DTBKitStaticWrapper where T: UIColor {
+extension StaticWrapper where T: UIColor {
     
     /// hex -> color
     ///

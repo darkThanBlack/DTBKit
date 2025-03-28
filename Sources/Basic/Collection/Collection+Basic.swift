@@ -12,7 +12,7 @@
 
 import Foundation
 
-extension DTBKitWrapper {
+extension Wrapper {
     
     /// Safe array | 数组防越界
     ///
@@ -30,7 +30,7 @@ extension DTBKitWrapper {
 }
 
 ///
-public extension DTBKitWrapper where Base: Collection {
+public extension Wrapper where Base: Collection {
     
     /// System json parser.
     ///

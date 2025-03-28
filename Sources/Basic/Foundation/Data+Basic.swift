@@ -13,17 +13,17 @@
 import UIKit
 
 /// Json
-public extension DTBKitWrapper where Base == Data {
+public extension Wrapper where Base == Data {
     
     /// Convert to ``NSData``.
     @inline(__always)
-    func ns() -> DTBKitWrapper<NSData> {
+    func ns() -> Wrapper<NSData> {
         return NSData(data: me).dtb
     }
     
     /// Encoding to ``String``
     @inline(__always)
-    func string(_ encoding: String.Encoding = .utf8) -> DTBKitWrapper<String>? {
+    func string(_ encoding: String.Encoding = .utf8) -> Wrapper<String>? {
         return String(data: me, encoding: encoding)?.dtb
     }
     
@@ -52,7 +52,7 @@ public extension DTBKitWrapper where Base == Data {
     }
 }
 
-public extension DTBKitWrapper where Base == Int16 {
+public extension Wrapper where Base == Int16 {
     
     func bytes() -> [UInt8] {
         return [
@@ -62,7 +62,7 @@ public extension DTBKitWrapper where Base == Int16 {
     }
 }
 
-public extension DTBKitWrapper where Base == Int32 {
+public extension Wrapper where Base == Int32 {
     
     func bytes() -> [UInt8] {
         return [
@@ -74,7 +74,7 @@ public extension DTBKitWrapper where Base == Int32 {
     }
 }
 
-public extension DTBKitWrapper where Base == Int64 {
+public extension Wrapper where Base == Int64 {
     
     func bytes() -> [UInt8] {
         return [
@@ -91,7 +91,7 @@ public extension DTBKitWrapper where Base == Int64 {
 }
 
 /// Bytes
-public extension DTBKitWrapper where Base == [UInt8] {
+public extension Wrapper where Base == [UInt8] {
     
     func int(length: Int, offset: Int = 0) -> Int64? {
         guard (offset + (length - 1)) < me.count else {

@@ -12,7 +12,7 @@
 
 import UIKit
 
-extension DTBKitStaticWrapper where T: Bundle {
+extension StaticWrapper where T: Bundle {
     
     /// Will enumerator main path.
     ///

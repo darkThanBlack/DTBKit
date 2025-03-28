@@ -78,7 +78,7 @@ public struct DTBKitCoordinate2DTransfer {
 /// Chain tranform
 ///
 /// 链式转换
-extension DTBKitWrapper where Base == CLLocationCoordinate2D {
+extension Wrapper where Base == CLLocationCoordinate2D {
     
     /// Mark it as WGS
     ///
@@ -115,7 +115,7 @@ extension DTBKitWrapper where Base == CLLocationCoordinate2D {
 }
 
 ///
-extension DTBKitStaticWrapper where T == CLLocationCoordinate2D {
+extension StaticWrapper where T == CLLocationCoordinate2D {
     
     /// WGS-84 --> GCJ-02
     public func getGCJFromWGS(_ p: CLLocationCoordinate2D) -> CLLocationCoordinate2D {

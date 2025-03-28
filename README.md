@@ -154,13 +154,13 @@ import DTBKit
 
 public typealias XM = DTBKit.DTB
 
-public typealias XMKitable = DTBKit.DTBKitable
+public typealias XMKitable = DTBKit.Kitable
 
-public typealias XMKitStructable = DTBKit.DTBKitStructable
+public typealias XMKitStructable = DTBKit.KitStructable
 
-public typealias XMKitWrapper = DTBKit.DTBKitWrapper
+public typealias XMKitWrapper = DTBKit.Wrapper
 
-public typealias XMKitStaticWrapper = DTBKit.DTBKitStaticWrapper
+public typealias XMKitStaticWrapper = DTBKit.StaticWrapper
 
 extension XMKitable {
 
@@ -182,11 +182,11 @@ If you use other sub-repositories at the same time, follow the same pattern:
 ```swift
 // - Chain
 
-public typealias XMKitChainable = DTBKit.DTBKitChainable
+public typealias XMKitChainable = DTBKit.Chainable
 
-public typealias XMKitStructChainable = DTBKit.DTBKitStructChainable
+public typealias XMKitStructChainable = DTBKit.StructChainable
 
-public typealias XMKitMutableWrapper = DTBKit.DTBKitMutableWrapper
+public typealias XMKitMutableWrapper = DTBKit.MutableWrapper
 ```
 
 Now, the new method call can be used within the scope of the ``DTBKit+XM.swift`` file.
@@ -206,9 +206,9 @@ The control of the scope depends entirely on your control over the extension and
 For example, if there is a main project Main, with a custom module XM and a module Other, both of which depend on the basic module Basic. First, make the following adjustments to ``DTBKit+XM.swift`` in module XM: 
 
 ```swift
-public typealias XMKitWrapper = DTBKit.DTBKitWrapper
+public typealias XMKitWrapper = DTBKit.Wrapper
 
-public typealias XMKitStaticWrapper = DTBKit.DTBKitStaticWrapper
+public typealias XMKitStaticWrapper = DTBKit.StaticWrapper
 
 public protocol XMKitable: AnyObject {}
 

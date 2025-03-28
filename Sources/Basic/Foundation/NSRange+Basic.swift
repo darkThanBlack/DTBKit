@@ -13,7 +13,7 @@
 import UIKit
 
 ///
-extension DTBKitWrapper where Base == NSRange {
+extension Wrapper where Base == NSRange {
     
     /// location == NSNotFound or length == 0
     public func isEmpty() -> Bool {

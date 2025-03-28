@@ -30,7 +30,7 @@ targets:
           - $(inherited)
         # 注释以消除 pod 警告
         # OTHER_SWIFT_FLAGS:
-        #   - "$(inherited) -D COCOAPODS -D DTBKitable"
+        #   - "$(inherited) -D COCOAPODS -D Kitable"
         ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES: $(inherited)
         ENABLE_BITCODE: true
         WARNING_CFLAGS:

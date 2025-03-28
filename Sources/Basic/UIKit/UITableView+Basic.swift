@@ -12,7 +12,7 @@
 
 import UIKit
 
-extension DTBKitWrapper where Base: UITableView {
+extension Wrapper where Base: UITableView {
     
     // fully e.g.
     // ```

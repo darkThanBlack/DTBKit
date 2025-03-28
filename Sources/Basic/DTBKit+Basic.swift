@@ -12,41 +12,41 @@
 import Foundation
 import UIKit
 
-extension Int: DTBKitStructable {}
+extension Int: Structable {}
 
-extension Int8: DTBKitStructable {}
+extension Int8: Structable {}
 
-extension Int16: DTBKitStructable {}
+extension Int16: Structable {}
 
-extension Int32: DTBKitStructable {}
+extension Int32: Structable {}
 
-extension Int64: DTBKitStructable {}
+extension Int64: Structable {}
 
-extension Float: DTBKitStructable {}
+extension Float: Structable {}
 
-extension Double: DTBKitStructable {}
+extension Double: Structable {}
 
-extension String: DTBKitStructable {}
+extension String: Structable {}
 
-extension CGFloat: DTBKitStructable {}
+extension CGFloat: Structable {}
 
-extension Decimal: DTBKitStructable {}
+extension Decimal: Structable {}
 
-extension Array: DTBKitStructable {}
+extension Array: Structable {}
 
-extension Data: DTBKitStructable {}
+extension Data: Structable {}
 
 // MARK: - Abstract, more details in ``dtbkit_adapter.md``
 
-extension DTBKitStaticWrapper: DTBKitHUD where T: UIView {}
+extension StaticWrapper: DTBKitHUD where T: UIView {}
 
-extension DTBKitWrapper: DTBKitHUD where Base: UIView {}
+extension Wrapper: DTBKitHUD where Base: UIView {}
 
-extension DTBKitStaticWrapper: DTBKitToast where T: UIView {}
+extension StaticWrapper: DTBKitToast where T: UIView {}
 
-extension DTBKitWrapper: DTBKitToast where Base: UIView {}
+extension Wrapper: DTBKitToast where Base: UIView {}
 
 @available(iOS 13.0, *)
-extension DTBKitStaticWrapper: DTBKitUIWindowScene where T: UIWindowScene {}
+extension StaticWrapper: DTBKitUIWindowScene where T: UIWindowScene {}
 
-extension DTBKitStaticWrapper: DTBKitUIWindow where T: UIWindow {}
+extension StaticWrapper: DTBKitUIWindow where T: UIWindow {}

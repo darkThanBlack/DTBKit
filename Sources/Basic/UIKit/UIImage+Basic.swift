@@ -13,7 +13,7 @@
 import UIKit
 
 ///
-extension DTBKitStaticWrapper where T: UIImage {
+extension StaticWrapper where T: UIImage {
     
     /// Create resource image by name.
     ///
@@ -115,10 +115,10 @@ extension DTBKitStaticWrapper where T: UIImage {
 // MARK: -
 
 /// Convert
-extension DTBKitWrapper where Base: UIImage {
+extension Wrapper where Base: UIImage {
     
     ///
-    public func ci() -> DTBKitWrapper<CIImage>? {
+    public func ci() -> Wrapper<CIImage>? {
         if let ci = me.ciImage {
             return ci.dtb
         }
@@ -131,7 +131,7 @@ extension DTBKitWrapper where Base: UIImage {
 }
 
 /// Redraw
-extension DTBKitWrapper where Base: UIImage {
+extension Wrapper where Base: UIImage {
     
     /// Down sampling to fit.
     ///
@@ -142,7 +142,7 @@ extension DTBKitWrapper where Base: UIImage {
     /// - Parameter value: result will aspect fit to value.
     ///
     /// - Returns: nil if scale fail.
-    public func scale(to value: CGFloat) -> DTBKitWrapper<UIImage>? {
+    public func scale(to value: CGFloat) -> Wrapper<UIImage>? {
         let nSize = me.size.dtb.aspectFit(to: CGSize(width: value, height: value)).value
         guard nSize.dtb.isEmpty() == false else {
             return nil

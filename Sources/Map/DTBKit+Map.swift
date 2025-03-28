@@ -14,4 +14,4 @@ import UIKit
 import MapKit
 import CoreLocation
 
-extension CLLocationCoordinate2D: DTBKitStructable {}
+extension CLLocationCoordinate2D: Structable {}

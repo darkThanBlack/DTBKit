@@ -26,7 +26,7 @@ import UIKit
 ///             .value
 ///     )
 /// ```
-extension DTBKitMutableWrapper where Base == Dictionary<NSAttributedString.Key, Any> {
+extension MutableWrapper where Base == Dictionary<NSAttributedString.Key, Any> {
     
     @discardableResult
     public func font(_ value: UIFont) -> Self {

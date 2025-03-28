@@ -12,7 +12,7 @@
 import UIKit
 
 ///
-extension DTBKitWrapper where Base: UIView & DTBKitChainable {
+extension Wrapper where Base: UIView & Chainable {
     
     @discardableResult
     public func isUserInteractionEnabled(_ value: Bool) -> Self {
@@ -33,14 +33,14 @@ extension DTBKitWrapper where Base: UIView & DTBKitChainable {
     }
     
     @discardableResult
-    public func layer(_ handler: ((DTBKitWrapper<CALayer>) -> Void)?) -> Self {
+    public func layer(_ handler: ((Wrapper<CALayer>) -> Void)?) -> Self {
         handler?(me.layer.dtb)
         return self
     }
 }
 
 /// Same as ``@interface UIView(UIViewGeometry)``
-extension DTBKitWrapper where Base: UIView & DTBKitChainable {
+extension Wrapper where Base: UIView & Chainable {
     
     @discardableResult
     public func frame(_ value: CGRect) -> Self {
@@ -118,7 +118,7 @@ extension DTBKitWrapper where Base: UIView & DTBKitChainable {
 }
 
 /// Same as ``@interface UIView(UIViewHierarchy)``
-extension DTBKitWrapper where Base: UIView & DTBKitChainable {
+extension Wrapper where Base: UIView & Chainable {
     
     @discardableResult
     public func removeFromSuperview() -> Self {
@@ -169,7 +169,7 @@ extension DTBKitWrapper where Base: UIView & DTBKitChainable {
     }
     
     @discardableResult
-    public func viewWithTag(_ tag: Int) -> DTBKitWrapper<UIView>? {
+    public func viewWithTag(_ tag: Int) -> Wrapper<UIView>? {
         return me.viewWithTag(tag)?.dtb
     }
     
@@ -213,7 +213,7 @@ extension DTBKitWrapper where Base: UIView & DTBKitChainable {
 }
 
 /// Same as ``@interface UIView(UIViewRendering)``
-extension DTBKitWrapper where Base: UIView & DTBKitChainable {
+extension Wrapper where Base: UIView & Chainable {
     
     @discardableResult
     public func setNeedsDisplay() -> Self {
@@ -289,7 +289,7 @@ extension DTBKitWrapper where Base: UIView & DTBKitChainable {
 // UIViewKeyframeAnimations
 
 /// Same as ``@interface UIView(UIViewGestureRecognizers)``
-extension DTBKitWrapper where Base: UIView & DTBKitChainable {
+extension Wrapper where Base: UIView & Chainable {
     
     @discardableResult
     public func gestureRecognizers(_ value: [UIGestureRecognizer]?) -> Self {
@@ -311,7 +311,7 @@ extension DTBKitWrapper where Base: UIView & DTBKitChainable {
 }
 
 /// Same as ``@interface UIView(UIViewMotionEffects)``
-extension DTBKitWrapper where Base: UIView & DTBKitChainable {
+extension Wrapper where Base: UIView & Chainable {
     
     @discardableResult
     public func addMotionEffect(_ effect: UIMotionEffect) -> Self {
@@ -329,7 +329,7 @@ extension DTBKitWrapper where Base: UIView & DTBKitChainable {
 // UIConstraintBasedLayoutInstallingConstraints
 
 /// Same as ``@interface UIView(UIConstraintBasedLayoutCoreMethods)``
-extension DTBKitWrapper where Base: UIView & DTBKitChainable {
+extension Wrapper where Base: UIView & Chainable {
     
     @discardableResult
     public func setNeedsUpdateConstraints() -> Self {
@@ -339,7 +339,7 @@ extension DTBKitWrapper where Base: UIView & DTBKitChainable {
 }
 
 /// Same as ``@interface UIView(UIConstraintBasedCompatibility)``
-extension DTBKitWrapper where Base: UIView & DTBKitChainable {
+extension Wrapper where Base: UIView & Chainable {
     
     @discardableResult
     public func translatesAutoresizingMaskIntoConstraints(_ value: Bool) -> Self {
@@ -349,7 +349,7 @@ extension DTBKitWrapper where Base: UIView & DTBKitChainable {
 }
 
 /// Same as ``@interface UIView(UIConstraintBasedLayoutLayering)``
-extension DTBKitWrapper where Base: UIView & DTBKitChainable {
+extension Wrapper where Base: UIView & Chainable {
     
     @discardableResult
     public func invalidateIntrinsicContentSize() -> Self {
@@ -371,7 +371,7 @@ extension DTBKitWrapper where Base: UIView & DTBKitChainable {
 }
 
 /// Same as ``@interface UIView(UILayoutGuideSupport)``
-extension DTBKitWrapper where Base: UIView & DTBKitChainable {
+extension Wrapper where Base: UIView & Chainable {
     
     @discardableResult
     public func addLayoutGuide(_ layoutGuide: UILayoutGuide) -> Self {
@@ -387,7 +387,7 @@ extension DTBKitWrapper where Base: UIView & DTBKitChainable {
 }
 
 /// Same as ``@interface UIView (UISnapshotting)``
-extension DTBKitWrapper where Base: UIView & DTBKitChainable {
+extension Wrapper where Base: UIView & Chainable {
     
     @discardableResult
     public func snapshotView(afterScreenUpdates afterUpdates: Bool) -> UIView? {

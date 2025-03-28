@@ -13,7 +13,7 @@
 import UIKit
 
 ///
-extension DTBKitWrapper where Base == NSDecimalNumber {
+extension Wrapper where Base == NSDecimalNumber {
     
     private func getDecimal(_ value: Any?) -> NSDecimalNumber? {
         if let d = value as? NSDecimalNumber {
@@ -47,12 +47,14 @@ extension DTBKitWrapper where Base == NSDecimalNumber {
     }
     
     /// Convert to ``Double``. Return ``nil`` when isNaN.
-    public func double() -> DTBKitWrapper<Double>? {
+    @inline(__always)
+    public func double() -> Wrapper<Double>? {
         return me == NSDecimalNumber.notANumber ? nil : me.doubleValue.dtb
     }
     
     /// Convert to ``String``. Return ``nil`` when isNaN.
-    public func string() -> DTBKitWrapper<String>? {
+    @inline(__always)
+    public func string() -> Wrapper<String>? {
         return me == NSDecimalNumber.notANumber ? nil : me.stringValue.dtb
     }
     

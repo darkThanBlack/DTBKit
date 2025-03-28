@@ -15,7 +15,7 @@ import UIKit
 /// All func needs (me.width >= 0) && (me.height >= 0)
 
 /// Basic
-extension DTBKitWrapper where Base == CGSize {
+extension Wrapper where Base == CGSize {
     
     /// W and H >= 0
     @inline(__always)
@@ -62,7 +62,7 @@ extension DTBKitWrapper where Base == CGSize {
 }
 
 /// Flow box
-extension DTBKitWrapper where Base == CGSize {
+extension Wrapper where Base == CGSize {
     
     /// Inscribe | 内接正方形
     @inline(__always)
@@ -91,6 +91,7 @@ extension DTBKitWrapper where Base == CGSize {
     }
     
     /// plus | (增加)外间距
+    @inline(__always)
     @discardableResult
     public func margin(only insets: UIEdgeInsets) -> Self {
         return CGSize(
@@ -114,6 +115,7 @@ extension DTBKitWrapper where Base == CGSize {
     }
     
     /// minus | (减少)内间距
+    @inline(__always)
     @discardableResult
     public func padding(only insets: UIEdgeInsets) -> Self {
         return CGSize(
@@ -124,7 +126,7 @@ extension DTBKitWrapper where Base == CGSize {
 }
 
 /// Aspect
-extension DTBKitWrapper where Base == CGSize {
+extension Wrapper where Base == CGSize {
     
     /// Same as ``UIImageView.contentMode`` | 缩放，直至与 target 内接
     public func aspectFit(to target: CGSize) -> Self {
@@ -146,5 +148,20 @@ extension DTBKitWrapper where Base == CGSize {
         let scaleY = target.height / me.height
         let scale = Swift.max(scaleX, scaleY)
         return CGSize(width: me.width * scale, height: me.height * scale).dtb
+    }
+}
+
+/// High fidelity design
+///
+/// 高保真。
+extension Wrapper where Base == CGSize {
+    
+    ///
+    @inline(__always)
+    public func hf(_ behavior: DTB.HFBehaviors = .scale) -> CGSize {
+        return CGSize(
+            width: me.width.dtb.hf(behavior),
+            height: me.height.dtb.hf(behavior)
+        )
     }
 }

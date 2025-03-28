@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension DTBKitWrapper where Base: UICollectionView {
+extension Wrapper where Base: UICollectionView {
     
     /// Use ``String(describing: Cell.self)`` to cell identifier | 直接用类名作为重用标识
     ///

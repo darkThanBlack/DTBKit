@@ -12,9 +12,9 @@
 
 import UIKit
 
-extension UIEdgeInsets: DTBKitStructable {}
+extension UIEdgeInsets: Structable {}
 
-extension DTBKitStaticWrapper where T == UIEdgeInsets {
+extension StaticWrapper where T == UIEdgeInsets {
     
     /// top | left | bottom | right
     public func create(_ top: CGFloat, _ left: CGFloat, _ bottom: CGFloat, _ right: CGFloat) -> T {

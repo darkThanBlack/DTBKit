@@ -13,7 +13,7 @@
 import UIKit
 
 /// Custom
-extension DTBKitWrapper where Base: UIButton {
+extension Wrapper where Base: UIButton {
     
     @discardableResult
     public func setImage(
@@ -45,7 +45,7 @@ extension DTBKitWrapper where Base: UIButton {
 }
 
 /// System
-extension DTBKitWrapper where Base: UIButton {
+extension Wrapper where Base: UIButton {
     
     @available(iOS 15.0, *)
     @discardableResult
@@ -169,7 +169,7 @@ extension DTBKitWrapper where Base: UIButton {
     }
     
     @discardableResult
-    public func titleLabel(_ handler: ((DTBKitWrapper<UILabel>) -> Void)?) -> Self {
+    public func titleLabel(_ handler: ((Wrapper<UILabel>) -> Void)?) -> Self {
         if let value = me.titleLabel {
             handler?(value.dtb)
         }
@@ -177,7 +177,7 @@ extension DTBKitWrapper where Base: UIButton {
     }
     
     @discardableResult
-    public func imageView(_ handler: ((DTBKitWrapper<UIImageView>) -> Void)?) -> Self {
+    public func imageView(_ handler: ((Wrapper<UIImageView>) -> Void)?) -> Self {
         if let value = me.imageView {
             handler?(value.dtb)
         }
@@ -186,7 +186,7 @@ extension DTBKitWrapper where Base: UIButton {
     
     @available(iOS 15.0, *)
     @discardableResult
-    public func subtitleLabel(_ handler: ((DTBKitWrapper<UILabel>) -> Void)?) -> Self {
+    public func subtitleLabel(_ handler: ((Wrapper<UILabel>) -> Void)?) -> Self {
         if let value = me.subtitleLabel {
             handler?(value.dtb)
         }

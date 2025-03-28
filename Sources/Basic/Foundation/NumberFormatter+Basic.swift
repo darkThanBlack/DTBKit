@@ -20,7 +20,7 @@ import UIKit
 ///     /// "¥2.10"
 ///     let a = 2.1.dtb.toString(.dtb.CNY)?.value
 /// ```
-extension DTBKitStaticWrapper where T: NumberFormatter {
+extension StaticWrapper where T: NumberFormatter {
     
     /// Decimal formatter | 等长小数转换
     ///
@@ -93,34 +93,39 @@ extension DTBKitStaticWrapper where T: NumberFormatter {
     }
     
     ///
-    public var CNY: NumberFormatter {
+    @inline(__always)
+    public func CNY() -> NumberFormatter {
         return NumberFormatter().dtb.decimal().rounded().split().prefix("¥").value
     }
     
     ///
-    public var RMB: NumberFormatter {
+    @inline(__always)
+    public func RMB() -> NumberFormatter {
         return NumberFormatter().dtb.maxDecimal().rounded().split().suffix("元").value
     }
 }
 
 /// Fast chainable
-extension DTBKitWrapper where Base: NumberFormatter {
+extension Wrapper where Base: NumberFormatter {
     
     ///
+    @inline(__always)
     @discardableResult
-    public func string(from number: NSNumber?) -> DTBKitWrapper<String>? {
+    public func string(from number: NSNumber?) -> Wrapper<String>? {
         guard let value = number else { return nil }
         return me.string(from: value)?.dtb
     }
     
     ///
+    @inline(__always)
     @discardableResult
-    public func number(from string: String?) -> DTBKitWrapper<NSNumber>? {
+    public func number(from string: String?) -> Wrapper<NSNumber>? {
         guard let value = string else { return nil }
         return me.number(from: value)?.dtb
     }
     
     ///
+    @inline(__always)
     @discardableResult
     public func decimal(_ value: Int = 2) -> Self {
         me.numberStyle = .decimal
@@ -130,6 +135,7 @@ extension DTBKitWrapper where Base: NumberFormatter {
     }
     
     ///
+    @inline(__always)
     @discardableResult
     public func maxDecimal(_ value: Int = 2) -> Self {
         me.numberStyle = .decimal
@@ -139,6 +145,7 @@ extension DTBKitWrapper where Base: NumberFormatter {
     }
     
     ///
+    @inline(__always)
     @discardableResult
     public func split(by group: String = ",", size: Int = 3) -> Self {
         me.usesGroupingSeparator = true
@@ -148,6 +155,7 @@ extension DTBKitWrapper where Base: NumberFormatter {
     }
     
     ///
+    @inline(__always)
     @discardableResult
     public func rounded(_ mode: NumberFormatter.RoundingMode = .halfUp) -> Self {
         me.roundingMode = .halfUp
@@ -155,6 +163,7 @@ extension DTBKitWrapper where Base: NumberFormatter {
     }
     
     ///
+    @inline(__always)
     @discardableResult
     public func `prefix`(_ positive: String, negative: String? = nil) -> Self {
         me.positivePrefix = positive
@@ -163,6 +172,7 @@ extension DTBKitWrapper where Base: NumberFormatter {
     }
     
     ///
+    @inline(__always)
     @discardableResult
     public func `suffix`(_ positive: String, _ negative: String? = nil) -> Self {
         me.positiveSuffix = positive

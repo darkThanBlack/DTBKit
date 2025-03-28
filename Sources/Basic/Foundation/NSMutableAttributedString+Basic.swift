@@ -13,15 +13,17 @@
 import UIKit
 
 ///
-extension DTBKitWrapper where Base: NSMutableAttributedString {
+extension Wrapper where Base: NSMutableAttributedString {
     
     ///
-    public func string() -> DTBKitWrapper<String> {
+    @inline(__always)
+    public func string() -> Wrapper<String> {
         return me.string.dtb
     }
     
     ///
-    public func mString() -> DTBKitWrapper<NSMutableString> {
+    @inline(__always)
+    public func mString() -> Wrapper<NSMutableString> {
         return me.mutableString.dtb
     }
     

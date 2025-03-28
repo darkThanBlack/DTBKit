@@ -23,9 +23,9 @@ public enum DTB {}
 /// Indicate which one implements the namespace for ``class``.
 ///
 /// 核心的引用对象协议。
-public protocol DTBKitable: AnyObject {}
+public protocol Kitable: AnyObject {}
 
-extension DTBKitable {
+extension Kitable {
     
     /// Namespace for instance method.
     ///
@@ -36,8 +36,8 @@ extension DTBKitable {
     ///     UIView().dtb
     /// ```
     @inline(__always)
-    public var dtb: DTBKitWrapper<Self> {
-        return DTBKitWrapper(self)
+    public var dtb: Wrapper<Self> {
+        return Wrapper(self)
     }
     
     /// Namespace for static method.
@@ -49,17 +49,17 @@ extension DTBKitable {
     ///     UIView.dtb
     /// ```
     @inline(__always)
-    public static var dtb: DTBKitStaticWrapper<Self> {
-        return DTBKitStaticWrapper()
+    public static var dtb: StaticWrapper<Self> {
+        return StaticWrapper()
     }
 }
 
 /// Indicate which one implements the namespace for ``struct``.
 ///
 /// 核心的值对象协议。
-public protocol DTBKitStructable {}
+public protocol Structable {}
 
-extension DTBKitStructable {
+extension Structable {
     
     /// Namespace for instance method.
     ///
@@ -70,8 +70,8 @@ extension DTBKitStructable {
     ///     UIView().dtb
     /// ```
     @inline(__always)
-    public var dtb: DTBKitWrapper<Self> {
-        return DTBKitWrapper(self)
+    public var dtb: Wrapper<Self> {
+        return Wrapper(self)
     }
     
     /// Namespace for static method.
@@ -83,8 +83,8 @@ extension DTBKitStructable {
     ///     UIView.dtb
     /// ```
     @inline(__always)
-    public static var dtb: DTBKitStaticWrapper<Self> {
-        return DTBKitStaticWrapper()
+    public static var dtb: StaticWrapper<Self> {
+        return StaticWrapper()
     }
 }
 
@@ -94,7 +94,7 @@ extension DTBKitStructable {
 ///
 /// 对象容器。
 @dynamicMemberLookup
-public struct DTBKitWrapper<Base> {
+public struct Wrapper<Base> {
     public let me: Base
     public init(_ value: Base) { self.me = value }
     
@@ -112,7 +112,7 @@ public struct DTBKitWrapper<Base> {
     /// Chainable for any property.
     ///
     /// 链式语法兼容
-    public subscript<Value>(dynamicMember keyPath: WritableKeyPath<Base, Value>) -> ((Value) -> DTBKitWrapper<Base>) {
+    public subscript<Value>(dynamicMember keyPath: WritableKeyPath<Base, Value>) -> ((Value) -> Wrapper<Base>) {
         var subject = self.me
         return { value in
             subject[keyPath: keyPath] = value
@@ -124,14 +124,14 @@ public struct DTBKitWrapper<Base> {
 /// Mainly static wrapper.
 ///
 /// 静态方法容器。
-public struct DTBKitStaticWrapper<T> {
+public struct StaticWrapper<T> {
     public init() {}
 }
 
 //MARK: - Implementation
 
 ///
-extension NSObject: DTBKitable {}
+extension NSObject: Kitable {}
 
 /// Mark protocol is abstract.
 ///

@@ -12,7 +12,7 @@
 
 import DTBKit
 
-extension DTBKitWrapper where Base: FixedWidthInteger {
+extension Wrapper where Base: FixedWidthInteger {
     
     // use ``xm.div100`` instead.
 //    func dividedBy100() -> String
