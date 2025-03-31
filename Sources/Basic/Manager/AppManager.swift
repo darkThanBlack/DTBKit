@@ -81,6 +81,7 @@ public class AppManager {
     /// 在手机桌面上显示的应用名称
     ///
     /// App name on iPhone desktop. ``CFBundleDisplayName``.
+    @inline(__always)
     public func displayName() -> String {
         return (Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String) ?? ""
     }
@@ -88,6 +89,7 @@ public class AppManager {
     /// 版本号
     ///
     /// ``CFBundleShortVersionString``
+    @inline(__always)
     public func version() -> String {
         return (Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String) ?? ""
     }
@@ -95,6 +97,7 @@ public class AppManager {
     /// 构建号
     ///
     /// ``CFBundleVersion``
+    @inline(__always)
     public func build() -> String {
         return (Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String) ?? ""
     }

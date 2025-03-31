@@ -87,6 +87,7 @@ extension Wrapper where Base: FixedWidthInteger & SignedInteger {
     ///
     /// - Parameter type: 是否使用 ISO 8601 标准 (数字1 对应周一还是周日)
     /// - Returns: 本地化的星期名称
+    @inline(__always)
     public func weekDayString(_ type: DTB.WeekdayTypes = .iso) -> String? {
         switch type {
         case .iso:

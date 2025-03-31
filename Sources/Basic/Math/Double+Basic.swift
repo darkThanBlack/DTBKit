@@ -22,6 +22,7 @@ import Foundation
 extension Wrapper where Base: BinaryFloatingPoint {
     
     ///
+    @inline(__always)
     public func rounded(_ roundRule: FloatingPointRoundingRule? = nil) -> Self {
         if let rule = roundRule {
             return Wrapper(me.rounded(rule))
@@ -38,6 +39,7 @@ extension Wrapper where Base: BinaryFloatingPoint {
     /// Convert to string.
     ///
     /// 转字符串。
+    @inline(__always)
     public func string() -> Wrapper<String> {
         return "\(me)".dtb
     }
@@ -50,6 +52,7 @@ extension Wrapper where Base: BinaryFloatingPoint {
     ///     .div(3, scale: 3, rounding: .down)
     ///     .double.value === 0.666
     /// ```
+    @inline(__always)
     public func nsDecimal() -> Wrapper<NSDecimalNumber>? {
         let result = NSDecimalNumber(string: "\(me)")
         return result == NSDecimalNumber.notANumber ? nil : result.dtb
@@ -67,6 +70,7 @@ extension Wrapper where Base: BinaryFloatingPoint {
     ///     /// Custom formatter
     ///     let b = 2.dtb.double.toString(NumberFormatter().dtb.decimal(2).rounded(.halfDown).prefix("¥", negative: "-¥").value)
     /// ```
+    @inline(__always)
     public func toString(_ formatter: NumberFormatter) -> Wrapper<String>? {
         return formatter.dtb.string(from: NSNumber(value: Double(me)))
     }
@@ -90,6 +94,10 @@ extension Wrapper where Base == Double {
 /// 高保真。
 extension Wrapper where Base: BinaryFloatingPoint {
     
+    /// High fidelity design | 高保真
+    ///
+    /// more detail in ``HFBehaviors``
+    @inline(__always)
     public func hf(_ behavior: DTB.HFBehaviors = .scale) -> CGFloat {
         switch behavior {
         case .scale:
