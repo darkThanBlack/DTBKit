@@ -15,6 +15,7 @@ import UIKit
 /// Custom
 extension Wrapper where Base: UIButton {
     
+    @inline(__always)
     @discardableResult
     public func setImage(
         _ normal: UIImage?,
@@ -29,6 +30,7 @@ extension Wrapper where Base: UIButton {
         return self
     }
     
+    @inline(__always)
     @discardableResult
     public func setTitle(
         _ normal: String?,
@@ -48,6 +50,7 @@ extension Wrapper where Base: UIButton {
 extension Wrapper where Base: UIButton {
     
     @available(iOS 15.0, *)
+    @inline(__always)
     @discardableResult
     public func configuration(_ value: UIButton.Configuration?) -> Self {
         me.configuration = value
@@ -55,6 +58,7 @@ extension Wrapper where Base: UIButton {
     }
     
     @available(iOS 15.0, *)
+    @inline(__always)
     @discardableResult
     public func setNeedsUpdateConfiguration() -> Self {
         me.setNeedsUpdateConfiguration()
@@ -62,6 +66,7 @@ extension Wrapper where Base: UIButton {
     }
     
     @available(iOS 15.0, *)
+    @inline(__always)
     @discardableResult
     public func updateConfiguration() -> Self {
         me.updateConfiguration()
@@ -69,6 +74,7 @@ extension Wrapper where Base: UIButton {
     }
 
     @available(iOS 15.0, *)
+    @inline(__always)
     @discardableResult
     public func configurationUpdateHandler(_ value: UIButton.ConfigurationUpdateHandler?) -> Self {
         me.configurationUpdateHandler = value
@@ -76,6 +82,7 @@ extension Wrapper where Base: UIButton {
     }
     
     @available(iOS 15.0, *)
+    @inline(__always)
     @discardableResult
     public func automaticallyUpdatesConfiguration(_ value: Bool) -> Self {
         me.automaticallyUpdatesConfiguration = value
@@ -83,6 +90,7 @@ extension Wrapper where Base: UIButton {
     }
     
     @available(iOS 5.0, *)
+    @inline(__always)
     @discardableResult
     public func tintColor(_ value: UIColor) -> Self {
         me.tintColor = value
@@ -90,6 +98,7 @@ extension Wrapper where Base: UIButton {
     }
     
     @available(iOS 14.0, *)
+    @inline(__always)
     @discardableResult
     public func role(_ value: UIButton.Role) -> Self {
         me.role = value
@@ -97,6 +106,7 @@ extension Wrapper where Base: UIButton {
     }
     
     @available(iOS 13.4, *)
+    @inline(__always)
     @discardableResult
     public func isPointerInteractionEnabled(_ value: Bool) -> Self {
         me.isPointerInteractionEnabled = value
@@ -104,6 +114,7 @@ extension Wrapper where Base: UIButton {
     }
     
     @available(iOS 14.0, *)
+    @inline(__always)
     @discardableResult
     public func menu(_ value: UIMenu?) -> Self {
         me.menu = value
@@ -111,6 +122,7 @@ extension Wrapper where Base: UIButton {
     }
     
     @available(iOS 16.0, *)
+    @inline(__always)
     @discardableResult
     public func preferredMenuElementOrder(_ value: UIContextMenuConfiguration.ElementOrder) -> Self {
         me.preferredMenuElementOrder = value
@@ -118,36 +130,42 @@ extension Wrapper where Base: UIButton {
     }
     
     @available(iOS 15.0, *)
+    @inline(__always)
     @discardableResult
     public func changesSelectionAsPrimaryAction(_ value: Bool) -> Self {
         me.changesSelectionAsPrimaryAction = value
         return self
     }
     
+    @inline(__always)
     @discardableResult
     public func setTitle(_ title: String?, for state: UIControl.State) -> Self {
         me.setTitle(title, for: state)
         return self
     }
     
+    @inline(__always)
     @discardableResult
     public func setTitleColor(_ color: UIColor?, for state: UIControl.State) -> Self {
         me.setTitleColor(color, for: state)
         return self
     }
     
+    @inline(__always)
     @discardableResult
     public func setTitleShadowColor(_ color: UIColor?, for state: UIControl.State) -> Self {
         me.setTitleShadowColor(color, for: state)
         return self
     }
     
+    @inline(__always)
     @discardableResult
     public func setImage(_ image: UIImage?, for state: UIControl.State) -> Self {
         me.setImage(image, for: state)
         return self
     }
     
+    @inline(__always)
     @discardableResult
     public func setBackgroundImage(_ image: UIImage?, for state: UIControl.State) -> Self {
         me.setBackgroundImage(image, for: state)
@@ -155,6 +173,7 @@ extension Wrapper where Base: UIButton {
     }
     
     @available(iOS 13.0, *)
+    @inline(__always)
     @discardableResult
     public func setPreferredSymbolConfiguration(_ configuration: UIImage.SymbolConfiguration?, forImageIn state: UIControl.State) -> Self {
         me.setPreferredSymbolConfiguration(configuration, forImageIn: state)
@@ -162,12 +181,14 @@ extension Wrapper where Base: UIButton {
     }
     
     @available(iOS 6.0, *)
+    @inline(__always)
     @discardableResult
     public func setAttributedTitle(_ title: NSAttributedString?, for state: UIControl.State) -> Self {
         me.setAttributedTitle(title, for: state)
         return self
     }
     
+    @inline(__always)
     @discardableResult
     public func titleLabel(_ handler: ((Wrapper<UILabel>) -> Void)?) -> Self {
         if let value = me.titleLabel {
@@ -176,6 +197,7 @@ extension Wrapper where Base: UIButton {
         return self
     }
     
+    @inline(__always)
     @discardableResult
     public func imageView(_ handler: ((Wrapper<UIImageView>) -> Void)?) -> Self {
         if let value = me.imageView {
@@ -185,6 +207,7 @@ extension Wrapper where Base: UIButton {
     }
     
     @available(iOS 15.0, *)
+    @inline(__always)
     @discardableResult
     public func subtitleLabel(_ handler: ((Wrapper<UILabel>) -> Void)?) -> Self {
         if let value = me.subtitleLabel {
@@ -194,6 +217,7 @@ extension Wrapper where Base: UIButton {
     }
     
     @available(iOS, introduced: 2.0, deprecated: 15.0, message: "This property is ignored when using UIButtonConfiguration")
+    @inline(__always)
     @discardableResult
     public func contentEdgeInsets(_ value: UIEdgeInsets) -> Self {
         me.contentEdgeInsets = value
@@ -201,6 +225,7 @@ extension Wrapper where Base: UIButton {
     }
     
     @available(iOS, introduced: 2.0, deprecated: 15.0, message: "This property is ignored when using UIButtonConfiguration")
+    @inline(__always)
     @discardableResult
     public func titleEdgeInsets(_ value: UIEdgeInsets) -> Self {
         me.titleEdgeInsets = value
@@ -208,6 +233,7 @@ extension Wrapper where Base: UIButton {
     }
     
     @available(iOS, introduced: 2.0, deprecated: 15.0, message: "This property is ignored when using UIButtonConfiguration")
+    @inline(__always)
     @discardableResult
     public func imageEdgeInsets(_ value: UIEdgeInsets) -> Self {
         me.imageEdgeInsets = value
@@ -215,6 +241,7 @@ extension Wrapper where Base: UIButton {
     }
     
     @available(iOS, introduced: 2.0, deprecated: 15.0, message: "This property is ignored when using UIButtonConfiguration, you may customize to replicate this behavior via a configurationUpdateHandler")
+    @inline(__always)
     @discardableResult
     public func reversesTitleShadowWhenHighlighted(_ value: Bool) -> Self {
         me.reversesTitleShadowWhenHighlighted = value
@@ -222,6 +249,7 @@ extension Wrapper where Base: UIButton {
     }
     
     @available(iOS, introduced: 2.0, deprecated: 15.0, message: "This property is ignored when using UIButtonConfiguration, you may customize to replicate this behavior via a configurationUpdateHandler")
+    @inline(__always)
     @discardableResult
     public func adjustsImageWhenHighlighted(_ value: Bool) -> Self {
         me.adjustsImageWhenHighlighted = value
@@ -229,6 +257,7 @@ extension Wrapper where Base: UIButton {
     }
     
     @available(iOS, introduced: 2.0, deprecated: 15.0, message: "This property is ignored when using UIButtonConfiguration, you may customize to replicate this behavior via a configurationUpdateHandler")
+    @inline(__always)
     @discardableResult
     public func adjustsImageWhenDisabled(_ value: Bool) -> Self {
         me.adjustsImageWhenDisabled = value
@@ -236,6 +265,7 @@ extension Wrapper where Base: UIButton {
     }
     
     @available(iOS, introduced: 2.0, deprecated: 15.0, message: "This property is ignored when using UIButtonConfiguration")
+    @inline(__always)
     @discardableResult
     public func showsTouchWhenHighlighted(_ value: Bool) -> Self {
         me.showsTouchWhenHighlighted = value

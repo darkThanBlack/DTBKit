@@ -17,6 +17,7 @@ extension NSRange: Structable {}
 extension StaticWrapper where T == NSRange {
     
     /// location | length
+    @inline(__always)
     public func create(_ location: Int, _ length: Int) -> T {
         return NSRange(location: location, length: length)
     }

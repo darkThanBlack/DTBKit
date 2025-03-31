@@ -35,6 +35,7 @@ extension Wrapper where Base: Kitable {
     ///        }
     ///        .center(CGPoint(x: 20.0, y: 20.0))
     /// ```
+    @inline(__always)
     @discardableResult
     public func when(_ condition: @autoclosure (() -> Bool), _ handler: ((Base) -> Void)?) -> Self {
         if condition() {
@@ -61,13 +62,13 @@ extension Wrapper where Base: Kitable {
     ///             .value
     ///     }
     /// ```
-    @discardableResult
-    public func whenNotNull<D>(_ provider: @autoclosure (() -> D?), _ handler: ((D, Base) -> Void)?) -> Self {
-        if let data = provider() {
-            handler?(data, me)
-        }
-        return self
-    }
+//    @discardableResult
+//    func whenNotNull<D>(_ provider: @autoclosure (() -> D?), _ handler: ((D, Base) -> Void)?) -> Self {
+//        if let data = provider() {
+//            handler?(data, me)
+//        }
+//        return self
+//    }
 }
 
 // MARK: - Struct Chain
@@ -99,6 +100,7 @@ extension StaticWrapper where T: Structable & StructChainable {
     ///
     ///    var a = CGSize.dtb.create.height(2).width(1).value
     /// ```
+    @inline(__always)
     public var create: MutableWrapper<T> {
         return MutableWrapper(T.def_())
     }
@@ -120,6 +122,7 @@ extension MutableWrapper where Base: Structable & Chainable {
     /// Default unbox, use it to get actual value.
     ///
     /// 默认拆箱关键字。
+    @inline(__always)
     public var value: Base { return me }
 }
 
@@ -130,6 +133,8 @@ extension NSObject: Chainable {}
 //MARK: - Struct 要考虑的事情就多了
 
 extension Dictionary: Structable, StructChainable {
+    
+    @inline(__always)
     public static func def_() -> Self {
         return [:]
     }

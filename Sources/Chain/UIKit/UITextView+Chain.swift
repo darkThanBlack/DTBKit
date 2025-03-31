@@ -14,6 +14,7 @@ import UIKit
 
 extension Wrapper where Base: UITextView {
     
+    @inline(__always)
     @discardableResult
     public func text(_ value: String?) -> Self {
         me.text = value

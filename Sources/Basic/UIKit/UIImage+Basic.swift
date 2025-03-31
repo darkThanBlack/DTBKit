@@ -174,4 +174,27 @@ extension Wrapper where Base: UIImage {
         }
         return UIImage(cgImage: ref, scale: me.scale, orientation: me.imageOrientation).dtb
     }
+    
+    /// 图片裁剪
+    /// - Parameter ratio: 宽高比
+    /// - Returns: 裁剪之后的图片
+    func clip(_ ratio: CGFloat) -> UIImage {
+        var rect = CGRect(origin: .zero, size: me.size)
+        let width = me.size.width
+        let height = me.size.height
+        if width / height == ratio || ratio == 0 {
+            return me
+        }
+        if width / height > ratio {
+            rect.size.width = height * ratio
+            rect.origin.x = (width - rect.size.width) / 2
+        } else {
+            rect.size.height = width / ratio
+            rect.origin.y = (height - rect.size.height) / 2
+        }
+        guard let img = me.cgImage?.cropping(to: rect) else {
+            return me
+        }
+        return UIImage(cgImage: img)
+    }
 }

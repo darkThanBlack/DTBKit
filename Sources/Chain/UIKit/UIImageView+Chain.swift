@@ -14,18 +14,21 @@ import UIKit
 
 extension Wrapper where Base: UIImageView & Chainable {
     
+    @inline(__always)
     @discardableResult
     public func image(_ value: UIImage?) -> Self {
         me.image = value
         return self
     }
     
+    @inline(__always)
     @discardableResult
     public func highlightedImage(_ value: UIImage?) -> Self {
         me.highlightedImage = value
         return self
     }
     
+    @inline(__always)
     @discardableResult
     public func isHighlighted(_ value: Bool) -> Self {
         me.isHighlighted = value

@@ -47,15 +47,15 @@ extension StaticWrapper where T: NumberFormatter {
     ) -> NumberFormatter {
         return NumberFormatter().dtb
             .decimal(value)
-            .whenNotNull(splitGroup, { data, me in
-                me.dtb.split(by: data, size: splitSize)
+            .when(splitGroup?.isEmpty != true, { me in
+                me.dtb.split(by: splitGroup ?? "", size: splitSize)
             })
             .rounded(rounded)
-            .whenNotNull(prefix, { data, me in
-                me.dtb.prefix(data)
+            .when(prefix?.isEmpty != true, { me in
+                me.dtb.prefix(prefix ?? "")
             })
-            .whenNotNull(suffix, { data, me in
-                me.dtb.suffix(data)
+            .when(suffix?.isEmpty != true, { me in
+                me.dtb.prefix(suffix ?? "")
             })
             .value
     }
@@ -79,15 +79,15 @@ extension StaticWrapper where T: NumberFormatter {
     ) -> NumberFormatter {
         return NumberFormatter().dtb
             .maxDecimal(value)
-            .whenNotNull(splitGroup, { data, me in
-                me.dtb.split(by: data, size: splitSize)
+            .when(splitGroup?.isEmpty != true, { me in
+                me.dtb.split(by: splitGroup ?? "", size: splitSize)
             })
             .rounded(rounded)
-            .whenNotNull(prefix, { data, me in
-                me.dtb.prefix(data)
+            .when(prefix?.isEmpty != true, { me in
+                me.dtb.prefix(prefix ?? "")
             })
-            .whenNotNull(suffix, { data, me in
-                me.dtb.suffix(data)
+            .when(suffix?.isEmpty != true, { me in
+                me.dtb.prefix(suffix ?? "")
             })
             .value
     }

@@ -14,42 +14,49 @@ import UIKit
 
 extension Wrapper where Base: UIControl {
     
+    @inline(__always)
     @discardableResult
     public func isEnabled(_ value: Bool) -> Self {
         me.isEnabled = value
         return self
     }
     
+    @inline(__always)
     @discardableResult
     public func isSelected(_ value: Bool) -> Self {
         me.isSelected = value
         return self
     }
     
+    @inline(__always)
     @discardableResult
     public func isHighlighted(_ value: Bool) -> Self {
         me.isHighlighted = value
         return self
     }
     
+    @inline(__always)
     @discardableResult
     public func contentVerticalAlignment(_ value: UIControl.ContentVerticalAlignment) -> Self {
         me.contentVerticalAlignment = value
         return self
     }
     
+    @inline(__always)
     @discardableResult
     public func contentHorizontalAlignment(_ value: UIControl.ContentHorizontalAlignment) -> Self {
         me.contentHorizontalAlignment = value
         return self
     }
     
+    @inline(__always)
     @discardableResult
     public func addTarget(_ target: Any?, action: Selector, for controlEvents: UIControl.Event) -> Self {
         me.addTarget(target, action: action, for: controlEvents)
         return self
     }
     
+    @inline(__always)
     @discardableResult
     public func removeTarget(_ target: Any?, action: Selector?, for controlEvents: UIControl.Event) -> Self {
         me.removeTarget(target, action: action, for: controlEvents)
@@ -57,6 +64,7 @@ extension Wrapper where Base: UIControl {
     }
     
     @available(iOS 14.0, *)
+    @inline(__always)
     @discardableResult
     public func addAction(_ action: UIAction, for controlEvents: UIControl.Event) -> Self {
         me.addAction(action, for: controlEvents)
@@ -64,6 +72,7 @@ extension Wrapper where Base: UIControl {
     }
     
     @available(iOS 14.0, *)
+    @inline(__always)
     @discardableResult
     public func removeAction(_ action: UIAction, for controlEvents: UIControl.Event) -> Self {
         me.removeAction(action, for: controlEvents)
@@ -71,6 +80,7 @@ extension Wrapper where Base: UIControl {
     }
     
     @available(iOS 14.0, *)
+    @inline(__always)
     @discardableResult
     public func removeAction(identifiedBy actionIdentifier: UIAction.Identifier, for controlEvents: UIControl.Event) -> Self {
         me.removeAction(identifiedBy: actionIdentifier, for: controlEvents)
@@ -78,12 +88,14 @@ extension Wrapper where Base: UIControl {
     }
     
     @available(iOS 17.4, *)
+    @inline(__always)
     @discardableResult
     public func performPrimaryAction() -> Self {
         me.performPrimaryAction()
         return self
     }
     
+    @inline(__always)
     @discardableResult
     public func sendAction(_ action: Selector, to target: Any?, for event: UIEvent?) -> Self {
         me.sendAction(action, to: target, for: event)
@@ -91,12 +103,14 @@ extension Wrapper where Base: UIControl {
     }
     
     @available(iOS 14.0, *)
+    @inline(__always)
     @discardableResult
     public func sendAction(_ action: UIAction) -> Self {
         me.sendAction(action)
         return self
     }
     
+    @inline(__always)
     @discardableResult
     public func sendActions(for controlEvents: UIControl.Event) -> Self {
         me.sendActions(for: controlEvents)
@@ -104,6 +118,7 @@ extension Wrapper where Base: UIControl {
     }
     
     @available(iOS 14.0, *)
+    @inline(__always)
     @discardableResult
     public func isContextMenuInteractionEnabled(_ value: Bool) -> Self {
         me.isContextMenuInteractionEnabled = value
@@ -111,6 +126,7 @@ extension Wrapper where Base: UIControl {
     }
     
     @available(iOS 14.0, *)
+    @inline(__always)
     @discardableResult
     public func showsMenuAsPrimaryAction(_ value: Bool) -> Self {
         me.showsMenuAsPrimaryAction = value
@@ -118,6 +134,7 @@ extension Wrapper where Base: UIControl {
     }
     
     @available(iOS 15.0, *)
+    @inline(__always)
     @discardableResult
     public func toolTip(_ value: String?) -> Self {
         me.toolTip = value
@@ -125,6 +142,7 @@ extension Wrapper where Base: UIControl {
     }
     
     @available(iOS 17.0, *)
+    @inline(__always)
     @discardableResult
     public func isSymbolAnimationEnabled(_ value: Bool) -> Self {
         me.isSymbolAnimationEnabled = value
