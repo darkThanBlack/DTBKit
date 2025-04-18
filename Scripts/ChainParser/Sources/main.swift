@@ -864,6 +864,8 @@ func main() {
             let generator = ChainAPIGenerator(jsonPath: jsonPath, outputPath: outputPath, templatePath: nil)
             try generator.generate()
         }
+        
+        print("PATH: \(FileManager.default.currentDirectoryPath)")
     } catch {
         print("❌ 错误: \(error)")
     }
