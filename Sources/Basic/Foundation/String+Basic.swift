@@ -86,47 +86,6 @@ extension Wrapper where Base == String {
         }
         return false
     }
-    
-    /// 从头开始截取字符串，基于UTF-16码元长度，确保返回完整的Unicode字符
-    ///
-    /// 该方法截取字符串时，确保不会截断Unicode字符，最多返回指定UTF-16码元长度的子串
-    ///
-    /// - 示例:
-    ///   - 常规情况："12345".xmPrefix(4) => "1234"
-    ///   - 特殊情况："123👧45".xmPrefix(4) => "123" 而不是"123�"
-    ///
-    /// - Parameter length: 要截取的最大UTF-16码元长度
-    /// - Returns: 截取后的子字符串
-    public func prefix(_ length: Int) -> Self? {
-        // 边界情况处理
-        guard length > 0 else { return nil }
-        
-        // 检查整个字符串的UTF-16长度是否小于或等于要求的长度
-        let nsString = me as NSString
-        if nsString.length <= length {
-            return self
-        }
-        
-        // 利用UTF-16视图直接找到合适的截断位置
-        var characterIndex = me.startIndex
-        var utf16Count = 0
-        
-        // 遍历字符串中的每个字符
-        for char in me {
-            let charUTF16Count = String(char).utf16.count
-            
-            // 检查添加当前字符是否会超出长度限制
-            if utf16Count + charUTF16Count > length {
-                break
-            }
-            
-            utf16Count += charUTF16Count
-            characterIndex = me.index(after: characterIndex)
-        }
-        
-        // 返回截取到合适位置的子串
-        return String(me[..<characterIndex]).dtb
-    }
 }
 
 /// Regular
@@ -166,16 +125,15 @@ extension Wrapper where Base == String {
 /// Data
 public extension Wrapper where Base == String {
     
-}
-
-/// Json
-public extension Wrapper where Base == String {
-    
     /// Encoding to ``Data``
     @inline(__always)
     func data(_ encoding: String.Encoding = .utf8, _ lossy: Bool = true) -> Data? {
         return me.data(using: encoding, allowLossyConversion: lossy)
     }
+}
+
+/// Json
+public extension Wrapper where Base == String {
     
     /// System json parser.
     ///

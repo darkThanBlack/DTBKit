@@ -115,7 +115,7 @@ extension DTB {
     /// 高保真
     public enum HFBehaviors {
         
-        /// 默认按设计图宽度等比缩放；参见 ``XM.Performance.designBaseSize``
+        /// 默认按设计图宽度等比缩放；参见 ``DTB.Performance.designBaseSize``
         case scale
     }
     
@@ -125,11 +125,11 @@ extension DTB {
     ///
     /// e.g.
     /// ```
-    ///     extension XM.Regulars {
+    ///     extension DTB.Regulars {
     ///         public static func phone() -> Self {}
     ///     }
     ///
-    ///     let success: Bool = "123".xm.isRegular(.phone())
+    ///     let success: Bool = "123".dtb.isRegular(.phone())
     /// ```
     public struct Regulars {
         

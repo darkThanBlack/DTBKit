@@ -68,7 +68,7 @@ extension StaticWrapper where T: UIImage {
             // Specify bundle
             return createWithBundle(imageBundle)
         } else {
-            // FIXME: SwiftPM
+            // FIDTBE: SwiftPM
             // I got ``Cannot find 'SWIFTPM_MODULE_BUNDLE' in scope`` in SPM
             // https://gist.github.com/bradhowes/4cd0b3da56b24166243e88d77329e909
 //#if SWIFT_PACKAGE
@@ -77,7 +77,7 @@ extension StaticWrapper where T: UIImage {
 //            }
 //#endif
             // check cached name
-            var cacheDict = DTB.app.readMemory(cacheKey) ?? [:]
+            var cacheDict = DTB.app.get(cacheKey) ?? [:]
             if let path = cacheDict[name],
                 path.isEmpty == false,
                let result = UIImage(contentsOfFile: path) {
@@ -101,7 +101,7 @@ extension StaticWrapper where T: UIImage {
             for path in subPaths {
                 if let result = UIImage(contentsOfFile: path) {
                     cacheDict[name] = path
-                    DTB.app.writeMemory(cacheDict, key: cacheKey)
+                    DTB.app.set(cacheDict, key: cacheKey)
                     return result
                 }
             }

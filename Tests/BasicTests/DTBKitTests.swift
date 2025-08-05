@@ -21,7 +21,7 @@ final class DTBKitTests: XCTestCase {
         
         XCTAssert(1.dtb.nsDecimal?.string()?.value == "1")
         XCTAssert("2.0".dtb.nsDecimal?.double?.value == 2.0)
-        // FIXME: pure number
+        // FIDTBE: pure number
         XCTAssert("3.哈".dtb.nsDecimal?.string()?.value == "3")
         XCTAssert("哈哈".dtb.nsDecimal?.string()?.value == nil)
         

@@ -56,7 +56,7 @@ extension DTB {
             self.designBaseSize = value
         }
         
-        /// More detail: ``UIImage.xm.create()``
+        /// More detail: ``UIImage.dtb.create()``
         ///
         /// 在 bundle 里按 name 搜索图片时，按照这个 type 参数依次搜索
         ///

@@ -16,7 +16,7 @@ extension DTB {
     
     /// Custom date dynamic format rule | 自定义动态(分段)转换规则
     ///
-    /// More details in ``dtbkit_explain.md``
+    /// More details in ``Explain.md``
     public struct DateDynamicBarrierItem {
         
         public let mapper: ((_ base: Date, _ to: Date) -> String?)
@@ -125,7 +125,7 @@ extension Wrapper where Base == Date {
     /// 昨天 18:06
     /// 10-09 18:06
     /// ```
-    /// More details in ``dtbkit_explain.md``.
+    /// More details in ``Explain.md``.
     ///
     /// - Note: Your custom barrier must cover all situations.
     /// - Parameters:
@@ -223,7 +223,7 @@ extension Wrapper where Base == Date {
         return same(to: date, [.year])
     }
     
-    // FIXME: DateComponents
+    // FIDTBE: DateComponents
     
     /// extension Get dateComponents by Calendar.current | 自由取值
     public func dateComponents(_ units: Set<Calendar.Component>) -> DateComponents {

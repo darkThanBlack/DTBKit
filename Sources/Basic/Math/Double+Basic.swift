@@ -76,16 +76,18 @@ extension Wrapper where Base: BinaryFloatingPoint {
     }
 }
 
-extension Wrapper where Base == Double {
+///
+extension Wrapper where Base: BinaryFloatingPoint {
     
     /// Cut dicimal places.
     ///
     /// 截取小数后 x 位。
     ///
     /// Example: ``1.26.dtb.place(1).value = 1.2``
-    public func places(_ value: Int) -> Self {
+    @inline(__always)
+    public func places(_ value: Int) -> Double {
         let div = pow(10.0, Double(value))
-        return ((me * div).rounded(.down) / div).dtb
+        return ((Double(me) * div).rounded(.down) / div)
     }
 }
 

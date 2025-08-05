@@ -52,18 +52,21 @@ DESC
     end
   end
   
+  s.subspec 'Map' do |ss|
+    ss.source_files = 'Sources/Map/**/*'
+    ss.dependency 'DTBKit/Basic'
+  end
+  
   s.subspec 'UIKit' do |ss|
     ss.source_files = 'Sources/UIKit/**/*'
     ss.resource_bundles = {
       'DTBKit-UIKit' => ['Sources/Resources/ui-kit.xcassets']
     }
     ss.dependency 'DTBKit/Basic'
+    
     # ss.dependency 'SnapKit', '5.0.1'
-  end
-  
-  s.subspec 'Map' do |ss|
-    ss.source_files = 'Sources/Map/**/*'
-    ss.dependency 'DTBKit/Basic'
+    ss.dependency 'lottie-ios', '~> 4.3.4'
+    ss.dependency 'Toast-Swift', '5.0.1'
   end
   
 #  s.subspec 'Gzip' do |ss|

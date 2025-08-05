@@ -12,6 +12,10 @@ PODS:
     - DTBKit/Basic
   - DTBKit/UIKit (0.0.1):
     - DTBKit/Basic
+    - lottie-ios (~> 4.3.4)
+    - Toast-Swift (= 5.0.1)
+  - lottie-ios (4.3.4)
+  - Toast-Swift (5.0.1)
 
 DEPENDENCIES:
   - DTBKit/Basic (from `../`)
@@ -22,12 +26,19 @@ DEPENDENCIES:
   - DTBKit/Map (from `../`)
   - DTBKit/UIKit (from `../`)
 
+SPEC REPOS:
+  trunk:
+    - lottie-ios
+    - Toast-Swift
+
 EXTERNAL SOURCES:
   DTBKit:
     :path: "../"
 
 SPEC CHECKSUMS:
-  DTBKit: 6ee2476d6fce88331ec7af0dfcd0f1a9a9ef9d64
+  DTBKit: 345beab8ef14c9bbedb4dec204aa3e60f0d3b532
+  lottie-ios: 3d98679b41fa6fd6aff2352b3953dbd3df8a397e
+  Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
 PODFILE CHECKSUM: f1201ef7b971a97e03cf06720c80cf7970213a79
 

@@ -14,9 +14,9 @@ import UIKit
 
 extension DTB {
     
-    /// 用于声明带类型推断的静态常量。
+    /// 用于声明带类型推断的静态常量
     ///
-    /// Represents a `Key` with an associated generic value type. More details in ``dtbkit_explain.md``.
+    /// Represents a `Key` with an associated generic value type. More details in ``Explain.md``.
     ///
     /// Special thanks: [DefaultsKit](https://github.com/nmdias/DefaultsKit)
     ///
@@ -26,10 +26,13 @@ extension DTB {
     /// ```
     public struct ConstKey<ValueType> {
         
-        public let key_: String
+        let key_: String
         
-        public init(_ key: String) {
+        let useLock_: Bool
+        
+        public init(_ key: String, useLock: Bool = false) {
             self.key_ = key
+            self.useLock_ = useLock
         }
     }
 }

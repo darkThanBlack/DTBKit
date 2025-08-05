@@ -1,6 +1,6 @@
 //
-//  UIBundle+XMKit.swift
-//  XMKit
+//  UIBundle+DTBKit.swift
+//  DTBKit
 //
 //  Created by moonShadow on 2024/1/5
 //
@@ -27,16 +27,16 @@ extension StaticWrapper where T: Bundle {
         let key = DTB.ConstKey<[String: String]>("DTBKitLoadedBundles")
         
         if cacheable,
-           let identifier = DTB.app.readMemory(key)?[name],
+           let identifier = DTB.app.get(key)?[name],
            let result = Bundle(identifier: identifier) {
             return result
         }
         
         func storeCache(_ bundle: Bundle) {
             if let identifier = bundle.bundleIdentifier, identifier.isEmpty == false {
-                var dict = DTB.app.readMemory(key) ?? [:]
+                var dict = DTB.app.get(key) ?? [:]
                 dict[name] = identifier
-                DTB.app.writeMemory(dict, key: key)
+                DTB.app.set(dict, key: key)
             }
         }
         

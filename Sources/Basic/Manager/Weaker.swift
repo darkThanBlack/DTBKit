@@ -14,12 +14,15 @@ import UIKit
 
 extension DTB {
     
-    /// 弱引用字典包装器
+    /// 弱引用包装器
+    ///
+    /// Weak wrapper
     public class Weaker<T: AnyObject> {
-        weak var me: T?
         
-        init(_ me: T? = nil) {
-            self.me = me
+        public weak var value: T?
+        
+        public init(_ value: T? = nil) {
+            self.value = value
         }
     }
 }

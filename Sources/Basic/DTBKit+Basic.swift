@@ -35,18 +35,3 @@ extension Decimal: Structable {}
 extension Array: Structable {}
 
 extension Data: Structable {}
-
-// MARK: - Abstract, more details in ``dtbkit_adapter.md``
-
-extension StaticWrapper: DTBKitHUD where T: UIView {}
-
-extension Wrapper: DTBKitHUD where Base: UIView {}
-
-extension StaticWrapper: DTBKitToast where T: UIView {}
-
-extension Wrapper: DTBKitToast where Base: UIView {}
-
-@available(iOS 13.0, *)
-extension StaticWrapper: DTBKitUIWindowScene where T: UIWindowScene {}
-
-extension StaticWrapper: DTBKitUIWindow where T: UIWindow {}

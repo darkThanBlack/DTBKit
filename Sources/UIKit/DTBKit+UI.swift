@@ -9,11 +9,9 @@
 //  Contact me: [GitHub](https://github.com/darkThanBlack)
 //
 
-import Foundation
-import UIKit
-
-// MARK: - Abstract, more details in ``Abstract.md``
-
-extension StaticWrapper: DTBKitUIColor where T: UIColor {}
-
-extension StaticWrapper: DTBKitString where T == String {}
+extension DTB.BasicInterface {
+    
+    public static func registerDefaultProviders() {
+        
+    }
+}
