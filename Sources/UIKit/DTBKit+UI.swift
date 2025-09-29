@@ -9,9 +9,10 @@
 //  Contact me: [GitHub](https://github.com/darkThanBlack)
 //
 
-extension DTB.BasicInterface {
+extension DTB {
     
-    public static func registerDefaultProviders() {
-        
+    public static func registerUIProviders() {
+        DTB.BasicInterface.registerProvider(DefaultHUDProvider(), key: DTB.BasicInterface.hudKey)
+        DTB.BasicInterface.registerProvider(DefaultToastProvider(), key: DTB.BasicInterface.toastKey)
     }
 }
