@@ -59,9 +59,9 @@ DESC
   
   s.subspec 'UIKit' do |ss|
     ss.source_files = 'Sources/UIKit/**/*'
-    ss.resource_bundles = {
-      'DTBKit-UIKit' => ['Sources/Resources/ui-kit.xcassets']
-    }
+#    ss.resource_bundles = {
+#      'DTBKit-UIKit' => ['Sources/Resources/ui-kit.xcassets']
+#    }
     ss.dependency 'DTBKit/Basic'
     
     # ss.dependency 'SnapKit', '5.0.1'

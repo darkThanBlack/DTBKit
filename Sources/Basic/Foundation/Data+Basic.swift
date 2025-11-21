@@ -32,7 +32,7 @@ public extension Wrapper where Base == Data {
     /// 纯原生解析
     @inline(__always)
     func json<T>() -> T? {
-        return (try? JSONSerialization.jsonObject(with: me, options: JSONSerialization.ReadingOptions.allowFragments)) as? T
+        return (try? JSONSerialization.jsonObject(with: me, options: .allowFragments)) as? T
     }
     
     /// System json parser.

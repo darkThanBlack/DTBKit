@@ -8,7 +8,7 @@
 //  LICENSE: SAME AS REPOSITORY
 //  Contact me: [GitHub](https://github.com/darkThanBlack)
 //
-    
+
 
 import UIKit
 
@@ -16,21 +16,49 @@ extension Date: Structable {}
 
 extension StaticWrapper where T == Date {
     
-    /// From 's' timeStamp (length == 10) | 从 10 位秒级时间戳生成
+    /// From 's' timeStamp (length == 9 || 10) | 从秒级时间戳生成
     @inline(__always)
     public func create(s: Int64?) -> T? {
-        guard let t = s, String(t).count == 10 else {
-            return nil
-        }
+        guard let t = s else { return nil }
         return Date(timeIntervalSince1970: TimeInterval(t))
     }
     
-    /// From 'ms' timeStamp (length == 13) | 从 13 位毫秒级时间戳生成
+    /// From 's' timeStamp | 从秒级时间戳生成
     @inline(__always)
-    public func create(ms: Int64?) -> T? {
-        guard let t = ms, String(t).count == 13 else {
+    public func create(s: String?) -> T? {
+        guard let str = s, let timestamp = Int64(str) else {
             return nil
         }
+        return create(s: timestamp)
+    }
+    
+    /// From 's' timeStamp | 从秒级时间戳生成
+    @inline(__always)
+    public func create(s: Double?) -> T? {
+        guard let t = s else { return nil }
+        return Date(timeIntervalSince1970: TimeInterval(t))
+    }
+    
+    /// From 'ms' timeStamp (length == 12 || 13) | 从毫秒级时间戳生成
+    @inline(__always)
+    public func create(ms: Int64?) -> T? {
+        guard let t = ms else { return nil }
         return Date(timeIntervalSince1970: TimeInterval(t / 1000))
+    }
+    
+    /// From 'ms' timeStamp | 从毫秒级时间戳生成
+    @inline(__always)
+    public func create(ms: String?) -> T? {
+        guard let str = ms, let timestamp = Int64(str) else {
+            return nil
+        }
+        return create(ms: timestamp)
+    }
+    
+    /// From 'ms' timeStamp | 从毫秒级时间戳生成
+    @inline(__always)
+    public func create(ms: Double?) -> T? {
+        guard let t = ms else { return nil }
+        return Date(timeIntervalSince1970: TimeInterval(t / 1000.0))
     }
 }

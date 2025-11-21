@@ -15,8 +15,9 @@ import UIKit
 extension ColorManager: ColorProvider {
 
     /// 实现 ColorProvider 协议
-    public func create(_ param: Any?) -> UIColor? {
-        return query(param as? String ?? "")
+    @inline(__always)
+    public func create(_ param: Any?) -> UIColor {
+        return query(param as? String ?? "") ?? .black
     }
 }
 
@@ -25,60 +26,66 @@ public final class ColorManager {
 
     public static let shared = ColorManager()
 
-    private let localKey = "DTBKitColorThemeKey"
+    public enum Modes: CaseIterable {
+        case followSystem, manual
+    }
 
-    private var currentKey: String = ""
-
-    /// 可用主题列表
-    public var themeKeys: [String] = [] {
-        didSet {
-            if !themeKeys.contains(currentKey) {
-                currentKey = themeKeys.first ?? ""
-            }
-            colorMapParser()
+    /// 指示当前模式
+    public var mode: Modes {
+        if let key = current, key.isEmpty == false {
+            return .manual
+        } else {
+            return .followSystem
         }
     }
+
+    /// 配置文件
+    private var configFileHandler: ((_ key: String?) -> ThemeConfigFile)? = nil
+
+    private let localKey = "DTBKitColorThemeKey"
+
+    /// nil 代表跟随系统
+    private var current: String? = nil
 
     /// 内存映射
     private var mapper: [String: UIColor] = [:]
 
     private init() {
-        let key: String = {
-            if let value = UserDefaults.standard.object(forKey: localKey) as? String {
-                return value
-            }
-            return ""
-        }()
-        currentKey = key
+        current = UserDefaults.standard.object(forKey: localKey) as? String
         colorMapParser()
 
-        // 备用：系统深浅色模式变化监听
-        // NotificationCenter.default.addObserver(
-        //     self,
-        //     selector: #selector(colorMapParser),
-        //     name: UIApplication.didBecomeActiveNotification,
-        //     object: nil
-        // )
+        // 系统深浅色模式变化监听
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(colorMapParser),
+            name: UIApplication.didBecomeActiveNotification,
+            object: nil
+        )
     }
 
-    public func currentTheme() -> String {
-        return currentKey
+    /// 指定 json 配置文件; 必须调用
+    ///
+    /// 如果在 update(key:) 中传入 nil，代表是 followSystem 模式，会根据系统深浅色模式返回 "light" 或 "dark";
+    /// 否则代表用户自行设置，将 update(key:) 传入的值原样返回
+    public func setupConfigFile(handler: ((_ key: String?) -> ThemeConfigFile)?) {
+        self.configFileHandler = handler
     }
 
-    /// 自定义颜色配置处理器
-    public var customColorHandler: ((_ themeKey: String) -> [String: UIColor]?)? = nil
-
-    /// 更新主题
-    public func update(theme key: String) {
-        guard themeKeys.contains(key) else { return }
-
-        currentKey = key
+    /// 直接指定当前主题; 必须调用; 必须在 ``setupConfigFile(handler:)`` 后调用
+    ///
+    /// 如果传入 nil，代表是 followSystem，key 会根据系统深浅色模式自动选择; 如果设置了对应 key，代表是用户单独设置了主题标识。
+    ///
+    /// key 会被持久化到本地。你需要通过 setupConfigFile 提供 json 配置文件。
+    public func update(key: String?) {
+        current = key
         UserDefaults.standard.set(key, forKey: localKey)
         UserDefaults.standard.synchronize()
+        
         colorMapParser()
     }
 
     /// 获取颜色
+    @inline(__always)
     public func query(_ key: String) -> UIColor? {
         return mapper[key]
     }
@@ -88,40 +95,46 @@ public final class ColorManager {
     @objc private func colorMapParser() {
         mapper.removeAll()
 
-        guard !currentKey.isEmpty else { return }
-
-        var colorDict: [String: UIColor]?
-
-        // 优先使用自定义处理器
-        if let handler = customColorHandler {
-            colorDict = handler(currentKey)
-        } else {
-            // 默认从 Bundle 读取配置文件
-            if let path = Bundle.main.path(forResource: "color_\(currentKey)", ofType: "json") {
-                colorDict = loadColorsFromFile(path)
+        guard let fileModel = {
+            switch mode {
+            case .followSystem:
+                return self.configFileHandler?({
+                    // 根据系统深浅色模式返回主题键
+                    if #available(iOS 12.0, *) {
+                        return UIScreen.main.traitCollection.userInterfaceStyle == .dark ? "dark" : "light"
+                    } else {
+                        return "light" // 默认浅色
+                    }
+                }())
+            case .manual:
+                return self.configFileHandler?(current)
             }
+        }() else {
+            return
         }
 
-        guard let colors = colorDict else { return }
-
-        colors.forEach { key, color in
-            self.mapper[key] = color
-        }
-    }
-
-    private func loadColorsFromFile(_ path: String) -> [String: UIColor]? {
-        guard FileManager.default.fileExists(atPath: path),
-              let data = try? Data(contentsOf: URL(fileURLWithPath: path)),
-              let dict = (try? JSONSerialization.jsonObject(with: data, options: [])) as? [String: String] else {
+        guard let filePath = {
+            if let path = fileModel.path, path.isEmpty == false {
+                return path
+            }
+            if let name = fileModel.name, name.isEmpty == false {
+                return Bundle.main.path(forResource: name, ofType: "json")
+            }
             return nil
+        }() else {
+            return
         }
 
-        var colorDict: [String: UIColor] = [:]
-        for (key, hexString) in dict {
+        guard FileManager.default.fileExists(atPath: filePath),
+              let data = try? Data(contentsOf: URL(fileURLWithPath: filePath)),
+              let dict = (try? JSONSerialization.jsonObject(with: data, options: [])) as? [String: String] else {
+            return
+        }
+
+        dict.forEach { key, hexString in
             if let color = UIColor.dtb.hex(hexString) {
-                colorDict[key] = color
+                self.mapper[key] = color
             }
         }
-        return colorDict
     }
 }

@@ -20,6 +20,7 @@ public class DefaultHUDProvider: HUDProvider {
                 return
             }
             let hud = SystemHUDView()
+            hud.tag = SystemHUDView.treeTag
             depends.addSubview(hud)
             hud.frame = depends.bounds
             depends.bringSubviewToFront(hud)
@@ -66,14 +67,25 @@ fileprivate class SystemHUDView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        guard bounds.size.width > 0 else { return }
+        
+        indicator.sizeToFit()
+        indicator.center = CGPoint(x: bounds.midX, y: bounds.midY)
+    }
+    
     private func loadViews(in box: UIView) {
-        [indicator].forEach({
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        })
-        NSLayoutConstraint.activate([
-            indicator.centerXAnchor.constraint(equalTo: box.centerXAnchor, constant: 0.0),
-            indicator.centerYAnchor.constraint(equalTo: box.centerYAnchor, constant: 0.0),
-        ])
+        box.addSubview(indicator)
+        
+//        [indicator].forEach({
+//            $0.translatesAutoresizingMaskIntoConstraints = false
+//        })
+//        NSLayoutConstraint.activate([
+//            indicator.centerXAnchor.constraint(equalTo: box.centerXAnchor, constant: 0.0),
+//            indicator.centerYAnchor.constraint(equalTo: box.centerYAnchor, constant: 0.0),
+//        ])
     }
     
     private lazy var indicator: UIActivityIndicatorView = {
@@ -81,8 +93,9 @@ fileprivate class SystemHUDView: UIView {
         if #available(iOS 13.0, *) {
             view.style = .medium
         } else {
-            view.style = .gray
+            view.style = .white
         }
+        view.color = .white
         return view
     }()
 }

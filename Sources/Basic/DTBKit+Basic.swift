@@ -35,3 +35,5 @@ extension Decimal: Structable {}
 extension Array: Structable {}
 
 extension Data: Structable {}
+
+extension UIFont.Weight: Structable {}

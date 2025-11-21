@@ -14,7 +14,9 @@ import Foundation
 
 public protocol StringProvider {
     
-    func create(_ param: Any?) -> String?
+    func create(_ param: Any?) -> String
+    
+    func create(format key: String, _ args: [String]) -> String
 }
 
 extension StaticWrapper where T == String {
@@ -22,7 +24,16 @@ extension StaticWrapper where T == String {
     /// Create string by provider.
     ///
     /// 字符串 调用收束
-    public func create(_ param: Any?) -> String? {
-        return DTB.app.get(DTB.BasicInterface.stringKey)?.create(param) ?? (param as? String)
+    @inline(__always)
+    public func create(_ param: Any?) -> String {
+        return DTB.app.get(DTB.BasicInterface.stringKey)?.create(param) ?? ""
+    }
+    
+    /// Create string by provider.
+    ///
+    /// 字符串 调用收束
+    @inline(__always)
+    public func create(format key: String, _ args: String...) -> String {
+        return DTB.app.get(DTB.BasicInterface.stringKey)?.create(format: key, args) ?? ""
     }
 }

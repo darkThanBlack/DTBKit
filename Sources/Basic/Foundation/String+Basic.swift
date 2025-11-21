@@ -80,8 +80,7 @@ extension Wrapper where Base == String {
     /// 越界检查。
     public func has(nsRange: NSRange) -> Bool {
         if nsRange.dtb.isEmpty() == false,
-           nsRange.location < ns().value.length,
-           nsRange.location + nsRange.length < ns().value.length {
+           NSMaxRange(nsRange) <= ns().value.length {
             return true
         }
         return false
@@ -110,6 +109,18 @@ extension Wrapper where Base == String {
 
 /// Format
 extension Wrapper where Base == String {
+    
+    /// From 's' timeStamp (length == 10) | 从 10 位秒级时间戳生成
+    @inline(__always)
+    public func sDate() -> Wrapper<Date>? {
+        return Date.dtb.create(s: me)?.dtb
+    }
+    
+    /// From 'ms' timeStamp (length == 13) | 从 13 位毫秒级时间戳生成
+    @inline(__always)
+    public func msDate() -> Wrapper<Date>? {
+        return Date.dtb.create(ms: me)?.dtb
+    }
     
     /// Convert to ``Date``.
     public func toDate(_ formatter: @autoclosure (() -> DateFormatter)) -> Wrapper<Date>? {

@@ -14,5 +14,11 @@ extension DTB {
     public static func registerUIProviders() {
         DTB.BasicInterface.registerProvider(DefaultHUDProvider(), key: DTB.BasicInterface.hudKey)
         DTB.BasicInterface.registerProvider(DefaultToastProvider(), key: DTB.BasicInterface.toastKey)
+        DTB.BasicInterface.registerProvider(DefaultAlertProvider(), key: DTB.BasicInterface.alertKey)
     }
+}
+
+extension DTB {
+    
+    public typealias ViewController = BaseViewController
 }

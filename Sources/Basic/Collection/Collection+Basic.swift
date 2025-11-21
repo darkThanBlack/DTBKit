@@ -37,7 +37,18 @@ public extension Wrapper where Base: Collection {
         guard JSONSerialization.isValidJSONObject(me) else {
             return nil
         }
-        guard let data = try? JSONSerialization.data(withJSONObject: self, options: []) else { return nil }
+        guard let data = try? JSONSerialization.data(withJSONObject: self, options: [.fragmentsAllowed]) else { return nil }
         return String(data: data, encoding: .utf8)
+    }
+    
+    ///
+    func json<T: Codable>() -> T? where Base: Collection {
+        guard JSONSerialization.isValidJSONObject(me) else {
+            return nil
+        }
+        guard let data = try? JSONSerialization.data(withJSONObject: me, options: [.fragmentsAllowed]) else {
+            return nil
+        }
+        return try? JSONDecoder().decode(T.self, from: data)
     }
 }

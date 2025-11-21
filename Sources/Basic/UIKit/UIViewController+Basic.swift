@@ -19,7 +19,7 @@ extension StaticWrapper where T: UIViewController {
     ///
     /// 递归取栈顶。
     public func topMost() -> UIViewController? {
-        return UIWindow.dtb.keyWindow()?.rootViewController?.dtb.topMost?.value
+        return UIWindow.dtb.keyWindow()?.rootViewController?.dtb.topMost()?.value
     }
     
     /// Try pop / dismiss / remove top most view controller
@@ -54,40 +54,67 @@ extension StaticWrapper where T: UIViewController {
 }
 
 ///
-extension Wrapper where Base == UIViewController {
+extension Wrapper where Base: UIViewController {
     
     /// Recursion get the top most view controller.
     ///
     /// 递归取栈顶。
     ///
     /// [refer](https://github.com/devxoul/URLNavigator)
-    public var topMost: Wrapper<UIViewController>? {
+    public func topMost() -> Wrapper<UIViewController>? {
         // presented view controller
         if let presentedViewController = me.presentedViewController {
-            return presentedViewController.dtb.topMost
+            return presentedViewController.dtb.topMost()
         }
         // UITabBarController
         if let tabBarController = me as? UITabBarController,
            let selectedViewController = tabBarController.selectedViewController {
-            return selectedViewController.dtb.topMost
+            return selectedViewController.dtb.topMost()
         }
         // UINavigationController
         if let navigationController = me as? UINavigationController,
            let visibleViewController = navigationController.visibleViewController {
-            return visibleViewController.dtb.topMost
+            return visibleViewController.dtb.topMost()
         }
         // UIPageController
         if let pageViewController = me as? UIPageViewController,
            pageViewController.viewControllers?.count == 1 {
-            return pageViewController.viewControllers?.first?.dtb.topMost
+            return pageViewController.viewControllers?.first?.dtb.topMost()
         }
         // child view controller
         for subview in me.view?.subviews ?? [] {
             if let childViewController = subview.next as? UIViewController {
-                return childViewController.dtb.topMost
+                return childViewController.dtb.topMost()
             }
         }
-        return self
+        return self as? Wrapper<UIViewController>
+    }
+
+    /// Try get "previous" controller.
+    ///
+    /// 尝试获取"上一个"控制器
+    ///
+    /// - Returns: nil when not founded.
+    public func previous() -> Wrapper<UIViewController>? {
+        let result: UIViewController? = {
+            if let stack = me.navigationController?.viewControllers, let index = stack.firstIndex(of: me) {
+                return index > 0 ? stack[index - 1] : me.navigationController?.dtb.previous()?.value
+            }
+            // present
+            if let vc = me.presentingViewController {
+                return vc
+            }
+            // child
+            if let vc = me.parent {
+                return vc
+            }
+            // tabbar
+            if let vc = me.tabBarController, vc.viewControllers?.contains(me) == true {
+                return vc
+            }
+            return nil
+        }()
+        return result?.dtb
     }
     
     /// Try pop / dismiss / remove top most view controller
