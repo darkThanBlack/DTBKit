@@ -30,6 +30,12 @@ extension Wrapper where Base == CGSize {
         return (me.width <= 0) || (me.height <= 0)
     }
     
+    /// W and H > 0
+    @inline(__always)
+    public func notEmpty() -> Bool {
+        return !isEmpty()
+    }
+    
     /// W == H | 是正方形
     @inline(__always)
     public func isSquare() -> Bool {
