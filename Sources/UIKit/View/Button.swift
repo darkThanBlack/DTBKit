@@ -16,7 +16,7 @@ extension DTB {
     
     /// 按钮, 取代 UIButton
     @objc(DTBButton)
-    open class Button: UIControl {
+    open class Button: BaseControl {
         
         private var titles: [UInt: String] = [:]
         
@@ -35,28 +35,13 @@ extension DTB {
         private var imageOffset: CGVector = .zero
         
         ///
-        private func match<T>(_ dict: [UInt: T]) -> T? {
-            if let result = dict[state.rawValue] {
-                return result
-            }
-            /// 位运算时 normal 需要特殊处理
-            if let bestKey = dict
-                .compactMap({ UIControl.State(rawValue: $0.key) })
-                .filter({ $0 == .normal ? (state == .normal) : state.contains($0) })
-                .max(by: { $0.rawValue.nonzeroBitCount < $1.rawValue.nonzeroBitCount }) {
-                return dict[bestKey.rawValue]
-            }
-            return dict[UIControl.State.normal.rawValue]
-        }
-        
-        ///
         public func setTitle(_ text: String?, for state: UIControl.State = .normal) {
             titles[state.rawValue] = text
             updateAppearance()
         }
         
         ///
-        public func setTitleColor(_ color: UIColor, for state: UIControl.State = .normal) {
+        public func setTitleColor(_ color: UIColor?, for state: UIControl.State = .normal) {
             textColors[state.rawValue] = color
             updateAppearance()
         }
@@ -116,29 +101,19 @@ extension DTB {
             return view
         }()
         
-        ///
-        private lazy var gradient: CAGradientLayer = {
-            let gradient = CAGradientLayer()
-            gradient.isHidden = true
-            gradient.colors = [
-                UIColor.white.cgColor,
-                UIColor.black.cgColor
-            ]
-            gradient.startPoint = CGPoint(x: 0.0, y: 0.0)
-            gradient.endPoint = CGPoint(x: 1.0, y: 1.0)
-            return gradient
-        }()
-        
         public override init(frame: CGRect) {
             super.init(frame: frame)
-            
-            layer.addSublayer(gradient)
             
             loadViews(in: self)
         }
         
         required public init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
+        }
+        
+        private func loadViews(in box: UIView) {
+            box.addSubview(titleLabel)
+            box.addSubview(imageView)
         }
         
         open override var isEnabled: Bool {
@@ -162,10 +137,13 @@ extension DTB {
         //MARK: - Appearance
         
         private func updateAppearance() {
-            titleLabel.text = match(titles)
-            titleLabel.textColor = match(textColors)
-            titleLabel.font = match(fonts)
-            titleLabel.attributedText = match(attrTitles)
+            if let attr = match(attrTitles) {
+                titleLabel.attributedText = attr
+            } else {
+                titleLabel.text = match(titles)
+                titleLabel.textColor = match(textColors)
+                titleLabel.font = match(fonts)
+            }
             imageView.image = match(images)
             
             titleLabel.dtb.hiddenWhenEmpty()
@@ -189,8 +167,6 @@ extension DTB {
         
         open override func layoutSubviews() {
             super.layoutSubviews()
-            
-            gradient.frame = bounds
             
             updateAppearance()
             layoutSubviewWithSize(bounds.size)
@@ -372,11 +348,6 @@ extension DTB {
             }
             
             return inferSize
-        }
-        
-        private func loadViews(in box: UIView) {
-            box.addSubview(titleLabel)
-            box.addSubview(imageView)
         }
     }
     
