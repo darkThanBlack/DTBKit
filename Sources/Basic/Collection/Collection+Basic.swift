@@ -18,14 +18,13 @@ extension Wrapper {
     ///
     /// * Sample: ``list[0] => list.dtb[0]``
     /// ``~=``: ``Swift/Collection/Range`` | ``Swift/Misc``,  [refer](https://github.com/swiftlang/swift/blob/ed38b93469c980cbe6d5459798cb8ad8d43bd9a8/stdlib/public/core/StringComparable.swift#L86)
+    @inline(__always)
     public subscript<T>(_ index: Int?) -> T? where Base == Array<T> {
-        guard let idx = index else {
+        if let idx = index, me.startIndex..<me.endIndex ~= idx {
+            return me[idx]
+        } else {
             return nil
         }
-        guard me.startIndex..<me.endIndex ~= idx else {
-            return nil
-        }
-        return me[idx]
     }
 }
 
@@ -33,12 +32,14 @@ extension Wrapper {
 public extension Wrapper where Base: Collection {
     
     /// 纯原生解析 | System json parser
-    func jsonString() -> String? where Base: Collection {
+    func jsonString() -> Wrapper<String>? where Base: Collection {
         guard JSONSerialization.isValidJSONObject(me) else {
             return nil
         }
-        guard let data = try? JSONSerialization.data(withJSONObject: self, options: [.fragmentsAllowed]) else { return nil }
-        return String(data: data, encoding: .utf8)
+        guard let data = try? JSONSerialization.data(withJSONObject: self, options: [.fragmentsAllowed]) else {
+            return nil
+        }
+        return String(data: data, encoding: .utf8)?.dtb
     }
     
     ///

@@ -13,7 +13,7 @@ import UIKit
 
 extension Wrapper where Base == UIFont.Weight {
     
-    /// ``fontname-variant.extension``, lowercased.
+    /// Rule: fontname-variant.extension
     public func variant() -> String {
         switch me.rawValue {
         case UIFont.Weight.ultraLight.rawValue: return "UltraLight"
