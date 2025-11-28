@@ -9,4 +9,5 @@
 import DTBKit
 
 @_exported import DTBKit
+@_exported import SnapKit
 

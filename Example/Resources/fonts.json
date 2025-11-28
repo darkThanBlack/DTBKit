@@ -1,0 +1,12 @@
+{
+    "Gloock": {
+        "language": ["en"],
+        "variant": ["Regular"],
+        "extension": "ttf"
+    },
+    "Lora": {
+        "language": ["en"],
+        "variant": ["Regular", "Medium", "SemiBold"],
+        "extension": "ttf"
+    }
+}

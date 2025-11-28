@@ -1,0 +1,46 @@
+{
+  "app_name": "Tarot",
+
+  "months_january": "January",
+  "months_february": "February",
+  "months_march": "March",
+  "months_april": "April",
+  "months_may": "May",
+  "months_june": "June",
+  "months_july": "July",
+  "months_august": "August",
+  "months_september": "September",
+  "months_october": "October",
+  "months_november": "November",
+  "months_december": "December",
+  
+  "gender_male": "Male",
+  "gender_female": "Female",
+  "gender_other": "Other",
+  "gender_confidential": "Confidential",
+  
+  "common_hint": "Hint",
+  "common_ok": "OK",
+  "common_cancel": "Cancel",
+  "common_confirm": "Confirm",
+  "common_close": "Close",
+  "common_next": "Next",
+  "common_skip": "Skip",
+  "common_done": "Done",
+  "common_save": "Save",
+  "common_delete": "Delete",
+  "common_edit": "Edit",
+  "common_loading": "Loading...",
+  "common_continue": "Continue",
+  "common_share": "Share",
+  "common_free": "Free",
+
+  "tab_home": "Home",
+  "tab_setting": "Setting",
+  
+  "settings_title": "Settings",
+  
+  "language_settings_title": "Languages",
+  "language_settings_follow_system": "Follow System",
+  "language_settings_hint": "Switching languages requires restarting APP, do you want to continue?"
+}

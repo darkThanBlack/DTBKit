@@ -38,38 +38,61 @@ targets:
         - -Wno-unguarded-availability
         - -Wno-strict-prototypes
         - -Wno-implicit-retain-self
+      # Ensure DEBUG macro exist
+      debug:
+        GCC_PREPROCESSOR_DEFINITIONS:
+          - $(inherited)
+          - DEBUG=1
+          - COCOAPODS=1
+      release:
+        GCC_PREPROCESSOR_DEFINITIONS:
+          - $(inherited)
+          - COCOAPODS=1
+    # If you wanna add some caps...
+    # entitlements:
+    #   path: example.entitlements
+    #   properties:
+    #     com.apple.developer.applesignin: ['Default']
+    # dependencies:
+    #   - framework: StoreKit.framework
+    #     embed: false
     sources:
-      ## Metatata
-      - path: "../DTBKit.podspec"
-        group: "Metadata"
-      - path: "../README.md"
-        group: "Metadata"
-      - path: "../README.zh-CN.md"
-        group: "Metadata"
-      - path: "../LICENSE"
-        group: "Metadata"
-      - path: "Podfile"
-        group: "Metadata"
-      - path: "project.yml"
-        group: "Metadata"
-      
-      ## Examples
-      - path: "Example"
-      
-      ## Sources
-      # - path: "../DTBKit/DTBKit.swift"
-      #   group: "Source Codes"
-      # - path: "../DTBKit/Basic"
-      #   group: "Source Codes"
-      # - path: "../DTBKit/UIKit"
-      #   group: "Source Codes"
-      # - path: "../DTBKit/Map"
-      #   group: "Source Codes"
-        
-      # ## Resources
-      # - path: "../DTBKit/Assets"
-      #   group: "Resources"
-      
+      - "Example"
+      - "Resources"
+    info:
+      path: Resources/info.plist
+      properties:
+        CFBundleAllowMixedLocalizations: true
+        CFBundleDevelopmentRegion: zh_CN
+        CFBundleDisplayName: Tarot
+        CFBundleExecutable: $(EXECUTABLE_NAME)
+        CFBundleIdentifier: $(PRODUCT_BUNDLE_IDENTIFIER)
+        CFBundleInfoDictionaryVersion: 6.0
+        CFBundleName: $(PRODUCT_NAME)
+        CFBundlePackageType: APPL
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        ITSAppUsesNonExemptEncryption: false
+        LSRequiresIPhoneOS: true
+        NSAppTransportSecurity:
+          NSAllowsArbitraryLoads: true
+        NSCameraUsageDescription: "如果不允许，您将无法拍摄小视频和照片"
+        NSMicrophoneUsageDescription: "如果不允许，您将无法使用语音功能"
+        NSPhotoLibraryAddUsageDescription: "如果不允许，您选中的图片将无法加入到系统相册"
+        NSPhotoLibraryUsageDescription: "如果不允许，您将无法访问系统相册里的图片"
+        UILaunchStoryboardName: LaunchScreen.storyboard
+        UIStatusBarStyle: UIStatusBarStyleDarkContent
+        # 强行指定方向:
+        # UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+        # 强行指定颜色模式:
+        # UIUserInterfaceStyle: Light
+        # FIX: ITMS-90899
+        LSMinimumSystemVersion: 13.0
+        # Info - url types 
+        # CFBundleURLTypes:
+        #   - CFBundleTypeRole: Editor
+        #     CFBundleURLName: weixin
+        #     CFBundleURLSchemes: [com.googleusercontent.apps.35708]
       
 #  DTBKit_Basic:
 #    type: framework

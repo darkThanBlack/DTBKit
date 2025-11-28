@@ -59,9 +59,8 @@ DESC
 #    }
     ss.dependency 'DTBKit/Basic'
     
-    # ss.dependency 'SnapKit', '5.0.1'
-    ss.dependency 'lottie-ios', '~> 4.3.4'
-    ss.dependency 'Toast-Swift', '5.0.1'
+    ss.dependency 'SnapKit', '~> 4.0.0'
+    ss.dependency 'Toast-Swift', '~> 5.0.0'
   end
   
   s.subspec 'Map' do |ss|

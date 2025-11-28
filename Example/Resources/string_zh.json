@@ -1,0 +1,46 @@
+{
+  "app_name": "塔罗牌",
+
+  "months_january": "一月",
+  "months_february": "二月",
+  "months_march": "三月",
+  "months_april": "四月",
+  "months_may": "五月",
+  "months_june": "六月",
+  "months_july": "七月",
+  "months_august": "八月",
+  "months_september": "九月",
+  "months_october": "十月",
+  "months_november": "十一月",
+  "months_december": "十二月",
+  
+  "gender_male": "男性",
+  "gender_female": "女性",
+  "gender_other": "其他",
+  "gender_confidential": "保密",
+  
+  "common_hint": "提示",
+  "common_ok": "确定",
+  "common_cancel": "取消",
+  "common_confirm": "确认",
+  "common_close": "关闭",
+  "common_next": "下一步",
+  "common_skip": "跳过",
+  "common_done": "完成",
+  "common_save": "保存",
+  "common_delete": "删除",
+  "common_edit": "编辑",
+  "common_loading": "加载中...",
+  "common_continue": "继续",
+  "common_share": "分享",
+  "common_free": "免费",
+
+  "tab_home": "首页",
+  "tab_setting": "设置",
+
+  "settings_title": "设置",
+
+  "language_settings_title": "语言设置",
+  "language_settings_follow_system": "跟随系统",
+  "language_settings_hint": "切换语言需要重新启动 APP，是否继续？",
+}

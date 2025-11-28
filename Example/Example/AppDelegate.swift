@@ -24,7 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        window = UIWindow(frame: UIScreen.main.bounds)
+        // 假设这是业务 window
+        window = createWindow()
         
         // --- Provider 注册示例 ---
         
@@ -47,17 +48,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // --- Provider 注册结束 ---
         
-        // 假设这是业务 vc
-        let nav = UINavigationController(rootViewController: HomeViewController())
-        
-        window?.rootViewController = nav
-        
         window?.makeKeyAndVisible()
-        
+
         adapter()
         debugger()
         
         return true
+    }
+    
+    private func createWindow() -> UIWindow? {
+        let window = UIWindow(frame: UIScreen.main.bounds)
+        let tabBarController = TabBarController(nibName: nil, bundle: nil)
+        window.rootViewController = tabBarController
+        return window
     }
     
     private func debugger() {

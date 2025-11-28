@@ -57,7 +57,7 @@ extension DemoCellModel: DemoDescribable {
 //MARK: -
 
 ///
-class HomeViewController: UIViewController {
+class HomeViewController: BaseViewController {
     
     private let sections = DemoSectionModel.SectionType.allCases.map({
         DemoSectionModel(type: $0)
