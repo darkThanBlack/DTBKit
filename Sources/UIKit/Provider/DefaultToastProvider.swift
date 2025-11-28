@@ -13,18 +13,23 @@
 import UIKit
 import Toast_Swift
 
-///
-public class DefaultToastProvider: ToastProvider {
+extension DTB {
     
-    public func toast(on view: UIView?, param: Any?) {
-        DispatchQueue.main.async {
-            guard let depends = view ?? UIViewController.dtb.topMost()?.view else {
-                return
+    ///
+    public class DefaultToastProvider: DTB.Providers.ToastProvider {
+        
+        public init() {}
+        
+        public func toast(on view: UIView?, param: Any?) {
+            DispatchQueue.main.async {
+                guard let depends = view ?? UIViewController.dtb.topMost()?.view else {
+                    return
+                }
+                guard let message = param as? String, message.isEmpty == false else {
+                    return
+                }
+                depends.makeToast(message, position: .center)
             }
-            guard let message = param as? String, message.isEmpty == false else {
-                return
-            }
-            depends.makeToast(message, position: .center)
         }
     }
 }

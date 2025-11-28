@@ -9,35 +9,40 @@
 //  Contact me: [GitHub](https://github.com/darkThanBlack)
 //
 
-public class DefaultHUDProvider: HUDProvider {
+extension DTB {
     
-    public func showHUD(on view: UIView?, param: Any?) {
-        DispatchQueue.main.async {
-            guard let depends = view ?? UIViewController.dtb.topMost()?.view else {
-                return
+    public class DefaultHUDProvider: DTB.Providers.HUDProvider {
+        
+        public init() {}
+        
+        public func showHUD(on view: UIView?, param: Any?) {
+            DispatchQueue.main.async {
+                guard let depends = view ?? UIViewController.dtb.topMost()?.view else {
+                    return
+                }
+                guard depends.subviews.contains(where: { $0.tag == SystemHUDView.treeTag }) == false else {
+                    return
+                }
+                let hud = SystemHUDView()
+                hud.tag = SystemHUDView.treeTag
+                depends.addSubview(hud)
+                hud.frame = depends.bounds
+                depends.bringSubviewToFront(hud)
+                hud.play()
             }
-            guard depends.subviews.contains(where: { $0.tag == SystemHUDView.treeTag }) == false else {
-                return
-            }
-            let hud = SystemHUDView()
-            hud.tag = SystemHUDView.treeTag
-            depends.addSubview(hud)
-            hud.frame = depends.bounds
-            depends.bringSubviewToFront(hud)
-            hud.play()
         }
-    }
-    
-    public func hideHUD(on view: UIView?, param: Any?) {
-        DispatchQueue.main.async {
-            guard let depends = view ?? UIViewController.dtb.topMost()?.view else {
-                return
+        
+        public func hideHUD(on view: UIView?, param: Any?) {
+            DispatchQueue.main.async {
+                guard let depends = view ?? UIViewController.dtb.topMost()?.view else {
+                    return
+                }
+                guard let hud = depends.subviews.first(where: { $0.tag == SystemHUDView.treeTag }) as? SystemHUDView else {
+                    return
+                }
+                hud.stop()
+                hud.removeFromSuperview()
             }
-            guard let hud = depends.subviews.first(where: { $0.tag == SystemHUDView.treeTag }) as? SystemHUDView else {
-                return
-            }
-            hud.stop()
-            hud.removeFromSuperview()
         }
     }
 }

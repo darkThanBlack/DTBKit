@@ -12,12 +12,17 @@
 
 import UIKit
 
-/// 
-public protocol HUDProvider {
+extension DTB.Providers {
     
-    func showHUD(on view: UIView?, param: Any?)
+    public static let hudKey = DTB.ConstKey<any HUDProvider>("dtb.providers.hud")
     
-    func hideHUD(on view: UIView?, param: Any?)
+    ///
+    public protocol HUDProvider {
+        
+        func showHUD(on view: UIView?, param: Any?)
+        
+        func hideHUD(on view: UIView?, param: Any?)
+    }
 }
 
 extension StaticWrapper where T: UIView {
@@ -26,14 +31,14 @@ extension StaticWrapper where T: UIView {
     ///
     /// HUD 调用收束
     public func showHUD(_ param: Any? = nil) {
-        DTB.app.get(DTB.BasicInterface.hudKey)?.showHUD(on: nil, param: param)
+        DTB.Providers.get(DTB.Providers.hudKey)?.showHUD(on: nil, param: param)
     }
     
     /// Show HUD with provider.
     ///
     /// HUD 调用收束
     public func hideHUD(_ param: Any? = nil) {
-        DTB.app.get(DTB.BasicInterface.hudKey)?.hideHUD(on: nil, param: param)
+        DTB.Providers.get(DTB.Providers.hudKey)?.hideHUD(on: nil, param: param)
     }
 }
 
@@ -44,7 +49,7 @@ extension Wrapper where Base: UIView {
     /// HUD 调用收束
     @discardableResult
     public func showHUD(_ param: Any? = nil) -> Self {
-        DTB.app.get(DTB.BasicInterface.hudKey)?.showHUD(on: value, param: param)
+        DTB.Providers.get(DTB.Providers.hudKey)?.showHUD(on: value, param: param)
         return self
     }
     
@@ -53,7 +58,7 @@ extension Wrapper where Base: UIView {
     /// HUD 调用收束
     @discardableResult
     public func hideHUD(_ param: Any? = nil) -> Self {
-        DTB.app.get(DTB.BasicInterface.hudKey)?.hideHUD(on: value, param: param)
+        DTB.Providers.get(DTB.Providers.hudKey)?.hideHUD(on: value, param: param)
         return self
     }
 }

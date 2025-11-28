@@ -7,8 +7,8 @@ target 'DTBKit_Example' do
 #  Change development pods to xcodegen
   pod 'DTBKit/Core', :path => '../'
   pod 'DTBKit/Chain', :path => '../'
-  pod 'DTBKit/i18N', :path => '../'
   pod 'DTBKit/Basic', :path => '../', :testspecs => ['Tests']
+  pod 'DTBKit/Theme', :path => '../'
   pod 'DTBKit/UIKit', :path => '../'
   pod 'DTBKit/Map', :path => '../'
 

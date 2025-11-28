@@ -6,9 +6,9 @@ PODS:
   - DTBKit/Chain (0.0.1):
     - DTBKit/Core
   - DTBKit/Core (0.0.1)
-  - DTBKit/i18N (0.0.1):
-    - DTBKit/Core
   - DTBKit/Map (0.0.1):
+    - DTBKit/Basic
+  - DTBKit/Theme (0.0.1):
     - DTBKit/Basic
   - DTBKit/UIKit (0.0.1):
     - DTBKit/Basic
@@ -22,8 +22,8 @@ DEPENDENCIES:
   - DTBKit/Basic/Tests (from `../`)
   - DTBKit/Chain (from `../`)
   - DTBKit/Core (from `../`)
-  - DTBKit/i18N (from `../`)
   - DTBKit/Map (from `../`)
+  - DTBKit/Theme (from `../`)
   - DTBKit/UIKit (from `../`)
 
 SPEC REPOS:
@@ -36,10 +36,10 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  DTBKit: 345beab8ef14c9bbedb4dec204aa3e60f0d3b532
+  DTBKit: 16d07288699ea57f9099966af5e37b86d4638e55
   lottie-ios: 3d98679b41fa6fd6aff2352b3953dbd3df8a397e
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: df6e34c79fd7b96de42c56359e5b6747053b75cb
+PODFILE CHECKSUM: 9c64c5f47270b03a7f0975d517e13fe1a8a08e1e
 
 COCOAPODS: 1.15.2

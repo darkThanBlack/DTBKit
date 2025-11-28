@@ -12,11 +12,16 @@
 
 import Foundation
 
-public protocol StringProvider {
+extension DTB.Providers {
     
-    func create(_ param: Any?) -> String
+    public static let stringKey = DTB.ConstKey<any StringProvider>("dtb.providers.string")
     
-    func create(format key: String, _ args: [String]) -> String
+    public protocol StringProvider {
+        
+        func create(_ param: Any?) -> String
+        
+        func create(format key: String, _ args: [String]) -> String
+    }
 }
 
 extension StaticWrapper where T == String {
@@ -26,7 +31,7 @@ extension StaticWrapper where T == String {
     /// 字符串 调用收束
     @inline(__always)
     public func create(_ param: Any?) -> String {
-        return DTB.app.get(DTB.BasicInterface.stringKey)?.create(param) ?? ""
+        return DTB.Providers.get(DTB.Providers.stringKey)?.create(param) ?? ""
     }
     
     /// Create string by provider.
@@ -34,6 +39,6 @@ extension StaticWrapper where T == String {
     /// 字符串 调用收束
     @inline(__always)
     public func create(format key: String, _ args: String...) -> String {
-        return DTB.app.get(DTB.BasicInterface.stringKey)?.create(format: key, args) ?? ""
+        return DTB.Providers.get(DTB.Providers.stringKey)?.create(format: key, args) ?? ""
     }
 }

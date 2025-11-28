@@ -12,11 +12,17 @@
 
 import UIKit
 
-/// 
-public protocol ColorProvider {
+extension DTB.Providers {
     
-    func create(_ param: Any?) -> UIColor
+    public static let colorKey = DTB.ConstKey<any ColorProvider>("dtb.providers.color")
+    
+    ///
+    public protocol ColorProvider {
+        
+        func create(_ param: Any?) -> UIColor
+    }
 }
+
 
 extension StaticWrapper where T: UIColor {
     
@@ -25,6 +31,6 @@ extension StaticWrapper where T: UIColor {
     /// 颜色调用收束
     @inline(__always)
     public func create(_ param: Any?) -> UIColor {
-        return DTB.app.get(DTB.BasicInterface.colorKey)?.create(param) ?? .black
+        return DTB.Providers.get(DTB.Providers.colorKey)?.create(param) ?? .black
     }
 }

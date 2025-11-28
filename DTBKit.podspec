@@ -33,11 +33,6 @@ DESC
     ss.dependency 'DTBKit/Core'
   end
   
-  s.subspec 'Theme' do |ss|
-    ss.source_files = 'Sources/Theme/**/*'
-    ss.dependency 'DTBKit/Basic'
-  end
-  
   s.subspec 'Basic' do |ss|
     ss.source_files = 'Sources/Basic/**/*'
     ss.resource_bundles = {
@@ -52,8 +47,8 @@ DESC
     end
   end
   
-  s.subspec 'Map' do |ss|
-    ss.source_files = 'Sources/Map/**/*'
+  s.subspec 'Theme' do |ss|
+    ss.source_files = 'Sources/Theme/**/*'
     ss.dependency 'DTBKit/Basic'
   end
   
@@ -67,6 +62,11 @@ DESC
     # ss.dependency 'SnapKit', '5.0.1'
     ss.dependency 'lottie-ios', '~> 4.3.4'
     ss.dependency 'Toast-Swift', '5.0.1'
+  end
+  
+  s.subspec 'Map' do |ss|
+    ss.source_files = 'Sources/Map/**/*'
+    ss.dependency 'DTBKit/Basic'
   end
   
 #  s.subspec 'Gzip' do |ss|

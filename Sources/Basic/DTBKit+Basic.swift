@@ -37,3 +37,13 @@ extension Array: Structable {}
 extension Data: Structable {}
 
 extension UIFont.Weight: Structable {}
+
+extension DTB {
+    
+    public static func registerBasicProviders() {
+        DTB.Providers.register(DefaultWindowProvider(), key: DTB.Providers.windowKey)
+        if #available(iOS 13.0, *) {
+            DTB.Providers.register(DefaultSceneProvider(), key: DTB.Providers.sceneKey)
+        }
+    }
+}

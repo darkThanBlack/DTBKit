@@ -17,11 +17,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
+    func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        
+        return true
+    }
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
         
         window = UIWindow(frame: UIScreen.main.bounds)
         
+        // --- Provider 注册示例 ---
+        
+        // scene 主要是为了 keyWindow 的自动实现
+        if #available(iOS 13.0, *) {
+            DTB.Providers.register(DTB.DefaultSceneProvider(), key: DTB.Providers.sceneKey)
+        }
+        // 确保 topMost 方法无误，最稳妥的方法就是传入 window 实例
+        DTB.Providers.register(DTB.DefaultWindowProvider(window), key: DTB.Providers.windowKey)
+        
+        // 如果需要国际化 / 自定义主题，显然需要在业务初始化之前创建
+        DTB.Providers.register(DTB.ColorManager.shared, key: DTB.Providers.colorKey)
+        DTB.Providers.register(DTB.I18NManager.shared, key: DTB.Providers.stringKey)
+        DTB.Providers.register(DTB.FontManager.shared, key: DTB.Providers.fontKey)
+        
+        // view 组件同理
+        DTB.Providers.register(DTB.DefaultHUDProvider(), key: DTB.Providers.hudKey)
+        DTB.Providers.register(DTB.DefaultToastProvider(), key: DTB.Providers.toastKey)
+        DTB.Providers.register(DTB.DefaultAlertProvider(), key: DTB.Providers.alertKey)
+        
+        // --- Provider 注册结束 ---
+        
+        // 假设这是业务 vc
         let nav = UINavigationController(rootViewController: HomeViewController())
         
         window?.rootViewController = nav
@@ -31,15 +57,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         adapter()
         debugger()
         
-        UILabel().dtb.text("123")
-        UITextView().dtb.text("456")
-        
         return true
     }
     
     private func debugger() {
 #if DEBUG
-//        DoraemonManager.shareInstance().install()
+        //        DoraemonManager.shareInstance().install()
 #endif
     }
     

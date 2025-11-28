@@ -14,8 +14,8 @@ import Foundation
 extension DTB {
 
     public static func registerThemeProviders() {
-        DTB.BasicInterface.registerProvider(ColorManager.shared, key: DTB.BasicInterface.colorKey)
-        DTB.BasicInterface.registerProvider(I18NManager.shared, key: DTB.BasicInterface.stringKey)
-        DTB.BasicInterface.registerProvider(FontManager.shared, key: DTB.BasicInterface.fontKey)
+        DTB.Providers.register(DTB.ColorManager.shared, key: DTB.Providers.colorKey)
+        DTB.Providers.register(DTB.I18NManager.shared, key: DTB.Providers.stringKey)
+        DTB.Providers.register(DTB.FontManager.shared, key: DTB.Providers.fontKey)
     }
 }

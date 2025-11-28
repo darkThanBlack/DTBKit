@@ -12,10 +12,15 @@
 
 import UIKit
 
-///
-public protocol ToastProvider {
+extension DTB.Providers {
     
-    func toast(on view: UIView?, param: Any?)
+    public static let toastKey = DTB.ConstKey<(any ToastProvider)>("dtb.providers.toast")
+    
+    ///
+    public protocol ToastProvider {
+        
+        func toast(on view: UIView?, param: Any?)
+    }
 }
 
 extension StaticWrapper where T: UIView {
@@ -24,7 +29,7 @@ extension StaticWrapper where T: UIView {
     ///
     /// toast 调用收束
     public func toast(_ param: Any?) {
-        DTB.app.get(DTB.BasicInterface.toastKey)?.toast(on: nil, param: param)
+        DTB.Providers.get(DTB.Providers.toastKey)?.toast(on: nil, param: param)
     }
 }
 
@@ -35,7 +40,7 @@ extension Wrapper where Base: UIView {
     /// toast 调用收束
     @discardableResult
     public func toast(_ param: Any?) -> Self {
-        DTB.app.get(DTB.BasicInterface.toastKey)?.toast(on: value, param: param)
+        DTB.Providers.get(DTB.Providers.toastKey)?.toast(on: value, param: param)
         return self
     }
 }

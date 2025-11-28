@@ -12,10 +12,15 @@
 
 import UIKit
 
-///
-public protocol FontProvider {
+extension DTB.Providers {
     
-    func create(_ param: Any?) -> UIFont
+    public static let fontKey = DTB.ConstKey<any FontProvider>("dtb.providers.font")
+    
+    ///
+    public protocol FontProvider {
+        
+        func create(_ param: Any?) -> UIFont
+    }
 }
 
 extension StaticWrapper where T: UIFont {
@@ -25,7 +30,7 @@ extension StaticWrapper where T: UIFont {
     /// 字体调用收束
     @inline(__always)
     public func create(_ param: Any?) -> UIFont {
-        return DTB.app.get(DTB.BasicInterface.fontKey)?.create(param) ?? UIFont.systemFont(ofSize: 17.0)
+        return DTB.Providers.get(DTB.Providers.fontKey)?.create(param) ?? UIFont.systemFont(ofSize: 17.0)
     }
     
     /// Create font with provider.
@@ -33,7 +38,7 @@ extension StaticWrapper where T: UIFont {
     /// 字体调用收束
     @inline(__always)
     public func create(_ name: String? = nil, size: CGFloat, weight: UIFont.Weight = .regular) -> UIFont {
-        return DTB.app.get(DTB.BasicInterface.fontKey)?.create(
+        return DTB.Providers.get(DTB.Providers.fontKey)?.create(
             [
                 "name": name ?? "",
                 "size": size,
