@@ -1,5 +1,5 @@
 //
-//  SettingViewController.swift
+//  MineViewController.swift
 //  DTBKit_Example
 //
 //  Created by moonShadow on 2025/11/28
@@ -12,7 +12,7 @@
 
 import UIKit
 
-class SettingViewController: BaseViewController {
+class MineViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

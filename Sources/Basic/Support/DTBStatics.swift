@@ -25,12 +25,12 @@ extension DTB {
     public static var statusBarHeight: CGFloat {
         get {
             
-//            func style3() -> CGFloat? {
-//                if #available(iOS 13.0, *) {
-//                    return UIWindowScene.dtb.keyScene()?.value.statusBarManager?.statusBarFrame.size.height
-//                }
-//                return nil
-//            }
+            //            func style3() -> CGFloat? {
+            //                if #available(iOS 13.0, *) {
+            //                    return UIWindowScene.dtb.keyScene()?.value.statusBarManager?.statusBarFrame.size.height
+            //                }
+            //                return nil
+            //            }
             
             func style2() -> CGFloat? {
                 if #available(iOS 11.0, *) {
@@ -45,69 +45,6 @@ extension DTB {
             return style2() ?? style1()
         }
         set {}
-    }
-    
-    public enum DebugTypes {
-        
-        case original
-        
-        case simple
-        
-        case fully
-        
-        case warning
-        
-        case error
-        
-        case assert
-    }
-    
-    public static func print(
-        _ item: @autoclosure (() -> Any),
-        type: DTB.DebugTypes = .original,
-        file: String = #file,
-        line: Int = #line,
-        function: String = #function
-    ) {
-        switch type {
-        case .original:
-#if DEBUG
-            Swift.print(item())
-#endif
-            break
-        case .simple:
-#if DEBUG
-            Swift.print("Sport Log file=\(file) line=\(line) function=\(function) \n\(item())")
-#endif
-            break
-        case .fully:
-#if DEBUG
-            Swift.print("Sport Log file=\(file) line=\(line) function=\(function)")
-            Swift.debugPrint("\(item())")
-#endif
-            break
-        case .warning:
-#if DEBUG
-            Swift.print("Sport WARNING file=\(file) line=\(line) function=\(function)")
-            Swift.debugPrint("\(item())")
-#endif
-            break
-        case .error:
-#if DEBUG
-            Swift.print("Sport ERROR file=\(file) line=\(line) function=\(function)")
-            Swift.debugPrint("\(item())")
-#else
-            // TODO: 堆栈打印 / 日志上报
-#endif
-            break
-        case .assert:
-#if DEBUG
-            assert(false, "\(item())")
-#else
-            // TODO: 堆栈打印 / 日志上报
-#endif
-            break
-        }
     }
     
     /// hf means "high fidelity"

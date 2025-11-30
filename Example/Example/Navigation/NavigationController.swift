@@ -24,12 +24,32 @@ class NavigationController: UINavigationController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    /// 快捷隐藏自定义的异形 tabbar
+    /// 处理自定义的 tabBar
     private func setCustomTabBarHidden(_ isHidden: Bool) {
         guard let tabbarVC = tabBarController as? TabBarController else {
             return
         }
         tabbarVC.setCustomTabBarHidden(isHidden)
+    }
+    
+    /// 保持 TabBar 处理与 root 一致
+    override var hidesBottomBarWhenPushed: Bool {
+        set {
+            viewControllers.first?.hidesBottomBarWhenPushed = newValue
+        }
+        get {
+            return viewControllers.first?.hidesBottomBarWhenPushed ?? false
+        }
+    }
+    
+    /// 保持状态栏与 top 一致
+    override var childForStatusBarStyle: UIViewController? {
+        return topViewController
+    }
+    
+    /// 保持状态栏与 top 一致
+    override var childForStatusBarHidden: UIViewController? {
+        return topViewController
     }
     
     override func pushViewController(_ viewController: UIViewController, animated: Bool) {
@@ -58,11 +78,4 @@ class NavigationController: UINavigationController {
         return super.popToRootViewController(animated: animated)
     }
     
-    override var childForStatusBarStyle: UIViewController? {
-        return topViewController
-    }
-    
-    override var childForStatusBarHidden: UIViewController? {
-        return topViewController
-    }
 }

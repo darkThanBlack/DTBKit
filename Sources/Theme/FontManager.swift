@@ -43,18 +43,14 @@ extension DTB {
         public func query(_ param: [String: Any]) -> UIFont? {
             guard let weight = param["weight"] as? UIFont.Weight,
                   let size = param["size"] as? CGFloat else {
-#if DEBUG
-                print("font MISSING: size or weight is nil")
-#endif
+                console.error("size or weight is nil")
                 return nil
             }
             if let name = param["name"] as? String, name.isEmpty == false,
                let font = UIFont(name: "\(name)-\(weight.dtb.variant())", size: size) {
                 return font
             } else {
-#if DEBUG
-                print("font MISSING: actual_name=\(param["name"] as? String ?? "")-\(weight.dtb.variant()), size=\(size)")
-#endif
+                console.error("missing font: actual_name=\(param["name"] as? String ?? "")-\(weight.dtb.variant()), size=\(size)")
                 return UIFont.systemFont(ofSize: size, weight: weight)
             }
         }
@@ -64,12 +60,14 @@ extension DTB {
         /// 加载支持的字体信息
         private func loadCustomFonts() {
             guard let filePath = Bundle.main.path(forResource: "fonts", ofType: "json") else {
+                console.error("fonts.json file not found")
                 return
             }
             
             guard FileManager.default.fileExists(atPath: filePath),
                   let data = try? Data(contentsOf: URL(fileURLWithPath: filePath)),
                   let dict = (try? JSONSerialization.jsonObject(with: data, options: [])) as? [String: Any] else {
+                console.error("fonts.json parse fail")
                 return
             }
             
@@ -95,7 +93,7 @@ extension DTB {
         private func registerFontFromBundle(name: String, type: String = "ttf", bundle: Bundle = .main) {
             // 获取文件
             guard let url = bundle.url(forResource: name, withExtension: type) else {
-                print("FontManager: Font file \(name).\(type) not found in bundle")
+                console.error("\(name).\(type) file not found")
                 return
             }
             
@@ -103,6 +101,7 @@ extension DTB {
             guard let fontDataProvider = CGDataProvider(url: url as CFURL),
                   let font = CGFont(fontDataProvider),
                   let fontName = font.postScriptName as String? else {
+                console.error("\(name).\(type) name parse fail")
                 return
             }
             
@@ -119,7 +118,7 @@ extension DTB {
                 registeredFonts.insert(fontName)
             } else if let error = error?.takeRetainedValue() {
                 let errorDescription = CFErrorCopyDescription(error)
-                print("FontManager: Failed to register font \(fontName): \(String(describing: errorDescription))")
+                console.error("font: \(fontName) register failed, error: \(String(describing: errorDescription))")
             }
         }
         

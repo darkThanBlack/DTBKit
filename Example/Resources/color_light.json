@@ -1,9 +1,10 @@
 {
+    "theme": "#6C5CE7",
     "background": "#1C1C23",
-    "background_tab_bar": "#100D15",
     
+    "tab_bar_background": "#F8F9FA",
+    "tab_bar_unselect": "#6D6D82",
+
     "text_title": "#FFFFFF",
-    "text_detail": "#999999",
-    
-    "theme": "#6C5CE7"
+    "text_detail": "#999999"
 }

@@ -11,11 +11,6 @@
 
 extension DTB {
     
-    public static func registerUIProviders() {
-        DTB.Providers.register(DTB.DefaultHUDProvider(), key: DTB.Providers.hudKey)
-        DTB.Providers.register(DTB.DefaultToastProvider(), key: DTB.Providers.toastKey)
-        DTB.Providers.register(DTB.DefaultAlertProvider(), key: DTB.Providers.alertKey)
-    }
 }
 
 extension DTB {

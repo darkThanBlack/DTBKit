@@ -15,9 +15,6 @@ import UIKit
 extension DTB {
     
     /// Memory dict / App data / etc.
-    public static let app = AppManager.shared
-    
-    /// Memory dict / App data / etc.
     public final class AppManager {
         
         public static let shared = AppManager()

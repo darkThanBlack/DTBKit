@@ -56,20 +56,20 @@ extension DTB {
         
         public func fullLanguageCode() -> String? {
             if #available(iOS 16, *) {
-                return Locale.current.identifier
+                return Locale.current.language.minimalIdentifier
             } else {
                 return Locale.preferredLanguages.first
             }
         }
         
-        //    /// 可能出现 "zh-HK" 的形式
-        //    public func limitLanguageCode() -> String? {
-        //        if #available(iOS 16, *) {
-        //            return Locale.currentKey.language.languageCode?.identifier
-        //        } else {
-        //            return Locale.preferredLanguages.first?.components(separatedBy: "-").first
-        //        }
-        //    }
+        /// 可能出现 "zh-HK" 的形式
+//        public func limitLanguageCode() -> String? {
+//            if #available(iOS 16, *) {
+//                return Locale.current.language.languageCode?.identifier
+//            } else {
+//                return Locale.preferredLanguages.first?.components(separatedBy: "-").first
+//            }
+//        }
         
         /// 直接指定当前语言
         ///
@@ -90,7 +90,7 @@ extension DTB {
         @inline(__always)
         public func query(_ key: String) -> String {
             if mapper[key] == nil {
-                error("missing key=\(key)")
+                console.error("missing key=\(key)")
             }
             return mapper[key] ?? "\(key)"
         }
@@ -105,7 +105,7 @@ extension DTB {
         @inline(__always)
         public func query(format key: String, _ args: [String]) -> String {
             guard var result = mapper[key] else {
-                error("missing key=\(key)")
+                console.error("missing key=\(key)")
                 return "\(key)"
             }
             for (index, item) in args.enumerated() {
@@ -116,60 +116,72 @@ extension DTB {
         
         // MARK: - Parser
         
+        /// "string_zh-CN.json"
+        private func getMapperBy(key: String) -> [String: String]? {
+            guard let filePath = Bundle.main.path(forResource: "string_\(key)", ofType: "json"),
+                  FileManager.default.fileExists(atPath: filePath),
+                  let data = try? Data(contentsOf: URL(fileURLWithPath: filePath)),
+                  let dict = (try? JSONSerialization.jsonObject(with: data, options: [])) as? [String: String],
+                  dict.isEmpty == false else {
+                return nil
+            }
+            return dict
+        }
+        
+        /// 递归查询 key; 更优解是拉表后全等查询; 注意 CFBundleDevelopmentRegion 的影响
         ///
-        @inline(__always)
-        private func error(_ message: String) {
-#if DEBUG
-            print("i18N ERROR: \(message)")
-#endif
+        ///
+        /// Search step: "zh-Hans-US" -> "zh-Hans" -> "zh"
+        /// separator:  bcp47 == "-", icu / cldr == "_", Locale.IdentifierType
+        private func parseLanguageCodeBy(key: String, separator: String) -> [String: String]? {
+            let list = key.components(separatedBy: separator)
+            guard list.count > 0 else {
+                return nil
+            }
+            if list.count == 1 {
+                return getMapperBy(key: list.first ?? "")
+            } else {
+                if let result = getMapperBy(key: list.joined(separator: separator)), result.isEmpty == false {
+                    return result
+                } else {
+                    return parseLanguageCodeBy(key: list.dropLast().joined(separator: separator), separator: separator)
+                }
+            }
         }
         
         private func i18nMapParser() {
+            mapper.removeAll()
             
-            /// "string_zh-CN.json"
-            func getMapperBy(key: String) -> [String: String]? {
-                guard let filePath = Bundle.main.path(forResource: "string_\(key)", ofType: "json"),
-                      FileManager.default.fileExists(atPath: filePath),
-                      let data = try? Data(contentsOf: URL(fileURLWithPath: filePath)),
-                      let dict = (try? JSONSerialization.jsonObject(with: data, options: [])) as? [String: String],
-                      dict.isEmpty == false else {
-                    return nil
-                }
-                return dict
-            }
-            
-            /// Step 1. "zh-Hans-US"
-            /// Step 2. "zh-Hans"
-            /// Step 3. "zh"
-            func recursionLanguageCodeBy(list: [String]) -> [String: String]? {
-                let result = getMapperBy(key: list.joined(separator: "-"))
-                if (result != nil) || (list.count == 1) {
-                    return result
-                } else {
-                    return recursionLanguageCodeBy(list: list.dropLast())
-                }
-            }
-            
-            let result: [String: String]? = {
+            guard let result = {
                 // manual
                 if let manual = currentKey, manual.isEmpty == false {
                     if let result = getMapperBy(key: manual) {
                         return result
                     } else {
-                        error("is manual mode but missing file=\(manual), will use follow system mode")
+                        DTB.console.error("user set key=\(manual) but file not found, will use follow system mode")
                     }
                 }
                 // follow system
                 guard let full = fullLanguageCode(), full.isEmpty == false else {
-                    error("query system language code fail")
+                    console.error("query system language code fail")
                     return nil
                 }
-                return recursionLanguageCodeBy(list: full.components(separatedBy: "-"))
-            }()
-            error("mapper query fail")
+                if let result = parseLanguageCodeBy(key: full, separator: "-"), result.isEmpty == false {
+                    return result
+                } else {
+                    console.error("parse with bcp47 rule fail")
+                }
+                if let result = parseLanguageCodeBy(key: full, separator: "_"), result.isEmpty == false {
+                    return result
+                } else {
+                    console.error("parse with cldr rule fail")
+                }
+                return nil
+            }(), result.isEmpty == false else {
+                return
+            }
             
-            mapper.removeAll()
-            result?.forEach { key, value in
+            result.forEach { key, value in
                 self.mapper[key] = value
             }
         }

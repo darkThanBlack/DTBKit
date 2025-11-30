@@ -96,14 +96,20 @@ extension DTB {
         @objc private func colorMapParser() {
             mapper.removeAll()
             
-            guard let fileName = current ?? systemColorKey(),
-                  let filePath = Bundle.main.path(forResource: fileName, ofType: "json") else {
+            guard let key = current ?? systemColorKey() else {
+                
+                console.error("color key is nil")
+                return
+            }
+            guard let filePath = Bundle.main.path(forResource: "color_\(key)", ofType: "json") else {
+                console.error("color_\(key).json file not found")
                 return
             }
             
             guard FileManager.default.fileExists(atPath: filePath),
                   let data = try? Data(contentsOf: URL(fileURLWithPath: filePath)),
-                  let dict = (try? JSONSerialization.jsonObject(with: data, options: [])) as? [String: String] else {
+                  let dict = (try? JSONSerialization.jsonObject(with: data, options: [.fragmentsAllowed])) as? [String: String] else {
+                console.error("color_\(key).json parse fail")
                 return
             }
             

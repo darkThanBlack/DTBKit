@@ -24,10 +24,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        // 假设这是业务 window
-        window = createWindow()
+        window = UIWindow(frame: UIScreen.main.bounds)
         
         // --- Provider 注册示例 ---
+        // 很明显大部分功能需要在业务初始化之前创建
         
         // scene 主要是为了 keyWindow 的自动实现
         if #available(iOS 13.0, *) {
@@ -36,31 +36,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // 确保 topMost 方法无误，最稳妥的方法就是传入 window 实例
         DTB.Providers.register(DTB.DefaultWindowProvider(window), key: DTB.Providers.windowKey)
         
-        // 如果需要国际化 / 自定义主题，显然需要在业务初始化之前创建
+        // 如果需要国际化 / 自定义主题
         DTB.Providers.register(DTB.ColorManager.shared, key: DTB.Providers.colorKey)
         DTB.Providers.register(DTB.I18NManager.shared, key: DTB.Providers.stringKey)
         DTB.Providers.register(DTB.FontManager.shared, key: DTB.Providers.fontKey)
         
-        // view 组件同理
+        // UI 组件
         DTB.Providers.register(DTB.DefaultHUDProvider(), key: DTB.Providers.hudKey)
         DTB.Providers.register(DTB.DefaultToastProvider(), key: DTB.Providers.toastKey)
         DTB.Providers.register(DTB.DefaultAlertProvider(), key: DTB.Providers.alertKey)
         
         // --- Provider 注册结束 ---
         
+        /// 假设这是业务
+        let tabBarController = TabBarController(nibName: nil, bundle: nil)
+        window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
 
         adapter()
         debugger()
         
         return true
-    }
-    
-    private func createWindow() -> UIWindow? {
-        let window = UIWindow(frame: UIScreen.main.bounds)
-        let tabBarController = TabBarController(nibName: nil, bundle: nil)
-        window.rootViewController = tabBarController
-        return window
     }
     
     private func debugger() {
