@@ -1,20 +1,21 @@
 //
-//  SettingsViewController.swift
-//  tarot
+//  ColorSettingsViewController.swift
+//  DTBKit_Example
 //
-//  Created by Claude on 2025/11/19
-//  Copyright © 2025 moon. All rights reserved.
+//  Created by moonShadow on 2025/12/1
+//  Copyright © 2025 darkThanBlack. All rights reserved.
 //
 //  LICENSE: SAME AS REPOSITORY
+//  Contact me: [GitHub](https://github.com/darkThanBlack)
 //
+    
 
 import UIKit
 
-/// 设置页面
-class SettingsViewController: BaseViewController {
+class ColorSettingsViewController: BaseViewController {
 
     private lazy var viewModel = {
-        let vm = SettingsViewModel()
+        let vm = ColorSettingsViewModel()
         return vm
     }()
 
@@ -34,7 +35,7 @@ class SettingsViewController: BaseViewController {
     }
     
     private func setupUI() {
-        loadNavigation(title: .dtb.create("settings_title"))
+        loadNavigation(title: .dtb.create("color_settings_title"))
 
         view.addSubview(contentView)
         contentView.snp.makeConstraints { make in
@@ -50,26 +51,15 @@ class SettingsViewController: BaseViewController {
     }
 
     private lazy var contentView = {
-        let view = SettingsView()
+        let view = LanguageSettingsView()
         view.delegate = self
         return view
     }()
 }
 
-extension SettingsViewController: MineSimpleListViewDelegate {
-    
+extension ColorSettingsViewController: MineSimpleListViewDelegate {
+
     func simpleListDidTapItemEvent(_ model: any MineSimpleItemDelegate) {
-        guard let key = SettingsItemKeys(rawValue: model.key ?? "") else {
-            return
-        }
-        switch key {
-        case .languages:
-            let languageVC = LanguageSettingsViewController()
-            navigationController?.pushViewController(languageVC, animated: true)
-        case .colors:
-            let colorVC = ColorSettingsViewController()
-            navigationController?.pushViewController(colorVC, animated: true)
-        }
+        viewModel.didSelect(key: model.key)
     }
-    
 }

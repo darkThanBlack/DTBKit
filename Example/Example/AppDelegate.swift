@@ -9,11 +9,13 @@
 import DTBKit
 
 #if DEBUG
-//import DoraemonKit
+import DoKit
 #endif
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
+    static let restartNotificationKey = Notification.Name("kExampleAppRestartKey")
     
     var window: UIWindow?
     
@@ -49,8 +51,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // --- Provider 注册结束 ---
         
         /// 假设这是业务
-        let tabBarController = TabBarController(nibName: nil, bundle: nil)
-        window?.rootViewController = tabBarController
+        NotificationCenter.default.addObserver(self, selector: #selector(appRestartEvent), name: Self.restartNotificationKey, object: nil)
+        appRestartEvent()
+        
         window?.makeKeyAndVisible()
 
         adapter()
@@ -59,9 +62,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+    /// 销毁并重新创建 window.root, 用于处理主题 / 国际化 等变化
+    @objc private func appRestartEvent() {
+        window?.rootViewController?.dtb.popToMainRootAnyway()
+        
+        let tabBarController = TabBarController(nibName: nil, bundle: nil)
+        window?.rootViewController = tabBarController
+    }
+    
     private func debugger() {
 #if DEBUG
-        //        DoraemonManager.shareInstance().install()
+        DoraemonManager.shareInstance().install(withPid: "73422655743e0c15bc7aff370d8485f5")
 #endif
     }
     
@@ -69,7 +80,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if #available(iOS 15.0, *) {
             UITableView.appearance().sectionHeaderTopPadding = 0
             UITableView.appearance().isPrefetchingEnabled = false
-            // UITabBar().scrollEdgeAppearance = UITabBar().standardAppearance
         }
     }
     

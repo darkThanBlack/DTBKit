@@ -1,19 +1,18 @@
 //
-//  SettingsView.swift
-//  tarot
+//  MineView.swift
+//  DTBKit_Example
 //
-//  Created by Claude on 2025/11/19
-//  Copyright © 2025 moon. All rights reserved.
+//  Created by moonShadow on 2025/12/1
+//  Copyright © 2025 darkThanBlack. All rights reserved.
 //
 //  LICENSE: SAME AS REPOSITORY
+//  Contact me: [GitHub](https://github.com/darkThanBlack)
 //
+    
 
 import UIKit
-import DTBKit
-import SnapKit
 
-/// 设置页面视图
-class SettingsView: UIView {
+class MineView: UIView {
     
     weak var delegate: MineSimpleListViewDelegate? {
         didSet {

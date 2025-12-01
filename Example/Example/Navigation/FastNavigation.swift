@@ -48,7 +48,7 @@ public protocol FastNavigation: UIViewController {
 
 extension FastNavigation where Self: UIViewController, Self.NavigationType: NavigationView {
     
-    public func loadNavigation(title: String? = nil, theme: NavigationType.Themes? = .clear, leftStyle: NavigationView.LeftStyles = .dismiss, rightStyle: NavigationView.RightStyles? = nil) {
+    public func loadNavigation(title: String? = nil, theme: NavigationType.Themes? = .clear, leftStyle: NavigationView.LeftStyles = .pop, rightStyle: NavigationView.RightStyles? = nil) {
         if let t = theme {
             self.navigationTheme = t
         }

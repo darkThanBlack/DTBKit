@@ -1,5 +1,5 @@
 //
-//  SettingsViewController.swift
+//  LanguageSettingsViewController.swift
 //  tarot
 //
 //  Created by Claude on 2025/11/19
@@ -10,11 +10,11 @@
 
 import UIKit
 
-/// 设置页面
-class SettingsViewController: BaseViewController {
+/// 多语言设置页面
+class LanguageSettingsViewController: BaseViewController {
 
     private lazy var viewModel = {
-        let vm = SettingsViewModel()
+        let vm = LanguageSettingsViewModel()
         return vm
     }()
 
@@ -34,7 +34,7 @@ class SettingsViewController: BaseViewController {
     }
     
     private func setupUI() {
-        loadNavigation(title: .dtb.create("settings_title"))
+        loadNavigation(title: .dtb.create("language_settings_title"))
 
         view.addSubview(contentView)
         contentView.snp.makeConstraints { make in
@@ -50,26 +50,15 @@ class SettingsViewController: BaseViewController {
     }
 
     private lazy var contentView = {
-        let view = SettingsView()
+        let view = LanguageSettingsView()
         view.delegate = self
         return view
     }()
 }
 
-extension SettingsViewController: MineSimpleListViewDelegate {
-    
+extension LanguageSettingsViewController: MineSimpleListViewDelegate {
+
     func simpleListDidTapItemEvent(_ model: any MineSimpleItemDelegate) {
-        guard let key = SettingsItemKeys(rawValue: model.key ?? "") else {
-            return
-        }
-        switch key {
-        case .languages:
-            let languageVC = LanguageSettingsViewController()
-            navigationController?.pushViewController(languageVC, animated: true)
-        case .colors:
-            let colorVC = ColorSettingsViewController()
-            navigationController?.pushViewController(colorVC, animated: true)
-        }
+        viewModel.didSelect(key: model.key)
     }
-    
 }

@@ -1,10 +1,21 @@
 {
     "theme": "#6C5CE7",
-    "background": "#1C1C23",
+    "background": "#0F0F10",
+    "background_card": "#1C1C1E",
     
-    "tab_bar_background": "#2C2C2E",
+    "line_default": "#38383A",
+    "border_default": "#48484A",
+    
+    "tab_bar_background": "#1C1C1E",
     "tab_bar_unselect": "#98989D",
     
-    "text_title": "#FFFFFF",
-    "text_detail": "#999999"
+    "text_title": "#F2F2F7",
+    "text_subtitle": "#AEAEB2",
+    "text_detail": "#8E8E93",
+    "text_placeholder": "#636366",
+    
+    "section_background": "#2C2C2E",
+    
+    "button_tint": "#AEAEB2",
+    "button_background": "#2C2C2E"
 }

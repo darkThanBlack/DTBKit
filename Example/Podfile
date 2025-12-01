@@ -4,6 +4,12 @@ platform :ios, '11.0'
 
 target 'DTBKit_Example' do
   
+  pod 'DoKit',
+    :subspecs => ['Core'],
+    :git => 'https://github.com/darkThanBlack/DoKit-iOS.git',
+    :branch => 'master',
+    :commit => '2b21b6fa103da28798ff1038dd78679b0fb408d0'
+    
 #  Change development pods to xcodegen
   pod 'DTBKit/Core', :path => '../'
   pod 'DTBKit/Chain', :path => '../'

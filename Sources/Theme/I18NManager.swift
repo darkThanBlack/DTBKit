@@ -54,6 +54,7 @@ extension DTB {
             // NSLocale.currentLocaleDidChangeNotification
         }
         
+        /// 当前系统语言标识符 (BCP-47)
         public func fullLanguageCode() -> String? {
             if #available(iOS 16, *) {
                 return Locale.current.language.minimalIdentifier
@@ -125,6 +126,7 @@ extension DTB {
                   dict.isEmpty == false else {
                 return nil
             }
+            console.print("string_\(key).json was successfully parsed")
             return dict
         }
         

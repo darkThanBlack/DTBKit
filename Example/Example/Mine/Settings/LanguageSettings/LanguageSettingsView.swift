@@ -1,5 +1,5 @@
 //
-//  SettingsView.swift
+//  LanguageSettingsView.swift
 //  tarot
 //
 //  Created by Claude on 2025/11/19
@@ -12,9 +12,9 @@ import UIKit
 import DTBKit
 import SnapKit
 
-/// 设置页面视图
-class SettingsView: UIView {
-    
+/// 多语言设置页面视图
+class LanguageSettingsView: UIView {
+
     weak var delegate: MineSimpleListViewDelegate? {
         didSet {
             listView.delegate = delegate

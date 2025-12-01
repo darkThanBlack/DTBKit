@@ -59,41 +59,49 @@ public class NavigationView: UIView, FastNavigationViewType {
             break
         }
         
-        leftStack.arrangedSubviews.forEach({ $0.removeFromSuperview() })
-        leftStack.addArrangedSubview(leftButton)
-        [leftButton].forEach({
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        })
-//        NSLayoutConstraint.activate([
-//            leftButton.widthAnchor.constraint(equalToConstant: 44.0),
-//            leftButton.heightAnchor.constraint(equalTo: leftStack.heightAnchor),
-//        ])
-        
         switch leftStyle {
         case .pop:
-            leftButton.dtb.setImage(.dtb.create("nav_back"))
+            let image = {
+                if #available(iOS 13.0, *) {
+                    return UIImage(systemName: "chevron.left")
+                } else {
+                    return .dtb.create("nav_back")
+                }
+            }()
+            leftButton.dtb
+                .setTitle(nil, for: .normal)
+                .setImage(image, for: .normal)
+                .tintColor(.dtb.create("button_tint"))
         case .dismiss:
-            leftButton.dtb.setImage(.dtb.create("nav_close"))
+            let image = {
+                if #available(iOS 13.0, *) {
+                    return UIImage(systemName: "xmark")
+                } else {
+                    return .dtb.create("nav_close")
+                }
+            }()
+            leftButton.dtb
+                .setTitle(nil, for: .normal)
+                .setImage(image, for: .normal)
+                .tintColor(.dtb.create("button_tint"))
         case .title(let value):
             leftButton.dtb
-                .setTitle(value)
-                .setImage(nil)
+                .setTitle(value, for: .normal)
+                .setTitleColor(.dtb.create("text_title"), for: .normal)
+                .setImage(nil, for: .normal)
         }
         
-        rightStack.arrangedSubviews.forEach({ $0.removeFromSuperview() })
         if let style = rightStyle {
-            rightStack.addArrangedSubview(rightButton)
-            [rightButton].forEach({
-                $0.translatesAutoresizingMaskIntoConstraints = false
-            })
-//            NSLayoutConstraint.activate([
-//                rightButton.heightAnchor.constraint(equalTo: leftStack.heightAnchor),
-//            ])
-            
+            rightButton.isHidden = false
             switch style {
             case .title(let value):
-                rightButton.dtb.setTitle(value)
+                rightButton.dtb
+                    .setTitle(value, for: .normal)
+                    .setTitleColor(.dtb.create("text_title"), for: .normal)
+                    .setImage(nil, for: .normal)
             }
+        } else {
+            rightButton.isHidden = true
         }
     }
     
@@ -141,7 +149,7 @@ public class NavigationView: UIView, FastNavigationViewType {
         })
         NSLayoutConstraint.activate([
             leftStack.topAnchor.constraint(equalTo: box.topAnchor, constant: 0.0),
-            leftStack.leftAnchor.constraint(equalTo: box.leftAnchor, constant: 12.0),
+            leftStack.leftAnchor.constraint(equalTo: box.leftAnchor, constant: 16.0),
             leftStack.rightAnchor.constraint(lessThanOrEqualTo: titleLabel.leftAnchor, constant: -8.0),
             leftStack.bottomAnchor.constraint(equalTo: box.bottomAnchor, constant: 0.0),
         ])
@@ -155,7 +163,7 @@ public class NavigationView: UIView, FastNavigationViewType {
         NSLayoutConstraint.activate([
             rightStack.topAnchor.constraint(equalTo: box.topAnchor, constant: 0.0),
             rightStack.leftAnchor.constraint(greaterThanOrEqualTo: titleLabel.rightAnchor, constant: 8.0),
-            rightStack.rightAnchor.constraint(equalTo: box.rightAnchor, constant: -12.0),
+            rightStack.rightAnchor.constraint(equalTo: box.rightAnchor, constant: -16.0),
             rightStack.bottomAnchor.constraint(equalTo: box.bottomAnchor, constant: 0.0),
         ])
     }
@@ -185,14 +193,14 @@ public class NavigationView: UIView, FastNavigationViewType {
         .numberOfLines(1)
         .value
     
-    private lazy var leftStack = UIStackView().dtb
+    private lazy var leftStack = UIStackView(arrangedSubviews: [leftButton]).dtb
         .axis(.horizontal)
         .alignment(.center)
         .distribution(.equalSpacing)
         .spacing(8.0)
         .value
     
-    private lazy var rightStack = UIStackView().dtb
+    private lazy var rightStack = UIStackView(arrangedSubviews: [rightButton]).dtb
         .axis(.horizontal)
         .alignment(.center)
         .distribution(.equalSpacing)

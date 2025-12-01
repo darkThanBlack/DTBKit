@@ -14,21 +14,58 @@ import UIKit
 
 class MineViewController: BaseViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    private lazy var viewModel = {
+        let vm = MineViewModel()
+        return vm
+    }()
 
-        // Do any additional setup after loading the view.
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
-    */
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupUI()
+
+        reloadData()
+    }
+    
+    private func setupUI() {
+        view.addSubview(contentView)
+        contentView.snp.makeConstraints { make in
+            make.top.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+    }
+
+    private func reloadData() {
+        self.contentView.update(self.viewModel.items)
+    }
+
+    private lazy var contentView = {
+        let view = MineView()
+        view.delegate = self
+        return view
+    }()
+}
+
+extension MineViewController: MineSimpleListViewDelegate {
+    
+    func simpleListDidTapItemEvent(_ model: any MineSimpleItemDelegate) {
+        guard let key = MineItemKeys(rawValue: model.key ?? "") else {
+            return
+        }
+        switch key {
+        case .settings:
+            let settingVC = SettingsViewController()
+            navigationController?.pushViewController(settingVC, animated: true)
+        case .other:
+            break
+            
+        }
+    }
+    
 }

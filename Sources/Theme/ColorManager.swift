@@ -31,7 +31,7 @@ extension DTB {
         public static let shared = ColorManager()
         
         /// nil 代表跟随系统
-        public private(set) var current: String? = nil
+        public private(set) var currentKey: String? = nil
         
         private let localKey = "DTBKitColorThemeKey"
         
@@ -39,7 +39,7 @@ extension DTB {
         private var mapper: [String: UIColor] = [:]
         
         private init() {
-            current = UserDefaults.standard.object(forKey: localKey) as? String
+            currentKey = UserDefaults.standard.object(forKey: localKey) as? String
             colorMapParser()
             
             // 系统深浅色模式变化监听
@@ -62,13 +62,14 @@ extension DTB {
                 }
             }
             if let style = Bundle.main.infoDictionary?["UIUserInterfaceStyle"] as? String {
-                if style == "Dark" {
+                if style.lowercased() == "dark" {
                     return "dark"
                 }
-                if style == "Light" {
+                if style.lowercased() == "light" {
                     return  "light"
                 }
             }
+            console.error("system color key not found.")
             return nil
         }
         
@@ -78,7 +79,7 @@ extension DTB {
         ///
         /// key 会被持久化到本地。
         public func update(key: String?) {
-            current = key
+            currentKey = key
             UserDefaults.standard.set(key, forKey: localKey)
             UserDefaults.standard.synchronize()
             
@@ -96,7 +97,7 @@ extension DTB {
         @objc private func colorMapParser() {
             mapper.removeAll()
             
-            guard let key = current ?? systemColorKey() else {
+            guard let key = currentKey ?? systemColorKey() else {
                 
                 console.error("color key is nil")
                 return

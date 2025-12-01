@@ -22,27 +22,26 @@ extension DTB {
         
         @inline(__always)
         public func print(
-            _ items: Any...,
+            _ item: Any,
             file: String = #file,
             line: Int = #line,
             function: String = #function
         ) {
 #if DEBUG
-            Swift.print("DTB__LOG  function=\(function)")
-            Swift.print(items)
+            Swift.print("DTB__LOG  \(item)  function=\(function)")
 #endif
         }
         
         @inline(__always)
         public func error(
-            _ items: Any...,
+            _ item: Any,
             file: String = #file,
             line: Int = #line,
             function: String = #function
         ) {
-            Swift.print("--- DTB__ERROR START ---\nfile=\(file) line=\(line) function=\(function)")
-            Swift.debugPrint(items)
-            Swift.print("--- DTB__ERROR END ---")
+            Swift.print("--- DTB__ERROR START\nfile=\(file) line=\(line) function=\(function)")
+            Swift.debugPrint(item)
+            Swift.print("--- DTB__ERROR END")
         }
     }
 }

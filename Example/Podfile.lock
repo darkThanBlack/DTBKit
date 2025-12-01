@@ -1,4 +1,5 @@
 PODS:
+  - DoKit/Core (4.0.0)
   - DTBKit/Basic (0.0.1):
     - DTBKit/Chain
   - DTBKit/Basic/Tests (0.0.1):
@@ -18,6 +19,7 @@ PODS:
   - Toast-Swift (5.0.1)
 
 DEPENDENCIES:
+  - DoKit/Core (from `https://github.com/darkThanBlack/DoKit-iOS.git`, commit `2b21b6fa103da28798ff1038dd78679b0fb408d0`, branch `master`)
   - DTBKit/Basic (from `../`)
   - DTBKit/Basic/Tests (from `../`)
   - DTBKit/Chain (from `../`)
@@ -32,14 +34,24 @@ SPEC REPOS:
     - Toast-Swift
 
 EXTERNAL SOURCES:
+  DoKit:
+    :branch: master
+    :commit: 2b21b6fa103da28798ff1038dd78679b0fb408d0
+    :git: https://github.com/darkThanBlack/DoKit-iOS.git
   DTBKit:
     :path: "../"
 
+CHECKOUT OPTIONS:
+  DoKit:
+    :commit: 2b21b6fa103da28798ff1038dd78679b0fb408d0
+    :git: https://github.com/darkThanBlack/DoKit-iOS.git
+
 SPEC CHECKSUMS:
+  DoKit: be7712b87f2562de9893ae9ca6ba5f6d7455723d
   DTBKit: 57c88eb4d86981da1f8ee2a57309433438bc2d39
   SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: 9c64c5f47270b03a7f0975d517e13fe1a8a08e1e
+PODFILE CHECKSUM: 40824aa0b28792c93e391a4d0efaa14a995f4b4e
 
 COCOAPODS: 1.15.2
