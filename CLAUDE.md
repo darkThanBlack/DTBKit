@@ -26,9 +26,19 @@
 - 重构时彻底删除旧代码，不保留未调用方法
 
 ### Git 提交
-- commit 格式: `[feat/fix/improve/docs/style/perf/test] 描述`
-- 正文不含 emoji、非标单词、英文中括号
-- commit 前将 LLM 上下文保存到 CLAUDE.md
+#### 格式要求
+- 模板: `[type] 描述 by CCR.`
+- 类型: feat/fix/improve/docs/style/perf/test
+- 首行 <72 字符
+- 提交前保存上下文到 CLAUDE.md
+#### 输出规则
+- 直接输出 commit 信息，无引导文本
+- 禁止 AI 生成标识 (Written by Claude 等)
+- 禁止签名行 (Signed-off-by 等)
+- 正文无 emoji、英文中括号
+#### 示例
+[feat] 添加用户登录功能 by CCR.
+[fix] 修复内存泄漏问题 by CCR.
 
 ### DTBKit 项目适配
 - 当前使用 XcodeGen + CocoaPods ✓
@@ -72,3 +82,9 @@ DTBKit 是一个 Swift iOS 框架，专注于**命名空间隔离**和**链式 A
 
 ## 会话历史
 - 2025-11-28: 用户要求将记忆存储在 CLAUDE.md 中
+- 2025-12-01: 彻底重构 HomeViewController，使用规范的可复用组件
+  - 创建了 DemoTableViewCell：支持自动高度计算，标题和详细描述布局
+  - 创建了 DemoSectionHeaderView：规范的 Section Header，支持自动高度
+  - 重写 HomeViewController：使用 UITableView.automaticDimension 实现自动高度
+  - 遵循 DTBKit 命名空间和链式 API 设计原则
+  - 代码结构更加清晰，支持更好的复用性和扩展性
