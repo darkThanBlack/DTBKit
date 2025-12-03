@@ -33,7 +33,7 @@ extension DTB {
         }()
         
         /// radius == nil: height / 2.0
-        public func makeCorner(radius: CGFloat? = nil, corners: UIRectCorner = .allCorners) {
+        public func setCorner(radius: CGFloat? = nil, corners: UIRectCorner = .allCorners) {
             eventPool.append { [weak self] in
                 guard let self = self else { return }
                 let path = UIBezierPath(
@@ -50,7 +50,7 @@ extension DTB {
         }
         
         ///
-        public func makeGradient(handler: ((CAGradientLayer?) -> ())?) {
+        public func setGradient(handler: ((CAGradientLayer?) -> ())?) {
             eventPool.append { [weak self] in
                 handler?(self?.gradientLayer)
             }
