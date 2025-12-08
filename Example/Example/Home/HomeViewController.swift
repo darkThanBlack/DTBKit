@@ -8,49 +8,6 @@
 
 import DTBKit
 
-// MARK: - Data Models
-
-protocol DemoDescribable {
-    var title: String? { get }
-    var detail: String? { get }
-}
-
-struct DemoSectionModel {
-    let type: SectionType
-    let cells: [DemoCellModel]
-
-    init(type: SectionType) {
-        self.type = type
-        self.cells = type.cells.map({ DemoCellModel(type: $0) })
-    }
-}
-
-extension DemoSectionModel: DemoDescribable {
-    var title: String? {
-        return type.rawValue
-    }
-
-    var detail: String? {
-        return type.desc
-    }
-}
-
-struct DemoCellModel {
-    let type: BaseCellType
-}
-
-extension DemoCellModel: DemoDescribable {
-    var title: String? {
-        return type.rawValue
-    }
-
-    var detail: String? {
-        return type.desc
-    }
-}
-
-// MARK: - HomeViewController
-
 /// DTBKit Demo 主界面，展示各种功能示例
 class HomeViewController: BaseViewController {
 
@@ -129,10 +86,10 @@ class HomeViewController: BaseViewController {
         }
 
         // 注册可复用组件
-        tableView.register(DemoTableViewCell.self,
-                          forCellReuseIdentifier: DemoTableViewCell.identifier)
-        tableView.register(DemoSectionHeaderView.self,
-                          forHeaderFooterViewReuseIdentifier: DemoSectionHeaderView.identifier)
+        tableView.register(HomeCell.self,
+                           forCellReuseIdentifier: String(describing: HomeCell.self))
+        tableView.register(HomeSectionHeaderView.self,
+                          forHeaderFooterViewReuseIdentifier: String(describing: HomeSectionHeaderView.self))
 
         return tableView
     }()
@@ -152,14 +109,14 @@ extension HomeViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: DemoTableViewCell.identifier,
+            withIdentifier: String(describing: HomeCell.self),
             for: indexPath
-        ) as? DemoTableViewCell else {
+        ) as? HomeCell else {
             return UITableViewCell()
         }
 
         let cellModel = sections[indexPath.section].cells[indexPath.row]
-        cell.configure(with: cellModel)
+        cell.configCell(<#T##data: any HomeCellDataSource##any HomeCellDataSource#>)
 
         return cell
     }
@@ -171,11 +128,11 @@ extension DemoEntry {
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let headerView = tableView.dequeueReusableHeaderFooterView(
-            withIdentifier: DemoSectionHeaderView.identifier
-        ) as? DemoSectionHeaderView else {
+            withIdentifier: String(describing: HomeSectionHeaderView.self)
+        ) as? HomeSectionHeaderView else {
             return nil
         }
-
+        
         headerView.configure(with: sections[section])
         return headerView
     }

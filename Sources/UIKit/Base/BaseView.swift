@@ -16,9 +16,9 @@ extension DTB {
     
     ///
     @objc(DTBBaseView)
-    open class BaseView: UIView {
+    open class BaseView: UIView, DTB.LazyLayouts {
         
-        private var eventPool: [(() -> ())] = []
+        var lazyLayoutEventsPool_: [DTB.LazyLayoutsEventTypes : [(UIView) -> ()]] = [:]
         
         ///
         open lazy var shapeLayer: CAShapeLayer = {
@@ -34,27 +34,29 @@ extension DTB {
         
         /// radius == nil: height / 2.0
         public func setCorner(radius: CGFloat? = nil, corners: UIRectCorner = .allCorners) {
-            eventPool.append { [weak self] in
-                guard let self = self else { return }
+            lazyLayout(.frame) { view in
+                guard let view = view as? Self else { return }
                 let path = UIBezierPath(
-                    roundedRect: bounds,
+                    roundedRect: view.bounds,
                     byRoundingCorners: corners,
                     cornerRadii: CGSize(
-                        width: radius ?? bounds.size.height / 2.0,
-                        height: radius ?? bounds.size.height / 2.0
+                        width: radius ?? view.bounds.size.height / 2.0,
+                        height: radius ?? view.bounds.size.height / 2.0
                     )
                 )
-                shapeLayer.path = path.cgPath
+                view.shapeLayer.path = path.cgPath
             }
-            setNeedsLayout()
         }
         
         ///
-        public func setGradient(handler: ((CAGradientLayer?) -> ())?) {
-            eventPool.append { [weak self] in
-                handler?(self?.gradientLayer)
-            }
-            setNeedsLayout()
+        public func setGradient(
+            colors: [Any]?,
+            startPoint: CGPoint = .init(x: 0.0, y: 0.0),
+            endPoint: CGPoint = .init(x: 1.0, y: 1.0),
+            locations: [NSNumber]? = nil,
+            type: CAGradientLayerType = .axial
+        ) {
+            
         }
         
         public override init(frame: CGRect) {
@@ -72,16 +74,16 @@ extension DTB {
             layer.addSublayer(gradientLayer)
         }
         
+        open override func didMoveToSuperview() {
+            super.didMoveToSuperview()
+            
+            lazyLayoutsWhenDidMoveToSuperview_()
+        }
+        
         open override func layoutSubviews() {
             super.layoutSubviews()
             
-            guard bounds.isEmpty == false else { return }
-            
-            gradientLayer.frame = bounds
-            
-            while eventPool.count > 0 {
-                eventPool.removeLast()()
-            }
+            lazyLayoutsWhenLayoutSubviews_()
         }
         
     }

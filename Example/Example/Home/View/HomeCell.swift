@@ -1,5 +1,5 @@
 //
-//  DemoTableViewCell.swift
+//  HomeCell.swift
 //  DTBKit_Example
 //
 //  Created by moonShadow on 2023/6/28.
@@ -8,15 +8,19 @@
 
 import DTBKit
 
+protocol HomeCellDataSource {
+    
+    var title: String? { get }
+    
+    var detail: String? { get }
+}
+
 ///
 class HomeCell: UITableViewCell {
     
-    //MARK: Interface
-    
-    weak var delegate: HomeCellDelegate?
-    
-    func configCell(model: HomeCellDataSource) {
-        
+    func configCell(_ data: HomeCellDataSource) {
+        titleLabel.dtb.text(data.title).hiddenWhenEmpty()
+        detailLabel.dtb.text(data.detail).hiddenWhenEmpty()
     }
     
     //MARK: Life Cycle
