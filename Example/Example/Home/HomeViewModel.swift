@@ -8,49 +8,50 @@
 //  LICENSE: SAME AS REPOSITORY
 //  Contact me: [GitHub](https://github.com/darkThanBlack)
 //
-    
+
 
 import UIKit
 
-protocol DemoDescribable {
-    var title: String? { get }
-    var detail: String? { get }
-}
-
-struct DemoSectionModel {
-    let type: SectionType
-    let cells: [DemoCellModel]
-
-    init(type: SectionType) {
-        self.type = type
-        self.cells = type.cells.map({ DemoCellModel(type: $0) })
-    }
-}
-
-extension DemoSectionModel: DemoDescribable {
+extension DTB.SimpleSectionModel: HomeSectionHeaderData {
+    
     var title: String? {
-        return type.rawValue
+        return header?.title
     }
-
+    
     var detail: String? {
-        return type.desc
+        return header?.detail
     }
 }
 
-struct DemoCellModel {
-    let type: BaseCellType
-}
+extension DTB.SimpleModel: HomeCellData {}
 
-extension DemoCellModel: DemoDescribable {
-    var title: String? {
-        return type.rawValue
-    }
-
-    var detail: String? {
-        return type.desc
-    }
-}
-
+///
 class HomeViewModel {
     
+    var sections: [DTB.SimpleSectionModel] = [
+        .init(
+            header: .init(title: "Core", detail: "pod 'DTBKit/Core'"),
+            cells: DemoMenu.CoreTypes.allCases.compactMap(
+                { type in
+                    return .init(
+                        primaryKey: type.rawValue,
+                        title: .dtb.create("menu_\(type.rawValue)"),
+                        desc: .dtb.create("menu_\(type.rawValue)_detail"),
+                        jumpable: true
+                    )
+                })
+        ),
+        .init(
+            header: .init(title: "Other", detail: ""),
+            cells: DemoMenu.OtherTypes.allCases.compactMap(
+                { type in
+                    return .init(
+                        primaryKey: type.rawValue,
+                        title: .dtb.create("menu_\(type.rawValue)"),
+                        desc: .dtb.create("menu_\(type.rawValue)_detail"),
+                        jumpable: true
+                    )
+                })
+        )
+    ]
 }

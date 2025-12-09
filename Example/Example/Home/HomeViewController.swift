@@ -10,33 +10,21 @@ import DTBKit
 
 /// DTBKit Demo 主界面，展示各种功能示例
 class HomeViewController: BaseViewController {
-
-    // MARK: - Private Properties
-
-    private let sections = DemoSectionModel.SectionType.allCases.map({
-        DemoSectionModel(type: $0)
-    })
-
-    private lazy var entry = DemoEntry(sections: sections)
-
-    // MARK: - Lifecycle
-
+    
+    private lazy var viewModel = HomeViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupViews()
-        reloadData()
-    }
-
-    // MARK: - Private Methods
-    
-    private func setupViews() {
+        
         loadViews(in: view)
     }
-
-    private func reloadData() {
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
         tableView.reloadData()
     }
-
+    
     private func loadViews(in box: UIView) {
         box.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -58,90 +46,178 @@ class HomeViewController: BaseViewController {
             ])
         }
     }
-
-    // MARK: - UI Components
-
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
-
-        // 基础配置
-        tableView.backgroundColor = .white
-        tableView.separatorStyle = .none
-
-        // 代理设置
-        tableView.delegate = entry
+        tableView.backgroundColor = view.backgroundColor
+        tableView.delegate = self
         tableView.dataSource = self
-
-        // 自动高度计算配置
-        tableView.estimatedRowHeight = 60.0
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedSectionHeaderHeight = 40.0
-        tableView.sectionHeaderHeight = UITableView.automaticDimension
-
-        // iOS 版本适配
+        tableView.separatorStyle = .none
+        tableView.estimatedSectionHeaderHeight = UITableView.automaticDimension
+        tableView.estimatedSectionFooterHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = UITableView.automaticDimension
         if #available(iOS 11.0, *) {
             tableView.contentInsetAdjustmentBehavior = .never
         } else {
-            automaticallyAdjustsScrollViewInsets = false
+            self.automaticallyAdjustsScrollViewInsets = false
         }
-
-        // 注册可复用组件
-        tableView.register(HomeCell.self,
-                           forCellReuseIdentifier: String(describing: HomeCell.self))
-        tableView.register(HomeSectionHeaderView.self,
-                          forHeaderFooterViewReuseIdentifier: String(describing: HomeSectionHeaderView.self))
-
+        tableView.dtb
+            .registerHeaderFooterView(HomeSectionHeaderView.self)
+            .registerCell(HomeCell.self)
         return tableView
     }()
 }
 
-// MARK: - UITableViewDataSource
-
 extension HomeViewController: UITableViewDataSource {
-
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView: HomeSectionHeaderView? = tableView.dtb.dequeueReusableHeaderFooterView()
+        headerView?.update(viewModel.sections.dtb[section])
+        return headerView
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections[section].cells.count
+        return viewModel.sections.dtb[section]?.cells.count ?? 0
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: String(describing: HomeCell.self),
-            for: indexPath
-        ) as? HomeCell else {
-            return UITableViewCell()
-        }
-
-        let cellModel = sections[indexPath.section].cells[indexPath.row]
-        cell.configCell(<#T##data: any HomeCellDataSource##any HomeCellDataSource#>)
-
+        let cell: HomeCell = tableView.dtb.dequeueReusableCellEnsured(indexPath)
+        cell.update(viewModel.sections.dtb[indexPath.section]?.cells.dtb[indexPath.row])
         return cell
     }
 }
 
-// MARK: - DemoEntry TableViewDelegate Extensions
+extension HomeViewController: UITableViewDelegate {
+    
+    private func coreEvent(_ type: DemoMenu.CoreTypes) {
+        switch type {
+        case .chain_memory:
+            /// Note: The situation may different when a supports "copy-on-write".
+            ///
+            /// 注意: 当 a 支持 COW 时情况有所不同。
+            ///
+            /// [DEPRESSED] struct 转 class 再赋值的情况，如果是有具体定义的属性，相应的 create 方法能解决绝大多数情况下的问题，故 mutable 协议主要用于应对 dict 的创建。
+            func mem_test() {
+    //                var a = CGSize.dtb.create(1, 2).dtb
+    //                var original = a.value
+    //                print("a.width=\(a.value.width)")
+    //                withUnsafePointer(to: &a, { ptr in
+    //                    print("a.ptr=\(ptr)")
+    //                })
+    //
+    //                print("STEP 01")
+    //                a.width(2)
+    //                print("a.width=\(a.value.width)")
+    //                withUnsafePointer(to: &a, { ptr in
+    //                    print("a.ptr=\(ptr)")
+    //                })
+    //
+    //                print("STEP 02")
+    //                var b = a.width(3)
+    //
+    //                print("a.width=\(a.value.width)")
+    //                print("b.width=\(b.value.width)")
+    //                withUnsafePointer(to: &a, { ptr in
+    //                    print("a.ptr=\(ptr)")
+    //                })
+    //                withUnsafePointer(to: &b, { ptr in
+    //                    print("b.ptr=\(ptr)")
+    //                })
+    //
+    //                print("STEP 03")
+    //                var result = b.width(4).value
+    //
+    //                print("original=\(original.width)")
+    //                print("result.width=\(result.width)")
+    //                withUnsafePointer(to: &original, { ptr in
+    //                    print("original.ptr=\(ptr)")
+    //                })
+    //                withUnsafePointer(to: &result, { ptr in
+    //                    print("result.ptr=\(ptr)")
+    //                })
+            }
+            mem_test()
+            
+            /// a, b, c 对象相同
+            func mem_test_02() {
+                var l = UILabel()
+                let a = l.dtb.text("a").value
+                let b = a.dtb.isUserInteractionEnabled(false).value
+                let c = b.dtb.text("c").value
+                b.dtb.text("b")
+                
+                print("a.text=\(a.text!)")
+                print("a.ptr=\(Unmanaged<AnyObject>.passUnretained(a).toOpaque())")
+                
+                print("b.text=\(b.text!)")
+                print("b.ptr=\(Unmanaged<AnyObject>.passUnretained(a).toOpaque())")
 
-extension DemoEntry {
+                print("c.text=\(c.text!)")
+                print("c.ptr=\(Unmanaged<AnyObject>.passUnretained(a).toOpaque())")
+            }
+            mem_test_02()
+        }
+    }
+    
+    private func otherEvent(_ type: DemoMenu.OtherTypes) {
+        switch type {
+        case .phone_call:
+            let tels = ["10086", "tel:10086", "telprompt:10086", "telprompt://10086", "400-1234-567", "+(86) 10086", "+10086"]
+            
+            func parser(_ phoneStr: String) -> String {
+                var result = phoneStr
+                [" ", "(", ")", "-"].forEach { item in
+                    result = result.replacingOccurrences(of: item, with: "")
+                }
+                if ["tel", "telprompt"].contains(where: { router in
+                    if result.hasPrefix(router + ":") {
+                        return true
+                    }
+                    if result.hasPrefix(router + "://") {
+                        return true
+                    }
+                    return false
+                }) {
+                    return result
+                }
+                return "telprompt:" + result
+            }
+            
+            let alert = UIAlertController(title: "提示", message: "打电话", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "取消", style: .cancel))
+            tels.forEach { phone in
+                alert.addAction(UIAlertAction(title: phone, style: .default, handler: { _ in
+                    if let url = URL(string: parser(phone)),
+                       UIApplication.shared.canOpenURL(url) {
+                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                    } else {
+                        print("失败")
+                    }
+                }))
+            }
+            UIViewController.dtb.topMost()?.present(alert, animated: true)
 
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let headerView = tableView.dequeueReusableHeaderFooterView(
-            withIdentifier: String(describing: HomeSectionHeaderView.self)
-        ) as? HomeSectionHeaderView else {
-            return nil
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let section = viewModel.sections.dtb[indexPath.section] else {
+            return
+        }
+        if section.title == "Core",
+           let key = section.cells.dtb[indexPath.row]?.primaryKey,
+           let type = DemoMenu.CoreTypes(rawValue: key) {
+            coreEvent(type)
+            return
+        }
+        if section.title == "Other",
+           let key = section.cells.dtb[indexPath.row]?.primaryKey,
+           let type = DemoMenu.OtherTypes(rawValue: key) {
+            otherEvent(type)
+            return
         }
         
-        headerView.configure(with: sections[section])
-        return headerView
+        DTB.console.fail()
     }
-
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return nil
-    }
-
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0.01
-    }
+    
 }

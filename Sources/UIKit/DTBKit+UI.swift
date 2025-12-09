@@ -11,6 +11,8 @@
 
 extension DTB {
     
+    /// UIKit constraints
+    public static let layout = LayoutManager.shared
 }
 
 extension DTB {

@@ -47,5 +47,10 @@
     "color_settings_title": "主题颜色",
     "color_settings_light": "浅色模式",
     "color_settings_dark": "深色模式",
-    "color_settings_hint": "切换主题色需要重新启动 APP，是否继续？"
+    "color_settings_hint": "切换主题色需要重新启动 APP，是否继续？",
+    
+    "menu_chain_memory": "链式语法内存状态",
+    "menu_chain_memory_detail": "打印内存中，不同情况下的链式语法中间对象的状态，有助于理解相应的设计思路",
+    "menu_phone_call": "打电话",
+    "menu_phone_call_detail": ""
 }

@@ -70,12 +70,16 @@ extension DTB {
             updateLayout()
         }
         
+        /// left: image | title / right: title | image
+        ///
         /// 指 image 在 title 的 左/右/上/下侧
         public func setImageDirection(_ direction: DTB.FourDirection) {
             imageDirection = direction
             updateLayout()
         }
         
+        /// image - | offset | - title
+        ///
         /// 指 image 相对于 title 中心点的偏移量
         public func setImageOffset(_ offset: CGVector) {
             imageOffset = offset

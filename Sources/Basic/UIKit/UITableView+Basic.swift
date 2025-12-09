@@ -60,22 +60,36 @@ extension Wrapper where Base: UITableView {
     /// Use ``String(describing: Cell.self)`` to cell identifier | 直接用类名作为重用标识
     ///
     /// More details in ``Explain.md``
-    public func dequeueReusableCell<T: UITableViewCell>(_ indexPath: IndexPath) -> T {
+    public func dequeueReusableCell<T: UITableViewCell>(_ indexPath: IndexPath) -> T? {
+        return me.dequeueReusableCell(withIdentifier: String(describing: T.self), for: indexPath) as? T
+    }
+    
+    /// Use ``String(describing: Cell.self)`` to cell identifier | 直接用类名作为重用标识
+    ///
+    /// More details in ``Explain.md``
+    public func dequeueReusableCellEnsured<T: UITableViewCell>(_ indexPath: IndexPath) -> T {
         if let cell = me.dequeueReusableCell(withIdentifier: String(describing: T.self), for: indexPath) as? T {
             return cell
         }
-        assert(false)
+        DTB.console.fail()
         return T()
     }
     
     /// Use ``String(describing: Cell.self)`` to cell identifier | 直接用类名作为重用标识
     ///
     /// More details in ``Explain.md``
-    public func dequeueReusableHeaderFooterView<T: UITableViewHeaderFooterView>() -> T {
-        if let cell = me.dequeueReusableHeaderFooterView(withIdentifier: String(describing: T.self)) as? T {
-            return cell
+    public func dequeueReusableHeaderFooterView<T: UITableViewHeaderFooterView>() -> T? {
+        return me.dequeueReusableHeaderFooterView(withIdentifier: String(describing: T.self)) as? T
+    }
+    
+    /// Use ``String(describing: Cell.self)`` to cell identifier | 直接用类名作为重用标识
+    ///
+    /// More details in ``Explain.md``
+    public func dequeueReusableHeaderFooterViewEnsured<T: UITableViewHeaderFooterView>() -> T? {
+        if let view = me.dequeueReusableHeaderFooterView(withIdentifier: String(describing: T.self)) as? T {
+            return view
         }
-        assert(false)
+        DTB.console.fail()
         return T()
     }
 }

@@ -8,19 +8,28 @@
 
 import DTBKit
 
-protocol HomeCellDataSource {
+protocol HomeCellData {
     
     var title: String? { get }
     
     var detail: String? { get }
+    
+    var desc: String? { get }
+    
+    var jumpable: Bool? { get }
+    
+    var isSelected: Bool? { get }
 }
 
 ///
 class HomeCell: UITableViewCell {
     
-    func configCell(_ data: HomeCellDataSource) {
-        titleLabel.dtb.text(data.title).hiddenWhenEmpty()
-        detailLabel.dtb.text(data.detail).hiddenWhenEmpty()
+    func update(_ data: HomeCellData?) {
+        titleLabel.dtb.text(data?.title).hiddenWhenEmpty()
+        descLabel.dtb.text(data?.desc).hiddenWhenEmpty()
+        detailLabel.dtb.text(data?.detail).hiddenWhenEmpty()
+        rightArrow.isHidden = data?.jumpable == true ? false : true
+        selectIcon.isHidden = data?.isSelected == true ? false : true
     }
     
     //MARK: Life Cycle
@@ -40,27 +49,60 @@ class HomeCell: UITableViewCell {
     //MARK: View
     
     private func loadViews(in box: UIView) {
-        box.addSubview(titleLabel)
-        box.addSubview(rightStack)
+        stacks.backgroundColor = .white
         
-        titleLabel.snp.makeConstraints { make in
-            make.left.equalTo(box.snp.left).offset(16.0)
-            make.centerY.equalTo(box)
-        }
-        rightStack.snp.makeConstraints { make in
-            make.left.greaterThanOrEqualTo(titleLabel.snp.right).offset(16.0)
-            make.right.equalTo(box.snp.right).offset(-16.0)
-            make.centerY.equalTo(box)
+        DTB.layout.setPriorityLow(detailLabel, .horizontal)
+        
+        box.addSubview(stacks)
+        stacks.snp.makeConstraints { make in
+            make.edges.equalTo(box).inset(UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0))
         }
     }
     
-    //MARK: Event
+    private lazy var stacks: UIStackView = {
+        let stacks = UIStackView(arrangedSubviews: [titleStack, descLabel])
+        stacks.axis = .vertical
+        stacks.alignment = .fill
+        stacks.distribution = .fill
+        stacks.spacing = 12.0
+        return stacks
+    }()
+    
+    private lazy var titleStack: UIStackView = {
+        let stacks = UIStackView(
+            arrangedSubviews: [
+                titleLabel,
+                DTB.layout.getSpacer(.horizontal),
+                detailLabel,
+                rightArrow,
+                selectIcon
+            ]
+        )
+        stacks.axis = .horizontal
+        stacks.alignment = .center
+        stacks.distribution = .equalSpacing
+        stacks.spacing = 8.0
+        return stacks
+    }()
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15.0, weight: .medium)
         label.textColor = .dtb.create("text_title")
         label.text = " "
+        label.textAlignment = .left
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    private lazy var descLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 11.0, weight: .regular)
+        label.minimumScaleFactor = 0.5
+        label.textColor = .dtb.create("text_subtitle")
+        label.text = " "
+        label.textAlignment = .left
+        label.numberOfLines = 0
         return label
     }()
     
@@ -69,19 +111,11 @@ class HomeCell: UITableViewCell {
         label.font = UIFont.systemFont(ofSize: 13.0, weight: .regular)
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.5
-        label.textColor = .dtb.create("text_title")
+        label.textColor = .dtb.create("text_detail")
         label.text = " "
         label.textAlignment = .right
+        label.numberOfLines = 0
         return label
-    }()
-    
-    private lazy var rightStack: UIStackView = {
-        let stacks = UIStackView(arrangedSubviews: [detailLabel, rightArrow, selectIcon])
-        stacks.axis = .horizontal
-        stacks.alignment = .center
-        stacks.distribution = .equalSpacing
-        stacks.spacing = 8.0
-        return stacks
     }()
     
     private lazy var rightArrow: UIImageView = {

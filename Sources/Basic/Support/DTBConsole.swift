@@ -43,5 +43,18 @@ extension DTB {
             Swift.debugPrint(item)
             Swift.print("--- DTB__ERROR END")
         }
+        
+        @inline(__always)
+        public func fail(
+            _ message: String? = nil,
+            file: String = #file,
+            line: Int = #line,
+            function: String = #function
+        ) {
+            Swift.print("--- DTB__ASSERT \nfile=\(file) line=\(line) function=\(function) \nmessage=\(message ?? "")")
+#if DEBUG
+            Swift.assertionFailure()
+#endif
+        }
     }
 }

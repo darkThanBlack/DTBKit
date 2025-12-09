@@ -8,15 +8,20 @@
 
 import DTBKit
 
+protocol HomeSectionHeaderData {
+    
+    var title: String? { get }
+    
+    var detail: String? { get }
+}
+
 /// 标准的可复用 Demo Section Header View，支持标题和详细描述
 class HomeSectionHeaderView: UITableViewHeaderFooterView {
     
-    func configure(title: String?, detail: String?) {
-        titleLabel.dtb.text(title).hiddenWhenEmpty()
-        detailLabel.dtb.text(detail).hiddenWhenEmpty()
+    func update(_ data: HomeSectionHeaderData?) {
+        titleLabel.dtb.text(data?.title).hiddenWhenEmpty()
+        detailLabel.dtb.text(data?.detail).hiddenWhenEmpty()
     }
-    
-    // MARK: - Initialization
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)

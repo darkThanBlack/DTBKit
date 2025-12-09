@@ -23,12 +23,14 @@ extension DTB {
         ///
         open lazy var shapeLayer: CAShapeLayer = {
             let shape = CAShapeLayer()
+            shape.isHidden = true
             return shape
         }()
         
         ///
         open lazy var gradientLayer: CAGradientLayer = {
             let gradient = CAGradientLayer()
+            gradient.isHidden = true
             return gradient
         }()
         
@@ -45,6 +47,8 @@ extension DTB {
                     )
                 )
                 view.shapeLayer.path = path.cgPath
+                
+                view.shapeLayer.isHidden = false
             }
         }
         
@@ -56,7 +60,17 @@ extension DTB {
             locations: [NSNumber]? = nil,
             type: CAGradientLayerType = .axial
         ) {
-            
+            lazyLayout(.frame) { view in
+                guard let view = view as? Self else { return }
+                view.gradientLayer.colors = colors
+                view.gradientLayer.startPoint = startPoint
+                view.gradientLayer.endPoint = endPoint
+                view.gradientLayer.locations = locations
+                view.gradientLayer.type = type
+                
+                view.shapeLayer.isHidden = false
+                view.gradientLayer.isHidden = false
+            }
         }
         
         public override init(frame: CGRect) {
