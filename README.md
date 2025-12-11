@@ -1,380 +1,196 @@
 # DTBKit
 
- [![Static Badge](https://img.shields.io/badge/iOS-Swift-green)]() [![Static Badge](https://img.shields.io/badge/Cocoapods-1.12.1-green)]()
+![version](https://img.shields.io/badge/version-0.0.1-orange) ![coverage](https://img.shields.io/badge/coverage-70%25-green)
 
- ![Static Badge](https://img.shields.io/badge/Translate_by-Google-blue)
-
-
-
-[English](https://github.com/darkThanBlack/DTBKit/blob/main/README.md) |  [简体中文](https://github.com/darkThanBlack/DTBKit/wiki)
+[English](https://github.com/darkThanBlack/DTBKit/blob/main/README.md) |  [简体中文](https://github.com/darkThanBlack/DTBKit/README.zh-CN.md)
 
 
 
-## What's this?
-
-> A set of personal bundle kits designed to demonstrate best practices in various scenarios;
->
-> Focus on painless migration of business code across projects.
+## What is this?
 
 
+#### A Personal Development Toolkit
 
-When business grows or new projects are developed, we generally want
+* Provides commonly used functionalities
+* Demonstrates best practices
 
-* Reuse part of the code
-* Also isolate projects
+#### Provides Dependency Isolation
 
-This topic is very grand. In short, I think
+This is a vast topic, and my design focuses on:
 
-* Strict modularity is not realistic for independent developers and small teams;
-
-* The isolation method pioneered by ``KingFisher`` is very good, but if you want to extend it to the entire business project, you need to consider more.
-
-This project is some reflection on this issue.
+* Cross-project compatibility
+* Painless integration
 
 
 
-## Start
+## How to Read?
+
+#### General Guidelines
+
+I can't provide too much information in README, so you need to:
+
+* Download this repository and run the Example project
+  * Check the main project code for best practice demonstrations
+  * Run XCTest to view test cases and learn usage methods
+* Read the [wiki](https://github.com/darkThanBlack/DTBKit/wiki) 
+* You can refer to the [API documentation](https://darkthanblack.github.io/DTBKit/Structs/DTBKitWrapper.html), but updates may not be timely
 
 
 
-#### Run example
+#### Successfully Running Example
 
-``xcodegen`` is needed, install it from ``homebrew`` firstly:
+You need to ensure:
+
+* [XcodeGen ~> 2.41.0](https://github.com/yonaskolb/XcodeGen) is installed to generate `*.xcodeproj` files
+* [CocoaPods ~> 1.15.2](https://cocoapods.org/) is installed
+
+In the `Example` directory, execute the following commands in sequence:
 
 ```shell
-# install tools
-brew install xcodegen
-
-# Use script
-cd DTBKit/Scripts
-chmod +x ci.sh
-./ci.sh
-# shell option
-b1
-
-# Same as:
-cd DTBKit/Example
+# Example.xcodeproj will be created.
 xcodegen
+# Link to development pods.
 pod install
 ```
 
 
 
-#### Cocoapods
+#### Successfully Running Unit Tests
 
-```ruby
-# Add to main project podfile:
-source 'https://github.com/darkThanBlack/Specs.git'
-# then:
-pod 'DTBKit/Core', tag: '0.0.1'
+Using Xcode 16.3 and the Example project as an example, you can:
 
-# Or:
-pod 'DTBKit/Core', git: 'https://github.com/darkThanBlack/DTBKit', commit: '3f93179af6c2caa1e8bd0c418820947fe1aae899'
-```
+* Add and select `DTBKit` in `Manage Schemes...`
+* Press `Command + B` to compile the `DTBKit` project
+* Press `Command + U` to execute tests
+* View test reports in the `Reports` (`Command + 9`) tab
+* Code coverage statistics need to be manually configured in `Edit Scheme - Test - Options - Code Coverage - Gather coverage for...`
 
-
-
-#### Intro
-
-* Any object can have a special "namespace". Taking ``UIView`` as an example, you can:
-
-    ```swift
-    /// 
-    UIView().dtb
-    /// static / class func
-    UIView.dtb
-    ```
-
-* Then, you can call ``test`` func like this:
-
-    ```swift
-    UIView().dtb.test()
-    ```
-
-* For different project / module, you can replace ``dtb`` with your own definition:
-
-    ```swift
-    UIView().xm.test()
-    ```
-
-* Add your own methods:
-
-    ```swift
-    UIView().xm.test2()
-    ```
-
-* Most of them is chainable:
-
-    ```swift
-    let titleLabel = UILabel().dtb.title("moon").value
-    titleLabel.backgroundColor = .white
-    ```
-
-
-
-#### How to use default methods?
-
-Common English words are **definitely** used up by various programming languages and frameworks, so you need to be very careful in naming, and allow users to agree on the words they are used to.
-
-Currently, the use of the framework only needs to pay attention to the following logic:
-
-* Object methods start with ``UIView().dtb``
-* Class methods start with ``UIView.dtb``
-* Most objects will implement class methods named ``create``, which are used when creating objects
-* ``value``, all boxed objects will implement this property, used for unpacking
-
-
-
-#### How to replace the name?
-
-For example, the default call looks like this:
-
-```swift
-if (DTB.app.version == "1.0.0") {
-UIView().dtb.toast("is old version")
-}
-```
-
-You may want to replace the prefix and property name with ``XM`` and ``xm`` to match your own project naming conventions:
-
-```swift
-if (XM.app.version == "1.0.0") {
-UIView().xm.toast("is old version")
-}
-```
-
-Then, create a new ``DTBKit+XM.swift`` file and add the following code:
-
-```swift
-// === NAMESPACE CONVERT ===
-
-import DTBKit
-
-// - Core
-
-public typealias XM = DTBKit.DTB
-
-public typealias XMKitable = DTBKit.Kitable
-
-public typealias XMKitStructable = DTBKit.KitStructable
-
-public typealias XMKitWrapper = DTBKit.Wrapper
-
-public typealias XMKitStaticWrapper = DTBKit.StaticWrapper
-
-extension XMKitable {
-
-public var xm: XMKitWrapper<Self> { return dtb }
-
-public static var xm: XMKitStaticWrapper<Self> { return dtb }
-}
-
-extension XMKitStructable {
-
-public var xm: XMKitWrapper<Self> { return dtb }
-
-public static var xm: XMKitStaticWrapper<Self> { return dtb }
-}
-```
-
-If you use other sub-repositories at the same time, follow the same pattern:
-
-```swift
-// - Chain
-
-public typealias XMKitChainable = DTBKit.Chainable
-
-public typealias XMKitStructChainable = DTBKit.StructChainable
-
-public typealias XMKitMutableWrapper = DTBKit.MutableWrapper
-```
-
-Now, the new method call can be used within the scope of the ``DTBKit+XM.swift`` file.
-
-
-
-#### How to add custom methods?
-
-Refer to the source code and add the corresponding ``extension`` to ``wrapper``.
-
-
-
-#### How to modulize?
-
-The control of the scope depends entirely on your control over the extension and protocol declaration files themselves.
-
-For example, if there is a main project Main, with a custom module XM and a module Other, both of which depend on the basic module Basic. First, make the following adjustments to ``DTBKit+XM.swift`` in module XM: 
-
-```swift
-public typealias XMKitWrapper = DTBKit.Wrapper
-
-public typealias XMKitStaticWrapper = DTBKit.StaticWrapper
-
-public protocol XMKitable: AnyObject {}
-
-public protocol XMKitStructable {}
-
-extension XMKitable {
-
-    public var xm: XMKitWrapper<Self> {
-        return XMKitWrapper(self)
-    }
-
-    public static var xm: XMKitStaticWrapper<Self> {
-        return XMKitStaticWrapper()
-    }
-}
-
-extension XMKitStructable {
-
-    public var xm: XMKitWrapper<Self> {
-        return XMKitWrapper(self)
-    }
-
-    public static var xm: XMKitStaticWrapper<Self> {
-        return XMKitStaticWrapper()
-    }
-}
-```
-
-Now we have a clean ``protocol``:
-
-* The object still does not have the ``xm`` attribute;
-
-* The ``xm`` attribute itself cannot use methods implemented in other modules, including those provided by ``DTBKit`` itself;
-
-Next, create ``CGSize+XM.swift`` in the XM module and write some business:
-
-```swift
-// Mark 1
-extension CGSize: XMKitStructable {}
-
-// Mark 2
-extension XMKitWrapper where Base == CGSize {
-	public func area() -> CGFloat {
-		return me.width * me.height
-	}
-}
-```
-
-Obviously, when CGSize can use the ``xm`` attribute depends on the scope of ``Mark 1``, and the scope of CGSize The methods of the ``xm`` attribute depend on the scope of ``Mark 2``. You can combine the above methods to achieve what you need.
-
-
-
-#### How to use in your private cocoapods?
-
-Move the above code into your private library, and
-
-```ruby
-# private dependency Unable to specify version
-ss.dependency 'DTBKit/Core'
-
-# So add source to your private library's main project
-source 'https://github.com/darkThanBlack/Specs.git'
-
-# Or:
-pod 'DTBKit/Core', git: 'https://github.com/darkThanBlack/DTBKit', commit: '3f93179af6c2caa1e8bd0c418820947fe1aae899'
-```
-
-
-
-#### Unit Tests
-
-Cocoapods test supported:
+Observing the Example project's Podfile, you can see that CocoaPods mode unit testing is already supported:
 
 ```ruby
 pod 'DTBKit/Basic', :testspecs => ['Tests']
 ```
 
- Xcode > Schemes > Select ``DTBKit``,  ``Command + U`` .
+So if your main project uses CocoaPods, you can also complete testing in the main project.
 
 
 
-## Blogs
+## How to Integrate?
 
- [Namespace & Chain](https://darkthanblack.github.io/blogs/06-bp-namespace/)
+#### CocoaPods
 
-
-
-## Example
-
-> Main dev proj & Test Cases.
-
-
-
-## Core
-
-> Namespace declaration.
-
-
-
-## Chain
-
-> Fast create.
-
-
-
-## Basic
-
-> Basic helper methods.
-
-
-
-## UIKit
-
-> UIKit helper methods.
-
-
-
-## Author
-
-moonShadow.
-
-
-
-## License
-
-DTBKit is available under the MIT license. See the LICENSE file for more info.
-
-
-
-### API docs
-
-Auto created by [jazzy](https://github.com/realm/jazzy) and deploy on ``gh-pages``, you can visit it from [HERE](https://darkthanblack.github.io/DTBKit).
+Not pushed to the main pods repository. Recommended to use specific commit:
 
 ```shell
-# Deploy scripts
-git checkout main;
-xcodegen;
-git add .;
-git commit . -m 'daily';
-git pull --ff;
-git push;
-jazzy \
-  --clean \
-  --author darkThanBlack \
-  --author_url https://darkthanblack.github.io \
-  --source-host github \
-  --source-host-url https://github.com/darkThanBlack/DTBKit \
-  --exclude "Sources/Chain/*" \
-  --output docs \
-  --theme apple;
-mv docs ~/Documents/docs;
-git checkout gh-pages;
-git pull --ff;
-mv ~/Documents/docs ./;
-rm -rf ~/Documents/docs;
-git add .;
-git commit . -m 'deploy from jazzy';
-git push;
-git checkout main
+# Change commit id to latest main.
+pod 'DTBKit/Core', git: 'https://github.com/darkThanBlack/DTBKit', commit: '3f93179af6c2caa1e8bd0c418820947fe1aae899'
+pod 'DTBKit/Chain'
+pod 'DTBKit/Basic'
+pod 'DTBKit/Theme'
+pod 'DTBKit/UIKit'
+pod 'DTBKit/Map'
 ```
 
+You can use a private source, but updates are not timely:
+
+```ruby
+source 'https://github.com/darkThanBlack/Specs.git'
+pod 'DTBKit', tag: '0.0.1'
+```
+
+#### Carthage
+
+Supported. The `DTBKit.xcodeproj` in the repository root is also generated using `XcodeGen`, but updates are not timely.
+
+#### SPM
+
+Supported. The `Package.swift` in the repository root is manually edited, but updates are not timely.
 
 
-## Edited
 
-> Update: 2024/08/14    README - Start.
+## Quick Start
+
+#### Basic Usage
+
+* Any object can have a so-called "namespace":
+
+  ```swift
+  // Object.
+  UIView().dtb
+  // Static.
+  UIView.dtb
+  ```
+
+* All wrappers implement the `value` property for unwrapping, and most methods support method chaining:
+
+  ```swift
+  lazy var titleLabel = UILabel().dtb
+    .title("moon")
+    .backgroundColor(.white)
+    .value
+  ```
+
+* Most class methods for quickly creating objects are named `create` and don't require unwrapping:
+
+  ```swift
+  // Create custom font.
+  UILabel().font = .dtb.create("Lora", size: 10)
+  let frame = CGRect.dtb.create(8.0, 12.0, 20.0, 20.0)
+  
+  // Creator for special dict.
+  let attr = NSAttributedString(
+      string: "attr",
+      attributes: .dtb.create
+          .foregroundColor(.black)
+          .font(.dtb.create("Gloock", size: 13.0, weight: .regular))
+          .value
+  )
+  ```
+
+* Most class declarations and static objects are placed inside the `DTB` enum:
+
+  ```swift
+  // CFBundleShortVersionString.
+  print(DTB.app.version)
+  // Use custom button.
+  lazy var button = {
+      let button = DTB.Button()
+      button.setImageDirection(.right)
+      button.setImageOffset(.init(dx: 4.0, dy: -1.0))
+      return button
+  }()
+  ```
+
+
+
+#### Advanced Usage
+
+Suppose you have two different modules A and B, where module B has a method called `testB`. You can replace `dtb` with your own custom keyword `b` and prevent modules that haven't imported B from using that method:
+
+```swift
+// In project B
+UIView().b.testB()  // OK
+UIView().dtb.testB()  // OK
+
+// In Project A
+UIView().dtb.testB()  // fatal error.
+```
+
+I recommend reading the detailed explanation in the [wiki](https://github.com/darkThanBlack/DTBKit/wiki) and taking action only after fully understanding the source code.
+
+
+
+## LLM
+
+The markdown files in the root directory focus more on feature development usage. Please have AI read the specified LLM-friendly documentation.
+
+
+
+## Change Log
+
+> Update: 2025/12/11    Clear README.md.
+>
+> Update: 2024/08/14    Add sample codes for custom namespace.
 >
 > Update: 2024/09/20    Add Carthage / SwiftPM support.
 >

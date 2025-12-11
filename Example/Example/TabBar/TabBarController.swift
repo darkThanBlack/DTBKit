@@ -161,7 +161,6 @@ public class TabBarController: UITabBarController {
                     .foregroundColor: color.selectedColor,
                     .font: UIFont.dtb.create("Lora", size: 10)
                 ], for: .selected)
-                
                 return nav
             }
             

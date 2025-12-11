@@ -15,7 +15,9 @@ import UIKit
 extension DTB {
     
     enum LazyLayoutsEventTypes: String, CaseIterable {
+        /// 延迟到 view 的 didMoveToSuperview 被调用时执行
         case constraint
+        /// 延迟到 view 的 layoutSubviews 被调用时执行
         case frame
     }
     
@@ -35,6 +37,7 @@ extension DTB {
 
 extension DTB.LazyLayouts {
     
+    /// 
     func lazyLayout(_ type: DTB.LazyLayoutsEventTypes = .frame, eventHandler: @escaping ((UIView) -> ())) {
         switch type {
         case .constraint:

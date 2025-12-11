@@ -18,6 +18,16 @@ extension DTB {
     @objc(DTBVoidView)
     public final class VoidView: UIView {
         
+        public override class var layerClass: AnyClass {
+            return VoidLayer.self
+        }
+        
+        public override func draw(_ rect: CGRect) { }
+        
+        public override func setNeedsDisplay() { }
+        
+        public override func setNeedsDisplay(_ rect: CGRect) { }
+        
         override init(frame: CGRect) {
             super.init(frame: frame)
             setup()
@@ -29,21 +39,11 @@ extension DTB {
         }
         
         private func setup() {
-            backgroundColor = nil
             clearsContextBeforeDrawing = false
-            isUserInteractionEnabled = false
+            backgroundColor = nil
             isOpaque = false
         }
         
-        public override class var layerClass: AnyClass {
-            return VoidLayer.self
-        }
-        
-        public override func draw(_ rect: CGRect) { }
-        
-        public override func setNeedsDisplay() { }
-        
-        public override func setNeedsDisplay(_ rect: CGRect) { }
     }
     
 }

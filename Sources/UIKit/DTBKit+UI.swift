@@ -17,11 +17,6 @@ extension DTB {
 
 extension DTB {
     
-    public typealias ViewController = BaseViewController
-}
-
-extension DTB {
-    
     /// 以贝塞尔曲线中弧度的 0 开始顺时针旋转至 2pi
     ///
     /// [refer](https://developer.apple.com/documentation/uikit/uibezierpath/1624358-init)
