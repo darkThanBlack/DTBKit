@@ -27,7 +27,7 @@ extension StaticWrapper where T == NSError {
     public func empty(_ name: String? = nil) -> NSError {
         return NSError(
             domain: "dtb.error",
-            code: 0,
+            code: -1,
             userInfo: [
                 NSLocalizedDescriptionKey: "\(name ?? "") is nil"
             ]

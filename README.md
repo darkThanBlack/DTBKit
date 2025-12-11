@@ -161,7 +161,48 @@ Supported. The `Package.swift` in the repository root is manually edited, but up
   }()
   ```
 
+#### Plugin Registration
 
+Some functionalities use the provider pattern, serving as an interface specification; the actual implementation often requires complete customization. Whether you intend to use the provided default implementation or a completely custom one, you need to explicitly register it at the appropriate time. See ``AppDelegate.swift`` in the example project:
+```swift
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        window = UIWindow(frame: UIScreen.main.bounds)
+        
+        // --- Provider 注册示例 ---
+        // 很明显大部分功能需要在业务初始化之前创建
+        
+        // scene 主要是为了 keyWindow 的自动实现
+        if #available(iOS 13.0, *) {
+            DTB.Providers.register(DTB.DefaultSceneProvider(), key: DTB.Providers.sceneKey)
+        }
+        // 确保 topMost 方法无误，最稳妥的方法就是传入 window 实例
+        DTB.Providers.register(DTB.DefaultWindowProvider(window), key: DTB.Providers.windowKey)
+        
+        // 如果需要国际化 / 自定义主题
+        DTB.Providers.register(DTB.ColorManager.shared, key: DTB.Providers.colorKey)
+        DTB.Providers.register(DTB.I18NManager.shared, key: DTB.Providers.stringKey)
+        DTB.Providers.register(DTB.FontManager.shared, key: DTB.Providers.fontKey)
+        
+        // UI 组件
+        DTB.Providers.register(DTB.DefaultHUDProvider(), key: DTB.Providers.hudKey)
+        DTB.Providers.register(DTB.DefaultToastProvider(), key: DTB.Providers.toastKey)
+        DTB.Providers.register(DTB.DefaultAlertProvider(), key: DTB.Providers.alertKey)
+        
+        // --- Provider 注册结束 ---
+        
+        /// 假设这是业务
+        NotificationCenter.default.addObserver(self, selector: #selector(appRestartEvent), name: Self.restartNotificationKey, object: nil)
+        appRestartEvent()
+        
+        window?.makeKeyAndVisible()
+
+        adapter()
+        debugger()
+        
+        return true
+    }
+```
 
 #### Advanced Usage
 

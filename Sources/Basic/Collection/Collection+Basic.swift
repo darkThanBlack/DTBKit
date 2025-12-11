@@ -36,7 +36,7 @@ public extension Wrapper where Base: Collection {
         guard JSONSerialization.isValidJSONObject(me) else {
             return nil
         }
-        guard let data = try? JSONSerialization.data(withJSONObject: self, options: [.fragmentsAllowed]) else {
+        guard let data = try? JSONSerialization.data(withJSONObject: me, options: [.fragmentsAllowed]) else {
             return nil
         }
         return String(data: data, encoding: .utf8)?.dtb

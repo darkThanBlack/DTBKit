@@ -12,7 +12,6 @@
 
 import UIKit
 
-/// Json
 public extension Wrapper where Base == Data {
     
     /// Convert to ``NSData``.
@@ -26,31 +25,9 @@ public extension Wrapper where Base == Data {
     func string(_ encoding: String.Encoding = .utf8) -> Wrapper<String>? {
         return String(data: me, encoding: encoding)?.dtb
     }
-    
-    /// System json parser.
-    ///
-    /// 纯原生解析
-    @inline(__always)
-    func json<T>() -> T? {
-        return (try? JSONSerialization.jsonObject(with: me, options: .allowFragments)) as? T
-    }
-    
-    /// System json parser.
-    ///
-    /// 纯原生解析
-    @inline(__always)
-    func jsonDict() -> [String: Any]? {
-        return json()
-    }
-    
-    /// System json parser.
-    ///
-    /// 纯原生解析
-    @inline(__always)
-    func jsonArray() -> [Any]? {
-        return json()
-    }
 }
+
+//MARK: - Bytes
 
 public extension Wrapper where Base == Int16 {
     

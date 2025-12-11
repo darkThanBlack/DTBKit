@@ -12,17 +12,8 @@
 
 import UIKit
 
-/// All func needs (me.width >= 0) && (me.height >= 0)
-
 /// Basic
 extension Wrapper where Base == CGSize {
-    
-    /// W and H >= 0
-    @inline(__always)
-    @discardableResult
-    func safe() -> Self {
-        return CGSize(width: me.width, height: me.height).dtb
-    }
     
     /// W or H <= 0 | 长宽有一项小于等于 0
     @inline(__always)
@@ -101,9 +92,9 @@ extension Wrapper where Base == CGSize {
     @discardableResult
     public func margin(only insets: UIEdgeInsets) -> Self {
         return CGSize(
-            width: me.width + insets.left + insets.right,
-            height: me.height + insets.top + insets.bottom
-        ).dtb.safe()
+            width: max(0, me.width + insets.left + insets.right),
+            height: max(0, me.height + insets.top + insets.bottom)
+        ).dtb
     }
     
     /// minus | (减少)内间距
@@ -125,9 +116,9 @@ extension Wrapper where Base == CGSize {
     @discardableResult
     public func padding(only insets: UIEdgeInsets) -> Self {
         return CGSize(
-            width: me.width - (insets.left + insets.right),
-            height: me.height - (insets.top + insets.bottom)
-        ).dtb.safe()
+            width: max(0, me.width - (insets.left + insets.right)),
+            height: max(0, me.height - (insets.top + insets.bottom))
+        ).dtb
     }
 }
 

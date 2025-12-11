@@ -118,7 +118,7 @@ extension Wrapper where Base == NSDecimalNumber {
                 v.doubleValue != 0.0 else {
             return nil
         }
-        let result = me.multiplying(by: v, withBehavior: getBehavior(scale, rounding))
+        let result = me.dividing(by: v, withBehavior: getBehavior(scale, rounding))
         return result == NSDecimalNumber.notANumber ? nil : result.dtb
     }
     

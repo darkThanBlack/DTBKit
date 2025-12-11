@@ -28,18 +28,18 @@ final class MathTests: XCTestCase {
             CGSize(width: 0, height: 0)
         ]
         
-        let r1 = emptys.allSatisfy({ $0.dtb.isEmpty == true }) && [normal].allSatisfy({ $0.dtb.isEmpty == false })
+        let r1 = emptys.allSatisfy({ $0.dtb.isEmpty() == true }) && [normal].allSatisfy({ $0.dtb.isEmpty() == false })
         
         func basics() {
             XCTAssert(r1)
-            XCTAssert(bad.dtb.center == .zero)
-            XCTAssert(bad.dtb.shorter == 0.0 && bad.dtb.shorter == 0.0)
-            XCTAssert(normal.dtb.center == CGPoint(x: 5.0, y: 10.0))
-            XCTAssert(normal.dtb.shorter == 10.0 && normal.dtb.longer == 20.0)
+            XCTAssert(bad.dtb.center() == .zero)
+            XCTAssert(bad.dtb.shorter() == 0.0 && bad.dtb.shorter() == 0.0)
+            XCTAssert(normal.dtb.center() == CGPoint(x: 5.0, y: 10.0))
+            XCTAssert(normal.dtb.shorter() == 10.0 && normal.dtb.longer() == 20.0)
             
-            XCTAssert(bad.dtb.inSquare == .zero)
-            XCTAssert(normal.dtb.inSquare == CGSize(width: 10.0, height: 10.0))
-            XCTAssert(normal.dtb.outSquare == CGSize(width: 20.0, height: 20.0))
+            XCTAssert(bad.dtb.inSquare() == .zero)
+            XCTAssert(normal.dtb.inSquare() == CGSize(width: 10.0, height: 10.0))
+            XCTAssert(normal.dtb.outSquare() == CGSize(width: 20.0, height: 20.0))
         }
         
         func margin() {

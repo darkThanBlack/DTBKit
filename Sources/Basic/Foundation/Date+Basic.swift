@@ -223,7 +223,7 @@ extension Wrapper where Base == Date {
         return same(to: date, [.year])
     }
     
-    // FIDTBE: DateComponents
+    // FIXME: DateComponents
     
     /// extension Get dateComponents by Calendar.current | 自由取值
     public func dateComponents(_ units: Set<Calendar.Component>) -> DateComponents {
