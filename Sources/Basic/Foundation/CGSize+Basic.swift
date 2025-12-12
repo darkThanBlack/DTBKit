@@ -15,6 +15,12 @@ import UIKit
 /// Basic
 extension Wrapper where Base == CGSize {
     
+    /// W & H >= 0 | 将负数长宽改为 0
+    @inline(__always)
+    public func safe() -> Self {
+        return CGSize(width: max(0, me.width), height: max(0, me.height)).dtb
+    }
+    
     /// W or H <= 0 | 长宽有一项小于等于 0
     @inline(__always)
     public func isEmpty() -> Bool {
@@ -36,25 +42,25 @@ extension Wrapper where Base == CGSize {
     /// (W/2, H/2) | 中心点
     @inline(__always)
     public func center() -> CGPoint {
-        return CGPoint(x: me.width / 2.0, y: me.height / 2.0)
+        return CGPoint(x: max(0, me.width) / 2.0, y: max(0, me.height) / 2.0)
     }
     
     /// W * H | 面积
     @inline(__always)
     public func area() -> CGFloat {
-        return me.width * me.height
+        return max(0, me.width) * max(0, me.height)
     }
     
     /// max(W, H) | 较长边
     @inline(__always)
     public func longer() -> CGFloat {
-        return Swift.max(me.width, me.height)
+        return max(0, max(me.width, me.height))
     }
     
     /// min(W, H) | 较短边
     @inline(__always)
     public func shorter() -> CGFloat {
-        return Swift.min(me.width, me.height)
+        return max(0, min(me.width, me.height))
     }
 }
 
@@ -92,8 +98,8 @@ extension Wrapper where Base == CGSize {
     @discardableResult
     public func margin(only insets: UIEdgeInsets) -> Self {
         return CGSize(
-            width: max(0, me.width + insets.left + insets.right),
-            height: max(0, me.height + insets.top + insets.bottom)
+            width: max(0, max(0, me.width) + (insets.left + insets.right)),
+            height: max(0, max(0, me.height) + (insets.top + insets.bottom))
         ).dtb
     }
     
@@ -116,8 +122,8 @@ extension Wrapper where Base == CGSize {
     @discardableResult
     public func padding(only insets: UIEdgeInsets) -> Self {
         return CGSize(
-            width: max(0, me.width - (insets.left + insets.right)),
-            height: max(0, me.height - (insets.top + insets.bottom))
+            width: max(0, max(0, me.width) - (insets.left + insets.right)),
+            height: max(0, max(0, me.height) - (insets.top + insets.bottom))
         ).dtb
     }
 }
@@ -127,9 +133,8 @@ extension Wrapper where Base == CGSize {
     
     /// Same as ``UIImageView.contentMode`` | 缩放，直至与 target 内接
     public func aspectFit(to target: CGSize) -> Self {
-        if isEmpty() || target.dtb.isEmpty() {
-            return CGSize.zero.dtb
-        }
+        if isEmpty()  { return target.dtb }
+        if target.dtb.isEmpty()  { return CGSize.zero.dtb }
         let scaleX = target.width / me.width
         let scaleY = target.height / me.height
         let scale = Swift.min(scaleX, scaleY)
@@ -138,27 +143,11 @@ extension Wrapper where Base == CGSize {
     
     /// Same as ``UIImageView.contentMode`` | 缩放，直至与 target 外接
     public func aspectFill(to target: CGSize) -> Self {
-        if isEmpty() || target.dtb.isEmpty() {
-            return CGSize.zero.dtb
-        }
+        if isEmpty()  { return target.dtb }
+        if target.dtb.isEmpty()  { return CGSize.zero.dtb }
         let scaleX = target.width / me.width
         let scaleY = target.height / me.height
         let scale = Swift.max(scaleX, scaleY)
         return CGSize(width: me.width * scale, height: me.height * scale).dtb
-    }
-}
-
-/// High fidelity design
-///
-/// 高保真。
-extension Wrapper where Base == CGSize {
-    
-    ///
-    @inline(__always)
-    public func hf(_ behavior: DTB.HFBehaviors = .scale) -> CGSize {
-        return CGSize(
-            width: me.width.dtb.hf(behavior),
-            height: me.height.dtb.hf(behavior)
-        )
     }
 }

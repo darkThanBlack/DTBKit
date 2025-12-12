@@ -46,15 +46,6 @@
 - 已有完善的链式 API 和命名空间设计 ✓
 - 需要注意与现有 Provider 系统架构保持一致
 
-## 项目上下文
-- 这是一个 git 仓库
-- 最近的提交包括:
-  - d5f2def refactor for providers
-  - 747681a daily
-  - 3e933db fix with base view
-  - e62beed final button nearly done!
-  - 698442d update change by tarot
-
 ## DTBKit 项目分析
 
 ### 项目简介

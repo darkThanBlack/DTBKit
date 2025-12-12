@@ -96,6 +96,8 @@ extension DTB {
             weakMemory[key.key_] = DTB.Weaker(value)
         }
         
+        //MARK: - Info.plist: https://developer.apple.com/documentation/bundleresources/information-property-list
+        
         /// 在手机桌面上显示的应用名称
         ///
         /// App name on iPhone desktop. ``CFBundleDisplayName``.

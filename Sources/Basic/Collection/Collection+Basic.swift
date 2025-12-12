@@ -27,29 +27,3 @@ extension Wrapper {
         }
     }
 }
-
-///
-public extension Wrapper where Base: Collection {
-    
-    /// 纯原生解析 | System json parser
-    func jsonString() -> Wrapper<String>? where Base: Collection {
-        guard JSONSerialization.isValidJSONObject(me) else {
-            return nil
-        }
-        guard let data = try? JSONSerialization.data(withJSONObject: me, options: [.fragmentsAllowed]) else {
-            return nil
-        }
-        return String(data: data, encoding: .utf8)?.dtb
-    }
-    
-    ///
-    func json<T: Codable>() -> T? where Base: Collection {
-        guard JSONSerialization.isValidJSONObject(me) else {
-            return nil
-        }
-        guard let data = try? JSONSerialization.data(withJSONObject: me, options: [.fragmentsAllowed]) else {
-            return nil
-        }
-        return try? JSONDecoder().decode(T.self, from: data)
-    }
-}

@@ -14,10 +14,17 @@ import UIKit
 
 extension DTB {
     
+    public static let config = DTB.Configuration.shared
+    
     /// Like ``UIAppearance``, store some parameters that use for default values.
     ///
     /// 仿照 ``UIAppearance`` 的思路，存储一些用作默认值的数据。
-    /// 主要是为了处理某些冷门参数，业务层没必要提供接口，但又需要整体修改的情况。
+    ///
+    /// 某些参数有可能：
+    ///  - 需要全局使用
+    ///  - 使用同一个对象可以节省内存
+    ///  - 结构简单，没必要使用 Provider
+    ///  - 写一次，读多次，没必要放到 DTB.app 中
     public final class Configuration {
         
         public static let shared = DTB.Configuration()
@@ -35,6 +42,8 @@ extension DTB {
         var designBaseSize = CGSize(width: 375.0, height: 667.0)
         
         var supportImageTypes = ["png", "jpg", "webp", "jpeg"]
+        
+        var numberFormatter = NumberFormatter()
         
         var dateFormatter = DateFormatter()
         

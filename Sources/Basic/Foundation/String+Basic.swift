@@ -142,34 +142,3 @@ public extension Wrapper where Base == String {
         return me.data(using: encoding, allowLossyConversion: lossy)
     }
 }
-
-/// Json
-public extension Wrapper where Base == String {
-    
-    /// System json parser.
-    ///
-    /// 纯原生解析
-    @inline(__always)
-    func json<T>() -> T? {
-        guard let data = me.data(using: String.Encoding.utf8, allowLossyConversion: true) else {
-            return nil
-        }
-        return (try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments)) as? T
-    }
-    
-    /// System json parser.
-    ///
-    /// 纯原生解析
-    @inline(__always)
-    func jsonDict() -> [String: Any]? {
-        return json()
-    }
-    
-    /// System json parser.
-    ///
-    /// 纯原生解析
-    @inline(__always)
-    func jsonArray() -> [Any]? {
-        return json()
-    }
-}

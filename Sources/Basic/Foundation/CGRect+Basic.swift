@@ -11,19 +11,3 @@
     
 
 import UIKit
-
-/// high fidelity design
-///
-/// 高保真。
-extension Wrapper where Base == CGRect {
-    
-    ///
-    public func hf(_ behavior: DTB.HFBehaviors = .scale) -> CGRect {
-        return CGRect(
-            x: me.origin.x.dtb.hf(behavior),
-            y: me.origin.y.dtb.hf(behavior),
-            width: me.size.width.dtb.hf(behavior),
-            height: me.size.height.dtb.hf(behavior)
-        )
-    }
-}

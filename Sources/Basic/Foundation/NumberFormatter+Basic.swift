@@ -27,7 +27,6 @@ extension StaticWrapper where T: NumberFormatter {
     /// e.g.
     /// ```
     ///     2.1.dtb.toString(.dtb.decimal()).value == "2.10"
-    ///
     /// ```
     ///
     /// - Parameters:

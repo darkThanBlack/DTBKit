@@ -36,14 +36,6 @@ extension Wrapper where Base: BinaryFloatingPoint {
 /// 字符串处理。
 extension Wrapper where Base: BinaryFloatingPoint {
     
-    /// Convert to string.
-    ///
-    /// 转字符串。
-    @inline(__always)
-    public func string() -> Wrapper<String> {
-        return "\(me)".dtb
-    }
-    
     /// Convert to ``NSDecimalNumber``.
     ///
     /// ```
@@ -56,6 +48,14 @@ extension Wrapper where Base: BinaryFloatingPoint {
     public func nsDecimal() -> Wrapper<NSDecimalNumber>? {
         let result = NSDecimalNumber(string: "\(me)")
         return result == NSDecimalNumber.notANumber ? nil : result.dtb
+    }
+    
+    /// Convert to string.
+    ///
+    /// 转字符串。
+    @inline(__always)
+    public func string() -> Wrapper<String> {
+        return "\(me)".dtb
     }
     
     /// Convert to string with numberFormatter.
@@ -105,22 +105,5 @@ extension Wrapper where Base: BinaryFloatingPoint {
     public func places(_ value: Int) -> Double {
         let div = pow(10.0, Double(value))
         return ((Double(me) * div).rounded(.down) / div)
-    }
-}
-
-/// High fidelity design
-///
-/// 高保真。
-extension Wrapper where Base: BinaryFloatingPoint {
-    
-    /// High fidelity design | 高保真
-    ///
-    /// more detail in ``HFBehaviors``
-    @inline(__always)
-    public func hf(_ behavior: DTB.HFBehaviors = .scale) -> CGFloat {
-        switch behavior {
-        case .scale:
-            return CGFloat(me) * UIScreen.main.bounds.size.width / DTB.Configuration.shared.designBaseSize.width
-        }
     }
 }
