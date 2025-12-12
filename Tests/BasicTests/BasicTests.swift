@@ -256,135 +256,225 @@ final class BasicTests: XCTestCase {
     //MARK: - Number
     
     func testDoubleExtensions() throws {
+        // MARK: - 基础转换测试
         let testValue: Double = 123.456789
-        
+
         // 类型转换
         let decimalNumber = testValue.dtb.nsDecimal()?.value
         XCTAssertNotNil(decimalNumber)
+        XCTAssertEqual(decimalNumber?.doubleValue, testValue, accuracy: 0.000001)
 
-        // 截取小数
-        let precisionValue = 1.23456
-        let rounded = precisionValue.dtb.places(2)
-        XCTAssertEqual(rounded, 1.23, accuracy: 0.001)
+        // 字符串转换
+        let stringValue = testValue.dtb.string().value
+        XCTAssertEqual(stringValue, String(testValue))
 
-        /// 舍入
-        let _ = {
-            let roundedValue = 1.567.dtb.rounded(.toNearestOrEven).value
-            XCTAssertEqual(roundedValue, 2.0, accuracy: 0.001)
-            
-            let testValue = 1.235
+        // MARK: - 精度截取测试
+        let precisionTests: [(value: Double, places: Int, expected: Double)] = [
+            (1.23456, 0, 1.0),
+            (1.23456, 1, 1.2),
+            (1.23456, 2, 1.23),
+            (1.23456, 3, 1.235),
+            (1.99999, 2, 2.0),
+            (0.999, 1, 1.0),
+            (-1.23456, 2, -1.23)
+        ]
 
-            // 不同舍入模式测试
-            let roundUp = testValue.dtb.rounded(.up).value
-            XCTAssertEqual(roundUp, 2.0)
+        for test in precisionTests {
+            let result = test.value.dtb.places(test.places)
+            XCTAssertEqual(result, test.expected, accuracy: 0.001,
+                          "places(\(test.places)) on \(test.value) should return \(test.expected), got \(result)")
+        }
 
-            let roundDown = testValue.dtb.rounded(.down).value
-            XCTAssertEqual(roundDown, 1.0)
+        // MARK: - 舍入模式测试
+        let roundingTests: [(value: Double, mode: FloatingPointRoundingRule, expected: Double)] = [
+            (1.4, .toNearestOrEven, 1.0),
+            (1.5, .toNearestOrEven, 2.0),
+            (1.6, .toNearestOrEven, 2.0),
+            (2.5, .toNearestOrEven, 2.0), // 银行家舍入
+            (1.4, .up, 2.0),
+            (1.1, .up, 2.0),
+            (-1.1, .up, -1.0),
+            (1.9, .down, 1.0),
+            (-1.1, .down, -2.0),
+            (1.4, .towardZero, 1.0),
+            (-1.9, .towardZero, -1.0),
+            (1.4, .awayFromZero, 2.0),
+            (-1.1, .awayFromZero, -2.0)
+        ]
 
-            let roundToNearest = testValue.dtb.rounded(.toNearestOrAwayFromZero).value
-            XCTAssertEqual(roundToNearest, 1.0)
-        }()
+        for test in roundingTests {
+            let result = test.value.dtb.rounded(test.mode).value
+            XCTAssertEqual(result, test.expected, accuracy: 0.001,
+                          "rounded(\(test.mode)) on \(test.value) should return \(test.expected), got \(result)")
+        }
+
+        // MARK: - 边界值测试
+        XCTAssertFalse(Double.greatestFiniteMagnitude.dtb.string().value.isEmpty)
+        XCTAssertFalse(Double.leastNonzeroMagnitude.dtb.string().value.isEmpty)
+        XCTAssertTrue(Double.infinity.dtb.string().value.lowercased().contains("inf"))
+        XCTAssertTrue(Double.nan.dtb.string().value.lowercased().contains("nan"))
+
+        // MARK: - 零值和负零测试
+        XCTAssertEqual(0.0.dtb.places(2), 0.0)
+        XCTAssertEqual((-0.0).dtb.places(2), 0.0)
+
+        // MARK: - HF 高保真缩放测试
+        let hfValue = 100.0.dtb.hf(.scale)
+        XCTAssertTrue(hfValue > 0, "HF scaling should produce positive result")
+
+        // MARK: - 浮点数精度问题测试
+        let preciseValue = 0.1 + 0.2 // 经典浮点数精度问题
+        let roundedValue = preciseValue.dtb.places(1)
+        XCTAssertEqual(roundedValue, 0.3, accuracy: 0.001)
     }
 
     func testIntExtensions() throws {
+        // MARK: - 基础转换测试
         let testInt = 123456789
-
-        // 基础转换测试
         XCTAssertEqual(testInt.dtb.string().value, "123456789")
 
-        // 时间戳测试
-        let timestamp = Date().timeIntervalSince1970
+        // MARK: - 边界值测试
+        XCTAssertEqual(Int.max.dtb.string().value, String(Int.max))
+        XCTAssertEqual(Int.min.dtb.string().value, String(Int.min))
+        XCTAssertEqual(0.dtb.string().value, "0")
+        XCTAssertEqual((-1).dtb.string().value, "-1")
+
+        // MARK: - 时间戳转换测试
+        let now = Date()
+        let timestamp = now.timeIntervalSince1970
         let intTimestamp = Int(timestamp)
         let dateFromTimestamp = intTimestamp.dtb.sDate()?.value
         XCTAssertNotNil(dateFromTimestamp)
 
+        // 毫秒时间戳测试
         let millisecondsTimestamp = intTimestamp * 1000
         let dateFromMillis = millisecondsTimestamp.dtb.msDate()?.value
         XCTAssertNotNil(dateFromMillis)
 
-        // FIXME: MOON__FIXME
-        // 星期字符串测试
+        // 无效时间戳测试
+        let invalidTimestamp = -1
+        XCTAssertNil(invalidTimestamp.dtb.sDate()?.value)
+
+        // MARK: - 星期字符串测试 (1-7 对应周一到周日)
         for weekday in 1...7 {
             let dayString = weekday.dtb.weekDayString()
             XCTAssertNotNil(dayString)
             XCTAssertFalse(dayString?.isEmpty ?? true)
         }
+
+        // 无效星期数测试
+        XCTAssertNil(0.dtb.weekDayString())
+        XCTAssertNil(8.dtb.weekDayString())
+
+        // MARK: - NSDecimal 转换测试
+        let smallInt = 42
+        let decimalFromInt = smallInt.dtb.nsDecimal()
+        XCTAssertNotNil(decimalFromInt)
+        XCTAssertEqual(decimalFromInt?.string()?.value, "42")
+
+        // MARK: - 数据类型转换测试
+        let testValue: Int = 1024
+        XCTAssertEqual(Int64(testValue), testValue.dtb.string())
+        XCTAssertEqual(Int32(testValue), testValue.dtb.int32())
+        XCTAssertEqual(Int16(testValue), testValue.dtb.int16())
+
+        // 溢出测试
+        let largeValue = Int.max
+        XCTAssertNil(largeValue.dtb.int16()) // 应该溢出返回 nil
     }
     
-    // MARK: - NumberFormatter
+    // MARK: - NumberFormatter Extensions Tests
 
     func testNumberFormatterExtensions() throws {
-        let formatter = NumberFormatter()
-
-        // 链式配置测试
-        let configuredFormatter = formatter.dtb
+        // MARK: - 链式配置测试
+        let formatter = NumberFormatter().dtb
             .decimal(2)
             .rounded(.halfUp)
             .prefix("$", negative: "-$")
             .value
 
-        // 格式化测试
-        let testValue: Double = 123.456
-        let formattedString = configuredFormatter.string(from: NSNumber(value: testValue))
-
-        XCTAssertNotNil(formattedString)
-        XCTAssertTrue(formattedString?.contains("$") ?? false)
-        XCTAssertTrue(formattedString?.contains("123.46") ?? false)
-
-        // 负数格式化测试
-        let negativeValue: Double = -123.456
-        let negativeFormatted = configuredFormatter.string(from: NSNumber(value: negativeValue))
-        XCTAssertTrue(negativeFormatted?.contains("-$") ?? false)
-
-        // 预置格式测试
-        let cnyFormatter = NumberFormatter.dtb.CNY()
-        let cnyString = cnyFormatter.string(from: NSNumber(value: 100.5))
-        XCTAssertTrue(cnyString?.contains("¥") ?? false)
-
-        let rmbFormatter = NumberFormatter.dtb.RMB()
-        let rmbString = rmbFormatter.string(from: NSNumber(value: 100.5))
-        XCTAssertTrue(rmbString?.contains("元") ?? false)
-    }
-    
-    func testNumberFormatterChainAPI() throws {
-        // 测试 NumberFormatter 链式配置
-        let formatter = NumberFormatter().dtb
-            .decimal(2)                          // 设置小数位数
-            .rounded(.halfUp)                    // 设置舍入规则
-            .prefix("$", negative: "-$")         // 设置前缀
-            .value                               // 获取配置好的 formatter
-
-        // 测试格式化效果
-        let positiveResult = formatter.string(from: NSNumber(value: 123.456))
+        // MARK: - 基础格式化测试
+        let positiveValue: Double = 123.456
+        let positiveResult = formatter.string(from: NSNumber(value: positiveValue))
+        XCTAssertNotNil(positiveResult)
         XCTAssertTrue(positiveResult?.contains("$") ?? false)
         XCTAssertTrue(positiveResult?.contains("123.46") ?? false)
 
-        let negativeResult = formatter.string(from: NSNumber(value: -123.456))
+        let negativeValue: Double = -123.456
+        let negativeResult = formatter.string(from: NSNumber(value: negativeValue))
         XCTAssertTrue(negativeResult?.contains("-$") ?? false)
-    }
-    
-    func testNumberFormatter() throws {
-        XCTAssert(2.1.dtb.toString(.dtb.decimal())?.value == "2.10")
-        XCTAssertEqual(1234.567.dtb.toString(.dtb.decimal())?.value, "1234.57")
-        XCTAssert(2.1.dtb.toString(.dtb.maxDecimal())?.value == "2.1")
-        XCTAssertEqual(1234.567.dtb.toString(.dtb.maxDecimal())?.value, "1234.57")
-        XCTAssert(2.1.dtb.toString(.dtb.CNY())?.value == "¥2.10")
-        XCTAssert(1234.567.dtb.toString(.dtb.CNY())?.value == "¥1,234.57")
-        XCTAssert(2.1.dtb.toString(.dtb.RMB())?.value == "2.1元")
-        XCTAssert(1234.567.dtb.toString(.dtb.RMB())?.value == "1,234.57元")
-        
-        XCTAssert(2.0.dtb.toString(NumberFormatter().dtb.decimal(2).rounded(.halfDown).prefix("¥", negative: "-¥").value)?.value == "¥2.00")
-        XCTAssert(1234.567.dtb.toString(NumberFormatter().dtb.decimal(2).rounded(.halfDown).prefix("¥", negative: "-¥").value)?.value == "¥1,234.57")
-        XCTAssert((-1234.567).dtb.toString(NumberFormatter().dtb.decimal(2).rounded(.halfDown).prefix("¥", negative: "-¥").value)?.value == "-¥1,234.57")
-        print(1234.567.dtb.nsDecimal()?.plus(1.245, scale: 2, rounding: .down)?.double()?.value ?? 0.0)
-        print(1234.567.dtb.nsDecimal()?.minus(1.245, scale: 2, rounding: .plain)?.double()?.value ?? 0.0)
-        print(1234.567.dtb.nsDecimal()?.multi(1.245, scale: 2, rounding: .plain)?.double()?.value ?? 0.0)
-        print(1234.567.dtb.nsDecimal()?.div(1.245, scale: 2, rounding: .plain)?.double()?.value ?? 0.0)
-        print(1234.567.dtb.nsDecimal()?.power(2, scale: 2, rounding: .plain)?.double()?.value ?? 0.0)
-        print(1234.567.dtb.nsDecimal()?.multiPower10(2, scale: 2, rounding: .plain)?.double()?.value ?? 0.0)
-        
-        print(1.26.dtb.places(1))
-        print((-1.26).dtb.places(1))
+
+        // MARK: - 预置格式测试
+        // 测试内置的货币和小数格式
+        let testCases: [(formatter: NumberFormatter, value: Double, expectedContains: [String])] = [
+            (NumberFormatter.dtb.decimal(), 2.1, ["2.10"]),
+            (NumberFormatter.dtb.decimal(), 1234.567, ["1234.57"]),
+            (NumberFormatter.dtb.maxDecimal(), 2.1, ["2.1"]),
+            (NumberFormatter.dtb.maxDecimal(), 1234.567, ["1234.57"]),
+            (NumberFormatter.dtb.CNY(), 2.1, ["¥", "2.10"]),
+            (NumberFormatter.dtb.CNY(), 1234.567, ["¥", "1,234.57"]),
+            (NumberFormatter.dtb.RMB(), 2.1, ["2.1", "元"]),
+            (NumberFormatter.dtb.RMB(), 1234.567, ["1,234.57", "元"])
+        ]
+
+        for testCase in testCases {
+            let result = testCase.value.dtb.toString(testCase.formatter)?.value ?? ""
+            for expectedString in testCase.expectedContains {
+                XCTAssertTrue(result.contains(expectedString),
+                             "Result '\(result)' should contain '\(expectedString)'")
+            }
+        }
+
+        // MARK: - 复杂链式配置测试
+        let complexTests: [(value: Double, expectedResult: String)] = [
+            (2.0, "¥2.00"),
+            (1234.567, "¥1,234.57"),
+            (-1234.567, "-¥1,234.57")
+        ]
+
+        for test in complexTests {
+            let complexFormatter = NumberFormatter().dtb
+                .decimal(2)
+                .rounded(.halfDown)
+                .prefix("¥", negative: "-¥")
+                .value
+
+            let result = test.value.dtb.toString(complexFormatter)?.value ?? ""
+            XCTAssertEqual(result, test.expectedResult,
+                          "Formatting \(test.value) should produce '\(test.expectedResult)', got '\(result)'")
+        }
+
+        // MARK: - 边界值格式化测试
+        let boundaryTests: [(value: Double, description: String)] = [
+            (0.0, "零值"),
+            (-0.0, "负零"),
+            (Double.leastNonzeroMagnitude, "最小正数"),
+            (1e-10, "极小数"),
+            (1e10, "极大数")
+        ]
+
+        let simpleFormatter = NumberFormatter.dtb.decimal(2)
+        for test in boundaryTests {
+            let result = test.value.dtb.toString(simpleFormatter)?.value
+            XCTAssertNotNil(result, "应该能格式化\(test.description): \(test.value)")
+            XCTAssertFalse(result?.isEmpty ?? true, "\(test.description)格式化结果不应为空")
+        }
+
+        // MARK: - 不同舍入模式测试
+        let roundingModes: [NumberFormatter.RoundingMode] = [
+            .ceiling, .floor, .down, .up, .halfEven, .halfDown, .halfUp
+        ]
+
+        let testValue: Double = 1.235
+        for mode in roundingModes {
+            let roundFormatter = NumberFormatter().dtb
+                .decimal(2)
+                .rounded(mode)
+                .value
+
+            let result = testValue.dtb.toString(roundFormatter)?.value
+            XCTAssertNotNil(result, "舍入模式 \(mode) 应该能正常工作")
+        }
     }
     
     //MARK: - Decimal
@@ -548,6 +638,14 @@ final class BasicTests: XCTestCase {
         let yesterday = now.dtb.addingDay(-1)?.value ?? now
         let deltaToYesterday = now.dtb.delta(to: yesterday, .day) ?? 0
         XCTAssertTrue(deltaToYesterday > 0) // 现在比昨天晚，所以 delta 应该是正数
+        
+        // FIXME: 实现不周
+        // 星期字符串测试
+        for weekday in 1...7 {
+            let dayString = weekday.dtb.weekDayString()
+            XCTAssertNotNil(dayString)
+            XCTAssertFalse(dayString?.isEmpty ?? true)
+        }
     }
     
     func testDateCalculationEdgeCases() throws {

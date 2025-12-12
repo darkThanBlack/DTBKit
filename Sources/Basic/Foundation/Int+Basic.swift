@@ -12,9 +12,6 @@
 
 import Foundation
 
-/// String
-///
-/// 字符串处理。
 extension Wrapper where Base: FixedWidthInteger & SignedInteger {
     
     /// Convert to string.
