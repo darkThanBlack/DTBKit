@@ -2,7 +2,7 @@
 
 ![version](https://img.shields.io/badge/version-0.0.1-orange) ![coverage](https://img.shields.io/badge/coverage-70%25-green)
 
-[English](https://github.com/darkThanBlack/DTBKit/blob/main/README.md) |  [简体中文](https://github.com/darkThanBlack/DTBKit/README.zh-CN.md)
+[English](https://github.com/darkThanBlack/DTBKit/blob/main/README.md) |  [简体中文](https://github.com/darkThanBlack/DTBKit/blob/main/README.zh-CN.md)
 
 
 
@@ -33,7 +33,7 @@
   * 查看主工程代码，获取最佳实践展示
   * 运行 XCTest，查看测试用例，获取使用方法
 * 阅读 [wiki](https://github.com/darkThanBlack/DTBKit/wiki) 
-* 可以参考 [接口文档](https://darkthanblack.github.io/DTBKit/Structs/DTBKitWrapper.html)，但更新没有那么及时
+* 可以参考 [接口文档](https://darkthanblack.github.io/DTBKit/Structs/DTBKitWrapper.html)，但更新并不及时
 
 
 
@@ -232,7 +232,7 @@ UIView().dtb.testB()  // fatal error.
 
 ## 日志
 
-> Update: 2025/12/11    Clear README.md.
+> Update: 2025/12/11   Clear README.md.
 >
 > Update: 2024/08/14    Add sample codes for custom namespace.
 >

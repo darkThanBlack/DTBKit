@@ -2,7 +2,7 @@
 
 ![version](https://img.shields.io/badge/version-0.0.1-orange) ![coverage](https://img.shields.io/badge/coverage-70%25-green)
 
-[English](https://github.com/darkThanBlack/DTBKit/blob/main/README.md) |  [简体中文](https://github.com/darkThanBlack/DTBKit/README.zh-CN.md)
+[English](https://github.com/darkThanBlack/DTBKit/blob/main/README.md) |  [简体中文](https://github.com/darkThanBlack/DTBKit/blob/main/README.zh-CN.md)
 
 
 
@@ -60,7 +60,7 @@ pod install
 Using Xcode 16.3 and the Example project as an example, you can:
 
 * Add and select `DTBKit` in `Manage Schemes...`
-* Press `Command + B` to compile the `DTBKit` project
+* Press `Command + B` to build the `DTBKit` project
 * Press `Command + U` to execute tests
 * View test reports in the `Reports` (`Command + 9`) tab
 * Code coverage statistics need to be manually configured in `Edit Scheme - Test - Options - Code Coverage - Gather coverage for...`
