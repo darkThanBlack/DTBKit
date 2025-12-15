@@ -19,6 +19,9 @@ extension DTB {
     
     /// LLDB Console, replacement for ``Swift.print``
     public static let console = ConsoleManager.shared
+    
+    /// Default value
+    public static let config = DTB.Configuration.shared
 }
 
 extension Int: Structable {}

@@ -8,7 +8,7 @@
 //  LICENSE: SAME AS REPOSITORY
 //  Contact me: [GitHub](https://github.com/darkThanBlack)
 //
-    
+
 
 import UIKit
 
@@ -21,45 +21,16 @@ extension Wrapper where Base == String {
         return NSString(string: me).dtb
     }
     
-    /// Convert to ``NSDecimalNumber``. Return ``nil`` when isNaN.
-    ///
-    /// ```
-    /// "1.0".dtb.nsDecimal
-    ///     .plus("1.0")
-    ///     .div(3, scale: 3, rounding: .down)
-    ///     .double.value === 0.666
-    /// ```
-    @inline(__always)
-    public func nsDecimal() -> Wrapper<NSDecimalNumber>? {
-        let result = NSDecimalNumber(string: me)
-        return result == NSDecimalNumber.notANumber ? nil : result.dtb
-    }
-    
     /// Convert to ``NSMutableAttributedString``.
     @inline(__always)
     public func attr() -> Wrapper<NSMutableAttributedString> {
         return NSMutableAttributedString(string: me).dtb
     }
     
-    /// Convert to ``Int64``.
+    /// Encoding to ``Data``
     @inline(__always)
-    public func int64() -> Wrapper<Int64>? {
-        return Int64(me)?.dtb
-    }
-    
-    /// Convert to ``Double``.
-    @inline(__always)
-    public func double() -> Wrapper<Double>? {
-        return Double(me)?.dtb
-    }
-    
-    /// Convert to ``CGFloat``.
-    @inline(__always)
-    public func cgFloat() -> Wrapper<CGFloat>? {
-        guard let value = Double(me) else {
-            return nil
-        }
-        return CGFloat(value).dtb
+    func data(_ encoding: String.Encoding = .utf8, _ lossy: Bool = true) -> Data? {
+        return me.data(using: encoding, allowLossyConversion: lossy)
     }
 }
 
@@ -73,6 +44,37 @@ extension Wrapper where Base == String {
     @inline(__always)
     public func count() -> Int {
         return me.utf16.count
+    }
+    
+    /// 是否为空
+    @inline(__always)
+    public func isEmpty() -> Bool {
+        return me.isEmpty
+    }
+    
+    /// 非空
+    @inline(__always)
+    public func noEmpty() -> Self? {
+        return me.isEmpty ? nil : self
+    }
+    
+    /// 是否空白（空或仅包含空白字符）
+    @inline(__always)
+    public func isBlank() -> Bool {
+        return me.trimmingCharacters(in:.whitespacesAndNewlines).isEmpty
+    }
+    
+    /// 去首尾空白  ``trimmingCharacters(in:.whitespacesAndNewlines)``
+    @inline(__always)
+    public func noBlank() -> Self? {
+        let result = me.trimmingCharacters(in:.whitespacesAndNewlines)
+        return result.isEmpty ? nil : result.dtb
+    }
+    
+    /// 是否纯数字  ``allSatisfy { $0.isWholeNumber }``
+    @inline(__always)
+    public func isWholeNumber() -> Bool {
+        return !me.isEmpty && me.allSatisfy { $0.isWholeNumber }
     }
     
     /// Check if the range is out of bounds.
@@ -104,15 +106,5 @@ extension Wrapper where Base == String {
     @inline(__always)
     public func isRegular(_ value: DTB.Regulars) -> Bool {
         return isMatches(value.exp)
-    }
-}
-
-/// Data
-public extension Wrapper where Base == String {
-    
-    /// Encoding to ``Data``
-    @inline(__always)
-    func data(_ encoding: String.Encoding = .utf8, _ lossy: Bool = true) -> Data? {
-        return me.data(using: encoding, allowLossyConversion: lossy)
     }
 }

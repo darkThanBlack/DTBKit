@@ -12,18 +12,6 @@
 import UIKit
 import Foundation
 
-extension Wrapper where Base: BinaryFloatingPoint {
-    
-    ///
-    @inline(__always)
-    public func rounded(_ roundRule: FloatingPointRoundingRule? = nil) -> Self {
-        if let rule = roundRule {
-            return Wrapper(me.rounded(rule))
-        }
-        return Wrapper(me.rounded())
-    }
-}
-
 ///
 extension Wrapper where Base: BinaryFloatingPoint {
     

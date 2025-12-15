@@ -23,10 +23,10 @@ extension Wrapper where Base == NSDecimalNumber {
             return s.dtb.nsDecimal()?.value
         }
         if let v = value as? Double {
-            return v.dtb.nsDecimal()?.value
+            return v.dtb.nsDecimal().value
         }
         if let i = value as? Int64 {
-            return i.dtb.nsDecimal()?.value
+            return i.dtb.nsDecimal().value
         }
         return nil
     }

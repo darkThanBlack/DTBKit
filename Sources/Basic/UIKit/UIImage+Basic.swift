@@ -39,7 +39,7 @@ extension StaticWrapper where T: UIImage {
     ///   - imageName: imageName description
     ///   - bundle: bundle description
     /// - Returns: description
-    public func create(_ imageName: String?, bundle: Bundle? = nil) -> UIImage? {
+    public func create(_ imageName: String?, bundle: Bundle? = nil, imageTypes: [String] = DTB.config.supportImageTypes) -> UIImage? {
         guard let name = imageName, name.isEmpty == false else {
             return nil
         }
@@ -55,7 +55,7 @@ extension StaticWrapper where T: UIImage {
                 return result
             }
             // ``**/*/name.type``
-            for type in DTB.Configuration.shared.supportImageTypes {
+            for type in imageTypes {
                 if let path = target.path(forResource: name, ofType: type),
                    let result = UIImage(contentsOfFile: path) {
                     return result

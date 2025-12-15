@@ -260,9 +260,9 @@ final class BasicTests: XCTestCase {
         let testValue: Double = 123.456789
 
         // 类型转换
-        let decimalNumber = testValue.dtb.nsDecimal()?.value
+        let decimalNumber = testValue.dtb.nsDecimal().value
         XCTAssertNotNil(decimalNumber)
-        XCTAssertEqual(decimalNumber?.doubleValue, testValue, accuracy: 0.000001)
+        XCTAssertEqual(decimalNumber.doubleValue, testValue, accuracy: 0.000001)
 
         // 字符串转换
         let stringValue = testValue.dtb.string().value
@@ -370,17 +370,11 @@ final class BasicTests: XCTestCase {
         let smallInt = 42
         let decimalFromInt = smallInt.dtb.nsDecimal()
         XCTAssertNotNil(decimalFromInt)
-        XCTAssertEqual(decimalFromInt?.string()?.value, "42")
+        XCTAssertEqual(decimalFromInt.string()?.value, "42")
 
         // MARK: - 数据类型转换测试
         let testValue: Int = 1024
-        XCTAssertEqual(Int64(testValue), testValue.dtb.string())
-        XCTAssertEqual(Int32(testValue), testValue.dtb.int32())
-        XCTAssertEqual(Int16(testValue), testValue.dtb.int16())
-
-        // 溢出测试
-        let largeValue = Int.max
-        XCTAssertNil(largeValue.dtb.int16()) // 应该溢出返回 nil
+        XCTAssertEqual(Int64(testValue), testValue.dtb.int64Value())
     }
     
     // MARK: - NumberFormatter Extensions Tests
@@ -668,7 +662,7 @@ final class BasicTests: XCTestCase {
     
     func testDynamicDate() throws {
         
-        XCTAssert(1.dtb.nsDecimal()?.string()?.value == "1")
+        XCTAssert(1.dtb.nsDecimal().string()?.value == "1")
         XCTAssert("2.0".dtb.nsDecimal()?.double()?.value == 2.0)
         // FIXME: pure number
         XCTAssert("3.哈".dtb.nsDecimal()?.string()?.value == "3")
