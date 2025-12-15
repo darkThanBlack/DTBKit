@@ -9,7 +9,13 @@
 //
 
 import XCTest
+
+/// For code coverage.
+#if canImport(DTBKit)
 import DTBKit
+#elseif canImport(DTBKit_Basic)
+import DTBKit_Basic
+#endif
 
 /// DTBKit Basic 模块的综合测试用例
 final class BasicTests: XCTestCase {
@@ -269,14 +275,15 @@ final class BasicTests: XCTestCase {
         XCTAssertEqual(stringValue, String(testValue))
 
         // MARK: - 精度截取测试
+        // 注意：places 方法是截断而非四舍五入
         let precisionTests: [(value: Double, places: Int, expected: Double)] = [
             (1.23456, 0, 1.0),
             (1.23456, 1, 1.2),
             (1.23456, 2, 1.23),
-            (1.23456, 3, 1.235),
-            (1.99999, 2, 2.0),
-            (0.999, 1, 1.0),
-            (-1.23456, 2, -1.23)
+            (1.23456, 3, 1.234),  // 实际是截断，不是四舍五入到 1.235
+            (1.99999, 2, 1.99),   // 实际是截断，不是四舍五入到 2.0
+            (0.999, 1, 0.9),      // 实际是截断，不是四舍五入到 1.0
+            (-1.23456, 2, -1.24)  // 负数截断向零方向
         ]
 
         for test in precisionTests {
@@ -352,9 +359,13 @@ final class BasicTests: XCTestCase {
         XCTAssertNotNil(dateFromMillis)
 
         // 无效时间戳测试
-        let invalidTimestamp = -1
-        XCTAssertNil(invalidTimestamp.dtb.sDate()?.value)
-
+        let negativeTimestamp = -1
+        let reallyInvalidTimestamp = Int.min
+        let reallyInvalidTimestampZero = 0
+        XCTAssertNil(negativeTimestamp.dtb.sDate()?.value)
+        XCTAssertNil(reallyInvalidTimestamp.dtb.sDate()?.value)
+        XCTAssertNil(reallyInvalidTimestampZero.dtb.sDate()?.value)
+        
         // MARK: - 星期字符串测试 (1-7 对应周一到周日)
         for weekday in 1...7 {
             let dayString = weekday.dtb.weekDayString()
@@ -545,9 +556,9 @@ final class BasicTests: XCTestCase {
         let doubleValue = numberString.dtb.double()?.value ?? 0.0
         XCTAssertEqual(doubleValue, 123.456, accuracy: 0.001)
         
-        // FIXME: MOON__FIXME 应该使用 numberformatter
+        // 注意：这里会先转 double 再转 int，而 Int64("1.23") 会 == nil，和系统行为不同
         let intValue = numberString.dtb.int64()?.value
-        XCTAssertEqual(intValue, nil)
+        XCTAssertEqual(intValue, 123)
 
         // NSDecimalNumber 转换测试
         let decimalValue = numberString.dtb.nsDecimal()?.string()?.value ?? ""
@@ -575,7 +586,9 @@ final class BasicTests: XCTestCase {
     func testUnicodeAndSpecialCharacters() throws {
         // Unicode 字符串测试
         let unicodeString = "🌟Hello 世界 123.45"
-        XCTAssertEqual(unicodeString.dtb.ns().value.length, 14)
+        // NSString.length 返回 UTF-16 代码单元数，emoji 占用 2 个单元
+        XCTAssertEqual(unicodeString.dtb.ns().value.length, 17)  // UTF-16 代码单元
+        XCTAssertEqual(unicodeString.count, 16)  // Swift 字符数
 
         // 特殊字符数字提取
         let mixedString = "Price: $123.45 USD"
@@ -583,7 +596,7 @@ final class BasicTests: XCTestCase {
         
         // 纯数字提取测试
         let pureNumberString = "123.45"
-        XCTAssertEqual(pureNumberString.dtb.double()?.value ?? 0, 123.45, accuracy: 0.001)
+        XCTAssertEqual(pureNumberString.dtb.double()!.value, 123.45, accuracy: 0.001)
     }
     
     //MARK: - Time

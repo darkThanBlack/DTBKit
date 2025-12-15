@@ -9,7 +9,13 @@
 //
 
 import XCTest
+
+/// For code coverage.
+#if canImport(DTBKit)
 import DTBKit
+#elseif canImport(DTBKit_Basic)
+import DTBKit_Basic
+#endif
 
 /// DTBKit 命名空间和链式 API 设计测试
 final class NamespaceAndChainTests: XCTestCase {

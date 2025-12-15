@@ -33,11 +33,11 @@ extension Wrapper where Base == NSDecimalNumber {
     
     private func getBehavior(_ scale: Int16?, _ rounding: NSDecimalNumber.RoundingMode?) -> NSDecimalNumberHandler {
         if (scale == nil) && (rounding == nil) {
-            return DTB.Configuration.shared.decimalBehavior
+            return DTB.config.decimalBehavior
         } else {
             return NSDecimalNumberHandler(
-                roundingMode: rounding ?? DTB.Configuration.shared.decimalBehavior.roundingMode(),
-                scale: scale ?? DTB.Configuration.shared.decimalBehavior.scale(),
+                roundingMode: rounding ?? DTB.config.decimalBehavior.roundingMode(),
+                scale: scale ?? DTB.config.decimalBehavior.scale(),
                 raiseOnExactness: false,
                 raiseOnOverflow: false,
                 raiseOnUnderflow: false,

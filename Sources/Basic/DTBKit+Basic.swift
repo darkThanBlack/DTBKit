@@ -12,6 +12,14 @@
 import Foundation
 import UIKit
 
+/// For code coverage.
+#if canImport(DTBKit_Core)
+@_exported import DTBKit_Core
+#endif
+#if canImport(DTBKit_Chain)
+@_exported import DTBKit_Chain
+#endif
+
 extension DTB {
     
     /// Memory dict / App data / etc.

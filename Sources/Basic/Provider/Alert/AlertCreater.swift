@@ -15,7 +15,7 @@ import UIKit
 extension DTB {
     
     ///
-    open class AlertCreater: Kitable, Chainable {
+    open class AlertCreater: Kitable {
         
         public var title: String? = nil
         

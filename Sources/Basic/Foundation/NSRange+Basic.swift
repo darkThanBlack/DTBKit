@@ -21,3 +21,4 @@ extension Wrapper where Base == NSRange {
         return (me.location == NSNotFound) || (me.length == 0)
     }
 }
+

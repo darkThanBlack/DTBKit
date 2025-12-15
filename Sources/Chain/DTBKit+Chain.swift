@@ -12,6 +12,11 @@
 import Foundation
 import UIKit
 
+/// For code coverage.
+#if canImport(DTBKit_Core)
+@_exported import DTBKit_Core
+#endif
+
 //MARK: - Class Chain
 
 /// Indicate which one supports "chainable". In order to prevent ambiguity in memory semantics when used by business parties, it is only recommended to use reference types.
