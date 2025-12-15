@@ -12,13 +12,6 @@
 import UIKit
 import Foundation
 
-/// Type convert
-///
-/// 基础类型转换。
-///
-/// 1. "init" vs. "exactly init"
-/// 2. "NaN" vs. nil
-/// 3. "high bits to low bits" vs. nil
 extension Wrapper where Base: BinaryFloatingPoint {
     
     ///
@@ -28,68 +21,6 @@ extension Wrapper where Base: BinaryFloatingPoint {
             return Wrapper(me.rounded(rule))
         }
         return Wrapper(me.rounded())
-    }
-}
-
-/// String
-///
-/// 字符串处理。
-extension Wrapper where Base: BinaryFloatingPoint {
-    
-    /// Convert to ``NSDecimalNumber``.
-    ///
-    /// ```
-    /// 1.dtb.nsDecimal
-    ///     .plus("1.0")
-    ///     .div(3, scale: 3, rounding: .down)
-    ///     .double.value === 0.666
-    /// ```
-    @inline(__always)
-    public func nsDecimal() -> Wrapper<NSDecimalNumber>? {
-        let result = NSDecimalNumber(string: "\(me)")
-        return result == NSDecimalNumber.notANumber ? nil : result.dtb
-    }
-    
-    /// Convert to string.
-    ///
-    /// 转字符串。
-    @inline(__always)
-    public func string() -> Wrapper<String> {
-        return "\(me)".dtb
-    }
-    
-    /// Convert to string with numberFormatter.
-    ///
-    /// 格式化字符串。
-    ///
-    /// For example:
-    /// ```
-    ///     /// Use preset formatter
-    ///     let a = 2.1.dtb.toString(.dtb.CNY)?.value
-    ///
-    ///     /// Custom formatter
-    ///     let b = 2.dtb.double.toString(NumberFormatter().dtb.decimal(2).rounded(.halfDown).prefix("¥", negative: "-¥").value)
-    /// ```
-    @inline(__always)
-    public func toString(_ formatter: NumberFormatter) -> Wrapper<String>? {
-        return formatter.dtb.string(from: NSNumber(value: Double(me)))
-    }
-    
-}
-
-/// Date
-extension Wrapper where Base: BinaryFloatingPoint {
-    
-    /// From 's' timeStamp (length == 10) | 从 10 位秒级时间戳生成
-    @inline(__always)
-    public func sDate() -> Wrapper<Date>? {
-        return Date.dtb.create(s: Double(me))?.dtb
-    }
-    
-    /// From 'ms' timeStamp (length == 13) | 从 13 位毫秒级时间戳生成
-    @inline(__always)
-    public func msDate() -> Wrapper<Date>? {
-        return Date.dtb.create(ms: Double(me))?.dtb
     }
 }
 
