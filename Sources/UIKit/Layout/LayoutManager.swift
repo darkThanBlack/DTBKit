@@ -36,15 +36,31 @@ public final class LayoutManager {
         view.setContentCompressionResistancePriority(priority, for: axis)
     }
     
+    /// Lowest priority on all edges.
     @inline(__always)
-    public func getSpacer(_ axis: NSLayoutConstraint.Axis) -> DTB.VoidView {
+    public func spacer() -> DTB.VoidView {
         let view = DTB.VoidView()
-        view.setContentHuggingPriority(.fittingSizeLevel, for: axis)
-        view.setContentCompressionResistancePriority(.fittingSizeLevel, for: axis)
+        view.setContentHuggingPriority(.fittingSizeLevel, for: .horizontal)
+        view.setContentCompressionResistancePriority(.fittingSizeLevel, for: .horizontal)
+        view.setContentHuggingPriority(.fittingSizeLevel, for: .vertical)
+        view.setContentCompressionResistancePriority(.fittingSizeLevel, for: .vertical)
         return view
     }
-}
-
-extension Wrapper where Base: UIView {
+    
+    /// Normarl priority with constant width or height.
+    @inline(__always)
+    public func sizedBox(width: CGFloat? = nil, height: CGFloat? = nil) -> DTB.Container {
+        let view = DTB.Container()
+        view.lazyFire(.onAdded) { v in
+            v.translatesAutoresizingMaskIntoConstraints = false
+            if let w = width, w > 0 {
+                v.widthAnchor.constraint(equalToConstant: w).isActive = true
+            }
+            if let h = height, h > 0 {
+                v.heightAnchor.constraint(equalToConstant: h).isActive = true
+            }
+        }
+        return view
+    }
     
 }

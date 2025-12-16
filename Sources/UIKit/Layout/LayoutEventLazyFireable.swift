@@ -3,27 +3,30 @@
 //  DTBKit
 //
 //  Created by moonShadow on 2025/12/2
-//  
+//
 //
 //  LICENSE: SAME AS REPOSITORY
 //  Contact me: [GitHub](https://github.com/darkThanBlack)
 //
-    
+
 
 import UIKit
 
 extension DTB {
     
-    enum LazyLayoutsEventTypes: String, CaseIterable {
-        /// 延迟到 view 的 didMoveToSuperview 被调用时执行
-        case constraint
-        /// 延迟到 view 的 layoutSubviews 被调用时执行
-        case frame
+    public enum LayoutEventLazyFireTiming: String, CaseIterable {
+        /// ``didMoveToSuperview``
+        case onAdded
+        /// ``layoutSubviews``
+        case onLayout
     }
     
-    protocol LazyLayouts: UIView {
+    /// Use ``Self`` to lock in ``final`` class.
+    ///
+    /// Reason: if some subview override layoutSubviews and do some business code, trigger in superview func is too early.
+    public protocol LayoutEventLazyFireable: UIView {
         
-        var lazyLayoutEventsPool_: [DTB.LazyLayoutsEventTypes: [(UIView) -> ()]] { set get }
+        var lazyLayoutEventsPool_: [DTB.LayoutEventLazyFireTiming: [(Self) -> ()]] { set get }
         
         /// Must be call on layoutSubviews
         func lazyLayoutsWhenLayoutSubviews_()
@@ -31,65 +34,79 @@ extension DTB {
         /// Must be call on didMoveToSuperview
         func lazyLayoutsWhenDidMoveToSuperview_()
         
-        func lazyLayout(_ type: DTB.LazyLayoutsEventTypes, eventHandler: @escaping ((UIView) -> ()))
+        /// Wait for a timed event to trigger all events. FIFO.
+        func lazyFire(_ type: DTB.LayoutEventLazyFireTiming, eventHandler: @escaping ((Self) -> ()))
     }
 }
 
-extension DTB.LazyLayouts {
+public extension DTB.LayoutEventLazyFireable {
     
-    /// 
-    func lazyLayout(_ type: DTB.LazyLayoutsEventTypes = .frame, eventHandler: @escaping ((UIView) -> ())) {
+    /// Wait for a timed event to trigger all events. FIFO.
+    ///
+    /// - Note:
+    ///   ``eventHandler`` param is same as ``self`` to avoid circular references.
+    ///   ```
+    ///     let view = DTB.Container()
+    ///     view.lazyFire(.onAdded) { v in
+    ///         // **NO**
+    ///         view.backgroundColor = .yellow
+    ///         // **YES**
+    ///         v.backgroundColor = .yellow
+    ///     }
+    ///
+    func lazyFire(_ type: DTB.LayoutEventLazyFireTiming = .onLayout, eventHandler: @escaping ((Self) -> ())) {
         switch type {
-        case .constraint:
+        case .onAdded:
             if superview != nil {
                 eventHandler(self)
                 return
             }
-        case .frame:
+        case .onLayout:
             if bounds.isEmpty == false {
                 eventHandler(self)
                 return
             }
+            // Ensure ``layoutSubviews`` will be fired
+            setNeedsLayout()
         }
         // create array if needed
         if lazyLayoutEventsPool_[type] == nil {
             lazyLayoutEventsPool_[type] = []
         }
-        // 兜底
+        // Too much event means unexpect error
         if lazyLayoutEventsPool_[type]?.count ?? 0 > 200 {
             DTB.console.error("\(type.rawValue) events too much, check logic")
             lazyLayoutEventsPool_[type]?.removeAll()
         }
-        // 添加
         lazyLayoutEventsPool_[type]?.append(eventHandler)
     }
     
     func lazyLayoutsWhenDidMoveToSuperview_() {
         if superview != nil {
-            fireEvents(by: .constraint)
+            fireEvents(by: .onAdded)
         } else {
-            clearEvents(by: .constraint)
+            clearEvents(by: .onAdded)
         }
     }
-
+    
     func lazyLayoutsWhenLayoutSubviews_() {
         guard bounds.isEmpty == false else {
             return
         }
-        fireEvents(by: .frame)
+        fireEvents(by: .onLayout)
     }
     
-    private func clearEvents(by type: DTB.LazyLayoutsEventTypes) {
+    private func clearEvents(by type: DTB.LayoutEventLazyFireTiming) {
         if lazyLayoutEventsPool_[type]?.count ?? 0 > 0 {
             DTB.console.error("event clear too early, check logic")
         }
         lazyLayoutEventsPool_[type]?.removeAll()
     }
     
-    private func fireEvents(by type: DTB.LazyLayoutsEventTypes) {
+    private func fireEvents(by type: DTB.LayoutEventLazyFireTiming) {
         guard var events = lazyLayoutEventsPool_[type], events.isEmpty == false else { return }
         lazyLayoutEventsPool_[type] = []
-        // 按添加顺序执行
+        // FIFO
         while events.count > 0 {
             events.removeFirst()(self)
         }

@@ -16,7 +16,21 @@ extension DTB {
     
     /// Empty view without render.
     @objc(DTBVoidView)
-    public final class VoidView: UIView {
+    public final class VoidView: UIView, DTB.LayoutEventLazyFireable {
+        
+        public var lazyLayoutEventsPool_: [DTB.LayoutEventLazyFireTiming: [(DTB.VoidView) -> ()]] = [:]
+        
+        public override func didMoveToSuperview() {
+            super.didMoveToSuperview()
+            
+            lazyLayoutsWhenDidMoveToSuperview_()
+        }
+        
+        public override func layoutSubviews() {
+            super.layoutSubviews()
+            
+            lazyLayoutsWhenLayoutSubviews_()
+        }
         
         public override class var layerClass: AnyClass {
             return VoidLayer.self

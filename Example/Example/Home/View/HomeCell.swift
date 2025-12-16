@@ -72,7 +72,7 @@ class HomeCell: UITableViewCell {
         let stacks = UIStackView(
             arrangedSubviews: [
                 titleLabel,
-                DTB.layout.getSpacer(.horizontal),
+                DTB.layout.spacer(),
                 detailLabel,
                 rightArrow,
                 selectIcon

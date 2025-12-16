@@ -14,7 +14,7 @@ import UIKit
 
 extension DTB {
     
-    /// 按钮, 取代 UIButton
+    /// Replacement for UIButton.
     @objc(DTBButton)
     open class Button: BaseControl {
         
