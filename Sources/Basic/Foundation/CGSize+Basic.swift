@@ -69,14 +69,14 @@ extension Wrapper where Base == CGSize {
     
     /// Inscribe | 内接正方形
     @inline(__always)
-    public func inSquare() -> CGSize {
-        return CGSize(width: shorter(), height: shorter())
+    public func inSquare() -> Self {
+        return CGSize(width: shorter(), height: shorter()).dtb
     }
     
     /// Circumscribe | 外接正方形
     @inline(__always)
-    public func outSquare() -> CGSize {
-        return CGSize(width: longer(), height: longer())
+    public func outSquare() -> Self {
+        return CGSize(width: longer(), height: longer()).dtb
     }
     
     /// plus | (增加)外间距

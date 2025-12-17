@@ -27,11 +27,6 @@ extension Wrapper where Base == String {
         return NSMutableAttributedString(string: me).dtb
     }
     
-    /// Encoding to ``Data``
-    @inline(__always)
-    func data(_ encoding: String.Encoding = .utf8, _ lossy: Bool = true) -> Data? {
-        return me.data(using: encoding, allowLossyConversion: lossy)
-    }
 }
 
 /// Basic
@@ -52,12 +47,6 @@ extension Wrapper where Base == String {
         return me.isEmpty
     }
     
-    /// 非空
-    @inline(__always)
-    public func noEmpty() -> Self? {
-        return me.isEmpty ? nil : self
-    }
-    
     /// 是否空白（空或仅包含空白字符）
     @inline(__always)
     public func isBlank() -> Bool {
@@ -66,9 +55,8 @@ extension Wrapper where Base == String {
     
     /// 去首尾空白  ``trimmingCharacters(in:.whitespacesAndNewlines)``
     @inline(__always)
-    public func noBlank() -> Self? {
-        let result = me.trimmingCharacters(in:.whitespacesAndNewlines)
-        return result.isEmpty ? nil : result.dtb
+    public func noBlank() -> Self {
+        return me.trimmingCharacters(in:.whitespacesAndNewlines).dtb
     }
     
     /// 是否纯数字  ``allSatisfy { $0.isWholeNumber }``

@@ -31,9 +31,9 @@ extension DTB {
     ///   - baseOn: 如果在非主线程使用 DTB.app 时，useLock 传 true，内部会加锁
     public struct ConstKey<ValueType> {
         
-        let key_: String
+        public let key_: String
         
-        let useLock_: Bool
+        public let useLock_: Bool
         
         public init(_ key: String = UUID().uuidString, useLock: Bool = false) {
             self.key_ = key

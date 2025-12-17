@@ -12,6 +12,23 @@
 
 import UIKit
 
+extension StaticWrapper where T == NSNumber {
+    
+    /// Return NSNumber(value: Double.nan) when fail.
+    public func create(_ value: Any) -> NSNumber {
+        if let d = value as? (any BinaryFloatingPoint) {
+            return NSNumber(value: Double(d))
+        }
+        if let i = value as? (any FixedWidthInteger) {
+            return NSNumber(value: Int64(i))
+        }
+        if let v = value as? NSNumber {
+            return v
+        }
+        return NSNumber(value: Double.nan)
+    }
+}
+
 extension Wrapper where Base == NSNumber {
     
     @inline(__always)

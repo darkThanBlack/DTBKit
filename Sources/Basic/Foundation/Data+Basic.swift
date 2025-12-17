@@ -12,6 +12,15 @@
 
 import UIKit
 
+extension Wrapper where Base == String {
+    
+    /// Encoding to ``Data``
+    @inline(__always)
+    public func data(_ encoding: String.Encoding = .utf8, lossy: Bool = true) -> Wrapper<Data>? {
+        return me.data(using: encoding, allowLossyConversion: lossy)?.dtb
+    }
+}
+
 public extension Wrapper where Base == Data {
     
     /// Convert to ``NSData``.

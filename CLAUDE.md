@@ -71,6 +71,78 @@ DTBKit 是一个 Swift iOS 框架，专注于**命名空间隔离**和**链式 A
 - 基础 UI 组件完善 (BaseView, BaseControl)
 - 模块化架构优化
 
+## DTBKit 实际 API 设计规律
+
+基于 FoundationExtensionsTests.swift 修改观察到的真实 API 行为：
+
+### ConstKey API
+```swift
+// 支持无参构造函数，自动生成唯一标识
+let codableKey = DTB.ConstKey<TestModel>()
+
+// 属性名是 key_ 而不是 rawValue
+let stringValue = codableKey.key_  // String
+let lockStatus = codableKey.useLock_  // Bool
+```
+
+### Data 扩展 API
+```swift
+// string() 方法返回可选类型包装，需要 ?.value
+let convertedString = data.dtb.string()?.value  // String?
+let utf8String = data.dtb.string(.utf8)?.value  // String?
+
+// ns() 方法需要 .value 解包
+let nsData = data.dtb.ns().value  // NSData
+```
+
+### NSMutableAttributedString API
+```swift
+// 需要 .value 解包
+let stringValue = mutableAttrString.dtb.string().value  // String
+let mutableString = mutableAttrString.dtb.mString().value  // NSMutableString
+```
+
+### UserDefaults 静态扩展
+```swift
+// 使用静态扩展，不是实例扩展
+UserDefaults.dtb.write(codable: model, key: key)
+UserDefaults.dtb.read(codable: key)
+```
+
+### String 扩展 API (基于 StringProcessingTests.swift 观察)
+```swift
+// count() 方法存在重载或条件差异
+simpleString.dtb.count()        // 某些情况直接返回 Int，无需解包
+emptyString.dtb.count().value   // 某些情况需要 .value 解包
+chineseString.dtb.count().value // 包含非ASCII字符时需要 .value 解包
+
+// data() 方法需要解包
+string.dtb.data(.ascii, .ascii).value  // Wrapper<Data?>，需要 .value
+string.dtb.data().value               // 默认UTF-8编码，需要 .value
+
+// 类型转换需要解包
+string.dtb.ns().value                 // Wrapper<NSString>
+string.dtb.attr().value               // Wrapper<NSAttributedString>
+```
+
+### 已注释的不可用 API
+根据测试文件注释，以下 API 目前不可用或存在问题：
+- `NSString.dtb.range(of:)` 相关方法 (StringProcessingTests.swift 中被注释)
+- NSString 的 range 查找相关功能暂时不可用
+- 部分 NSMutableAttributedString 的 mString 方法在某些上下文中
+
+### 解包规则总结
+1. **可选类型包装**：返回 `Wrapper<T?>` 的方法使用 `?.value`
+2. **普通类型包装**：返回 `Wrapper<T>` 的方法使用 `.value`
+3. **直接返回**：Bool 值和某些计算结果直接返回，无需解包
+4. **静态扩展**：类级别方法通常不需要解包
+
+### 修改 UT 时的注意事项
+- 先查看现有的工作测试文件了解真实 API
+- 可选返回类型使用 `?.value` 而不是 `.value`
+- ConstKey 使用 `key_` 属性访问字符串值
+- UserDefaults 使用静态扩展 `UserDefaults.dtb`
+
 ## 会话历史
 - 2025-11-28: 用户要求将记忆存储在 CLAUDE.md 中
 - 2025-12-01: 彻底重构 HomeViewController，使用规范的可复用组件

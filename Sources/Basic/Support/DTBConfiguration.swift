@@ -32,14 +32,27 @@ extension DTB {
         public static let shared = DTB.Configuration()
         private init() {}
         
-        public private(set) var decimalBehavior = NSDecimalNumberHandler(
-            roundingMode: .plain,
-            scale: 2,
-            raiseOnExactness: false,
-            raiseOnOverflow: false,
-            raiseOnUnderflow: false,
-            raiseOnDivideByZero: false
-        )
+        public private(set) var decimalBehavior = {
+#if DEBUG
+            return  NSDecimalNumberHandler(
+                roundingMode: .plain,
+                scale: 2,
+                raiseOnExactness: true,
+                raiseOnOverflow: true,
+                raiseOnUnderflow: true,
+                raiseOnDivideByZero: true
+            )
+#else
+            return  NSDecimalNumberHandler(
+                roundingMode: .plain,
+                scale: 2,
+                raiseOnExactness: false,
+                raiseOnOverflow: false,
+                raiseOnUnderflow: false,
+                raiseOnDivideByZero: false
+            )
+#endif
+        }()
         
         public private(set) var designBaseSize = CGSize(width: 375.0, height: 667.0)
         

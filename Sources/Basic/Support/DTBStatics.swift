@@ -72,7 +72,7 @@ extension DTB {
         
         public let exp: String
         
-        init(exp: String) {
+        public init(_ exp: String) {
             self.exp = exp
         }
     }

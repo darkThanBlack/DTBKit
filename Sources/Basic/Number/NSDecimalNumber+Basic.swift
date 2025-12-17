@@ -12,6 +12,26 @@
 
 import UIKit
 
+extension StaticWrapper where T == NSDecimalNumber {
+    
+    /// Return NSDecimalNumber.notANumber when fail.
+    public func create(_ value: Any) -> NSDecimalNumber {
+        if let v = value as? NSDecimalNumber {
+            return v
+        }
+        if let s = value as? String {
+            return NSDecimalNumber(string: s)
+        }
+        if let d = value as? (any BinaryFloatingPoint) {
+            return NSDecimalNumber(value: Double(d))
+        }
+        if let i = value as? (any FixedWidthInteger) {
+            return NSDecimalNumber(value: Int64(i))
+        }
+        return NSDecimalNumber.notANumber
+    }
+}
+
 ///
 extension Wrapper where Base == NSDecimalNumber {
     
@@ -46,13 +66,13 @@ extension Wrapper where Base == NSDecimalNumber {
         }
     }
     
-    /// Convert to ``Double``. Return ``nil`` when isNaN.
+    /// Convert to ``Double``. Return ``nil`` when notANumber.
     @inline(__always)
     public func double() -> Wrapper<Double>? {
         return me == NSDecimalNumber.notANumber ? nil : me.doubleValue.dtb
     }
     
-    /// Convert to ``String``. Return ``nil`` when isNaN.
+    /// Convert to ``String``. Return ``nil`` when notANumber.
     @inline(__always)
     public func string() -> Wrapper<String>? {
         return me == NSDecimalNumber.notANumber ? nil : me.stringValue.dtb
@@ -66,11 +86,8 @@ extension Wrapper where Base == NSDecimalNumber {
     ///
     /// - Parameters:
     /// - value: Support NSDecimalNumber / String / Double / Int64.
-    /// - Returns: ``nil`` when isNaN. | 会过滤 notANumber
-    public func plus(_ value: Any?, scale: Int16? = nil, rounding: NSDecimalNumber.RoundingMode? = nil) -> Self? {
-        guard let v = getDecimal(value) else { return nil }
-        let result = me.adding(v, withBehavior: getBehavior(scale, rounding))
-        return result == NSDecimalNumber.notANumber ? nil : result.dtb
+    public func plus(_ value: Any, scale: Int16? = nil, rounding: NSDecimalNumber.RoundingMode? = nil) -> Self {
+        return me.adding(.dtb.create(value), withBehavior: getBehavior(scale, rounding)).dtb
     }
     
     /// "-" | 精度减法
@@ -81,12 +98,8 @@ extension Wrapper where Base == NSDecimalNumber {
     /// 
     /// - Parameters:
     /// - value: Support NSDecimalNumber / String / Double / Int64.
-    /// - Returns: ``nil`` when isNaN. | 会过滤 notANumber
-    public func minus(_ value: Any, scale: Int16? = nil, rounding: NSDecimalNumber.RoundingMode? = nil) -> Self? {
-        guard let v = getDecimal(value) else { return nil }
-        
-        let result = me.subtracting(v, withBehavior: getBehavior(scale, rounding))
-        return result == NSDecimalNumber.notANumber ? nil : result.dtb
+    public func minus(_ value: Any, scale: Int16? = nil, rounding: NSDecimalNumber.RoundingMode? = nil) -> Self {
+        return me.subtracting(.dtb.create(value), withBehavior: getBehavior(scale, rounding)).dtb
     }
     
     /// "*" | 精度乘法
@@ -98,10 +111,8 @@ extension Wrapper where Base == NSDecimalNumber {
     /// - Parameters:
     /// - value: Support NSDecimalNumber / String / Double / Int64.
     /// - Returns: ``nil`` when isNaN. | 会过滤 notANumber
-    public func multi(_ value: Any, scale: Int16? = nil, rounding: NSDecimalNumber.RoundingMode? = nil) -> Self? {
-        guard let v = getDecimal(value) else { return nil }
-        let result = me.multiplying(by: v, withBehavior: getBehavior(scale, rounding))
-        return result == NSDecimalNumber.notANumber ? nil : result.dtb
+    public func multi(_ value: Any, scale: Int16? = nil, rounding: NSDecimalNumber.RoundingMode? = nil) -> Self {
+        return me.multiplying(by: .dtb.create(value), withBehavior: getBehavior(scale, rounding)).dtb
     }
     
     /// "/" | 精度除法
@@ -112,14 +123,8 @@ extension Wrapper where Base == NSDecimalNumber {
     ///
     /// - Parameters:
     /// - value: Support NSDecimalNumber / String / Double / Int64.
-    /// - Returns: ``nil`` when isNaN. | 会过滤 notANumber
-    public func div(_ value: Any, scale: Int16? = nil, rounding: NSDecimalNumber.RoundingMode? = nil) -> Self? {
-        guard let v = getDecimal(value), 
-                v.doubleValue != 0.0 else {
-            return nil
-        }
-        let result = me.dividing(by: v, withBehavior: getBehavior(scale, rounding))
-        return result == NSDecimalNumber.notANumber ? nil : result.dtb
+    public func div(_ value: Any, scale: Int16? = nil, rounding: NSDecimalNumber.RoundingMode? = nil) -> Self {
+        return me.dividing(by: .dtb.create(value), withBehavior: getBehavior(scale, rounding)).dtb
     }
     
     /// "^" | 精度 me 的 value 次方
@@ -130,10 +135,8 @@ extension Wrapper where Base == NSDecimalNumber {
     ///
     /// - Parameters:
     ///   - value: ``Int``.
-    /// - Returns: ``nil`` when isNaN. | 会过滤 notANumber
-    public func power(_ value: Int, scale: Int16? = nil, rounding: NSDecimalNumber.RoundingMode? = nil) -> Self? {
-        let result = me.raising(toPower: value, withBehavior: getBehavior(scale, rounding))
-        return result == NSDecimalNumber.notANumber ? nil : result.dtb
+    public func power(_ value: Int, scale: Int16? = nil, rounding: NSDecimalNumber.RoundingMode? = nil) -> Self {
+        return me.raising(toPower: value, withBehavior: getBehavior(scale, rounding)).dtb
     }
     
     /// "* 10^" | 精度 10 的幂次方
@@ -145,8 +148,7 @@ extension Wrapper where Base == NSDecimalNumber {
     /// - Parameters:
     ///   - value: ``Int16``.
     /// - Returns: ``nil`` when isNaN. | 会过滤 notANumber
-    public func multiPower10(_ value: Int16, scale: Int16? = nil, rounding: NSDecimalNumber.RoundingMode? = nil) -> Self? {
-        let result = me.multiplying(byPowerOf10: value, withBehavior: getBehavior(scale, rounding))
-        return result == NSDecimalNumber.notANumber ? nil : result.dtb
+    public func multiPower10(_ value: Int16, scale: Int16? = nil, rounding: NSDecimalNumber.RoundingMode? = nil) -> Self {
+        return me.multiplying(byPowerOf10: value, withBehavior: getBehavior(scale, rounding)).dtb
     }
 }
