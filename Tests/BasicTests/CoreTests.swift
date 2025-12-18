@@ -25,7 +25,7 @@ final class NamespaceAndChainTests: XCTestCase {
         XCTAssertNoThrow({
             _ = DTB.app
             _ = DTB.console
-            _ = DTB.Configuration.shared
+            _ = DTB.config
         }())
 
         // 验证 DTB 是枚举类型，无法实例化

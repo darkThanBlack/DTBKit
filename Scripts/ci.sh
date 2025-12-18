@@ -26,7 +26,10 @@ reopen() {
     fi
 
     cd $PROJECT_PATH/Example
-    xcodegen
+    for spec in *.yml
+    do
+        xcodegen -s "${spec}"
+    done
     pod install --verbose
     find . -maxdepth 1 -name "*.xcworkspace" | xargs open
 
@@ -34,20 +37,20 @@ reopen() {
 }
 
 git_ci() {
-  git checkout main
-  git add .
-  git commit . -m 'daily'
-  git pull --ff
-  git push
-}
-
-jazzy_ci() {
-    cd ..;
+    cd ${PROJECT_PATH};
     git checkout main;
+    git pull --ff;
     git add .;
     git commit . -m 'daily';
     git pull --ff;
     git push;
+    cd ${SCRIPT_PATH}
+}
+
+jazzy_ci() {
+    git_ci
+    
+    cd ${PROJECT_PATH};
     jazzy \
     --clean \
     --author darkThanBlack \
@@ -65,6 +68,7 @@ jazzy_ci() {
     git add .;
     git commit . -m 'deploy from jazzy';
     git push
+    cd ${SCRIPT_PATH}
 }
 
 show_menu() {

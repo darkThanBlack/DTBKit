@@ -27,9 +27,9 @@ extension DTB {
     ///  - 默认行为有且只有一种
     ///  - 结构简单，没必要使用 Provider
     ///  - 写一次，读多次，并且用户不读，没必要放到 DTB.app
-    public final class Configuration {
+    public final class ConfigManager {
         
-        public static let shared = DTB.Configuration()
+        public static let shared = DTB.ConfigManager()
         private init() {}
         
         public private(set) var decimalBehavior = {
@@ -65,7 +65,7 @@ extension DTB {
     }
 }
 
-extension DTB.Configuration {
+extension DTB.ConfigManager {
     
     /// More detail: ``NSDecimalNumber+DTBKit.swift``
     ///

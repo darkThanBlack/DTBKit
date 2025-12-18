@@ -29,7 +29,7 @@ extension DTB {
     public static let console = ConsoleManager.shared
     
     /// Default value
-    public static let config = Configuration.shared
+    public static let config = ConfigManager.shared
 }
 
 extension Int: Structable {}

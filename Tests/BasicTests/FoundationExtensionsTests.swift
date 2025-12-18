@@ -53,9 +53,7 @@ final class FoundationExtensionsTests: XCTestCase {
         XCTAssertNil(UserDefaults.dtb.read(intKey))
         XCTAssertNil(UserDefaults.dtb.read(boolKey))
         XCTAssertNil(UserDefaults.dtb.read(doubleKey))
-    }
-
-    func testUserDefaultsComplexTypes() throws {
+        
         // 复杂数据类型
         let arrayKey = DTB.ConstKey<[String]>("test_array")
         let dictKey = DTB.ConstKey<[String: Int]>("test_dict")

@@ -134,28 +134,28 @@ final class NumberModuleTests: XCTestCase {
         // Int -> 其他类型
         let intValue = 42
         XCTAssertEqual(intValue.dtb.int64Value(), Int64(42))
-        XCTAssertEqual(intValue.dtb.double(), 42.0)
+        XCTAssertEqual(intValue.dtb.double().value, 42.0)
         XCTAssertEqual(intValue.dtb.string().value, "42")
 
         // Double -> 其他类型
         let doubleValue = 3.8
-        XCTAssertEqual(doubleValue.dtb.rounded(.down), 3.0)
-        XCTAssertEqual(doubleValue.dtb.rounded(.up), 4.0)
-        XCTAssertEqual(doubleValue.dtb.rounded(.toNearestOrEven), 4.0)
+        XCTAssertEqual(doubleValue.dtb.rounded(.down).value, 3.0)
+        XCTAssertEqual(doubleValue.dtb.rounded(.up).value, 4.0)
+        XCTAssertEqual(doubleValue.dtb.rounded(.toNearestOrEven).value, 4.0)
     }
 
     func testPrecisionOperations() throws {
         let precisionValue = 1.23456789
 
         // 测试各种舍入模式
-        XCTAssertEqual(precisionValue.dtb.rounded(.down), 1.0)
-        XCTAssertEqual(precisionValue.dtb.rounded(.up), 2.0)
-        XCTAssertEqual(precisionValue.dtb.rounded(.towardZero), 1.0)
-        XCTAssertEqual(precisionValue.dtb.rounded(.awayFromZero), 2.0)
+        XCTAssertEqual(precisionValue.dtb.rounded(.down).value, 1.0)
+        XCTAssertEqual(precisionValue.dtb.rounded(.up).value, 2.0)
+        XCTAssertEqual(precisionValue.dtb.rounded(.towardZero).value, 1.0)
+        XCTAssertEqual(precisionValue.dtb.rounded(.awayFromZero).value, 2.0)
 
         let negativeValue = -1.23456789
-        XCTAssertEqual(negativeValue.dtb.rounded(.down), -2.0)
-        XCTAssertEqual(negativeValue.dtb.rounded(.up), -1.0)
+        XCTAssertEqual(negativeValue.dtb.rounded(.down).value, -2.0)
+        XCTAssertEqual(negativeValue.dtb.rounded(.up).value, -1.0)
     }
 
     func testNumberConversionEdgeCases() throws {
@@ -185,33 +185,33 @@ final class NumberModuleTests: XCTestCase {
         // NSNumber -> 基本类型
         let nsNumber = NSNumber(value: 123.45)
 
-        XCTAssertEqual(nsNumber.dtb.int(), 123)
-        XCTAssertEqual(nsNumber.dtb.int64(), Int64(123))
-        XCTAssertEqual(nsNumber.dtb.double(), 123.45, accuracy: 0.01)
+        XCTAssertEqual(nsNumber.dtb.int().value, 123)
+        XCTAssertEqual(nsNumber.dtb.int64().value, Int64(123))
+        XCTAssertEqual(nsNumber.dtb.double().value, 123.45, accuracy: 0.01)
 
         // 布尔值 NSNumber
         let boolNumber = NSNumber(value: true)
-        XCTAssertEqual(boolNumber.dtb.int(), 1)
-        XCTAssertEqual(boolNumber.dtb.double(), 1.0)
+        XCTAssertEqual(boolNumber.dtb.int().value, 1)
+        XCTAssertEqual(boolNumber.dtb.double().value, 1.0)
 
         let falseBoolNumber = NSNumber(value: false)
-        XCTAssertEqual(falseBoolNumber.dtb.int(), 0)
-        XCTAssertEqual(falseBoolNumber.dtb.double(), 0.0)
+        XCTAssertEqual(falseBoolNumber.dtb.int().value, 0)
+        XCTAssertEqual(falseBoolNumber.dtb.double().value, 0.0)
     }
 
     func testNSNumberEdgeCases() throws {
         // 极大值
         let maxNumber = NSNumber(value: Double.greatestFiniteMagnitude)
-        XCTAssertTrue(maxNumber.dtb.double() > 0)
+        XCTAssertTrue(maxNumber.dtb.double().value > 0)
 
         // 极小值
         let minNumber = NSNumber(value: -Double.greatestFiniteMagnitude)
-        XCTAssertTrue(minNumber.dtb.double() < 0)
+        XCTAssertTrue(minNumber.dtb.double().value < 0)
 
         // 零值
         let zeroNumber = NSNumber(value: 0)
-        XCTAssertEqual(zeroNumber.dtb.int(), 0)
-        XCTAssertEqual(zeroNumber.dtb.double(), 0.0)
+        XCTAssertEqual(zeroNumber.dtb.int().value, 0)
+        XCTAssertEqual(zeroNumber.dtb.double().value, 0.0)
     }
 
     // MARK: - NumberFormatter Extensions Tests

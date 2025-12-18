@@ -80,9 +80,9 @@ extension Wrapper where Base == NSDecimalNumber {
     
     /// "+" | 精度加法
     ///
-    ///  Use ``DTB.Configuration.shared.decimalBehavior`` as default value when scale && rounding is nil.
+    ///  Use ``DTB.config.decimalBehavior`` as default value when scale && rounding is nil.
     ///
-    ///  当 scale 和 rounding 都为 nil 时使用 ``DTB.Configuration.shared.decimalBehavior`` 作为默认值。
+    ///  当 scale 和 rounding 都为 nil 时使用 ``DTB.config.decimalBehavior`` 作为默认值。
     ///
     /// - Parameters:
     /// - value: Support NSDecimalNumber / String / Double / Int64.
@@ -92,9 +92,9 @@ extension Wrapper where Base == NSDecimalNumber {
     
     /// "-" | 精度减法
     ///
-    ///  Use ``DTB.Configuration.shared.decimalBehavior`` as default value when scale && rounding is nil.
+    ///  Use ``DTB.config.decimalBehavior`` as default value when scale && rounding is nil.
     ///
-    ///  当 scale 和 rounding 都为 nil 时使用 ``DTB.Configuration.shared.decimalBehavior`` 作为默认值。
+    ///  当 scale 和 rounding 都为 nil 时使用 ``DTB.config.decimalBehavior`` 作为默认值。
     /// 
     /// - Parameters:
     /// - value: Support NSDecimalNumber / String / Double / Int64.
@@ -104,9 +104,9 @@ extension Wrapper where Base == NSDecimalNumber {
     
     /// "*" | 精度乘法
     ///
-    ///  Use ``DTB.Configuration.shared.decimalBehavior`` as default value when scale && rounding is nil.
+    ///  Use ``DTB.config.decimalBehavior`` as default value when scale && rounding is nil.
     ///
-    ///  当 scale 和 rounding 都为 nil 时使用 ``DTB.Configuration.shared.decimalBehavior`` 作为默认值。
+    ///  当 scale 和 rounding 都为 nil 时使用 ``DTB.config.decimalBehavior`` 作为默认值。
     ///
     /// - Parameters:
     /// - value: Support NSDecimalNumber / String / Double / Int64.
@@ -117,9 +117,9 @@ extension Wrapper where Base == NSDecimalNumber {
     
     /// "/" | 精度除法
     ///
-    ///  Use ``DTB.Configuration.shared.decimalBehavior`` as default value when scale && rounding is nil.
+    ///  Use ``DTB.config.decimalBehavior`` as default value when scale && rounding is nil.
     ///
-    ///  当 scale 和 rounding 都为 nil 时使用 ``DTB.Configuration.shared.decimalBehavior`` 作为默认值。
+    ///  当 scale 和 rounding 都为 nil 时使用 ``DTB.config.decimalBehavior`` 作为默认值。
     ///
     /// - Parameters:
     /// - value: Support NSDecimalNumber / String / Double / Int64.
@@ -129,9 +129,9 @@ extension Wrapper where Base == NSDecimalNumber {
     
     /// "^" | 精度 me 的 value 次方
     ///
-    ///  Use ``DTB.Configuration.shared.decimalBehavior`` as default value when scale && rounding is nil.
+    ///  Use ``DTB.config.decimalBehavior`` as default value when scale && rounding is nil.
     ///
-    ///  当 scale 和 rounding 都为 nil 时使用 ``DTB.Configuration.shared.decimalBehavior`` 作为默认值。
+    ///  当 scale 和 rounding 都为 nil 时使用 ``DTB.config.decimalBehavior`` 作为默认值。
     ///
     /// - Parameters:
     ///   - value: ``Int``.
@@ -141,9 +141,9 @@ extension Wrapper where Base == NSDecimalNumber {
     
     /// "* 10^" | 精度 10 的幂次方
     ///
-    ///  Use ``DTB.Configuration.shared.decimalBehavior`` as default value when scale && rounding is nil.
+    ///  Use ``DTB.config.decimalBehavior`` as default value when scale && rounding is nil.
     ///
-    ///  当 scale 和 rounding 都为 nil 时使用 ``DTB.Configuration.shared.decimalBehavior`` 作为默认值。
+    ///  当 scale 和 rounding 都为 nil 时使用 ``DTB.config.decimalBehavior`` 作为默认值。
     ///
     /// - Parameters:
     ///   - value: ``Int16``.

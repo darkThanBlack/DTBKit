@@ -87,7 +87,7 @@ extension StaticWrapper where T: UIImage {
             // search sub paths
             let subPaths: [String] = {
                 var paths: [String] = []
-                let suffixs = DTB.Configuration.shared.supportImageTypes.compactMap({ "\(name).\($0)" })
+                let suffixs = DTB.config.supportImageTypes.compactMap({ "\(name).\($0)" })
                 if let mainPath = Bundle.main.resourcePath,
                    let dirEnum = FileManager.default.enumerator(atPath: mainPath) {
                     while let file = dirEnum.nextObject() as? String {

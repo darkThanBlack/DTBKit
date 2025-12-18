@@ -47,33 +47,4 @@ extension DTB {
         set {}
     }
     
-    /// hf means "high fidelity"
-    ///
-    /// 高保真
-    public enum HFBehaviors {
-        
-        /// 默认按设计图宽度等比缩放；参见 ``DTB.Performance.designBaseSize``
-        case scale
-    }
-    
-    /// String regular candy | 正则表达式定义
-    ///
-    /// 参见 ``isRegular``
-    ///
-    /// e.g.
-    /// ```
-    ///     extension DTB.Regulars {
-    ///         public static func phone() -> Self {}
-    ///     }
-    ///
-    ///     let success: Bool = "123".dtb.isRegular(.phone())
-    /// ```
-    public struct Regulars {
-        
-        public let exp: String
-        
-        public init(_ exp: String) {
-            self.exp = exp
-        }
-    }
 }
