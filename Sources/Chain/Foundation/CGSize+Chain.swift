@@ -12,13 +12,11 @@
 
 import UIKit
 
-extension CGSize: Structable {}
-
 extension StaticWrapper where T == CGSize {
     
     /// width | height
     @inline(__always)
-    public func create(_ width: CGFloat, _ height: CGFloat) -> T {
+    public func create(_ width: CGFloat = 0, _ height: CGFloat = 0) -> T {
         return CGSize(width: width, height: height)
     }
     

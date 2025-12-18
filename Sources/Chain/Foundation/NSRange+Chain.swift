@@ -12,8 +12,6 @@
 
 import UIKit
 
-extension NSRange: Structable {}
-
 extension StaticWrapper where T == NSRange {
     
     /// location | length

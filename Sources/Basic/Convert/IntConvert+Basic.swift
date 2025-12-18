@@ -51,14 +51,14 @@ extension Wrapper where Base: FixedWidthInteger & SignedInteger {
     
     /// From 's' timeStamp (length == 10) | 从 10 位秒级时间戳生成
     @inline(__always)
-    public func sDate() -> Wrapper<Date>? {
-        return Date.dtb.create(s: Int64(me))?.dtb
+    public func sDate() -> Wrapper<Date> {
+        return Date.dtb.create(s: me).dtb
     }
     
     /// From 'ms' timeStamp (length == 13) | 从 13 位毫秒级时间戳生成
     @inline(__always)
-    public func msDate() -> Wrapper<Date>? {
-        return Date.dtb.create(ms: Int64(me))?.dtb
+    public func msDate() -> Wrapper<Date> {
+        return Date.dtb.create(ms: me).dtb
     }
     
 }

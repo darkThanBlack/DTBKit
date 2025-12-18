@@ -12,8 +12,6 @@
 
 import UIKit
 
-extension UIEdgeInsets: Structable {}
-
 extension StaticWrapper where T == UIEdgeInsets {
     
     /// top | left | bottom | right

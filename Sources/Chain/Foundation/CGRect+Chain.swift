@@ -12,8 +12,6 @@
 
 import UIKit
 
-extension CGRect: Structable {}
-
 extension StaticWrapper where T == CGRect {
     
     /// x | y | width | height

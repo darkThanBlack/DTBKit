@@ -131,16 +131,3 @@ extension MutableWrapper where Base: Structable & Chainable {
     public var value: Base { return me }
 }
 
-//MARK: - Class 只管实现就好了
-
-extension NSObject: Chainable {}
-
-//MARK: - Struct 要考虑的事情就多了
-
-extension Dictionary: Structable, StructChainable {
-    
-    @inline(__always)
-    public static func def_() -> Self {
-        return [:]
-    }
-}
