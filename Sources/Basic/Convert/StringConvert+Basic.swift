@@ -23,7 +23,7 @@ extension Wrapper where Base == String {
     /// ```
     @inline(__always)
     public func int() -> Wrapper<Int>? {
-        return double()?.int()
+        return Int(me)?.dtb
     }
     
     /// Force convert.
@@ -35,7 +35,7 @@ extension Wrapper where Base == String {
     /// ```
     @inline(__always)
     public func int64() -> Wrapper<Int64>? {
-        return double()?.int64()
+        return Int64(me)?.dtb
     }
     
     /// Force convert.

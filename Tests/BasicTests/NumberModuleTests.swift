@@ -117,7 +117,7 @@ final class NumberModuleTests: XCTestCase {
         XCTAssertEqual("3.14159".dtb.double()!.value, 3.14159, accuracy: 0.00001)
         XCTAssertEqual("-2.718".dtb.double()!.value, -2.718, accuracy: 0.001)
         XCTAssertEqual("0.0".dtb.double()!.value, 0.0)
-        XCTAssertTrue("invalid".dtb.double()!.value.isNaN)
+        XCTAssertTrue("invalid".dtb.double()?.value == nil)
 
         // Double -> String
         XCTAssertEqual((3.14159).dtb.string().value, "3.14159")

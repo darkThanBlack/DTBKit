@@ -95,42 +95,28 @@ final class TimeModuleTests: XCTestCase {
     func testDateAdditions() throws {
         let baseDate = Date(timeIntervalSince1970: 1577836800) // 2020-01-01
 
-        // 添加组件
-        let components = DateComponents(day: 1, hour: 2, minute: 30)
-        let addedDate = baseDate.dtb.adding(by: components)?.value
-        XCTAssertGreaterThan(addedDate.timeIntervalSince1970, baseDate.timeIntervalSince1970)
-
-        // 添加天数
-        let nextDay = baseDate.dtb.addingDay(1)
-        XCTAssertEqual(nextDay.timeIntervalSince1970 - baseDate.timeIntervalSince1970, 24 * 3600, accuracy: 1)
-
-        // 添加周
-        let nextWeek = baseDate.dtb.addingWeek(1)
-        XCTAssertEqual(nextWeek.timeIntervalSince1970 - baseDate.timeIntervalSince1970, 7 * 24 * 3600, accuracy: 1)
-
-        // 添加月（需要考虑月份天数差异）
-        let nextMonth = baseDate.dtb.addingMonth(1)
-        XCTAssertGreaterThan(nextMonth.timeIntervalSince1970, baseDate.timeIntervalSince1970)
-
-        // 添加年
-        let nextYear = baseDate.dtb.addingYear(1)
-        XCTAssertGreaterThan(nextYear.timeIntervalSince1970, baseDate.timeIntervalSince1970)
-    }
-
-    func testDateUnitAddition() throws {
-        let baseDate = Date(timeIntervalSince1970: 1577836800) // 2020-01-01
-
         // 测试不同单位的添加
-        let dayAdded = baseDate.dtb.adding(1, unit: .day)
+        let components = DateComponents(day: 1, hour: 2, minute: 30)
+        guard let addedDate = baseDate.dtb.adding(by: components)?.value,
+              let nextDay = baseDate.dtb.addingDay(1)?.value,
+              let nextWeek = baseDate.dtb.addingWeek(1)?.value,
+              let nextMonth = baseDate.dtb.addingMonth(1)?.value,
+              let nextYear = baseDate.dtb.addingYear(1)?.value,
+              let dayAdded = baseDate.dtb.adding(1, unit: .day)?.value,
+              let hourAdded = baseDate.dtb.adding(5, unit: .hour)?.value,
+              let minuteAdded = baseDate.dtb.adding(30, unit: .minute)?.value,
+              let secondAdded = baseDate.dtb.adding(45, unit: .second)?.value else {
+            XCTAssert(false)
+            return
+        }
+        XCTAssertGreaterThan(addedDate.timeIntervalSince1970, baseDate.timeIntervalSince1970)
+        XCTAssertEqual(nextDay.timeIntervalSince1970 - baseDate.timeIntervalSince1970, 24 * 3600, accuracy: 1)
+        XCTAssertEqual(nextWeek.timeIntervalSince1970 - baseDate.timeIntervalSince1970, 7 * 24 * 3600, accuracy: 1)
+        XCTAssertGreaterThan(nextMonth.timeIntervalSince1970, baseDate.timeIntervalSince1970)
+        XCTAssertGreaterThan(nextYear.timeIntervalSince1970, baseDate.timeIntervalSince1970)
         XCTAssertEqual(dayAdded.timeIntervalSince1970 - baseDate.timeIntervalSince1970, 24 * 3600, accuracy: 1)
-
-        let hourAdded = baseDate.dtb.adding(5, unit: .hour)
         XCTAssertEqual(hourAdded.timeIntervalSince1970 - baseDate.timeIntervalSince1970, 5 * 3600, accuracy: 1)
-
-        let minuteAdded = baseDate.dtb.adding(30, unit: .minute)
         XCTAssertEqual(minuteAdded.timeIntervalSince1970 - baseDate.timeIntervalSince1970, 30 * 60, accuracy: 1)
-
-        let secondAdded = baseDate.dtb.adding(45, unit: .second)
         XCTAssertEqual(secondAdded.timeIntervalSince1970 - baseDate.timeIntervalSince1970, 45, accuracy: 1)
     }
 
@@ -139,14 +125,13 @@ final class TimeModuleTests: XCTestCase {
         let date2 = Date(timeIntervalSince1970: 1577836800 + 3600) // 1小时后
 
         // 时间差计算
-        let delta = date1.dtb.delta(to: date2, .hour)
-        XCTAssertEqual(delta, -1.0, accuracy: 0.1) // date1 比 date2 早1小时
-
+        let delta = date1.dtb.delta(to: date2, .hour) ?? 0
+        XCTAssertEqual(Double(delta), -1.0, accuracy: 0.1) // date1 比 date2 早1小时
         // 相同单位比较
-        let sameDay = date1.dtb.same(to: date2, .day)
+        let sameDay = date1.dtb.same(to: date2, [.day])
         XCTAssertTrue(sameDay) // 同一天
 
-        let sameHour = date1.dtb.same(to: date2, .hour)
+        let sameHour = date1.dtb.same(to: date2, [.hour])
         XCTAssertFalse(sameHour) // 不同小时
     }
 
@@ -175,28 +160,27 @@ final class TimeModuleTests: XCTestCase {
 
     func testDateBoundaries() throws {
         let testDate = Date(timeIntervalSince1970: 1577923200) // 2020-01-01 24:00:00 UTC
-
+        guard let startOfYear = testDate.dtb.startOfYear()?.value,
+              let endOfYear = testDate.dtb.endOfYear()?.value,
+              let startOfMonth = testDate.dtb.startOfMonth()?.value,
+              let endOfMonth = testDate.dtb.endOfMonth()?.value,
+              let startOfWeek = testDate.dtb.startOfWeek()?.value,
+              let endOfWeek = testDate.dtb.endOfWeek()?.value,
+              let startOfDay = testDate.dtb.startOfDay()?.value,
+              let endOfDay = testDate.dtb.endOfDay()?.value else {
+            XCTAssert(false)
+            return
+        }
         // 年的开始和结束
-        let startOfYear = testDate.dtb.startOfYear()
-        let endOfYear = testDate.dtb.endOfYear()
         XCTAssertLessThan(startOfYear.timeIntervalSince1970, testDate.timeIntervalSince1970)
         XCTAssertGreaterThan(endOfYear.timeIntervalSince1970, testDate.timeIntervalSince1970)
-
         // 月的开始和结束
-        let startOfMonth = testDate.dtb.startOfMonth()
-        let endOfMonth = testDate.dtb.endOfMonth()
         XCTAssertLessThanOrEqual(startOfMonth.timeIntervalSince1970, testDate.timeIntervalSince1970)
         XCTAssertGreaterThanOrEqual(endOfMonth.timeIntervalSince1970, testDate.timeIntervalSince1970)
-
         // 周的开始和结束
-        let startOfWeek = testDate.dtb.startOfWeek()
-        let endOfWeek = testDate.dtb.endOfWeek()
         XCTAssertLessThanOrEqual(startOfWeek.timeIntervalSince1970, testDate.timeIntervalSince1970)
         XCTAssertGreaterThanOrEqual(endOfWeek.timeIntervalSince1970, testDate.timeIntervalSince1970)
-
         // 天的开始和结束
-        let startOfDay = testDate.dtb.startOfDay()
-        let endOfDay = testDate.dtb.endOfDay()
         XCTAssertLessThanOrEqual(startOfDay.timeIntervalSince1970, testDate.timeIntervalSince1970)
         XCTAssertGreaterThanOrEqual(endOfDay.timeIntervalSince1970, testDate.timeIntervalSince1970)
     }
@@ -216,12 +200,12 @@ final class TimeModuleTests: XCTestCase {
     func testDayMinutesCalculation() throws {
         // 测试一天中的分钟计算
         let midnight = Date(timeIntervalSince1970: 1577836800) // 2020-01-01 00:00:00 UTC
-        let midnightMinutes = midnight.dtb.dayMinutes()
+        let midnightMinutes = midnight.dtb.dayMinutes()?.value
         XCTAssertEqual(midnightMinutes, 0) // 午夜应该是0分钟
 
         // 测试中午时间
         let noon = Date(timeIntervalSince1970: 1577836800 + 12 * 3600) // 12:00 UTC
-        let noonMinutes = noon.dtb.dayMinutes()
+        let noonMinutes = noon.dtb.dayMinutes()?.value
         XCTAssertEqual(noonMinutes, 12 * 60) // 中午应该是720分钟
     }
 
@@ -231,7 +215,7 @@ final class TimeModuleTests: XCTestCase {
         let startTime = Date(timeIntervalSince1970: 0)
         let duration: TimeInterval = 3661 // 1小时1分1秒
 
-        let durationString = startTime.dtb.toDuration(duration)
+        let durationString = startTime.dtb.toDuration(.text) ?? ""
         XCTAssertNotNil(durationString)
         XCTAssertTrue(durationString.contains("1") || durationString.contains("61")) // 应该包含小时或分钟信息
     }
@@ -243,63 +227,44 @@ final class TimeModuleTests: XCTestCase {
 
         // 测试动态时间显示功能
         let items = DTB.DateDynamicBarrierItem.self
-
         // 负时间（过去）
         let pastDate = Date(timeIntervalSinceNow: -3600) // 1小时前
-        let negativeItem = items.negative { date in
-            return date.dtb.format("HH:mm")
-        }
-        let pastResult = pastDate.dtb.toDynamic([negativeItem], baseOn: baseDate)
+        let pastResult = pastDate.dtb.toDynamic([.negative("HH:mm")], baseOn: baseDate)
         XCTAssertNotNil(pastResult)
 
         // 一分钟内
         let recentDate = Date(timeIntervalSinceNow: -30) // 30秒前
-        let oneMinuteResult = recentDate.dtb.toDynamic([items.oneMinute], baseOn: baseDate)
+        let oneMinuteResult = recentDate.dtb.toDynamic([.oneMinute()], baseOn: baseDate)
         XCTAssertNotNil(oneMinuteResult)
 
         // 一小时内
         let hourAgoDate = Date(timeIntervalSinceNow: -1800) // 30分钟前
-        let oneHourResult = hourAgoDate.dtb.toDynamic([items.oneHour], baseOn: baseDate)
+        let oneHourResult = hourAgoDate.dtb.toDynamic([.oneHour()], baseOn: baseDate)
         XCTAssertNotNil(oneHourResult)
 
         // 今天
         let todayDate = Date(timeIntervalSinceNow: -7200) // 2小时前（假设还是今天）
-        let todayItem = items.today { date in
-            return date.dtb.format("HH:mm")
-        }
-        let todayResult = todayDate.dtb.toDynamic([todayItem], baseOn: baseDate)
+        let todayResult = todayDate.dtb.toDynamic([.today()], baseOn: baseDate)
         XCTAssertNotNil(todayResult)
 
         // 昨天
         let yesterdayDate = Date(timeIntervalSinceNow: -24 * 3600 - 3600) // 昨天的1小时前
-        let yesterdayItem = items.yesterday { date in
-            return "昨天 " + date.dtb.format("HH:mm")
-        }
-        let yesterdayResult = yesterdayDate.dtb.toDynamic([yesterdayItem], baseOn: baseDate)
+        let yesterdayResult = yesterdayDate.dtb.toDynamic([.yesterday()], baseOn: baseDate)
         XCTAssertNotNil(yesterdayResult)
 
         // 明天（未来时间）
         let tomorrowDate = Date(timeIntervalSinceNow: 24 * 3600 + 3600) // 明天的1小时后
-        let tomorrowItem = items.tomorrow { date in
-            return "明天 " + date.dtb.format("HH:mm")
-        }
-        let tomorrowResult = tomorrowDate.dtb.toDynamic([tomorrowItem], baseOn: baseDate)
+        let tomorrowResult = tomorrowDate.dtb.toDynamic([.tomorrow()], baseOn: baseDate)
         XCTAssertNotNil(tomorrowResult)
 
         // 同年
         let sameYearDate = Date(timeIntervalSinceNow: -30 * 24 * 3600) // 30天前
-        let sameYearItem = items.sameYear { date in
-            return date.dtb.format("MM-dd")
-        }
-        let sameYearResult = sameYearDate.dtb.toDynamic([sameYearItem], baseOn: baseDate)
+        let sameYearResult = sameYearDate.dtb.toDynamic([.sameYear("MM-dd")], baseOn: baseDate)
         XCTAssertNotNil(sameYearResult)
 
         // 其他年份
         let otherYearDate = Date(timeIntervalSinceNow: -400 * 24 * 3600) // 400天前（不同年）
-        let anotherItem = items.another { date in
-            return date.dtb.format("yyyy-MM-dd")
-        }
-        let anotherResult = otherYearDate.dtb.toDynamic([anotherItem], baseOn: baseDate)
+        let anotherResult = otherYearDate.dtb.toDynamic([.another()], baseOn: baseDate)
         XCTAssertNotNil(anotherResult)
     }
 

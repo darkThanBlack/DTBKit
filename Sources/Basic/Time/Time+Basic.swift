@@ -52,15 +52,19 @@ extension DTB.DateDynamicBarrierItem {
     }
     
     /// 一分钟内 | "刚刚"
-    public static let oneMinute = Self { base, to in
-        let delta = base.timeIntervalSince1970 - to.timeIntervalSince1970
-        return delta < 60 ? "刚刚" : nil
+    public static func oneMinute() -> Self {
+        return .init { base, to in
+            let delta = base.timeIntervalSince1970 - to.timeIntervalSince1970
+            return delta < 60 ? "刚刚" : nil
+        }
     }
     
     /// 一小时内 | "x分钟前"
-    public static let oneHour = Self { base, to in
-        let delta = base.timeIntervalSince1970 - to.timeIntervalSince1970
-        return delta < 3600 ? "\(Int(delta / 60))分钟前" : nil
+    public static func oneHour() -> Self {
+        return .init { base, to in
+            let delta = base.timeIntervalSince1970 - to.timeIntervalSince1970
+            return delta < 3600 ? "\(Int(delta / 60))分钟前" : nil
+        }
     }
     
     /// 今天 | "今天 HH:mm"
@@ -101,7 +105,6 @@ extension DTB.DateDynamicBarrierItem {
 
 extension Wrapper where Base == Date {
     
-    
     /// Dynamic format string | 动态(分段)时间转换
     ///
     /// Defaults result like:
@@ -128,8 +131,8 @@ extension Wrapper where Base == Date {
     public func toDynamic(
         _ barrier: [DTB.DateDynamicBarrierItem] = [
             .negative(),
-            .oneMinute,
-            .oneHour,
+            .oneMinute(),
+            .oneHour(),
             .today(),
             .yesterday(),
             .tomorrow(),
