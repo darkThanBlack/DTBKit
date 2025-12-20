@@ -72,7 +72,7 @@ extension Wrapper where Base == NSDecimalNumber {
         return me == NSDecimalNumber.notANumber ? nil : me.doubleValue.dtb
     }
     
-    /// Convert to ``String``. Return ``nil`` when notANumber.
+    /// Convert to ``String``. Return ``nil`` when NaN / notANumber.
     @inline(__always)
     public func string() -> Wrapper<String>? {
         return me == NSDecimalNumber.notANumber ? nil : me.stringValue.dtb

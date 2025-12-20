@@ -225,7 +225,7 @@ final class BasicTests: XCTestCase {
         let designBaseSize = DTB.config.designBaseSize
         let screenSize = UIScreen.main.bounds.size
         XCTAssertEqual(designBaseSize.width.dtb.hf(), screenSize.width)
-        XCTAssertEqual(designBaseSize.height.dtb.hf(), screenSize.height)
+        XCTAssertEqual(designBaseSize.height.dtb.hf(.scale(.v)), screenSize.height)
     }
 
     // MARK: - Double Extensions Tests (Precision)
