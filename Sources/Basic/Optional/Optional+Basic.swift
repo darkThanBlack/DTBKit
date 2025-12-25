@@ -12,18 +12,47 @@
 import Foundation
 import UIKit
 
-extension DTB {
-    
-    public protocol UnboxOptionalOrDefault {
-        
-        /// [HACK] 取名和 Wrapper 的泛型相同，省去 typealias
-        associatedtype Base
-        
-        func isEmpty() -> Bool
-        
-        func or(_ value: Base) -> Base
-        
-        func orEmpty() -> Base
-    }
-}
-
+//extension DTB {
+//
+//    func tttttttttttttt() {
+//        // Optional(123)
+//        
+//        let a: Double? = 123.233
+//        let b: Bool? = a?.dtb.isEmpty()
+//        let c: Bool = (a?.dtb).isEmpty()
+//        
+//        let d: String? = "123"
+//        guard (d?.dtb).isEmpty() else {
+//            return
+//        }
+//        
+//    }
+//}
+//
+//extension Optional where Wrapped == Wrapper<String> {
+//    
+//    @inline(__always)
+//    public func isEmpty() -> Bool {
+//        return self?.isEmpty() ?? true
+//    }
+//    
+//    @inline(__always)
+//    public func orEmpty() -> String {
+//        return self?.me ?? ""
+//    }
+//
+//}
+//
+//extension Optional where Wrapped == Wrapper<Double> {
+//    
+//    @inline(__always)
+//    public func isEmpty() -> Bool {
+//        return self?.me.isFinite != true
+//    }
+//    
+//    @inline(__always)
+//    public func isZeroOrEmpty() -> Bool {
+//        return self?.me.isZero == true ? true : isEmpty()
+//    }
+//    
+//}

@@ -15,6 +15,19 @@ import Foundation
 ///
 extension Wrapper where Base: BinaryFloatingPoint {
     
+    @inline(__always)
+    public func isEmpty() -> Bool {
+        return me.isFinite != true
+    }
+    
+    @inline(__always)
+    public func rounded(_ roundRule: FloatingPointRoundingRule? = nil) -> Self {
+        if let rule = roundRule {
+            return Wrapper(me.rounded(rule))
+        }
+        return Wrapper(me.rounded())
+    }
+    
     /// Cut dicimal places.
     ///
     /// 截取小数后 x 位。

@@ -30,6 +30,6 @@ extension Wrapper where Base: BinaryFloatingPoint {
     /// more detail in ``HFBehaviors``
     @inline(__always)
     public func hf(_ behavior: DTB.HFBehaviors = .scale()) -> CGFloat {
-        return behavior.handler(cgFloatValue())
+        return behavior.handler(doubleValue())
     }
 }

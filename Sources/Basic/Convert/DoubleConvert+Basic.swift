@@ -20,12 +20,6 @@ extension Wrapper where Base: BinaryFloatingPoint {
         return Double(me)
     }
     
-    /// Specified type.
-    @inline(__always)
-    public func cgFloatValue() -> CGFloat {
-        return CGFloat(me)
-    }
-    
     /// Force convert with ``Int(me)``.
     @inline(__always)
     public func int() -> Wrapper<Int> {
@@ -36,14 +30,6 @@ extension Wrapper where Base: BinaryFloatingPoint {
     @inline(__always)
     public func int64() -> Wrapper<Int64> {
         return Int64(doubleValue()).dtb
-    }
-    
-    @inline(__always)
-    public func rounded(_ roundRule: FloatingPointRoundingRule? = nil) -> Self {
-        if let rule = roundRule {
-            return Wrapper(me.rounded(rule))
-        }
-        return Wrapper(me.rounded())
     }
     
     @inline(__always)

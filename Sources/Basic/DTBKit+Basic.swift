@@ -30,6 +30,9 @@ extension DTB {
     
     /// Default value
     public static let config = ConfigManager.shared
+    
+    /// Unwrap ``Optional`` with is / not / or
+    public static let empty = EmptyChecker()
 }
 
 extension Int: Structable {}
