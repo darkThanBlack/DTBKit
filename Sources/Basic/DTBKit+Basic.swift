@@ -31,9 +31,11 @@ extension DTB {
     /// Default value
     public static let config = ConfigManager.shared
     
-    /// Unwrap ``Optional`` with is / not / or
-    public static let empty = EmptyChecker()
+    /// Check Optional / Empty / Zero with is / not / or
+    public static let check = OptionalChecker()
 }
+
+// MARK: - Structable
 
 extension Int: Structable {}
 
@@ -60,3 +62,16 @@ extension Array: Structable {}
 extension Data: Structable {}
 
 extension UIFont.Weight: Structable {}
+
+// MARK: - EmptyCheckable
+
+extension String: DTB.EmptyCheckable {
+    
+    public static func dtb_defaultEmptyValue() -> String {
+        return ""
+    }
+    
+    public func dtb_isEmpty() -> Bool {
+        return isEmpty
+    }
+}
