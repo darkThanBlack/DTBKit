@@ -16,8 +16,8 @@ import Foundation
 extension Wrapper where Base: BinaryFloatingPoint {
     
     @inline(__always)
-    public func isEmpty() -> Bool {
-        return me.isFinite != true
+    public func isFinite() -> Bool {
+        return me.isFinite
     }
     
     @inline(__always)

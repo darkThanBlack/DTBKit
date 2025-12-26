@@ -52,11 +52,9 @@ extension Wrapper where Base == String {
         return nil
     }
     
-    /// Return ``nil`` when notANumber.
     @inline(__always)
-    public func nsDecimal() -> Wrapper<NSDecimalNumber>? {
-        let result = NSDecimalNumber(string: me)
-        return result == NSDecimalNumber.notANumber ? nil : result.dtb
+    public func nsDecimal() -> Wrapper<NSDecimalNumber> {
+        return NSDecimalNumber(string: me).dtb
     }
     
     /// From 's' timeStamp (length == 10) | 从 10 位秒级时间戳生成

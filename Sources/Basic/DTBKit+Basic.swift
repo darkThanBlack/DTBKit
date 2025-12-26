@@ -65,9 +65,17 @@ extension UIFont.Weight: Structable {}
 
 // MARK: - EmptyCheckable
 
+extension Int: DTB.NumberCheckable {
+    
+    @inline(__always)
+    public func dtb_isZero() -> Bool {
+        return self == 0
+    }
+}
+
 extension String: DTB.EmptyCheckable {
     
-    public static func dtb_defaultEmptyValue() -> String {
+    public static func dtb_emptyValue() -> String {
         return ""
     }
     

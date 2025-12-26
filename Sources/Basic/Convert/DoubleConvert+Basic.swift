@@ -14,11 +14,14 @@ import UIKit
 
 extension Wrapper where Base: BinaryFloatingPoint {
     
-    /// Specified type.
+    // MARK: -
+    
     @inline(__always)
     public func doubleValue() -> Double {
         return Double(me)
     }
+    
+    // MARK: - Force convert
     
     /// Force convert with ``Int(me)``.
     @inline(__always)
@@ -37,7 +40,6 @@ extension Wrapper where Base: BinaryFloatingPoint {
         return NSNumber(value: doubleValue()).dtb
     }
     
-    /// Ignore ``notANumber``.
     @inline(__always)
     public func nsDecimal() -> Wrapper<NSDecimalNumber> {
         return NSDecimalNumber(value: doubleValue()).dtb
@@ -48,6 +50,8 @@ extension Wrapper where Base: BinaryFloatingPoint {
     public func string() -> Wrapper<String> {
         return "\(me)".dtb
     }
+    
+    // MARK: - Date
     
     /// From 's' timeStamp (length == 10) | 从 10 位秒级时间戳生成
     @inline(__always)
