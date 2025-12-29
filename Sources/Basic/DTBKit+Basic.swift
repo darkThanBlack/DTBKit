@@ -65,21 +65,166 @@ extension UIFont.Weight: Structable {}
 
 // MARK: - EmptyCheckable
 
+extension String: DTB.EmptyCheckable {
+    
+    @inline(__always)
+    public static func dtb_emptyValue() -> Self { return "" }
+    
+    @inline(__always)
+    public func dtb_isEmpty() -> Bool { return isEmpty }
+}
+
+extension Dictionary: DTB.EmptyCheckable {
+    
+    @inline(__always)
+    public static func dtb_emptyValue() -> Self { return [:] }
+    
+    @inline(__always)
+    public func dtb_isEmpty() -> Bool { return isEmpty }
+}
+
+extension Array: DTB.EmptyCheckable {
+    
+    @inline(__always)
+    public static func dtb_emptyValue() -> Self { return [] }
+    
+    @inline(__always)
+    public func dtb_isEmpty() -> Bool { return isEmpty }
+}
+
+extension Set: DTB.EmptyCheckable {
+    
+    @inline(__always)
+    public static func dtb_emptyValue() -> Self {return [] }
+    
+    @inline(__always)
+    public func dtb_isEmpty() -> Bool { return isEmpty }
+}
+
+// MARK: - NumberCheckable
+
 extension Int: DTB.NumberCheckable {
     
     @inline(__always)
-    public func dtb_isZero() -> Bool {
-        return self == 0
-    }
+    public static func dtb_zeroValue() -> Self { return 0 }
+    
+    @inline(__always)
+    public func dtb_isInvalid() -> Bool { return false }
+    
+    @inline(__always)
+    public func dtb_isZero() -> Bool { return self == 0 }
+    
+    @inline(__always)
+    public func dtb_isPositive() -> Bool { return self > 0 }
+    
+    @inline(__always)
+    public func dtb_isNegative() -> Bool { return self < 0 }
 }
 
-extension String: DTB.EmptyCheckable {
+extension Int8: DTB.NumberCheckable {
     
-    public static func dtb_emptyValue() -> String {
-        return ""
-    }
+    @inline(__always)
+    public static func dtb_zeroValue() -> Self { return 0 }
     
-    public func dtb_isEmpty() -> Bool {
-        return isEmpty
-    }
+    @inline(__always)
+    public func dtb_isInvalid() -> Bool { return false }
+    
+    @inline(__always)
+    public func dtb_isZero() -> Bool { return self == 0 }
+    
+    @inline(__always)
+    public func dtb_isPositive() -> Bool { return self > 0 }
+    
+    @inline(__always)
+    public func dtb_isNegative() -> Bool { return self < 0 }
+}
+
+extension Int16: DTB.NumberCheckable {
+    
+    @inline(__always)
+    public static func dtb_zeroValue() -> Self { return 0 }
+    
+    @inline(__always)
+    public func dtb_isInvalid() -> Bool { return false }
+    
+    @inline(__always)
+    public func dtb_isZero() -> Bool { return self == 0 }
+    
+    @inline(__always)
+    public func dtb_isPositive() -> Bool { return self > 0 }
+    
+    @inline(__always)
+    public func dtb_isNegative() -> Bool { return self < 0 }
+}
+
+extension Int32: DTB.NumberCheckable {
+    
+    @inline(__always)
+    public static func dtb_zeroValue() -> Self { return 0 }
+    
+    @inline(__always)
+    public func dtb_isInvalid() -> Bool { return false }
+    
+    @inline(__always)
+    public func dtb_isZero() -> Bool { return self == 0 }
+    
+    @inline(__always)
+    public func dtb_isPositive() -> Bool { return self > 0 }
+    
+    @inline(__always)
+    public func dtb_isNegative() -> Bool { return self < 0 }
+}
+
+extension Int64: DTB.NumberCheckable {
+    
+    @inline(__always)
+    public static func dtb_zeroValue() -> Self { return 0 }
+    
+    @inline(__always)
+    public func dtb_isInvalid() -> Bool { return false }
+    
+    @inline(__always)
+    public func dtb_isZero() -> Bool { return self == 0 }
+    
+    @inline(__always)
+    public func dtb_isPositive() -> Bool { return self > 0 }
+    
+    @inline(__always)
+    public func dtb_isNegative() -> Bool { return self < 0 }
+}
+
+extension Float: DTB.NumberCheckable {
+    
+    @inline(__always)
+    public static func dtb_zeroValue() -> Self { return 0 }
+    
+    @inline(__always)
+    public func dtb_isInvalid() -> Bool { return self.isFinite == false }
+    
+    @inline(__always)
+    public func dtb_isZero() -> Bool { return self == 0 }
+    
+    @inline(__always)
+    public func dtb_isPositive() -> Bool { return self > 0 }
+    
+    @inline(__always)
+    public func dtb_isNegative() -> Bool { return self < 0 }
+}
+
+extension Double: DTB.NumberCheckable {
+    
+    @inline(__always)
+    public static func dtb_zeroValue() -> Self { return 0 }
+    
+    @inline(__always)
+    public func dtb_isInvalid() -> Bool { return self.isFinite == false }
+    
+    @inline(__always)
+    public func dtb_isZero() -> Bool { return self == 0 }
+    
+    @inline(__always)
+    public func dtb_isPositive() -> Bool { return self > 0 }
+    
+    @inline(__always)
+    public func dtb_isNegative() -> Bool { return self < 0 }
 }
