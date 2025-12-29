@@ -23,84 +23,200 @@ extension DTB {
     
     public protocol NumberCheckable {
         
+        /// 0
         static func dtb_zeroValue() -> Self
         
-        func dtb_isZero() -> Bool
-        
-        func dtb_isFinite() -> Bool
-        
+        /// !isFinite
         func dtb_isInvalid() -> Bool
         
+        /// == 0
+        func dtb_isZero() -> Bool
+        
+        /// > 0
         func dtb_isPositive() -> Bool
         
+        /// < 0
         func dtb_isNegative() -> Bool
     }
     
-    /// Check nil or Empty / Zero / ...
+    /// Check / Unbox for Optional / Empty / Zero / ...
     public struct OptionalChecker {
         
         // MARK: - Object, empty
         
-        /// isEmpty: return true when value is nil / empty.
+        /// isEmpty
+        @inline(__always)
+        public func `e`<E>(_ value: E?) -> Bool where E: DTB.EmptyCheckable {
+            return value?.dtb_isEmpty() ?? true
+        }
+        
+        /// isNotEmpty
+        @inline(__always)
+        public func `ne`<E>(_ value: E?) -> Bool where E: DTB.EmptyCheckable {
+            return value?.dtb_isEmpty() == false
+        }
+        
+        /// orEmpty
+        @inline(__always)
+        public func `or`<E>(_ value: E?) -> E where E: DTB.EmptyCheckable {
+            return (value?.dtb_isEmpty() ?? true) ? E.dtb_emptyValue() : value!
+        }
+        
+        /// orEmpty
+        @inline(__always)
+        public func `or`<E>(_ value: E?, def: E) -> E where E: DTB.EmptyCheckable {
+            return (value?.dtb_isEmpty() ?? true) ? def : value!
+        }
+        
+        /// return TRUE when value is nil / empty.
         @inline(__always)
         public func isEmpty<E>(_ value: E?) -> Bool where E: DTB.EmptyCheckable {
             return value?.dtb_isEmpty() ?? true
         }
         
-        /// isNotEmpty: return false when value is nil / empty.
+        /// return TRUE when value is NOT nil / empty.
         @inline(__always)
         public func isNotEmpty<E>(_ value: E?) -> Bool where E: DTB.EmptyCheckable {
-            return !self.isEmpty(value)
+            return value?.dtb_isEmpty() == false
         }
         
-        /// orEmpty: return ``dtb_emptyValue`` when value is nil.
+        /// return ``dtb_emptyValue`` when value is nil / empty.
         @inline(__always)
-        public func `or`<E>(_ value: E?) -> E where E: DTB.EmptyCheckable {
-            return self.isEmpty(value) ? E.dtb_emptyValue() : value!
+        public func orEmpty<E>(_ value: E?) -> E where E: DTB.EmptyCheckable {
+            return (value?.dtb_isEmpty() ?? true) ? E.dtb_emptyValue() : value!
         }
         
-        /// orEmpty: return ``def`` when value is nil.
+        /// return ``def`` when value is nil / empty.
         @inline(__always)
-        public func `or`<E>(_ value: E?, def: E) -> E where E: DTB.EmptyCheckable {
-            return self.isEmpty(value) ? def : value!
+        public func orEmpty<E>(_ value: E?, def: E) -> E where E: DTB.EmptyCheckable {
+            return (value?.dtb_isEmpty() ?? true) ? def : value!
         }
         
-        // MARK: - Number, nan / infinite
+        // MARK: - Number, empty == invalid == nan / infinite
         
-        /// isEmpty: return true when value is nil / empty.
+        /// isEmpty
+        @inline(__always)
+        public func `e`<E>(_ value: E?) -> Bool where E: DTB.NumberCheckable {
+            return value?.dtb_isInvalid() ?? true
+        }
+        
+        /// isNotEmpty
+        @inline(__always)
+        public func `ne`<E>(_ value: E?) -> Bool where E: DTB.NumberCheckable {
+            return value?.dtb_isInvalid() == false
+        }
+        
+        /// orEmpty
+        @inline(__always)
+        public func `or`<E>(_ value: E?) -> E where E: DTB.NumberCheckable {
+            return (value?.dtb_isInvalid() ?? true) ? E.dtb_zeroValue() : value!
+        }
+        
+        /// orEmpty
+        @inline(__always)
+        public func `or`<E>(_ value: E?, def: E) -> E where E: DTB.NumberCheckable {
+            return (value?.dtb_isInvalid() ?? true) ? def : value!
+        }
+        
+        /// return TRUE when value is nil / nan / infinite.
         @inline(__always)
         public func isEmpty<E>(_ value: E?) -> Bool where E: DTB.NumberCheckable {
             return value?.dtb_isInvalid() ?? true
         }
         
-        /// isNotEmpty: return false when value is nil / empty.
+        /// return TRUE when value is NOT nil / nan / infinite.
         @inline(__always)
         public func isNotEmpty<E>(_ value: E?) -> Bool where E: DTB.NumberCheckable {
-            return !self.isEmpty(value)
+            return value?.dtb_isInvalid() == false
+        }
+        
+        /// orZero
+        @inline(__always)
+        public func orEmpty<E>(_ value: E?) -> E where E: DTB.NumberCheckable {
+            return (value?.dtb_isInvalid() ?? true) ? E.dtb_zeroValue() : value!
+        }
+        
+        /// return ``def`` when value is nil / nan / infinite.
+        @inline(__always)
+        public func orEmpty<E>(_ value: E?, def: E) -> E where E: DTB.NumberCheckable {
+            return (value?.dtb_isInvalid() ?? true) ? def : value!
         }
         
         // MARK: - Number, zero
         
-        /// isZeroOrEmpty: return true when value is nil / nan / infinite / zero.
+        /// isEmptyOrZero
         @inline(__always)
-        public func isZeroOr<E>(_ value: E?) -> Bool where E: DTB.NumberCheckable {
+        public func `ez`<E>(_ value: E?) -> Bool where E: DTB.NumberCheckable {
             return (value?.dtb_isInvalid() ?? true) || (value?.dtb_isZero() ?? true)
         }
         
-        /// isNotZeroOrEmpty: return false when value is nil / nan / infinite / zero.
+        /// isNotEmptyOrZero
         @inline(__always)
-        public func isNotZeroOr<E>(_ value: E?) -> Bool where E: DTB.NumberCheckable {
-            return !isZeroOr(value)
+        public func `nez`<E>(_ value: E?) -> Bool where E: DTB.NumberCheckable {
+            return (value?.dtb_isInvalid() == false) && (value?.dtb_isZero() == false)
         }
         
-        /// orZero: return ``dtb_zeroValue`` when value is nil / nan / infinite.
+        /// return true when value is nil / nan / infinite / zero.
+        @inline(__always)
+        public func isEmptyOrZero<E>(_ value: E?) -> Bool where E: DTB.NumberCheckable {
+            return (value?.dtb_isInvalid() ?? true) || (value?.dtb_isZero() ?? true)
+        }
+        
+        /// return false when value is nil / nan / infinite / zero.
+        @inline(__always)
+        public func isNotEmptyOrZero<E>(_ value: E?) -> Bool where E: DTB.NumberCheckable {
+            return (value?.dtb_isInvalid() == false) && (value?.dtb_isZero() == false)
+        }
+        
+        /// return ``dtb_zeroValue`` when value is nil / nan / infinite.
         @inline(__always)
         public func orZero<E>(_ value: E?) -> E where E: DTB.NumberCheckable {
-            return self.isZeroOr(value) ? E.dtb_zeroValue() : value!
+            return self.isEmpty(value) ? E.dtb_zeroValue() : value!
         }
         
         // MARK: - Number, positive / negative
         
+        /// isPositive: return true when value is not invalid and > 0
+        @inline(__always)
+        public func pos<E>(_ value: E?) -> Bool where E: DTB.NumberCheckable {
+            return (value?.dtb_isInvalid() == false) && (value?.dtb_isPositive() == true)
+        }
+        
+        /// isPositive: return true when value is not invalid and > 0
+        @inline(__always)
+        public func isPositive<E>(_ value: E?) -> Bool where E: DTB.NumberCheckable {
+            return (value?.dtb_isInvalid() == false) && (value?.dtb_isPositive() == true)
+        }
+
+        /// isNonPositive: return true when value is invalid or <= 0
+        @inline(__always)
+        public func isNonPositive<E>(_ value: E?) -> Bool where E: DTB.NumberCheckable {
+            return (value?.dtb_isInvalid() ?? true) || !(value?.dtb_isPositive() == true)
+        }
+
+        /// isNegative: return true when value is not invalid and < 0
+        @inline(__always)
+        public func isNegative<E>(_ value: E?) -> Bool where E: DTB.NumberCheckable {
+            return (value?.dtb_isInvalid() == false) && (value?.dtb_isNegative() == true)
+        }
+
+        /// isNonNegative: return true when value is invalid or >= 0
+        @inline(__always)
+        public func isNonNegative<E>(_ value: E?) -> Bool where E: DTB.NumberCheckable {
+            return (value?.dtb_isInvalid() ?? true) || !(value?.dtb_isNegative() == true)
+        }
+
+        /// orPositive: return `dtb_zeroValue` when value is nil / invalid / non-positive
+        @inline(__always)
+        public func orPositive<E>(_ value: E?) -> E where E: DTB.NumberCheckable {
+            return isPositive(value) ? value! : E.dtb_zeroValue()
+        }
+
+        /// orNegative: return `dtb_zeroValue` when value is nil / invalid / non-negative
+        @inline(__always)
+        public func orNegative<E>(_ value: E?) -> E where E: DTB.NumberCheckable {
+            return isNegative(value) ? value! : E.dtb_zeroValue()
+        }
         
     }
     
@@ -147,7 +263,7 @@ extension DTB {
 //    }
 //
 //    @inline(__always)
-//    public func isZeroOrEmpty() -> Bool {
+//    public func isEmptyOrZero() -> Bool {
 //        return self?.me.isZero == true ? true : isEmpty()
 //    }
 //
