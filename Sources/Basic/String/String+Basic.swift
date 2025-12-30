@@ -59,21 +59,30 @@ extension Wrapper where Base == String {
         return me.trimmingCharacters(in:.whitespacesAndNewlines).dtb
     }
     
-    /// 是否纯数字  ``allSatisfy { $0.isWholeNumber }``
+    /// 检查字符串中的所有字符是否都在指定的字符集中
+    ///
+    /// - Parameter chars: 字符集
+    /// - Returns: 如果所有字符都在字符集中返回 true，否则返回 false
     @inline(__always)
-    public func isWholeNumber() -> Bool {
-        return !me.isEmpty && me.allSatisfy { $0.isWholeNumber }
+    public func allSatisfy(chars: CharacterSet) -> Bool {
+        guard !me.isEmpty else { return false }
+        return me.unicodeScalars.allSatisfy { chars.contains($0) }
+    }
+    
+    /// 字符串是否是纯数字，不包含正负号和小数点
+    @inline(__always)
+    public func isPureInt() -> Bool {
+        return allSatisfy(chars: CharacterSet(charactersIn: "0123456789"))
     }
     
     /// Check if the range is out of bounds.
     ///
     /// 越界检查。
     public func has(nsRange: NSRange) -> Bool {
-        if nsRange.dtb.isEmpty() == false,
-           NSMaxRange(nsRange) <= ns().value.length {
-            return true
+        guard nsRange.dtb.isEmpty() == false else {
+            return false
         }
-        return false
+        return NSMaxRange(nsRange) <= ns().value.length
     }
 }
 

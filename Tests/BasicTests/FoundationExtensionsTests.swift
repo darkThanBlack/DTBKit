@@ -239,9 +239,9 @@ final class FoundationExtensionsTests: XCTestCase {
         let validRange = NSRange(location: 5, length: 10)
         XCTAssertFalse(validRange.dtb.isEmpty())
 
-        // 空范围 - length 为 0
+        // 空长认为是合法值
         let emptyRange = NSRange(location: 5, length: 0)
-        XCTAssertTrue(emptyRange.dtb.isEmpty())
+        XCTAssertFalse(emptyRange.dtb.isEmpty())
 
         // NSNotFound 范围
         let notFoundRange = NSRange(location: NSNotFound, length: 0)

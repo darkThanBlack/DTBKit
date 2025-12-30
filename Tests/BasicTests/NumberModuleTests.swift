@@ -24,8 +24,8 @@ final class NumberModuleTests: XCTestCase {
     // MARK: - NSDecimalNumber Extensions Tests
 
     func testNSDecimalNumberBasicOperations() throws {
-        let decimal1 = "10.5".dtb.nsDecimal()!.value
-        let decimal2 = "3.2".dtb.nsDecimal()!.value
+        let decimal1 = "10.5".dtb.nsDecimal().value
+        let decimal2 = "3.2".dtb.nsDecimal().value
 
         // 测试基础运算
         let sum = decimal1.dtb.plus(decimal2).value
@@ -104,8 +104,8 @@ final class NumberModuleTests: XCTestCase {
         XCTAssertEqual("123".dtb.int()?.value, 123)
         XCTAssertEqual("-456".dtb.int()?.value, -456)
         XCTAssertEqual("0".dtb.int()?.value, 0)
-        XCTAssertEqual("abc".dtb.int()?.value, 0) // 无效字符串返回0
-        XCTAssertEqual("".dtb.int()?.value, 0) // 空字符串返回0
+        XCTAssertEqual("abc".dtb.int()?.value, nil) // 无效字符串返回0
+        XCTAssertEqual("".dtb.int()?.value, nil) // 空字符串返回0
 
         // String -> Int64
         XCTAssertEqual("9223372036854775807".dtb.int64()?.value, Int64.max)
@@ -139,23 +139,23 @@ final class NumberModuleTests: XCTestCase {
 
         // Double -> 其他类型
         let doubleValue = 3.8
-        XCTAssertEqual(doubleValue.dtb.rounded(.down).value, 3.0)
-        XCTAssertEqual(doubleValue.dtb.rounded(.up).value, 4.0)
-        XCTAssertEqual(doubleValue.dtb.rounded(.toNearestOrEven).value, 4.0)
+        XCTAssertEqual(doubleValue.dtb.rounded(rule: .down).value, 3.0)
+        XCTAssertEqual(doubleValue.dtb.rounded(rule: .up).value, 4.0)
+        XCTAssertEqual(doubleValue.dtb.rounded(rule: .toNearestOrEven).value, 4.0)
     }
 
     func testPrecisionOperations() throws {
         let precisionValue = 1.23456789
 
         // 测试各种舍入模式
-        XCTAssertEqual(precisionValue.dtb.rounded(.down).value, 1.0)
-        XCTAssertEqual(precisionValue.dtb.rounded(.up).value, 2.0)
-        XCTAssertEqual(precisionValue.dtb.rounded(.towardZero).value, 1.0)
-        XCTAssertEqual(precisionValue.dtb.rounded(.awayFromZero).value, 2.0)
+        XCTAssertEqual(precisionValue.dtb.rounded(rule: .down).value, 1.0)
+        XCTAssertEqual(precisionValue.dtb.rounded(rule: .up).value, 2.0)
+        XCTAssertEqual(precisionValue.dtb.rounded(rule: .towardZero).value, 1.0)
+        XCTAssertEqual(precisionValue.dtb.rounded(rule: .awayFromZero).value, 2.0)
 
         let negativeValue = -1.23456789
-        XCTAssertEqual(negativeValue.dtb.rounded(.down).value, -2.0)
-        XCTAssertEqual(negativeValue.dtb.rounded(.up).value, -1.0)
+        XCTAssertEqual(negativeValue.dtb.rounded(rule: .down).value, -2.0)
+        XCTAssertEqual(negativeValue.dtb.rounded(rule: .up).value, -1.0)
     }
 
     func testNumberConversionEdgeCases() throws {
@@ -176,7 +176,7 @@ final class NumberModuleTests: XCTestCase {
         // 十六进制字符串（应该返回0或NaN）
         let hexString = "0xFF"
         let hexValue = hexString.dtb.int()?.value
-        XCTAssertEqual(hexValue, 0) // 默认实现可能不支持十六进制
+        XCTAssertEqual(hexValue, nil) // 默认实现可能不支持十六进制
     }
 
     // MARK: - NSNumber Extensions Tests

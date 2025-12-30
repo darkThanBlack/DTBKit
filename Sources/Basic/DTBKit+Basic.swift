@@ -31,7 +31,7 @@ extension DTB {
     /// Default value
     public static let config = ConfigManager.shared
     
-    /// Check Optional / Empty / Zero with is / not / or
+    /// Unbox for ``Optional / Empty / Zero``
     public static let check = OptionalChecker()
 }
 

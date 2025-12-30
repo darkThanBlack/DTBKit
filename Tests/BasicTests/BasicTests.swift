@@ -243,14 +243,14 @@ final class BasicTests: XCTestCase {
         ]
 
         for test in precisionTests {
-            let result = test.value.dtb.places(test.places)
+            let result = test.value.dtb.trunc(to: test.places)
             XCTAssertEqual(result, test.expected, accuracy: 0.0001,
                           "places(\(test.places)) of \(test.value) should be \(test.expected), got \(result)")
         }
 
         // 边界情况
-        XCTAssertEqual(0.0.dtb.places(2), 0.0)
-        XCTAssertEqual(123.0.dtb.places(2), 123.0) // 整数保持不变
+        XCTAssertEqual(0.0.dtb.trunc(to: 2), 0.0)
+        XCTAssertEqual(123.0.dtb.trunc(to: 2), 123.0) // 整数保持不变
     }
 
     // MARK: - JSON Processing Tests

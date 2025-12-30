@@ -157,7 +157,7 @@ extension Wrapper where Base: NumberFormatter {
     @inline(__always)
     @discardableResult
     public func rounded(_ mode: NumberFormatter.RoundingMode = .halfUp) -> Self {
-        me.roundingMode = .halfUp
+        me.roundingMode = mode
         return self
     }
     

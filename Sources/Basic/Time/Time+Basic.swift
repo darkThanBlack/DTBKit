@@ -142,8 +142,10 @@ extension Wrapper where Base == Date {
         baseOn: Date = Date()
     ) -> String {
         return barrier.first(where: { $0.mapper(baseOn, me) != nil })?.mapper(Date(), me) ?? {
+#if DEBUG
             assert(false)
-            return ""
+#endif
+            return format()
         }()
     }
     

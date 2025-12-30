@@ -8,34 +8,64 @@
 //  LICENSE: SAME AS REPOSITORY
 //  Contact me: [GitHub](https://github.com/darkThanBlack)
 //
-    
+
 import UIKit
 import Foundation
 
 ///
 extension Wrapper where Base: BinaryFloatingPoint {
     
-    @inline(__always)
-    public func isFinite() -> Bool {
-        return me.isFinite
-    }
-    
-    @inline(__always)
-    public func rounded(_ roundRule: FloatingPointRoundingRule? = nil) -> Self {
-        if let rule = roundRule {
-            return Wrapper(me.rounded(rule))
-        }
-        return Wrapper(me.rounded())
-    }
-    
-    /// Cut dicimal places.
+    /// 截取小数后指定位数，默认四舍五入
     ///
-    /// 截取小数后 x 位。
-    ///
-    /// Example: ``1.26.dtb.place(1).value = 1.2``
+    /// - Note: value must in [0, 15]
     @inline(__always)
-    public func places(_ value: Int) -> Double {
+    public func round(to value: Int = 0, rule: FloatingPointRoundingRule = .toNearestOrAwayFromZero) -> Double {
         let div = pow(10.0, Double(value))
-        return ((Double(me) * div).rounded(.down) / div)
+        return (Double(me) * div).rounded(rule) / div
     }
+    
+    /// towardZero | 向 0 取整
+    @inline(__always)
+    public func trunc(to value: Int = 0) -> Double {
+        return round(to: value, rule: .towardZero)
+    }
+    
+    /// up | 向上取整
+    @inline(__always)
+    public func ceil(to value: Int = 0) -> Double {
+        return round(to: value, rule: .up)
+    }
+    
+    /// down | 向下取整
+    @inline(__always)
+    public func floor(to value: Int = 0) ->Double {
+        return round(to: value, rule: .down)
+    }
+    
+    /// 截取小数后指定位数，默认四舍五入
+    ///
+    /// - Note: value must in [0, 15]
+    @inline(__always)
+    public func rounded(to value: Int = 0, rule: FloatingPointRoundingRule = .toNearestOrAwayFromZero) -> Wrapper<Double> {
+        return round(to: value, rule: rule).dtb
+    }
+    
+    /// towardZero | 向 0 取整
+    @inline(__always)
+    public func truncated(to value: Int = 0) -> Wrapper<Double> {
+        return rounded(to: value, rule: .towardZero)
+    }
+    
+    /// up | 向上取整
+    @inline(__always)
+    public func ceiled(to value: Int = 0) -> Wrapper<Double> {
+        return rounded(to: value, rule: .up)
+    }
+    
+    /// down | 向下取整
+    @inline(__always)
+    public func floored(to value: Int = 0) -> Wrapper<Double> {
+        return rounded(to: value, rule: .down)
+    }
+    
 }

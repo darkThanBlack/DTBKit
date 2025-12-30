@@ -15,10 +15,12 @@ import UIKit
 ///
 extension Wrapper where Base == NSRange {
     
-    /// location == NSNotFound or length == 0
+    /// location == NSNotFound
+    ///
+    /// Note: Allow length == 0
     @inline(__always)
     public func isEmpty() -> Bool {
-        return (me.location == NSNotFound) || (me.length == 0)
+        return (me.location == NSNotFound) || (me.length < 0)
     }
 }
 

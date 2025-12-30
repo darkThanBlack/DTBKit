@@ -43,7 +43,7 @@ extension DTB {
         func dtb_isNegative() -> Bool
     }
     
-    /// Check / Unbox for Optional / Empty / Zero / ...
+    /// - Unbox for Optional / Empty / Zero
     public struct OptionalChecker {
         
         // MARK: - Object, empty
@@ -84,7 +84,7 @@ extension DTB {
             return (value?.dtb_isEmpty() ?? true) ? (def ?? E.dtb_emptyValue()) : value!
         }
         
-        // MARK: - Number, empty == invalid == nan / infinite
+        // MARK: - Number, nan / infinite
         
         /// isEmpty
         @inline(__always)

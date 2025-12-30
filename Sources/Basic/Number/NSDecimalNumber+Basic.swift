@@ -40,7 +40,7 @@ extension Wrapper where Base == NSDecimalNumber {
             return d
         }
         if let s = value as? String {
-            return s.dtb.nsDecimal()?.value
+            return s.dtb.nsDecimal().value
         }
         if let v = value as? Double {
             return v.dtb.nsDecimal().value
@@ -76,6 +76,18 @@ extension Wrapper where Base == NSDecimalNumber {
     @inline(__always)
     public func string() -> Wrapper<String>? {
         return me == NSDecimalNumber.notANumber ? nil : me.stringValue.dtb
+    }
+    
+    /// Convert to ``Double``. Return ``nil`` when notANumber.
+    @inline(__always)
+    public func doubleValue() -> Double? {
+        return me == NSDecimalNumber.notANumber ? nil : me.doubleValue
+    }
+    
+    /// Convert to ``String``. Return ``nil`` when NaN / notANumber.
+    @inline(__always)
+    public func stringValue() -> String? {
+        return me == NSDecimalNumber.notANumber ? nil : me.stringValue
     }
     
     /// "+" | 精度加法
@@ -124,7 +136,11 @@ extension Wrapper where Base == NSDecimalNumber {
     /// - Parameters:
     /// - value: Support NSDecimalNumber / String / Double / Int64.
     public func div(_ value: Any, scale: Int16? = nil, rounding: NSDecimalNumber.RoundingMode? = nil) -> Self {
-        return me.dividing(by: .dtb.create(value), withBehavior: getBehavior(scale, rounding)).dtb
+        let number = NSDecimalNumber.dtb.create(value)
+        guard number.doubleValue != 0 else {
+            return NSDecimalNumber.notANumber.dtb
+        }
+        return me.dividing(by: number, withBehavior: getBehavior(scale, rounding)).dtb
     }
     
     /// "^" | 精度 me 的 value 次方

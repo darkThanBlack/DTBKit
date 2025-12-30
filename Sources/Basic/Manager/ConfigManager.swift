@@ -32,11 +32,12 @@ extension DTB {
         public static let shared = DTB.ConfigManager()
         private init() {}
         
+        /// 注意这里的 scale 每次运算都会触发，所以需要给一个足够的值
         public private(set) var decimalBehavior = {
 #if DEBUG
             return  NSDecimalNumberHandler(
                 roundingMode: .plain,
-                scale: 2,
+                scale: 15,
                 raiseOnExactness: true,
                 raiseOnOverflow: true,
                 raiseOnUnderflow: true,
@@ -45,7 +46,7 @@ extension DTB {
 #else
             return  NSDecimalNumberHandler(
                 roundingMode: .plain,
-                scale: 2,
+                scale: 15,
                 raiseOnExactness: false,
                 raiseOnOverflow: false,
                 raiseOnUnderflow: false,
@@ -60,7 +61,11 @@ extension DTB {
         
         public private(set) var numberFormatter = NumberFormatter()
         
-        public private(set) var dateFormatter = DateFormatter()
+        public private(set) var dateFormatter = {
+            let f = DateFormatter()
+            f.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            return f
+        }()
         
     }
 }
