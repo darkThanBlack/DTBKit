@@ -47,7 +47,7 @@ extension DTB.DateDynamicBarrierItem {
     public static func negative(_ format: String = "yyyy-MM-dd HH:mm") -> Self {
         return .init { base, to in
             let delta = base.timeIntervalSince1970 - to.timeIntervalSince1970
-            return delta < 0 ? to.dtb.format(format) : nil
+            return delta < 0 ? to.dtb.formatString(format) : nil
         }
     }
     
@@ -70,35 +70,35 @@ extension DTB.DateDynamicBarrierItem {
     /// 今天 | "今天 HH:mm"
     public static func today(_ format: String = "HH:mm") -> Self {
         return .init { base, to in
-            return to.dtb.isSameDay(base) ? "今天 \(to.dtb.format(format))" : nil
+            return to.dtb.isSameDay(base) ? "今天 \(to.dtb.formatString(format))" : nil
         }
     }
     
     /// 昨天 | "昨天 HH:mm"
     public static func yesterday(_ format: String = "HH:mm") -> Self {
         return .init { base, to in
-            return to.dtb.isSameDay(base.dtb.addingDay(-1)?.value) ? "昨天 \(to.dtb.format(format))" : nil
+            return to.dtb.isSameDay(base.dtb.addingDay(-1)?.value) ? "昨天 \(to.dtb.formatString(format))" : nil
         }
     }
     
     /// 明天 | "明天 HH:mm"
     public static func tomorrow(_ format: String = "HH:mm") -> Self {
         return .init { base, to in
-            return to.dtb.isSameDay(base.dtb.addingDay(1)?.value) ? "明天 \(to.dtb.format(format))" : nil
+            return to.dtb.isSameDay(base.dtb.addingDay(1)?.value) ? "明天 \(to.dtb.formatString(format))" : nil
         }
     }
     
     /// 同一年 | "MM月dd日 EEE HH:mm"
     public static func sameYear(_ format: String = "MM-dd HH:mm") -> Self {
         return .init { base, to in
-            return to.dtb.isSameYear(base) ? to.dtb.format(format) : nil
+            return to.dtb.isSameYear(base) ? to.dtb.formatString(format) : nil
         }
     }
     
     /// 其他情况兜底 | "yyyy-MM-dd HH:mm"
     public static func another(_ format: String = "yyyy-MM-dd HH:mm") -> Self {
         return .init { _, to in
-            return to.dtb.format(format)
+            return to.dtb.formatString(format)
         }
     }
 }
@@ -145,7 +145,7 @@ extension Wrapper where Base == Date {
 #if DEBUG
             assert(false)
 #endif
-            return format()
+            return formatString()
         }()
     }
     
