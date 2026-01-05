@@ -14,14 +14,14 @@ import UIKit
 
 extension DTB {
     
-    ///
+    /// Same name as ``web.console``
     public final class ConsoleManager {
         
         public static let shared = ConsoleManager()
         private init() {}
         
         @inline(__always)
-        public func print(
+        public func log(
             _ item: Any,
             file: String = #file,
             line: Int = #line,

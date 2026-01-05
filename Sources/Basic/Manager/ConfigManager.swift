@@ -30,43 +30,78 @@ extension DTB {
     public final class ConfigManager {
         
         public static let shared = DTB.ConfigManager()
-        private init() {}
         
         /// 注意这里的 scale 每次运算都会触发，所以需要给一个足够的值
-        public private(set) var decimalBehavior = {
+        public private(set) var decimalBehavior: NSDecimalNumberHandler
+        
+        public private(set) var designBaseSize: CGSize
+        
+        public private(set) var supportImageTypes: [String]
+        
+        public private(set) var numberFormatter: NumberFormatter
+        
+        public private(set) var locale: Locale
+        
+        public private(set) var timeZone: TimeZone
+        
+        public private(set) var calendar: Calendar
+        
+        public private(set) var dateFormatter: DateFormatter
+        
+        public private(set) var isoDateFormatter: ISO8601DateFormatter
+        
+        private init() {
+            let decimalBehavior = {
 #if DEBUG
-            return  NSDecimalNumberHandler(
-                roundingMode: .plain,
-                scale: 15,
-                raiseOnExactness: true,
-                raiseOnOverflow: true,
-                raiseOnUnderflow: true,
-                raiseOnDivideByZero: true
-            )
+                return NSDecimalNumberHandler(
+                    roundingMode: .plain,
+                    scale: 15,
+                    raiseOnExactness: true,
+                    raiseOnOverflow: true,
+                    raiseOnUnderflow: true,
+                    raiseOnDivideByZero: true
+                )
 #else
-            return  NSDecimalNumberHandler(
-                roundingMode: .plain,
-                scale: 15,
-                raiseOnExactness: false,
-                raiseOnOverflow: false,
-                raiseOnUnderflow: false,
-                raiseOnDivideByZero: false
-            )
+                return NSDecimalNumberHandler(
+                    roundingMode: .plain,
+                    scale: 15,
+                    raiseOnExactness: false,
+                    raiseOnOverflow: false,
+                    raiseOnUnderflow: false,
+                    raiseOnDivideByZero: false
+                )
 #endif
-        }()
-        
-        public private(set) var designBaseSize = CGSize(width: 375.0, height: 667.0)
-        
-        public private(set) var supportImageTypes = ["png", "jpg", "webp", "jpeg"]
-        
-        public private(set) var numberFormatter = NumberFormatter()
-        
-        public private(set) var dateFormatter = {
-            let f = DateFormatter()
-            f.dateFormat = "yyyy-MM-dd HH:mm:ss"
-            return f
-        }()
-        
+            }()
+            
+            let designBaseSize = CGSize(width: 375.0, height: 667.0)
+            let supportImageTypes = ["png", "jpg", "webp", "jpeg"]
+            
+            let locale = Locale(identifier: "zh-CN")
+            let timeZone = TimeZone(identifier: "Asia/Shanghai") ?? TimeZone(secondsFromGMT: 8 * 3600) ?? TimeZone.current
+            let calendar = {
+                var c = Calendar(identifier: .gregorian)
+                c.locale = locale
+                c.timeZone = timeZone
+                return c
+            }()
+            let numberFormatter = NumberFormatter()
+            let dateFormatter = {
+                let f = DateFormatter()
+                f.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                return f
+            }()
+            let isoDateFormatter = ISO8601DateFormatter()
+            
+            self.decimalBehavior = decimalBehavior
+            self.designBaseSize = designBaseSize
+            self.supportImageTypes = supportImageTypes
+            self.locale = locale
+            self.timeZone = timeZone
+            self.calendar = calendar
+            self.numberFormatter = numberFormatter
+            self.dateFormatter = dateFormatter
+            self.isoDateFormatter = isoDateFormatter
+        }
     }
 }
 

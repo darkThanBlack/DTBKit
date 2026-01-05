@@ -53,6 +53,6 @@ extension StaticWrapper where T == Date {
         guard let ms = ms, ms.isEmpty == false, let t = Double(ms) else {
             return nil
         }
-        return Date(timeIntervalSince1970: t)
+        return Date(timeIntervalSince1970: t / 1000.0)
     }
 }

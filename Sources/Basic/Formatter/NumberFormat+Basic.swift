@@ -14,25 +14,10 @@ import UIKit
 
 extension Wrapper where Base: FixedWidthInteger & SignedInteger {
     
-    /// Convert to string with numberFormatter.
-    ///
-    /// 格式化字符串。
-    ///
-    /// For example:
-    /// ```
-    ///     /// Use preset formatter
-    ///     let a = 2.1.dtb.toString(.dtb.CNY)?.value
-    ///
-    ///     /// Custom formatter
-    ///     let b = 2.dtb.double.toString(NumberFormatter().dtb.decimal(2).rounded(.halfDown).prefix("¥", negative: "-¥").value)
-    /// ```
     @inline(__always)
-    public func toString(_ formatter: NumberFormatter) -> Wrapper<String>? {
-        return Double(me).dtb.toString(formatter)
+    public func string(formatter: NumberFormatter) -> Wrapper<String>? {
+        return toString(formatter)?.dtb
     }
-}
-
-extension Wrapper where Base: BinaryFloatingPoint {
     
     /// Convert to string with numberFormatter.
     ///
@@ -47,26 +32,51 @@ extension Wrapper where Base: BinaryFloatingPoint {
     ///     let b = 2.dtb.double.toString(NumberFormatter().dtb.decimal(2).rounded(.halfDown).prefix("¥", negative: "-¥").value)
     /// ```
     @inline(__always)
-    public func toString(_ formatter: NumberFormatter) -> Wrapper<String>? {
-        return formatter.dtb.string(from: NSNumber(value: doubleValue()))
+    public func toString(_ formatter: NumberFormatter) -> String? {
+        return double().toString(formatter)
+    }
+}
+
+extension Wrapper where Base: BinaryFloatingPoint {
+    
+    @inline(__always)
+    public func string(formatter: NumberFormatter) -> Wrapper<String>? {
+        return toString(formatter)?.dtb
+    }
+    
+    /// Convert to string with numberFormatter.
+    ///
+    /// 格式化字符串。
+    ///
+    /// For example:
+    /// ```
+    ///     /// Use preset formatter
+    ///     let a = 2.1.dtb.toString(.dtb.CNY)?.value
+    ///
+    ///     /// Custom formatter
+    ///     let b = 2.dtb.double.toString(NumberFormatter().dtb.decimal(2).rounded(.halfDown).prefix("¥", negative: "-¥").value)
+    /// ```
+    @inline(__always)
+    public func toString(_ formatter: NumberFormatter) -> String? {
+        return formatter.string(from: nsNumber().value)
     }
 }
 
 extension Wrapper where Base == String {
     
     @inline(__always)
-    public func toInt(_ formatter: NumberFormatter = DTB.config.numberFormatter) -> Wrapper<Int>? {
-        return formatter.dtb.number(from: me)?.int()
+    public func toInt(_ formatter: NumberFormatter = DTB.config.numberFormatter) -> Int? {
+        return formatter.number(from: me)?.intValue
     }
     
     @inline(__always)
-    public func toInt64(_ formatter: NumberFormatter = DTB.config.numberFormatter) -> Wrapper<Int64>? {
-        return formatter.dtb.number(from: me)?.int64()
+    public func toInt64(_ formatter: NumberFormatter = DTB.config.numberFormatter) -> Int64? {
+        return formatter.number(from: me)?.int64Value
     }
     
     @inline(__always)
-    public func toDouble(_ formatter: NumberFormatter = DTB.config.numberFormatter) -> Wrapper<Double>? {
-        return formatter.dtb.number(from: me)?.double()
+    public func toDouble(_ formatter: NumberFormatter = DTB.config.numberFormatter) -> Double? {
+        return formatter.number(from: me)?.doubleValue
     }
     
 }

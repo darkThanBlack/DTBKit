@@ -37,6 +37,24 @@ final class TimeModuleTests: XCTestCase {
          4102444800   // 2100-01-01 00:00:00
     ]
     
+    static let plan_stamp_f: [Double] = [
+        0,
+        0.499,
+        0.511
+    ]
+    
+    static let plan_stamp_str: [String] = [
+        "0",
+        "0.499",
+        "0.511",
+        "946684800"  // 2000-01-01 00:00:00 的时间戳
+    ]
+    
+    static let plan_stamp_str_err: [String] = [
+        "",
+        "NotANumber"
+    ]
+    
 //    [
 //        60,          // 1分钟的秒数
 //        3600,        // 1小时的秒数
@@ -53,8 +71,30 @@ final class TimeModuleTests: XCTestCase {
         Self.plan_stamp.forEach({
             XCTAssertEqual($0.dtb.sDate().value, Date(timeIntervalSince1970: TimeInterval($0)))
             XCTAssertEqual($0.dtb.msDate().value, Date(timeIntervalSince1970: TimeInterval($0) / 1000.0))
-            XCTAssertEqual($0.dtb.sDate().value, "\($0)".dtb.sDate()?.value)
-            XCTAssertEqual($0.dtb.msDate().value, "\(TimeInterval($0) / 1000.0)".dtb.msDate()?.value)
+        })
+        Self.plan_stamp_f.forEach({
+            XCTAssertEqual($0.dtb.sDate().value, Date(timeIntervalSince1970: TimeInterval($0)))
+            XCTAssertEqual($0.dtb.msDate().value, Date(timeIntervalSince1970: TimeInterval($0) / 1000.0))
+        })
+        Self.plan_stamp_str.forEach({ item in
+            let s: Date? = {
+                if let t = TimeInterval(item) {
+                    return Date(timeIntervalSince1970: t)
+                }
+                return nil
+            }()
+            let ms: Date? = {
+                if let t = TimeInterval(item) {
+                    return Date(timeIntervalSince1970: t / 1000.0)
+                }
+                return nil
+            }()
+            XCTAssertEqual(item.dtb.sDate()?.value, s)
+            XCTAssertEqual(item.dtb.msDate()?.value, ms)
+        })
+        Self.plan_stamp_str_err.forEach({
+            XCTAssertNil($0.dtb.sDate()?.value)
+            XCTAssertNil($0.dtb.msDate()?.value)
         })
     }
     
@@ -70,9 +110,9 @@ final class TimeModuleTests: XCTestCase {
         ]
         pair.forEach({
             // Date -> String
-            XCTAssertEqual($0.0.dtb.formatString($0.1), $0.2)
+            XCTAssertEqual($0.0.dtb.toString($0.1), $0.2)
             // FIXME: String -> Date
-//            XCTAssertEqual($0.2.dtb.formatDate($0.1), $0.0)
+//            XCTAssertEqual($0.2.dtb.toDate($0.1), $0.0)
         })
     }
     
@@ -294,8 +334,8 @@ final class TimeModuleTests: XCTestCase {
         let distantFuture = Date.distantFuture
 
         // 这些应该不会崩溃
-        let pastString = distantPast.dtb.formatString()
-        let futureString = distantFuture.dtb.formatString()
+        let pastString = distantPast.dtb.toString()
+        let futureString = distantFuture.dtb.toString()
         XCTAssertFalse(pastString.isEmpty)
         XCTAssertFalse(futureString.isEmpty)
 
@@ -314,7 +354,7 @@ final class TimeModuleTests: XCTestCase {
         let testDate = Date()
 
         // 无效格式字符串
-        let invalidFormat = testDate.dtb.formatString("")
+        let invalidFormat = testDate.dtb.toString("")
         XCTAssertNotNil(invalidFormat) // 空格式应该返回某种默认值
 
         // 极大的时间偏移
