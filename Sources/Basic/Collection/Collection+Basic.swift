@@ -26,4 +26,24 @@ extension Wrapper {
             return nil
         }
     }
+    
+    /// Safe subscript with Range | 安全的 Range 下标访问
+    @inline(__always)
+    public subscript<T>(_ range: Range<Int>) -> ArraySlice<T> where Base == Array<T> {
+        guard me.count > 0 else { return ArraySlice<T>() }
+        let safeStart = Swift.max(me.startIndex, Swift.min(range.lowerBound, me.endIndex))
+        let safeEnd = Swift.max(safeStart, Swift.min(range.upperBound, me.endIndex))
+        guard safeStart < safeEnd else { return ArraySlice<T>() }
+        return me[safeStart..<safeEnd]
+    }
+    
+    /// Safe subscript with ClosedRange | 安全的 ClosedRange 下标访问
+    @inline(__always)
+    public subscript<T>(_ range: ClosedRange<Int>) -> ArraySlice<T> where Base == Array<T> {
+        guard me.count > 0 else { return ArraySlice<T>() }
+        let safeStart = Swift.max(me.startIndex, Swift.min(range.lowerBound, me.endIndex))
+        let safeEnd = Swift.max(safeStart, Swift.min(range.upperBound + 1, me.endIndex))
+        guard safeStart < safeEnd else { return ArraySlice<T>() }
+        return me[safeStart..<safeEnd]
+    }
 }

@@ -205,6 +205,6 @@ extension TabBarController: UITabBarControllerDelegate {
         customTabBar.selectItem(at: selectedIndex)
         
         // 可以在这里处理 Tab 切换事件
-        DTB.console.print("TabBar did select: \(selectedIndex)")
+        DTB.console.log("TabBar did select: \(selectedIndex)")
     }
 }

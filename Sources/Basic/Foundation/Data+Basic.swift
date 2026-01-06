@@ -17,7 +17,13 @@ extension Wrapper where Base == String {
     /// Encoding to ``Data``
     @inline(__always)
     public func data(_ encoding: String.Encoding = .utf8, lossy: Bool = true) -> Wrapper<Data>? {
-        return me.data(using: encoding, allowLossyConversion: lossy)?.dtb
+        return toData(encoding, lossy: lossy)?.dtb
+    }
+    
+    /// Encoding to ``Data``
+    @inline(__always)
+    public func toData(_ encoding: String.Encoding = .utf8, lossy: Bool = true) -> Data? {
+        return me.data(using: encoding, allowLossyConversion: lossy)
     }
 }
 
@@ -32,6 +38,12 @@ public extension Wrapper where Base == Data {
     /// Encoding to ``String``
     @inline(__always)
     func string(_ encoding: String.Encoding = .utf8) -> Wrapper<String>? {
-        return String(data: me, encoding: encoding)?.dtb
+        return toString(encoding)?.dtb
+    }
+    
+    /// Encoding to ``String``
+    @inline(__always)
+    func toString(_ encoding: String.Encoding = .utf8) -> String? {
+        return String(data: me, encoding: encoding)
     }
 }

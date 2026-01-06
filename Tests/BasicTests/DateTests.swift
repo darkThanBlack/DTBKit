@@ -102,17 +102,18 @@ final class TimeModuleTests: XCTestCase {
     
     func testDateFormat() throws {
         /// (Date, formatString, result)
+        ///
+        /// 注意 年/月/日 不能少，否则反推是无法成功的
         let pair = [
-            (Self.unixDate, "", "1970-01-01 08:00"),  // 尝试传空字符串
+            (Self.unixDate, "", "1970-01-01 08:00"),  // 使用默认字符串
             (Self.unixDate, "yyyy-MM-dd HH:mm", "1970-01-01 08:00"),
-            (Self.unixDate, "yyyy-MM-dd'T'HH:mm:ss'Z'", "1970-01-01T08:00:00Z"),
-            (Self.unixDate, "hh:mm:ss", "08:00:00")
+            (Self.unixDate, "yyyy-MM-dd'T'HH:mm:ss'Z'", "1970-01-01T08:00:00Z")
         ]
         pair.forEach({
             // Date -> String
             XCTAssertEqual($0.0.dtb.toString($0.1), $0.2)
             // FIXME: String -> Date
-//            XCTAssertEqual($0.2.dtb.toDate($0.1), $0.0)
+            XCTAssertEqual($0.2.dtb.toDate($0.1), $0.0)
         })
     }
     
@@ -284,45 +285,45 @@ final class TimeModuleTests: XCTestCase {
 //        let baseDate = Date()
 //
 //        // 测试动态时间显示功能
-//        let items = DTB.DateDynamicBarrierItem.self
+//        let items = DTB.DateRelativeRule.self
 //        // 负时间（过去）
 //        let pastDate = Date(timeIntervalSinceNow: -3600) // 1小时前
-//        let pastResult = pastDate.dtb.toDynamic([.negative("HH:mm")], baseOn: baseDate)
+//        let pastResult = pastDate.dtb.toRelative([.negative("HH:mm")], baseOn: baseDate)
 //        XCTAssertNotNil(pastResult)
 //
 //        // 一分钟内
 //        let recentDate = Date(timeIntervalSinceNow: -30) // 30秒前
-//        let oneMinuteResult = recentDate.dtb.toDynamic([.oneMinute()], baseOn: baseDate)
+//        let oneMinuteResult = recentDate.dtb.toRelative([.oneMinute()], baseOn: baseDate)
 //        XCTAssertNotNil(oneMinuteResult)
 //
 //        // 一小时内
 //        let hourAgoDate = Date(timeIntervalSinceNow: -1800) // 30分钟前
-//        let oneHourResult = hourAgoDate.dtb.toDynamic([.oneHour()], baseOn: baseDate)
+//        let oneHourResult = hourAgoDate.dtb.toRelative([.oneHour()], baseOn: baseDate)
 //        XCTAssertNotNil(oneHourResult)
 //
 //        // 今天
 //        let todayDate = Date(timeIntervalSinceNow: -7200) // 2小时前（假设还是今天）
-//        let todayResult = todayDate.dtb.toDynamic([.today()], baseOn: baseDate)
+//        let todayResult = todayDate.dtb.toRelative([.today()], baseOn: baseDate)
 //        XCTAssertNotNil(todayResult)
 //
 //        // 昨天
 //        let yesterdayDate = Date(timeIntervalSinceNow: -24 * 3600 - 3600) // 昨天的1小时前
-//        let yesterdayResult = yesterdayDate.dtb.toDynamic([.yesterday()], baseOn: baseDate)
+//        let yesterdayResult = yesterdayDate.dtb.toRelative([.yesterday()], baseOn: baseDate)
 //        XCTAssertNotNil(yesterdayResult)
 //
 //        // 明天（未来时间）
 //        let tomorrowDate = Date(timeIntervalSinceNow: 24 * 3600 + 3600) // 明天的1小时后
-//        let tomorrowResult = tomorrowDate.dtb.toDynamic([.tomorrow()], baseOn: baseDate)
+//        let tomorrowResult = tomorrowDate.dtb.toRelative([.tomorrow()], baseOn: baseDate)
 //        XCTAssertNotNil(tomorrowResult)
 //
 //        // 同年
 //        let sameYearDate = Date(timeIntervalSinceNow: -30 * 24 * 3600) // 30天前
-//        let sameYearResult = sameYearDate.dtb.toDynamic([.sameYear("MM-dd")], baseOn: baseDate)
+//        let sameYearResult = sameYearDate.dtb.toRelative([.sameYear("MM-dd")], baseOn: baseDate)
 //        XCTAssertNotNil(sameYearResult)
 //
 //        // 其他年份
 //        let otherYearDate = Date(timeIntervalSinceNow: -400 * 24 * 3600) // 400天前（不同年）
-//        let anotherResult = otherYearDate.dtb.toDynamic([.another()], baseOn: baseDate)
+//        let anotherResult = otherYearDate.dtb.toRelative([.another()], baseOn: baseDate)
 //        XCTAssertNotNil(anotherResult)
     }
 

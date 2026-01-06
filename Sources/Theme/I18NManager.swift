@@ -126,7 +126,7 @@ extension DTB {
                   dict.isEmpty == false else {
                 return nil
             }
-            console.print("string_\(key).json was successfully parsed")
+            console.log("string_\(key).json was successfully parsed")
             return dict
         }
         

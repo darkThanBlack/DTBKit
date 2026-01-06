@@ -8,7 +8,7 @@
 //  LICENSE: SAME AS REPOSITORY
 //  Contact me: [GitHub](https://github.com/darkThanBlack)
 //
-    
+
 
 import UIKit
 
@@ -20,7 +20,7 @@ extension StaticWrapper where T: Bundle {
     ///
     /// - Parameters:
     ///   - name: bundle name.
-    ///   - cacheable: use ``bundleIdentifier`` to cache.
+    ///   - cacheable: use ``name: bundleIdentifier`` to cache.
     /// - Returns: Bundle
     public func create(_ name: String, cacheable: Bool = true) -> Bundle? {
         
@@ -52,6 +52,7 @@ extension StaticWrapper where T: Bundle {
            let dirEnum = FileManager.default.enumerator(atPath: mainPath) {
             while let file = dirEnum.nextObject() as? String {
                 if file.hasSuffix(".bundle"),
+                   (file as NSString).deletingPathExtension == name,
                    let result = Bundle(path: "\(mainPath)/\(file)") {
                     storeCache(result)
                     return result
