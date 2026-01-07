@@ -33,6 +33,9 @@ extension DTB {
     
     /// Unbox for ``Optional / Empty / Zero``
     public static let check = OptionalChecker()
+    
+    /// Extra advanced functions. Unstable.
+    public static let chain = ChainManager.shared
 }
 
 // MARK: - Structable

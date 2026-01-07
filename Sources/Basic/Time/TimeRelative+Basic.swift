@@ -3,24 +3,14 @@
 //  DTBKit
 //
 //  Created by moonShadow on 2024/10/16
-//  
+//
 //
 //  LICENSE: SAME AS REPOSITORY
 //  Contact me: [GitHub](https://github.com/darkThanBlack)
 //
-    
+
 
 import UIKit
-
-extension DTB {
-    /// 星期名称规范
-    public enum WeekdayTypes {
-        /// ISO 8601: 周一=1, 周日=7 (欧洲、中国等)
-        case iso
-        /// 公历: 周日=1, 周六=7 (北美等)
-        case gregorian
-    }
-}
 
 extension DTB {
     
@@ -30,14 +20,6 @@ extension DTB {
     public struct DateRelativeRule {
         
         public let mapper: ((_ base: Date, _ to: Date) -> String?)
-    }
-    
-    /// 时长字符串转换
-    public enum DateDurationFormatTypes {
-        /// "12时33分28秒", "4分6秒"
-        case text
-        /// 12'33", 6"
-        case symbol
     }
 }
 
@@ -145,30 +127,21 @@ extension Wrapper where Base == Date {
     ///   - barrier:
     ///     Mapping relationship from the past to the future |
     ///     按从过去到未来顺序的时间-字符串映射关系
-    ///   - baseOn:
+    ///   - baseDate:
     ///     Time axis origin |
     ///     时间坐标轴原点
     /// - Returns:
     ///     Dynamic string depending on time |
     ///     按规则返回不同样式的字符串
-    public func toRelative(
-        _ barrier: [DTB.DateRelativeRule] = DTB.DateRelativeRule.defRules(),
-        baseOn: Date = Date()
+    public func toRelativeString(
+        barrier: [DTB.DateRelativeRule] = DTB.DateRelativeRule.defRules(),
+        baseDate: Date = Date()
     ) -> String {
-        return barrier.first(where: { $0.mapper(baseOn, me) != nil })?.mapper(Date(), me) ?? {
+        return barrier.first(where: { $0.mapper(baseDate, me) != nil })?.mapper(baseDate, me) ?? {
 #if DEBUG
-            assert(false)
+            DTB.console.fail("Barrier missing this date: \(me)")
 #endif
             return toString()
         }()
     }
-    
-    /// 计算从 startOfDay 到 当前 经过的分钟数
-    public func dayMinutes() -> Wrapper<Int64>? {
-        guard let myStartDayMs = startOfDay()?.ms().value else {
-            return nil
-        }
-        return ((ms().value - myStartDayMs) / 60).dtb
-    }
-    
 }

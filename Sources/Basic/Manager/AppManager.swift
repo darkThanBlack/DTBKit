@@ -96,6 +96,16 @@ extension DTB {
             weakMemory[key.key_] = DTB.Weaker(value)
         }
         
+        //MARK: - 
+        
+        public func isDebug() -> Bool {
+#if DEBUG
+            return true
+#else
+            return false
+#endif
+        }
+        
         //MARK: - Info.plist: https://developer.apple.com/documentation/bundleresources/information-property-list
         
         /// 在手机桌面上显示的应用名称

@@ -16,12 +16,13 @@ extension Wrapper where Base == Date {
     
     /// Self - date | 日期差值
     @inline(__always)
-    public func delta(to date: Date, _ unit: Calendar.Component) -> Int? {
-        return Calendar.current.dateComponents([unit], from: date, to: me).value(for: unit)
+    public func minus(to date: Date, _ unit: Calendar.Component) -> Wrapper<Int>? {
+        return Calendar.current.dateComponents([unit], from: date, to: me).value(for: unit)?.dtb
     }
     
     /// Use current calendar to check self is same unit by date | 是否为同一 "unit", 注意一般需从年往下逼近判断
-    public func same(to date: Date?, _ unit: Set<Calendar.Component>) -> Bool {
+    @inline(__always)
+    public func isSame(to date: Date?, _ unit: Set<Calendar.Component>) -> Bool {
         guard let d = date else { return false }
         let l1 = Calendar.current.dateComponents(unit, from: d)
         let l2 = Calendar.current.dateComponents(unit, from: me)
@@ -31,19 +32,19 @@ extension Wrapper where Base == Date {
     /// 是否为同一天
     @inline(__always)
     public func isSameDay(_ date: Date? = Date()) -> Bool {
-        return same(to: date, [.day, .month, .year])
+        return isSame(to: date, [.day, .month, .year])
     }
     
     /// 是否为同一月
     @inline(__always)
     public func isSameMonth(_ date: Date? = Date()) -> Bool {
-        return same(to: date, [.month, .year])
+        return isSame(to: date, [.month, .year])
     }
     
     /// 是否为同一年
     @inline(__always)
     public func isSameYear(_ date: Date? = Date()) -> Bool {
-        return same(to: date, [.year])
+        return isSame(to: date, [.year])
     }
     
     // FIXME: DateComponents

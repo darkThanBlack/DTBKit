@@ -180,13 +180,13 @@ final class TimeModuleTests: XCTestCase {
         let date2 = Date(timeIntervalSince1970: 1577836800 + 3600) // 1小时后
 
         // 时间差计算
-        let delta = date1.dtb.delta(to: date2, .hour) ?? 0
+        let delta = date1.dtb.minus(to: date2, .hour)?.value ?? 0
         XCTAssertEqual(Double(delta), -1.0, accuracy: 0.1) // date1 比 date2 早1小时
         // 相同单位比较
-        let sameDay = date1.dtb.same(to: date2, [.day])
+        let sameDay = date1.dtb.isSame(to: date2, [.day])
         XCTAssertTrue(sameDay) // 同一天
 
-        let sameHour = date1.dtb.same(to: date2, [.hour])
+        let sameHour = date1.dtb.isSame(to: date2, [.hour])
         XCTAssertFalse(sameHour) // 不同小时
     }
 
