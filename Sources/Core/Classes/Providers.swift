@@ -41,12 +41,3 @@ extension DTB.ProviderRegister {
         return DTB.app.get(key)
     }
 }
-
-extension DTB {
-    
-    /// Some features that require users to fully customize.
-    ///
-    /// 某些需要让开发者可以完全自定义的功能.
-    public enum Providers: DTB.ProviderRegister {}
-}
-

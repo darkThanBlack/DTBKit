@@ -31,8 +31,8 @@ reopen() {
         xcodegen -s "${spec}"
     done
     pod install --verbose
-    find . -maxdepth 1 -name "*.xcworkspace" | xargs open
-
+    open Example.xcworkspace
+    open CodeCoverage.xcodeproj
     cd $SCRIPT_PATH
 }
 

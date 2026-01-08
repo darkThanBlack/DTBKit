@@ -19,14 +19,11 @@ import UIKit
 #if canImport(DTBKit_Chain)
 @_exported import DTBKit_Chain
 #endif
+#if canImport(DTBKit_Theme)
+@_exported import DTBKit_Theme
+#endif
 
 extension DTB {
-    
-    /// Memory dict / App data / etc.
-    public static let app = AppManager.shared
-    
-    /// LLDB Console, replacement for ``Swift.print``
-    public static let console = ConsoleManager.shared
     
     /// Default value
     public static let config = ConfigManager.shared
@@ -63,8 +60,6 @@ extension Decimal: Structable {}
 extension Array: Structable {}
 
 extension Data: Structable {}
-
-extension UIFont.Weight: Structable {}
 
 // MARK: - EmptyCheckable
 

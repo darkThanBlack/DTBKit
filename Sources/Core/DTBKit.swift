@@ -128,12 +128,3 @@ public struct StaticWrapper<T> {
     public init() {}
 }
 
-//MARK: - Implementation
-
-///
-extension NSObject: Kitable {}
-
-/// Mark protocol is abstract.
-///
-/// 表明某个接口是抽象接口。
-public protocol DTBKitAbstract {}

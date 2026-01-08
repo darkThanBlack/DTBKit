@@ -9,8 +9,11 @@
 //  Contact me: [GitHub](https://github.com/darkThanBlack)
 //
 
-import Foundation
+import UIKit
 
-extension DTB {
-    
-}
+/// For code coverage.
+#if canImport(DTBKit_Core)
+@_exported import DTBKit_Core
+#endif
+
+extension UIFont.Weight: Structable {}

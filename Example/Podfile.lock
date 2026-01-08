@@ -2,15 +2,17 @@ PODS:
   - DoKit/Core (4.0.0)
   - DTBKit/Basic (0.0.1):
     - DTBKit/Chain
+    - DTBKit/Theme
   - DTBKit/Basic/Tests (0.0.1):
     - DTBKit/Chain
+    - DTBKit/Theme
   - DTBKit/Chain (0.0.1):
     - DTBKit/Core
   - DTBKit/Core (0.0.1)
   - DTBKit/Map (0.0.1):
     - DTBKit/Basic
   - DTBKit/Theme (0.0.1):
-    - DTBKit/Basic
+    - DTBKit/Core
   - DTBKit/UIKit (0.0.1):
     - DTBKit/Basic
     - SnapKit (~> 4.0.0)
@@ -48,7 +50,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   DoKit: be7712b87f2562de9893ae9ca6ba5f6d7455723d
-  DTBKit: 57c88eb4d86981da1f8ee2a57309433438bc2d39
+  DTBKit: ffdd7dc75f206b9b735c88f0d77f33da59faf027
   SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 

@@ -29,10 +29,6 @@ targets:
     platformSuffix: ""
     deploymentTarget:
       iOS: 11.0
-    # scheme:
-    #   testTargets:
-    #     - DTBKit_Basic_Tests
-    #   gatherCoverageData: true
     sources:
       - path: "../Sources/Chain"
     dependencies:
@@ -40,6 +36,21 @@ targets:
     settings:
       base:
         GENERATE_INFOPLIST_FILE: true
+  
+  DTBKit_Theme:
+    type: framework
+    platform: [iOS]
+    platformSuffix: ""
+    deploymentTarget:
+      iOS: 11.0
+    sources:
+      - path: "../Sources/Theme"
+    dependencies:
+      - target: DTBKit_Core
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: true
+
   DTBKit_Basic:
     type: framework
     platform: [iOS]
@@ -55,6 +66,7 @@ targets:
     dependencies:
       - target: DTBKit_Core
       - target: DTBKit_Chain
+      - target: DTBKit_Theme
     settings:
       base:
         GENERATE_INFOPLIST_FILE: true
@@ -65,7 +77,7 @@ targets:
     platform: [iOS]
     platformSuffix: ""
     sources:
-      - path: "../Tests/BasicTests/"
+      - path: "../Tests"
         group: "Unit Tests"
     settings:
       # 以前没有 ``BUNDLE_EXECUTABLE_FOLDER_PATH`` 定义, 参见 https://developer.apple.com/forums/thread/723699

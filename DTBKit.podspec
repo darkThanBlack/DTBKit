@@ -33,23 +33,24 @@ DESC
     ss.dependency 'DTBKit/Core'
   end
   
+  s.subspec 'Theme' do |ss|
+    ss.source_files = 'Sources/Theme/**/*'
+    ss.dependency 'DTBKit/Core'
+  end
+  
   s.subspec 'Basic' do |ss|
     ss.source_files = 'Sources/Basic/**/*'
     ss.resource_bundles = {
       'DTBKit-Basic' => ['Sources/Resources/basic.xcassets', 'Sources/Resources/test-nested.bundle']
     }
     ss.dependency 'DTBKit/Chain'
-    
+    ss.dependency 'DTBKit/Theme'
+
     ss.test_spec 'Tests' do |t|
       t.framework = 'XCTest'
       t.requires_app_host = false
       t.source_files = 'Tests/**/*'
     end
-  end
-  
-  s.subspec 'Theme' do |ss|
-    ss.source_files = 'Sources/Theme/**/*'
-    ss.dependency 'DTBKit/Basic'
   end
   
   s.subspec 'UIKit' do |ss|
@@ -68,7 +69,7 @@ DESC
     ss.dependency 'DTBKit/Basic'
   end
   
-#  s.subspec 'Gzip' do |ss|
+#  s.subspec 'Stream' do |ss|
 #    ss.source_files = 'Sources/Gzip/**/*'
 #    ss.dependency 'DTBKit/Basic'
 #  end
