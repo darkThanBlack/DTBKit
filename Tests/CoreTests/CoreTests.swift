@@ -18,7 +18,7 @@ import DTBKit_Basic
 #endif
 
 /// DTBKit 命名空间和链式 API 设计测试
-final class NamespaceAndChainTests: XCTestCase {
+final class CoreTests: XCTestCase {
     
     ///
     class TestClass: Equatable {
@@ -168,8 +168,8 @@ final class NamespaceAndChainTests: XCTestCase {
 
         XCTAssertEqual(stringKey.key_, "string_key")
         XCTAssertEqual(intKey.key_, "int_key")
-        XCTAssertFalse(stringKey.useLock_)
-        XCTAssertFalse(intKey.useLock_)
+        XCTAssertTrue(stringKey.useLock_)
+        XCTAssertTrue(intKey.useLock_)
 
         // 禁用锁的 key
         let noLockKey = DTB.ConstKey<String>("no_lock_key", useLock: false)
@@ -214,11 +214,10 @@ final class NamespaceAndChainTests: XCTestCase {
         XCTAssertNil(DTB.app.getWeak(weakKey))
     }
     
-    func testAppManagerStorageWithLock() throws {
-        // 线程安全测试 - useLock: true
+    /// AppManager 线程安全测试
+    func testAppManagerStorageLock() throws {
         let lockedKey = DTB.ConstKey<TestClass>("locked_key", useLock: true)
-        let unlockedKey = DTB.ConstKey<TestClass>("unlocked_key", useLock: false)
-        
+
         // 基本功能测试
         let testObj1 = TestClass(name: "locked_test")
         DTB.app.set(testObj1, key: lockedKey)
@@ -306,19 +305,6 @@ final class NamespaceAndChainTests: XCTestCase {
         
         // 验证弱引用最终状态
         XCTAssertNil(DTB.app.getWeak(weakLockedKey)) // 对象应该已经被释放
-        
-        // 性能对比测试（可选）
-        let performanceKey = DTB.ConstKey<String>("performance_key", useLock: true)
-        let nonLockKey = DTB.ConstKey<String>("non_lock_key", useLock: false)
-        
-        // 测量加锁版本的性能
-        measure {
-            for i in 0..<1000 {
-                DTB.app.set("performance_test_\(i)", key: performanceKey)
-                _ = DTB.app.get(performanceKey)
-            }
-        }
-
     }
     
     func testConsole() throws {
@@ -335,7 +321,33 @@ final class NamespaceAndChainTests: XCTestCase {
         XCTAssertNil(DTB.Providers.get(key))
     }
     
-    // MARK: - 性能测试
+    // MARK: - Performance, base on Mac Studio 2023, Apple M2 Ultra, 64 GB
+    
+    private let plan_performance_count: Int = 100000
+    
+    /// 0.048 sec.
+    func testAppManagerStorageNoLockPerformance() throws {
+        let nonLockKey = DTB.ConstKey<String>("non_lock_key", useLock: false)
+        measure {
+            // 测试无锁版本（作为 baseline）
+            for i in 0..<plan_performance_count {
+                DTB.app.set("performance_test_\(i)", key: nonLockKey)
+                _ = DTB.app.get(nonLockKey)
+            }
+        }
+    }
+    
+    /// 0.053 sec.
+    func testAppManagerStorageLockPerformance() throws {
+        let lockKey = DTB.ConstKey<String>("locked_key", useLock: true)
+        measure {
+            // 测试加锁版本
+            for i in 0..<plan_performance_count {
+                DTB.app.set("performance_test_\(i)", key: lockKey)
+                _ = DTB.app.get(lockKey)
+            }
+        }
+    }
     
     func testNamespacePerformance() throws {
         let iterations = 10000
