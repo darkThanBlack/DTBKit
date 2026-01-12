@@ -12,35 +12,33 @@
 
 import XCTest
 
-final class CollectionTest: XCTestCase {
+final class CollectionTests: XCTestCase {
 
     // MARK: - Collection Extensions Tests
-
-    func testCollectionSafeAccess() throws {
-        let intArray = [1, 2, 3, 4, 5]
-
-        // 有效索引
+    
+    private let intArray = [1, 2, 3, 4, 5]
+    private let emptyArray: [Int] = []
+    private let stringArray = ["a", "b", "c"]
+    
+    func testArraySubscripts() throws {
+        // 有效取值
         XCTAssertEqual(intArray.dtb[0], 1)
         XCTAssertEqual(intArray.dtb[2], 3)
         XCTAssertEqual(intArray.dtb[4], 5)
-
-        // 无效索引
+        XCTAssertEqual(stringArray.dtb[1], "b")
+        XCTAssertNil(stringArray.dtb[3])
+        // 无效索引取值
         XCTAssertNil(intArray.dtb[-1])
         XCTAssertNil(intArray.dtb[5])
         XCTAssertNil(intArray.dtb[100])
-
-        // nil 索引
         XCTAssertNil(intArray.dtb[nil])
-
-        // 空数组
-        let emptyArray: [Int] = []
         XCTAssertNil(emptyArray.dtb[0])
         XCTAssertNil(emptyArray.dtb[-1])
-
-        // 字符串数组
-        let stringArray = ["a", "b", "c"]
-        XCTAssertEqual(stringArray.dtb[1], "b")
-        XCTAssertNil(stringArray.dtb[3])
+        
+        XCTAssertEqual(intArray.dtb[0..<2], intArray[0..<2])
+        XCTAssertEqual(intArray.dtb[-2..<0], [])
+        XCTAssertEqual(intArray.dtb[4...6], intArray[4..<intArray.endIndex])
+        XCTAssertEqual(intArray.dtb[6...7], [])
     }
     
 }

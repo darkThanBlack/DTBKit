@@ -184,9 +184,14 @@ final class CoreTests: XCTestCase {
     func testAppManagerStorage() throws {
         
         let stringKey = DTB.ConstKey<String>("test_string")
+        let anonymousKey = DTB.ConstKey<Int>()
+        
         var testObject: TestClass? = TestClass(name: "weak_test")
+        
         let weakKey = DTB.ConstKey<TestClass>("weak_key")
         let strongKey = DTB.ConstKey<TestClass>("strong_key")
+        let weakNoLockKey = DTB.ConstKey<TestClass>("weak_no_lock_key", useLock: false)
+        let strongNoLockKey = DTB.ConstKey<TestClass>("strong_no_lock_key", useLock: false)
         
         // 字符串存储
         DTB.app.set("test_value", key: stringKey)
@@ -194,12 +199,23 @@ final class CoreTests: XCTestCase {
         DTB.app.set(nil, key: stringKey)
         XCTAssertNil(DTB.app.get(stringKey))
         
+        // 匿名 key
+        DTB.app.set(123, key: anonymousKey)
+        XCTAssertEqual(DTB.app.get(anonymousKey), 123)
+        DTB.app.set(nil, key: anonymousKey)
+        XCTAssertNil(DTB.app.get(anonymousKey))
+        
         // 对象存储
         DTB.app.set(testObject, key: strongKey)
         XCTAssertEqual(DTB.app.get(strongKey), testObject)
         DTB.app.set(nil, key: strongKey)
         XCTAssertNil(DTB.app.get(strongKey))
-
+        // 无锁版本
+        DTB.app.set(testObject, key: strongNoLockKey)
+        XCTAssertEqual(DTB.app.get(strongNoLockKey), testObject)
+        DTB.app.set(nil, key: strongNoLockKey)
+        XCTAssertNil(DTB.app.get(strongNoLockKey))
+        
         // 相同 rawValue 的 key 会造成覆盖
         let anotherStringKey = DTB.ConstKey<String>("test_string")
         DTB.app.set("another_value", key: anotherStringKey)
@@ -209,9 +225,15 @@ final class CoreTests: XCTestCase {
         DTB.app.setWeak(testObject, key: weakKey)
         XCTAssertNotNil(DTB.app.getWeak(weakKey))
         XCTAssertEqual(DTB.app.getWeak(weakKey)?.name, "weak_test")
+        // 无锁版本
+        DTB.app.setWeak(testObject, key: weakNoLockKey)
+        XCTAssertNotNil(DTB.app.getWeak(weakNoLockKey))
+        XCTAssertEqual(DTB.app.getWeak(weakNoLockKey)?.name, "weak_test")
+        
         // 释放对象后，取值应该立即为空
         testObject = nil
         XCTAssertNil(DTB.app.getWeak(weakKey))
+        XCTAssertNil(DTB.app.getWeak(weakNoLockKey))
     }
     
     /// AppManager 线程安全测试

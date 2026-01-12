@@ -24,21 +24,20 @@ extension DTB {
     ///  - 使用同一个对象可以节省内存
     ///
     ///  为什么单例？
-    ///  - 默认行为有且只有一种
-    ///  - 结构简单，没必要使用 Provider
-    ///  - 写一次，读多次，并且用户不读，没必要放到 DTB.app
+    ///  - 默认行为有且只有一种，结构简单，没必要使用 Provider
+    ///  - 业务上一般是单次写入，多次读取，没必要放到 DTB.app
     public final class ConfigManager {
         
         public static let shared = DTB.ConfigManager()
         
-        /// 注意这里的 scale 每次运算都会触发，所以需要给一个足够的值
-        public private(set) var decimalBehavior: NSDecimalNumberHandler
+        // MARK: - Custom
         
         public private(set) var designBaseSize: CGSize
         
         public private(set) var supportImageTypes: [String]
         
-        public private(set) var numberFormatter: NumberFormatter
+        /// 注意这里的 scale 每次运算都会触发，所以需要给一个足够的值
+        public private(set) var decimalBehavior: NSDecimalNumberHandler
         
         public private(set) var locale: Locale
         
@@ -46,31 +45,23 @@ extension DTB {
         
         public private(set) var calendar: Calendar
         
+        public private(set) var numberFormatter: NumberFormatter
+        
         public private(set) var dateFormatter: DateFormatter
         
         public private(set) var isoDateFormatter: ISO8601DateFormatter
         
         private init() {
+            
             let decimalBehavior = {
-#if DEBUG
                 return NSDecimalNumberHandler(
                     roundingMode: .plain,
                     scale: 15,
-                    raiseOnExactness: true,
-                    raiseOnOverflow: true,
-                    raiseOnUnderflow: true,
-                    raiseOnDivideByZero: true
+                    raiseOnExactness: DTB.app.isDebug(),
+                    raiseOnOverflow: DTB.app.isDebug(),
+                    raiseOnUnderflow: DTB.app.isDebug(),
+                    raiseOnDivideByZero: DTB.app.isDebug()
                 )
-#else
-                return NSDecimalNumberHandler(
-                    roundingMode: .plain,
-                    scale: 15,
-                    raiseOnExactness: false,
-                    raiseOnOverflow: false,
-                    raiseOnUnderflow: false,
-                    raiseOnDivideByZero: false
-                )
-#endif
             }()
             
             let designBaseSize = CGSize(width: 375.0, height: 667.0)
@@ -92,9 +83,9 @@ extension DTB {
             }()
             let isoDateFormatter = ISO8601DateFormatter()
             
-            self.decimalBehavior = decimalBehavior
             self.designBaseSize = designBaseSize
             self.supportImageTypes = supportImageTypes
+            self.decimalBehavior = decimalBehavior
             self.locale = locale
             self.timeZone = timeZone
             self.calendar = calendar
