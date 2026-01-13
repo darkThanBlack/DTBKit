@@ -22,7 +22,7 @@ import DTBKit_Basic
 final class TimeModuleTests: XCTestCase {
     
     /// 1970-01-01 08:00:00 UTC
-    static let unixDate = Date(timeIntervalSince1970: 0)
+    private let unixDate = Date(timeIntervalSince1970: 0)
     
     static let plan_stamp: [Int] = [
         -86400,      // 1969-12-31
@@ -103,11 +103,11 @@ final class TimeModuleTests: XCTestCase {
     func testDateFormat() throws {
         /// (Date, formatString, result)
         ///
-        /// 注意 年/月/日 不能少，否则反推是无法成功的
+        /// 注意 年/月/日 不能少，否则反推少条件
         let pair = [
-            (Self.unixDate, "", "1970-01-01 08:00"),  // 使用默认字符串
-            (Self.unixDate, "yyyy-MM-dd HH:mm", "1970-01-01 08:00"),
-            (Self.unixDate, "yyyy-MM-dd'T'HH:mm:ss'Z'", "1970-01-01T08:00:00Z")
+            (unixDate, "", "1970-01-01 08:00"),
+            (unixDate, "yyyy-MM-dd HH:mm", "1970-01-01 08:00"),
+            (unixDate, "yyyy-MM-dd'T'HH:mm:ss'Z'", "1970-01-01T08:00:00Z")
         ]
         pair.forEach({
             // Date -> String
@@ -115,6 +115,17 @@ final class TimeModuleTests: XCTestCase {
             // FIXME: String -> Date
             XCTAssertEqual($0.2.dtb.toDate($0.1), $0.0)
         })
+        
+        // 自定义的 Formatter
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        formatter.timeZone = TimeZone(identifier: "Asia/Shanghai")
+        XCTAssertEqual(formatter.string(from: unixDate), "1970-01-01 08:00")
+        
+        formatter.timeZone = TimeZone(identifier: "UTC")
+        XCTAssertEqual(formatter.string(from: unixDate), "1970-01-01 00:00")
+//        XCTAssertEqual(unixDate.dtb.string(formatter: formatter).value, "1970")
+//        XCTAssertEqual("1970".dtb.date(formatter: formatter)?.value, unixDate)
     }
     
     // FIXME: 实现需要明确
