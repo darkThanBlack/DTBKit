@@ -101,10 +101,16 @@ extension Set: DTB.EmptyCheckable {
 extension Int: DTB.NumberCheckable {
     
     @inline(__always)
+    public static func dtb_emptyValue() -> Self { return dtb_zeroValue() }
+    
+    @inline(__always)
+    public func dtb_isEmpty() -> Bool { return false }
+    
+    @inline(__always)
     public static func dtb_zeroValue() -> Self { return 0 }
     
     @inline(__always)
-    public func dtb_isInvalid() -> Bool { return false }
+    public func dtb_isFinite() -> Bool { return true }
     
     @inline(__always)
     public func dtb_isZero() -> Bool { return self == 0 }
@@ -119,10 +125,16 @@ extension Int: DTB.NumberCheckable {
 extension Int8: DTB.NumberCheckable {
     
     @inline(__always)
+    public static func dtb_emptyValue() -> Self { return dtb_zeroValue() }
+    
+    @inline(__always)
+    public func dtb_isEmpty() -> Bool { return false }
+    
+    @inline(__always)
     public static func dtb_zeroValue() -> Self { return 0 }
     
     @inline(__always)
-    public func dtb_isInvalid() -> Bool { return false }
+    public func dtb_isFinite() -> Bool { return true }
     
     @inline(__always)
     public func dtb_isZero() -> Bool { return self == 0 }
@@ -137,11 +149,17 @@ extension Int8: DTB.NumberCheckable {
 extension Int16: DTB.NumberCheckable {
     
     @inline(__always)
+    public static func dtb_emptyValue() -> Self { return dtb_zeroValue() }
+    
+    @inline(__always)
+    public func dtb_isEmpty() -> Bool { return false }
+    
+    @inline(__always)
     public static func dtb_zeroValue() -> Self { return 0 }
     
     @inline(__always)
-    public func dtb_isInvalid() -> Bool { return false }
-    
+    public func dtb_isFinite() -> Bool { return true }
+
     @inline(__always)
     public func dtb_isZero() -> Bool { return self == 0 }
     
@@ -155,10 +173,16 @@ extension Int16: DTB.NumberCheckable {
 extension Int32: DTB.NumberCheckable {
     
     @inline(__always)
+    public static func dtb_emptyValue() -> Self { return dtb_zeroValue() }
+    
+    @inline(__always)
+    public func dtb_isEmpty() -> Bool { return false }
+    
+    @inline(__always)
     public static func dtb_zeroValue() -> Self { return 0 }
     
     @inline(__always)
-    public func dtb_isInvalid() -> Bool { return false }
+    public func dtb_isFinite() -> Bool { return true }
     
     @inline(__always)
     public func dtb_isZero() -> Bool { return self == 0 }
@@ -173,10 +197,16 @@ extension Int32: DTB.NumberCheckable {
 extension Int64: DTB.NumberCheckable {
     
     @inline(__always)
+    public static func dtb_emptyValue() -> Self { return dtb_zeroValue() }
+    
+    @inline(__always)
+    public func dtb_isEmpty() -> Bool { return false }
+    
+    @inline(__always)
     public static func dtb_zeroValue() -> Self { return 0 }
     
     @inline(__always)
-    public func dtb_isInvalid() -> Bool { return false }
+    public func dtb_isFinite() -> Bool { return true }
     
     @inline(__always)
     public func dtb_isZero() -> Bool { return self == 0 }
@@ -191,10 +221,16 @@ extension Int64: DTB.NumberCheckable {
 extension Float: DTB.NumberCheckable {
     
     @inline(__always)
+    public static func dtb_emptyValue() -> Self { return dtb_zeroValue() }
+    
+    @inline(__always)
+    public func dtb_isEmpty() -> Bool { return dtb_isFinite() == false }
+    
+    @inline(__always)
     public static func dtb_zeroValue() -> Self { return 0 }
     
     @inline(__always)
-    public func dtb_isInvalid() -> Bool { return self.isFinite == false }
+    public func dtb_isFinite() -> Bool { return isFinite }
     
     @inline(__always)
     public func dtb_isZero() -> Bool { return self == 0 }
@@ -209,11 +245,17 @@ extension Float: DTB.NumberCheckable {
 extension Double: DTB.NumberCheckable {
     
     @inline(__always)
+    public static func dtb_emptyValue() -> Self { return dtb_zeroValue() }
+    
+    @inline(__always)
+    public func dtb_isEmpty() -> Bool { return dtb_isFinite() == false }
+    
+    @inline(__always)
     public static func dtb_zeroValue() -> Self { return 0 }
     
     @inline(__always)
-    public func dtb_isInvalid() -> Bool { return self.isFinite == false }
-    
+    public func dtb_isFinite() -> Bool { return isFinite }
+
     @inline(__always)
     public func dtb_isZero() -> Bool { return self == 0 }
     

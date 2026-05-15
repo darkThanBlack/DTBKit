@@ -138,9 +138,7 @@ extension Wrapper where Base == Date {
         baseDate: Date = Date()
     ) -> String {
         return barrier.first(where: { $0.mapper(baseDate, me) != nil })?.mapper(baseDate, me) ?? {
-#if DEBUG
-            DTB.console.fail("Barrier missing this date: \(me)")
-#endif
+            DTB.console.assert("Barrier missing this date: \(me)")
             return toString()
         }()
     }

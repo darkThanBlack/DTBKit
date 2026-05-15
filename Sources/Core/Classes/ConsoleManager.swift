@@ -39,19 +39,19 @@ extension DTB {
             line: Int = #line,
             function: String = #function
         ) {
-            Swift.print("--- DTB__ERROR START\nfile=\(file) line=\(line) function=\(function)")
+            Swift.print("--- DTB__ERROR START ---\nfile=\(file) line=\(line) function=\(function)")
             Swift.debugPrint(item)
-            Swift.print("--- DTB__ERROR END")
+            Swift.print("--- DTB__ERROR END ---")
         }
         
         @inline(__always)
-        public func fail(
+        public func assert(
             _ message: String? = nil,
             file: String = #file,
             line: Int = #line,
             function: String = #function
         ) {
-            Swift.print("--- DTB__ASSERT \nfile=\(file) line=\(line) function=\(function) \nmessage=\(message ?? "")")
+            Swift.print("--- DTB__ASSERT ---\nfile=\(file) line=\(line) function=\(function) \nmessage=\(message ?? "")")
 #if DEBUG
             Swift.assertionFailure()
 #endif

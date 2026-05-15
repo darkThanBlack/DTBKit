@@ -16,7 +16,11 @@ extension Wrapper {
     
     /// Safe array | 数组防越界
     ///
-    /// * Sample: ``list[0] => list.dtb[0]``
+    /// ```
+    /// let a: Int = list[0]  // OLD
+    /// let b: Int? = list.dtb[0]  // NEW
+    /// ```
+    ///
     /// ``~=``: ``Swift/Collection/Range`` | ``Swift/Misc``,  [refer](https://github.com/swiftlang/swift/blob/ed38b93469c980cbe6d5459798cb8ad8d43bd9a8/stdlib/public/core/StringComparable.swift#L86)
     @inline(__always)
     public subscript<T>(_ index: Int?) -> T? where Base == Array<T> {
@@ -28,6 +32,10 @@ extension Wrapper {
     }
     
     /// Safe subscript with Range | 安全的 Range 下标访问
+    ///
+    /// ```
+    /// list.dtb[..<2]
+    /// ```
     @inline(__always)
     public subscript<T>(_ range: Range<Int>) -> ArraySlice<T> where Base == Array<T> {
         guard me.count > 0 else { return ArraySlice<T>() }
@@ -38,6 +46,10 @@ extension Wrapper {
     }
     
     /// Safe subscript with ClosedRange | 安全的 ClosedRange 下标访问
+    ///
+    /// ```
+    /// list.dtb[...2]
+    /// ```
     @inline(__always)
     public subscript<T>(_ range: ClosedRange<Int>) -> ArraySlice<T> where Base == Array<T> {
         guard me.count > 0 else { return ArraySlice<T>() }
