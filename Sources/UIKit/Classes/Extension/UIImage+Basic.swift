@@ -68,6 +68,10 @@ extension StaticWrapper where T: UIImage {
             // Specify bundle
             return createWithBundle(imageBundle)
         } else {
+            if let image = UIImage(named: name) {
+                return image
+            }
+            
             // FIXME: SwiftPM
             // I got ``Cannot find 'SWIFTPM_MODULE_BUNDLE' in scope`` in SPM
             // https://gist.github.com/bradhowes/4cd0b3da56b24166243e88d77329e909

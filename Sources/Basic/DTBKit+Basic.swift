@@ -96,9 +96,9 @@ extension Set: DTB.EmptyCheckable {
     public func dtb_isEmpty() -> Bool { return isEmpty }
 }
 
-// MARK: - NumberCheckable
+// MARK: - NumberEmptyCheckable
 
-extension Int: DTB.NumberCheckable {
+extension Int: DTB.NumberEmptyCheckable {
     
     @inline(__always)
     public static func dtb_emptyValue() -> Self { return dtb_zeroValue() }
@@ -122,7 +122,7 @@ extension Int: DTB.NumberCheckable {
     public func dtb_isNegative() -> Bool { return self < 0 }
 }
 
-extension Int8: DTB.NumberCheckable {
+extension Int8: DTB.NumberEmptyCheckable {
     
     @inline(__always)
     public static func dtb_emptyValue() -> Self { return dtb_zeroValue() }
@@ -146,7 +146,7 @@ extension Int8: DTB.NumberCheckable {
     public func dtb_isNegative() -> Bool { return self < 0 }
 }
 
-extension Int16: DTB.NumberCheckable {
+extension Int16: DTB.NumberEmptyCheckable {
     
     @inline(__always)
     public static func dtb_emptyValue() -> Self { return dtb_zeroValue() }
@@ -170,7 +170,7 @@ extension Int16: DTB.NumberCheckable {
     public func dtb_isNegative() -> Bool { return self < 0 }
 }
 
-extension Int32: DTB.NumberCheckable {
+extension Int32: DTB.NumberEmptyCheckable {
     
     @inline(__always)
     public static func dtb_emptyValue() -> Self { return dtb_zeroValue() }
@@ -194,7 +194,7 @@ extension Int32: DTB.NumberCheckable {
     public func dtb_isNegative() -> Bool { return self < 0 }
 }
 
-extension Int64: DTB.NumberCheckable {
+extension Int64: DTB.NumberEmptyCheckable {
     
     @inline(__always)
     public static func dtb_emptyValue() -> Self { return dtb_zeroValue() }
@@ -218,7 +218,7 @@ extension Int64: DTB.NumberCheckable {
     public func dtb_isNegative() -> Bool { return self < 0 }
 }
 
-extension Float: DTB.NumberCheckable {
+extension Float: DTB.NumberEmptyCheckable {
     
     @inline(__always)
     public static func dtb_emptyValue() -> Self { return dtb_zeroValue() }
@@ -242,7 +242,7 @@ extension Float: DTB.NumberCheckable {
     public func dtb_isNegative() -> Bool { return self < 0 }
 }
 
-extension Double: DTB.NumberCheckable {
+extension Double: DTB.NumberEmptyCheckable {
     
     @inline(__always)
     public static func dtb_emptyValue() -> Self { return dtb_zeroValue() }

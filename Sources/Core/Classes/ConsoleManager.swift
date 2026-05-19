@@ -28,20 +28,22 @@ extension DTB {
             function: String = #function
         ) {
 #if DEBUG
-            Swift.print("DTB__LOG  \(item)  function=\(function)")
+            Swift.print("DTB__LOG  \(item)")
 #endif
         }
         
         @inline(__always)
         public func error(
-            _ item: Any,
+            _ item: Any? = nil,
             file: String = #file,
             line: Int = #line,
             function: String = #function
         ) {
-            Swift.print("--- DTB__ERROR START ---\nfile=\(file) line=\(line) function=\(function)")
-            Swift.debugPrint(item)
-            Swift.print("--- DTB__ERROR END ---")
+            if let obj = item {
+                Swift.print("DTB__ERROR  \(String(reflecting: obj))\nfunction=\(function) file=\(file) line=\(line)")
+            } else {
+                Swift.print("DTB__ERROR  function=\(function) file=\(file) line=\(line)")
+            }
         }
         
         @inline(__always)
@@ -51,9 +53,10 @@ extension DTB {
             line: Int = #line,
             function: String = #function
         ) {
-            Swift.print("--- DTB__ASSERT ---\nfile=\(file) line=\(line) function=\(function) \nmessage=\(message ?? "")")
 #if DEBUG
-            Swift.assertionFailure()
+            Swift.assert(false, "DTB__ASSERT  message=\(message ?? "")\nfunction=\(function) file=\(file) line=\(line)")
+#else
+            error(message)
 #endif
         }
     }

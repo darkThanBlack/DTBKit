@@ -31,6 +31,6 @@ extension StaticWrapper where T: UIColor {
     /// 颜色调用收束
     @inline(__always)
     public func create(_ param: Any?) -> UIColor {
-        return DTB.Providers.get(DTB.Providers.colorKey)?.create(param) ?? .black
+        return DTB.Providers.get(DTB.Providers.colorKey)?.create(param) ?? .clear
     }
 }

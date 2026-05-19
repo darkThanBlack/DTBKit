@@ -14,30 +14,24 @@ import UIKit
 
 extension DTB {
     
-    public protocol ProviderRegister {
+    /// Some features that require users to fully customize.
+    ///
+    /// 某些需要让开发者可以完全自定义的功能.
+    public enum Providers {
         
-        static func register<T>(_ value: T?, key: DTB.ConstKey<T>)
+        @inline(__always)
+        public static func register<T>(_ value: T?, key: DTB.ConstKey<T>) {
+            DTB.app.set(value, key: key)
+        }
         
-        static func unregister<T>(_ key: DTB.ConstKey<T>)
+        @inline(__always)
+        public static func unregister<T>(_ key: DTB.ConstKey<T>) {
+            DTB.app.set(nil, key: key)
+        }
         
-        static func get<T>(_ key: DTB.ConstKey<T>) -> T?
-    }
-}
-
-extension DTB.ProviderRegister {
-    
-    @inline(__always)
-    public static func register<T>(_ value: T?, key: DTB.ConstKey<T>) {
-        DTB.app.set(value, key: key)
-    }
-    
-    @inline(__always)
-    public static func unregister<T>(_ key: DTB.ConstKey<T>) {
-        DTB.app.set(nil, key: key)
-    }
-    
-    @inline(__always)
-    public static func get<T>(_ key: DTB.ConstKey<T>) -> T? {
-        return DTB.app.get(key)
+        @inline(__always)
+        public static func get<T>(_ key: DTB.ConstKey<T>) -> T? {
+            return DTB.app.get(key)
+        }
     }
 }

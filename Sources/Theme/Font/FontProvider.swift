@@ -37,7 +37,7 @@ extension StaticWrapper where T: UIFont {
     ///
     /// 字体调用收束
     @inline(__always)
-    public func create(_ name: String? = nil, size: CGFloat, weight: UIFont.Weight = .regular) -> UIFont {
+    public func create(_ size: CGFloat, weight: UIFont.Weight = .regular, name: String? = nil) -> UIFont {
         return DTB.Providers.get(DTB.Providers.fontKey)?.create(
             [
                 "name": name ?? "",

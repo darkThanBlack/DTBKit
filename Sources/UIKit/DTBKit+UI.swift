@@ -9,6 +9,8 @@
 //  Contact me: [GitHub](https://github.com/darkThanBlack)
 //
 
+@_exported import SnapKit
+
 extension DTB {
     
     /// UIKit constraints

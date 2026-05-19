@@ -18,11 +18,6 @@ extension DTB {
     
     /// LLDB Console, replacement for ``Swift.print``
     public static let console = ConsoleManager.shared
-    
-    /// Some features that require users to fully customize.
-    ///
-    /// 某些需要让开发者可以完全自定义的功能.
-    public enum Providers: DTB.ProviderRegister {}
 }
 
 //MARK: - Implementation

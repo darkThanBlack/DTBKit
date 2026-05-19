@@ -134,7 +134,7 @@ Supported. The `Package.swift` in the repository root is manually edited, but up
 
   ```swift
   // Create custom font.
-  UILabel().font = .dtb.create("Lora", size: 10)
+  UILabel().font = .dtb.create(10, name: "Lora")
   let frame = CGRect.dtb.create(8.0, 12.0, 20.0, 20.0)
   
   // Creator for special dict.

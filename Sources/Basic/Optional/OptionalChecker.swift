@@ -23,7 +23,7 @@ extension DTB {
     }
     
     /// For number
-    public protocol NumberCheckable: EmptyCheckable {
+    public protocol NumberEmptyCheckable: EmptyCheckable {
         
         /// 0
         static func dtb_zeroValue() -> Self
@@ -74,19 +74,19 @@ extension DTB {
         
         /// return true when value is nil / nan / infinite / zero.
         @inline(__always)
-        public func isEmptyOrZero<E>(_ value: E?) -> Bool where E: DTB.NumberCheckable {
+        public func isEmptyOrZero<E>(_ value: E?) -> Bool where E: DTB.NumberEmptyCheckable {
             return !isNotEmptyOrZero(value)
         }
         
         /// return false when value is nil / nan / infinite / zero.
         @inline(__always)
-        public func isNotEmptyOrZero<E>(_ value: E?) -> Bool where E: DTB.NumberCheckable {
+        public func isNotEmptyOrZero<E>(_ value: E?) -> Bool where E: DTB.NumberEmptyCheckable {
             return (value?.dtb_isFinite() == true) && (value?.dtb_isZero() == false)
         }
         
         /// return ``dtb_zeroValue`` when value is nil / nan / infinite.
         @inline(__always)
-        public func orZero<E>(_ value: E?) -> E where E: DTB.NumberCheckable {
+        public func orZero<E>(_ value: E?) -> E where E: DTB.NumberEmptyCheckable {
             return orEmpty(value)
         }
         
@@ -94,13 +94,13 @@ extension DTB {
         
         /// isPositive: return true when value is not invalid and > 0
         @inline(__always)
-        public func isPositive<E>(_ value: E?) -> Bool where E: DTB.NumberCheckable {
+        public func isPositive<E>(_ value: E?) -> Bool where E: DTB.NumberEmptyCheckable {
             return isNotEmptyOrZero(value) && (value?.dtb_isPositive() == true)
         }
         
         /// isNegative: return true when value is not invalid and < 0
         @inline(__always)
-        public func isNegative<E>(_ value: E?) -> Bool where E: DTB.NumberCheckable {
+        public func isNegative<E>(_ value: E?) -> Bool where E: DTB.NumberEmptyCheckable {
             return isNotEmptyOrZero(value) && (value?.dtb_isNegative() == true)
         }
     }

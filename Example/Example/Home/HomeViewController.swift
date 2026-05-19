@@ -217,7 +217,7 @@ extension HomeViewController: UITableViewDelegate {
             return
         }
         
-        DTB.console.fail()
+        DTB.console.assert()
     }
     
 }

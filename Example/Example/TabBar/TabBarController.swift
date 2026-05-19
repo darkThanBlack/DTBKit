@@ -155,11 +155,11 @@ public class TabBarController: UITabBarController {
                 
                 nav.tabBarItem.setTitleTextAttributes([
                     .foregroundColor: color.unSelectColor,
-                    .font: UIFont.dtb.create("Lora", size: 10)
+                    .font: UIFont.dtb.create(10, name: "Lora")
                 ], for: .normal)
                 nav.tabBarItem.setTitleTextAttributes([
                     .foregroundColor: color.selectedColor,
-                    .font: UIFont.dtb.create("Lora", size: 10)
+                    .font: UIFont.dtb.create(10, name: "Lora")
                 ], for: .selected)
                 return nav
             }

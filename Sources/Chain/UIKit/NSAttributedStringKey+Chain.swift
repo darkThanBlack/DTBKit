@@ -30,14 +30,14 @@ extension MutableWrapper where Base == Dictionary<NSAttributedString.Key, Any> {
     
     @inline(__always)
     @discardableResult
-    public func font(_ value: UIFont) -> Self {
+    public func font(_ value: UIFont?) -> Self {
         me[.font] = value
         return self
     }
     
     @inline(__always)
     @discardableResult
-    public func paragraphStyle(_ value: NSParagraphStyle) -> Self {
+    public func paragraphStyle(_ value: NSParagraphStyle?) -> Self {
         me[.paragraphStyle] = value
         return self
     }
@@ -58,14 +58,14 @@ extension MutableWrapper where Base == Dictionary<NSAttributedString.Key, Any> {
     
     @inline(__always)
     @discardableResult
-    public func ligature(_ value: Int) -> Self {
+    public func ligature(_ value: Int?) -> Self {
         me[.ligature] = value
         return self
     }
     
     @inline(__always)
     @discardableResult
-    public func kern(_ value: CGFloat) -> Self {
+    public func kern(_ value: CGFloat?) -> Self {
         me[.kern] = value
         return self
     }
@@ -73,21 +73,21 @@ extension MutableWrapper where Base == Dictionary<NSAttributedString.Key, Any> {
     @available(iOS 14.0, *)
     @inline(__always)
     @discardableResult
-    public func tracking(_ value: CGFloat) -> Self {
+    public func tracking(_ value: CGFloat?) -> Self {
         me[.tracking] = value
         return self
     }
     
     @inline(__always)
     @discardableResult
-    public func strikethroughStyle(_ value: Int) -> Self {
+    public func strikethroughStyle(_ value: Int?) -> Self {
         me[.strikethroughStyle] = value
         return self
     }
     
     @inline(__always)
     @discardableResult
-    public func underlineStyle(_ value: Int) -> Self {
+    public func underlineStyle(_ value: Int?) -> Self {
         me[.underlineStyle] = value
         return self
     }
@@ -101,7 +101,7 @@ extension MutableWrapper where Base == Dictionary<NSAttributedString.Key, Any> {
     
     @inline(__always)
     @discardableResult
-    public func strokeWidth(_ value: CGFloat) -> Self {
+    public func strokeWidth(_ value: CGFloat?) -> Self {
         me[.strokeWidth] = value
         return self
     }
@@ -143,7 +143,7 @@ extension MutableWrapper where Base == Dictionary<NSAttributedString.Key, Any> {
     
     @inline(__always)
     @discardableResult
-    public func baselineOffset(_ value: CGFloat) -> Self {
+    public func baselineOffset(_ value: CGFloat?) -> Self {
         me[.baselineOffset] = value
         return self
     }
@@ -164,7 +164,7 @@ extension MutableWrapper where Base == Dictionary<NSAttributedString.Key, Any> {
     
     @inline(__always)
     @discardableResult
-    public func obliqueness(_ value: CGFloat) -> Self {
+    public func obliqueness(_ value: CGFloat?) -> Self {
         me[.obliqueness] = value
         return self
     }

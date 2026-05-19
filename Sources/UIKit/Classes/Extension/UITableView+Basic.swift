@@ -71,7 +71,7 @@ extension Wrapper where Base: UITableView {
         if let cell = me.dequeueReusableCell(withIdentifier: String(describing: T.self), for: indexPath) as? T {
             return cell
         }
-        DTB.console.fail()
+        DTB.console.assert()
         return T()
     }
     
@@ -89,7 +89,7 @@ extension Wrapper where Base: UITableView {
         if let view = me.dequeueReusableHeaderFooterView(withIdentifier: String(describing: T.self)) as? T {
             return view
         }
-        DTB.console.fail()
+        DTB.console.assert()
         return T()
     }
 }

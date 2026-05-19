@@ -17,7 +17,17 @@ extension DTB.ColorManager: DTB.Providers.ColorProvider {
     /// 实现 ColorProvider 协议
     @inline(__always)
     public func create(_ param: Any?) -> UIColor {
-        return query(param as? String ?? "") ?? .black
+        if let key = param as? String, let result = query(key) {
+            return result
+        }
+        DTB.console.error("missing color key=\(param ?? "")")
+        if let hex = param as? String {
+            return .dtb.hex(hex)
+        }
+        if let i = param as? Int64 {
+            return .dtb.hex(i)
+        }
+        return .clear
     }
 }
 
@@ -66,7 +76,7 @@ extension DTB {
                     return "dark"
                 }
                 if style.lowercased() == "light" {
-                    return  "light"
+                    return "light"
                 }
             }
             console.error("system color key not found.")
@@ -98,7 +108,6 @@ extension DTB {
             mapper.removeAll()
             
             guard let key = currentKey ?? systemColorKey() else {
-                
                 console.error("color key is nil")
                 return
             }
@@ -115,9 +124,7 @@ extension DTB {
             }
             
             dict.forEach { key, hexString in
-                if let color = UIColor.dtb.hex(hexString) {
-                    self.mapper[key] = color
-                }
+                self.mapper[key] = UIColor.dtb.hex(hexString)
             }
         }
         

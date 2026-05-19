@@ -14,6 +14,7 @@ import UIKit
 extension StaticWrapper where T: UIColor {
     
     /// 0xRRGGBB
+    @inline(__always)
     public func hex(_ value: Int64, alpha: CGFloat = 1.0) -> UIColor {
         return UIColor(
             red: CGFloat((value & 0xFF0000) >> 16) / 255.0,
@@ -24,18 +25,21 @@ extension StaticWrapper where T: UIColor {
     }
     
     /// RRGGBB / "#RRGGBB" / "0xRRGGBB"
-    public func hex(_ value: String?, alpha: CGFloat = 1.0) -> UIColor? {
+    @inline(__always)
+    public func hex(_ value: String?, alpha: CGFloat = 1.0) -> UIColor {
         guard let upper = value?.uppercased()
             .replacingOccurrences(of: "^#", with: "", options: .regularExpression)
             .replacingOccurrences(of: "^0X", with: "", options: .regularExpression),
               upper.count == 6 else {
-            return nil
+            DTB.console.error(value)
+            return .clear
         }
         
         guard let r = Int(upper.prefix(2), radix: 16),
               let g = Int(upper.dropFirst(2).prefix(2), radix: 16),
               let b = Int(upper.dropFirst(4).prefix(2), radix: 16) else {
-            return nil
+            DTB.console.error(value)
+            return .clear
         }
         
         return UIColor(
@@ -47,6 +51,7 @@ extension StaticWrapper where T: UIColor {
     }
     
     /// 0xAARRGGBB
+    @inline(__always)
     public func hex(argb value: Int64) -> UIColor {
         return UIColor(
             red: CGFloat((value & 0x00FF0000) >> 16) / 255.0,
@@ -57,19 +62,22 @@ extension StaticWrapper where T: UIColor {
     }
     
     /// AARRGGBB / "#AARRGGBB" / "0xAARRGGBB"
-    public func hex(argb value: String?) -> UIColor? {
+    @inline(__always)
+    public func hex(argb value: String?) -> UIColor {
         guard let upper = value?.uppercased()
             .replacingOccurrences(of: "^#", with: "", options: .regularExpression)
             .replacingOccurrences(of: "^0X", with: "", options: .regularExpression),
               upper.count == 8 else {
-            return nil
+            DTB.console.error(value)
+            return .clear
         }
         
         guard let a = Int(upper.prefix(2), radix: 16),
               let r = Int(upper.dropFirst(2).prefix(2), radix: 16),
               let g = Int(upper.dropFirst(4).prefix(2), radix: 16),
               let b = Int(upper.dropFirst(6).prefix(2), radix: 16) else {
-            return nil
+            DTB.console.error(value)
+            return .clear
         }
         
         return UIColor(
@@ -81,6 +89,7 @@ extension StaticWrapper where T: UIColor {
     }
     
     /// 0xRRGGBBAA
+    @inline(__always)
     public func hex(rgba value: Int64) -> UIColor {
         return UIColor(
             red: CGFloat((value & 0xFF000000) >> 24) / 255.0,
@@ -91,19 +100,22 @@ extension StaticWrapper where T: UIColor {
     }
     
     /// RRGGBBAA / "#RRGGBBAA" / "0xRRGGBBAA"
-    public func hex(rgba value: String?) -> UIColor? {
+    @inline(__always)
+    public func hex(rgba value: String?) -> UIColor {
         guard let upper = value?.uppercased()
             .replacingOccurrences(of: "^#", with: "", options: .regularExpression)
             .replacingOccurrences(of: "^0X", with: "", options: .regularExpression),
               upper.count == 8 else {
-            return nil
+            DTB.console.error(value)
+            return .clear
         }
         
         guard let r = Int(upper.prefix(2), radix: 16),
               let g = Int(upper.dropFirst(2).prefix(2), radix: 16),
               let b = Int(upper.dropFirst(4).prefix(2), radix: 16),
               let a = Int(upper.dropFirst(6).prefix(2), radix: 16) else {
-            return nil
+            DTB.console.error(value)
+            return .clear
         }
         
         return UIColor(
