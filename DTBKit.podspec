@@ -53,6 +53,11 @@ DESC
     end
   end
   
+  s.subspec 'Map' do |ss|
+    ss.source_files = 'Sources/Map/**/*'
+    ss.dependency 'DTBKit/Basic'
+  end
+  
   s.subspec 'UIKit' do |ss|
     ss.source_files = 'Sources/UIKit/**/*'
 #    ss.resource_bundles = {
@@ -62,11 +67,9 @@ DESC
     
     ss.dependency 'SnapKit', '~> 4.0.0'
     ss.dependency 'Toast-Swift', '~> 5.0.0'
-  end
-  
-  s.subspec 'Map' do |ss|
-    ss.source_files = 'Sources/Map/**/*'
-    ss.dependency 'DTBKit/Basic'
+    ss.dependency 'MJRefresh'
+    # :source => 'https://github.com/darkThanBlack/Specs.git'
+    ss.dependency 'WKWebViewJavascriptBridge', '~> 1.2.4'
   end
   
 #  s.subspec 'Stream' do |ss|
