@@ -16,17 +16,17 @@ extension DTB {
     
     public enum LayoutEventLazyFireTiming: String, CaseIterable {
         /// ``didMoveToSuperview``
-        case onAdded
+        case onDidMoveToSuperview
         /// ``layoutSubviews``
-        case onLayout
+        case onLayoutSubviews
     }
     
-    /// Use ``Self`` to lock in ``final`` class.
+    /// ~~Use ``Self`` to lock in ``final`` class.~~
     ///
-    /// Reason: if some subview override layoutSubviews and do some business code, trigger in superview func is too early.
+    /// ~~Reason: if some subview override layoutSubviews and do some business code, trigger in superview func is too early.~~
     public protocol LayoutEventLazyFireable: UIView {
         
-        var lazyLayoutEventsPool_: [DTB.LayoutEventLazyFireTiming: [(Self) -> ()]] { set get }
+        var lazyLayoutEventsPool_: [DTB.LayoutEventLazyFireTiming: [(UIView) -> ()]] { set get }
         
         /// Must be call on layoutSubviews
         func lazyLayoutsWhenLayoutSubviews_()
@@ -35,7 +35,7 @@ extension DTB {
         func lazyLayoutsWhenDidMoveToSuperview_()
         
         /// Wait for a timed event to trigger all events. FIFO.
-        func lazyFire(_ type: DTB.LayoutEventLazyFireTiming, eventHandler: @escaping ((Self) -> ()))
+        func lazyFire(_ type: DTB.LayoutEventLazyFireTiming, eventHandler: @escaping ((UIView) -> ()))
     }
 }
 
@@ -47,21 +47,21 @@ public extension DTB.LayoutEventLazyFireable {
     ///   ``eventHandler`` param is same as ``self`` to avoid circular references.
     ///   ```
     ///     let view = DTB.Container()
-    ///     view.lazyFire(.onAdded) { v in
+    ///     view.lazyFire(.onDidMoveToSuperview) { v in
     ///         // **NO**
     ///         view.backgroundColor = .yellow
     ///         // **YES**
     ///         v.backgroundColor = .yellow
     ///     }
     ///
-    func lazyFire(_ type: DTB.LayoutEventLazyFireTiming = .onLayout, eventHandler: @escaping ((Self) -> ())) {
+    func lazyFire(_ type: DTB.LayoutEventLazyFireTiming = .onLayoutSubviews, eventHandler: @escaping ((UIView) -> ())) {
         switch type {
-        case .onAdded:
+        case .onDidMoveToSuperview:
             if superview != nil {
                 eventHandler(self)
                 return
             }
-        case .onLayout:
+        case .onLayoutSubviews:
             if bounds.isEmpty == false {
                 eventHandler(self)
                 return
@@ -83,9 +83,9 @@ public extension DTB.LayoutEventLazyFireable {
     
     func lazyLayoutsWhenDidMoveToSuperview_() {
         if superview != nil {
-            fireEvents(by: .onAdded)
+            fireEvents(by: .onDidMoveToSuperview)
         } else {
-            clearEvents(by: .onAdded)
+            clearEvents(by: .onDidMoveToSuperview)
         }
     }
     
@@ -93,7 +93,7 @@ public extension DTB.LayoutEventLazyFireable {
         guard bounds.isEmpty == false else {
             return
         }
-        fireEvents(by: .onLayout)
+        fireEvents(by: .onLayoutSubviews)
     }
     
     private func clearEvents(by type: DTB.LayoutEventLazyFireTiming) {

@@ -16,21 +16,21 @@ extension DTB {
     
     ///
     @objc(DTBBaseView)
-    open class BaseView: UIView {
+    open class BaseView: UIView, DTB.LayoutEventLazyFireable {
         
-//        var lazyLayoutEventsPool_: [DTB.LayoutEventLazyFireTiming : [(Self) -> ()]] = [:]
-//        
-//        open override func didMoveToSuperview() {
-//            super.didMoveToSuperview()
-//            
-//            lazyLayoutsWhenDidMoveToSuperview_()
-//        }
-//        
-//        open override func layoutSubviews() {
-//            super.layoutSubviews()
-//            
-//            lazyLayoutsWhenLayoutSubviews_()
-//        }
+        public var lazyLayoutEventsPool_: [DTB.LayoutEventLazyFireTiming : [(UIView) -> ()]] = [:]
+        
+        open override func didMoveToSuperview() {
+            super.didMoveToSuperview()
+            
+            lazyLayoutsWhenDidMoveToSuperview_()
+        }
+        
+        open override func layoutSubviews() {
+            super.layoutSubviews()
+            
+            lazyLayoutsWhenLayoutSubviews_()
+        }
         
     }
     

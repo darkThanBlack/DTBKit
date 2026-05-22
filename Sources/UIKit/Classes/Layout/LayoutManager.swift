@@ -51,7 +51,7 @@ public final class LayoutManager {
     @inline(__always)
     public func sizedBox(width: CGFloat? = nil, height: CGFloat? = nil) -> DTB.Container {
         let view = DTB.Container()
-        view.lazyFire(.onAdded) { v in
+        view.lazyFire(.onDidMoveToSuperview) { v in
             v.translatesAutoresizingMaskIntoConstraints = false
             if let w = width, w > 0 {
                 v.widthAnchor.constraint(equalToConstant: w).isActive = true
