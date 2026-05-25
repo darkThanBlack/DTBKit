@@ -14,6 +14,30 @@ import UIKit
 extension DTB {
     
     ///
+    public protocol TabBarData {
+        
+        var backgroundColor: UIColor { get }
+        
+        var unSelectTintColor: UIColor { get }
+        
+        var selectedTintColor: UIColor { get }
+    }
+    
+    ///
+    public protocol TabBarItemData {
+        
+        var rootViewController: UIViewController { get }
+        
+        var title: String? { get }
+        
+        var image: UIImage?  { get }
+        
+        var selectedImage: UIImage?  { get }
+        
+        var font: UIFont?  { get }
+    }
+    
+    ///
     public protocol CustomTabBarProvider: UIView {
         
         /// 在 vc 内的布局
@@ -28,9 +52,9 @@ extension DTB {
         /// 用户事件
         func userDidSelectItem(_ handler: ((_ index: Int) -> ())?)
         
-        func updateConfig(_ data: TabBarDatas)
+        func updateConfig(_ data: TabBarData)
         
-        func updateItems(_ items: [TabBarItemDatas])
+        func updateItems(_ items: [TabBarItemData])
     }
     
     /// Use custom (TabBar + TabBarItem + navigation)
@@ -86,18 +110,18 @@ extension DTB {
         }
         
         /// 传递给自定义的 TabBar
-        public func setupTabBar(_ data: TabBarDatas) {
+        public func setupTabBar(_ data: TabBarData) {
             self.customTabBar.updateConfig(data)
         }
         
         ///
-        public func setupTabBarItems(_ items: [TabBarItemDatas]) {
+        public func setupTabBarItems(_ items: [TabBarItemData]) {
             self.customTabBar.updateItems(items)
             self.viewControllers = items.compactMap({ getNavigationController(by: $0) })
         }
         
         ///
-        private func getNavigationController(by item: TabBarItemDatas) -> UINavigationController {
+        private func getNavigationController(by item: TabBarItemData) -> UINavigationController {
             let nav = CustomNavigationController(rootViewController: item.rootViewController)
             // Always hide original bottom bar
             item.rootViewController.hidesBottomBarWhenPushed = true

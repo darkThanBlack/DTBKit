@@ -16,18 +16,12 @@ extension DTB.ColorManager: DTB.Providers.ColorProvider {
     
     /// 实现 ColorProvider 协议
     @inline(__always)
-    public func create(_ param: Any?) -> UIColor {
+    public func create(_ param: Any?) -> UIColor? {
         if let key = param as? String, let result = query(key) {
             return result
         }
         DTB.console.error("missing color key=\(param ?? "")")
-        if let hex = param as? String {
-            return .dtb.hex(hex)
-        }
-        if let i = param as? Int64 {
-            return .dtb.hex(i)
-        }
-        return .clear
+        return nil
     }
 }
 

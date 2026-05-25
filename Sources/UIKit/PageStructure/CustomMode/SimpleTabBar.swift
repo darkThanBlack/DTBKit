@@ -135,13 +135,13 @@ extension DTB {
             updateAppearance()
         }
         
-        public func updateConfig(_ data: DTB.TabBarDatas) {
+        public func updateConfig(_ data: DTB.TabBarData) {
             self.barData = data
             
             updateAppearance()
         }
         
-        public func updateItems(_ items: [DTB.TabBarItemDatas]) {
+        public func updateItems(_ items: [DTB.TabBarItemData]) {
             self.barItems = items
             
             // create item view if needed
@@ -167,8 +167,8 @@ extension DTB {
         private var selectedIndex: Int = 0
         private var selectedHandler: ((_ index: Int) -> ())?
         
-        private var barData: TabBarDatas? = nil
-        private var barItems: [DTB.TabBarItemDatas] = []
+        private var barData: TabBarData? = nil
+        private var barItems: [DTB.TabBarItemData] = []
         
         private func updateAppearance() {
             self.backgroundColor = barData?.backgroundColor

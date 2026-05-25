@@ -15,7 +15,7 @@ import UIKit
 extension DTB {
     
     /// Abstract protocol
-    public protocol CustomNavigationBarProvider: UIView {
+    public protocol CustomNavigationBar: UIView {
         
         associatedtype ConfigType
         
@@ -25,7 +25,7 @@ extension DTB {
     /// Abstract protocol
     public protocol CustomNavigationBarHandler: UIViewController {
         
-        associatedtype BarType: CustomNavigationBarProvider
+        associatedtype BarType: CustomNavigationBar
         
         var customNavigationBar: BarType { get }
         

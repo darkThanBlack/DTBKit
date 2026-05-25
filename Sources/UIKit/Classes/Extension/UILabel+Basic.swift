@@ -16,7 +16,7 @@ extension Wrapper where Base: UILabel {
     
     ///
     @discardableResult
-    public func hiddenWhenEmpty() -> Self {
+    public func hiddenWithEmptyText() -> Self {
         me.isHidden = {
             if let str = me.text, str.isEmpty == false {
                 return false

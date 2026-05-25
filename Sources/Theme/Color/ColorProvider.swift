@@ -19,18 +19,6 @@ extension DTB.Providers {
     ///
     public protocol ColorProvider {
         
-        func create(_ param: Any?) -> UIColor
-    }
-}
-
-
-extension StaticWrapper where T: UIColor {
-    
-    /// Create color with provider.
-    ///
-    /// 颜色调用收束
-    @inline(__always)
-    public func create(_ param: Any?) -> UIColor {
-        return DTB.Providers.get(DTB.Providers.colorKey)?.create(param) ?? .clear
+        func create(_ param: Any?) -> UIColor?
     }
 }

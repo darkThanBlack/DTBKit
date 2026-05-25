@@ -23,22 +23,3 @@ extension DTB.Providers {
         func create(format key: String, _ args: [String]) -> String
     }
 }
-
-extension StaticWrapper where T == String {
-    
-    /// Create string by provider.
-    ///
-    /// 字符串 调用收束
-    @inline(__always)
-    public func create(_ param: Any?) -> String {
-        return DTB.Providers.get(DTB.Providers.stringKey)?.create(param) ?? ""
-    }
-    
-    /// Create string by provider.
-    ///
-    /// 字符串 调用收束
-    @inline(__always)
-    public func create(format key: String, _ args: String...) -> String {
-        return DTB.Providers.get(DTB.Providers.stringKey)?.create(format: key, args) ?? ""
-    }
-}

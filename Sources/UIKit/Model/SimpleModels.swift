@@ -77,13 +77,21 @@ extension DTB {
         public var header: SimpleModel?
         
         public var footer: SimpleModel?
-
+        
         public var cells: [SimpleModel] = []
         
-        public init(header: SimpleModel? = nil, footer: SimpleModel? = nil, cells: [SimpleModel]) {
+        public var extra: [String: Any]? = nil
+        
+        public init(
+            cells: [SimpleModel],
+            header: SimpleModel? = nil,
+            footer: SimpleModel? = nil,
+            extra: [String : Any]? = nil
+        ) {
+            self.cells = cells
             self.header = header
             self.footer = footer
-            self.cells = cells
+            self.extra = extra
         }
     }
     

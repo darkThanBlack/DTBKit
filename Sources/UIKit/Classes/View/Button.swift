@@ -150,7 +150,7 @@ extension DTB {
             }
             imageView.image = match(images)
             
-            titleLabel.dtb.hiddenWhenEmpty()
+            titleLabel.dtb.hiddenWithEmptyText()
             imageView.isHidden = imageView.image == nil
         }
         

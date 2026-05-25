@@ -110,7 +110,7 @@ extension DTB {
     
     /// 纯原生页面导航
     @objc(DTBSimpleNavigationBar)
-    public class SimpleNavigationBar: UIView, CustomNavigationBarProvider {
+    public class SimpleNavigationBar: UIView, CustomNavigationBar {
         
         /// init with default value
         private var current: Config = Config(

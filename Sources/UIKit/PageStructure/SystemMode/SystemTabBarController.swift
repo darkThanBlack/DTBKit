@@ -31,7 +31,7 @@ extension DTB {
         }
         
         /// 处理原生 TabBar 常见问题
-        public func setupTabBar(_ data: TabBarDatas) {
+        public func setupTabBar(_ data: TabBarData) {
             tabBar.isHidden = false
             
             // < iOS 13.0
@@ -78,12 +78,12 @@ extension DTB {
         }
         
         ///
-        public func setupTabBarItems(_ items: [TabBarItemDatas]) {
+        public func setupTabBarItems(_ items: [TabBarItemData]) {
             self.viewControllers = items.compactMap({ getNavigationController(by: $0) })
         }
         
         ///
-        private func getNavigationController(by item: TabBarItemDatas) -> UINavigationController {
+        private func getNavigationController(by item: TabBarItemData) -> UINavigationController {
             let nav = SystemNavigationController(rootViewController: item.rootViewController)
             // Work with nav
             item.rootViewController.hidesBottomBarWhenPushed = false
@@ -92,7 +92,7 @@ extension DTB {
         }
         
         /// 创建系统 item
-        private func getBarItem(by item: TabBarItemDatas) -> UITabBarItem {
+        private func getBarItem(by item: TabBarItemData) -> UITabBarItem {
             let tabBarItem = UITabBarItem(
                 title: item.title,
                 image: item.image?.withRenderingMode(.alwaysTemplate),
