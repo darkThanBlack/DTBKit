@@ -14,55 +14,41 @@ import UIKit
 
 extension DTB {
     
-    public protocol CellData {
+    public protocol CellUI {
         
-        var auto: CellAutoData? { get }
+        var container: ContainerUI? { get }
         
-        var container: CellContainerData? { get }
-        
-        var separator: SeparatorData? { get }
-    }
-    
-    public protocol CellAutoData {
-        
-        /// 自动处理背景色
-        ///
-        /// true: 保持 contentView 的 背景色 与 tableView 一致
-        /// false: 根据 CellContainerData 控制
-        var autoBackgroundColor: Bool { get }
-        
-        /// 自动 separator 显示 / 隐藏
-        ///
-        /// true: 根据 IndexOrder 控制
-        /// false: 根据 SeparatorData == nil 控制
-        var autoSeparator: Bool { get }
-    }
-    
-    /// 自定义主容器
-    public protocol CellContainerData {
-        
-        var backgroundColor: UIColor? { get }
-        
-        /// 外间距
-        var insets: UIEdgeInsets { get }
+        var separator: SeparatorUI? { get }
     }
     
     /// 分隔线
-    public protocol SeparatorData {
+    public protocol SeparatorUI {
         
         var color: UIColor { get }
         
         var lineWidth: CGFloat { get }
         
+        /// 根据 IndexOrder 自动显示 // 隐藏
+        var autoHidden: Bool { get }
+        
         /// top 是和 container 的间距
-        var insets: UIEdgeInsets { get }
+        var margin: UIEdgeInsets { get }
     }
     
     /// 自定义容器 UI
-    public protocol ContainerUI: ShapeUI {
+    public protocol ContainerUI {
         
         /// 外间距
-        var insets: UIEdgeInsets { get }
+        var margin: UIEdgeInsets { get }
+        
+        /// 内间距 (子类实现)
+        var padding: UIEdgeInsets { get }
+        
+        /// 根据 IndexOrder 自动圆角
+        var autoCorners: Bool { get }
+        
+        ///
+        var shape: ShapeUI? { get }
     }
     
 //    ///
@@ -82,50 +68,69 @@ extension DTB {
     @objc(DTBCardTableViewCell)
     open class CardTableViewCell: UITableViewCell {
         
-        private var insets = UIEdgeInsets.zero
+        private lazy var margin = UIEdgeInsets(top: 8.0, left: 16.0, bottom: 8.0, right: 16.0)
         
-        open lazy var container = ShapeView()
+        private lazy var padding = UIEdgeInsets(top: 8.0, left: 16.0, bottom: 8.0, right: 16.0)
+
+        private lazy var shapeModel = DTB.ShapeStyle()
         
+        /// 卡片式背景
+        private lazy var card = ShapeView()
+        
+        /// 承载真正的业务内容
+        private lazy var container = UIView()
+        
+        /// 由子类重写, box 是 add 在 card 上的一个 container
         open func loadViews(in box: UIView) {}
         
-        open func updateUI(_ containerUI: ContainerUI?, indexOrder: DTB.IndexOrder? = nil) {
-            guard let ui = containerUI else { return }
+        open func updateUI(_ data: CellUI?, tableView: UITableView? = nil, indexPath: IndexPath? = nil) {
+            
             let autoCorners: UIRectCorner? = {
-                if let corners = ui.corners {
-                    return corners
+                guard let indexPath = indexPath,
+                      let indexOrder = tableView?.dtb.indexOrder(indexPath) else {
+                    return [.allCorners]
                 }
-                if let order = indexOrder {
-                    switch order {
-                    case .isMiddle:
-                        return []
-                    case .onlyOne:
-                        return [.topLeft, .topRight, .bottomRight, .bottomLeft]
-                    case .isFirst:
-                        return [.topLeft, .topRight]
-                    case .isLast:
-                        return [.bottomLeft, .bottomRight]
-                    }
+                switch indexOrder {
+                case .isMiddle:
+                    return []
+                case .onlyOne:
+                    return [.topLeft, .topRight, .bottomRight, .bottomLeft]
+                case .isFirst:
+                    return [.topLeft, .topRight]
+                case .isLast:
+                    return [.bottomLeft, .bottomRight]
                 }
-                return nil
             }()
-            var config = DTB.ShapeConfig(ui: ui)
-            config.corners = autoCorners
-            container.update(config)
-            if self.insets != ui.insets {
-                self.insets = ui.insets
-                container.snp.updateConstraints { make in
-                    make.edges.equalToSuperview().inset(self.insets)
+            // 默认自动圆角
+            shapeModel.corners = autoCorners
+            
+            guard let ui = data?.container else { return }
+            
+            if self.margin != ui.margin {
+                self.margin = ui.margin
+                card.snp.updateConstraints { make in
+                    make.edges.equalToSuperview().inset(self.margin)
                 }
             }
+            
+            shapeModel.update(ui.shape)
+            shapeModel.corners = ui.autoCorners ? autoCorners : ui.shape?.corners
+            card.update(shapeModel)
         }
         
         public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
             self.selectionStyle = .none
             
-            contentView.addSubview(container)
+            contentView.addSubview(card)
+            card.addSubview(container)
+            card.update(shapeModel)
+            
+            card.snp.makeConstraints { make in
+                make.edges.equalToSuperview().inset(self.margin)
+            }
             container.snp.makeConstraints { make in
-                make.edges.equalToSuperview().inset(self.insets)
+                make.edges.equalToSuperview().inset(self.padding)
             }
             
             loadViews(in: container)

@@ -30,8 +30,8 @@ extension DTB {
 extension Wrapper where Base: UITableView {
     
     /// 判断 cell 在 section 中的位置
-    public func indexOrder(_ indexPath: IndexPath, from tableView: UITableView) -> DTB.IndexOrder {
-        let count = tableView.numberOfRows(inSection: indexPath.section)
+    public func indexOrder(_ indexPath: IndexPath) -> DTB.IndexOrder {
+        let count = me.numberOfRows(inSection: indexPath.section)
         if count < 2 {
             return .onlyOne
         }

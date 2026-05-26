@@ -9,6 +9,10 @@
 //  Contact me: [GitHub](https://github.com/darkThanBlack)
 //
 
+extension DTB.SimpleModel: DTB.HintData {}
+
+extension DTB.SimpleModel: DTB.OLHintData {}
+
 extension DTB {
     
     /// For simple business data | 提供了一些常见字段用于简单业务处理
@@ -16,7 +20,7 @@ extension DTB {
         
         public var primaryKey: String?
         
-        public var icon: UIImage?
+        public var icon: ImageData?
         
         public var title: String?
         
@@ -24,11 +28,13 @@ extension DTB {
         
         public var desc: String?
         
-        public var tag: String?
+        public var tags: [String]?
         
         public var titleAttr: NSAttributedString?
         
         public var detailAttr: NSAttributedString?
+        
+        public var showArrow: Bool?
         
         public var jumpable: Bool?
         
@@ -42,13 +48,14 @@ extension DTB {
         
         public init(
             primaryKey: String? = nil,
-            icon: UIImage? = nil,
+            icon: ImageData? = nil,
             title: String? = nil,
             detail: String? = nil,
             desc: String? = nil,
-            tag: String? = nil,
+            tags: [String]? = nil,
             titleAttr: NSAttributedString? = nil,
             detailAttr: NSAttributedString? = nil,
+            showArrow: Bool? = nil,
             jumpable: Bool? = nil,
             selectable: Bool? = nil,
             isSelected: Bool? = nil,
@@ -60,37 +67,14 @@ extension DTB {
             self.title = title
             self.detail = detail
             self.desc = desc
-            self.tag = tag
+            self.tags = tags
             self.titleAttr = titleAttr
             self.detailAttr = detailAttr
+            self.showArrow = showArrow
             self.jumpable = jumpable
             self.selectable = selectable
             self.isSelected = isSelected
             self.editable = editable
-            self.extra = extra
-        }
-    }
-    
-    /// For simple table list | 提供了一个简单的 UITableView/UICollectionView 数据模型
-    public final class SimpleSectionModel {
-        
-        public var header: SimpleModel?
-        
-        public var footer: SimpleModel?
-        
-        public var cells: [SimpleModel] = []
-        
-        public var extra: [String: Any]? = nil
-        
-        public init(
-            cells: [SimpleModel],
-            header: SimpleModel? = nil,
-            footer: SimpleModel? = nil,
-            extra: [String : Any]? = nil
-        ) {
-            self.cells = cells
-            self.header = header
-            self.footer = footer
             self.extra = extra
         }
     }

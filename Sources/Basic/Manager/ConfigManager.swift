@@ -39,11 +39,6 @@ extension DTB {
         /// More detail: ``HighFidelity+Basic.swift``
         public private(set) var designBaseSize: CGSize
         
-        /// 在 bundle 里按 name 搜索图片时，按照这个 type 参数依次搜索
-        ///
-        /// More detail: ``UIImage.dtb.create()``
-        public private(set) var supportImageTypes: [String]
-        
         // MARK: - Decimal
         
         /// Default roundingMode: plain, scale: 15
@@ -86,7 +81,6 @@ extension DTB {
             }()
             
             let designBaseSize = CGSize(width: 375.0, height: 667.0)
-            let supportImageTypes = ["png", "jpg", "webp", "jpeg"]
             
             let timeZone = TimeZone(identifier: "Asia/Shanghai") ?? TimeZone(secondsFromGMT: 8 * 3600) ?? TimeZone.current
             let locale = Locale(identifier: "zh-CN")
@@ -111,7 +105,6 @@ extension DTB {
             }()
             
             self.designBaseSize = designBaseSize
-            self.supportImageTypes = supportImageTypes
             self.decimalBehavior = decimalBehavior
             self.timeZone = timeZone
             self.locale = locale
@@ -130,10 +123,6 @@ extension DTB.ConfigManager {
     
     public func setDesignBaseSize(_ value: CGSize) {
         self.designBaseSize = value
-    }
-    
-    public func setSupportImageTypes(_ value: [String]) {
-        self.supportImageTypes = value
     }
     
     /// 全局时间设置

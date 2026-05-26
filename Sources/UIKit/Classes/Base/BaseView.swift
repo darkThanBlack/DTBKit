@@ -29,6 +29,9 @@ extension DTB {
         open override func layoutSubviews() {
             super.layoutSubviews()
             
+            // 过滤掉系统的无效触发
+            guard bounds.isEmpty == false else { return }
+
             lazyLayoutsWhenLayoutSubviews_()
         }
         
