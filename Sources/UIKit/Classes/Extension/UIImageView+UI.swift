@@ -23,6 +23,17 @@ import SDWebImage
 extension Wrapper where Base: UIImageView {
     
     @discardableResult
+    public func hiddenWithEmptyImage() -> Self {
+        me.isHidden = {
+            if me.image != nil { return false }
+            if me.highlightedImage != nil { return false }
+            if me.animationImages != nil { return false }
+            return true
+        }()
+        return self
+    }
+    
+    @discardableResult
     public func setImageData(_ data: DTB.ImageData?) -> Self {
         if let image = data?.image {
             me.image = image
@@ -48,4 +59,6 @@ extension Wrapper where Base: UIImageView {
         }
         return self
     }
+    
+    
 }

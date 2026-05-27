@@ -14,12 +14,15 @@ import UIKit
 
 extension DTB {
     
-    /// Mirror params for CAShapeLayer
-    public struct ShapeStyle: ShapeUI {
+    /// CAShapeLayer
+    public struct ShapeStyle: Equatable {
+        
+        /// view.height * [0, 1]
+        public var radiusHeightPrecent: CGFloat?
         
         public var corners: UIRectCorner?
         
-        public var radii: CGFloat?
+        public var radius: CGFloat?
         
         public var fillColor: UIColor?
         
@@ -44,9 +47,10 @@ extension DTB {
         public var lineDashPattern: [NSNumber]? = nil
         
         public init(
-            corners: UIRectCorner? = [.allCorners],
-            radii: CGFloat? = 8.0,
-            fillColor: UIColor? = .white,
+            radiusHeightPrecent: CGFloat? = nil,
+            corners: UIRectCorner? = nil,
+            radius: CGFloat? = nil,
+            fillColor: UIColor? = nil,
             strokeColor: UIColor? = nil,
             strokeStart: CGFloat = 0.0,
             strokeEnd: CGFloat = 1.0,
@@ -58,8 +62,9 @@ extension DTB {
             lineDashPhase: CGFloat = 0.0,
             lineDashPattern: [NSNumber]? = nil
         ) {
+            self.radiusHeightPrecent = radiusHeightPrecent
             self.corners = corners
-            self.radii = radii
+            self.radius = radius
             self.fillColor = fillColor
             self.strokeColor = strokeColor
             self.strokeStart = strokeStart
@@ -71,23 +76,6 @@ extension DTB {
             self.lineJoin = lineJoin
             self.lineDashPhase = lineDashPhase
             self.lineDashPattern = lineDashPattern
-        }
-        
-        public mutating func update(_ ui: ShapeUI?) {
-            guard let ui = ui else { return }
-            self.corners =          ui.corners
-            self.radii =            ui.radii
-            self.fillColor =        ui.fillColor
-            self.strokeColor =      ui.strokeColor
-            self.strokeStart =      ui.strokeStart
-            self.strokeEnd =        ui.strokeEnd
-            self.lineWidth =        ui.lineWidth
-            self.miterLimit =       ui.miterLimit
-            self.fillRule =         ui.fillRule
-            self.lineCap =          ui.lineCap
-            self.lineJoin =         ui.lineJoin
-            self.lineDashPhase =    ui.lineDashPhase
-            self.lineDashPattern =  ui.lineDashPattern
         }
     }
 }

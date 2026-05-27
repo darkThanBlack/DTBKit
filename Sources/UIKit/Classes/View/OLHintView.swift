@@ -29,6 +29,7 @@ extension DTB {
         public func updateData(_ data: OLHintData?) {
             iconImageView.dtb
                 .setImageData(data?.icon)
+                .hiddenWithEmptyImage()
             
             titleLabel.dtb
                 .text(data?.title)
@@ -68,7 +69,7 @@ extension DTB {
             ])
             stacks.axis = .horizontal
             stacks.alignment = .center
-            stacks.distribution = .equalSpacing
+            stacks.distribution = .fill
             stacks.spacing = 4.0
             return stacks
         }()
@@ -81,6 +82,7 @@ extension DTB {
         
         private lazy var rightArrow = UIImageView().dtb
             .image(.dtb.create("chevron.right"))
+            .tintColor(.dtb.create("#333333"))
             .value
     }
     

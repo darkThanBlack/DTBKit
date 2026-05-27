@@ -112,6 +112,7 @@ extension DTB {
         private lazy var detailLabel = UILabel().dtb.textStyle("c2").value
         
         private lazy var rightArrow = UIImageView().dtb
+            .tintColor(.dtb.create("#333333"))
             .image(.dtb.create("chevron.right"))
             .value
     }

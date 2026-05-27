@@ -14,15 +14,12 @@ import UIKit
 
 extension DTB {
     
-    public struct CellStyle: CellUI {
+    public struct CellStyle: Equatable {
         
-        public var container: (any DTB.ContainerUI)?
+        public var container: ContainerStyle?
         
-        public var separator: (any DTB.SeparatorUI)?
-        
-        public init(container: (any DTB.ContainerUI)? = nil, separator: (any DTB.SeparatorUI)? = nil) {
+        public init(container: ContainerStyle? = nil) {
             self.container = container
-            self.separator = separator
         }
     }
 }

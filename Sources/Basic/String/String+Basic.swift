@@ -41,6 +41,14 @@ extension Wrapper where Base == String {
         return me.utf16.count
     }
     
+    @inline(__always)
+    public func last() -> Self? {
+        if let last = me.last {
+            return String(last).dtb
+        }
+        return nil
+    }
+    
     /// 是否为空
     @inline(__always)
     public func isEmpty() -> Bool {
