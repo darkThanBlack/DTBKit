@@ -14,20 +14,6 @@ import UIKit
 
 extension DTB {
     
-    /// 分隔线
-    public protocol SeparatorUI {
-        
-        var color: UIColor { get }
-        
-        var lineWidth: CGFloat { get }
-        
-        /// 根据 IndexOrder 自动显示 / 隐藏
-        var autoHidden: Bool { get }
-        
-        /// top 是和 container 的间距
-        var margin: UIEdgeInsets { get }
-    }
-    
     ///
     @objc(DTBBaseTableViewCell)
     open class BaseTableViewCell: UITableViewCell {

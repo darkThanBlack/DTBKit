@@ -14,6 +14,8 @@ import UIKit
 
 extension DTB {
     
+    public protocol 
+    
     /// view with simple CAShapeLayer
     @objc(DTBShapeView)
     public final class ShapeView: BaseView {
