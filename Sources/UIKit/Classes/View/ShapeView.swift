@@ -14,8 +14,6 @@ import UIKit
 
 extension DTB {
     
-    public protocol 
-    
     /// view with simple CAShapeLayer
     @objc(DTBShapeView)
     public final class ShapeView: BaseView {
@@ -35,25 +33,36 @@ extension DTB {
             shape.isHidden = false
             
             shape.fillColor =       ui.fillColor?.cgColor
-            shape.fillRule =        ui.fillRule
+            shape.fillRule =        ui.fillRule ?? .nonZero
             shape.strokeColor =     ui.strokeColor?.cgColor
-            shape.strokeStart =     ui.strokeStart
-            shape.strokeEnd =       ui.strokeEnd
-            shape.lineWidth =       ui.lineWidth
-            shape.miterLimit =      ui.miterLimit
-            shape.lineCap =         ui.lineCap
-            shape.lineJoin =        ui.lineJoin
-            shape.lineDashPhase =   ui.lineDashPhase
+            shape.strokeStart =     ui.strokeStart ?? 0.0
+            shape.strokeEnd =       ui.strokeEnd ?? 1.0
+            shape.lineWidth =       ui.lineWidth ?? 0.0
+            shape.miterLimit =      ui.miterLimit ?? 10.0
+            shape.lineCap =         ui.lineCap ?? .round
+            shape.lineJoin =        ui.lineJoin ?? .round
+            shape.lineDashPhase =   ui.lineDashPhase ?? 0.0
             shape.lineDashPattern = ui.lineDashPattern
             
             lazyFire(.onLayoutSubviews) { v in
                 guard let me = v as? Self else { return }
-                guard let corners = ui.corners else { return }
-                let cornerRadii = {
-                    if let radius = ui.radius {
+                
+                // 自定义路径
+                if let path = ui.path {
+                    me.shape.path = path
+                    return
+                }
+                
+                // 构建圆角
+                guard let roundCorners = ui.roundCorners else { return }
+                let roundRadii = {
+                    if let radii = ui.roundRadii {
+                        return radii
+                    }
+                    if let radius = ui.roundRadius {
                         return CGSize(width: radius, height: radius)
                     }
-                    if let p = ui.radiusHeightPrecent {
+                    if let p = ui.roundRadiusHeightPrecent {
                         return CGSize(width: me.bounds.height * p, height: me.bounds.height * p)
                     }
                     return CGSize.zero
@@ -61,8 +70,8 @@ extension DTB {
                 
                 me.shape.path = UIBezierPath(
                     roundedRect: me.bounds,
-                    byRoundingCorners: corners,
-                    cornerRadii: cornerRadii
+                    byRoundingCorners: roundCorners,
+                    cornerRadii: roundRadii
                 ).cgPath
             }
         }

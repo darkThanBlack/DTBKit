@@ -1,5 +1,5 @@
 //
-//  OLHintTableViewCell.swift
+//  LTRHintTableViewCell.swift
 //  DTBKit
 //
 //  Created by moonShadow on 2026/5/26
@@ -14,13 +14,15 @@ import UIKit
 
 extension DTB {
     
-    @objc(DTBOLHintTableViewCell)
-    public final class OLHintTableViewCell: CardTableViewCell {
+    @objc(DTBLTRHintTableViewCell)
+    public final class LTRHintTableViewCell: CardTableViewCell {
         
-        private lazy var hintView = OLHintView()
+        private lazy var hintView = LTRHintView()
         
-        public func updateData(_ data: OLHintData) {
-            hintView.updateData(data)
+        public override func update(_ model: CellModel?) {
+            super.update(model)
+            
+            hintView.updateData(model?.data)
         }
         
         public override func loadViews(in box: UIView) {

@@ -12,23 +12,38 @@
 
 import UIKit
 
+extension DTB.ContainerStyle {
+    
+    public static func card(_ indexOrder: DTB.IndexOrder = .isMiddle) -> DTB.ContainerStyle {
+        return DTB.ContainerStyle(
+            margin: UIEdgeInsets(top: 0.0, left: 16.0, bottom: 0.0, right: 16.0),
+            padding: UIEdgeInsets(top: 12.0, left: 16.0, bottom: 12.0, right: 16.0),
+            shape: DTB.ShapeStyle(
+                roundCorners: indexOrder.verticalCorners,
+                roundRadius: 12.0,
+                fillColor: .white,
+            )
+        )
+    }
+}
+
 extension DTB {
     
     /// 自定义容器
-    public struct ContainerStyle: Equatable {
+    public struct ContainerStyle {
         
         /// 外间距
-        public var margin: UIEdgeInsets
+        public var margin: UIEdgeInsets?
         
         /// 内间距
-        public var padding: UIEdgeInsets
+        public var padding: UIEdgeInsets?
         
         /// CAShapeLayer
         public var shape: ShapeStyle?
         
         public init(
-            margin: UIEdgeInsets = .zero,
-            padding: UIEdgeInsets = .zero,
+            margin: UIEdgeInsets? = nil,
+            padding: UIEdgeInsets? = nil,
             shape: ShapeStyle? = nil
         ) {
             self.margin = margin

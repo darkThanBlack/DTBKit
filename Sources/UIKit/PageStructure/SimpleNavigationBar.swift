@@ -156,7 +156,7 @@ extension DTB {
                     leftButton.dtb
                         .setTitle(nil, for: .normal)
                         .setImage(image, for: .normal)
-                        .tintColor(.dtb.create("button_tint"))
+                        .tintColor(.dtb.create("button02"))
                 case .dismiss:
                     let image = {
                         if #available(iOS 13.0, *) {
@@ -168,11 +168,11 @@ extension DTB {
                     leftButton.dtb
                         .setTitle(nil, for: .normal)
                         .setImage(image, for: .normal)
-                        .tintColor(.dtb.create("button_tint"))
+                        .tintColor(.dtb.create("button02"))
                 case .title(let value):
                     leftButton.dtb
                         .setTitle(value, for: .normal)
-                        .setTitleColor(.dtb.create("text_title"), for: .normal)
+                        .setTitleColor(.dtb.create("text01"), for: .normal)
                         .setImage(nil, for: .normal)
                 }
             } else {
@@ -185,7 +185,7 @@ extension DTB {
                 case .title(let value):
                     rightButton.dtb
                         .setTitle(value, for: .normal)
-                        .setTitleColor(.dtb.create("text_title"), for: .normal)
+                        .setTitleColor(.dtb.create("text01"), for: .normal)
                         .setImage(nil, for: .normal)
                 }
             } else {
@@ -231,6 +231,7 @@ extension DTB {
         //MARK: View
         
         private func loadViews(in box: UIView) {
+            
             [leftStack, titleLabel, rightStack].forEach({
                 box.addSubview($0)
                 $0.translatesAutoresizingMaskIntoConstraints = false
@@ -276,7 +277,7 @@ extension DTB {
         
         private lazy var titleLabel = UILabel().dtb
             .font(.systemFont(ofSize: 17.0, weight: .medium))
-            .textColor(.dtb.create("text_title"))
+            .textColor(.dtb.create("text01"))
             .textAlignment(.center)
             .numberOfLines(1)
             .value

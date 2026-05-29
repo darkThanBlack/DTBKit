@@ -14,7 +14,7 @@ import UIKit
 
 extension DTB {
     
-    ///
+    /// index 在 list 里的位置
     public enum IndexOrder {
         /// 只有 1 个
         case onlyOne
@@ -24,23 +24,31 @@ extension DTB {
         case isMiddle
         /// 是列表里的最后 1 个
         case isLast
-    }
-}
-
-extension Wrapper where Base: UITableView {
-    
-    /// 判断 cell 在 section 中的位置
-    public func indexOrder(_ indexPath: IndexPath) -> DTB.IndexOrder {
-        let count = me.numberOfRows(inSection: indexPath.section)
-        if count < 2 {
-            return .onlyOne
+        
+        public init(index: Int, totalCount: Int) {
+            if totalCount < 2 {
+                self = .onlyOne
+            }
+            if index == 0 {
+                self = .isFirst
+            }
+            if index == totalCount - 1 {
+                self = .isLast
+            }
+            self = .isMiddle
         }
-        if indexPath.row == 0 {
-            return .isFirst
+        
+        public init(indexPath: IndexPath, tableView: UITableView) {
+            self.init(index: indexPath.row, totalCount: tableView.numberOfRows(inSection: indexPath.section))
         }
-        if indexPath.row == count - 1 {
-            return .isLast
+        
+        public var verticalCorners: UIRectCorner {
+            switch self {
+            case .onlyOne:   return [.allCorners]
+            case .isFirst:   return [.topLeft, .topRight]
+            case .isMiddle:  return []
+            case .isLast:    return [.bottomLeft, .bottomRight]
+            }
         }
-        return .isMiddle
     }
 }

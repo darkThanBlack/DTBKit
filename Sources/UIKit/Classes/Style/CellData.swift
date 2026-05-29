@@ -1,22 +1,26 @@
 //
-//  DTBKit.swift
+//  CellData.swift
 //  DTBKit
 //
-//  Created by moonShadow on 2023/6/28
-//  Copyright © 2023 darkThanBlack. All rights reserved.
+//  Created by moonShadow on 2026/5/29
+//
 //
 //  LICENSE: SAME AS REPOSITORY
 //  Contact me: [GitHub](https://github.com/darkThanBlack)
 //
 
-extension DTB.SimpleModel: DTB.HintData {}
 
-extension DTB.SimpleModel: DTB.LTRHintData {}
+import UIKit
+
+extension DTB.CellData: DTB.HintData {}
+
+extension DTB.CellData: DTB.LTRHintData {}
+
+extension DTB.CellData: DTB.SelectData {}
 
 extension DTB {
     
-    /// For simple business data | 提供了一些常见字段用于简单业务处理
-    public final class SimpleModel {
+    public final class CellData {
         
         public var primaryKey: String?
         
@@ -77,6 +81,8 @@ extension DTB {
             self.editable = editable
             self.extra = extra
         }
+        
     }
     
 }
+

@@ -1,33 +1,33 @@
 //
-//  HintTableViewCell.swift
+//  SelectTableViewCell.swift
 //  DTBKit
 //
-//  Created by moonShadow on 2026/5/25
-//
+//  Created by moonShadow on 2026/5/29
+//  
 //
 //  LICENSE: SAME AS REPOSITORY
 //  Contact me: [GitHub](https://github.com/darkThanBlack)
 //
-
+    
 
 import UIKit
 
 extension DTB {
     
-    @objc(DTBHintTableViewCell)
-    public final class HintTableViewCell: CardTableViewCell {
+    @objc(DTBSelectTableViewCell)
+    public final class SelectTableViewCell: CardTableViewCell {
         
-        private lazy var hintView = HintView()
+        private lazy var selectView = SelectView()
         
         public override func update(_ model: CellModel?) {
             super.update(model)
             
-            hintView.updateData(model?.data)
+            selectView.updateData(model?.data)
         }
         
         public override func loadViews(in box: UIView) {
-            box.addSubview(hintView)
-            hintView.snp.makeConstraints { make in
+            box.addSubview(selectView)
+            selectView.snp.makeConstraints { make in
                 make.edges.equalToSuperview()
             }
         }

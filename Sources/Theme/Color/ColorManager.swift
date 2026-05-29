@@ -20,7 +20,7 @@ extension DTB.ColorManager: DTB.Providers.ColorProvider {
         if let key = param as? String, let result = query(key) {
             return result
         }
-        DTB.console.error("missing color key=\(param ?? "")")
+        // DTB.console.error("missing color key=\(param ?? "")")
         return nil
     }
 }

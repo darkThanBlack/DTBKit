@@ -3,7 +3,7 @@
 //  XMBundleL1
 //
 //  Created by moonShadow on 2025/7/18
-//  Copyright © 2025 jiejing. All rights reserved.
+//  Copyright © 2025 moon. All rights reserved.
 //
 //  LICENSE: SAME AS REPOSITORY
 //  Contact me: [GitHub](https://github.com/darkThanBlack)

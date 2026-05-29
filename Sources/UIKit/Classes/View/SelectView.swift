@@ -1,19 +1,21 @@
 //
-//  HintsCell.swift
+//  SelectView.swift
+//  DTBKit
 //
-//  Created by moonShadow on 2024/2/3
-//
+//  Created by moonShadow on 2026/5/29
+//  
 //
 //  LICENSE: SAME AS REPOSITORY
 //  Contact me: [GitHub](https://github.com/darkThanBlack)
 //
+    
 
 import UIKit
 
 extension DTB {
     
     /// 简单展示
-    public protocol HintData {
+    public protocol SelectData {
         
         /// 左侧标题
         var title: String? { get }
@@ -22,17 +24,17 @@ extension DTB {
         var detail: String? { get }
         
         /// 右侧箭头
-        var showArrow: Bool? { get }
+        var isSelected: Bool? { get }
     }
     
-    /// 简单展示
+    /// 简单选择
     ///
     /// - 左侧: 标题 + 详情，上下排列
-    /// - 右侧: 箭头
-    @objc(DTBHintView)
-    public final class HintView: UIView {
+    /// - 右侧: 是否选择
+    @objc(DTBSelectView)
+    public final class SelectView: UIView {
         
-        public func updateData(_ data: HintData?) {
+        public func updateData(_ data: SelectData?) {
             titleLabel.dtb
                 .text(data?.title)
                 .hiddenWithEmptyText()
@@ -41,7 +43,7 @@ extension DTB {
                 .text(data?.detail)
                 .hiddenWithEmptyText()
             
-            rightArrow.isHidden = (data?.showArrow == true) ? false : true
+            rightArrow.isHidden = (data?.isSelected == true) ? false : true
         }
         
         public override init(frame: CGRect) {
@@ -91,9 +93,8 @@ extension DTB {
         private lazy var detailLabel = UILabel().dtb.textStyle("c2").value
         
         private lazy var rightArrow = UIImageView().dtb
-            .tintColor(.dtb.create("#333333"))
-            .image(.dtb.create("chevron.right"))
+            .image(.dtb.create("checkmark.circle.fill"))
+            .tintColor(.dtb.create("theme"))
             .value
     }
-    
 }

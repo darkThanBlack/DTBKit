@@ -3,7 +3,7 @@
 //  XMSport
 //
 //  Created by moonShadow on 2024/1/3
-//  Copyright © 2024 jiejing. All rights reserved.
+//  Copyright © 2024 moon. All rights reserved.
 //
 //  LICENSE: SAME AS REPOSITORY
 //  Contact me: [GitHub](https://github.com/darkThanBlack)

@@ -1,5 +1,5 @@
 //
-//  OLHintView.swift
+//  LTRHintView.swift
 //  DTBKit
 //
 //  Created by moonShadow on 2026/5/26
@@ -14,7 +14,7 @@ import UIKit
 
 extension DTB {
     
-    public protocol OLHintData: HintData {
+    public protocol LTRHintData: HintData {
         
         var icon: DTB.ImageData? { get }
     }
@@ -23,10 +23,10 @@ extension DTB {
     ///
     /// - 左侧: icon + 标题, 左右排列
     /// - 右侧: 详情 + 箭头, 左右排列
-    @objc(DTBOLHintView)
-    public final class OLHintView: UIView {
+    @objc(DTBLTRHintView)
+    public final class LTRHintView: UIView {
         
-        public func updateData(_ data: OLHintData?) {
+        public func updateData(_ data: LTRHintData?) {
             iconImageView.dtb
                 .setImageData(data?.icon)
                 .hiddenWithEmptyImage()

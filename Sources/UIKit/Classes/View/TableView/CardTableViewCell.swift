@@ -8,7 +8,7 @@
 //  LICENSE: SAME AS REPOSITORY
 //  Contact me: [GitHub](https://github.com/darkThanBlack)
 //
-    
+
 
 import UIKit
 
@@ -40,14 +40,7 @@ extension DTB {
     open class CardTableViewCell: BaseTableViewCell {
         
         ///
-        private lazy var style = DTB.ContainerStyle(
-            margin: UIEdgeInsets(top: 0.0, left: 16.0, bottom: 0.0, right: 16.0),
-            padding: UIEdgeInsets(top: 12.0, left: 16.0, bottom: 12.0, right: 16.0),
-            shape: DTB.ShapeStyle(
-                radius: 12.0,
-                fillColor: .white,
-            )
-        )
+        private lazy var style = DTB.ContainerStyle.card()
         
         /// 卡片式背景
         private lazy var card = ShapeView()
@@ -58,48 +51,23 @@ extension DTB {
         /// 由子类重写, box 是 add 在 card 上的一个 container
         open func loadViews(in box: UIView) {}
         
-        open func updateUI(_ data: DTB.CellStyle? = nil, tableView: UITableView? = nil, indexPath: IndexPath? = nil) {
-            if let margin = data?.container?.margin, style.margin != margin {
+        open func update(_ model: CellModel?) {
+            if let margin = model?.style?.container?.margin, self.style.margin != margin {
                 self.style.margin = margin
                 card.snp.updateConstraints { make in
-                    make.edges.equalToSuperview().inset(self.style.margin)
+                    make.edges.equalToSuperview().inset(margin)
                 }
             }
-            if let padding = data?.container?.padding, style.padding != padding {
+            if let padding = model?.style?.container?.padding, self.style.padding != padding {
                 self.style.padding = padding
                 container.snp.makeConstraints { make in
-                    make.edges.equalToSuperview().inset(self.style.padding)
+                    make.edges.equalToSuperview().inset(padding)
                 }
             }
-            
-            if let shape = data?.container?.shape {
-                style.shape = shape
+            if let shape = model?.style?.container?.shape, self.style.shape != shape {
+                self.style.shape = shape
+                card.updateUI(self.style.shape)
             }
-            
-            let checkedCorners: UIRectCorner? = {
-                // 有指定传参, 以指定值为准
-                if let corners = data?.container?.shape?.corners {
-                    return corners
-                }
-                // 否则, 默认根据 indexOrder 自动计算
-                guard let indexPath = indexPath,
-                      let indexOrder = tableView?.dtb.indexOrder(indexPath) else {
-                    return nil
-                }
-                switch indexOrder {
-                case .isMiddle:
-                    return []
-                case .onlyOne:
-                    return [.topLeft, .topRight, .bottomRight, .bottomLeft]
-                case .isFirst:
-                    return [.topLeft, .topRight]
-                case .isLast:
-                    return [.bottomLeft, .bottomRight]
-                }
-            }()
-            style.shape?.corners = checkedCorners
-            
-            card.updateUI(style.shape)
         }
         
         public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -111,10 +79,10 @@ extension DTB {
             card.updateUI(self.style.shape)
             
             card.snp.makeConstraints { make in
-                make.edges.equalToSuperview().inset(self.style.margin)
+                make.edges.equalToSuperview().inset(self.style.margin ?? .zero)
             }
             container.snp.makeConstraints { make in
-                make.edges.equalToSuperview().inset(self.style.padding)
+                make.edges.equalToSuperview().inset(self.style.padding ?? .zero)
             }
             
             loadViews(in: container)

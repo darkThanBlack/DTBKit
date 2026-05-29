@@ -14,7 +14,7 @@ import UIKit
 
 extension DTB {
     
-    public struct CellStyle: Equatable {
+    public struct CellStyle {
         
         public var container: ContainerStyle?
         

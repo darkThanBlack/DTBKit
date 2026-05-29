@@ -17,54 +17,69 @@ extension DTB {
     /// CAShapeLayer
     public struct ShapeStyle: Equatable {
         
-        /// view.height * [0, 1]
-        public var radiusHeightPrecent: CGFloat?
+        // --- round corner
         
-        public var corners: UIRectCorner?
+        /// 圆角
+        public var roundCorners: UIRectCorner?
         
-        public var radius: CGFloat?
+        /// 圆角, 非等值
+        public var roundRadii: CGSize?
+        
+        /// 圆角, 定值
+        public var roundRadius: CGFloat?
+        
+        /// 圆角, 不是定值，而是 view.bounds.height 的百分比, 取值为 [0, 1]
+        public var roundRadiusHeightPrecent: CGFloat?
+        
+        // --- raw
+        
+        public var path: CGPath?
         
         public var fillColor: UIColor?
         
         public var strokeColor: UIColor?
         
-        public var strokeStart: CGFloat = 0.0
+        public var strokeStart: CGFloat?
         
-        public var strokeEnd: CGFloat = 1.0
+        public var strokeEnd: CGFloat?
         
-        public var lineWidth: CGFloat = 0.0
+        public var lineWidth: CGFloat?
         
-        public var miterLimit: CGFloat = 10.0
+        public var miterLimit: CGFloat?
         
-        public var fillRule: CAShapeLayerFillRule = .nonZero
+        public var fillRule: CAShapeLayerFillRule?
         
-        public var lineCap: CAShapeLayerLineCap = .round
+        public var lineCap: CAShapeLayerLineCap?
         
-        public var lineJoin: CAShapeLayerLineJoin = .round
+        public var lineJoin: CAShapeLayerLineJoin?
         
-        public var lineDashPhase: CGFloat = 0.0
+        public var lineDashPhase: CGFloat?
         
-        public var lineDashPattern: [NSNumber]? = nil
+        public var lineDashPattern: [NSNumber]?
         
         public init(
-            radiusHeightPrecent: CGFloat? = nil,
-            corners: UIRectCorner? = nil,
-            radius: CGFloat? = nil,
+            roundCorners: UIRectCorner? = nil,
+            roundRadii: CGSize? = nil,
+            roundRadius: CGFloat? = nil,
+            roundRadiusHeightPrecent: CGFloat? = nil,
+            path: CGPath? = nil,
             fillColor: UIColor? = nil,
             strokeColor: UIColor? = nil,
-            strokeStart: CGFloat = 0.0,
-            strokeEnd: CGFloat = 1.0,
-            lineWidth: CGFloat = 0.0,
-            miterLimit: CGFloat = 10.0,
-            fillRule: CAShapeLayerFillRule = .nonZero,
-            lineCap: CAShapeLayerLineCap = .round,
-            lineJoin: CAShapeLayerLineJoin = .round,
-            lineDashPhase: CGFloat = 0.0,
+            strokeStart: CGFloat? = nil,
+            strokeEnd: CGFloat? = nil,
+            lineWidth: CGFloat? = nil,
+            miterLimit: CGFloat? = nil,
+            fillRule: CAShapeLayerFillRule? = nil,
+            lineCap: CAShapeLayerLineCap? = nil,
+            lineJoin: CAShapeLayerLineJoin? = nil,
+            lineDashPhase: CGFloat? = nil,
             lineDashPattern: [NSNumber]? = nil
         ) {
-            self.radiusHeightPrecent = radiusHeightPrecent
-            self.corners = corners
-            self.radius = radius
+            self.roundCorners = roundCorners
+            self.roundRadii = roundRadii
+            self.roundRadius = roundRadius
+            self.roundRadiusHeightPrecent = roundRadiusHeightPrecent
+            self.path = path
             self.fillColor = fillColor
             self.strokeColor = strokeColor
             self.strokeStart = strokeStart
