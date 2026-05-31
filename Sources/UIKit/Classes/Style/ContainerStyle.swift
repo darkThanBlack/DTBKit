@@ -22,6 +22,7 @@ extension DTB.ContainerStyle {
                 roundCorners: indexOrder.verticalCorners,
                 roundRadius: 12.0,
                 fillColor: .white,
+                lineWidth: 0.0
             )
         )
     }

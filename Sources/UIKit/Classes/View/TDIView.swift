@@ -12,51 +12,32 @@ import UIKit
 
 extension DTB {
     
-    /// 简单展示
-    public protocol HintData {
-        
-        /// 左侧标题
-        var title: String? { get }
-        
-        /// 左侧详情
-        var detail: String? { get }
-        
-        /// 右侧箭头
-        var showArrow: Bool? { get }
-    }
-    
-    /// 简单展示
+    /// title + detail + image, 左侧上下排列, 右侧居中
     ///
-    /// - 左侧: 标题 + 详情，上下排列
-    /// - 右侧: 箭头
-    @objc(DTBHintView)
-    public final class HintView: UIView {
+    /// - 左侧: title + detail，上下排列
+    /// - 右侧: image
+    @objc(DTBTDIView)
+    public final class TDIView: UIView {
         
-        public func updateData(_ data: HintData?) {
-            titleLabel.dtb
-                .text(data?.title)
-                .hiddenWithEmptyText()
-            
-            detailLabel.dtb
-                .text(data?.detail)
-                .hiddenWithEmptyText()
-            
-            rightArrow.isHidden = (data?.showArrow == true) ? false : true
-        }
+        public lazy var titleLabel = UILabel().dtb.textStyle("h3").value
         
-        public override init(frame: CGRect) {
+        public lazy var detailLabel = UILabel().dtb.textStyle("c2").value
+        
+        public lazy var rightImageView = UIImageView()
+        
+        override init(frame: CGRect) {
             super.init(frame: frame)
             
             loadViews(in: self)
         }
         
-        public required init?(coder: NSCoder) {
+        required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
         
         private func loadViews(in box: UIView) {
             leftStack.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-            rightArrow.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+            rightImageView.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
             
             box.addSubview(stacks)
             stacks.snp.makeConstraints { make in
@@ -68,7 +49,7 @@ extension DTB {
             let stacks = UIStackView(arrangedSubviews: [
                 leftStack,
                 DTB.layout.spacer(),
-                rightArrow
+                rightImageView
             ])
             stacks.axis = .horizontal
             stacks.alignment = .center
@@ -84,15 +65,6 @@ extension DTB {
             .alignment(.center)
             .distribution(.equalSpacing)
             .spacing(4.0)
-            .value
-        
-        private lazy var titleLabel = UILabel().dtb.textStyle("b1").value
-        
-        private lazy var detailLabel = UILabel().dtb.textStyle("c2").value
-        
-        private lazy var rightArrow = UIImageView().dtb
-            .tintColor(.dtb.create("#333333"))
-            .image(.dtb.create("chevron.right"))
             .value
     }
     

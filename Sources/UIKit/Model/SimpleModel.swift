@@ -9,9 +9,9 @@
 //  Contact me: [GitHub](https://github.com/darkThanBlack)
 //
 
-extension DTB.SimpleModel: DTB.HintData {}
+extension DTB.SimpleModel: DTB.TDIArrowData {}
 
-extension DTB.SimpleModel: DTB.LTRHintData {}
+extension DTB.SimpleModel: DTB.ITDIArrowData {}
 
 extension DTB {
     
@@ -20,7 +20,7 @@ extension DTB {
         
         public var primaryKey: String?
         
-        public var icon: ImageData?
+        public var leftImage: ImageData?
         
         public var title: String?
         
@@ -48,7 +48,7 @@ extension DTB {
         
         public init(
             primaryKey: String? = nil,
-            icon: ImageData? = nil,
+            leftImage: ImageData? = nil,
             title: String? = nil,
             detail: String? = nil,
             desc: String? = nil,
@@ -63,7 +63,7 @@ extension DTB {
             extra: [String : Any]? = nil
         ) {
             self.primaryKey = primaryKey
-            self.icon = icon
+            self.leftImage = leftImage
             self.title = title
             self.detail = detail
             self.desc = desc

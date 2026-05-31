@@ -54,13 +54,13 @@ extension DTB {
         open func update(_ model: CellModel?) {
             if let margin = model?.style?.container?.margin, self.style.margin != margin {
                 self.style.margin = margin
-                card.snp.updateConstraints { make in
+                card.snp.remakeConstraints { make in
                     make.edges.equalToSuperview().inset(margin)
                 }
             }
             if let padding = model?.style?.container?.padding, self.style.padding != padding {
                 self.style.padding = padding
-                container.snp.makeConstraints { make in
+                container.snp.remakeConstraints { make in
                     make.edges.equalToSuperview().inset(padding)
                 }
             }
@@ -78,10 +78,10 @@ extension DTB {
             
             card.updateUI(self.style.shape)
             
-            card.snp.makeConstraints { make in
+            card.snp.remakeConstraints { make in
                 make.edges.equalToSuperview().inset(self.style.margin ?? .zero)
             }
-            container.snp.makeConstraints { make in
+            container.snp.remakeConstraints { make in
                 make.edges.equalToSuperview().inset(self.style.padding ?? .zero)
             }
             
