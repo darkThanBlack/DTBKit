@@ -34,7 +34,7 @@ extension DTB.TDIView {
         let view = DTB.TDIView()
         view.rightImageView.dtb
             .tintColor(.dtb.create("theme"))
-            .image(.dtb.create("checkmark.circle.fill"))
+            .image(.dtb.local("checkmark.circle.fill"))
         return view
     }
     

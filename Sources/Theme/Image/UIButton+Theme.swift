@@ -15,9 +15,9 @@ import UIKit
 extension Wrapper where Base: UIButton {
     
     @discardableResult
-    public func setImage(_ param: Any?) -> Self {
-        if let p = DTB.Providers.get(DTB.Providers.uiButtonSetImageKey) {
-            p.setup(button: me, param: param, completedHandler: nil)
+    public func setImage(with url: Any?, placeholder: Any?, completedHandler: ((Result<UIImage, Error>) -> Void)?) -> Self {
+        if let p = DTB.Providers.get(DTB.Providers.buttonSetImageKey) {
+            p.setImage(on: me, url: url, placeholder: placeholder, completedHandler: completedHandler)
         }
         return self
     }

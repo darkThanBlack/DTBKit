@@ -39,7 +39,7 @@ extension Wrapper where Base: UIImageView {
             me.image = image
             return self
         }
-        if let localName = data?.localName, let image = UIImage.dtb.create(localName) {
+        if let localName = data?.localName, let image = UIImage.dtb.local(localName) {
             me.image = image
             return self
         }

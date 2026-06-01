@@ -150,7 +150,7 @@ extension DTB {
                         if #available(iOS 13.0, *) {
                             return UIImage(systemName: "chevron.left")
                         } else {
-                            return .dtb.create("nav_back")
+                            return .dtb.local("nav_back")
                         }
                     }()
                     leftButton.dtb
@@ -162,7 +162,7 @@ extension DTB {
                         if #available(iOS 13.0, *) {
                             return UIImage(systemName: "xmark")
                         } else {
-                            return .dtb.create("nav_close")
+                            return .dtb.local("nav_close")
                         }
                     }()
                     leftButton.dtb

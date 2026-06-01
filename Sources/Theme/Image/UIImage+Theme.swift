@@ -3,12 +3,12 @@
 //  Pods
 //
 //  Created by moonShadow on 2026/5/26
-//  
+//
 //
 //  LICENSE: SAME AS REPOSITORY
 //  Contact me: [GitHub](https://github.com/darkThanBlack)
 //
-    
+
 
 import UIKit
 
@@ -25,11 +25,13 @@ extension StaticWrapper where T: UIImage {
         return nil
     }
     
-    public func create(_ param: Any?) -> UIImage? {
-        if let p = DTB.Providers.get(DTB.Providers.localImageKey), let image = p.create(param, bundle: nil) {
-            return image
+    /// 加载网络图片
+    ///
+    ///
+    public static func remote(_ value: Any?, completedHandler: ((Result<UIImage, Error>) -> ())?) {
+        if let p = DTB.Providers.get(DTB.Providers.remoteImageKey) {
+            p.remote(value, completedHandler: completedHandler)
         }
-        return nil
     }
     
 }

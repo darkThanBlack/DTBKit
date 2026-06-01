@@ -69,11 +69,17 @@ extension DTB {
                 return nil
             }
             
+            /// file url
+            if let url = param as? URL, url.isFileURL,
+               let image = UIImage(contentsOfFile: url.path) {
+                return image
+            }
+            
             guard let name = param as? String, name.isEmpty == false else {
                 return nil
             }
             
-            // Absolute path
+            // Absolute string path
             if name.contains("/"),
                FileManager.default.fileExists(atPath: name),
                let image = UIImage(contentsOfFile: name) {

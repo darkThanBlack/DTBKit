@@ -38,6 +38,18 @@ DESC
     ss.dependency 'DTBKit/Core'
   end
   
+  s.subspec 'Kingfisher' do |ss|
+    ss.source_files = 'Sources/Kingfisher/**/*'
+    ss.dependency 'DTBKit/Theme'
+    ss.dependency 'Kingfisher'
+  end
+  
+  s.subspec 'SDWebImage' do |ss|
+    ss.source_files = 'Sources/SDWebImage/**/*'
+    ss.dependency 'DTBKit/Theme'
+    ss.dependency 'SDWebImage'
+  end
+  
   s.subspec 'Basic' do |ss|
     ss.source_files = 'Sources/Basic/**/*'
     ss.resource_bundles = {

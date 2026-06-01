@@ -3,12 +3,12 @@
 //  Pods
 //
 //  Created by moonShadow on 2026/5/26
-//  
+//
 //
 //  LICENSE: SAME AS REPOSITORY
 //  Contact me: [GitHub](https://github.com/darkThanBlack)
 //
-    
+
 
 import UIKit
 
@@ -18,6 +18,6 @@ extension DTB.Providers {
     
     public protocol RemoteImageProvider {
         
-        func create(_ param: Any?) -> UIImage?
+        func remote(_ value: Any?, completedHandler: ((Result<UIImage, Error>) -> ())?)
     }
 }

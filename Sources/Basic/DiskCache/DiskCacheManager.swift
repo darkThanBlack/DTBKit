@@ -19,7 +19,7 @@ extension DTB.Providers {
         /// 唯一标识符
         var primaryKey: String { get }
         
-        /// 计算缓存大小
+        /// 计算缓存大小, 单位为 Bytes
         func calculateDiskSize(_ completed: ((Result<Int64, Error>) -> ())?)
         
         /// 清理缓存

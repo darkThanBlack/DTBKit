@@ -3,21 +3,21 @@
 //  DTBKit
 //
 //  Created by moonShadow on 2026/5/27
-//  
+//
 //
 //  LICENSE: SAME AS REPOSITORY
 //  Contact me: [GitHub](https://github.com/darkThanBlack)
 //
-    
+
 
 import UIKit
 
 extension Wrapper where Base: UIImageView {
     
     @discardableResult
-    public func setImage(_ param: Any?) -> Self {
-        if let p = DTB.Providers.get(DTB.Providers.uiImageViewSetImageKey) {
-            p.setup(imageView: me, param: param, completedHandler: nil)
+    public func setImage(with url: Any?, placeholder: Any?, completedHandler: ((Result<UIImage, Error>) -> Void)?) -> Self {
+        if let p = DTB.Providers.get(DTB.Providers.imageViewSetImageKey) {
+            p.setImage(on: me, url: url, placeholder: placeholder, completedHandler: completedHandler)
         }
         return self
     }
