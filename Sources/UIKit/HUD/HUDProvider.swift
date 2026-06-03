@@ -3,12 +3,12 @@
 //  DTBKit
 //
 //  Created by moonShadow on 2024/1/12
-//  
+//
 //
 //  LICENSE: SAME AS REPOSITORY
 //  Contact me: [GitHub](https://github.com/darkThanBlack)
 //
-    
+
 
 import UIKit
 
@@ -30,15 +30,15 @@ extension StaticWrapper where T: UIView {
     /// Show HUD with provider.
     ///
     /// HUD 调用收束
-    public func showHUD(_ param: Any? = nil) {
-        DTB.Providers.get(DTB.Providers.hudKey)?.showHUD(on: nil, param: param)
+    public func showHUD(on view: UIView? = nil, param: Any? = nil) {
+        DTB.Providers.get(DTB.Providers.hudKey)?.showHUD(on: view, param: param)
     }
     
     /// Show HUD with provider.
     ///
     /// HUD 调用收束
-    public func hideHUD(_ param: Any? = nil) {
-        DTB.Providers.get(DTB.Providers.hudKey)?.hideHUD(on: nil, param: param)
+    public func hideHUD(on view: UIView? = nil, param: Any? = nil) {
+        DTB.Providers.get(DTB.Providers.hudKey)?.hideHUD(on: view, param: param)
     }
 }
 

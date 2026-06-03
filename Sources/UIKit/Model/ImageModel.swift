@@ -20,8 +20,6 @@ extension DTB {
         
         var localName: String? { get }
         
-        var localPath: String? { get }
-        
         var remoteUrl: String? { get }
     }
     
@@ -31,19 +29,15 @@ extension DTB {
         
         public var localName: String?
         
-        public var localPath: String?
-        
         public var remoteUrl: String?
         
         public init(
             image: UIImage? = nil,
             localName: String? = nil,
-            localPath: String? = nil,
             remoteUrl: String? = nil
         ) {
             self.image = image
             self.localName = localName
-            self.localPath = localPath
             self.remoteUrl = remoteUrl
         }
     }

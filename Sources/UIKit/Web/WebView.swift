@@ -1,6 +1,6 @@
 //
 //  WebView.swift
-//  XMKit
+//  DTBKit
 //
 //  Created by HuChangChang on 2024/1/19.
 //
@@ -42,6 +42,42 @@ extension DTB {
         deinit {
             kvoTokens.removeAll()
         }
+        
+        ///
+        public func loadURL(_ value: String?) {
+            guard var str = value, str.isEmpty == false else {
+                return
+            }
+//            self.originalUrl = value
+//            if config.autoAppendParams {
+//                str = str.xm.appendCommonUrlParams().value
+//            }
+            
+            guard let url = URL(string: str) else {
+                return
+            }
+            DTB.console.log("WEBVIEW: load url=\(url.absoluteString)")
+            load(URLRequest(url: url))
+
+//            if config.needClearCache {
+//                SportWebView.clearCache {
+//                    
+//                }
+//            }
+//            showHUDView()
+            
+            /// refer: https://blog.csdn.net/crasowas/article/details/135051649
+            /// 此时注入无效，延后到 didFinish
+//            if #available(iOS 17.0, *) {
+//                load(URLRequest(url: url))
+//            } else {
+//                injectUserAgent { [weak self] in
+//                    self?.load(URLRequest(url: url))
+//                }
+//            }
+        }
+        
+        // ---
         
         public func register(_ plugin: WebViewPlugin) {
             remove(identifier: plugin.identifier)

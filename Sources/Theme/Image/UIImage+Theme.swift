@@ -28,10 +28,15 @@ extension StaticWrapper where T: UIImage {
     /// 加载网络图片
     ///
     ///
-    public static func remote(_ value: Any?, completedHandler: ((Result<UIImage, Error>) -> ())?) {
+    public func remote(_ value: Any?, completedHandler: ((Result<UIImage, Error>) -> ())? = nil) {
         if let p = DTB.Providers.get(DTB.Providers.remoteImageKey) {
             p.remote(value, completedHandler: completedHandler)
         }
+    }
+    
+    /// TODO: adapter design
+    public func create(_ param: Any?) -> UIImage? {
+        return local(param)
     }
     
 }

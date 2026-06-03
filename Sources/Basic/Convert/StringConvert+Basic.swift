@@ -44,6 +44,12 @@ extension Wrapper where Base == String {
         return Double(me)?.dtb
     }
     
+    /// Convert to ``NSString``.
+    @inline(__always)
+    public func ns() -> Wrapper<NSString> {
+        return NSString(string: me).dtb
+    }
+    
     @inline(__always)
     public func nsNumber() -> Wrapper<NSNumber>? {
         if let v = Double(me) {
@@ -67,6 +73,12 @@ extension Wrapper where Base == String {
     @inline(__always)
     public func msDate() -> Wrapper<Date>? {
         return Date.dtb.create(ms: me)?.dtb
+    }
+    
+    /// Convert to ``NSMutableAttributedString``.
+    @inline(__always)
+    public func attr() -> Wrapper<NSMutableAttributedString> {
+        return NSMutableAttributedString(string: me).dtb
     }
     
 }

@@ -12,23 +12,6 @@
 
 import UIKit
 
-/// Type converts
-extension Wrapper where Base == String {
-    
-    /// Convert to ``NSString``.
-    @inline(__always)
-    public func ns() -> Wrapper<NSString> {
-        return NSString(string: me).dtb
-    }
-    
-    /// Convert to ``NSMutableAttributedString``.
-    @inline(__always)
-    public func attr() -> Wrapper<NSMutableAttributedString> {
-        return NSMutableAttributedString(string: me).dtb
-    }
-    
-}
-
 /// Basic
 extension Wrapper where Base == String {
     
@@ -111,5 +94,53 @@ extension Wrapper where Base == String {
     @inline(__always)
     public func isRegular(_ value: DTB.Regulars) -> Bool {
         return isMatches(value.exp)
+    }
+}
+
+/// URL
+extension Wrapper where Base == String {
+    
+    ///
+    public func urlAppendParams(_ data: [String: String]) -> Self {
+        var url = me
+        let keys = urlParams().compactMap({ $0.key })
+        data.forEach { (key, value) in
+            // 如果已有则不拼接
+            if keys.contains(key) == false {
+                url.append(url.contains("?") ? "&" : "?")
+                url.append("\(key)=\(value)")
+            }
+        }
+        return url.dtb
+    }
+    
+    ///
+    public func urlParams() -> [String: String] {
+        var url = me
+        // 去掉末尾多余的 ? 或 &
+        while url.hasSuffix("?") || url.hasSuffix("&") {
+            url.removeLast()
+        }
+        
+        let pattern = #"[?&]([^?&=]+)=([^?&=]*)"#
+        guard let regex = try? NSRegularExpression(pattern: pattern, options: .caseInsensitive) else {
+            return [:]
+        }
+        
+        let nsURL = url as NSString
+        let matches = regex.matches(in: url, options: [], range: NSRange(location: 0, length: nsURL.length))
+        
+        var params = [String: String]()
+        for match in matches {
+            // 提取 key 和 value（均为编码后的原始形态）
+            let key = nsURL.substring(with: match.range(at: 1))
+            let value = nsURL.substring(with: match.range(at: 2))
+            
+            // 去重：保留第一次
+            if params[key] == nil {
+                params[key] = value
+            }
+        }
+        return params
     }
 }

@@ -1,6 +1,6 @@
 //
 //  JSReceiveCallbackVM.swift
-//  XMKit
+//  DTBKit
 //
 //  Created by moonShadow on 2024/2/1
 //  

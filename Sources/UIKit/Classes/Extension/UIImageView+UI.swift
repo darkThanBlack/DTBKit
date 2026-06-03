@@ -12,26 +12,7 @@
 
 import UIKit
 
-#if canImport(Kingfisher)
-import Kingfisher
-#endif
-
-#if canImport(SDWebImage)
-import SDWebImage
-#endif
-
 extension Wrapper where Base: UIImageView {
-    
-    @discardableResult
-    public func hiddenWithEmptyImage() -> Self {
-        me.isHidden = {
-            if me.image != nil { return false }
-            if me.highlightedImage != nil { return false }
-            if me.animationImages != nil { return false }
-            return true
-        }()
-        return self
-    }
     
     @discardableResult
     public func setImageData(_ data: DTB.ImageData?) -> Self {
@@ -43,19 +24,8 @@ extension Wrapper where Base: UIImageView {
             me.image = image
             return self
         }
-        if let localPath = data?.localPath, let image = UIImage(contentsOfFile: localPath) {
-            me.image = image
-            return self
-        }
-        // FIXME: replacement for provider
         if let remoteUrl = data?.remoteUrl, let url = URL(string: remoteUrl) {
-#if canImport(Kingfisher)
-            me.kf.setImage(with: url)
-#endif
-            
-#if canImport(SDWebImage)
-            me.sd_setImage(with: url)
-#endif
+            me.dtb.setImage(with: remoteUrl)
         }
         return self
     }
