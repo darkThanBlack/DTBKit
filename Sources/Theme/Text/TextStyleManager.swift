@@ -53,9 +53,7 @@ extension DTB {
                 return
             }
             
-            dict.forEach {
-                key,
-                value in
+            dict.forEach { key, value in
                 guard let fontSize = value["fontSize"] as? CGFloat,
                       let fontWeight = value["fontWeight"] as? String,
                       let textColor = value["textColor"] as? String else {

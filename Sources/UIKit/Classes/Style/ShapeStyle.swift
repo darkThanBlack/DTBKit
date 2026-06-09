@@ -20,16 +20,10 @@ extension DTB {
         // --- round corner
         
         /// 圆角
-        public var roundCorners: UIRectCorner?
+        public var corners: UIRectCorner?
         
-        /// 圆角, 非等值
-        public var roundRadii: CGSize?
-        
-        /// 圆角, 定值
-        public var roundRadius: CGFloat?
-        
-        /// 圆角, 不是定值，而是 view.bounds.height 的百分比, 取值为 [0, 1]
-        public var roundRadiusHeightPrecent: CGFloat?
+        /// 对称型圆角
+        public var radius: CornerRadiusStyle?
         
         // --- raw
         
@@ -58,10 +52,8 @@ extension DTB {
         public var lineDashPattern: [NSNumber]?
         
         public init(
-            roundCorners: UIRectCorner? = nil,
-            roundRadii: CGSize? = nil,
-            roundRadius: CGFloat? = nil,
-            roundRadiusHeightPrecent: CGFloat? = nil,
+            corners: UIRectCorner? = nil,
+            radius: CornerRadiusStyle? = nil,
             path: CGPath? = nil,
             fillColor: UIColor? = nil,
             strokeColor: UIColor? = nil,
@@ -75,10 +67,8 @@ extension DTB {
             lineDashPhase: CGFloat? = nil,
             lineDashPattern: [NSNumber]? = nil
         ) {
-            self.roundCorners = roundCorners
-            self.roundRadii = roundRadii
-            self.roundRadius = roundRadius
-            self.roundRadiusHeightPrecent = roundRadiusHeightPrecent
+            self.corners = corners
+            self.radius = radius
             self.path = path
             self.fillColor = fillColor
             self.strokeColor = strokeColor

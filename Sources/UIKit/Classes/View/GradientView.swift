@@ -1,8 +1,8 @@
 //
-//  ShapeView.swift
+//  GradientView.swift
 //  DTBKit
 //
-//  Created by moonShadow on 2026/5/25
+//  Created by moonShadow on 2026/6/9
 //
 //
 //  LICENSE: SAME AS REPOSITORY
@@ -12,25 +12,44 @@
 
 import UIKit
 
+import UIKit
+
 extension DTB {
     
-    /// view with simple CAShapeLayer
-    @objc(DTBShapeView)
-    public final class ShapeView: BaseView {
+    /// view with CAGradientLayer + CAShapeLayer mask
+    @objc(DTBGradientView)
+    public final class GradientView: BaseView {
         
-        private var style = DTB.ShapeStyle()
+        private var style = DTB.GradientStyle()
         
-        public func updateUI(_ value: DTB.ShapeStyle?) {
-            guard let sp = value else {
+        public func updateUI(_ value: DTB.GradientStyle?) {
+            guard let ui = value else {
+                gradient.isHidden = true
+                return
+            }
+            gradient.isHidden = false
+            
+            guard self.style != ui else {
+                return
+            }
+            self.style = ui
+            
+            gradient.colors =     ui.colors
+            gradient.startPoint = ui.startPoint ?? .zero
+            gradient.endPoint =   ui.endPoint ?? CGPoint(x: 1.0, y: 1.0)
+            gradient.locations =  ui.locations
+            gradient.type =       ui.type ?? .axial
+            
+            lazyFire(.onLayoutSubviews) { v in
+                guard let me = v as? Self else { return }
+                me.gradient.frame = v.bounds
+            }
+            
+            guard let sp = ui.shape else {
                 shape.isHidden = true
                 return
             }
             shape.isHidden = false
-            
-            guard self.style != sp else {
-                return
-            }
-            self.style = sp
             
             shape.fillColor =       sp.fillColor?.cgColor
             shape.fillRule =        sp.fillRule ?? .nonZero
@@ -73,10 +92,18 @@ extension DTB {
             return shape
         }()
         
+        ///
+        private lazy var gradient: CAGradientLayer = {
+            let gradient = CAGradientLayer()
+            gradient.isHidden = true
+            return gradient
+        }()
+        
         public override init(frame: CGRect) {
             super.init(frame: frame)
             
-            layer.addSublayer(shape)
+            gradient.mask = shape
+            layer.addSublayer(gradient)
         }
         
         public required init?(coder: NSCoder) {

@@ -19,8 +19,8 @@ extension DTB.ContainerStyle {
             margin: UIEdgeInsets(top: 0.0, left: 16.0, bottom: 0.0, right: 16.0),
             padding: UIEdgeInsets(top: 12.0, left: 16.0, bottom: 12.0, right: 16.0),
             shape: DTB.ShapeStyle(
-                roundCorners: indexOrder.verticalCorners,
-                roundRadius: 12.0,
+                corners: indexOrder.verticalCorners,
+                radius: .fixed(12.0),
                 fillColor: .white,
                 lineWidth: 0.0
             )
