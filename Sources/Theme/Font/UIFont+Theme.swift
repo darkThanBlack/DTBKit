@@ -18,7 +18,16 @@ extension StaticWrapper where T: UIFont {
     /// 字体调用收束
     @inline(__always)
     public func create(_ param: Any?) -> UIFont {
-        return DTB.Providers.get(DTB.Providers.fontKey)?.create(param) ?? UIFont.systemFont(ofSize: 17.0)
+        if let p = DTB.Providers.get(DTB.Providers.fontKey), let font = p.create(param) {
+            return font
+        }
+        if let style = param as? DTB.FontStyle, let font = style.getFont() {
+            return font
+        }
+        if let dict = param as? [String: Any], let style = DTB.FontStyle(dict: dict), let font = style.getFont() {
+            return font
+        }
+        return .systemFont(ofSize: 15.0)
     }
     
     /// Create font with provider.
@@ -26,19 +35,17 @@ extension StaticWrapper where T: UIFont {
     /// 字体调用收束
     @inline(__always)
     public func create(_ size: CGFloat, weight: UIFont.Weight = .regular, name: String? = nil) -> UIFont {
-        return DTB.Providers.get(DTB.Providers.fontKey)?.create(
-            [
-                "name": name ?? "",
-                "size": size,
-                "weight": weight
-            ]
-        ) ?? UIFont.systemFont(ofSize: 17.0)
+        return create([
+            "size": size,
+            "weight": weight,
+            "name": name ?? ""
+        ])
     }
 }
 
 extension StaticWrapper where T == UIFont.Weight {
     
-    public func create(_ param: Any?) -> UIFont.Weight {
+    public func create(_ param: Any?) -> UIFont.Weight? {
         if let variant = param as? String {
             switch variant.lowercased() {
             case  "ultralight":  return UIFont.Weight.ultraLight
@@ -54,8 +61,10 @@ extension StaticWrapper where T == UIFont.Weight {
                 break
             }
         }
-        DTB.console.error("UIFont.Weight create failed, param=\(param ?? "")")
-        return .regular
+        if let raw = param as? CGFloat {
+            return UIFont.Weight(raw)
+        }
+        return nil
     }
 }
 

@@ -27,7 +27,7 @@ extension DTB {
     }
     
     /// 与 UIEdgeInsets 保持一致
-    public enum FourDirection: CaseIterable {
+    public enum FourDirection: String, CaseIterable {
         case top, left, bottom, right
     }
 }

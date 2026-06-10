@@ -18,71 +18,108 @@ extension DTB {
     @objc(DTBButton)
     open class Button: BaseControl {
         
-        private var titles: [UInt: String] = [:]
+        private var stateConfig: [UInt: DTB.ButtonStyle] = {
+            var dict: [UInt: DTB.ButtonStyle] = [:]
+            [
+                UIControl.State.normal,
+                UIControl.State.highlighted,
+                UIControl.State.disabled,
+                UIControl.State.selected,
+                UIControl.State.focused,
+                UIControl.State.application,
+                UIControl.State.reserved
+            ].forEach({
+                dict[$0.rawValue] = DTB.ButtonStyle()
+            })
+            return dict
+        }()
         
-        private var textColors: [UInt: UIColor] = [:]
+//        private var titles: [UInt: String] = [:]
+//        
+//        private var textColors: [UInt: UIColor] = [:]
+//        
+//        private var fonts: [UInt: UIFont] = [:]
+//        
+//        private var attrTitles: [UInt: NSAttributedString] = [:]
+//        
+//        private var images: [UInt: UIImage] = [:]
+//        
+//        private var contentEdgeInsets: UIEdgeInsets = .zero
+//        
+//        private var imageDirection: DTB.FourDirection = .left
+//        
+//        private var imageOffset: CGVector = .zero
         
-        private var fonts: [UInt: UIFont] = [:]
-        
-        private var attrTitles: [UInt: NSAttributedString] = [:]
-        
-        private var images: [UInt: UIImage] = [:]
-        
-        private var contentEdgeInsets: UIEdgeInsets = .zero
-        
-        private var imageDirection: DTB.FourDirection = .left
-        
-        private var imageOffset: CGVector = .zero
+        private func ensureConfigExist(for state: UIControl.State) {
+            if stateConfig[state.rawValue] == nil {
+                stateConfig[state.rawValue] = DTB.ButtonStyle()
+            }
+        }
         
         ///
         public func setTitle(_ text: String?, for state: UIControl.State = .normal) {
-            titles[state.rawValue] = text
+            ensureConfigExist(for: state)
+            stateConfig[state.rawValue]?.title = text
             updateAppearance()
         }
         
         ///
-        public func setTitleColor(_ color: UIColor?, for state: UIControl.State = .normal) {
-            textColors[state.rawValue] = color
+        public func setTextColor(_ color: UIColor?, for state: UIControl.State = .normal) {
+            ensureConfigExist(for: state)
+            stateConfig[state.rawValue]?.textColor = color
             updateAppearance()
         }
         
         ///
         public func setFont(_ font: UIFont?, for state: UIControl.State = .normal) {
-            fonts[state.rawValue] = font
+            ensureConfigExist(for: state)
+            stateConfig[state.rawValue]?.font = font
             updateAppearance()
         }
         
         ///
-        public func setAttributedTitle(_ text: NSAttributedString?, for state: UIControl.State = .normal) {
-            attrTitles[state.rawValue] = text
+        public func setAttributedText(_ text: NSAttributedString?, for state: UIControl.State = .normal) {
+            ensureConfigExist(for: state)
+            stateConfig[state.rawValue]?.attributedText = text
             updateAppearance()
         }
         
         ///
         public func setImage(_ image: UIImage?, for state: UIControl.State = .normal) {
-            images[state.rawValue] = image
+            ensureConfigExist(for: state)
+            stateConfig[state.rawValue]?.image = image
             updateAppearance()
         }
         
         ///
-        public func setContentEdgeInsets(_ insets: UIEdgeInsets) {
-            contentEdgeInsets = insets
+        public func setContentEdgeInsets(_ insets: UIEdgeInsets, for state: UIControl.State = .normal) {
+            ensureConfigExist(for: state)
+            stateConfig[state.rawValue]?.contentEdgeInsets = insets
+            updateLayout()
+        }
+        
+        ///
+        public func setImageSize(_ size: CGSize, for state: UIControl.State = .normal) {
+            ensureConfigExist(for: state)
+            stateConfig[state.rawValue]?.imageSize = size
             updateLayout()
         }
         
         /// left: image | title / right: title | image
         ///
         /// 指 image 在 title 的 左/右/上/下侧
-        public func setImageDirection(_ direction: DTB.FourDirection) {
-            imageDirection = direction
+        public func setImageDirection(_ direction: DTB.FourDirection, for state: UIControl.State = .normal) {
+            ensureConfigExist(for: state)
+            stateConfig[state.rawValue]?.imageDirection = direction
             updateLayout()
         }
         
         /// image - | offset | - title
         ///
         /// 指 image 相对于 title 中心点的偏移量
-        public func setImageOffset(_ offset: CGVector) {
-            imageOffset = offset
+        public func setImageOffset(_ offset: CGVector, for state: UIControl.State = .normal) {
+            ensureConfigExist(for: state)
+            stateConfig[state.rawValue]?.imageOffset = offset
             updateLayout()
         }
         
@@ -141,17 +178,18 @@ extension DTB {
         //MARK: - Appearance
         
         private func updateAppearance() {
-            if let attr = match(attrTitles) {
-                titleLabel.attributedText = attr
-            } else {
-                titleLabel.text = match(titles)
-                titleLabel.textColor = match(textColors)
-                titleLabel.font = match(fonts)
-            }
-            imageView.image = match(images)
+            guard let config = match(stateConfig) else { return }
             
-            titleLabel.dtb.hiddenWithEmptyText()
-            imageView.isHidden = imageView.image == nil
+            titleLabel.dtb
+                .attributedText(config.attributedText)
+                .text(config.title)
+                .textColor(config.textColor)
+                .font(config.font)
+                .hiddenWithEmptyText()
+            
+            imageView.dtb
+                .image(config.image)
+                .hiddenWithEmptyImage()
         }
         
         //MARK: - Layout
@@ -172,32 +210,27 @@ extension DTB {
         open override func layoutSubviews() {
             super.layoutSubviews()
             
+            guard bounds.isEmpty == false else { return }
+            
             updateAppearance()
             layoutSubviewWithSize(bounds.size)
         }
         
         @discardableResult
         private func layoutSubviewWithSize(_ size: CGSize) -> CGSize {
-            let insets = contentEdgeInsets
+            guard let config = match(stateConfig) else { return .zero }
+            
+            let insets = config.contentEdgeInsets ?? .zero
+            let imageDirection = config.imageDirection ?? .left
+            let imageOffset = config.imageOffset ?? .zero
+            
             let tSize: CGSize = titleLabel.isHidden ? .zero : titleLabel.sizeThatFits(size)
-            let iSize: CGSize = imageView.isHidden ? .zero : imageView.sizeThatFits(size)
+            let iSize: CGSize = imageView.isHidden ? .zero : (config.imageSize ?? imageView.sizeThatFits(size))
             
             if tSize.dtb.isEmpty() && iSize.dtb.isEmpty() {
                 titleLabel.frame = .zero
                 imageView.frame = .zero
                 return .zero
-            }
-            
-            // 只有图片显示，此时不用考虑实际大小是否大于 inferSize，直接随着自身大小而缩放即可
-            if tSize.dtb.isEmpty() {
-                titleLabel.frame = .zero
-                imageView.frame = CGRect(
-                    x: insets.left,
-                    y: insets.top,
-                    width: size.width - (insets.left + insets.right),
-                    height: size.height - (insets.top + insets.bottom)
-                )
-                return iSize.dtb.margin(only: insets).value
             }
             
             // 只有文字显示，和全部显示时的逻辑相同
@@ -210,6 +243,19 @@ extension DTB {
                     height: tSize.height
                 )
                 imageView.frame = .zero
+                return inferSize
+            }
+            
+            // 只有图片显示，和全部显示时的逻辑相同
+            if tSize.dtb.isEmpty() {
+                let inferSize = iSize.dtb.margin(only: insets).value
+                titleLabel.frame = .zero
+                imageView.frame = CGRect(
+                    x: (size.width - inferSize.width) / 2.0 + insets.left,
+                    y: (size.height - inferSize.height) / 2.0 + insets.top,
+                    width: iSize.width,
+                    height: iSize.height
+                )
                 return inferSize
             }
             

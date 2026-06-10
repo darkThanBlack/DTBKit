@@ -19,20 +19,17 @@ extension DTB {
         /// Convert to attr
         public var attr: [NSAttributedString.Key : Any] {
             return [
-                .font: UIFont.dtb.create(fontSize, weight: fontWeight),
+                .font: UIFont.dtb.create(font),
                 .foregroundColor: textColor
             ]
         }
         
-        public var fontSize: CGFloat
+        public var font: UIFont?
         
-        public var fontWeight: UIFont.Weight
+        public var textColor: UIColor?
         
-        public var textColor: UIColor
-        
-        public init(fontSize: CGFloat, fontWeight: UIFont.Weight, textColor: UIColor) {
-            self.fontSize = fontSize
-            self.fontWeight = fontWeight
+        public init(font: UIFont? = nil, textColor: UIColor? = nil) {
+            self.font = font
             self.textColor = textColor
         }
     }

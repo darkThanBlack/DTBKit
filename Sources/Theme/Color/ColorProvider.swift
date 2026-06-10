@@ -14,7 +14,7 @@ import UIKit
 
 extension DTB.Providers {
     
-    public static let colorKey = DTB.ConstKey<any ColorProvider>("dtb.providers.color")
+    public static let colorKey = DTB.ConstKey<any ColorProvider>("dtb.providers.style.color")
     
     ///
     public protocol ColorProvider {

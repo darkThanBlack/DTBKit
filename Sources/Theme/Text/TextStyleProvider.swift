@@ -14,7 +14,7 @@ import UIKit
 
 extension DTB.Providers {
     
-    public static let textStyleKey = DTB.ConstKey<any TextStyleProvider>("dtb.providers.text.style")
+    public static let textStyleKey = DTB.ConstKey<any TextStyleProvider>("dtb.providers.style.text")
     
     public protocol TextStyleProvider {
         

@@ -54,15 +54,13 @@ extension DTB {
             }
             
             dict.forEach { key, value in
-                guard let fontSize = value["fontSize"] as? CGFloat,
-                      let fontWeight = value["fontWeight"] as? String,
-                      let textColor = value["textColor"] as? String else {
-                    console.error("Invalid style for key: \(key)")
+                guard let font = value["font"],
+                      let textColor = value["textColor"] else {
+                    console.error("text_style: invalid value, key=\(key)")
                     return
                 }
                 let style = TextStyle(
-                    fontSize: fontSize,
-                    fontWeight: .dtb.create(fontWeight),
+                    font: .dtb.create(font),
                     textColor: .dtb.create(textColor)
                 )
                 self.mapper[key] = style

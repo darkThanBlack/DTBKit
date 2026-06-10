@@ -24,21 +24,25 @@ extension Wrapper where Base: UILabel & Chainable {
     
     @inline(__always)
     @discardableResult
-    public func font(_ value: UIFont) -> Self {
-        me.font = value
+    public func font(_ value: UIFont?) -> Self {
+        if let v = value {
+            me.font = v
+        }
         return self
     }
     
     @inline(__always)
     @discardableResult
-    public func textColor(_ value: UIColor) -> Self {
-        me.textColor = value
+    public func textColor(_ value: UIColor?) -> Self {
+        if let v = value {
+            me.textColor = v
+        }
         return self
     }
     
     @inline(__always)
     @discardableResult
-    public func shadowColor(_ value: UIColor) -> Self {
+    public func shadowColor(_ value: UIColor?) -> Self {
         me.shadowColor = value
         return self
     }

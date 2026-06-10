@@ -14,11 +14,11 @@ import UIKit
 
 extension DTB.Providers {
     
-    public static let fontKey = DTB.ConstKey<any FontProvider>("dtb.providers.font")
+    public static let fontKey = DTB.ConstKey<any FontProvider>("dtb.providers.style.font")
     
     ///
     public protocol FontProvider {
         
-        func create(_ param: Any?) -> UIFont
+        func create(_ param: Any?) -> UIFont?
     }
 }
