@@ -34,4 +34,14 @@ extension Wrapper where Base: UIImageView & Chainable {
         me.isHighlighted = value
         return self
     }
+    
+    @inline(__always)
+    @discardableResult
+    public func tintColor(_ value: UIColor?) -> Self {
+        if let v = value {
+            me.tintColor = v
+        }
+        return self
+    }
+    
 }

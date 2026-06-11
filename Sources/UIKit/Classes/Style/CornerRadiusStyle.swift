@@ -51,12 +51,15 @@ extension DTB {
             }
             if let fixed = dict["fixed"] as? CGFloat {
                 self = .fixed(fixed)
+                return
             }
             if let scaledToWidth = dict["scaledToWidth"] as? CGFloat {
                 self = .scaledToWidth(scaledToWidth)
+                return
             }
             if let scaledToHeight = dict["scaledToHeight"] as? CGFloat {
                 self = .scaledToHeight(scaledToHeight)
+                return
             }
             return nil
         }

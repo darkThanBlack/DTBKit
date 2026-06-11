@@ -45,15 +45,16 @@ extension DTB {
                 me.gradient.frame = v.bounds
             }
             
-            guard let sp = ui.shape else {
+            guard let sp = ui.shapeMask else {
                 shape.isHidden = true
                 return
             }
             shape.isHidden = false
             
-            shape.fillColor =       sp.fillColor?.cgColor
+            // 用做 mask 时，系统仅使用 fillColor 的 alpha 通道, 所以默认给一个 alpha = 1.0 的 color
+            shape.fillColor =       sp.fillColor?.cgColor ?? UIColor.black.cgColor
             shape.fillRule =        sp.fillRule ?? .nonZero
-            shape.strokeColor =     sp.strokeColor?.cgColor
+            shape.strokeColor =     sp.strokeColor?.cgColor ?? UIColor.black.cgColor
             shape.strokeStart =     sp.strokeStart ?? 0.0
             shape.strokeEnd =       sp.strokeEnd ?? 1.0
             shape.lineWidth =       sp.lineWidth ?? 0.0
@@ -80,7 +81,7 @@ extension DTB {
                             cornerRadii: radii
                         ).cgPath
                     }
-                    return nil
+                    return UIBezierPath(rect: me.bounds).cgPath
                 }()
             }
         }
@@ -103,6 +104,7 @@ extension DTB {
             super.init(frame: frame)
             
             gradient.mask = shape
+            
             layer.addSublayer(gradient)
         }
         

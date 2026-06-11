@@ -12,10 +12,23 @@
 
 import UIKit
 
+extension StaticWrapper where T == DTB.ShapeStyle {
+    
+    public func create(_ param: Any?) -> DTB.ShapeStyle? {
+        if let p = DTB.app.get(DTB.Providers.shapeStyleKey), let style = p.create(param) {
+            return style
+        }
+        if let dict = param as? [String: Any], let style = DTB.ShapeStyle(dict: dict) {
+            return style
+        }
+        return nil
+    }
+}
+
 extension DTB {
     
     /// CAShapeLayer
-    public struct ShapeStyle: Equatable {
+    public struct ShapeStyle: Structable, Equatable {
         
         // --- round corner
         
@@ -84,15 +97,6 @@ extension DTB {
         }
         
         /// 从字典创建形状样式
-        /// 支持键：
-        /// - "radius"   : CornerRadiusStyle 的解析格式 (纯数字 or {"fixed":..., "scaledToWidth":..., "scaledToHeight":...})
-        /// - "corners"  : 字符串数组如 ["topLeft", "topRight"]，缺省为 .allCorners
-        /// - "fillColor"  : hex 字符串
-        /// - "strokeColor": hex 字符串
-        /// - "lineWidth"  : 数字
-        /// - "strokeStart", "strokeEnd", "miterLimit", "lineDashPhase" 等数字
-        /// - "lineCap", "lineJoin", "fillRule" 等字符串
-        /// - "path" 预留，暂不解析
         public init?(dict: [String: Any]?) {
             guard let dict = dict else { return nil }
             
@@ -111,10 +115,14 @@ extension DTB {
             }()
             
             // 填充色
-            self.fillColor = .dtb.create(dict["fillColor"])
+            if let c = dict["fillColor"] {
+                self.fillColor = .dtb.create(c)
+            }
             
             // 描边色
-            self.strokeColor = .dtb.create(dict["strokeColor"])
+            if let c = dict["strokeColor"] {
+                self.strokeColor = .dtb.create(c)
+            }
             
             // 线宽
             self.lineWidth = dict["lineWidth"] as? CGFloat
@@ -131,7 +139,6 @@ extension DTB {
             self.lineCap = Self.parseLineCap(dict["lineCap"] as? String)
             self.lineJoin = Self.parseLineJoin(dict["lineJoin"] as? String)
         }
-        
         
         private static func parseCorners(_ strings: [String]) -> UIRectCorner {
             var corners: UIRectCorner = []

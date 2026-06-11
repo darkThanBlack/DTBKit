@@ -58,8 +58,10 @@ extension Wrapper where Base: UIButton {
     @available(iOS 5.0, *)
     @inline(__always)
     @discardableResult
-    public func tintColor(_ value: UIColor) -> Self {
-        me.tintColor = value
+    public func tintColor(_ value: UIColor?) -> Self {
+        if let v = value {
+            me.tintColor = value
+        }
         return self
     }
     

@@ -20,6 +20,7 @@ extension DTB {
         public override init(rootViewController: UIViewController) {
             super.init(rootViewController: rootViewController)
             
+            modalPresentationStyle = .fullScreen
             isNavigationBarHidden = true
         }
         

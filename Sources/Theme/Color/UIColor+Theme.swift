@@ -22,8 +22,8 @@ extension StaticWrapper where T: UIColor {
         if let p = DTB.Providers.get(DTB.Providers.colorKey), let result = p.create(param) {
             return result
         }
-        if let hex = param as? String {
-            return .dtb.hex(hex)
+        if let s = param as? String {
+            return .dtb.percentHex(s)
         }
         if let i = param as? Int64 {
             return .dtb.hex(i)

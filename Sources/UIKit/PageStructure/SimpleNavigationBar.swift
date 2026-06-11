@@ -21,7 +21,7 @@ extension DTB {
 extension DTB.SimpleNavigationBarHandler {
     
     ///
-    public func setupCustomNavigatonBar(with config: DTB.SimpleNavigationBar.Config) {
+    public func setupNavigatonBar(with config: DTB.SimpleNavigationBar.Config) {
         customNavigationBar.update(with: config)
         
         view.addSubview(customNavigationBar)

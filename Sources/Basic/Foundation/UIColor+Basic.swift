@@ -13,6 +13,25 @@ import UIKit
 
 extension StaticWrapper where T: UIColor {
     
+    /// 在 hex(rgba:) 的基础上，兼容 RRGGBB.alpha, alpha 是一个十进制的两位数(0, 100)
+    ///
+    /// 常见于某些设计工具直接复制
+    public func percentHex(_ value: String?) -> UIColor {
+        guard let upper = value?.uppercased()
+            .replacingOccurrences(of: "^#", with: "", options: .regularExpression)
+            .replacingOccurrences(of: "^0X", with: "", options: .regularExpression) else {
+            return .clear
+        }
+        if upper.contains("."),
+           let rgb = upper.components(separatedBy: ".").max(),
+           let a = upper.components(separatedBy: ".").min(),
+           let ap = Int(a),
+           ap >= 0 {
+            return hex(rgb, alpha: CGFloat(ap / 100))
+        }
+        return hex(rgba: value)
+    }
+    
     /// 0xRRGGBB
     @inline(__always)
     public func hex(_ value: Int64, alpha: CGFloat = 1.0) -> UIColor {
@@ -66,10 +85,12 @@ extension StaticWrapper where T: UIColor {
     public func hex(argb value: String?) -> UIColor {
         guard let upper = value?.uppercased()
             .replacingOccurrences(of: "^#", with: "", options: .regularExpression)
-            .replacingOccurrences(of: "^0X", with: "", options: .regularExpression),
-              upper.count == 8 else {
+            .replacingOccurrences(of: "^0X", with: "", options: .regularExpression) else {
             DTB.console.error(value)
             return .clear
+        }
+        guard upper.count == 8 else {
+            return hex(upper)
         }
         
         guard let a = Int(upper.prefix(2), radix: 16),
@@ -104,10 +125,12 @@ extension StaticWrapper where T: UIColor {
     public func hex(rgba value: String?) -> UIColor {
         guard let upper = value?.uppercased()
             .replacingOccurrences(of: "^#", with: "", options: .regularExpression)
-            .replacingOccurrences(of: "^0X", with: "", options: .regularExpression),
-              upper.count == 8 else {
+            .replacingOccurrences(of: "^0X", with: "", options: .regularExpression) else {
             DTB.console.error(value)
             return .clear
+        }
+        guard upper.count == 8 else {
+            return hex(upper)
         }
         
         guard let r = Int(upper.prefix(2), radix: 16),

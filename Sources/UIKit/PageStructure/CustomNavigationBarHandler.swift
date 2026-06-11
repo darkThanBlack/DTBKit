@@ -29,6 +29,6 @@ extension DTB {
         
         var customNavigationBar: BarType { get }
         
-        func setupCustomNavigatonBar(with config: BarType.ConfigType)
+        func setupNavigatonBar(with config: BarType.ConfigType)
     }
 }

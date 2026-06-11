@@ -12,8 +12,6 @@
 
 import UIKit
 
-extension DTB.ButtonStyle: Structable {}
-
 extension StaticWrapper where T == DTB.ButtonStyle {
     
     public func create(_ param: Any?) -> DTB.ButtonStyle? {
@@ -29,7 +27,11 @@ extension StaticWrapper where T == DTB.ButtonStyle {
 
 extension DTB {
     
-    public struct ButtonStyle {
+    public struct ButtonStyle: Structable {
+        
+        public var backgroundColor: UIColor?
+        
+        public var contentEdgeInsets: UIEdgeInsets?
         
         public var title: String?
         
@@ -41,7 +43,7 @@ extension DTB {
         
         public var image: UIImage?
         
-        public var contentEdgeInsets: UIEdgeInsets?
+        public var tintColor: UIColor?
         
         public var imageSize: CGSize?
         
@@ -49,36 +51,91 @@ extension DTB {
         
         public var imageOffset: CGVector?
         
-        public init(title: String? = nil, textColor: UIColor? = nil, font: UIFont? = nil, attributedText: NSAttributedString? = nil, image: UIImage? = nil, contentEdgeInsets: UIEdgeInsets? = nil, imageSize: CGSize? = nil, imageDirection: DTB.FourDirection? = nil, imageOffset: CGVector? = nil) {
+        public var shape: DTB.ShapeStyle?
+        
+        public var gradient: DTB.GradientStyle?
+        
+        public init(
+            backgroundColor: UIColor? = nil,
+            contentEdgeInsets: UIEdgeInsets? = nil,
+            title: String? = nil,
+            textColor: UIColor? = nil,
+            font: UIFont? = nil,
+            attributedText: NSAttributedString? = nil,
+            image: UIImage? = nil,
+            tintColor: UIColor? = nil,
+            imageSize: CGSize? = nil,
+            imageDirection: DTB.FourDirection? = nil,
+            imageOffset: CGVector? = nil,
+            shape: DTB.ShapeStyle? = nil,
+            gradient: DTB.GradientStyle? = nil
+        ) {
+            self.backgroundColor = backgroundColor
+            self.contentEdgeInsets = contentEdgeInsets
             self.title = title
             self.textColor = textColor
             self.font = font
             self.attributedText = attributedText
             self.image = image
-            self.contentEdgeInsets = contentEdgeInsets
+            self.tintColor = tintColor
             self.imageSize = imageSize
             self.imageDirection = imageDirection
             self.imageOffset = imageOffset
+            self.shape = shape
+            self.gradient = gradient
         }
+        
         
         public init?(dict: [String: Any]?) {
             guard let dict = dict else { return nil }
+            
+            // 属性字符串一般不在 JSON 中解析，置 nil
+            self.attributedText = nil
+            
+            if let c = dict["backgroundColor"] {
+                self.backgroundColor = .dtb.create(c)
+            }
+            
+            self.shape = .dtb.create(dict["shape"])
+            self.gradient = .dtb.create(dict["gradient"])
+            
+            // 额外解析: 让 fillColor 未设置时，沿用 backgroundColor
+            if self.shape != nil, self.shape?.fillColor == nil, let color = self.backgroundColor {
+                self.shape?.fillColor = color
+            }
+            
+            // 额外解析: 让 gradient.shapeMask 未设置时，沿用本身的 shape 作为 mask
+            if self.gradient != nil, self.gradient?.shapeMask == nil {
+                self.gradient?.shapeMask = self.shape
+            }
             
             // 标题
             self.title = dict["title"] as? String
             
             // 字体
-            self.font = .dtb.create(dict["font"])
+            if let f = dict["font"] {
+                self.font = .dtb.create(f)
+            }
             
             // 文字颜色
-            self.textColor = .dtb.create(dict["textColor"])
+            if let c = dict["textColor"] {
+                self.textColor = .dtb.create(c)
+            }
             
             // 图片
             self.image = .dtb.create(dict["image"])
             
+            if let c = dict["tintColor"] {
+                self.tintColor = .dtb.create(c)
+            }
+            
             // 内边距
             self.contentEdgeInsets = {
-                if let insetsDict = dict["contentEdgeInsets"] as? [String: CGFloat] {
+                // 额外解析: 兼容多个字段名
+                if let insetsDict = [
+                    "contentEdgeInsets",
+                    "padding"
+                ].compactMap({ dict[$0] as? [String: CGFloat] }).first {
                     return UIEdgeInsets(
                         top: insetsDict["top"] ?? 0,
                         left: insetsDict["left"] ?? 0,
@@ -119,8 +176,6 @@ extension DTB {
                 return nil
             }()
             
-            // 属性字符串一般不在 JSON 中解析，置 nil
-            self.attributedText = nil
         }
         
     }

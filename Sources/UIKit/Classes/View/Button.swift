@@ -18,42 +18,41 @@ extension DTB {
     @objc(DTBButton)
     open class Button: BaseControl {
         
-        private var stateConfig: [UInt: DTB.ButtonStyle] = {
-            var dict: [UInt: DTB.ButtonStyle] = [:]
-            [
-                UIControl.State.normal,
-                UIControl.State.highlighted,
-                UIControl.State.disabled,
-                UIControl.State.selected,
-                UIControl.State.focused,
-                UIControl.State.application,
-                UIControl.State.reserved
-            ].forEach({
-                dict[$0.rawValue] = DTB.ButtonStyle()
-            })
-            return dict
-        }()
+        private var stateConfig: [UInt: DTB.ButtonStyle] = [:]
         
-//        private var titles: [UInt: String] = [:]
-//        
-//        private var textColors: [UInt: UIColor] = [:]
-//        
-//        private var fonts: [UInt: UIFont] = [:]
-//        
-//        private var attrTitles: [UInt: NSAttributedString] = [:]
-//        
-//        private var images: [UInt: UIImage] = [:]
-//        
-//        private var contentEdgeInsets: UIEdgeInsets = .zero
-//        
-//        private var imageDirection: DTB.FourDirection = .left
-//        
-//        private var imageOffset: CGVector = .zero
+        public func setConfig(_ config: DTB.ButtonStyle?, for state: UIControl.State = .normal) {
+            stateConfig[state.rawValue] = config
+            updateAppearance()
+            updateLayout()
+        }
         
         private func ensureConfigExist(for state: UIControl.State) {
             if stateConfig[state.rawValue] == nil {
                 stateConfig[state.rawValue] = DTB.ButtonStyle()
             }
+        }
+        
+        // -- appearance
+        
+        ///
+        public func setShape(_ config: DTB.ShapeStyle?, for state: UIControl.State = .normal) {
+            ensureConfigExist(for: state)
+            stateConfig[state.rawValue]?.shape = config
+            updateAppearance()
+        }
+        
+        ///
+        public func setGradient(_ config: DTB.GradientStyle?, for state: UIControl.State = .normal) {
+            ensureConfigExist(for: state)
+            stateConfig[state.rawValue]?.gradient = config
+            updateAppearance()
+        }
+        
+        ///
+        public func setBackgroundColor(_ color: UIColor?, for state: UIControl.State = .normal) {
+            ensureConfigExist(for: state)
+            stateConfig[state.rawValue]?.backgroundColor = color
+            updateAppearance()
         }
         
         ///
@@ -90,6 +89,15 @@ extension DTB {
             stateConfig[state.rawValue]?.image = image
             updateAppearance()
         }
+        
+        ///
+        public func setTintColor(_ color: UIColor?, for state: UIControl.State = .normal) {
+            ensureConfigExist(for: state)
+            stateConfig[state.rawValue]?.tintColor = color
+            updateAppearance()
+        }
+        
+        // --- layout
         
         ///
         public func setContentEdgeInsets(_ insets: UIEdgeInsets, for state: UIControl.State = .normal) {
@@ -142,6 +150,20 @@ extension DTB {
             return view
         }()
         
+        public lazy var shapeBackgroundView = {
+            let view = DTB.ShapeView()
+            view.isUserInteractionEnabled = false
+            view.isHidden = true
+            return view
+        }()
+        
+        public lazy var gradientBackgroundView = {
+            let view = DTB.GradientView()
+            view.isUserInteractionEnabled = false
+            view.isHidden = true
+            return view
+        }()
+        
         public override init(frame: CGRect) {
             super.init(frame: frame)
             
@@ -153,6 +175,8 @@ extension DTB {
         }
         
         private func loadViews(in box: UIView) {
+            box.addSubview(shapeBackgroundView)
+            box.addSubview(gradientBackgroundView)
             box.addSubview(titleLabel)
             box.addSubview(imageView)
         }
@@ -189,7 +213,31 @@ extension DTB {
             
             imageView.dtb
                 .image(config.image)
+                .tintColor(config.tintColor)
                 .hiddenWithEmptyImage()
+            
+            // 渐变
+            if let gradient = config.gradient {
+                gradientBackgroundView.updateUI(gradient)
+                
+                self.backgroundColor = .clear
+                shapeBackgroundView.isHidden = true
+                gradientBackgroundView.isHidden = false
+                return
+            }
+            // 形状
+            if let shape = config.shape {
+                shapeBackgroundView.updateUI(shape)
+                
+                self.backgroundColor = .clear
+                shapeBackgroundView.isHidden = false
+                gradientBackgroundView.isHidden = true
+                return
+            }
+            // 普通背景色
+            self.backgroundColor = config.backgroundColor
+            shapeBackgroundView.isHidden = true
+            gradientBackgroundView.isHidden = true
         }
         
         //MARK: - Layout
@@ -219,6 +267,9 @@ extension DTB {
         @discardableResult
         private func layoutSubviewWithSize(_ size: CGSize) -> CGSize {
             guard let config = match(stateConfig) else { return .zero }
+            
+            shapeBackgroundView.frame = bounds
+            gradientBackgroundView.frame = bounds
             
             let insets = config.contentEdgeInsets ?? .zero
             let imageDirection = config.imageDirection ?? .left
