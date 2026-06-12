@@ -20,8 +20,11 @@ extension DTB {
         public override init(rootViewController: UIViewController) {
             super.init(rootViewController: rootViewController)
             
-            modalPresentationStyle = .fullScreen
-            isNavigationBarHidden = true
+            // iOS 13.x present 效果适配
+            self.modalPresentationStyle = .fullScreen
+            
+            // 导航栏完全通过自定义视图实现
+            self.navigationBar.isHidden = true
         }
         
         public required init?(coder aDecoder: NSCoder) {

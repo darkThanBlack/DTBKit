@@ -53,6 +53,12 @@ extension DTB {
 //                str = str.xm.appendCommonUrlParams().value
 //            }
             
+            let commonUrlParam: [String: String] = [
+                "deviceType": "ios",
+                "version": DTB.app.version,
+                "build": DTB.app.build
+            ]
+            str = str.dtb.urlAppendParams(commonUrlParam).value
             guard let url = URL(string: str) else {
                 return
             }

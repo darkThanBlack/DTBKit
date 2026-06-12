@@ -38,6 +38,12 @@ DESC
     ss.dependency 'DTBKit/Core'
   end
   
+  s.subspec 'ObjectMapper' do |ss|
+    ss.source_files = 'Sources/ObjectMapper/**/*'
+    ss.dependency 'DTBKit/Core'
+    ss.dependency 'ObjectMapper'
+  end
+  
   s.subspec 'Kingfisher' do |ss|
     ss.source_files = 'Sources/Kingfisher/**/*'
     ss.dependency 'DTBKit/Theme'
