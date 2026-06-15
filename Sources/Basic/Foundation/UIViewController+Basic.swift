@@ -24,32 +24,12 @@ extension StaticWrapper where T: UIViewController {
     
     /// Try pop / dismiss / remove top most view controller
     ///
-    /// 依次尝试各种方法去移除 ``topMost``，在诸如 ``WKWebView`` 内部的场景下可能会用到。
+    /// 依次尝试各种方法去移除 ``topMost``
     ///
     /// - Returns: success == true
     @discardableResult
     public func popAnyway(animated: Bool = true) -> Bool {
-        guard let controller = topMost() else {
-            return false
-        }
-        // pop
-        if let nav = controller.navigationController ?? (controller as? UINavigationController) {
-            nav.popViewController(animated: animated)
-            return true
-        }
-        // dismiss
-        if controller.presentingViewController != nil {
-            controller.dismiss(animated: animated)
-            return true
-        }
-        // remove child
-        if controller.parent != nil {
-            controller.willMove(toParent: nil)
-            controller.view.removeFromSuperview()
-            controller.removeFromParent()
-            return true
-        }
-        return false
+        return topMost()?.dtb.popAnyway(animated: animated) ?? false
     }
 }
 
@@ -119,7 +99,7 @@ extension Wrapper where Base: UIViewController {
     
     /// Try pop / dismiss / remove top most view controller
     ///
-    /// 依次尝试各种方法去移除当前控制器；常见业务：``WKWebView``
+    /// 依次尝试各种方法去移除当前控制器；在处理诸如 ``WKWebView.bridge`` 等不容易知道当前页面栈结构的场景很有用
     ///
     /// - Returns: success == true
     @discardableResult
@@ -147,14 +127,17 @@ extension Wrapper where Base: UIViewController {
         }
         // child
         if me.parent != nil {
-            // do nth.
+            me.willMove(toParent: nil)
+            me.view.removeFromSuperview()
+            me.removeFromParent()
+            return true
         }
         return false
     }
     
     /// Try pop / dismiss / remove to window root view controller
     ///
-    /// 递归移除当前控制器, 返回到 window.rootViewController
+    /// 递归移除当前控制器, 返回到 window.rootViewController；在处理例如用户被踢出登录等需要重新构建，又不想销毁整体页面栈的场景很有用
     ///
     /// - Returns: success == false
     @discardableResult

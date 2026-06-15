@@ -1,0 +1,36 @@
+name: RingRPC_Common
+attributes:
+  ORGANIZATIONNAME: "jiejing"
+targets:
+  Butterfly_Common:
+    type: framework
+    platform: [iOS]
+    platformSuffix: "" # 去掉平台后缀名
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: com.xiaomai5.RingRPC-Common
+      IPHONEOS_DEPLOYMENT_TARGET: 12.0
+      MACH_O_TYPE: staticlib
+      EXCLUDED_ARCHS[sdk=iphonesimulator*]: arm64
+      GENERATE_INFOPLIST_FILE: true
+      FRAMEWORK_SEARCH_PATHS:
+        - $(inherited)
+        - $(PROJECT_DIR)/../../Pods/Alamofire/Source/
+        - $(PROJECT_DIR)/../../Pods/ObjectMapper/Source/
+        - $(PROJECT_DIR)/../../Pods/Moya/Source/
+      EXCLUDED_ARCHS[sdk=iphonesimulator*]:
+        - arm64
+    sources:
+      - depends
+      - enumtype
+      - model
+      - service
+    dependencies:
+      - framework: Alamofire.framework
+        implicit: true
+        embed: false
+      - framework: ObjectMapper.framework
+        implicit: true
+        embed: false
+      - framework: Moya.framework
+        implicit: true
+        embed: false

@@ -1,9 +1,14 @@
-#
+# github specs
+source 'https://github.com/CocoaPods/Specs.git'
+
+# privacy specs
+#source 'https://github.com/darkThanBlack/Specs.git'
+
 project 'Example.xcodeproj'
 
 use_frameworks!
 
-platform :ios, '11.0'
+platform :ios, '12.0'
 
 target 'DTBKit_Example' do
   
@@ -11,20 +16,48 @@ target 'DTBKit_Example' do
     :subspecs => ['Core'],
     :git => 'https://github.com/darkThanBlack/DoKit-iOS.git',
     :branch => 'master',
-    :commit => '2b21b6fa103da28798ff1038dd78679b0fb408d0'
+    :commit => '02e1f72e1265af5bab78beb22f693f0e78ffa00a'
     
-#  Change development pods to xcodegen
+  #  Change development pods to xcodegen
   pod 'DTBKit/Core', :path => '../'
   pod 'DTBKit/Chain', :path => '../'
-  pod 'DTBKit/Basic', :path => '../', :testspecs => ['Tests']
   pod 'DTBKit/Theme', :path => '../'
-  pod 'DTBKit/UIKit', :path => '../'
-  pod 'DTBKit/Map', :path => '../'
-
-#  pod 'SnapKit', '5.0.1'
-#  pod 'URLNavigator', '2.3.0'
   
-#  pod 'DoraemonKit/Core', '~> 3.0.4', configurations: %w[Debug] # 必选
+  pod 'DTBKit/ObjectMapper', :path => '../'
+  pod 'DTBKit/Kingfisher', :path => '../'
+  pod 'DTBKit/SDWebImage', :path => '../'
+  
+  pod 'DTBKit/Map', :path => '../'
+  pod 'DTBKit/Basic', :path => '../', :testspecs => ['Tests']
+  pod 'DTBKit/UIKit', :path => '../'
+  
+  # RPC
+  #
+  # 利用 swing_rpc 从 swagger 生成接口代码，并引入主工程的示例
+  pod 'RPC_Common', :path => 'RPC/RPC_Common'
+  pod 'RPC_Journey', :path => 'RPC/RPC_Journey'
+  
+  # 对严肃的商业项目来说，你必须将每一个依赖锁定在一个固定的版本号上。
+  #
+  # For serious commercial projects, you must lock each dependency to a fixed version number.
+  
+  # depency for Basic, sample for JSBridge
+  pod 'WKWebViewJavascriptBridge', :source => 'https://github.com/darkThanBlack/Specs.git'
+  
+  pod 'SnapKit', '4.0.1'
+  pod 'RxSwift', '6.9.0'
+  pod 'PromiseKit', '6.7.0'
+  
+  pod 'Alamofire', '5.10.2'
+  pod 'Moya', '15.0.0'
+
+  pod 'ObjectMapper', '4.2.0'
+  pod 'Kingfisher', '7.12.0'
+  pod 'SDWebImage', '5.21.3'
+  
+  pod 'Toast-Swift', '5.0.1'
+  pod 'MBProgressHUD', '1.2.0'
+  pod 'MJRefresh', '3.7.9'
   
 #  target 'DTBKit_Tests' do
 #    inherit! :search_paths
@@ -34,7 +67,7 @@ end
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
-      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '11.0'
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
 #      config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'arm64'
     end
   end

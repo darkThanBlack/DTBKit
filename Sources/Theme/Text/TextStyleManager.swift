@@ -48,14 +48,15 @@ extension DTB {
                 return
             }
             guard let data = try? Data(contentsOf: URL(fileURLWithPath: filePath)),
-                  let dict = (try? JSONSerialization.jsonObject(with: data, options: [])) as? [String: [String: Any]] else {
+                  let rawDict = (try? JSONSerialization.jsonObject(with: data, options: [])) as? [String: Any] else {
                 console.error("text_style.json parse fail")
                 return
             }
             
-            dict.forEach { key, value in
-                guard let font = value["font"],
-                      let textColor = value["textColor"] else {
+            rawDict.forEach { key, value in
+                guard let dict = value as? [String: Any],
+                      let font = dict["font"],
+                      let textColor = dict["textColor"] else {
                     console.error("text_style: invalid value, key=\(key)")
                     return
                 }

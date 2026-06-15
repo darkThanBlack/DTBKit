@@ -45,7 +45,7 @@ extension DTB {
             super.viewDidLoad()
             
             // 避免 push/pop 动画显示问题
-            view.backgroundColor = .dtb.create("background01")
+            view.backgroundColor = .dtb.create("bg")
         }
     }
     

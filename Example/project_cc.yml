@@ -12,7 +12,7 @@ targets:
     platform: [iOS]
     platformSuffix: ""
     deploymentTarget:
-      iOS: 11.0
+      iOS: 12.0
     # scheme:
     #   testTargets:
     #     - DTBKit_Basic_Tests
@@ -28,7 +28,7 @@ targets:
     platform: [iOS]
     platformSuffix: ""
     deploymentTarget:
-      iOS: 11.0
+      iOS: 12.0
     sources:
       - path: "../Sources/Chain"
     dependencies:
@@ -42,7 +42,7 @@ targets:
     platform: [iOS]
     platformSuffix: ""
     deploymentTarget:
-      iOS: 11.0
+      iOS: 12.0
     sources:
       - path: "../Sources/Theme"
     dependencies:
@@ -56,7 +56,7 @@ targets:
     platform: [iOS]
     platformSuffix: ""
     deploymentTarget:
-      iOS: 11.0
+      iOS: 12.0
     scheme:
       testTargets:
         - DTBKit_Basic_Tests
@@ -85,7 +85,7 @@ targets:
       PRODUCT_BUNDLE_IDENTIFIER: org.darkThanBlack.demo.DTBKit
       BUNDLE_LOADER: $(TEST_HOST)
       GENERATE_INFOPLIST_FILE: true
-      IPHONEOS_DEPLOYMENT_TARGET: 11.0
+      IPHONEOS_DEPLOYMENT_TARGET: 12.0
       SWIFT_VERSION: 5.0
       # 注释以便 Xcode 15.3 Uni-Test 成功运行
       # EXCLUDED_ARCHS[sdk=iphonesimulator*]: arm64
