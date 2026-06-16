@@ -33,7 +33,7 @@ extension DTB.TDIView {
     public static func arrow() -> DTB.TDIView {
         let view = DTB.TDIView()
         view.rightImageView.dtb
-            .tintColor(.dtb.create("arrow01"))
+            .tintColor(.dtb.create("arrow"))
             .image(.dtb.local("chevron.right"))
         return view
     }

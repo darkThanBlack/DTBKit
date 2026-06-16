@@ -19,8 +19,8 @@ extension DTB {
         
         private lazy var selectView = TDIView.select()
         
-        public override func update(_ model: CellModel?) {
-            super.update(model)
+        public func update(_ model: CellModel?) {
+            super.updateCardUI(model?.style?.container)
             
             selectView.updateSelectData(model?.data)
         }

@@ -23,8 +23,8 @@ extension StaticWrapper where T: UIColor {
             return .clear
         }
         if upper.contains("."),
-           let rgb = upper.components(separatedBy: ".").max(),
-           let a = upper.components(separatedBy: ".").min(),
+           let rgb = upper.components(separatedBy: ".").first,
+           let a = upper.components(separatedBy: ".").last,
            let ap = Int(a),
            ap >= 0 {
             return hex(rgb, alpha: CGFloat(ap / 100))

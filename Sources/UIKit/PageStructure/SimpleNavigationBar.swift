@@ -156,7 +156,7 @@ extension DTB {
                     leftButton.dtb
                         .setTitle(nil, for: .normal)
                         .setImage(image, for: .normal)
-                        .tintColor(.dtb.create("button02"))
+                        .tintColor(.dtb.create("arrow"))
                 case .dismiss:
                     let image = {
                         if #available(iOS 13.0, *) {
@@ -168,11 +168,11 @@ extension DTB {
                     leftButton.dtb
                         .setTitle(nil, for: .normal)
                         .setImage(image, for: .normal)
-                        .tintColor(.dtb.create("button02"))
+                        .tintColor(.dtb.create("arrow"))
                 case .title(let value):
                     leftButton.dtb
                         .setTitle(value, for: .normal)
-                        .setTitleColor(.dtb.create("text01"), for: .normal)
+                        .setTitleColor(.dtb.create("text"), for: .normal)
                         .setImage(nil, for: .normal)
                 }
             } else {
@@ -185,7 +185,7 @@ extension DTB {
                 case .title(let value):
                     rightButton.dtb
                         .setTitle(value, for: .normal)
-                        .setTitleColor(.dtb.create("text01"), for: .normal)
+                        .setTitleColor(.dtb.create("text"), for: .normal)
                         .setImage(nil, for: .normal)
                 }
             } else {
@@ -276,8 +276,7 @@ extension DTB {
             .value
         
         private lazy var titleLabel = UILabel().dtb
-            .font(.systemFont(ofSize: 17.0, weight: .medium))
-            .textColor(.dtb.create("text01"))
+            .textStyle("title2")
             .textAlignment(.center)
             .numberOfLines(1)
             .value

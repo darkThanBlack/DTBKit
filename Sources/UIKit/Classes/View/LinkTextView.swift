@@ -68,7 +68,7 @@ extension DTB {
         /// (默认)普通文本样式
         public var textAttr: [NSAttributedString.Key: Any] = .dtb.create
             .font(.systemFont(ofSize: 13.0))
-            .foregroundColor(.dtb.create("text01"))
+            .foregroundColor(.dtb.create("text"))
             .paragraphStyle(
                 NSMutableParagraphStyle().dtb
                     .lineBreakMode(.byCharWrapping)
@@ -107,6 +107,12 @@ extension DTB {
         
         /// 必须实现
         public weak var tapDelegate: LinkTextViewDelegate?
+        
+        // 禁用选中范围
+        public override var selectedTextRange: UITextRange? {
+            get { return nil }
+            set { /* 禁止设置 */ }
+        }
         
         public override init(frame: CGRect, textContainer: NSTextContainer?) {
             super.init(frame: frame, textContainer: textContainer)

@@ -118,7 +118,7 @@ extension DTB {
             }
             
             dict.forEach { key, hexString in
-                self.mapper[key] = UIColor.dtb.hex(hexString)
+                self.mapper[key] = UIColor.dtb.percentHex(hexString)
             }
         }
         

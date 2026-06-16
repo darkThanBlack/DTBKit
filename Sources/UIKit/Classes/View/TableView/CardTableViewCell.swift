@@ -40,7 +40,7 @@ extension DTB {
     open class CardTableViewCell: BaseTableViewCell {
         
         ///
-        private lazy var style = DTB.ContainerStyle.card()
+        private lazy var style = DTB.ContainerStyle.singleCard()
         
         /// 卡片式背景
         private lazy var card = ShapeView()
@@ -51,20 +51,20 @@ extension DTB {
         /// 由子类重写, box 是 add 在 card 上的一个 container
         open func loadViews(in box: UIView) {}
         
-        open func update(_ model: CellModel?) {
-            if let margin = model?.style?.container?.margin, self.style.margin != margin {
+        open func updateCardUI(_ style: DTB.ContainerStyle?) {
+            if let margin = style?.margin, self.style.margin != margin {
                 self.style.margin = margin
                 card.snp.remakeConstraints { make in
                     make.edges.equalToSuperview().inset(margin)
                 }
             }
-            if let padding = model?.style?.container?.padding, self.style.padding != padding {
+            if let padding = style?.padding, self.style.padding != padding {
                 self.style.padding = padding
                 container.snp.remakeConstraints { make in
                     make.edges.equalToSuperview().inset(padding)
                 }
             }
-            if let shape = model?.style?.container?.shape, self.style.shape != shape {
+            if let shape = style?.shape, self.style.shape != shape {
                 self.style.shape = shape
                 card.updateUI(self.style.shape)
             }

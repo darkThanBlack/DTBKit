@@ -19,8 +19,8 @@ extension DTB {
         
         private lazy var hintView = TDIView.arrow()
         
-        public override func update(_ model: CellModel?) {
-            super.update(model)
+        public func update(_ model: CellModel?) {
+            super.updateCardUI(model?.style?.container)
             
             hintView.updateArrowData(model?.data)
         }
