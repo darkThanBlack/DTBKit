@@ -125,7 +125,7 @@ extension DTB {
         )
         
         public func update(with config: Config) {
-            current.mergeNotNull(config)
+            current = config
             updateCurrent(current)
         }
         
