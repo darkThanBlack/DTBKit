@@ -44,34 +44,8 @@ extension DTB {
             shape.lineDashPhase =   sp.lineDashPhase ?? 0.0
             shape.lineDashPattern = sp.lineDashPattern
             
-            lazyFire(.onLayoutSubviews) { v in
-                guard let me = v as? Self else { return }
-                
-                me.shape.path = {
-                    // 完全自定义路径
-                    if let path = sp.path {
-                        return path
-                    }
-                    // 圆角
-                    if let corners = sp.corners,
-                       let radii = sp.radius?.radii(for: me.bounds) {
-                        return UIBezierPath(
-                            roundedRect: me.bounds,
-                            byRoundingCorners: corners,
-                            cornerRadii: radii
-                        ).cgPath
-                    }
-                    return nil
-                }()
-            }
+            setNeedsLayout()
         }
-        
-        ///
-        private lazy var shape: CAShapeLayer = {
-            let shape = CAShapeLayer()
-            shape.isHidden = true
-            return shape
-        }()
         
         public override init(frame: CGRect) {
             super.init(frame: frame)
@@ -82,6 +56,36 @@ extension DTB {
         public required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
+        
+        public override func layoutSubviews() {
+            super.layoutSubviews()
+            
+            guard bounds.isEmpty == false else { return }
+            
+            shape.path = {
+                // 完全自定义路径
+                if let path = style.path {
+                    return path
+                }
+                // 圆角
+                if let corners = style.corners,
+                   let radii = style.radius?.radii(for: bounds) {
+                    return UIBezierPath(
+                        roundedRect: bounds,
+                        byRoundingCorners: corners,
+                        cornerRadii: radii
+                    ).cgPath
+                }
+                return nil
+            }()
+        }
+        
+        private lazy var shape: CAShapeLayer = {
+            let shape = CAShapeLayer()
+            shape.isHidden = true
+            return shape
+        }()
+        
     }
     
 }

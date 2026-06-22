@@ -43,7 +43,7 @@ extension DTB.ContainerStyle {
 
 extension DTB {
     
-    /// 自定义容器
+    /// 自定义容器，取决于对应控件的内部实现
     public struct ContainerStyle {
         
         /// 外间距
@@ -52,17 +52,27 @@ extension DTB {
         /// 内间距
         public var padding: UIEdgeInsets?
         
-        /// CAShapeLayer
-        public var shape: ShapeStyle?
+        ///
+        public var backgroundColor: UIColor?
+        
+        ///
+        public var shape: DTB.ShapeStyle?
+        
+        ///
+        public var gradient: DTB.GradientStyle?
         
         public init(
             margin: UIEdgeInsets? = nil,
             padding: UIEdgeInsets? = nil,
-            shape: ShapeStyle? = nil
+            backgroundColor: UIColor? = nil,
+            shape: DTB.ShapeStyle? = nil,
+            gradient: DTB.GradientStyle? = nil
         ) {
             self.margin = margin
             self.padding = padding
+            self.backgroundColor = backgroundColor
             self.shape = shape
+            self.gradient = gradient
         }
     }
 }

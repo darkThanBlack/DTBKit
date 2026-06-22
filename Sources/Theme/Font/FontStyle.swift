@@ -29,10 +29,19 @@ extension DTB {
         }
         
         public init?(dict: [String: Any]?) {
-            guard let size = dict?["size"] as? CGFloat,
-                  let weight = UIFont.Weight.dtb.create(dict?["weight"]) else {
+            guard let size = dict?["size"] as? CGFloat else {
                 return nil
             }
+            let weight: UIFont.Weight = {
+                if let w = dict?["weight"] as? UIFont.Weight {
+                    return w
+                }
+                if let w = UIFont.Weight.dtb.create(dict?["weight"]) {
+                    return w
+                }
+                return .regular
+            }()
+            
             self.size = size
             self.weight = weight
             self.name = dict?["name"] as? String

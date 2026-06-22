@@ -49,8 +49,8 @@ public final class LayoutManager {
     
     /// Normarl priority with constant width or height.
     @inline(__always)
-    public func sizedBox(width: CGFloat? = nil, height: CGFloat? = nil) -> DTB.Container {
-        let view = DTB.Container()
+    public func sizedBox(width: CGFloat? = nil, height: CGFloat? = nil) -> DTB.VoidView {
+        let view = DTB.VoidView()
         view.lazyFire(.onDidMoveToSuperview) { v in
             v.translatesAutoresizingMaskIntoConstraints = false
             if let w = width, w > 0 {
