@@ -21,6 +21,7 @@ extension StaticWrapper where T: UIFont {
         if let p = DTB.Providers.get(DTB.Providers.fontKey), let font = p.create(param) {
             return font
         }
+        // FIXME: any CGFloat
         if let size = param as? Double {
             return UIFont.systemFont(ofSize: size, weight: .regular)
         }

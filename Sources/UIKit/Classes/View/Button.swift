@@ -204,6 +204,8 @@ extension DTB {
         private func updateAppearance() {
             guard let config = match(stateConfig) else { return }
             
+            self.backgroundColor = config.backgroundColor
+            
             titleLabel.dtb
                 .attributedText(config.attributedText)
                 .text(config.title)
@@ -220,7 +222,6 @@ extension DTB {
             if let gradient = config.gradient {
                 gradientBackgroundView.updateUI(gradient)
                 
-                self.backgroundColor = .clear
                 shapeBackgroundView.isHidden = true
                 gradientBackgroundView.isHidden = false
                 return
@@ -229,13 +230,11 @@ extension DTB {
             if let shape = config.shape {
                 shapeBackgroundView.updateUI(shape)
                 
-                self.backgroundColor = .clear
                 shapeBackgroundView.isHidden = false
                 gradientBackgroundView.isHidden = true
                 return
             }
-            // 普通背景色
-            self.backgroundColor = config.backgroundColor
+            // 普通背景
             shapeBackgroundView.isHidden = true
             gradientBackgroundView.isHidden = true
         }
@@ -260,7 +259,7 @@ extension DTB {
             
             guard bounds.isEmpty == false else { return }
             
-            updateAppearance()
+            // updateAppearance()
             layoutSubviewWithSize(bounds.size)
         }
         

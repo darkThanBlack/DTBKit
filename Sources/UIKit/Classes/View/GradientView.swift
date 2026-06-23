@@ -42,6 +42,9 @@ extension DTB {
             
             if let sp = ui.shapeMask {
                 shape.isHidden = false
+                if gradient.mask == nil {
+                    gradient.mask = shape
+                }
                 
                 // 用做 mask 时，系统仅使用 fillColor 的 alpha 通道, 所以默认给一个 alpha = 1.0 的 color
                 shape.fillColor =       sp.fillColor?.cgColor ?? UIColor.black.cgColor
@@ -57,6 +60,7 @@ extension DTB {
                 shape.lineDashPattern = sp.lineDashPattern
             } else {
                 shape.isHidden = true
+                gradient.mask = nil
             }
             
             setNeedsLayout()
@@ -79,7 +83,7 @@ extension DTB {
         public override init(frame: CGRect) {
             super.init(frame: frame)
             
-            gradient.mask = shape
+            // gradient.mask = shape
             
             layer.addSublayer(gradient)
         }
