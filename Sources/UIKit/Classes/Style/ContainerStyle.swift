@@ -44,7 +44,7 @@ extension DTB.ContainerStyle {
 extension DTB {
     
     /// 自定义容器，取决于对应控件的内部实现
-    public struct ContainerStyle {
+    public struct ContainerStyle: Equatable {
         
         /// 外间距
         public var margin: UIEdgeInsets?

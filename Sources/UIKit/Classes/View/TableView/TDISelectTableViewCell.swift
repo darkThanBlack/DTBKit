@@ -15,12 +15,12 @@ import UIKit
 extension DTB {
     
     @objc(DTBTDISelectTableViewCell)
-    public final class TDISelectTableViewCell: CardTableViewCell {
+    public final class TDISelectTableViewCell: ContainerTableViewCell {
         
         private lazy var selectView = TDIView.select()
         
         public func update(_ model: CellModel?) {
-            super.updateCardUI(model?.style?.container)
+            super.updateUI(model?.style?.container)
             
             selectView.updateSelectData(model?.data)
         }

@@ -16,7 +16,7 @@ extension DTB {
     
     /// view with simple CAShapeLayer
     @objc(DTBShapeView)
-    public final class ShapeView: BaseView {
+    public final class ShapeView: UIView {
         
         private var style = DTB.ShapeStyle()
         

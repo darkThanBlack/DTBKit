@@ -15,12 +15,12 @@ import UIKit
 extension DTB {
     
     @objc(DTBITDIArrowTableViewCell)
-    public final class ITDIArrowTableViewCell: CardTableViewCell {
+    public final class ITDIArrowTableViewCell: ContainerTableViewCell {
         
         private lazy var hintView = ITDIView.arrow()
         
         public func update(_ model: CellModel?) {
-            super.updateCardUI(model?.style?.container)
+            super.updateUI(model?.style?.container)
             
             hintView.updateArrowData(model?.data)
         }

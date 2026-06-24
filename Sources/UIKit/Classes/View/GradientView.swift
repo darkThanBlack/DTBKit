@@ -18,7 +18,7 @@ extension DTB {
     
     /// view with CAGradientLayer + CAShapeLayer mask
     @objc(DTBGradientView)
-    public final class GradientView: BaseView {
+    public final class GradientView: UIView {
         
         private var style = DTB.GradientStyle()
         

@@ -36,56 +36,53 @@ extension DTB {
         }
     }
     
-    @objc(DTBCardTableViewCell)
-    open class CardTableViewCell: BaseTableViewCell {
+    @objc(DTBContainerTableViewCell)
+    open class ContainerTableViewCell: BaseTableViewCell {
         
         ///
-        private lazy var style = DTB.ContainerStyle.singleCard()
+        private lazy var style = DTB.ContainerStyle()
         
         /// 卡片式背景
-        private lazy var card = ShapeView()
+        private lazy var container = ContainerView()
         
         /// 承载真正的业务内容
-        private lazy var container = UIView()
+        private lazy var childContent = UIView()
         
-        /// 由子类重写, box 是 add 在 card 上的一个 container
+        /// 由子类重写, box 是 add 在 container 上的一个 childContent
         open func loadViews(in box: UIView) {}
         
-        open func updateCardUI(_ style: DTB.ContainerStyle?) {
+        open func updateUI(_ style: DTB.ContainerStyle?) {
+            container.updateUI(style)
             if let margin = style?.margin, self.style.margin != margin {
                 self.style.margin = margin
-                card.snp.remakeConstraints { make in
+                container.snp.remakeConstraints { make in
                     make.edges.equalToSuperview().inset(margin)
                 }
             }
             if let padding = style?.padding, self.style.padding != padding {
                 self.style.padding = padding
-                container.snp.remakeConstraints { make in
+                childContent.snp.remakeConstraints { make in
                     make.edges.equalToSuperview().inset(padding)
                 }
-            }
-            if let shape = style?.shape, self.style.shape != shape {
-                self.style.shape = shape
-                card.updateUI(self.style.shape)
             }
         }
         
         public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
             
-            contentView.addSubview(card)
-            card.addSubview(container)
+            contentView.addSubview(container)
+            container.addSubview(childContent)
             
-            card.updateUI(self.style.shape)
+            container.updateUI(self.style)
             
-            card.snp.remakeConstraints { make in
-                make.edges.equalToSuperview().inset(self.style.margin ?? .zero)
-            }
             container.snp.remakeConstraints { make in
-                make.edges.equalToSuperview().inset(self.style.padding ?? .zero)
+                make.edges.equalToSuperview().inset(UIEdgeInsets.zero)
+            }
+            childContent.snp.remakeConstraints { make in
+                make.edges.equalToSuperview().inset(UIEdgeInsets.zero)
             }
             
-            loadViews(in: container)
+            loadViews(in: childContent)
         }
         
         public required init?(coder: NSCoder) {
@@ -93,4 +90,11 @@ extension DTB {
         }
     }
     
+    public protocol Crumbs {
+        
+    }
+    
+    public final class CrumbsTableViewCell<Child: Crumbs>: ContainerTableViewCell {
+        
+    }
 }
