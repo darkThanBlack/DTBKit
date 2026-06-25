@@ -1,12 +1,14 @@
 //
-//  HintsCell.swift
+//  Crumb1.swift
+//  DTBKit
 //
-//  Created by moonShadow on 2024/2/3
+//  Created by moonShadow on 2026/6/25
 //
 //
 //  LICENSE: SAME AS REPOSITORY
 //  Contact me: [GitHub](https://github.com/darkThanBlack)
 //
+
 
 import UIKit
 
@@ -16,22 +18,29 @@ extension DTB {
     ///
     /// - 左侧: title + detail，上下排列
     /// - 右侧: image
-    @objc(DTBTDIView)
-    public final class TDIView: UIView {
+    @objc(DTBCrumb1View)
+    final class Crumb1: CrumbsView {
         
-        public lazy var titleLabel = UILabel().dtb.textStyle("h3").value
+        public override func updateData(_ data: DTB.SampleData?) {
+            titleLabel.dtb
+                .text(data?.title)
+                .hiddenWithEmptyText()
+            
+            detailLabel.dtb
+                .text(data?.detail)
+                .hiddenWithEmptyText()
+            
+            rightImageView.dtb
+                .isHidden((data?.showArrow == true) ? false : true)
+        }
         
-        public lazy var detailLabel = UILabel().dtb.textStyle("c2").value
-        
-        public lazy var rightImageView = UIImageView()
-        
-        override init(frame: CGRect) {
+        public override init(frame: CGRect) {
             super.init(frame: frame)
             
             loadViews(in: self)
         }
         
-        required init?(coder: NSCoder) {
+        public required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
         
@@ -65,6 +74,16 @@ extension DTB {
             .alignment(.center)
             .distribution(.equalSpacing)
             .spacing(4.0)
+            .value
+        
+        private lazy var titleLabel = UILabel().dtb.textStyle("h3").value
+        
+        private lazy var detailLabel = UILabel().dtb.textStyle("c2").value
+        
+        private lazy var rightImageView = UIImageView().dtb
+            .tintColor(.dtb.create("arrow"))
+            .image(.dtb.local("chevron.right"))
+            .contentMode(.scaleAspectFit)
             .value
     }
     

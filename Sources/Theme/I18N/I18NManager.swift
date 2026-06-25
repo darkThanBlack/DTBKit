@@ -50,7 +50,7 @@ extension DTB {
             
             i18nMapParser()
             
-            // 系统调整语言时会重启, 无需监听
+            // 系统调整语言时会强制 APP 重启, 监听失去意义
             // NSLocale.currentLocaleDidChangeNotification
         }
         
@@ -63,7 +63,7 @@ extension DTB {
             }
         }
         
-        /// 可能出现 "zh-HK" 的形式
+        /// 似乎有问题，可能出现 "zh-HK" 的形式
 //        public func limitLanguageCode() -> String? {
 //            if #available(iOS 16, *) {
 //                return Locale.current.language.languageCode?.identifier
@@ -71,6 +71,34 @@ extension DTB {
 //                return Locale.preferredLanguages.first?.components(separatedBy: "-").first
 //            }
 //        }
+        
+        /// 获取可能的语言标志符集合
+        public func adjustLanguageCodes() -> [String] {
+            guard let fullKey = fullLanguageCode() else {
+                return []
+            }
+            
+            guard let sep = ["-", "_"].first(where: { fullKey.contains($0) }) else {
+                return [fullKey]
+            }
+            
+            /// 从后往前，不能把 "US" 单独解出来
+            ///
+            /// e.g: "zh-Hans-US" => ["zh-Hans-US", "zh-Hans", "zh"]
+            /// separator:  bcp47 == "-", icu / cldr == "_", Locale.IdentifierType
+            func parser(key: String, separator: String) -> [String] {
+                var result = [key]
+                var current = key
+                while let range = current.range(of: separator, options: .backwards) {
+                    // 删除最后一个 separator 以及其右侧的子段
+                    current = String(current[..<range.lowerBound])
+                    result.append(current)
+                }
+                return result
+            }
+            
+            return parser(key: fullKey, separator: sep)
+        }
         
         /// 直接指定当前语言
         ///
@@ -130,27 +158,6 @@ extension DTB {
             return dict
         }
         
-        /// 递归查询 key; 更优解是拉表后全等查询; 注意 CFBundleDevelopmentRegion 的影响
-        ///
-        ///
-        /// Search step: "zh-Hans-US" -> "zh-Hans" -> "zh"
-        /// separator:  bcp47 == "-", icu / cldr == "_", Locale.IdentifierType
-        private func parseLanguageCodeBy(key: String, separator: String) -> [String: String]? {
-            let list = key.components(separatedBy: separator)
-            guard list.count > 0 else {
-                return nil
-            }
-            if list.count == 1 {
-                return getMapperBy(key: list.first ?? "")
-            } else {
-                if let result = getMapperBy(key: list.joined(separator: separator)), result.isEmpty == false {
-                    return result
-                } else {
-                    return parseLanguageCodeBy(key: list.dropLast().joined(separator: separator), separator: separator)
-                }
-            }
-        }
-        
         private func i18nMapParser() {
             mapper.removeAll()
             
@@ -164,20 +171,13 @@ extension DTB {
                     }
                 }
                 // follow system
-                guard let full = fullLanguageCode(), full.isEmpty == false else {
-                    console.error("query system language code fail")
-                    return nil
+                let codes = self.adjustLanguageCodes()
+                if let auto = codes
+                    .compactMap({ getMapperBy(key: $0) })
+                    .first(where: { $0.isEmpty == false }) {
+                    return auto
                 }
-                if let result = parseLanguageCodeBy(key: full, separator: "-"), result.isEmpty == false {
-                    return result
-                } else {
-                    console.error("parse with bcp47 rule fail")
-                }
-                if let result = parseLanguageCodeBy(key: full, separator: "_"), result.isEmpty == false {
-                    return result
-                } else {
-                    console.error("parse with cldr rule fail")
-                }
+                console.error("i18n: all of system language codes=\(codes) parse failed")
                 return nil
             }(), result.isEmpty == false else {
                 return

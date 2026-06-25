@@ -43,10 +43,10 @@ extension DTB {
         private lazy var style = DTB.ContainerStyle()
         
         /// 卡片式背景
-        private lazy var container = ContainerView()
+        public lazy var container = ContainerView()
         
         /// 承载真正的业务内容
-        private lazy var childContent = UIView()
+        public lazy var childContent = UIView()
         
         /// 由子类重写, box 是 add 在 container 上的一个 childContent
         open func loadViews(in box: UIView) {}
@@ -90,11 +90,4 @@ extension DTB {
         }
     }
     
-    public protocol Crumbs {
-        
-    }
-    
-    public final class CrumbsTableViewCell<Child: Crumbs>: ContainerTableViewCell {
-        
-    }
 }

@@ -16,15 +16,15 @@ extension DTB {
     
     public final class CellModel {
         
-        public var data: DTB.CellData?
+        public var data: DTB.SampleData?
         
-        public var style: DTB.CellStyle?
+        public var style: DTB.ContainerStyle?
         
         public var extra: Any? = nil
         
         public init(
-            data: DTB.CellData? = nil,
-            style: DTB.CellStyle? = nil,
+            data: DTB.SampleData? = nil,
+            style: DTB.ContainerStyle? = nil,
             extra: Any? = nil
         ) {
             self.data = data

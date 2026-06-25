@@ -14,16 +14,7 @@ import UIKit
 
 extension DTB {
     
-    public protocol ImageData {
-        
-        var image: UIImage? { get }
-        
-        var localName: String? { get }
-        
-        var remoteUrl: String? { get }
-    }
-    
-    public final class ImageModel: ImageData {
+    public struct ImageData {
         
         public var image: UIImage?
         
@@ -31,11 +22,7 @@ extension DTB {
         
         public var remoteUrl: String?
         
-        public init(
-            image: UIImage? = nil,
-            localName: String? = nil,
-            remoteUrl: String? = nil
-        ) {
+        public init(image: UIImage? = nil, localName: String? = nil, remoteUrl: String? = nil) {
             self.image = image
             self.localName = localName
             self.remoteUrl = remoteUrl
