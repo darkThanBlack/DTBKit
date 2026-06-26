@@ -34,50 +34,17 @@ extension DTB {
         /// 已注册的自定义字体名称
         private var customFontNames: Set<String> = []
         
-        /// 已注册的字体别名
-        private var fontStyles: [String: UIFont] = [:]
-        
         private init() {
             loadCustomFonts()
-            loadFontStyles()
         }
         
         /// 获取自定义字体
         @inline(__always)
         public func query(_ param: [String: Any]?) -> UIFont? {
-            if let styleName = param?["styleName"] as? String,
-               let font = fontStyles[styleName] {
-                return font
-            }
             return FontStyle(dict: param)?.getFont()
         }
         
         // MARK: - Parser
-        
-        /// 加载字体别名
-        ///
-        /// 注意: 时序上需要确保所有自定义字体已经注册完成
-        private func loadFontStyles() {
-            guard let filePath = Bundle.main.path(forResource: "font_style", ofType: "json") else {
-                console.log("font_style: font_style.json file not found")
-                return
-            }
-            
-            guard FileManager.default.fileExists(atPath: filePath),
-                  let data = try? Data(contentsOf: URL(fileURLWithPath: filePath)),
-                  let dict = (try? JSONSerialization.jsonObject(with: data, options: [])) as? [String: Any] else {
-                console.error("font_style: font_style.json parse fail")
-                return
-            }
-            
-            dict.forEach({ key, value in
-                guard let font = FontStyle(dict: value as? [String: Any])?.getFont() else {
-                    DTB.console.error("font_style: invalid value, key=\(key)")
-                    return
-                }
-                fontStyles[key] = font
-            })
-        }
         
         /// 扫描 bundle 中所有 .ttf/.otf 并注册
         private func loadCustomFonts(in bundle: Bundle = .main) {

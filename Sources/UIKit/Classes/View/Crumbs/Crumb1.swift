@@ -23,10 +23,12 @@ extension DTB {
         
         public override func updateData(_ data: DTB.SampleData?) {
             titleLabel.dtb
+                .attributedText(data?.titleAttr)
                 .text(data?.title)
                 .hiddenWithEmptyText()
             
             detailLabel.dtb
+                .attributedText(data?.detailAttr)
                 .text(data?.detail)
                 .hiddenWithEmptyText()
             
@@ -52,6 +54,13 @@ extension DTB {
             stacks.snp.makeConstraints { make in
                 make.edges.equalToSuperview().inset(UIEdgeInsets.zero)
             }
+            
+            // 让 textAlgin 控制
+            leftStack.arrangedSubviews.forEach({
+                $0.snp.makeConstraints { make in
+                    make.width.equalToSuperview()
+                }
+            })
         }
         
         private lazy var stacks: UIStackView = {
@@ -78,7 +87,7 @@ extension DTB {
         
         private lazy var titleLabel = UILabel().dtb.textStyle("h3").value
         
-        private lazy var detailLabel = UILabel().dtb.textStyle("c2").value
+        private lazy var detailLabel = UILabel().dtb.textStyle("b6").value
         
         private lazy var rightImageView = UIImageView().dtb
             .tintColor(.dtb.create("arrow"))

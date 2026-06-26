@@ -25,6 +25,9 @@ extension StaticWrapper where T: UIFont {
         if let size = param as? Double {
             return UIFont.systemFont(ofSize: size, weight: .regular)
         }
+        if let size = param as? Int {
+            return UIFont.systemFont(ofSize: CGFloat(size), weight: .regular)
+        }
         if let style = param as? DTB.FontStyle, let font = style.getFont() {
             return font
         }

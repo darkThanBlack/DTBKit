@@ -27,10 +27,12 @@ extension DTB {
                 .hiddenWithEmptyImage()
             
             titleLabel.dtb
+                .attributedText(data?.titleAttr)
                 .text(data?.title)
                 .hiddenWithEmptyText()
             
             detailLabel.dtb
+                .attributedText(data?.detailAttr)
                 .text(data?.detail)
                 .hiddenWithEmptyText()
             
@@ -74,7 +76,7 @@ extension DTB {
         
         private lazy var titleLabel = UILabel().dtb.textStyle("h3").value
         
-        private lazy var detailLabel = UILabel().dtb.textStyle("c2").value
+        private lazy var detailLabel = UILabel().dtb.textStyle("b6").value
         
         private lazy var rightImageView = UIImageView().dtb
             .contentMode(.scaleAspectFit)

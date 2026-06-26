@@ -276,7 +276,7 @@ extension DTB {
             .value
         
         private lazy var titleLabel = UILabel().dtb
-            .textStyle("title2")
+            .textStyle("h2")
             .textAlignment(.center)
             .numberOfLines(1)
             .value

@@ -30,6 +30,8 @@ extension Wrapper where Base: UILabel {
             self.numberOfLines(0)
                 .font(style.font)
                 .textColor(style.textColor)
+        } else {
+            DTB.console.error("text_style: key=\(value ?? "") style not found")
         }
         return self
     }

@@ -14,7 +14,7 @@ import UIKit
 
 extension DTB {
     
-    public enum CrumbsType: CaseIterable {
+    public enum CrumbsType: String, CaseIterable {
         
         case tdi_arrow_1, tdi_select_1
         

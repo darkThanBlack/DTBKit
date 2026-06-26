@@ -55,7 +55,7 @@ extension DTB {
         }
         
         /// 当前系统语言标识符 (BCP-47)
-        public func fullLanguageCode() -> String? {
+        public func systemLanguageCode() -> String? {
             if #available(iOS 16, *) {
                 return Locale.current.language.minimalIdentifier
             } else {
@@ -74,7 +74,7 @@ extension DTB {
         
         /// 获取可能的语言标志符集合
         public func adjustLanguageCodes() -> [String] {
-            guard let fullKey = fullLanguageCode() else {
+            guard let fullKey = systemLanguageCode() else {
                 return []
             }
             
@@ -104,7 +104,7 @@ extension DTB {
         ///
         /// 如果传入 nil，代表是 followSystem，key 会尝试从 ``Locale`` 中获取; 如果设置了对应 key，代表是用户单独设置了语言标识。
         ///
-        /// key 的取值是基于 fullLanguageCode() 方法的降级策略。
+        /// key 的取值是基于 systemLanguageCode() 方法的降级策略。
         ///
         /// key 会被持久化到本地。
         public func update(key: String?) {
