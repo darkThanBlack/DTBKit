@@ -263,6 +263,7 @@ extension DTB {
             layoutSubviewWithSize(bounds.size)
         }
         
+        /// 确保性能
         @discardableResult
         private func layoutSubviewWithSize(_ size: CGSize) -> CGSize {
             guard let config = match(stateConfig) else { return .zero }
