@@ -32,31 +32,70 @@ extension DTB {
     /// 在主工程中添加 "color_light.json" 文件即可响应, "color_" 是固定前缀, "light" 是标识符，如果设定为跟随系统模式，取值只会是 "dark" 和 "light" 之一
     public final class ColorManager {
         
+        ///
+        public enum Mode {
+            
+            case followSystem
+            
+            case light, dark
+            
+            case autoDark
+            
+            case custom(style: String)
+            
+            public init(value: String?) {
+                guard let v = value else {
+                    self = .followSystem
+                    return
+                }
+                if v == "light" { self = .light }
+                if v == "dark" { self = .dark }
+                if v == "auto_dark" { self = .autoDark }
+                self = .custom(style: v)
+            }
+            
+            public var localValue: String? {
+                switch self {
+                case .followSystem:  return nil
+                case .light:         return "light"
+                case .dark:          return "dark"
+                case .autoDark:      return "auto_dark"
+                case .custom(let style):
+                    return style
+                }
+            }
+        }
+        
         public static let shared = ColorManager()
         
-        /// nil 代表跟随系统
-        public private(set) var currentKey: String? = nil
+        /// 当前模式
+        public private(set) var currentMode: Mode
         
-        private let localKey = "DTBKitColorThemeKey"
+        /// 持久化
+        private let userDefaultsKey = "DTBKitColorThemeKey"
+        
+        /// 避免重复取值
+        private let systemStyle = systemColorStyle()
         
         /// 内存映射
-        private var mapper: [String: UIColor] = [:]
+        private var mapper: [String: [String: UIColor]] = [:]
         
         private init() {
-            currentKey = UserDefaults.standard.object(forKey: localKey) as? String
+            currentMode = Mode(value: UserDefaults.standard.object(forKey: userDefaultsKey) as? String)
+            
             colorMapParser()
             
             // 系统深浅色模式变化监听
-            NotificationCenter.default.addObserver(
-                self,
-                selector: #selector(colorMapParser),
-                name: UIApplication.didBecomeActiveNotification,
-                object: nil
-            )
+//            NotificationCenter.default.addObserver(
+//                self,
+//                selector: #selector(colorMapParser),
+//                name: UIApplication.didBecomeActiveNotification,
+//                object: nil
+//            )
         }
         
-        /// 根据系统深浅色模式返回主题键
-        public func systemColorKey() -> String? {
+        /// 根据系统深浅色返回主题模式
+        public static func systemColorStyle() -> String {
             if #available(iOS 12.0, *) {
                 if UIScreen.main.traitCollection.userInterfaceStyle == .dark {
                     return "dark"
@@ -74,7 +113,7 @@ extension DTB {
                 }
             }
             console.error("system color key not found.")
-            return nil
+            return "light"
         }
         
         /// 直接指定当前主题
@@ -82,9 +121,9 @@ extension DTB {
         /// 如果传入 nil，代表是 followSystem，key 会根据系统深浅色模式自动选择; 如果设置了对应 key，代表是用户单独设置了主题标识。
         ///
         /// key 会被持久化到本地。
-        public func update(key: String?) {
-            currentKey = key
-            UserDefaults.standard.set(key, forKey: localKey)
+        public func update(mode: Mode) {
+            currentMode = mode
+            UserDefaults.standard.set(mode.localValue, forKey: userDefaultsKey)
             UserDefaults.standard.synchronize()
             
             colorMapParser()
@@ -93,7 +132,19 @@ extension DTB {
         /// 获取颜色
         @inline(__always)
         public func query(_ key: String) -> UIColor? {
-            return mapper[key]
+            let style = {
+                switch currentMode {
+                case .followSystem:
+                    return systemStyle
+                case .light:
+                    return "light"
+                case .dark, .autoDark:
+                    return "dark"
+                case .custom(let style):
+                    return style
+                }
+            }()
+            return mapper[key]?[style] ?? mapper[key]?["light"]
         }
         
         // MARK: - Parser
@@ -101,24 +152,49 @@ extension DTB {
         @objc private func colorMapParser() {
             mapper.removeAll()
             
-            guard let key = currentKey ?? systemColorKey() else {
-                console.error("color key is nil")
-                return
-            }
-            guard let filePath = Bundle.main.path(forResource: "color_\(key)", ofType: "json") else {
-                console.error("color_\(key).json file not found")
+            guard let filePath = Bundle.main.path(forResource: "colors", ofType: "json") else {
+                console.error("color: colors.json file not found")
                 return
             }
             
             guard FileManager.default.fileExists(atPath: filePath),
                   let data = try? Data(contentsOf: URL(fileURLWithPath: filePath)),
-                  let dict = (try? JSONSerialization.jsonObject(with: data, options: [.fragmentsAllowed])) as? [String: String] else {
-                console.error("color_\(key).json parse fail")
+                  let dict = (try? JSONSerialization.jsonObject(with: data, options: [.fragmentsAllowed])) as? [String: Any] else {
+                console.error("color: colors.json parse fail")
                 return
             }
             
-            dict.forEach { key, hexString in
-                self.mapper[key] = UIColor.dtb.percentHex(hexString)
+            dict.forEach { key, value in
+                // 没有指定，只有一个默认颜色
+                if let hexString = value as? String,
+                    let color = UIColor.dtb.anyHex(hexString) {
+                    var result: [String: UIColor] = ["light": color]
+                    // 自动推算深色模式颜色
+                    if case .autoDark = currentMode {
+                        result["dark"] = color.dtb.luminanceInvertedColor()
+                    }
+                    self.mapper[key] = result
+                    return
+                }
+                
+                // 有具体指定
+                if let dict = value as? [String: String] {
+                    var result: [String: UIColor] = [:]
+                    dict.forEach({ result[$0.key] = UIColor.dtb.anyHex($0.value) })
+                    
+                    // 没有提供默认值 light，整个忽略
+                    guard let light = result["light"] else {
+                        return console.error("color: light style is empty, key=\(key)")
+                    }
+                    // 自动推算深色模式颜色
+                    if case .autoDark = currentMode {
+                        result["dark"] = light.dtb.luminanceInvertedColor()
+                    }
+                    self.mapper[key] = result
+                    return
+                }
+                
+                console.error("color: value parse failed, key=\(key)")
             }
         }
         

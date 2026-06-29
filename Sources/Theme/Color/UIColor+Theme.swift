@@ -22,35 +22,52 @@ extension StaticWrapper where T: UIColor {
         if let p = DTB.Providers.get(DTB.Providers.colorKey), let result = p.create(param) {
             return result
         }
-        if let s = param as? String {
-            return .dtb.percentHex(s)
-        }
-        if let i = param as? Int64 {
-            return .dtb.hex(i)
-        }
-        return .clear
+        return anyHex(param) ?? .clear
     }
 }
 
 extension StaticWrapper where T: UIColor {
     
-    /// 在 hex(rgba:) 的基础上，兼容 RRGGBB.alpha, alpha 是一个十进制的两位数(0, 100)
-    ///
-    /// 常见于某些设计工具直接复制
-    public func percentHex(_ value: String?) -> UIColor {
-        guard let upper = value?.uppercased()
+    @inline(__always)
+    private func upper(_ value: String) -> String {
+        return value.uppercased()
             .replacingOccurrences(of: "^#", with: "", options: .regularExpression)
-            .replacingOccurrences(of: "^0X", with: "", options: .regularExpression) else {
-            return .clear
+            .replacingOccurrences(of: "^0X", with: "", options: .regularExpression)
+    }
+    
+    /// 兼容模式
+    ///
+    /// - 允许 Int64 / String
+    /// - 允许 "#" "0x" 前缀
+    /// - 允许 rgb, rgba, rgb.a
+    public func anyHex(_ value: Any?) -> UIColor? {
+        if let i = value as? Int64 {
+            return hex(i)
         }
-        if upper.contains("."),
-           let rgb = upper.components(separatedBy: ".").first,
-           let a = upper.components(separatedBy: ".").last,
+        guard let value = value as? String else { return nil }
+        let s = upper(value)
+        
+        // argb 是 android 规范，iOS 平台上默认采用 rgba 规范
+        if s.count == 6, let i = Int64(s, radix: 16) {
+            return hex(i)
+        }
+        if s.count == 8, let i = Int64(s, radix: 16) {
+            return hex(rgba: i)
+        }
+        
+        // 兼容 rgb.a 形式, a 是一个十进制的两位数(0, 100)，代表透明度的百分比
+        //
+        // 常见于某些设计工具的自定义规范
+        if s.contains("."),
+           let rgb = s.components(separatedBy: ".").first,
+           let a = s.components(separatedBy: ".").last,
+           rgb.count == 6,
            let ap = Int(a),
            ap >= 0 {
             return hex(rgb, alpha: CGFloat(ap / 100))
         }
-        return hex(rgba: value)
+        DTB.console.error(s)
+        return nil
     }
     
     /// 0xRRGGBB
@@ -66,28 +83,8 @@ extension StaticWrapper where T: UIColor {
     
     /// RRGGBB / "#RRGGBB" / "0xRRGGBB"
     @inline(__always)
-    public func hex(_ value: String?, alpha: CGFloat = 1.0) -> UIColor {
-        guard let upper = value?.uppercased()
-            .replacingOccurrences(of: "^#", with: "", options: .regularExpression)
-            .replacingOccurrences(of: "^0X", with: "", options: .regularExpression),
-              upper.count == 6 else {
-            DTB.console.error(value)
-            return .clear
-        }
-        
-        guard let r = Int(upper.prefix(2), radix: 16),
-              let g = Int(upper.dropFirst(2).prefix(2), radix: 16),
-              let b = Int(upper.dropFirst(4).prefix(2), radix: 16) else {
-            DTB.console.error(value)
-            return .clear
-        }
-        
-        return UIColor(
-            red: CGFloat(r) / 255.0,
-            green: CGFloat(g) / 255.0,
-            blue: CGFloat(b) / 255.0,
-            alpha: alpha
-        )
+    public func hex(_ value: String, alpha: CGFloat = 1.0) -> UIColor {
+        return self.hex(Int64(self.upper(value), radix: 16) ?? 0, alpha: alpha)
     }
     
     /// 0xAARRGGBB
@@ -103,31 +100,8 @@ extension StaticWrapper where T: UIColor {
     
     /// AARRGGBB / "#AARRGGBB" / "0xAARRGGBB"
     @inline(__always)
-    public func hex(argb value: String?) -> UIColor {
-        guard let upper = value?.uppercased()
-            .replacingOccurrences(of: "^#", with: "", options: .regularExpression)
-            .replacingOccurrences(of: "^0X", with: "", options: .regularExpression) else {
-            DTB.console.error(value)
-            return .clear
-        }
-        guard upper.count == 8 else {
-            return hex(upper)
-        }
-        
-        guard let a = Int(upper.prefix(2), radix: 16),
-              let r = Int(upper.dropFirst(2).prefix(2), radix: 16),
-              let g = Int(upper.dropFirst(4).prefix(2), radix: 16),
-              let b = Int(upper.dropFirst(6).prefix(2), radix: 16) else {
-            DTB.console.error(value)
-            return .clear
-        }
-        
-        return UIColor(
-            red: CGFloat(r) / 255.0,
-            green: CGFloat(g) / 255.0,
-            blue: CGFloat(b) / 255.0,
-            alpha: CGFloat(a) / 255.0
-        )
+    public func hex(argb value: String) -> UIColor {
+        return self.hex(argb: Int64(self.upper(value), radix: 16) ?? 0)
     }
     
     /// 0xRRGGBBAA
@@ -143,62 +117,33 @@ extension StaticWrapper where T: UIColor {
     
     /// RRGGBBAA / "#RRGGBBAA" / "0xRRGGBBAA"
     @inline(__always)
-    public func hex(rgba value: String?) -> UIColor {
-        guard let upper = value?.uppercased()
-            .replacingOccurrences(of: "^#", with: "", options: .regularExpression)
-            .replacingOccurrences(of: "^0X", with: "", options: .regularExpression) else {
-            DTB.console.error(value)
-            return .clear
-        }
-        guard upper.count == 8 else {
-            return hex(upper)
-        }
-        
-        guard let r = Int(upper.prefix(2), radix: 16),
-              let g = Int(upper.dropFirst(2).prefix(2), radix: 16),
-              let b = Int(upper.dropFirst(4).prefix(2), radix: 16),
-              let a = Int(upper.dropFirst(6).prefix(2), radix: 16) else {
-            DTB.console.error(value)
-            return .clear
-        }
-        
-        return UIColor(
-            red: CGFloat(r) / 255.0,
-            green: CGFloat(g) / 255.0,
-            blue: CGFloat(b) / 255.0,
-            alpha: CGFloat(a) / 255.0
-        )
+    public func hex(rgba value: String) -> UIColor {
+        return self.hex(rgba: Int64(self.upper(value), radix: 16) ?? 0)
     }
 }
 
 extension Wrapper where Base == UIColor {
     
-    /// 经验阈值: 0.5
+    /// WCAG 2 经验阈值: 0.5
     public func isLight() -> Bool {
         return luminance() > 0.5
     }
     
-    /// 经验阈值: 0.5
+    /// WCAG 2 经验阈值: 0.5
     public func isDark() -> Bool {
         return luminance() <= 0.5
     }
     
-    /// 相对亮度，遵循 CIE 1931, WCAG 2 标准
+    /// 相对亮度 (Relative Luminance)
+    ///
+    /// - 遵循 CIE 1931
+    /// - 注意，和 HSB 的 Brightness 分量是两种概念
     public func luminance() -> CGFloat {
         /// 1. 提取 RGB 分量
         var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
         me.getRed(&r, green: &g, blue: &b, alpha: &a)
         
         /// 2. 线性化（Gamma 解码）
-        ///
-        /// 公式:
-        /// ```
-        ///    if c <= 0.03928:
-        ///        linear = c / 12.92          // 暗部（sRGB 标准定义的线性段）
-        ///    else:
-        ///        linear = ((c + 0.055) / 1.055) ^ 2.4   // 亮部（gamma 2.4 解码）
-        ///
-        /// ```
         ///
         /// 公式来源: sRGB 色彩空间标准 (IEC 61966-2-1)
         func adjust(_ c: CGFloat) -> CGFloat {
@@ -213,6 +158,32 @@ extension Wrapper where Base == UIColor {
         //
         // 公式来源: CIE 1931 标准色度观察者，代表人眼对不同波长光的感知权重
         return 0.2126 * adjust(r) + 0.7152 * adjust(g) + 0.0722 * adjust(b)
+    }
+    
+    /// 根据当前的 luminance，调整 hsb.b 来逼近 1 - luminance
+    ///
+    /// 作用: 如果原始颜色视觉可见，那么 invert 以后新颜色视觉依然可见
+    public func luminanceInvertedColor() -> UIColor {
+        let targetLuminance = 1.0 - self.luminance()
+        
+        // 在保持色相/饱和度的前提下，逼近目标亮度
+        var h: CGFloat = 0, s: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
+        me.getHue(&h, saturation: &s, brightness: &b, alpha: &a)
+        
+        // 二分搜索：找到最接近目标亮度的 HSB brightness
+        var low: CGFloat = 0, high: CGFloat = 1.0
+        // 2^8=256
+        for _ in 0..<8 {
+            let mid = (low + high) / 2
+            let testColor = UIColor(hue: h, saturation: s, brightness: mid, alpha: a)
+            if testColor.dtb.luminance() < targetLuminance {
+                low = mid
+            } else {
+                high = mid
+            }
+        }
+        
+        return UIColor(hue: h, saturation: s, brightness: (low + high) / 2, alpha: a)
     }
     
 }
