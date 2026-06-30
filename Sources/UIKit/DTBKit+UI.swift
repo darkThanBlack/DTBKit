@@ -11,6 +11,11 @@
 
 @_exported import SnapKit
 
+extension DTB.Notifications {
+    
+    public static let appNeedRestart = NSNotification.Name("kDTBKitAppNeedRestartKey")
+}
+
 extension DTB {
     
     /// UIKit constraints

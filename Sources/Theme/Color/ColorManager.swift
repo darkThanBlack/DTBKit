@@ -20,7 +20,14 @@ extension DTB.ColorManager: DTB.Providers.ColorProvider {
         if let key = param as? String, let result = query(key) {
             return result
         }
-        // DTB.console.error("missing color key=\(param ?? "")")
+        DTB.console.error("color: missing key=\(param ?? "")")
+        if let result = UIColor.dtb.anyHex(param) {
+            if case .autoDark = currentMode {
+                return result.dtb.luminanceInvertedColor()
+            } else {
+                return result
+            }
+        }
         return nil
     }
 }
@@ -44,24 +51,22 @@ extension DTB {
             case custom(style: String)
             
             public init(value: String?) {
-                guard let v = value else {
-                    self = .followSystem
-                    return
+                switch value {
+                case nil:               self = .followSystem
+                case "light":           self = .light
+                case "dark":            self = .dark
+                case "auto_dark":       self = .autoDark
+                case let .some(style):  self = .custom(style: style)
                 }
-                if v == "light" { self = .light }
-                if v == "dark" { self = .dark }
-                if v == "auto_dark" { self = .autoDark }
-                self = .custom(style: v)
             }
             
             public var localValue: String? {
                 switch self {
-                case .followSystem:  return nil
-                case .light:         return "light"
-                case .dark:          return "dark"
-                case .autoDark:      return "auto_dark"
-                case .custom(let style):
-                    return style
+                case .followSystem:      return nil
+                case .light:             return "light"
+                case .dark:              return "dark"
+                case .autoDark:          return "auto_dark"
+                case .custom(let style): return style
                 }
             }
         }
@@ -78,6 +83,11 @@ extension DTB {
         private let systemStyle = systemColorStyle()
         
         /// 内存映射
+        ///
+        /// e.g.
+        /// ```
+        /// {"bg": { "light": "FFFFFF", "dark": "0x000000", "custom": "" } }
+        /// ```
         private var mapper: [String: [String: UIColor]] = [:]
         
         private init() {
@@ -116,11 +126,7 @@ extension DTB {
             return "light"
         }
         
-        /// 直接指定当前主题
-        ///
-        /// 如果传入 nil，代表是 followSystem，key 会根据系统深浅色模式自动选择; 如果设置了对应 key，代表是用户单独设置了主题标识。
-        ///
-        /// key 会被持久化到本地。
+        /// 直接指定当前主题, mode 会被持久化到本地
         public func update(mode: Mode) {
             currentMode = mode
             UserDefaults.standard.set(mode.localValue, forKey: userDefaultsKey)
@@ -186,8 +192,8 @@ extension DTB {
                     guard let light = result["light"] else {
                         return console.error("color: light style is empty, key=\(key)")
                     }
-                    // 自动推算深色模式颜色
-                    if case .autoDark = currentMode {
+                    // 如果没有设置，再自动推算
+                    if result["dark"] == nil, case .autoDark = currentMode {
                         result["dark"] = light.dtb.luminanceInvertedColor()
                     }
                     self.mapper[key] = result

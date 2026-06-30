@@ -59,9 +59,16 @@ extension DTB {
         private func setupUI() {
             addSubview(stacks)
             stacks.snp.makeConstraints { make in
-                make.centerX.centerY.equalToSuperview()
+                make.centerX.equalToSuperview()
+                make.top.equalToSuperview().offset(10.0)
+                make.bottom.equalToSuperview()
                 make.width.height.lessThanOrEqualToSuperview()
             }
+            [selectImageView, unSelectImageView].forEach({
+                $0.snp.makeConstraints { make in
+                    make.width.height.equalTo(22.0)
+                }
+            })
         }
         
         private func updateAppearance() {
@@ -191,7 +198,7 @@ extension DTB {
                 DTB.console.assert()
                 return
             }
-            selectedHandler?(selectedIndex)
+            selectedHandler?(tag)
         }
         
         public override init(frame: CGRect) {
@@ -208,7 +215,7 @@ extension DTB {
             box.addSubview(stackView)
             stackView.snp.makeConstraints { make in
                 make.top.left.right.equalTo(box)
-                make.height.equalTo(50.0)
+                 make.height.greaterThanOrEqualTo(49.0)
                 if #available(iOS 12.0, *) {
                     make.bottom.equalTo(box.safeAreaLayoutGuide.snp.bottom).offset(-0)
                 } else {

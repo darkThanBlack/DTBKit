@@ -19,10 +19,7 @@ extension StaticWrapper where T: UIColor {
     /// 颜色调用收束
     @inline(__always)
     public func create(_ param: Any?) -> UIColor {
-        if let p = DTB.Providers.get(DTB.Providers.colorKey), let result = p.create(param) {
-            return result
-        }
-        return anyHex(param) ?? .clear
+        return DTB.Providers.get(DTB.Providers.colorKey)?.create(param) ?? .red
     }
 }
 
