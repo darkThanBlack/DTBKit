@@ -21,7 +21,7 @@ extension DTB.ContainerStyle {
             shape: DTB.ShapeStyle(
                 corners: [.allCorners],
                 radius: .fixed(12.0),
-                fillColor: .white,
+                fillColor: .dtb.create("bg2"),
                 lineWidth: 0.0
             )
         )
@@ -34,7 +34,7 @@ extension DTB.ContainerStyle {
             shape: DTB.ShapeStyle(
                 corners: indexOrder.verticalCorners,
                 radius: .fixed(12.0),
-                fillColor: .white,
+                fillColor: .dtb.create("bg2"),
                 lineWidth: 0.0
             )
         )
@@ -44,7 +44,7 @@ extension DTB.ContainerStyle {
 extension DTB {
     
     /// 自定义容器，取决于对应控件的内部实现
-    public struct ContainerStyle: Equatable {
+    public struct ContainerStyle: Structable, Equatable {
         
         /// 外间距
         public var margin: UIEdgeInsets?
@@ -73,6 +73,27 @@ extension DTB {
             self.backgroundColor = backgroundColor
             self.shape = shape
             self.gradient = gradient
+        }
+        
+        public init?(dict: [String: Any]?) {
+            guard let dict = dict else { return nil }
+            
+            func insets(from data: [String: Any]?) -> UIEdgeInsets? {
+                if let data = data,
+                   let top = DTB.any.double(data["top"]),
+                   let left = DTB.any.double(data["left"]),
+                   let bottom = DTB.any.double(data["bottom"]),
+                   let right = DTB.any.double(data["right"]) {
+                    return UIEdgeInsets(top: top, left: left, bottom: bottom, right: right)
+                }
+                return nil
+            }
+            
+            self.margin = insets(from: dict["margin"] as? [String: Any])
+            self.padding = insets(from: dict["padding"] as? [String: Any])
+            self.backgroundColor = .dtb.create(dict["backgroundColor"])
+            self.shape = .dtb.create(dict["shape"])
+            self.gradient = .dtb.create(dict["gradient"])
         }
     }
 }

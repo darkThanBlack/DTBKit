@@ -21,13 +21,15 @@ extension StaticWrapper where T: UIFont {
         if let p = DTB.Providers.get(DTB.Providers.fontKey), let font = p.create(param) {
             return font
         }
-        // FIXME: any CGFloat
-        if let size = param as? Double {
+        if let size = DTB.any.double(param) {
             return UIFont.systemFont(ofSize: size, weight: .regular)
         }
-        if let size = param as? Int {
-            return UIFont.systemFont(ofSize: CGFloat(size), weight: .regular)
-        }
+//        if let size = param as? Double {
+//            return UIFont.systemFont(ofSize: size, weight: .regular)
+//        }
+//        if let size = param as? Int {
+//            return UIFont.systemFont(ofSize: CGFloat(size), weight: .regular)
+//        }
         if let style = param as? DTB.FontStyle, let font = style.getFont() {
             return font
         }

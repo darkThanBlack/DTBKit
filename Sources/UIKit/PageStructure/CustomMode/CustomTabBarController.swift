@@ -81,6 +81,10 @@ extension DTB {
             fatalError("init(coder:) has not been implemented")
         }
         
+        deinit {
+            console.log("\(String(describing: self)) deinit...")
+        }
+        
         public override var selectedIndex: Int {
             didSet {
                 customTabBar.setSelectItem(at: selectedIndex)

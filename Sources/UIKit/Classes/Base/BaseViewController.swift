@@ -41,6 +41,10 @@ extension DTB {
             fatalError("init(coder:) has not been implemented")
         }
         
+        deinit {
+            DTB.console.log("\(String(describing: self)) deinit...")
+        }
+        
         open override func viewDidLoad() {
             super.viewDidLoad()
             

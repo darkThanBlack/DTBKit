@@ -12,7 +12,7 @@
 
 import UIKit
 
-extension DTB.TextStyleManager: DTB.Providers.TextStyleProvider {
+extension DTB.DefaultTextStyleProvider: DTB.Providers.TextStyleProvider {
     
     @inline(__always)
     public func create(_ param: Any?) -> DTB.TextStyle? {
@@ -25,32 +25,24 @@ extension DTB.TextStyleManager: DTB.Providers.TextStyleProvider {
 
 extension DTB {
     
-    public final class TextStyleManager {
-        
-        public static let shared = TextStyleManager()
+    public final class DefaultTextStyleProvider {
         
         private var mapper: [String: DTB.TextStyle] = [:]
-        
-        private init() {
-            parseTextStyleJSON()
-        }
         
         /// 根据 key 获取 TextStyle
         public func query(_ key: String) -> DTB.TextStyle? {
             return mapper[key]
         }
         
-        // MARK: - JSON Parser
-        
-        private func parseTextStyleJSON() {
-            guard let filePath = Bundle.main.path(forResource: "text_style", ofType: "json") else {
-                console.error("text_style.json not found")
-                return
+        public init?(json url: URL? = nil) {
+            guard let fileUrl = url ?? Bundle.main.url(forResource: "text_style", withExtension: "json") else {
+                console.error("text_style: json file not found")
+                return nil
             }
-            guard let data = try? Data(contentsOf: URL(fileURLWithPath: filePath)),
+            guard let data = try? Data(contentsOf: fileUrl),
                   let rawDict = (try? JSONSerialization.jsonObject(with: data, options: [])) as? [String: Any] else {
-                console.error("text_style.json parse fail")
-                return
+                console.error("text_style: json parse failed")
+                return nil
             }
             
             rawDict.forEach { key, value in
@@ -67,5 +59,7 @@ extension DTB {
                 self.mapper[key] = style
             }
         }
+        
     }
+    
 }

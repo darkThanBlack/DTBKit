@@ -30,6 +30,9 @@ extension DTB {
     
     /// Unbox for ``Optional / Empty / Zero``
     public static let check = OptionalChecker()
+    
+    /// Try adjust from 'Any'
+    public static let `any` = AnyConvert()
 }
 
 // MARK: - Structable
