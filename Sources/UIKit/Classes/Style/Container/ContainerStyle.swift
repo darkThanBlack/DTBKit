@@ -61,6 +61,19 @@ extension DTB {
         ///
         public var gradient: DTB.GradientStyle?
         
+        // 额外解析
+        private mutating func friendlyParser() {
+            // 让 fillColor 未设置时，沿用 backgroundColor
+            if self.shape != nil, self.shape?.fillColor == nil, let color = self.backgroundColor {
+                self.shape?.fillColor = color
+            }
+            
+            // 让 gradient.shapeMask 未设置时，沿用本身的 shape 作为 mask
+            if self.gradient != nil, self.gradient?.shapeMask == nil {
+                self.gradient?.shapeMask = self.shape
+            }
+        }
+        
         public init(
             margin: UIEdgeInsets? = nil,
             padding: UIEdgeInsets? = nil,
@@ -73,27 +86,20 @@ extension DTB {
             self.backgroundColor = backgroundColor
             self.shape = shape
             self.gradient = gradient
+            
+            friendlyParser()
         }
         
         public init?(dict: [String: Any]?) {
             guard let dict = dict else { return nil }
             
-            func insets(from data: [String: Any]?) -> UIEdgeInsets? {
-                if let data = data,
-                   let top = DTB.any.double(data["top"]),
-                   let left = DTB.any.double(data["left"]),
-                   let bottom = DTB.any.double(data["bottom"]),
-                   let right = DTB.any.double(data["right"]) {
-                    return UIEdgeInsets(top: top, left: left, bottom: bottom, right: right)
-                }
-                return nil
-            }
-            
-            self.margin = insets(from: dict["margin"] as? [String: Any])
-            self.padding = insets(from: dict["padding"] as? [String: Any])
-            self.backgroundColor = .dtb.create(dict["backgroundColor"])
+            self.margin = DTB.any.uiEdgeInsets(dict["margin"])
+            self.padding = DTB.any.uiEdgeInsets(dict["padding"])
+            self.backgroundColor = .dtb.create(nullable: dict["backgroundColor"])
             self.shape = .dtb.create(dict["shape"])
             self.gradient = .dtb.create(dict["gradient"])
+            
+            friendlyParser()
         }
     }
 }

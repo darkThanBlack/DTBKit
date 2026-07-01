@@ -68,8 +68,8 @@ extension DTB {
             self.shapeMask = .dtb.create(dict["shapeMask"])
             
             self.colors = {
-                if let list = dict["colors"] as? [String] {
-                    return list.compactMap({ UIColor.dtb.create($0).cgColor })
+                if let list = dict["colors"] as? [Any] {
+                    return list.compactMap({ UIColor.dtb.create(nullable: $0)?.cgColor })
                 }
                 return nil
             }()

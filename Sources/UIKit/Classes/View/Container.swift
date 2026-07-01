@@ -36,8 +36,6 @@ extension DTB {
         }
         
         private func loadViews(in box: UIView, child: C) {
-            box.backgroundColor = style.backgroundColor
-            
             let margin = style.margin ?? .zero
             let padding = style.padding ?? .zero
             
@@ -54,6 +52,12 @@ extension DTB {
                 shapeView.snp.makeConstraints { make in
                     make.edges.equalTo(box).inset(margin)
                 }
+            }
+            
+            if (style.gradient == nil) && (style.shape == nil) {
+                box.backgroundColor = style.backgroundColor
+            } else {
+                box.backgroundColor = .clear
             }
             
             box.addSubview(child)

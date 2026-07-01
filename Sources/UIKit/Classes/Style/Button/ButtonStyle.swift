@@ -55,6 +55,19 @@ extension DTB {
         
         public var gradient: DTB.GradientStyle?
         
+        // 额外解析
+        private mutating func friendlyParser() {
+            // 让 fillColor 未设置时，沿用 backgroundColor
+            if self.shape != nil, self.shape?.fillColor == nil, let color = self.backgroundColor {
+                self.shape?.fillColor = color
+            }
+            
+            // 让 gradient.shapeMask 未设置时，沿用本身的 shape 作为 mask
+            if self.gradient != nil, self.gradient?.shapeMask == nil {
+                self.gradient?.shapeMask = self.shape
+            }
+        }
+        
         public init(
             backgroundColor: UIColor? = nil,
             contentEdgeInsets: UIEdgeInsets? = nil,
@@ -83,8 +96,9 @@ extension DTB {
             self.imageOffset = imageOffset
             self.shape = shape
             self.gradient = gradient
+            
+            friendlyParser()
         }
-        
         
         public init?(dict: [String: Any]?) {
             guard let dict = dict else { return nil }
@@ -92,22 +106,9 @@ extension DTB {
             // 属性字符串一般不在 JSON 中解析，置 nil
             self.attributedText = nil
             
-            if let c = dict["backgroundColor"] {
-                self.backgroundColor = .dtb.create(c)
-            }
-            
+            self.backgroundColor = .dtb.create(dict["backgroundColor"])
             self.shape = .dtb.create(dict["shape"])
             self.gradient = .dtb.create(dict["gradient"])
-            
-            // 额外解析: 让 fillColor 未设置时，沿用 backgroundColor
-            if self.shape != nil, self.shape?.fillColor == nil, let color = self.backgroundColor {
-                self.shape?.fillColor = color
-            }
-            
-            // 额外解析: 让 gradient.shapeMask 未设置时，沿用本身的 shape 作为 mask
-            if self.gradient != nil, self.gradient?.shapeMask == nil {
-                self.gradient?.shapeMask = self.shape
-            }
             
             // 标题
             self.title = dict["title"] as? String
@@ -125,57 +126,27 @@ extension DTB {
             // 图片
             self.image = .dtb.create(dict["image"])
             
-            if let c = dict["tintColor"] {
-                self.tintColor = .dtb.create(c)
-            }
-            
+            //
+            self.tintColor = .dtb.create(dict["tintColor"])
+
             // 内边距
-            self.contentEdgeInsets = {
-                // 额外解析: 兼容多个字段名
-                if let insetsDict = [
-                    "contentEdgeInsets",
-                    "padding"
-                ].compactMap({ dict[$0] as? [String: CGFloat] }).first {
-                    return UIEdgeInsets(
-                        top: insetsDict["top"] ?? 0,
-                        left: insetsDict["left"] ?? 0,
-                        bottom: insetsDict["bottom"] ?? 0,
-                        right: insetsDict["right"] ?? 0
-                    )
-                }
-                return nil
-            }()
+            //
+            // 额外解析: 兼容多个字段名
+            self.contentEdgeInsets = [
+                "contentEdgeInsets",
+                "padding"
+            ].compactMap({ DTB.any.uiEdgeInsets(dict[$0]) }).first
             
             // 图片尺寸
-            self.imageSize = {
-                if let sizeDict = dict["imageSize"] as? [String: CGFloat] {
-                    return CGSize(
-                        width: sizeDict["width"] ?? 0,
-                        height: sizeDict["height"] ?? 0
-                    )
-                }
-                return nil
-            }()
+            self.imageSize = DTB.any.cgSize(dict["imageSize"])
             
             // 图片方向
-            self.imageDirection = {
-                if let raw = dict["imageDirection"] as? String {
-                    return DTB.FourDirection(rawValue: raw)
-                }
-                return nil
-            }()
+            self.imageDirection = DTB.FourDirection(rawValue: (dict["imageDirection"] as? String) ?? "")
             
             // 图片偏移
-            self.imageOffset = {
-                if let offsetDict = dict["imageOffset"] as? [String: CGFloat] {
-                    return CGVector(
-                        dx: offsetDict["dx"] ?? 0,
-                        dy: offsetDict["dy"] ?? 0
-                    )
-                }
-                return nil
-            }()
+            self.imageOffset = DTB.any.cgVector(dict["imageOffset"])
             
+            friendlyParser()
         }
         
     }

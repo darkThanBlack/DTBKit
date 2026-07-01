@@ -115,23 +115,19 @@ extension DTB {
             }()
             
             // 填充色
-            if let c = dict["fillColor"] {
-                self.fillColor = .dtb.create(c)
-            }
+            self.fillColor = .dtb.create(nullable: dict["fillColor"])
             
             // 描边色
-            if let c = dict["strokeColor"] {
-                self.strokeColor = .dtb.create(c)
-            }
-            
+            self.strokeColor = .dtb.create(nullable: dict["strokeColor"])
+
             // 线宽
-            self.lineWidth = dict["lineWidth"] as? CGFloat
+            self.lineWidth = DTB.any.cgFloat(dict["lineWidth"])
             
             // 其他 CAShapeLayer 属性
-            self.strokeStart = dict["strokeStart"] as? CGFloat
-            self.strokeEnd = dict["strokeEnd"] as? CGFloat
-            self.miterLimit = dict["miterLimit"] as? CGFloat
-            self.lineDashPhase = dict["lineDashPhase"] as? CGFloat
+            self.strokeStart = DTB.any.cgFloat(dict["strokeStart"])
+            self.strokeEnd = DTB.any.cgFloat(dict["strokeEnd"])
+            self.miterLimit = DTB.any.cgFloat(dict["miterLimit"])
+            self.lineDashPhase = DTB.any.cgFloat(dict["lineDashPhase"])
             self.lineDashPattern = (dict["lineDashPattern"] as? [NSNumber])
             
             // 枚举类型

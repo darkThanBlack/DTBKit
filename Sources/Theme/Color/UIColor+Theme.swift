@@ -17,9 +17,16 @@ extension StaticWrapper where T: UIColor {
     /// Create color with provider.
     ///
     /// 颜色调用收束
+    ///
+    /// 注意: 由于大部分 UIKit 的 color 属性是 nonNull, fail 时给一个 .red 作为强提示
     @inline(__always)
     public func create(_ param: Any?) -> UIColor {
         return DTB.Providers.get(DTB.Providers.colorKey)?.create(param) ?? .red
+    }
+    
+    @inline(__always)
+    public func create(nullable param: Any?) -> UIColor? {
+        return DTB.Providers.get(DTB.Providers.colorKey)?.create(param)
     }
 }
 
