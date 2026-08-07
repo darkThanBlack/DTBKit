@@ -1,0 +1,32 @@
+{
+  "r1": {
+    "corners": ["allCorners"],
+    "radius": 4.0
+  },
+  "r2": {
+    "corners": ["allCorners"],
+    "radius": 8.0
+  },
+  "r3": {
+    "corners": ["allCorners"],
+    "radius": 12.0
+  },
+  "r4": {
+    "corners": ["allCorners"],
+    "radius": 100.0
+  },
+  "circle": {
+    "corners": ["allCorners"],
+    "radius": { "scaledToHeight": 0.5 }
+  },
+  "theme": {
+    "lineWidth": 1.0,
+    "strokeColor": "#F05746",
+    "corners": ["allCorners"],
+    "radius": { "scaledToHeight": 0.5 }
+  },
+  "sheet": {
+    "corners": ["topLeft", "topRight"],
+    "radius": 12.0
+  }
+}

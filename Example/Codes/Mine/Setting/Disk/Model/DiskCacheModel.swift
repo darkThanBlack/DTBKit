@@ -12,33 +12,27 @@
 
 import UIKit
 
-/// 业务缓存
-class DiskCacheModel {
+extension DTB {
     
-    enum BizTypes: String {
+    /// 将不同业务类型数据归类, 这个 model 是对默认缓存的实现
+    class DiskCacheModel {
         
-        case dataCache
-    }
-    
-    let bizType: BizTypes
-    
-    var usage: Int64? = nil
-    
-    init(bizType: BizTypes) {
-        self.bizType = bizType
+        static let key = "data_cache"
+        
+        var usage: Int64? = nil
     }
 }
 
-extension DiskCacheModel: DiskCacheHintViewDataSource {
+extension DTB.DiskCacheModel: DTB.DiskCacheHintViewDataSource {
     
     var primaryKey: String {
-        return bizType.rawValue
+        return Self.key
     }
     
     var usageText: String? {
         /// 总数值超过 x KB 时再展示，避免用户焦虑
         let fake = {
-            if let u = usage, u > DiskUsageDepends.fakeZeroSize() {
+            if let u = usage, u > DTB.DiskUsageDepends.fakeZeroSize() {
                 return u
             }
             return 0
@@ -47,23 +41,14 @@ extension DiskCacheModel: DiskCacheHintViewDataSource {
     }
     
     var titleText: String? {
-        switch bizType {
-        case .dataCache:
-            return "数据缓存"
-        }
+        return DTB.DiskUsageDepends.cacheText()
     }
     
     var detailText: String? {
-        switch bizType {
-        case .dataCache:
-            return "使用过程中产生的临时数据，清理后流量消耗会增加，但不影响正常使用。"
-        }
+        return DTB.DiskUsageDepends.cacheDescText()
     }
     
     var buttonTitle: String? {
-        switch bizType {
-        case .dataCache:
-            return "清理"
-        }
+        return DTB.DiskUsageDepends.cleanText()
     }
 }

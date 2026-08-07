@@ -153,7 +153,7 @@ class PhoneLoginView: UIView {
     
     private lazy var phoneField: UITextField = {
         let field = UITextField()
-        field.font = .dtb.create(19.0, weight: .bold)
+        field.font = .dtb.create(size: 19.0, weight: .bold)
         field.textColor = .dtb.create("text")
         field.backgroundColor = .dtb.create("bg2")
         field.attributedPlaceholder = .init(

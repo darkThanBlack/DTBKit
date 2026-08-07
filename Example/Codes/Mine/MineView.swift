@@ -8,12 +8,12 @@
 //  LICENSE: SAME AS REPOSITORY
 //  Contact me: [GitHub](https://github.com/darkThanBlack)
 //
-    
+
 
 ///
 protocol MineViewDelegates: MineHeaderViewDelegate {
     
-    func listItemEvent(_ data: DTB.CellData)
+    func listItemEvent(_ data: DTB.SampleData)
 }
 
 /// 我的
@@ -49,7 +49,7 @@ class MineView: UIView {
     @objc private func logoutButtonEvent() {
         
     }
-
+    
     //MARK: View
     
     private func loadViews(in box: UIView) {
@@ -74,7 +74,7 @@ class MineView: UIView {
     }()
     
     private lazy var tableView: UITableView = {
-        let tableView = UITableView.dtb.plain(self, cells: [DTB.ITDIArrowTableViewCell.self])
+        let tableView = UITableView.dtb.plain(self, cells: [DTB.CrumbsTableViewCell.self])
         tableView.isScrollEnabled = false
         return tableView
     }()
@@ -108,12 +108,12 @@ extension MineView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: DTB.CrumbsTableViewCell = tableView.dtb.dequeueReusableCellEnsured(indexPath)
         if let model = sections.dtb[indexPath.section]?.cells.dtb[indexPath.row] {
-            let cell: DTB.ITDIArrowTableViewCell = tableView.dtb.dequeueReusableCellEnsured(indexPath)
-            cell.update(model)
-            return cell
+            cell.registerCrumbs(type: .itdi_arrow_1)
+            cell.update(model: model)
         }
-        return UITableViewCell()
+        return cell
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

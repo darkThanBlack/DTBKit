@@ -16,10 +16,8 @@ class SettingViewController: DTB.BaseViewController {
     
     private lazy var sections: [DTB.SectionModel] = {
         let keys = [
-            "setting.disk",
             "setting.about",
-            "deep.i18n",
-            "deep.theme",
+            "deep.labs",
             "login",
             "user.logout"
         ]
@@ -27,11 +25,11 @@ class SettingViewController: DTB.BaseViewController {
         var cells: [DTB.CellModel] = keys.compactMap({
             .init(
                 data: .init(primaryKey: $0, title: .dtb.create($0), showArrow: true),
-                style: .init(container: .card())
+                style: .listCard()
             )
         })
-        cells.first?.style = .init(container: .card(.isFirst))
-        cells.last?.style = .init(container: .card(.isLast))
+        cells.first?.style = .listCard(.isFirst)
+        cells.last?.style = .listCard(.isLast)
         return [
             DTB.SectionModel(cells: cells)
         ]
@@ -44,8 +42,6 @@ class SettingViewController: DTB.BaseViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    deinit {}
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,24 +89,14 @@ class SettingViewController: DTB.BaseViewController {
 
 extension SettingViewController: SettingViewDelegate {
     
-    func listItemEvent(_ data: DTBKit.DTB.CellData) {
-        if data.primaryKey == "setting.disk" {
-            let vc = DiskUsageViewController()
-            navigationController?.pushViewController(vc, animated: true)
-            return
-        }
+    func listItemEvent(_ data: DTB.SampleData) {
         if data.primaryKey == "setting.about" {
             let vc = AboutUsViewController()
             navigationController?.pushViewController(vc, animated: true)
             return
         }
-        if data.primaryKey == "deep.i18n" {
-            let vc = I18NViewController()
-            navigationController?.pushViewController(vc, animated: true)
-            return
-        }
-        if data.primaryKey == "deep.theme" {
-            let vc = ColorViewController()
+        if data.primaryKey == "deep.labs" {
+            let vc = DTB.LabsViewController()
             navigationController?.pushViewController(vc, animated: true)
             return
         }

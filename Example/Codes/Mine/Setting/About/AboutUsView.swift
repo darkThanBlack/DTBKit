@@ -12,7 +12,7 @@
 
 protocol AboutUsViewDelegate: AnyObject {
     
-    func listItemEvent(_ data: DTB.CellData)
+    func listItemEvent(_ data: DTB.SampleData)
 }
 
 ///
@@ -32,7 +32,7 @@ class AboutUsView: UIView {
         
         loadViews(in: self)
         
-        // logo.kf.setImage(with: URL(string: ""))
+        // logo.kf.setImage(with: URL(string: "https://image.xiaomaiketang.com/xm/internal/4eKBnm5M5C.png"))
         
         self.backgroundColor = .dtb.create("bg")
         tableView.isScrollEnabled = false
@@ -86,13 +86,13 @@ class AboutUsView: UIView {
         return logo
     }()
     
-    private lazy var nameLabel = UILabel().dtb.textStyle("large02").text(DTB.app.displayName).value
+    private lazy var nameLabel = UILabel().dtb.textStyle("h2").text(DTB.app.displayName).value
     
-    private lazy var versionLabel = UILabel().dtb.textStyle("detail02").text(DTB.app.version).value
+    private lazy var versionLabel = UILabel().dtb.textStyle("b6").text(DTB.app.version).value
     
-    private lazy var tableView = UITableView.dtb.plain(self, cells: [DTB.ITDIArrowTableViewCell.self])
+    private lazy var tableView = UITableView.dtb.plain(self, cells: [DTB.CrumbsTableViewCell.self])
     
-    private lazy var buildLabel = UILabel().dtb.textStyle("detail02").text(DTB.app.build).value
+    private lazy var buildLabel = UILabel().dtb.textStyle("b6").text(DTB.app.build).value
 }
 
 extension AboutUsView: UITableViewDelegate {
@@ -110,9 +110,10 @@ extension AboutUsView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: DTB.ITDIArrowTableViewCell = tableView.dtb.dequeueReusableCellEnsured(indexPath)
+        let cell: DTB.CrumbsTableViewCell = tableView.dtb.dequeueReusableCellEnsured(indexPath)
         if let model = sections.dtb[indexPath.section]?.cells.dtb[indexPath.row] {
-            cell.update(model)
+            cell.registerCrumbs(type: .itdi_arrow_1)
+            cell.update(model: model)
         }
         return cell
     }

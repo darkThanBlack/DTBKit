@@ -33,7 +33,7 @@ extension DTB {
         }
         
         public init?(json url: URL? = nil) {
-            guard let fileUrl = url ?? Bundle.main.url(forResource: "button_style", withExtension: "json") else {
+            guard let fileUrl = url ?? ThemeManager.shared.currentBundle.url(forResource: "button_style", withExtension: "json") else {
                 console.error("button_style: json file not found")
                 return nil
             }

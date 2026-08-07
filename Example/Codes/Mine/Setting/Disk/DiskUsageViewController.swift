@@ -12,72 +12,73 @@
 
 import UIKit
 
-/// 存储空间
-class DiskUsageViewController: DTB.BaseViewController {
+extension DTB {
     
-    private lazy var viewModel = {
-        let model = DiskUsageViewModel()
-        model.delegate = self
-        return model
-    }()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    /// 存储空间
+    public final class DiskUsageViewController: DTB.BaseViewController {
         
-        setupNavigatonBar(with: .init(theme: .clear, title: "存储空间"))
-        view.backgroundColor = DiskUsageDepends.backgroundColor()
-        loadViews(in: view)
+        private lazy var viewModel = {
+            let model = DiskUsageViewModel()
+            model.delegate = self
+            return model
+        }()
         
-        reload()
-    }
-    
-    private func reload() {
-        viewModel.reloadData {
-            self.contentView.reloadUsage(by: self.viewModel.usage)
-            self.contentView.reloadCaches(by: self.viewModel.caches)
+        public override func viewDidLoad() {
+            super.viewDidLoad()
+            
+            setupNavigatonBar(with: .init(theme: .clear, title: .dtb.create("deep.disk")))
+            view.backgroundColor = DTB.DiskUsageDepends.backgroundColor()
+            loadViews(in: view)
+            
+            reload()
         }
-    }
-    
-    //MARK: View
-    
-    private func loadViews(in box: UIView) {
-        box.addSubview(contentView)
-        contentView.snp.makeConstraints { make in
-            make.top.equalTo(customNavigationBar.snp.bottom).offset(0)
-            make.left.right.bottom.equalTo(box.safeAreaLayoutGuide)
+        
+        private func reload() {
+            viewModel.reloadData {
+                self.contentView.reloadUsage(by: self.viewModel.usage)
+                self.contentView.reloadCaches(by: self.viewModel.caches)
+            }
         }
+        
+        //MARK: View
+        
+        private func loadViews(in box: UIView) {
+            box.addSubview(contentView)
+            contentView.snp.makeConstraints { make in
+                make.top.equalTo(customNavigationBar.snp.bottom).offset(0)
+                make.left.right.bottom.equalTo(box.safeAreaLayoutGuide)
+            }
+        }
+        
+        private lazy var contentView = {
+            let view = DiskUsageView()
+            view.delegate = self
+            return view
+        }()
     }
     
-    private lazy var contentView = {
-        let view = DiskUsageView()
-        view.delegate = self
-        return view
-    }()
 }
 
-extension DiskUsageViewController: DiskUsageViewModelDelegate {
+extension DTB.DiskUsageViewController: DTB.DiskUsageViewModelDelegate {
     
     func needUpdateLoadingUIState(_ isLoading: Bool) {
         self.contentView.reloadUsage(by: self.viewModel.usage)
     }
 }
 
-extension DiskUsageViewController: DiskCacheEventsDelegate {
+extension DTB.DiskUsageViewController: DTB.DiskCacheEventsDelegate {
     
     func diskCacheRefreshButtonEvent() {
         reload()
     }
     
     func diskCacheHintViewButtonEvent(_ key: String) {
-        guard let type = DiskCacheModel.BizTypes(rawValue: key) else {
-            return
+        guard key == DTB.DiskCacheModel.key else {
+            return DTB.console.error()
         }
-        switch type {
-        case .dataCache:
-            DTB.DiskCacheManager.shared.clearDisks { _ in
-                self.view.dtb.toast("清除成功")
-                self.reload()
-            }
+        DTB.DiskCacheManager.shared.clearDisks { _ in
+            self.view.dtb.toast(DTB.DiskUsageDepends.cleanSuccessText())
+            self.reload()
         }
     }
 }

@@ -17,18 +17,18 @@ class AboutUsViewController: DTB.BaseViewController {
     private lazy var sections: [DTB.SectionModel] = {
         let keys = [
             "app.update",
-            "login.policy.hint.p0",
-            "login.policy.hint.p1"
+            "policy.ts",
+            "policy.pp"
         ]
         
         var cells: [DTB.CellModel] = keys.compactMap({
             .init(
                 data: .init(primaryKey: $0, title: .dtb.create($0), showArrow: true),
-                style: .init(container: .card())
+                style: .listCard()
             )
         })
-        cells.first?.style = .init(container: .card(.isFirst))
-        cells.last?.style = .init(container: .card(.isLast))
+        cells.first?.style = .listCard(.isFirst)
+        cells.last?.style = .listCard(.isLast)
         return [
             DTB.SectionModel(cells: cells)
         ]
@@ -62,14 +62,14 @@ class AboutUsViewController: DTB.BaseViewController {
 
 extension AboutUsViewController: AboutUsViewDelegate {
     
-    func listItemEvent(_ data: DTB.CellData) {
+    func listItemEvent(_ data: DTB.SampleData) {
         switch data.primaryKey ?? "" {
         case "app.update":
             // XMVersions.shared.showUserCheckUpdateAlert()
             break
-        case "login.policy.hint.p0":
+        case "policy.ts":
             break
-        case "login.policy.hint.p1":
+        case "policy.pp":
             break
         default:
             DTB.console.error(data.primaryKey)
@@ -80,9 +80,9 @@ extension AboutUsViewController: AboutUsViewDelegate {
         
         //        firstly {
         //            switch primaryKey {
-        //            case "login.policy.hint.p0":
+        //            case "policy.ts":
         //                return DTB.network.getWebUrl(.serviceAgreement)
-        //            case "login.policy.hint.p1":
+        //            case "policy.pp":
         //                return DTB.network.getWebUrl(.privacyPolicy)
         //            default:
         //                return Guarantee.value("")

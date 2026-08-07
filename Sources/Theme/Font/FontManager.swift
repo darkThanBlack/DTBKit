@@ -34,8 +34,11 @@ extension DTB {
         /// 已注册的自定义字体名称
         private var customFontNames: Set<String> = []
         
-        private init() {
-            loadCustomFonts()
+        private init() {}
+        
+        /// 由于需要指定 bundle，允许解析时机延后
+        public func reloadData() {
+            searchCustomFonts(in: DTB.ThemeManager.shared.currentBundle)
         }
         
         /// 获取自定义字体
@@ -47,7 +50,7 @@ extension DTB {
         // MARK: - Parser
         
         /// 扫描 bundle 中所有 .ttf/.otf 并注册
-        private func loadCustomFonts(in bundle: Bundle = .main) {
+        private func searchCustomFonts(in bundle: Bundle = .main) {
             // 先尝试子目录 “Fonts”——常规做法；若没有则遍历根目录
             let extensions = ["ttf", "otf"]
             let fileURLs: [URL] = extensions.reduce([]) { res, next in

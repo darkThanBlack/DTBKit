@@ -25,24 +25,60 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         DoraemonManager.shareInstance().install(withPid: "73422655743e0c15bc7aff370d8485f5")
         
+        dtbRegistProviders()
+        
+        return true
+    }
+    
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        adapter()
+        
+        window?.rootViewController = createTabs()
+        window?.makeKeyAndVisible()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(appRestartEvent), name: DTB.Notifications.appNeedRestart, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(loginStateChangedEvent), name: UserManager.loginStateChangedKey, object: nil)
+        
+        return true
+    }
+    
+    private func adapter() {
+        if #available(iOS 15.0, *) {
+            // 避免 section header 顶部默认间距
+            //
+            // [refer](https://stackoverflow.com/questions/73049647)
+            UITableView.appearance().sectionHeaderTopPadding = 0
+            
+            // 禁止预存取导致显示混乱
+            //
+            // [refer](https://stackoverflow.com/questions/69676109)
+            UITableView.appearance().isPrefetchingEnabled = false
+        }
+    }
+    
+    private func sport() -> Bundle? {
+        return Bundle.dtb.create("DTBKitSportTheme")
+    }
+    
+    /// 很明显，大部分功能需要在 window.rootViewController 创建之前注册好
+    private func dtbRegistProviders() {
+        
         // --- Provider 注册示例 ---
-        // 很明显大部分功能需要在业务初始化之前创建
+        
+        // UI Style 最优先，其他控件可能依赖于它们
+        dtbReloadStyles()
         
         // scene 主要是为了 keyWindow 的自动实现
         if #available(iOS 13.0, *) {
             DTB.Providers.register(DTB.DefaultSceneProvider(), key: DTB.Providers.sceneKey)
         }
-        // 确保 topMost 方法无误，最稳妥的方法就是传入 window 实例
+        // 确保 topMost 方法无误，最稳妥的方法就是直接传入 window 实例
         DTB.Providers.register(DTB.DefaultWindowProvider(window), key: DTB.Providers.windowKey)
-        
-        // 如果需要国际化 / 自定义主题
-        DTB.Providers.register(DTB.ColorManager.shared, key: DTB.Providers.colorKey)
-        DTB.Providers.register(DTB.I18NManager.shared, key: DTB.Providers.stringKey)
-        DTB.Providers.register(DTB.FontManager.shared, key: DTB.Providers.fontKey)
-        DTB.Providers.register(DTB.TextStyleManager.shared, key: DTB.Providers.textStyleKey)
         
         // UIImage
         DTB.Providers.register(DTB.DefaultLocalImageProvider(), key: DTB.Providers.localImageKey)
+        // 选型上互斥的三方库
 #if canImport(Kingfisher)
         DTB.Providers.register(DTB.KFRemoteImageProvider(), key: DTB.Providers.remoteImageKey)
 #elseif canImport(SDWebImage)
@@ -53,11 +89,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DTB.Providers.register(DTB.DefaultHUDProvider(), key: DTB.Providers.hudKey)
         DTB.Providers.register(DTB.DefaultToastProvider(), key: DTB.Providers.toastKey)
         DTB.Providers.register(DTB.DefaultAlertProvider(), key: DTB.Providers.alertKey)
-        
-        // Style
-        DTB.Providers.register(DTB.DefaultShapeStyleProvider(), key: DTB.Providers.shapeStyleKey)
-        DTB.Providers.register(DTB.DefaultGradientStyleProvider(), key: DTB.Providers.gradientStyleKey)
-        DTB.Providers.register(DTB.DefaultButtonStyleProvider(), key: DTB.Providers.buttonStyleKey)
         
         // 缓存
         var cacheProviders: [DTB.Providers.CacheProvider] = [
@@ -73,16 +104,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DTB.DiskCacheManager.shared.registerDiskProviders(cacheProviders)
         
         // --- Provider 注册结束 ---
-        
-        return true
     }
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    /// 由于 style.json 往往涉及颜色，如果主题色触发了变化, 那么所有涉及色值的 style 都需要一并刷新
+    private func dtbReloadStyles() {
+        // 资源文件
+        let _ = DTB.ThemeManager.shared
         
-        adapter()
+        // 颜色
+        DTB.ColorManager.shared.reloadData()
+        DTB.Providers.register(DTB.ColorManager.shared, key: DTB.Providers.colorKey)
         
-        let tabVC = DTB.SystemTabBarController()
-        //        let tabVC = DTB.CustomTabBarController(customTabBar: DTB.SimpleTabBar())
+        // 国际化字符串
+        DTB.I18NManager.shared.reloadData()
+        DTB.Providers.register(DTB.I18NManager.shared, key: DTB.Providers.stringKey)
+        
+        // 字体
+        DTB.FontManager.shared.reloadData()
+        DTB.Providers.register(DTB.FontManager.shared, key: DTB.Providers.fontKey)
+        
+        // Style 比较简单，直接摧毁后重建来刷新
+        DTB.Providers.register(DTB.DefaultTextStyleProvider(), key: DTB.Providers.textStyleKey)
+        DTB.Providers.register(DTB.DefaultShapeStyleProvider(), key: DTB.Providers.shapeStyleKey)
+        DTB.Providers.register(DTB.DefaultGradientStyleProvider(), key: DTB.Providers.gradientStyleKey)
+        DTB.Providers.register(DTB.DefaultButtonStyleProvider(), key: DTB.Providers.buttonStyleKey)
+    }
+    
+    private func createTabs() -> UITabBarController {
+        //         let tabVC = DTB.SystemTabBarController()
+        let tabVC = DTB.CustomTabBarController(customTabBar: DTB.SimpleTabBar())
         tabVC.setupTabBar(
             DTB.TabBarModel(
                 backgroundColor: .dtb.create("bg2"),
@@ -120,36 +170,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 font: .dtb.create(11.0)
             )
         ])
-        
-        window?.rootViewController = tabVC
-        window?.makeKeyAndVisible()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(loginStateChangedEvent), name: UserManager.loginStateChangedKey, object: nil)
-        
-        return true
+        return tabVC
     }
     
-    private func adapter() {
-        if #available(iOS 15.0, *) {
-            // 避免 section header 顶部默认间距
-            //
-            // [refer](https://stackoverflow.com/questions/73049647)
-            UITableView.appearance().sectionHeaderTopPadding = 0
-            
-            // 禁止预存取导致显示混乱
-            //
-            // [refer](https://stackoverflow.com/questions/69676109)
-            UITableView.appearance().isPrefetchingEnabled = false
-        }
+    /// 通过重建 rootViewController 来实现
+    @objc private func appRestartEvent() {
+        dtbReloadStyles()
+        
+        UIViewController.dtb.topMost()?.dtb.popToMainRootAnyway()
+        window?.rootViewController = nil
+        window?.rootViewController = createTabs()
     }
     
-    @objc func loginStateChangedEvent() {
+    @objc private func loginStateChangedEvent() {
         guard let tabBarVC = window?.rootViewController as? UITabBarController else {
             return DTB.console.error()
         }
         UIViewController.dtb.topMost()?.dtb.popToMainRootAnyway()
         
+        showLoginIfNeeded()
+    }
+    
+    private func showLoginIfNeeded() {
         guard UserManager.shared.isLogined == false else { return }
+        guard let tabBarVC = window?.rootViewController as? UITabBarController else {
+            return DTB.console.error()
+        }
         let vc = LoginViewController()
         let nav = DTB.SystemNavigationController(rootViewController: vc)
         tabBarVC.present(nav, animated: true)

@@ -46,14 +46,15 @@ extension DTB {
         private var mapper: [String: String] = [:]
         
         private init() {
-            currentKey = UserDefaults.standard.object(forKey: localKey) as? String
-            
-            i18nMapParser()
-            
             // 系统调整语言时会强制 APP 重启, 监听失去意义
             // NSLocale.currentLocaleDidChangeNotification
         }
         
+        /// 由于需要指定 bundle，允许解析时机延后
+        public func reloadData() {
+            update(key: UserDefaults.standard.object(forKey: localKey) as? String)
+        }
+
         /// 当前系统语言标识符 (BCP-47)
         public func systemLanguageCode() -> String? {
             if #available(iOS 16, *) {
@@ -108,9 +109,11 @@ extension DTB {
         ///
         /// key 会被持久化到本地。
         public func update(key: String?) {
-            currentKey = key
-            UserDefaults.standard.set(key, forKey: localKey)
-            UserDefaults.standard.synchronize()
+            if currentKey != key {
+                currentKey = key
+                UserDefaults.standard.set(key, forKey: localKey)
+                UserDefaults.standard.synchronize()
+            }
             
             i18nMapParser()
         }
@@ -147,7 +150,7 @@ extension DTB {
         
         /// "string_zh-CN.json"
         private func getMapperBy(key: String) -> [String: String]? {
-            guard let filePath = Bundle.main.path(forResource: "string_\(key)", ofType: "json"),
+            guard let filePath = DTB.ThemeManager.shared.currentBundle.path(forResource: "string_\(key)", ofType: "json"),
                   FileManager.default.fileExists(atPath: filePath),
                   let data = try? Data(contentsOf: URL(fileURLWithPath: filePath)),
                   let dict = (try? JSONSerialization.jsonObject(with: data, options: [])) as? [String: String],

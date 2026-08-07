@@ -8,18 +8,18 @@
 //  LICENSE: SAME AS REPOSITORY
 //  Contact me: [GitHub](https://github.com/darkThanBlack)
 //
-    
+
 
 import UIKit
 
 class MineViewController: UIViewController, DTB.SimpleNavigationBarHandler {
     
-    lazy var customNavigationBar = DTBKit.DTB.SimpleNavigationBar()
+    lazy var customNavigationBar = DTB.SimpleNavigationBar()
     
     private let viewModel = MineViewModel()
     
     private lazy var header = MineHeaderViewModel(
-        avatar: DTB.ImageModel(
+        avatar: DTB.ImageData(
             remoteUrl: "https://avatars.githubusercontent.com/u/8111265?s=400&u=6af1720f3aa8f2457f4b063f523094127ef1c67e&v=4"
         ),
         name: "moon",
@@ -29,14 +29,24 @@ class MineViewController: UIViewController, DTB.SimpleNavigationBarHandler {
     
     private lazy var sections: [DTB.SectionModel] = {
         return [
-            DTB.SectionModel(
-                cells: [
-                    .init(
-                        data: .init(primaryKey: "setting", title: .dtb.create("setting"), showArrow: true),
-                        style: .init(container: .card(.onlyOne))
-                    )
-                ]
-            )
+            DTB.SectionModel(cells: [
+                DTB.CellModel(
+                    data: DTB.SampleData(primaryKey: "ble.debug", title: "BLE Debug", showArrow: true),
+                    style: .listCard(.onlyOne)
+                )
+            ]),
+            DTB.SectionModel(cells: [
+                DTB.CellModel(
+                    data: DTB.SampleData(primaryKey: "venue", title: "venue", showArrow: true),
+                    style: .listCard(.onlyOne)
+                )
+            ]),
+            DTB.SectionModel(cells: [
+                DTB.CellModel(
+                    data: DTB.SampleData(primaryKey: "setting", title: .dtb.create("setting"), showArrow: true),
+                    style: .listCard(.onlyOne)
+                )
+            ]),
         ]
     }()
     
@@ -47,8 +57,6 @@ class MineViewController: UIViewController, DTB.SimpleNavigationBarHandler {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    deinit {}
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -105,7 +113,7 @@ extension MineViewController: MineViewDelegates {
         
     }
     
-    func listItemEvent(_ data: DTBKit.DTB.CellData) {
+    func listItemEvent(_ data: DTB.SampleData) {
         if data.primaryKey == "setting" {
             let vc = SettingViewController()
             navigationController?.pushViewController(vc, animated: true)

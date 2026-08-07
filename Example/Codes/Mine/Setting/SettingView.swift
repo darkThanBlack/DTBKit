@@ -15,7 +15,7 @@ import UIKit
 ///
 protocol SettingViewDelegate: AnyObject {
     
-    func listItemEvent(_ data: DTB.CellData)
+    func listItemEvent(_ data: DTB.SampleData)
 }
 
 /// 我的
@@ -50,7 +50,7 @@ class SettingView: UIView {
     }
     
     private lazy var tableView: UITableView = {
-        let tableView = UITableView.dtb.plain(self, cells: [DTB.ITDIArrowTableViewCell.self])
+        let tableView = UITableView.dtb.plain(self, cells: [DTB.CrumbsTableViewCell.self])
         tableView.isScrollEnabled = false
         return tableView
     }()
@@ -77,11 +77,12 @@ extension SettingView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell: DTB.ITDIArrowTableViewCell = tableView.dtb.dequeueReusableCell(indexPath), let model = sections.dtb[indexPath.section]?.cells.dtb[indexPath.row] else {
+        guard let cell: DTB.CrumbsTableViewCell = tableView.dtb.dequeueReusableCell(indexPath), let model = sections.dtb[indexPath.section]?.cells.dtb[indexPath.row] else {
             DTB.console.error()
             return UITableViewCell()
         }
-        cell.update(model)
+        cell.registerCrumbs(type: .itdi_arrow_1)
+        cell.update(model: model)
         return cell
     }
     

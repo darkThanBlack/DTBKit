@@ -14,7 +14,7 @@ import UIKit
 
 struct MineHeaderViewModel {
     
-    var avatar: DTB.ImageModel?
+    var avatar: DTB.ImageData?
     
     var name: String?
     
@@ -60,16 +60,24 @@ class MineHeaderView: UIView {
         roleStackView.arrangedSubviews.forEach({
             $0.removeFromSuperview()
         })
-        roles?.forEach({ role in
-            let label = DTB.EdgeLabel()
-            label.font = UIFont.systemFont(ofSize: 13.0, weight: .regular)
-            label.textColor = .dtb.create("text3")
-            label.text = role
-            label.numberOfLines = 1
-            label.textAlignment = .center
-            label.edgeInsets = UIEdgeInsets(top: 4.0, left: 8.0, bottom: 4.0, right: 8.0)
-            label.backgroundColor = .dtb.create("bg3")
-            roleStackView.addArrangedSubview(label)
+        roles?.forEach(
+            { role in
+                let label = UILabel()
+                label.font = UIFont.systemFont(ofSize: 13.0, weight: .regular)
+                label.textColor = .dtb.create("text3")
+                label.text = role
+                label.numberOfLines = 1
+                label.textAlignment = .center
+                
+                let c = DTB.Container(
+                    child: label,
+                    style: DTB.ContainerStyle(
+                        padding: UIEdgeInsets(top: 4.0, left: 8.0, bottom: 4.0, right: 8.0),
+                        backgroundColor: .dtb.create("bg3"),
+                        shape: .dtb.create("circle")
+                    )
+                )
+            roleStackView.addArrangedSubview(c)
         })
     }
     
@@ -133,13 +141,13 @@ class MineHeaderView: UIView {
         .value
     
     private lazy var nicknameLabel = UILabel().dtb
-        .font(.dtb.create(23.0, weight: .medium))
+        .font(.dtb.create(size: 23.0, weight: .medium))
         .textColor(.dtb.create("text"))
         .numberOfLines(1)
         .value
     
     private func createRoleLabel() -> UILabel {
-        return UILabel().dtb.textStyle("detail01")
+        return UILabel().dtb.textStyle("b1")
             .layer({ $0.cornerRadius(11.0) })
             .backgroundColor(.dtb.create("border"))
             .value

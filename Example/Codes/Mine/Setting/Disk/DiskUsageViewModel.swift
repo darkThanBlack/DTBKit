@@ -12,65 +12,70 @@
 
 import UIKit
 
-protocol DiskUsageViewModelDelegate: AnyObject {
+extension DTB {
     
-    /// loading 处理
-    func needUpdateLoadingUIState(_ isLoading: Bool)
-}
-
-/// 存储空间
-class DiskUsageViewModel {
+    protocol DiskUsageViewModelDelegate: AnyObject {
+        
+        /// loading 处理
+        func needUpdateLoadingUIState(_ isLoading: Bool)
+    }
     
-    weak var delegate: DiskUsageViewModelDelegate?
-    
-    private(set) var usage = DiskUsageModel()
-    
-    private(set) var caches: [DiskCacheHintViewDataSource] = []
-    
-    func reloadData(_ completed: (() -> ())?) {
-        guard usage.isLoading == false else {
-            return
-        }
-        usage.isLoading = true
-        self.delegate?.needUpdateLoadingUIState(true)
+    /// 存储空间
+    class DiskUsageViewModel {
         
-        var phoneInfo: DTB.DiskCacheManager.PhoneInfo? = nil
-        var appUsage: Int64? = nil
-        let appCache = DiskCacheModel(bizType: .dataCache)
+        weak var delegate: DiskUsageViewModelDelegate?
         
-        /// 异步并行
-        let group = DispatchGroup()
+        private(set) var usage = DiskUsageModel()
         
-        group.enter()
-        DTB.DiskCacheManager.shared.calculatePhoneDiskInfo { result in
-            phoneInfo = result
-            group.leave()
-        }
+        /// 支持按业务去分类
+        private(set) var caches: [DiskCacheHintViewDataSource] = []
         
-        group.enter()
-        DTB.DiskCacheManager.shared.calculateAppDiskUsage { result in
-            appUsage = result
-            group.leave()
-        }
-        
-        group.enter()
-        DTB.DiskCacheManager.shared.calculateDiskSizes { result in
-            let allUsage = result.reduce(0) { res, next in
-                return res + next.value
+        func reloadData(_ completed: (() -> ())?) {
+            guard usage.isLoading == false else {
+                return
             }
-            appCache.usage = allUsage
-            group.leave()
-        }
-        
-        group.notify(queue: .main) {
-            self.usage.isLoading = false
-            self.delegate?.needUpdateLoadingUIState(false)
+            usage.isLoading = true
+            self.delegate?.needUpdateLoadingUIState(true)
             
-            self.usage.rawPhoneInfo = phoneInfo
-            self.usage.rawAppUsage = appUsage
-            self.usage.updateTime = Date().timeIntervalSince1970
-            self.caches = [appCache]
-            completed?()
+            var phoneInfo: DTB.DiskCacheManager.PhoneInfo? = nil
+            var appUsage: Int64? = nil
+            let appCache = DiskCacheModel()
+            
+            /// 异步并行
+            let group = DispatchGroup()
+            
+            group.enter()
+            DTB.DiskCacheManager.shared.calculatePhoneDiskInfo { result in
+                phoneInfo = result
+                group.leave()
+            }
+            
+            group.enter()
+            DTB.DiskCacheManager.shared.calculateAppDiskUsage { result in
+                appUsage = result
+                group.leave()
+            }
+            
+            group.enter()
+            DTB.DiskCacheManager.shared.calculateDiskSizes { result in
+                let allUsage = result.reduce(0) { res, next in
+                    return res + next.value
+                }
+                appCache.usage = allUsage
+                group.leave()
+            }
+            
+            group.notify(queue: .main) {
+                self.usage.isLoading = false
+                self.delegate?.needUpdateLoadingUIState(false)
+                
+                self.usage.rawPhoneInfo = phoneInfo
+                self.usage.rawAppUsage = appUsage
+                self.usage.updateTime = Date().timeIntervalSince1970
+                self.caches = [appCache]
+                completed?()
+            }
         }
     }
+    
 }

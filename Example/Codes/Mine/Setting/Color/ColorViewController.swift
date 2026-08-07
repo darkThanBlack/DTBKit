@@ -12,92 +12,108 @@
 
 import UIKit
 
-class ColorViewController: DTB.BaseViewController {
+extension DTB {
     
-    private lazy var sections: [DTB.SectionModel] = {
-        let keys = [
-            "deep.i18n.follow",
-            "light_mode",
-            "dark_mode"
-        ]
+    /// 展示对主题颜色的控制
+    public final class ColorViewController: DTB.BaseViewController {
         
-        var cells: [DTB.CellModel] = keys.compactMap({
-            .init(
-                data: .init(primaryKey: $0, title: .dtb.create($0), isSelected: false),
-                style: .init(container: .card())
-            )
-        })
-        cells.first?.style = .init(container: .card(.isFirst))
-        cells.last?.style = .init(container: .card(.isLast))
-        return [
-            DTB.SectionModel(cells: cells)
-        ]
-    }()
-    
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    deinit {}
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
+        private lazy var sections: [DTB.SectionModel] = {
+            let cells: [DTB.CellModel] = [
+                .init(
+                    data: .init(primaryKey: nil, title: .dtb.create("deep.follow_system")),
+                    style: .listCard(.isFirst)
+                ),
+                .init(
+                    data: .init(primaryKey: "light", title: .dtb.create("deep.color.light")),
+                    style: .listCard()
+                ),
+                .init(
+                    data: .init(primaryKey: "dark", title: .dtb.create("deep.color.dark"), detail: .dtb.create("deep.color.dark.desc")),
+                    style: .listCard()
+                ),
+                .init(
+                    data: .init(primaryKey: "auto_dark", title: .dtb.create("deep.color.dark.auto"), detail: .dtb.create("deep.color.dark.auto.desc")),
+                    style: .listCard(.isLast)
+                ),
+            ]
+            
+            // 样式
+            cells.forEach({ $0.extra = DTB.CrumbsType.tdi_select_1 })
+            
+            // 当前选中状态
+            switch DTB.ColorManager.shared.currentMode ?? .followSystem {
+            case .followSystem, .custom:
+                cells[0].data?.isSelected = true
+            case .light: cells[1].data?.isSelected = true
+            case .dark: cells[2].data?.isSelected = true
+            case .autoDark: cells[3].data?.isSelected = true
+            }
+            
+            return [
+                DTB.SectionModel(cells: cells)
+            ]
+        }()
         
-        view.backgroundColor = .dtb.create("bg")
-        
-        setupNavigatonBar(with: .init(title: .dtb.create("deep.theme")))
-        loadViews(in: view)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        contentView.updateSection(sections)
-    }
-    
-    // MARK: - View
-    
-    private func loadViews(in box: UIView) {
-        box.addSubview(backgroundImageView)
-        box.addSubview(contentView)
-        
-        backgroundImageView.snp.makeConstraints { make in
-            make.top.left.right.equalTo(box)
-            make.height.equalTo(backgroundImageView.snp.width)
+        override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+            super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         }
-        contentView.snp.makeConstraints { make in
-            make.top.equalTo(customNavigationBar.snp.bottom).offset(0)
-            make.left.right.bottom.equalTo(box.safeAreaLayoutGuide)
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
         }
+        
+        public override func viewDidLoad() {
+            super.viewDidLoad()
+            
+            setupNavigatonBar(with: .init(title: .dtb.create("deep.color")))
+            loadViews(in: view)
+        }
+        
+        public override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            
+            contentView.updateSection(sections)
+        }
+        
+        // MARK: - View
+        
+        private func loadViews(in box: UIView) {
+            box.addSubview(contentView)
+            contentView.snp.makeConstraints { make in
+                make.top.equalTo(customNavigationBar.snp.bottom).offset(0)
+                make.left.right.bottom.equalTo(box.safeAreaLayoutGuide)
+            }
+        }
+        
+        private lazy var contentView: DTB.CrumbsSampleView = {
+            let view = DTB.CrumbsSampleView()
+            view.backgroundColor = .clear
+            view.delegate = self
+            return view
+        }()
     }
     
-    private lazy var backgroundImageView = UIImageView().dtb
-        .contentMode(.scaleToFill)
-        .image(.dtb.local("background01"))
-        .value
-    
-    private lazy var contentView: ColorView = {
-        let view = ColorView()
-        view.backgroundColor = .clear
-        view.delegate = self
-        return view
-    }()
 }
 
-extension ColorViewController: ColorViewDelegate {
+extension DTB.ColorViewController: DTB.CrumbsSampleViewDelegate {
     
-    func listItemEvent(_ data: DTBKit.DTB.CellData) {
-        // TODO: change & restart
-//        I18nManager.shared.update(language: value)
-//        DTB.app.restart()
-
-        sections.first?.cells.forEach({
-            $0.data?.isSelected = $0.data?.primaryKey == data.primaryKey
-        })
-        contentView.updateSection(sections)
+    public func listItemEvent(_ indexPath: IndexPath) {
+        guard let data = sections.dtb[indexPath.section]?.cells.dtb[indexPath.row]?.data else { return }
+        let alert = UIAlertController(title: .dtb.create("common.hint"), message: .dtb.create("deep.color.ensure"), preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: .dtb.create("common.cancel"), style: .default))
+        alert.addAction(UIAlertAction(title: .dtb.create("common.ensure"), style: .default, handler: { _ in
+            switch data.primaryKey {
+            case "light":
+                DTB.ColorManager.shared.update(mode: .light)
+            case "dark":
+                DTB.ColorManager.shared.update(mode: .dark)
+            case "auto_dark":
+                DTB.ColorManager.shared.update(mode: .autoDark)
+            default:
+                DTB.ColorManager.shared.update(mode: .followSystem)
+            }
+            NotificationCenter.default.post(name: DTB.Notifications.appNeedRestart, object: nil)
+        }))
+        self.present(alert, animated: true)
     }
 }
