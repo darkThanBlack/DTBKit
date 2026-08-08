@@ -49,8 +49,7 @@ class VerifySliderViewController: UIViewController {
         })
         defJSBridge?.register(receive: JSBridgeSlider())
         
-        // FIXME: url
-        webView.loadURL("https://rc.xiaomai5.com/sports-h5/common.html#/checkCode")
+        webView.loadURL("https://www.baidu.com")
         //        DTB.network.getWebUrl(.slider).done { url in
         //            self.webView.loadURL(url)
         //        }
