@@ -19,20 +19,16 @@ public class UserVM: Mappable {
     
     var rawUser: AdminLoginResultVO?
     
-    var rawInstAdmin: UserInstAdminVO?
-    
     public required init?(map: Map) {
     }
     
-    public convenience init?(rawUser: AdminLoginResultVO? = nil, rawInstAdmin: UserInstAdminVO? = nil) {
+    public convenience init?(rawUser: AdminLoginResultVO? = nil) {
         self.init(JSON: [String: Any]())
         self.rawUser = rawUser
-        self.rawInstAdmin = rawInstAdmin
     }
     
     public func mapping(map: Map) {
         rawUser <- map["rawUser"]
-        rawInstAdmin <- map["rawInstAdmin"]
     }
 }
 
@@ -54,7 +50,7 @@ public class UserManager {
     var isLogined: Bool { vm == nil }
     
     func login(_ ctx: LoginContext) {
-        vm = UserVM(rawUser: ctx.user, rawInstAdmin: ctx.instAdmin)
+        vm = UserVM(rawUser: ctx.user)
         UserDefaults.dtb.write(vm?.toJSON(), key: localKey)
         NotificationCenter.default.post(name: UserManager.loginStateChangedKey, object: nil)
     }

@@ -3,7 +3,7 @@
     "font": { "size": 15.0, "weight": "medium" },
     "padding": { "top": 12.0, "left": 50.0, "bottom": 12.0, "right": 50.0 },
     "textColor": "text4",
-    "shape": "r4",
+    "shape": "circle",
     "gradient": "theme"
   },
   "large02": {
@@ -11,7 +11,7 @@
     "padding": { "top": 12.0, "left": 50.0, "bottom": 12.0, "right": 50.0 },
     "textColor": "text4",
     "backgroundColor": "button",
-    "shape": "r4"
+    "shape": "circle"
   },
   "large03": {
     "font": { "size": 15.0, "weight": "medium" },

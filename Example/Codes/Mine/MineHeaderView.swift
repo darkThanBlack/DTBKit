@@ -74,7 +74,7 @@ class MineHeaderView: UIView {
                     style: DTB.ContainerStyle(
                         padding: UIEdgeInsets(top: 4.0, left: 8.0, bottom: 4.0, right: 8.0),
                         backgroundColor: .dtb.create("bg3"),
-                        shape: .dtb.create("circle")
+                        shape: .style("circle")
                     )
                 )
             roleStackView.addArrangedSubview(c)

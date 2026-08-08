@@ -18,26 +18,7 @@ extension StaticWrapper where T: UIFont {
     /// 字体调用收束
     @inline(__always)
     public func create(_ param: Any?) -> UIFont {
-        if let p = DTB.Providers.get(DTB.Providers.fontKey), let font = p.create(param) {
-            return font
-        }
-        if let size = DTB.any.double(param) {
-            return UIFont.systemFont(ofSize: size, weight: .regular)
-        }
-//        if let size = param as? Double {
-//            return UIFont.systemFont(ofSize: size, weight: .regular)
-//        }
-//        if let size = param as? Int {
-//            return UIFont.systemFont(ofSize: CGFloat(size), weight: .regular)
-//        }
-        if let style = param as? DTB.FontStyle, let font = style.getFont() {
-            return font
-        }
-        if let dict = param as? [String: Any], let style = DTB.FontStyle(dict: dict), let font = style.getFont() {
-            return font
-        }
-        DTB.console.error("font: create failed by param=\(param ?? "")")
-        return .systemFont(ofSize: 15.0)
+        return DTB.Providers.get(DTB.Providers.fontKey)?.create(param) ?? .systemFont(ofSize: 13.0)
     }
     
     /// Create font with provider.

@@ -81,7 +81,7 @@ class MineView: UIView {
     
     private lazy var logoutButton = {
         let button = DTB.Button()
-        button.setConfig(.dtb.create("large05"))
+        button.setConfig(.style("large05"))
         button.addTarget(self, action: #selector(logoutButtonEvent), for: .touchUpInside)
         return button
     }()

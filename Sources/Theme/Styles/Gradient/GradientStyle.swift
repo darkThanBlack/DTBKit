@@ -12,23 +12,10 @@
 
 import UIKit
 
-extension StaticWrapper where T == DTB.GradientStyle {
-    
-    public func create(_ param: Any?) -> DTB.GradientStyle? {
-        if let p = DTB.app.get(DTB.Providers.gradientStyleKey), let style = p.create(param) {
-            return style
-        }
-        if let dict = param as? [String: Any], let style = DTB.GradientStyle(dict: dict) {
-            return style
-        }
-        return nil
-    }
-}
-
 extension DTB {
     
     /// CAGradientLayer
-    public struct GradientStyle: Structable, Equatable {
+    public struct GradientStyle: Equatable {
         
         // --- mask
         
@@ -62,10 +49,21 @@ extension DTB {
             self.type = type
         }
         
+        /// Simple replacement for .dtb.create
+        public static func style(_ param: Any?) -> DTB.GradientStyle? {
+            if let p = DTB.app.get(DTB.Providers.stylesKey), let style = p.createGradientStyle(param) {
+                return style
+            }
+            if let dict = param as? [String: Any], let style = DTB.GradientStyle(dict: dict) {
+                return style
+            }
+            return nil
+        }
+        
         public init?(dict: [String: Any]?) {
             guard let dict = dict else { return nil }
             
-            self.shapeMask = .dtb.create(dict["shapeMask"])
+            self.shapeMask = .style(dict["shapeMask"])
             
             self.colors = {
                 if let list = dict["colors"] as? [Any] {

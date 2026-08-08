@@ -135,7 +135,7 @@ class PhoneLoginView: UIView {
         .value
     
     private lazy var descLabel = UILabel().dtb
-        .textStyle("ph")
+        .textStyle("placeholder")
         .text(.dtb.create("login.sms.desc"))
         .value
     
@@ -205,10 +205,10 @@ class PhoneLoginView: UIView {
     
     private lazy var policyTexts = {
         let view = DTB.LinkTextView()
-        view.text = .dtb.create(format: "login.policy.hint", .dtb.create("login.policy.hint.p0"), .dtb.create("login.policy.hint.p1"))
+        view.text = .dtb.create(format: "login.policy.check", .dtb.create("policy.ts"), .dtb.create("policy.pp"))
         view.multiLinks = [
-            "login.policy.hint.p0": .dtb.create("login.policy.hint.p0"),
-            "login.policy.hint.p1": .dtb.create("login.policy.hint.p1")
+            "policy.ts": .dtb.create("policy.ts"),
+            "policy.pp": .dtb.create("policy.pp")
         ]
         view.linkConfigsFinished()
         return view
@@ -216,9 +216,8 @@ class PhoneLoginView: UIView {
     
     private lazy var sendButton = {
         let button = DTB.Button()
-        button.setConfig(.dtb.create("large01"))
+        button.setConfig(.style("large01"))
         button.setTitle(.dtb.create("login.sms.send"), for: .normal)
-//        button.titleLabel?.dtb.textStyle("h1")
         button.addTarget(self, action: #selector(sendButtonEvent), for: .touchUpInside)
         return button
     }()

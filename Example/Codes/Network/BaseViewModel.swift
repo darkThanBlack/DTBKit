@@ -16,7 +16,7 @@ extension DTB {
     
     open class BaseViewModel {
         
-        public let provider = DTB.DefaultMoyaProvider()
+        public let moya = DTB.DefaultMoyaProvider()
         
         public init() {}
     }

@@ -22,11 +22,11 @@
     "deep.follow_system": "跟随系统",
     
     "deep.i18n": "国际化",
-    "deep.i18n.desc": "良好的国际化是一个宏伟的系统性工程，这个框架尝试支持中英文",
+    "deep.i18n.desc": "良好的国际化是一个宏伟的系统性工程，我们支持简单的中英文切换",
     "deep.i18n.ensure": "切换语言需要重启 APP，是否继续？",
     
     "deep.color": "主题颜色",
-    "deep.color.desc": "良好的主题支持是一个宏伟的系统性工程，这个框架尝试支持深色模式",
+    "deep.color.desc": "我们在深色模式方面做了一些有意思的工作，可以将浅色直接翻转成视觉上可接受的深色",
     "deep.color.light": "浅色模式",
     "deep.color.dark": "深色模式",
     "deep.color.dark.desc": "如果开发者没有指定深色，框架保持当前颜色不变",
@@ -55,7 +55,6 @@
     "common.setting": "设置",
     "common.edit": "编辑",
     "common.save": "保存",
-    "common.tourist": "活动列表",
     
     "alert.title.hint": "温馨提示",
     

@@ -18,15 +18,19 @@ extension DTB.FontManager: DTB.Providers.FontProvider {
     /// 实现 FontProvider 协议
     @inline(__always)
     public func create(_ param: Any?) -> UIFont? {
-        return query(param as? [String: Any] ?? [:])
+        if let dict = param as? [String: Any], let style = DTB.FontStyle(dict: dict), let font = style.getFont() {
+            return font
+        }
+        if let size = DTB.any.double(param) {
+            return UIFont.systemFont(ofSize: size, weight: .regular)
+        }
+        return nil
     }
 }
 
 extension DTB {
     
     /// 字体管理器
-    ///
-    /// 在主工程中添加 "fonts.json" 文件即可响应
     public final class FontManager {
         
         public static let shared = FontManager()
@@ -36,15 +40,9 @@ extension DTB {
         
         private init() {}
         
-        /// 由于需要指定 bundle，允许解析时机延后
-        public func reloadData() {
+        /// 由于需要指定 bundle，允许解析时机延后，但不需要多次调用
+        public func loadCustomFonts() {
             searchCustomFonts(in: DTB.ThemeManager.shared.currentBundle)
-        }
-        
-        /// 获取自定义字体
-        @inline(__always)
-        public func query(_ param: [String: Any]?) -> UIFont? {
-            return FontStyle(dict: param)?.getFont()
         }
         
         // MARK: - Parser
@@ -77,7 +75,7 @@ extension DTB {
             
             // 避免重复
             if customFontNames.contains(fontName) {
-                console.error("font: found duplicate font name=\(fontName)")
+                console.log("font: found duplicate font name=\(fontName)")
                 return
             }
             

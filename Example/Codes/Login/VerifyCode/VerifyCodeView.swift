@@ -103,7 +103,7 @@ class VerifyCodeView: UIView {
         .text(.dtb.create("login.sms.enter"))
         .value
     
-    private lazy var descLabel = UILabel().dtb.textStyle("ph").value
+    private lazy var descLabel = UILabel().dtb.textStyle("placeholder").value
     
     private lazy var titleStack = UIStackView(arrangedSubviews: [titleLabel, descLabel]).dtb
         .axis(.vertical)

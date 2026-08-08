@@ -25,12 +25,12 @@ extension DTB {
         /// 不是定值，而是 view.bounds.width 的百分比, 取值为 [0, 1]
         ///
         /// e.g. 你需要圆角为 width 的一半, 但是 view.width 又可能动态变化，这时就可以通过传 0.5 来解决
-        case scaledToWidth(CGFloat)
+        case widthPercent(CGFloat)
         
         /// 不是定值，而是 view.bounds.height 的百分比, 取值为 [0, 1]
         ///
         /// e.g. 你需要圆角为 height 的一半, 但是 view.height 又可能动态变化，这时就可以通过传 0.5 来解决
-        case scaledToHeight(CGFloat)
+        case heightPercent(CGFloat)
         
         /// 从任意类型解析圆角样式
         /// 支持格式：
@@ -53,12 +53,12 @@ extension DTB {
                 self = .fixed(fixed)
                 return
             }
-            if let scaledToWidth = dict["scaledToWidth"] as? CGFloat {
-                self = .scaledToWidth(scaledToWidth)
+            if let widthPercent = dict["widthPercent"] as? CGFloat {
+                self = .widthPercent(widthPercent)
                 return
             }
-            if let scaledToHeight = dict["scaledToHeight"] as? CGFloat {
-                self = .scaledToHeight(scaledToHeight)
+            if let heightPercent = dict["heightPercent"] as? CGFloat {
+                self = .heightPercent(heightPercent)
                 return
             }
             return nil
@@ -71,12 +71,12 @@ extension DTB {
                 return .zero
             case .fixed(let value):
                 return CGSize(width: value, height: value)
-            case .scaledToWidth(let value):
+            case .widthPercent(let value):
                 return CGSize(
                     width: value * (bounds?.size.width ?? 0),
                     height: value * (bounds?.size.width ?? 0)
                 )
-            case .scaledToHeight(let value):
+            case .heightPercent(let value):
                 return CGSize(
                     width: value * (bounds?.size.height ?? 0),
                     height: value * (bounds?.size.height ?? 0)

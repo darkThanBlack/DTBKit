@@ -17,13 +17,13 @@
   },
   "circle": {
     "corners": ["allCorners"],
-    "radius": { "scaledToHeight": 0.5 }
+    "radius": { "heightPercent": 0.5 }
   },
   "theme": {
     "lineWidth": 1.0,
     "strokeColor": "#F05746",
     "corners": ["allCorners"],
-    "radius": { "scaledToHeight": 0.5 }
+    "radius": { "heightPercent": 0.5 }
   },
   "sheet": {
     "corners": ["topLeft", "topRight"],

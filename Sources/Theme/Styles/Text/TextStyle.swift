@@ -32,5 +32,24 @@ extension DTB {
             self.font = font
             self.textColor = textColor
         }
+        
+        /// Simple replacement for .dtb.create
+        public static func style(_ param: Any?) -> DTB.TextStyle? {
+            if let p = DTB.app.get(DTB.Providers.stylesKey), let style = p.createTextStyle(param) {
+                return style
+            }
+            if let dict = param as? [String: Any], let style = DTB.TextStyle(dict: dict) {
+                return style
+            }
+            return nil
+        }
+        
+        /// 从字典创建形状样式
+        public init?(dict: [String: Any]?) {
+            guard let dict = dict else { return nil }
+            
+            self.font = .dtb.create(dict["font"])
+            self.textColor = .dtb.create(dict["textColor"])
+        }
     }
 }

@@ -81,9 +81,9 @@ extension LoginViewController: PhoneLoginViewDelegate {
         
 //        firstly {
 //            switch linkKey {
-//            case "login.policy.hint.p0":
+//            case "policy.ts":
 //                return DTB.network.getWebUrl(.serviceAgreement)
-//            case "login.policy.hint.p1":
+//            case "policy.pp":
 //                return DTB.network.getWebUrl(.privacyPolicy)
 //            default:
 //                return Guarantee.value("")
@@ -140,7 +140,7 @@ extension LoginViewController: PhoneLoginViewDelegate {
         if contentView.isPolicySelected {
             showSlider()
         } else {
-            let alert = UIAlertController(title: "温馨提示", message: "在您登录之前，请您阅读完整版的《服务协议》和《隐私政策》，并同意服务协议中的所有条款。", preferredStyle: .alert)
+            let alert = UIAlertController(title: .dtb.create("alert.title.hint"), message: .dtb.create(format: "login.policy.hint", .dtb.create("policy.ts"), .dtb.create("policy.pp")), preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: .dtb.create("common.cancel"), style: .default, handler: nil))
             alert.addAction(UIAlertAction(title: .dtb.create("common.ensure"), style: .default, handler: { [weak self] _ in
                 self?.contentView.isPolicySelected = true

@@ -26,13 +26,10 @@ class LoginContext {
     
     var user: AdminLoginResultVO?
     
-    var instAdmin: UserInstAdminVO?
-    
-    init(phone: String? = nil, verifyCode: String? = nil, user: AdminLoginResultVO? = nil, instAdmin: UserInstAdminVO? = nil) {
+    init(phone: String? = nil, verifyCode: String? = nil, user: AdminLoginResultVO? = nil) {
         self.phone = phone
         self.verifyCode = verifyCode
         self.user = user
-        self.instAdmin = instAdmin
     }
 }
 
@@ -47,10 +44,10 @@ class LoginViewModel: DTB.BaseViewModel {
     func sendSms(to phone: String, slider: JSBridgeSlider?) -> Promise<String> {
         let params = SendVerifyCodeRequest(
             phone: phone,
-            serverType: "B_LOGIN",
+            serverType: "MOCK",
         )
         let request = SmsService.sendVerifyCode(request: params)
-        return provider.requestPromise(MultiTarget(request)).map({ result in
+        return moya.requestPromise(MultiTarget(request)).map({ result in
             DTB.console.log("sendVerifyCode, result=\(result)")
             return (result as? String) ?? ""
         })
@@ -64,51 +61,12 @@ class LoginViewModel: DTB.BaseViewModel {
                 loginType: LoginTypeEnum.SMS
             )
         )
-        return provider.requestPromiseObject(MultiTarget(request), type: AdminLoginResultVO.self)
+        return moya.requestPromiseObject(MultiTarget(request), type: AdminLoginResultVO.self)
             .map { result in
                 guard let userId = ctx.user?.userId else {
                     throw NSError.dtb.empty("userId")
                 }
                 ctx.user = result
-                return ctx
-            }
-            .then({ self.chainInstAdmin($0) })
-            .then({ self.chainSwitchInst($0) })
-    }
-    
-    private func chainInstAdmin(_ ctx: LoginContext) -> Promise<LoginContext> {
-        let request = AdminLoginService.getUserInstAdminList(
-            request: UserIdRequest(
-                state: .VALID,
-                userId: ctx.user?.userId
-            )
-        )
-        return provider.requestPromiseArray(MultiTarget(request), type: UserInstAdminVO.self)
-            .map { result in
-                guard let instAdmin = result.first else {
-                    throw NSError.dtb.create("该用户没有机构")
-                }
-                guard let adminId = instAdmin.id else {
-                    throw NSError.dtb.empty("adminId")
-                }
-                guard let instId = instAdmin.instId else {
-                    throw NSError.dtb.empty("instId")
-                }
-                ctx.instAdmin = instAdmin
-                return ctx
-            }
-    }
-    
-    private func chainSwitchInst(_ ctx: LoginContext) -> Promise<LoginContext> {
-        let request = AdminLoginService.switchInst(
-            request: SwitchInstRequest(
-                adminId: ctx.instAdmin?.id,
-                instId: ctx.instAdmin?.instId
-            )
-        )
-        return provider.requestPromise(MultiTarget(request))
-            .map { result in
-                DTB.console.log("switchInst, success=\(result)")
                 return ctx
             }
     }

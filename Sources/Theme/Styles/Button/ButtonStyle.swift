@@ -12,22 +12,9 @@
 
 import UIKit
 
-extension StaticWrapper where T == DTB.ButtonStyle {
-    
-    public func create(_ param: Any?) -> DTB.ButtonStyle? {
-        if let p = DTB.app.get(DTB.Providers.buttonStyleKey), let style = p.create(param) {
-            return style
-        }
-        if let dict = param as? [String: Any], let style = DTB.ButtonStyle(dict: dict) {
-            return style
-        }
-        return nil
-    }
-}
-
 extension DTB {
     
-    public struct ButtonStyle: Structable {
+    public struct ButtonStyle {
         
         public var backgroundColor: UIColor?
         
@@ -100,15 +87,26 @@ extension DTB {
             friendlyParser()
         }
         
+        /// Simple replacement for .dtb.create
+        public static func style(_ param: Any?) -> DTB.ButtonStyle? {
+            if let p = DTB.app.get(DTB.Providers.stylesKey), let style = p.createButtonStyle(param) {
+                return style
+            }
+            if let dict = param as? [String: Any], let style = DTB.ButtonStyle(dict: dict) {
+                return style
+            }
+            return nil
+        }
+        
         public init?(dict: [String: Any]?) {
             guard let dict = dict else { return nil }
             
             // 属性字符串一般不在 JSON 中解析，置 nil
             self.attributedText = nil
             
-            self.backgroundColor = .dtb.create(dict["backgroundColor"])
-            self.shape = .dtb.create(dict["shape"])
-            self.gradient = .dtb.create(dict["gradient"])
+            self.backgroundColor = .dtb.create(nullable: dict["backgroundColor"])
+            self.shape = .style(dict["shape"])
+            self.gradient = .style(dict["gradient"])
             
             // 标题
             self.title = dict["title"] as? String

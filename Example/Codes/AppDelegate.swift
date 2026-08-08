@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         adapter()
         
-        window?.rootViewController = createTabs()
+        window?.rootViewController = createRootViewController()
         window?.makeKeyAndVisible()
         
         NotificationCenter.default.addObserver(self, selector: #selector(appRestartEvent), name: DTB.Notifications.appNeedRestart, object: nil)
@@ -67,6 +67,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // --- Provider 注册示例 ---
         
         // UI Style 最优先，其他控件可能依赖于它们
+        DTB.Providers.register(DTB.ColorManager.shared, key: DTB.Providers.colorKey)
+        DTB.Providers.register(DTB.I18NManager.shared, key: DTB.Providers.stringKey)
+        DTB.Providers.register(DTB.FontManager.shared, key: DTB.Providers.fontKey)
+        DTB.Providers.register(DTB.DefaultStylesProvider.shared, key: DTB.Providers.stylesKey)
+        
         dtbReloadStyles()
         
         // scene 主要是为了 keyWindow 的自动实现
@@ -106,31 +111,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // --- Provider 注册结束 ---
     }
     
-    /// 由于 style.json 往往涉及颜色，如果主题色触发了变化, 那么所有涉及色值的 style 都需要一并刷新
+    /// 1>由于 style 之间有依赖，顺序不能乱  2>发生变化时整体刷新
     private func dtbReloadStyles() {
         // 资源文件
         let _ = DTB.ThemeManager.shared
         
         // 颜色
         DTB.ColorManager.shared.reloadData()
-        DTB.Providers.register(DTB.ColorManager.shared, key: DTB.Providers.colorKey)
-        
         // 国际化字符串
         DTB.I18NManager.shared.reloadData()
-        DTB.Providers.register(DTB.I18NManager.shared, key: DTB.Providers.stringKey)
-        
         // 字体
-        DTB.FontManager.shared.reloadData()
-        DTB.Providers.register(DTB.FontManager.shared, key: DTB.Providers.fontKey)
-        
-        // Style 比较简单，直接摧毁后重建来刷新
-        DTB.Providers.register(DTB.DefaultTextStyleProvider(), key: DTB.Providers.textStyleKey)
-        DTB.Providers.register(DTB.DefaultShapeStyleProvider(), key: DTB.Providers.shapeStyleKey)
-        DTB.Providers.register(DTB.DefaultGradientStyleProvider(), key: DTB.Providers.gradientStyleKey)
-        DTB.Providers.register(DTB.DefaultButtonStyleProvider(), key: DTB.Providers.buttonStyleKey)
+        DTB.FontManager.shared.loadCustomFonts()
+        // Styles
+        DTB.DefaultStylesProvider.shared.reloadData()
     }
     
-    private func createTabs() -> UITabBarController {
+    private func createRootViewController() -> UITabBarController {
         //         let tabVC = DTB.SystemTabBarController()
         let tabVC = DTB.CustomTabBarController(customTabBar: DTB.SimpleTabBar())
         tabVC.setupTabBar(
@@ -179,7 +175,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UIViewController.dtb.topMost()?.dtb.popToMainRootAnyway()
         window?.rootViewController = nil
-        window?.rootViewController = createTabs()
+        window?.rootViewController = createRootViewController()
     }
     
     @objc private func loginStateChangedEvent() {

@@ -12,23 +12,10 @@
 
 import UIKit
 
-extension StaticWrapper where T == DTB.ShapeStyle {
-    
-    public func create(_ param: Any?) -> DTB.ShapeStyle? {
-        if let p = DTB.app.get(DTB.Providers.shapeStyleKey), let style = p.create(param) {
-            return style
-        }
-        if let dict = param as? [String: Any], let style = DTB.ShapeStyle(dict: dict) {
-            return style
-        }
-        return nil
-    }
-}
-
 extension DTB {
     
     /// CAShapeLayer
-    public struct ShapeStyle: Structable, Equatable {
+    public struct ShapeStyle: Equatable {
         
         // --- round corner
         
@@ -96,6 +83,17 @@ extension DTB {
             self.lineDashPattern = lineDashPattern
         }
         
+        /// Simple replacement for .dtb.create
+        public static func style(_ param: Any?) -> DTB.ShapeStyle? {
+            if let p = DTB.app.get(DTB.Providers.stylesKey), let style = p.createShapeStyle(param) {
+                return style
+            }
+            if let dict = param as? [String: Any], let style = DTB.ShapeStyle(dict: dict) {
+                return style
+            }
+            return nil
+        }
+        
         /// 从字典创建形状样式
         public init?(dict: [String: Any]?) {
             guard let dict = dict else { return nil }
@@ -119,7 +117,7 @@ extension DTB {
             
             // 描边色
             self.strokeColor = .dtb.create(nullable: dict["strokeColor"])
-
+            
             // 线宽
             self.lineWidth = DTB.any.cgFloat(dict["lineWidth"])
             
@@ -179,4 +177,5 @@ extension DTB {
         }
         
     }
+    
 }

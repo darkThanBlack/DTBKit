@@ -19,9 +19,9 @@ extension DTB {
         public static let shared = NetworkManager()
         private init() {}
         
-        /// FIMXE: host
+        ///
         public func host() -> String {
-            return ""
+            return "https://dev-edutrip.xiaomai5.com"
         }
         
     }

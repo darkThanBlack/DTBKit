@@ -17,10 +17,12 @@ extension DTB.ColorManager: DTB.Providers.ColorProvider {
     /// 实现 ColorProvider 协议
     @inline(__always)
     public func create(_ param: Any?) -> UIColor? {
-        if let key = param as? String, let result = query(key) {
-            return result
+        if let key = param as? String {
+            if let result = query(key) {
+                return result
+            }
+            DTB.console.error("color: missing key=\(param ?? "")")
         }
-        DTB.console.error("color: missing key=\(param ?? "")")
         if let result = UIColor.dtb.anyHex(param) {
             if case .autoDark = currentMode {
                 return result.dtb.luminanceInvertedColor()

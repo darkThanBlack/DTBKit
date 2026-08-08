@@ -44,7 +44,7 @@ extension DTB.ContainerStyle {
 extension DTB {
     
     /// 自定义容器，取决于对应控件的内部实现
-    public struct ContainerStyle: Structable, Equatable {
+    public struct ContainerStyle: Equatable {
         
         /// 外间距
         public var margin: UIEdgeInsets?
@@ -96,8 +96,8 @@ extension DTB {
             self.margin = DTB.any.uiEdgeInsets(dict["margin"])
             self.padding = DTB.any.uiEdgeInsets(dict["padding"])
             self.backgroundColor = .dtb.create(nullable: dict["backgroundColor"])
-            self.shape = .dtb.create(dict["shape"])
-            self.gradient = .dtb.create(dict["gradient"])
+            self.shape = .style(dict["shape"])
+            self.gradient = .style(dict["gradient"])
             
             friendlyParser()
         }

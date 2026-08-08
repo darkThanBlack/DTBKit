@@ -12,10 +12,6 @@ public class AdminLoginResultVO : Mappable {
    */
   public var accountId: Int64?
   /**
-   * 该用户的所有账号
-   */
-  public var accountVOList: [AccountVO]?
-  /**
    * 授权token
    */
   public var authToken: String?
@@ -69,7 +65,6 @@ public class AdminLoginResultVO : Mappable {
 
   public convenience init?(
     accountId: Int64? = nil,
-    accountVOList: [AccountVO]? = nil,
     authToken: String? = nil,
     bindPhone: Bool? = nil,
     domain: String? = nil,
@@ -85,7 +80,6 @@ public class AdminLoginResultVO : Mappable {
   ) {
     self.init(JSON: [String: Any]())
     self.accountId = accountId
-    self.accountVOList = accountVOList
     self.authToken = authToken
     self.bindPhone = bindPhone
     self.domain = domain
@@ -102,7 +96,6 @@ public class AdminLoginResultVO : Mappable {
 
   public func mapping(map: Map) {
     accountId <- (map["accountId"], LongTransform())
-    accountVOList <- map["accountVOList"]
     authToken <- map["authToken"]
     bindPhone <- map["bindPhone"]
     domain <- map["domain"]
