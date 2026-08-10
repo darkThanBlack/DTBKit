@@ -44,7 +44,7 @@ extension DTB {
         /// 处理自定义的 tabBar
         private func setCustomTabBarHidden(_ isHidden: Bool, animated: Bool) {
             guard let tabbarVC = UIWindow.dtb.keyWindow()?.rootViewController as? DTB.CustomTabBarController else {
-                DTB.console.assert()
+                DTB.console.error("tabbar: window.rootViewController is not DTB.CustomTabBarController")
                 return
             }
             tabbarVC.setCustomTabBarHidden(isHidden, animated: animated)

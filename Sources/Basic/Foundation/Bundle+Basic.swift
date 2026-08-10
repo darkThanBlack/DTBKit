@@ -14,21 +14,14 @@ import UIKit
 
 extension StaticWrapper where T: Bundle {
     
-    /// Will enumerator .app path. | 在 .app 下预先全量搜索一次，不用再考虑代码/资源位置。
+    /// 搜索 app 内所有的 Bundle
     ///
-    /// - 如果传入 AnyClass, 直接通过 Bundle(for:) 创建
+    /// - .app/*.bundle
+    /// - .app/Frameworks/*.framework/*.bundle
     ///
-    /// - 如果传入 String, 认为是 *.bundle 的文件名
-    ///
-    /// - 如果传入 URL，认为是 *.bundle 的 path url
-    public func create(_ param: Any?) -> Bundle? {
+    /// 其他路径下的 bundle 视为非法
+    public func allBundleUrls() -> [URL] {
         
-        /// 搜索 app 内所有的 Bundle
-        ///
-        /// - .app/*.bundle
-        /// - .app/Frameworks/*.framework/*.bundle
-        ///
-        /// 其他路径下的 bundle 视为非法
         func searchAllBundles() -> [URL] {
             let fm = FileManager.default
             guard let rootContents = try? fm.contentsOfDirectory(
@@ -80,32 +73,40 @@ extension StaticWrapper where T: Bundle {
             return results
         }
         
+        let urlsKey = DTB.ConstKey<[URL]>("dtb.all.bundles.url")
+        if let cached = DTB.app.get(urlsKey), cached.isEmpty == false {
+            return cached
+        }
+        let result = searchAllBundles()
+        DTB.app.set(result, key: urlsKey)
+        return result
+    }
+    
+    /// Will enumerator .app path. | 在 .app 下预先全量搜索一次，不用再考虑代码/资源位置。
+    ///
+    /// - 如果传入 AnyClass, 直接通过 Bundle(for:) 创建
+    /// - 如果传入 URL，认为是 *.bundle 的 path url
+    /// - 如果传入 String, 认为是 *.bundle 的文件名
+    public func create(_ param: Any?) -> Bundle? {
+        
         if let c = param as? AnyClass {
             return Bundle(for: c)
         }
         
-        let urlList: [URL] = {
-            let urlsKey = DTB.ConstKey<[URL]>("dtb.all.bundles.url")
-            if let cached = DTB.app.get(urlsKey), cached.isEmpty == false {
-                return cached
-            }
-            let result = searchAllBundles()
-            DTB.app.set(result, key: urlsKey)
+        if let url = param as? URL, let result = Bundle(url: url) {
             return result
-        }()
+        }
         
+        let urlList: [URL] = allBundleUrls()
         if let name = param as? String,
            let url = urlList.first(where: {
                $0.deletingPathExtension().lastPathComponent == name
-           }) {
-            return Bundle(url: url)
-        }
-        
-        if let url = param as? URL,
-           urlList.contains(where: { $0 == url }) {
-            return Bundle(url: url)
+           }),
+           let result = Bundle(url: url) {
+            return result
         }
         
         return nil
     }
+    
 }

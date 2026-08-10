@@ -100,6 +100,16 @@ extension DTB {
                     return image
                 }
             }
+            // 还是找不到
+            //
+            // 注意不能遍历所有 bundle，因为
+            // - 纯资源 bundle 不会 loaded
+            // - 通过 pod.resource_bundles 加载的 xcassets 可能重名
+            // 直接查当前主题指定的 bundle
+            if let image = getImage(name: name, in: ThemeManager.shared.currentBundle) {
+                return image
+            }
+            
             // TODO: SwiftPM
             // I got ``Cannot find 'SWIFTPM_MODULE_BUNDLE' in scope`` in SPM
             // https://gist.github.com/bradhowes/4cd0b3da56b24166243e88d77329e909

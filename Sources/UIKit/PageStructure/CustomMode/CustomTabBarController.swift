@@ -113,6 +113,11 @@ extension DTB {
             self.customTabBar.setCustomTabBarHidden(self, isHidden: isHidden, animated: animated)
         }
         
+        // TODO: 侧滑手势处理，简单 hidden 会出现闪烁
+//        if #available(iOS 26.0, *) {
+//            targetController.navigationController?.interactiveContentPopGestureRecognizer?.isEnabled = true
+//        }
+        
         /// 传递给自定义的 TabBar
         public func setupTabBar(_ data: TabBarData) {
             self.customTabBar.updateConfig(data)
