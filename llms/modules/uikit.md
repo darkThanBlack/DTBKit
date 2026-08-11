@@ -82,9 +82,9 @@ button.setImageOffset(.init(dx: 4, dy: -1))  // 图片偏移
 
 通用容器表格单元格。
 
-### IndexOrder
+### IndexOrder（已废弃）
 
-索引排序工具。
+列表中元素的位置枚举（`onlyOne`/`isFirst`/`isMiddle`/`isLast`），连同 `verticalCorners` 计算属性已被注释废弃。表格卡片的圆角样式应通过 JSON 配置文件定义，不再依赖运行时索引计算。
 
 ## 模型
 

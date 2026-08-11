@@ -40,7 +40,7 @@ extension DTB {
             guard let param = param else { return nil }
             
             // 1. 纯数字
-            if let value = param as? CGFloat {
+            if let value = DTB.any.cgFloat(param) {
                 self = .fixed(value)
                 return
             }

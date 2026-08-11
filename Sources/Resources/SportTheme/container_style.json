@@ -8,5 +8,29 @@
             "radius": 12.0,
             "fillColor": "bg2"
         }
+    },
+    "card_top": {
+        "backgroundColor": "bg2",
+        "margin": { "top": 0.0, "left": 16.0, "bottom": 0.0, "right": 16.0 },
+        "padding": { "top": 12.0, "left": 16.0, "bottom": 12.0, "right": 16.0 },
+        "shape": {
+            "corners": ["topLeft", "topRight"],
+            "radius": 12.0
+        }
+    },
+    "card_mid": {
+        "backgroundColor": "bg2",
+        "margin": { "top": 0.0, "left": 16.0, "bottom": 0.0, "right": 16.0 },
+        "padding": { "top": 12.0, "left": 16.0, "bottom": 12.0, "right": 16.0 }
+    },
+    "card_bottom": {
+        "backgroundColor": "bg2",
+        "margin": { "top": 0.0, "left": 16.0, "bottom": 0.0, "right": 16.0 },
+        "padding": { "top": 12.0, "left": 16.0, "bottom": 12.0, "right": 16.0 },
+        "shape": {
+            "corners": ["bottomLeft", "bottomRight"],
+            "radius": 12.0
+        }
     }
+    
 }

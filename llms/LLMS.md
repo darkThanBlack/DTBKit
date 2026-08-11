@@ -1,6 +1,6 @@
 # DTBKit — LLM 调用指南
 
-> **源码基准**: `1d2d540` — 本文档基于此 commit 的 `Sources/` 生成。
+> **源码基准**: `23a39eb` — 本文档基于此 commit 的 `Sources/` 生成。
 > 更新时以 `git diff <此commit>..HEAD -- Sources/` 找出变更，只改受影响的文件，然后更新此处的 commit。
 
 ## 这是什么

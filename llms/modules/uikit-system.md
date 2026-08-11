@@ -1,6 +1,8 @@
 # UIKit — 系统交互
 
 > subspec: `DTBKit/UIKit` | 依赖: Basic + SportTheme
+> 
+> **注意**: Window/Scene Provider 的源码已移至 `Sources/Basic/Window/`，但 API 仍在此处统一说明。
 
 ## Alert — 弹窗
 
@@ -141,12 +143,19 @@ webView.register(plugin: MyPlugin())
 
 ## Window/Scene
 
+> 源码已从 `Sources/UIKit/Window/` 移至 `Sources/Basic/Window/`，但 API 不变。
+
 ### WindowProvider
 
 ```swift
-public protocol WindowProvider {
-    var keyWindow: UIWindow? { get }
+extension DTB.Providers {
+    public protocol WindowProvider {
+        func keyWindow() -> UIWindow?
+    }
 }
+
+// 使用入口（StaticWrapper）
+UIWindow.dtb.keyWindow()    // → UIWindow?
 ```
 
 注册：
@@ -157,18 +166,25 @@ DTB.Providers.register(
 )
 ```
 
+`DefaultWindowProvider` 提供了三级降级查找：iOS 15+ Scene keyWindow → iOS 13+ Scene windows → UIApplication.shared.keyWindow。
+
 ### SceneProvider
 
 ```swift
-public protocol SceneProvider {
-    // iOS 13+ Scene 相关
+extension DTB.Providers {
+    public protocol SceneProvider {
+        func keyWindowScene() -> UIWindowScene?
+    }
 }
+
+// 使用入口（StaticWrapper）
+UIWindowScene.dtb.keyWindowScene()  // → UIWindowScene?
 ```
 
 注册：
 ```swift
 DTB.Providers.register(
-    DTB.DefaultSceneProvider(),
+    DTB.DefaultSceneProvider(scene),
     key: DTB.Providers.sceneKey
 )
 ```
