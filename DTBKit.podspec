@@ -33,9 +33,20 @@ Pod::Spec.new do |s|
     ss.dependency 'DTBKit/Core'
   end
   
+  s.subspec 'Basic' do |ss|
+    ss.source_files = 'Sources/Basic/**/*'
+    ss.dependency 'DTBKit/Chain'
+    
+    ss.test_spec 'Tests' do |t|
+      t.framework = 'XCTest'
+      t.requires_app_host = false
+      t.source_files = 'Tests/**/*'
+    end
+  end
+  
   s.subspec 'Theme' do |ss|
     ss.source_files = 'Sources/Theme/**/*'
-    ss.dependency 'DTBKit/Core'
+    ss.dependency 'DTBKit/Basic'
   end
   
   s.subspec 'ObjectMapper' do |ss|
@@ -54,18 +65,6 @@ Pod::Spec.new do |s|
     ss.source_files = 'Sources/SDWebImage/**/*'
     ss.dependency 'DTBKit/Theme'
     ss.dependency 'SDWebImage'
-  end
-  
-  s.subspec 'Basic' do |ss|
-    ss.source_files = 'Sources/Basic/**/*'
-    ss.dependency 'DTBKit/Chain'
-    ss.dependency 'DTBKit/Theme'
-    
-    ss.test_spec 'Tests' do |t|
-      t.framework = 'XCTest'
-      t.requires_app_host = false
-      t.source_files = 'Tests/**/*'
-    end
   end
   
   s.subspec 'Map' do |ss|

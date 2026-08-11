@@ -41,7 +41,7 @@ extension DTB {
                 sampleData.title = type.rawValue
                 return DTB.CellModel(
                     data: sampleData,
-                    style: .singleCard(),
+                    style: .style("card"),
                     extra: type
                 )
             }

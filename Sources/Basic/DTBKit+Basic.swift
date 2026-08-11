@@ -19,9 +19,6 @@ import UIKit
 #if canImport(DTBKit_Chain)
 @_exported import DTBKit_Chain
 #endif
-#if canImport(DTBKit_Theme)
-@_exported import DTBKit_Theme
-#endif
 
 extension DTB {
     

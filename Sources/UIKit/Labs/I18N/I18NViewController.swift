@@ -23,15 +23,15 @@ extension DTB {
             var cells: [DTB.CellModel] = [
                 .init(
                     data: .init(primaryKey: nil, title: .dtb.create("deep.follow_system")),
-                    style: .listCard(.isFirst)
+                    style: .style("card_top")
                 ),
                 .init(
                     data: .init(primaryKey: "en", title: "English"),
-                    style: .listCard()
+                    style: .style("card_mid")
                 ),
                 .init(
                     data: .init(primaryKey: "zh", title: "简体中文"),
-                    style: .listCard(.isLast)
+                    style: .style("card_bottom")
                 )
             ]
             

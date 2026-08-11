@@ -21,18 +21,3 @@ extension DTB {
     /// UIKit constraints
     public static let layout = LayoutManager.shared
 }
-
-extension DTB {
-    
-    /// 以贝塞尔曲线中弧度的 0 开始顺时针旋转至 2pi
-    ///
-    /// [refer](https://developer.apple.com/documentation/uikit/uibezierpath/1624358-init)
-    public enum EightDirection: Int, CaseIterable {
-        case right = 0, bottomRight, bottom, bottomLeft, left, topLeft, top, topRight
-    }
-    
-    /// 与 UIEdgeInsets 保持一致
-    public enum FourDirection: String, CaseIterable {
-        case top, left, bottom, right
-    }
-}

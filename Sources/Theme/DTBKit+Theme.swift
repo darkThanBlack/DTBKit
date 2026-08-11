@@ -15,5 +15,11 @@ import UIKit
 #if canImport(DTBKit_Core)
 @_exported import DTBKit_Core
 #endif
+#if canImport(DTBKit_Chain)
+@_exported import DTBKit_Chain
+#endif
+#if canImport(DTBKit_Basic)
+@_exported import DTBKit_Basic
+#endif
 
 extension UIFont.Weight: Structable {}

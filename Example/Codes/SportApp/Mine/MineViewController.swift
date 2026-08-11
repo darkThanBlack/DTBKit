@@ -32,19 +32,19 @@ class MineViewController: UIViewController, DTB.SimpleNavigationBarHandler {
             DTB.SectionModel(cells: [
                 DTB.CellModel(
                     data: DTB.SampleData(primaryKey: "ble.debug", title: "BLE Debug", showArrow: true),
-                    style: .listCard(.onlyOne)
+                    style: .style("card")
                 )
             ]),
             DTB.SectionModel(cells: [
                 DTB.CellModel(
                     data: DTB.SampleData(primaryKey: "venue", title: "venue", showArrow: true),
-                    style: .listCard(.onlyOne)
+                    style: .style("card")
                 )
             ]),
             DTB.SectionModel(cells: [
                 DTB.CellModel(
                     data: DTB.SampleData(primaryKey: "setting", title: .dtb.create("setting"), showArrow: true),
-                    style: .listCard(.onlyOne)
+                    style: .style("card")
                 )
             ]),
         ]

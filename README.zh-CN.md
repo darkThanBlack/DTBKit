@@ -73,6 +73,13 @@ pod 'DTBKit/Basic', :testspecs => ['Tests']
 
 所以如果您的主工程使用了 cocoapods 引入，也可以在主工程中完成测试。
 
+导出 json：
+
+`````shell
+# 先 show in finder
+xcrun xccov view --report --json "/Users/admin/Library/Developer/Xcode/DerivedData/CodeCoverage-fvpfpntmluthmyemiuyedoekllue/Logs/Test/Test-DTBKit_Basic-2026.08.11_18-01-44-+0800.xcresult" > /tmp/coverage.json 2>/dev/null
+`````
+
 
 
 ## 如何集成？

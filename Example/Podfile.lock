@@ -3,10 +3,8 @@ PODS:
   - DoKit/Core (4.0.0)
   - DTBKit/Basic (0.0.1):
     - DTBKit/Chain
-    - DTBKit/Theme
   - DTBKit/Basic/Tests (0.0.1):
     - DTBKit/Chain
-    - DTBKit/Theme
   - DTBKit/Chain (0.0.1):
     - DTBKit/Core
   - DTBKit/Core (0.0.1)
@@ -23,7 +21,7 @@ PODS:
     - SDWebImage
   - DTBKit/SportTheme (0.0.1)
   - DTBKit/Theme (0.0.1):
-    - DTBKit/Core
+    - DTBKit/Basic
   - DTBKit/UIKit (0.0.1):
     - DTBKit/Basic
     - DTBKit/SportTheme
@@ -124,7 +122,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: 7193b3b92c74a07f85569e1a6c4f4237291e7496
   DoKit: be7712b87f2562de9893ae9ca6ba5f6d7455723d
-  DTBKit: 74ee97b42a1ca82f81e879bda1424bc8e2ad06fb
+  DTBKit: e2d513a57c359388b71b890f613921baa8dadf78
   Kingfisher: 53a10ea35051a436b5fb626ca2dd8f3144d755e9
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   MJRefresh: ff9e531227924c84ce459338414550a05d2aea78

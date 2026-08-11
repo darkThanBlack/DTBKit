@@ -21,19 +21,19 @@ extension DTB {
             let cells: [DTB.CellModel] = [
                 .init(
                     data: .init(primaryKey: nil, title: .dtb.create("deep.follow_system")),
-                    style: .listCard(.isFirst)
+                    style: .style("card_top")
                 ),
                 .init(
                     data: .init(primaryKey: "light", title: .dtb.create("deep.color.light")),
-                    style: .listCard()
+                    style: .style("card_mid")
                 ),
                 .init(
                     data: .init(primaryKey: "dark", title: .dtb.create("deep.color.dark"), detail: .dtb.create("deep.color.dark.desc")),
-                    style: .listCard()
+                    style: .style("card_mid")
                 ),
                 .init(
                     data: .init(primaryKey: "auto_dark", title: .dtb.create("deep.color.dark.auto"), detail: .dtb.create("deep.color.dark.auto.desc")),
-                    style: .listCard(.isLast)
+                    style: .style("card_bottom")
                 ),
             ]
             

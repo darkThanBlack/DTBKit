@@ -55,7 +55,7 @@ extension DTB {
             ].compactMap({
                 DTB.CellModel(
                     data: .init(primaryKey: $0.0, title: .dtb.create($0.0), detail: .dtb.create($0.1), showArrow: true),
-                    style: .singleCard(),
+                    style: .style("card"),
                     extra: DTB.CrumbsType.tdi_arrow_1
                 )
             })

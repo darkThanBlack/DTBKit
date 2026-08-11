@@ -13,8 +13,19 @@ import XCTest
 /// For code coverage.
 #if canImport(DTBKit)
 import DTBKit
-#elseif canImport(DTBKit_Basic)
+#endif
+
+#if canImport(DTBKit_Core)
+import DTBKit_Core
+#endif
+#if canImport(DTBKit_Chain)
+import DTBKit_Chain
+#endif
+#if canImport(DTBKit_Basic)
 import DTBKit_Basic
+#endif
+#if canImport(DTBKit_Theme)
+import DTBKit_Theme
 #endif
 
 /// DTBKit 命名空间和链式 API 设计测试

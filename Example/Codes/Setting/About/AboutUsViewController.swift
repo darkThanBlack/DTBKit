@@ -24,11 +24,11 @@ class AboutUsViewController: DTB.BaseViewController {
         var cells: [DTB.CellModel] = keys.compactMap({
             .init(
                 data: .init(primaryKey: $0, title: .dtb.create($0), showArrow: true),
-                style: .listCard()
+                style: .style("card_mid")
             )
         })
-        cells.first?.style = .listCard(.isFirst)
-        cells.last?.style = .listCard(.isLast)
+        cells.first?.style = .style("card_top")
+        cells.last?.style = .style("card_bottom")
         return [
             DTB.SectionModel(cells: cells)
         ]
