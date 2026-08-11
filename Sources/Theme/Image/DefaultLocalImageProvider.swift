@@ -43,12 +43,12 @@ extension DTB {
         ///   - bundle: same as Bundle.dtb.create(:)
         public func create(_ param: Any?, bundle: Any?) -> UIImage? {
             
-            /// 尝试在指定的 bundle 中创建
+            /// 尝试在指定的 bundle 中创建 | Search image with name in specify bundle.
             ///
-            /// Search image with name in specify bundle.
+            /// 需要先理解 Bundle.load
+            /// - .bundle/*.{car}
+            /// - .bundle/*.{png/jpg/jpeg/...}
             func getImage(name: String, in target: Bundle) -> UIImage? {
-                // - .bundle/*.{xcassets/car}/
-                // - .bundle/*.{png/jpg/jpeg}
                 if let result = UIImage(named: name, in: target, compatibleWith: nil) {
                     return result
                 }

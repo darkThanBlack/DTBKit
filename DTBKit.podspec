@@ -73,12 +73,17 @@ Pod::Spec.new do |s|
     ss.dependency 'DTBKit/Basic'
   end
   
-  s.subspec 'UIKit' do |ss|
-    ss.source_files = 'Sources/UIKit/**/*.{swift,h,m,mm,c,cpp}'
+  s.subspec 'SportTheme' do |ss|
+    ss.source_files = ''
     ss.resource_bundles = {
       'DTBKitSportTheme' => ['Sources/Resources/SportTheme/**/*']
     }
+  end
+  
+  s.subspec 'UIKit' do |ss|
+    ss.source_files = 'Sources/UIKit/**/*.{swift,h,m,mm,c,cpp}'
     ss.dependency 'DTBKit/Basic'
+    ss.dependency 'DTBKit/SportTheme'
     
     ss.dependency 'SnapKit', '~> 4.0.0'
     ss.dependency 'Toast-Swift', '~> 5.0.0'

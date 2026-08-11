@@ -189,7 +189,7 @@ extension DTB {
             let tabVC = DTB.SystemTabBarController()
             tabVC.setupTabBarItems([
                 DTB.TabBarItemModel(
-                    rootViewController: MapViewController(),
+                    rootViewController: HomeViewController(),
                     title: .dtb.create("tabbar.0"),
                     image: .dtb.create("tab_bar_0_unselect"),
                     selectedImage: .dtb.create("tab_bar_0_select"),
@@ -217,7 +217,7 @@ extension DTB {
             )
             tabVC.setupTabBarItems([
                 DTB.TabBarItemModel(
-                    rootViewController: MapViewController(),
+                    rootViewController: HomeViewController(),
                     title: .dtb.create("tabbar.0"),
                     image: .dtb.create("tab_bar_0_unselect"),
                     selectedImage: .dtb.create("tab_bar_0_select"),

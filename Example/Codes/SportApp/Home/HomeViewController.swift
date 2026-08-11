@@ -1,5 +1,5 @@
 //
-//  MapViewController.swift
+//  HomeViewController.swift
 //  Ring
 //
 //  Created by moonShadow on 2026/5/18
@@ -12,25 +12,25 @@
 
 import UIKit
 
-class MapViewController: UIViewController {
-
+final class HomeViewController: UIViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
     
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        DTB.console.log("map viewWillAppear")
+        DTB.console.log("home viewWillAppear")
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        DTB.console.log("map viewDidDisappear")
+        DTB.console.log("home viewDidDisappear")
     }
-
+    
 }
