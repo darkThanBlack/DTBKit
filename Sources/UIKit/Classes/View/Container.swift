@@ -107,8 +107,6 @@ extension DTB {
             guard self.style != style else { return }
             self.style = style
             
-            self.backgroundColor = style.backgroundColor
-            
             if let gradient = style.gradient {
                 gradientView.isHidden = false
                 gradientView.updateUI(gradient)
@@ -120,6 +118,12 @@ extension DTB {
                 shapeView.updateUI(shape)
             } else {
                 shapeView.isHidden = true
+            }
+            
+            if gradientView.isHidden && shapeView.isHidden {
+                self.backgroundColor = style.backgroundColor
+            } else {
+                self.backgroundColor = nil
             }
             
             setNeedsLayout()
