@@ -12,11 +12,11 @@
 import XCTest
 
 /// For code coverage.
-#if canImport(DTBKit)
-import DTBKit
-#elseif canImport(DTBKit_Basic)
-import DTBKit_Basic
-#endif
+//#if canImport(DTBKit)
+//import DTBKit
+//#elseif canImport(DTBKit_Basic)
+//import DTBKit_Basic
+//#endif
 
 /// DTBKit 数字模块测试
 final class NumberModuleTests: XCTestCase {
@@ -307,143 +307,125 @@ final class NumberModuleTests: XCTestCase {
         XCTAssertEqual(zeroNumber.dtb.double().value, 0.0)
     }
     
-    // MARK: - NumberFormatter Extensions Tests
-    
-    func testNumberFormatterBasicFormatting() throws {
-        let formatter = NumberFormatter()
-        
-        // 基础数字格式化
-        let number = NSNumber(value: 1234.56)
-        let basicFormatted = formatter.dtb.string(from: number)?.value
-        XCTAssertNotNil(basicFormatted)
-        XCTAssertTrue(basicFormatted!.contains("1"))
-        
-        // number(from:) 方法测试
-        let numberFromString = formatter.dtb.number(from: "1234.56")?.value
-        XCTAssertNotNil(numberFromString)
-        XCTAssertEqual(numberFromString!.doubleValue, 1234.56, accuracy: 0.01)
+    // MARK: - NumberFormatterConfig Tests
+
+    /// 固定 en_US_POSIX locale，保证小数点为 "."、分组为 ","，让断言确定。
+    private func posixDecimal(_ digits: Int = 2) -> DTB.NumberFormatterConfig {
+        var c = DTB.NumberFormatterConfig()
+        c.locale = Locale(identifier: "en_US_POSIX")
+        c.decimal(digits)
+        return c
     }
-    
-    func testNumberFormatterDecimalConfiguration() throws {
-        let formatter = NumberFormatter()
-        
-        // 测试小数位配置链式调用
-        let formattedDecimal = formatter.dtb
-            .decimal(2)
-            .string(from: NSNumber(value: 3.14159))?.value
-        
-        XCTAssertNotNil(formattedDecimal)
-        // 具体格式取决于区域设置，但应该包含小数点
-        XCTAssertTrue(formattedDecimal!.contains(".") || formattedDecimal!.contains(","))
+
+    func testNumberFormatterConfigDecimal() throws {
+        // 等长小数：固定小数位数，不足补零
+        XCTAssertEqual(posixDecimal(2).string(from: NSNumber(value: 3.1)), "3.10")
+        // halfUp 进位
+        XCTAssertEqual(posixDecimal(3).string(from: NSNumber(value: 3.14159)), "3.142")
     }
-    
-    func testNumberFormatterMaxDecimalConfiguration() throws {
-        let formatter = NumberFormatter()
-        
-        // 测试最大小数位配置
-        let maxDecimalFormatted = formatter.dtb
-            .maxDecimal(3)
-            .string(from: NSNumber(value: 1.23456789))
-        
-        XCTAssertNotNil(maxDecimalFormatted)
-        // 应该不超过3位小数
+
+    func testNumberFormatterConfigMaxDecimal() throws {
+        var c = DTB.NumberFormatterConfig()
+        c.locale = Locale(identifier: "en_US_POSIX")
+        c.maxDecimal(3)
+
+        // 去零小数：末尾零省略
+        XCTAssertEqual(c.string(from: NSNumber(value: 1.5)), "1.5")
+        // halfUp 进位
+        XCTAssertEqual(c.string(from: NSNumber(value: 1.23456789)), "1.235")
     }
-    
-    func testNumberFormatterGroupingSeparator() throws {
-        let formatter = NumberFormatter()
-        
-        // 测试千分位分隔符
-        let groupedNumber = formatter.dtb
-            .split(by: ",", size: 3)
-            .string(from: NSNumber(value: 1234567))
-        
-        XCTAssertNotNil(groupedNumber)
-        // 根据配置，应该包含分组分隔符
+
+    func testNumberFormatterConfigGrouping() throws {
+        var c = DTB.NumberFormatterConfig()
+        c.locale = Locale(identifier: "en_US_POSIX")
+        c.decimal(2)
+        c.split(by: ",", size: 3)
+
+        XCTAssertEqual(c.string(from: NSNumber(value: 1234567.89)), "1,234,567.89")
     }
-    
-    func testNumberFormatterRoundingMode() throws {
-        let formatter = NumberFormatter()
-        let testNumber = NSNumber(value: 1.235)
-        
-        // 测试不同舍入模式
-        let roundedDown = formatter.dtb
-            .rounded(.down)
-            .decimal(2)
-            .string(from: testNumber)?.value
-        
-        let roundedUp = formatter.dtb
-            .rounded(.up)
-            .decimal(2)
-            .string(from: testNumber)?.value
-        
-        XCTAssertNotNil(roundedDown)
-        XCTAssertNotNil(roundedUp)
-        XCTAssertNotEqual(roundedDown, roundedUp) // 不同舍入模式应该产生不同结果
+
+    func testNumberFormatterConfigRounding() throws {
+        let n = NSNumber(value: 1.235)
+
+        let down = DTB.NumberFormatterConfig.decimal(2, rounded: .down)
+        let up = DTB.NumberFormatterConfig.decimal(2, rounded: .up)
+
+        // 不同舍入模式产生不同结果
+        XCTAssertNotEqual(down.string(from: n), up.string(from: n))
     }
-    
-    func testNumberFormatterPrefixSuffix() throws {
-        let formatter = NumberFormatter()
-        let testNumber = NSNumber(value: 100)
-        
-        // 测试前缀和后缀
-        let prefixed = formatter.dtb
-            .prefix("$")
-            .string(from: testNumber)?.value
-        
-        let suffixed = formatter.dtb
-            .suffix("%")
-            .string(from: testNumber)?.value
-        
+
+    func testNumberFormatterConfigPrefixSuffix() throws {
+        let n = NSNumber(value: 100)
+
+        let prefixed = DTB.NumberFormatterConfig.decimal(2, prefix: "$").string(from: n)
+        let suffixed = DTB.NumberFormatterConfig.decimal(2, suffix: "%").string(from: n)
+
         XCTAssertNotNil(prefixed)
         XCTAssertNotNil(suffixed)
         XCTAssertTrue(prefixed!.hasPrefix("$"))
         XCTAssertTrue(suffixed!.hasSuffix("%"))
     }
-    
-    func testNumberFormatterPresetFormats() throws {
-        // 测试预置格式
-        let testNumber = NSNumber(value: 12.34)
-        
-        // CNY 格式
-        let cnyFormatted = NumberFormatter.dtb.CNY().string(from: testNumber)
-        XCTAssertNotNil(cnyFormatted)
-        
-        // RMB 格式
-        let rmbFormatted = NumberFormatter.dtb.RMB().string(from: testNumber)
-        XCTAssertNotNil(rmbFormatted)
+
+    func testNumberFormatterConfigPreset() throws {
+        let n = NSNumber(value: 12.34)
+
+        let cny = DTB.NumberFormatterConfig.CNY().string(from: n)
+        let rmb = DTB.NumberFormatterConfig.RMB().string(from: n)
+
+        XCTAssertNotNil(cny)
+        XCTAssertNotNil(rmb)
+        XCTAssertTrue(cny!.hasPrefix("¥"))
+        XCTAssertTrue(rmb!.hasSuffix("元"))
     }
-    
-    func testNumberFormatterComplexChaining() throws {
-        let formatter = NumberFormatter()
-        let complexNumber = NSNumber(value: 1234567.89123)
-        
-        // 复杂链式配置
-        let complexFormatted = formatter.dtb
-            .decimal(2)
-            .split(by: ",", size: 3)
-            .rounded(.halfEven)
-            .prefix("Total: $")
-            .suffix(" USD")
-            .string(from: complexNumber)?.value
-        
-        XCTAssertNotNil(complexFormatted)
-        XCTAssertTrue(complexFormatted!.contains("$"))
-        XCTAssertTrue(complexFormatted!.contains("USD"))
+
+    func testNumberFormatterConfigNullSafe() throws {
+        let c = DTB.NumberFormatterConfig.decimal(2)
+
+        XCTAssertNil(c.string(from: nil))
+        XCTAssertNil(c.number(from: nil))
+        XCTAssertNil(c.number(from: ""))
     }
-    
-    func testNumberFormatterInvalidInputs() throws {
+
+    func testNumberFormatterConfigCache() throws {
+        // 值相等的配置命中同一缓存实例
+        let a = DTB.NumberFormatterConfig.decimal(2)
+        let b = DTB.NumberFormatterConfig.decimal(2)
+
+        XCTAssertEqual(a, b)
+        XCTAssertTrue(a.make() === b.make())
+    }
+
+    func testNumberFormatterConfigApplyClearOptional() throws {
+        // 原生 Optional 属性：apply(to:) 里 nil 会「清空」目标 formatter 的已有值
         let formatter = NumberFormatter()
-        
-        // 无效字符串解析
-        let invalidNumber = formatter.dtb.number(from: "invalid123")
-        XCTAssertNil(invalidNumber)
-        
-        // 空字符串
-        let emptyNumber = formatter.dtb.number(from: "")
-        XCTAssertNil(emptyNumber)
-        
-        // 特殊字符
-        let specialCharNumber = formatter.dtb.number(from: "12#34$56")
-        // 取决于 formatter 的 lenient 设置，可能返回 nil 或部分解析结果
+
+        // 1. 先设置 multiplier = 100
+        var set = DTB.NumberFormatterConfig()
+        set.multiplier = 100
+        set.apply(to: formatter)
+        XCTAssertEqual(formatter.multiplier?.doubleValue, 100)
+
+        // 2. 再用一个 multiplier = nil 的 config 覆盖，应清空
+        var clear = DTB.NumberFormatterConfig()
+        clear.multiplier = nil
+        clear.apply(to: formatter)
+        XCTAssertNil(formatter.multiplier)
+    }
+
+    func testNumberFormatterConfigApplyPreserveNonOptional() throws {
+        // 原生非 Optional 属性：apply(to:) 里 nil 不修改目标 formatter 的已有值
+        let formatter = NumberFormatter()
+
+        // 先设置 numberStyle = .currency
+        var set = DTB.NumberFormatterConfig()
+        set.numberStyle = .currency
+        set.apply(to: formatter)
+        XCTAssertEqual(formatter.numberStyle, .currency)
+
+        // 再用一个 numberStyle = nil 的 config 覆盖，应保留原值（不修改）
+        var skip = DTB.NumberFormatterConfig()
+        skip.numberStyle = nil
+        skip.apply(to: formatter)
+        XCTAssertEqual(formatter.numberStyle, .currency)
     }
 }

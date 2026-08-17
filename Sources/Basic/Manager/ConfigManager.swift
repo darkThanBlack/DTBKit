@@ -58,7 +58,7 @@ extension DTB {
         public private(set) var calendar: Calendar
         
         // MARK: - Formatter
-        
+
         /// - Note: locale will auto change with self
         public private(set) var numberFormatter: NumberFormatter
         

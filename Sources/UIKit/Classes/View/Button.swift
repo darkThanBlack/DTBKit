@@ -204,7 +204,8 @@ extension DTB {
         private func updateAppearance() {
             guard let config = match(stateConfig) else { return }
             
-            self.backgroundColor = config.backgroundColor
+            // 等确定是普通背景再赋值，避免视觉上把圆角盖住
+            self.backgroundColor = nil
             
             titleLabel.dtb
                 .attributedText(config.attributedText)
@@ -218,7 +219,7 @@ extension DTB {
                 .tintColor(config.tintColor)
                 .hiddenWithEmptyImage()
             
-            // 渐变
+            // 是渐变
             if let gradient = config.gradient {
                 gradientBackgroundView.updateUI(gradient)
                 
@@ -226,7 +227,7 @@ extension DTB {
                 gradientBackgroundView.isHidden = false
                 return
             }
-            // 形状
+            // 有形状
             if let shape = config.shape {
                 shapeBackgroundView.updateUI(shape)
                 
@@ -234,7 +235,9 @@ extension DTB {
                 gradientBackgroundView.isHidden = true
                 return
             }
-            // 普通背景
+            
+            // 是普通背景
+            self.backgroundColor = config.backgroundColor
             shapeBackgroundView.isHidden = true
             gradientBackgroundView.isHidden = true
         }

@@ -68,8 +68,8 @@ final class CoreTests: XCTestCase {
         // 测试 StaticWrapper 命名空间访问
         XCTAssertNoThrow({
             _ = UIColor.dtb.create("#FF0000")
-            _ = NumberFormatter.dtb.decimal(2)
-            _ = NumberFormatter.dtb.CNY()
+            _ = DTB.NumberFormatterConfig.decimal(2)
+            _ = DTB.NumberFormatterConfig.CNY()
         }())
 
         // 验证原始类型的静态方法不受影响
@@ -97,9 +97,9 @@ final class CoreTests: XCTestCase {
 
         // 验证返回的是相同类型，支持继续链式调用
         let chainResult = formatter
-            .decimal(2)
-            .rounded(.halfUp)
-            .prefix("$")
+            .numberStyle(.decimal)
+            .roundingMode(.halfUp)
+            .positivePrefix("$")
 
         XCTAssertTrue(type(of: chainResult) == type(of: formatter))
         XCTAssertNotNil(chainResult.value)

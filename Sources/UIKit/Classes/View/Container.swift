@@ -19,11 +19,11 @@ extension DTB {
         
         public weak var child: C?
         
-        private let style: DTB.ContainerStyle
+        private let style: DTB.ContainerStyle?
         
         public init(
             child: @autoclosure (() -> C),
-            style: DTB.ContainerStyle
+            style: DTB.ContainerStyle?
         ) {
             self.style = style
             super.init(frame: .zero)
@@ -36,17 +36,17 @@ extension DTB {
         }
         
         private func loadViews(in box: UIView, child: C) {
-            let margin = style.margin ?? .zero
-            let padding = style.padding ?? .zero
+            let margin = style?.margin ?? .zero
+            let padding = style?.padding ?? .zero
             
-            if let gradient = style.gradient {
+            if let gradient = style?.gradient {
                 gradientView.updateUI(gradient)
                 box.addSubview(gradientView)
                 gradientView.snp.makeConstraints { make in
                     make.edges.equalTo(box).inset(margin)
                 }
             }
-            if let shape = style.shape {
+            if let shape = style?.shape {
                 shapeView.updateUI(shape)
                 box.addSubview(shapeView)
                 shapeView.snp.makeConstraints { make in
@@ -54,8 +54,8 @@ extension DTB {
                 }
             }
             
-            if (style.gradient == nil) && (style.shape == nil) {
-                box.backgroundColor = style.backgroundColor
+            if (style?.gradient == nil) && (style?.shape == nil) {
+                box.backgroundColor = style?.backgroundColor
             } else {
                 box.backgroundColor = .clear
             }
@@ -100,28 +100,27 @@ extension DTB {
     @objc(DTBContainerView)
     public final class ContainerView: UIView {
         
-        private var style = DTB.ContainerStyle()
+        private var style: DTB.ContainerStyle? = nil
         
         public func updateUI(_ value: DTB.ContainerStyle?) {
-            guard let style = value else { return }
-            guard self.style != style else { return }
-            self.style = style
+            guard self.style != value else { return }
+            self.style = value
             
-            if let gradient = style.gradient {
+            if let gradient = style?.gradient {
                 gradientView.isHidden = false
                 gradientView.updateUI(gradient)
             } else {
                 gradientView.isHidden = true
             }
-            if let shape = style.shape {
+            if let shape = style?.shape {
                 shapeView.isHidden = false
                 shapeView.updateUI(shape)
             } else {
                 shapeView.isHidden = true
             }
             
-            if gradientView.isHidden && shapeView.isHidden {
-                self.backgroundColor = style.backgroundColor
+            if (style?.gradient == nil) && (style?.shape == nil) {
+                self.backgroundColor = style?.backgroundColor
             } else {
                 self.backgroundColor = nil
             }
