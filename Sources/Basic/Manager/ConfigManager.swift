@@ -56,17 +56,7 @@ extension DTB {
         
         /// Default is gregorian, NOT ``current``
         public private(set) var calendar: Calendar
-        
-        // MARK: - Formatter
 
-        /// - Note: locale will auto change with self
-        public private(set) var numberFormatter: NumberFormatter
-        
-        /// Default dateFormat: "yyyy-MM-dd HH:mm:ss"
-        ///
-        /// - Note: calendar will auto change with self
-        public private(set) var dateFormatter: DateFormatter
-        
         private init() {
             
             let decimalBehavior = {
@@ -90,27 +80,12 @@ extension DTB {
                 c.timeZone = timeZone
                 return c
             }()
-            let numberFormatter = {
-                let f = NumberFormatter()
-                f.locale = locale
-                return f
-            }()
-            let dateFormatter = {
-                let f = DateFormatter()
-                f.timeZone = timeZone
-                f.locale = locale
-                f.calendar = calendar
-                f.dateFormat = "yyyy-MM-dd HH:mm:ss"
-                return f
-            }()
-            
+
             self.designBaseSize = designBaseSize
             self.decimalBehavior = decimalBehavior
             self.timeZone = timeZone
             self.locale = locale
             self.calendar = calendar
-            self.numberFormatter = numberFormatter
-            self.dateFormatter = dateFormatter
         }
     }
 }
@@ -129,43 +104,29 @@ extension DTB.ConfigManager {
     ///
     /// Calendar 依赖 TimeZone 和 Locale
     ///
-    /// - Note: 会以传入的 timeZone 和 locale 为准，更新 calendar；同时所有拥有 calendar 属性的对象都会更新，比如 numberFormatter 和 dateFormatter
+    /// - Note: 会以传入的 timeZone 和 locale 为准，更新 calendar
     public func setTime(zone: TimeZone, locale: Locale, calendarIdentifier: Calendar.Identifier = .gregorian) {
         self.timeZone = zone
         self.locale = locale
-        
+
         var calendar = Calendar(identifier: calendarIdentifier)
         calendar.timeZone = zone
         calendar.locale = locale
         self.calendar = calendar
-        
-        self.numberFormatter.locale = locale
-        self.dateFormatter.calendar = calendar
-        
+
         DTB.console.log("Time changed: TimeZone=\(zone.identifier), Locale=\(locale.identifier), Calendar=\(calendarIdentifier)")
     }
-    
+
     /// 全局时间设置
     ///
-    /// - Note: 会以传入的 Calendar 为准，更新 timeZone 和 locale；同时所有拥有 calendar 属性的对象都会更新，比如 numberFormatter 和 dateFormatter
+    /// - Note: 会以传入的 Calendar 为准，更新 timeZone 和 locale
     public func setCalendar(_ calendar: Calendar) {
         // 以 Calendar 为权威，提取其配置
         self.calendar = calendar
         self.timeZone = calendar.timeZone
         self.locale = calendar.locale ?? self.locale  // Calendar.locale 可能为 nil
-        
-        self.numberFormatter.locale = self.locale
-        self.dateFormatter.calendar = calendar
-        
+
         DTB.console.log("Time changed: TimeZone=\(timeZone.identifier), Locale=\(locale.identifier), Calendar=\(calendar.identifier)")
     }
-    
-    public func setNumberFormatter(_ value: NumberFormatter) {
-        self.numberFormatter = value
-    }
-    
-    public func setDateFormatter(_ value: DateFormatter) {
-        self.dateFormatter = value
-    }
-    
+
 }

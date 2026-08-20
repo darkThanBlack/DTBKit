@@ -193,7 +193,7 @@ extension DTB {
             isPartialStringValidationEnabled: Bool? = nil
         ) {
             self.numberStyle = numberStyle
-            self.locale = locale
+            self.locale = locale ?? DTB.config.locale
             self.formattingContext = formattingContext
             self.generatesDecimalNumbers = generatesDecimalNumbers
             self.formatterBehavior = formatterBehavior

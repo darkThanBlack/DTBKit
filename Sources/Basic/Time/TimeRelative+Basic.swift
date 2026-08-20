@@ -52,7 +52,7 @@ extension DTB.DateRelativeRule {
     public static func negative(_ format: String = "yyyy-MM-dd HH:mm") -> Self {
         return .init { base, to in
             let delta = base.timeIntervalSince1970 - to.timeIntervalSince1970
-            return delta < 0 ? to.dtb.toString(format) : nil
+            return delta < 0 ? to.dtb.toString(.date(format)) : nil
         }
     }
     
@@ -75,35 +75,35 @@ extension DTB.DateRelativeRule {
     /// 今天 | "今天 HH:mm"
     public static func today(_ format: String = "HH:mm") -> Self {
         return .init { base, to in
-            return to.dtb.isSameDay(base) ? "今天 \(to.dtb.toString(format))" : nil
+            return to.dtb.isSameDay(base) ? "今天 \(to.dtb.toString(.date(format)))" : nil
         }
     }
     
     /// 昨天 | "昨天 HH:mm"
     public static func yesterday(_ format: String = "HH:mm") -> Self {
         return .init { base, to in
-            return to.dtb.isSameDay(base.dtb.addingDay(-1)?.value) ? "昨天 \(to.dtb.toString(format))" : nil
+            return to.dtb.isSameDay(base.dtb.addingDay(-1)?.value) ? "昨天 \(to.dtb.toString(.date(format)))" : nil
         }
     }
     
     /// 明天 | "明天 HH:mm"
     public static func tomorrow(_ format: String = "HH:mm") -> Self {
         return .init { base, to in
-            return to.dtb.isSameDay(base.dtb.addingDay(1)?.value) ? "明天 \(to.dtb.toString(format))" : nil
+            return to.dtb.isSameDay(base.dtb.addingDay(1)?.value) ? "明天 \(to.dtb.toString(.date(format)))" : nil
         }
     }
     
     /// 同一年 | "MM月dd日 EEE HH:mm"
     public static func sameYear(_ format: String = "MM-dd HH:mm") -> Self {
         return .init { base, to in
-            return to.dtb.isSameYear(base) ? to.dtb.toString(format) : nil
+            return to.dtb.isSameYear(base) ? to.dtb.toString(.date(format)) : nil
         }
     }
     
     /// 其他情况兜底 | "yyyy-MM-dd HH:mm"
     public static func another(_ format: String = "yyyy-MM-dd HH:mm") -> Self {
         return .init { _, to in
-            return to.dtb.toString(format)
+            return to.dtb.toString(.date(format))
         }
     }
 }
@@ -139,7 +139,7 @@ extension Wrapper where Base == Date {
     ) -> String {
         return barrier.first(where: { $0.mapper(baseDate, me) != nil })?.mapper(baseDate, me) ?? {
             DTB.console.assert("Barrier missing this date: \(me)")
-            return toString()
+            return toString(.date())
         }()
     }
 }

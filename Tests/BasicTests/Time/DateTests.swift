@@ -101,6 +101,13 @@ final class TimeModuleTests: XCTestCase {
     // MARK: - Format
     
     func testDateFormat() throws {
+        /// 固定 Asia/Shanghai 时区，保证断言确定
+        func shanghai(_ format: String) -> DTB.DateFormatterConfig {
+            var c = DTB.DateFormatterConfig.date(format)
+            c.timeZone = TimeZone(identifier: "Asia/Shanghai")
+            return c
+        }
+
         /// (Date, formatString, result)
         ///
         /// 注意 年/月/日 不能少，否则反推少条件
@@ -111,21 +118,19 @@ final class TimeModuleTests: XCTestCase {
         ]
         pair.forEach({
             // Date -> String
-            XCTAssertEqual($0.0.dtb.toString($0.1), $0.2)
-            // FIXME: String -> Date
-            XCTAssertEqual($0.2.dtb.toDate($0.1), $0.0)
+            XCTAssertEqual($0.0.dtb.toString(shanghai($0.1)), $0.2)
+            // String -> Date（往返）
+            XCTAssertEqual($0.2.dtb.toDate(shanghai($0.1)), $0.0)
         })
-        
+
         // 自定义的 Formatter
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
         formatter.timeZone = TimeZone(identifier: "Asia/Shanghai")
         XCTAssertEqual(formatter.string(from: unixDate), "1970-01-01 08:00")
-        
+
         formatter.timeZone = TimeZone(identifier: "UTC")
         XCTAssertEqual(formatter.string(from: unixDate), "1970-01-01 00:00")
-//        XCTAssertEqual(unixDate.dtb.string(formatter: formatter).value, "1970")
-//        XCTAssertEqual("1970".dtb.date(formatter: formatter)?.value, unixDate)
     }
     
     // FIXME: 实现需要明确
@@ -346,8 +351,8 @@ final class TimeModuleTests: XCTestCase {
         let distantFuture = Date.distantFuture
 
         // 这些应该不会崩溃
-        let pastString = distantPast.dtb.toString()
-        let futureString = distantFuture.dtb.toString()
+        let pastString = distantPast.dtb.toString(.date())
+        let futureString = distantFuture.dtb.toString(.date())
         XCTAssertFalse(pastString.isEmpty)
         XCTAssertFalse(futureString.isEmpty)
 
@@ -365,13 +370,54 @@ final class TimeModuleTests: XCTestCase {
     func testInvalidDateOperations() throws {
         let testDate = Date()
 
-        // 无效格式字符串
-        let invalidFormat = testDate.dtb.toString("")
-        XCTAssertNotNil(invalidFormat) // 空格式应该返回某种默认值
+        // 无效格式字符串（空格式回退到默认）
+        let invalidFormat = testDate.dtb.toString(.date(""))
+        XCTAssertFalse(invalidFormat.isEmpty)
 
         // 极大的时间偏移
         let extremeOffset = testDate.dtb.adding(Int.max, unit: .second)
         // 应该不会崩溃，可能返回 distantFuture 或原日期
         XCTAssertNotNil(extremeOffset)
+    }
+
+    // MARK: - DateFormatterConfig Tests
+
+    func testDateFormatterConfigCache() throws {
+        // 值相等的配置命中同一缓存实例
+        let a = DTB.DateFormatterConfig.date("yyyy-MM-dd")
+        let b = DTB.DateFormatterConfig.date("yyyy-MM-dd")
+
+        XCTAssertEqual(a, b)
+        XCTAssertTrue(a.make() === b.make())
+    }
+
+    func testDateFormatterConfigApplyClearOptional() throws {
+        // 原生 Optional 属性：apply(to:) 里 nil 会「清空」目标 formatter 的已有值
+        let formatter = DateFormatter()
+
+        var set = DTB.DateFormatterConfig()
+        set.dateFormat = "yyyy-MM-dd"
+        set.apply(to: formatter)
+        XCTAssertEqual(formatter.dateFormat, "yyyy-MM-dd")
+
+        var clear = DTB.DateFormatterConfig()
+        clear.dateFormat = nil
+        clear.apply(to: formatter)
+        XCTAssertNil(formatter.dateFormat)
+    }
+
+    func testDateFormatterConfigApplyPreserveNonOptional() throws {
+        // 原生非 Optional 属性：apply(to:) 里 nil 不修改目标 formatter 的已有值
+        let formatter = DateFormatter()
+
+        var set = DTB.DateFormatterConfig()
+        set.dateStyle = .medium
+        set.apply(to: formatter)
+        XCTAssertEqual(formatter.dateStyle, .medium)
+
+        var skip = DTB.DateFormatterConfig()
+        skip.dateStyle = nil
+        skip.apply(to: formatter)
+        XCTAssertEqual(formatter.dateStyle, .medium)
     }
 }
