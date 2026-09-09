@@ -41,7 +41,7 @@ extension DTB {
                 sampleData.title = type.rawValue
                 return DTB.CellModel(
                     data: sampleData,
-                    style: .style("card"),
+                    style: .style("dtb.card"),
                     extra: type
                 )
             }
@@ -55,7 +55,7 @@ extension DTB {
         public override func viewDidLoad() {
             super.viewDidLoad()
             
-            setupNavigatonBar(with: .init(title: .dtb.create("deep.crumbs")))
+            setupNavigatonBar(with: .init(title: .dtb.create("dtb.deep.crumbs")))
             loadViews(in: view)
         }
         

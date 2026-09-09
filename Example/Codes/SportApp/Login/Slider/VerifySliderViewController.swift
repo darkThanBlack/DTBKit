@@ -18,7 +18,7 @@ class VerifySliderViewController: UIViewController {
     /// 回调
     var sliderHandler: ((JSBridgeSlider?)->())?
     
-    private let transHandler = AlertAnimationHandler(type: .center)
+    private let transHandler = DTB.AlertTransitioningHandler()
     
     //MARK: Life Cycle
     
@@ -101,7 +101,7 @@ class VerifySliderViewController: UIViewController {
         let button = DTB.Button()
         button.setImage(.dtb.local("arrow.clockwise"))
         button.setImageSize(CGSize(width: 18.0, height: 18.0))
-        button.setTintColor(.dtb.create("text2"))
+        button.setTintColor(.dtb.create("dtb.text2"))
         button.addTarget(self, action: #selector(refreshButtonEvent), for: .touchUpInside)
         return button
     }()
@@ -110,7 +110,7 @@ class VerifySliderViewController: UIViewController {
         let button = DTB.Button()
         button.setImage(.dtb.local("xmark"))
         button.setImageSize(CGSize(width: 18.0, height: 18.0))
-        button.setTintColor(.dtb.create("text2"))
+        button.setTintColor(.dtb.create("dtb.text2"))
         button.addTarget(self, action: #selector(closeButtonEvent), for: .touchUpInside)
         return button
     }()
@@ -121,7 +121,7 @@ class VerifySliderViewController: UIViewController {
             DTB.ShapeStyle(
                 corners: .allCorners,
                 radius: .fixed(12.0),
-                fillColor: .dtb.create("bg2")
+                fillColor: .dtb.create("dtb.bg2")
             )
         )
         return view

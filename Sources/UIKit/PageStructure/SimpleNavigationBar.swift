@@ -77,12 +77,13 @@ extension DTB.SimpleNavigationBar {
         /// 右侧按钮
         var rightStyle: RightButtonStyle?
         
-        /// 有默认实现
+        /// "<"按钮事件, 有默认实现
         var popHandler: (() -> Void)?
         
-        /// 有默认实现
+        /// "x"按钮事件，有默认实现
         var dismissHandler: (() -> Void)?
         
+        /// "..."按钮事件
         var moreHandler: (() -> Void)?
         
         public init(
@@ -293,7 +294,7 @@ extension DTB {
             button.setConfig(
                 DTB.ButtonStyle(
                     image: .dtb.local("chevron.left"),
-                    tintColor: .dtb.create("arrow"),
+                    tintColor: .dtb.create("dtb.arrow"),
                     imageSize: CGSize(width: popWidth, height: imageHeight),
                 )
             )
@@ -309,7 +310,7 @@ extension DTB {
             button.setConfig(
                 DTB.ButtonStyle(
                     image: .dtb.local("xmark"),
-                    tintColor: .dtb.create("arrow"),
+                    tintColor: .dtb.create("dtb.arrow"),
                     imageSize: CGSize(width: dismissWidth, height: imageHeight),
                 )
             )
@@ -325,7 +326,7 @@ extension DTB {
             button.setConfig(
                 DTB.ButtonStyle(
                     image: .dtb.local("ellipsis"),
-                    tintColor: .dtb.create("arrow"),
+                    tintColor: .dtb.create("dtb.arrow"),
                     imageSize: CGSize(width: moreWidth, height: imageHeight),
                 )
             )
@@ -343,7 +344,7 @@ extension DTB {
             .value
         
         private lazy var titleLabel = UILabel().dtb
-            .textStyle("h2")
+            .textStyle("dtb.h2")
             .textAlignment(.center)
             .numberOfLines(1)
             .value

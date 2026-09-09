@@ -149,8 +149,8 @@ extension DTB {
         // MARK: - Parser
         
         /// "string_zh-CN.json"
-        private func getMapperBy(key: String) -> [String: String]? {
-            guard let filePath = DTB.ThemeManager.shared.currentBundle.path(forResource: "string_\(key)", ofType: "json"),
+        private func getMapperBy(key: String, in bundle: Bundle) -> [String: String]? {
+            guard let filePath = bundle.path(forResource: "string_\(key)", ofType: "json"),
                   FileManager.default.fileExists(atPath: filePath),
                   let data = try? Data(contentsOf: URL(fileURLWithPath: filePath)),
                   let dict = (try? JSONSerialization.jsonObject(with: data, options: [])) as? [String: String],
@@ -160,6 +160,19 @@ extension DTB {
             console.log("string_\(key).json was successfully parsed")
             return dict
         }
+
+        /// 对某个语言 code，沿 bundle 链逐 key 合并：默认（尾）先填，业务（头）覆盖。
+        ///
+        /// 与旧「语言文件整体二选一」不同：业务 bundle 的 `string_zh` 里缺失的 key
+        /// 会落到默认主题包的同名 key，业务无需拷贝全量文案。
+        private func getMergedMapperBy(key: String) -> [String: String]? {
+            var merged: [String: String] = [:]
+            for bundle in DTB.ThemeManager.shared.bundles.reversed() {
+                guard let dict = getMapperBy(key: key, in: bundle) else { continue }
+                merged.merge(dict) { _, new in new }
+            }
+            return merged.isEmpty ? nil : merged
+        }
         
         private func i18nMapParser() {
             mapper.removeAll()
@@ -167,7 +180,7 @@ extension DTB {
             guard let result = {
                 // manual
                 if let manual = currentKey, manual.isEmpty == false {
-                    if let result = getMapperBy(key: manual) {
+                    if let result = getMergedMapperBy(key: manual) {
                         return result
                     } else {
                         DTB.console.error("user set key=\(manual) but file not found, will use follow system mode")
@@ -176,7 +189,7 @@ extension DTB {
                 // follow system
                 let codes = self.adjustLanguageCodes()
                 if let auto = codes
-                    .compactMap({ getMapperBy(key: $0) })
+                    .compactMap({ getMergedMapperBy(key: $0) })
                     .first(where: { $0.isEmpty == false }) {
                     return auto
                 }

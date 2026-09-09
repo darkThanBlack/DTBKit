@@ -58,27 +58,31 @@ extension DTB {
                 "text_style",
                 "button_style"
             ].forEach { fileName in
-                guard let fileUrl = ThemeManager.shared.currentBundle.url(forResource: fileName, withExtension: "json") else {
-                    console.error("\(fileName): json file not found")
-                    return
+                // 尾→头遍历：默认主题包先填，业务 bundle 覆盖
+                var merged: [String: [String: Any]] = [:]
+                for bundle in ThemeManager.shared.bundles.reversed() {
+                    guard let fileUrl = bundle.url(forResource: fileName, withExtension: "json") else {
+                        continue
+                    }
+                    guard let data = try? Data(contentsOf: fileUrl),
+                          let dict = (try? JSONSerialization.jsonObject(with: data, options: [])) as? [String: [String: Any]] else {
+                        console.error("\(fileName): json parse failed")
+                        continue
+                    }
+                    merged.merge(dict) { _, new in new }
                 }
-                guard let data = try? Data(contentsOf: fileUrl),
-                      let dict = (try? JSONSerialization.jsonObject(with: data, options: [])) as? [String: [String: Any]] else {
-                    console.error("\(fileName): json parse failed")
-                    return
-                }
-                
+
                 switch fileName {
                 case "shape_style":
-                    mapper[fileName] = dict.compactMapValues({ ShapeStyle(dict: $0) })
+                    mapper[fileName] = merged.compactMapValues({ ShapeStyle(dict: $0) })
                 case "gradient_style":
-                    mapper[fileName] = dict.compactMapValues({ GradientStyle(dict: $0) })
+                    mapper[fileName] = merged.compactMapValues({ GradientStyle(dict: $0) })
                 case "container_style":
-                    mapper[fileName] = dict.compactMapValues({ ContainerStyle(dict: $0) })
+                    mapper[fileName] = merged.compactMapValues({ ContainerStyle(dict: $0) })
                 case "text_style":
-                    mapper[fileName] = dict.compactMapValues({ TextStyle(dict: $0) })
+                    mapper[fileName] = merged.compactMapValues({ TextStyle(dict: $0) })
                 case "button_style":
-                    mapper[fileName] = dict.compactMapValues({ ButtonStyle(dict: $0) })
+                    mapper[fileName] = merged.compactMapValues({ ButtonStyle(dict: $0) })
                 default:
                     console.error("\(fileName): json mapper not handle")
                 }

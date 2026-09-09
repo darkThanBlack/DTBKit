@@ -16,19 +16,19 @@ class AboutUsViewController: DTB.BaseViewController {
     
     private lazy var sections: [DTB.SectionModel] = {
         let keys = [
-            "app.update",
-            "policy.ts",
-            "policy.pp"
+            "dtb.app.update",
+            "dtb.policy.ts",
+            "dtb.policy.pp"
         ]
         
         var cells: [DTB.CellModel] = keys.compactMap({
             .init(
                 data: .init(primaryKey: $0, title: .dtb.create($0), showArrow: true),
-                style: .style("card_mid")
+                style: .style("dtb.card_mid")
             )
         })
-        cells.first?.style = .style("card_top")
-        cells.last?.style = .style("card_bottom")
+        cells.first?.style = .style("dtb.card_top")
+        cells.last?.style = .style("dtb.card_bottom")
         return [
             DTB.SectionModel(cells: cells)
         ]
@@ -37,7 +37,7 @@ class AboutUsViewController: DTB.BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupNavigatonBar(with: .init(title: .dtb.create("setting.about")))
+        setupNavigatonBar(with: .init(title: .dtb.create("dtb.setting.about")))
         loadViews(in: view)
         
         contentView.updateSection(sections)
@@ -64,12 +64,12 @@ extension AboutUsViewController: AboutUsViewDelegate {
     
     func listItemEvent(_ data: DTB.SampleData) {
         switch data.primaryKey ?? "" {
-        case "app.update":
+        case "dtb.app.update":
             // XMVersions.shared.showUserCheckUpdateAlert()
             break
-        case "policy.ts":
+        case "dtb.policy.ts":
             break
-        case "policy.pp":
+        case "dtb.policy.pp":
             break
         default:
             DTB.console.error(data.primaryKey)

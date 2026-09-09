@@ -26,7 +26,7 @@ extension DTB {
         public override func viewDidLoad() {
             super.viewDidLoad()
             
-            setupNavigatonBar(with: .init(theme: .clear, title: .dtb.create("deep.disk")))
+            setupNavigatonBar(with: .init(theme: .clear, title: .dtb.create("dtb.deep.disk")))
             view.backgroundColor = DTB.DiskUsageDepends.backgroundColor()
             loadViews(in: view)
             

@@ -164,47 +164,50 @@ extension DTB {
         
         @objc private func colorMapParser() {
             mapper.removeAll()
-            
-            guard let fileUrl = DTB.ThemeManager.shared.currentBundle.url(forResource: "colors", withExtension: "json") else {
-                return
-            }
-            guard let data = try? Data(contentsOf: fileUrl),
-                  let rawDict = (try? JSONSerialization.jsonObject(with: data, options: [])) as? [String: Any] else {
-                console.error("color: colors.json parse fail")
-                return
-            }
-            
-            rawDict.forEach { key, value in
-                // 没有指定，只有一个默认颜色
-                if let hexString = value as? String,
-                   let color = UIColor.dtb.anyHex(hexString) {
-                    var result: [String: UIColor] = ["light": color]
-                    // 自动推算深色模式颜色
-                    if case .autoDark = currentMode {
-                        result["dark"] = color.dtb.luminanceInvertedColor()
-                    }
-                    self.mapper[key] = result
-                    return
+
+            // 尾→头遍历：默认主题包（尾）先写入，业务 bundle（头）后写入覆盖
+            for bundle in DTB.ThemeManager.shared.bundles.reversed() {
+                guard let fileUrl = bundle.url(forResource: "colors", withExtension: "json") else {
+                    continue
                 }
-                
-                // 有具体指定
-                if let dict = value as? [String: String] {
-                    var result: [String: UIColor] = [:]
-                    dict.forEach({ result[$0.key] = UIColor.dtb.anyHex($0.value) })
-                    
-                    // 没有提供默认值 light，整个忽略
-                    guard let light = result["light"] else {
-                        return console.error("color: light style is empty, key=\(key)")
-                    }
-                    // 如果没有设置，再自动推算
-                    if result["dark"] == nil, case .autoDark = currentMode {
-                        result["dark"] = light.dtb.luminanceInvertedColor()
-                    }
-                    self.mapper[key] = result
-                    return
+                guard let data = try? Data(contentsOf: fileUrl),
+                      let rawDict = (try? JSONSerialization.jsonObject(with: data, options: [])) as? [String: Any] else {
+                    console.error("color: colors.json parse fail")
+                    continue
                 }
-                
-                console.error("color: value parse failed, key=\(key)")
+
+                rawDict.forEach { key, value in
+                    // 没有指定，只有一个默认颜色
+                    if let hexString = value as? String,
+                       let color = UIColor.dtb.anyHex(hexString) {
+                        var result: [String: UIColor] = ["light": color]
+                        // 自动推算深色模式颜色
+                        if case .autoDark = currentMode {
+                            result["dark"] = color.dtb.luminanceInvertedColor()
+                        }
+                        self.mapper[key] = result
+                        return
+                    }
+
+                    // 有具体指定
+                    if let dict = value as? [String: String] {
+                        var result: [String: UIColor] = [:]
+                        dict.forEach({ result[$0.key] = UIColor.dtb.anyHex($0.value) })
+
+                        // 没有提供默认值 light，整个忽略
+                        guard let light = result["light"] else {
+                            return console.error("color: light style is empty, key=\(key)")
+                        }
+                        // 如果没有设置，再自动推算
+                        if result["dark"] == nil, case .autoDark = currentMode {
+                            result["dark"] = light.dtb.luminanceInvertedColor()
+                        }
+                        self.mapper[key] = result
+                        return
+                    }
+
+                    console.error("color: value parse failed, key=\(key)")
+                }
             }
         }
         

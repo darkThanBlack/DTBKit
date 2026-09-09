@@ -39,72 +39,72 @@ extension DTB {
         }
         
         /// "清理"
-        static func cleanText() -> String { return .dtb.create("deep.disk.clean") }
+        static func cleanText() -> String { return .dtb.create("dtb.deep.disk.clean") }
         
         /// "清理成功"
-        static func cleanSuccessText() -> String { return .dtb.create("deep.disk.clean.success") }
+        static func cleanSuccessText() -> String { return .dtb.create("dtb.deep.disk.clean.success") }
         
         /// "正在计算..."
-        static func loadingText() -> String { return .dtb.create("deep.disk.loading") }
+        static func loadingText() -> String { return .dtb.create("dtb.deep.disk.loading") }
         
         /// "尚未计算"
-        static func unloadText() -> String { return .dtb.create("deep.disk.unload") }
+        static func unloadText() -> String { return .dtb.create("dtb.deep.disk.unload") }
         
         /// "重新计算"
-        static func reloadText() -> String { return .dtb.create("deep.disk.reload") }
+        static func reloadText() -> String { return .dtb.create("dtb.deep.disk.reload") }
         
         /// "上次计算: {t})"
         static func loadTimeText(_ t: String) -> String {
-            return .dtb.create(format: "deep.disk.load.time", t)
+            return .dtb.create(format: "dtb.deep.disk.load.time", t)
         }
         
         /// "手机已用"
-        static func phoneUsedText() -> String { return .dtb.create("deep.disk.phone.used") }
+        static func phoneUsedText() -> String { return .dtb.create("dtb.deep.disk.phone.used") }
         
         /// "剩余空间"
-        static func phoneFreeText() -> String { return .dtb.create("deep.disk.phone.free") }
+        static func phoneFreeText() -> String { return .dtb.create("dtb.deep.disk.phone.free") }
         
         /// "数据缓存"
-        static func cacheText() -> String { return .dtb.create("deep.disk.data.cache") }
+        static func cacheText() -> String { return .dtb.create("dtb.deep.disk.data.cache") }
         
         /// "使用过程中产生的临时数据，清理后流量消耗会增加，但不影响正常使用。"
-        static func cacheDescText() -> String { return .dtb.create("deep.disk.data.cache.desc") }
+        static func cacheDescText() -> String { return .dtb.create("dtb.deep.disk.data.cache.desc") }
         
         /// "{APP}已用空间"
         static func usageHintText() -> String {
-            return .dtb.create(format: "deep.disk.app.used", appName())
+            return .dtb.create(format: "dtb.deep.disk.app.used", appName())
         }
         
         /// "占据手机 {p}% 存储空间"
         static func usagePercentText(_ p: String) -> String {
-            return .dtb.create(format: "deep.disk.app.used.p", p)
+            return .dtb.create(format: "dtb.deep.disk.app.used.p", p)
         }
         
         // --- color ---
         
         /// F5F7FA
-        static func backgroundColor() -> UIColor { return .dtb.create("bg") }
+        static func backgroundColor() -> UIColor { return .dtb.create("dtb.bg") }
         
         /// FFFFFF
-        static func backgroundColor2() -> UIColor { return .dtb.create("bg2") }
+        static func backgroundColor2() -> UIColor { return .dtb.create("dtb.bg2") }
 
         /// F05746
-        static func themeColor() -> UIColor { return .dtb.create("danger") }
+        static func themeColor() -> UIColor { return .dtb.create("dtb.danger") }
         
         /// 15171F
-        static func textColor() -> UIColor { return .dtb.create("text") }
+        static func textColor() -> UIColor { return .dtb.create("dtb.text") }
         
         /// 73778C
-        static func lightTextColor() -> UIColor { return .dtb.create("text2") }
+        static func lightTextColor() -> UIColor { return .dtb.create("dtb.text2") }
         
         /// FFFFFF
-        static func buttonTitleColor() -> UIColor { return .dtb.create("text2") }
+        static func buttonTitleColor() -> UIColor { return .dtb.create("dtb.text2") }
         
         /// ABABAB
-        static func progressUsedColor() -> UIColor { return .dtb.create("text_disabled") }
+        static func progressUsedColor() -> UIColor { return .dtb.create("dtb.text_disabled") }
         
         /// EEF0F7
-        static func progressFreeColor() -> UIColor { return .dtb.create("bg3") }
+        static func progressFreeColor() -> UIColor { return .dtb.create("dtb.bg3") }
         
     }
     

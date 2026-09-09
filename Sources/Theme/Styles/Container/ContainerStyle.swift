@@ -22,7 +22,7 @@ import UIKit
 //            shape: DTB.ShapeStyle(
 //                corners: [.allCorners],
 //                radius: .fixed(12.0),
-//                fillColor: .dtb.create("bg2"),
+//                fillColor: .dtb.create("dtb.bg2"),
 //                lineWidth: 0.0
 //            )
 //        )
@@ -36,7 +36,7 @@ import UIKit
 //            shape: DTB.ShapeStyle(
 //                corners: indexOrder.verticalCorners,
 //                radius: .fixed(12.0),
-//                fillColor: .dtb.create("bg2"),
+//                fillColor: .dtb.create("dtb.bg2"),
 //                lineWidth: 0.0
 //            )
 //        )

@@ -74,13 +74,13 @@ extension DTB {
         
         private lazy var leftImageView = UIImageView().dtb.contentMode(.scaleAspectFit).value
         
-        private lazy var titleLabel = UILabel().dtb.textStyle("h3").value
+        private lazy var titleLabel = UILabel().dtb.textStyle("dtb.h3").value
         
-        private lazy var detailLabel = UILabel().dtb.textStyle("b6").value
+        private lazy var detailLabel = UILabel().dtb.textStyle("dtb.b6").value
         
         private lazy var rightImageView = UIImageView().dtb
             .contentMode(.scaleAspectFit)
-            .tintColor(.dtb.create("arrow"))
+            .tintColor(.dtb.create("dtb.arrow"))
             .image(.dtb.local("chevron.right"))
             .value
         

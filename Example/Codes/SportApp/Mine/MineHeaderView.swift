@@ -64,7 +64,7 @@ class MineHeaderView: UIView {
             { role in
                 let label = UILabel()
                 label.font = UIFont.systemFont(ofSize: 13.0, weight: .regular)
-                label.textColor = .dtb.create("text3")
+                label.textColor = .dtb.create("dtb.text3")
                 label.text = role
                 label.numberOfLines = 1
                 label.textAlignment = .center
@@ -73,8 +73,8 @@ class MineHeaderView: UIView {
                     child: label,
                     style: DTB.ContainerStyle(
                         padding: UIEdgeInsets(top: 4.0, left: 8.0, bottom: 4.0, right: 8.0),
-                        backgroundColor: .dtb.create("bg3"),
-                        shape: .style("circle")
+                        backgroundColor: .dtb.create("dtb.bg3"),
+                        shape: .style("dtb.circle")
                     )
                 )
             roleStackView.addArrangedSubview(c)
@@ -122,10 +122,10 @@ class MineHeaderView: UIView {
     private lazy var avatarButton: UIButton = {
         let button = UIButton()
         button.titleLabel?.font = UIFont.systemFont(ofSize: 32.0)
-        button.setTitleColor(UIColor.dtb.create("text2"), for: .normal)
-        button.backgroundColor = UIColor.dtb.create("bg3")
+        button.setTitleColor(UIColor.dtb.create("dtb.text2"), for: .normal)
+        button.backgroundColor = UIColor.dtb.create("dtb.bg3")
         button.layer.borderWidth = 2.0
-        button.layer.borderColor = UIColor.dtb.create("bg2").cgColor
+        button.layer.borderColor = UIColor.dtb.create("dtb.bg2").cgColor
         button.layer.cornerRadius = 40.0
         button.clipsToBounds = true
         button.imageView?.contentMode = .scaleAspectFill
@@ -134,7 +134,7 @@ class MineHeaderView: UIView {
     }()
     
     private lazy var containerView = UIView().dtb
-        .backgroundColor(UIColor.dtb.create("bg2"))
+        .backgroundColor(UIColor.dtb.create("dtb.bg2"))
         .layer({
             $0.cornerRadius(12.0).masksToBounds(true)
         })
@@ -142,14 +142,14 @@ class MineHeaderView: UIView {
     
     private lazy var nicknameLabel = UILabel().dtb
         .font(.dtb.create(size: 23.0, weight: .medium))
-        .textColor(.dtb.create("text"))
+        .textColor(.dtb.create("dtb.text"))
         .numberOfLines(1)
         .value
     
     private func createRoleLabel() -> UILabel {
-        return UILabel().dtb.textStyle("b1")
+        return UILabel().dtb.textStyle("dtb.b1")
             .layer({ $0.cornerRadius(11.0) })
-            .backgroundColor(.dtb.create("border"))
+            .backgroundColor(.dtb.create("dtb.border"))
             .value
     }
     

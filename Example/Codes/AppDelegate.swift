@@ -190,14 +190,14 @@ extension DTB {
             tabVC.setupTabBarItems([
                 DTB.TabBarItemModel(
                     rootViewController: HomeViewController(),
-                    title: .dtb.create("tabbar.0"),
+                    title: .dtb.create("dtb.tabbar.0"),
                     image: .dtb.create("tab_bar_0_unselect"),
                     selectedImage: .dtb.create("tab_bar_0_select"),
                     font: .dtb.create(11.0)
                 ),
                 DTB.TabBarItemModel(
                     rootViewController: MineViewController(),
-                    title: .dtb.create("tabbar.1"),
+                    title: .dtb.create("dtb.tabbar.1"),
                     image: .dtb.create("tab_bar_1_unselect"),
                     selectedImage: .dtb.create("tab_bar_1_select"),
                     font: .dtb.create(11.0)
@@ -210,22 +210,22 @@ extension DTB {
             let tabVC = DTB.CustomTabBarController(customTabBar: DTB.SimpleTabBar())
             tabVC.setupTabBar(
                 DTB.TabBarModel(
-                    backgroundColor: .dtb.create("bg2"),
-                    unSelectTintColor: .dtb.create("text2"),
-                    selectedTintColor: .dtb.create("theme")
+                    backgroundColor: .dtb.create("dtb.bg2"),
+                    unSelectTintColor: .dtb.create("dtb.text2"),
+                    selectedTintColor: .dtb.create("dtb.theme")
                 )
             )
             tabVC.setupTabBarItems([
                 DTB.TabBarItemModel(
                     rootViewController: HomeViewController(),
-                    title: .dtb.create("tabbar.0"),
+                    title: .dtb.create("dtb.tabbar.0"),
                     image: .dtb.create("tab_bar_0_unselect"),
                     selectedImage: .dtb.create("tab_bar_0_select"),
                     font: .dtb.create(11.0)
                 ),
                 DTB.TabBarItemModel(
                     rootViewController: MineViewController(),
-                    title: .dtb.create("tabbar.1"),
+                    title: .dtb.create("dtb.tabbar.1"),
                     image: .dtb.create("tab_bar_1_unselect"),
                     selectedImage: .dtb.create("tab_bar_1_select"),
                     font: .dtb.create(11.0)

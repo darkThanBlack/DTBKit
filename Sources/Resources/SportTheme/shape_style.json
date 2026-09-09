@@ -1,16 +1,27 @@
 {
-  "circle": {
-    "corners": ["allCorners"],
-    "radius": { "heightPercent": 0.5 }
+  "dtb.circle": {
+    "corners": [
+      "allCorners"
+    ],
+    "radius": {
+      "heightPercent": 0.5
+    }
   },
-  "theme": {
+  "dtb.theme": {
     "lineWidth": 1.0,
     "strokeColor": "#F05746",
-    "corners": ["allCorners"],
-    "radius": { "heightPercent": 0.5 }
+    "corners": [
+      "allCorners"
+    ],
+    "radius": {
+      "heightPercent": 0.5
+    }
   },
-  "sheet": {
-    "corners": ["topLeft", "topRight"],
+  "dtb.sheet": {
+    "corners": [
+      "topLeft",
+      "topRight"
+    ],
     "radius": 12.0
   }
 }

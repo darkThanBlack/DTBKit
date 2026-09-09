@@ -91,10 +91,10 @@ Pod::Spec.new do |s|
     ss.dependency 'WKWebViewJavascriptBridge', '~> 1.2.4'
   end
   
-  #  s.subspec 'Stream' do |ss|
-  #    ss.source_files = 'Sources/Gzip/**/*'
-  #    ss.dependency 'DTBKit/Basic'
-  #  end
+  s.subspec 'Stream' do |ss|
+    ss.source_files = 'Sources/Stream/**/*'
+    ss.dependency 'DTBKit/Basic'
+  end
   
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'

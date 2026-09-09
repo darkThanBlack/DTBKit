@@ -20,20 +20,20 @@ extension DTB {
         private lazy var sections: [DTB.SectionModel] = {
             let cells: [DTB.CellModel] = [
                 .init(
-                    data: .init(primaryKey: nil, title: .dtb.create("deep.follow_system")),
-                    style: .style("card_top")
+                    data: .init(primaryKey: nil, title: .dtb.create("dtb.deep.follow_system")),
+                    style: .style("dtb.card_top")
                 ),
                 .init(
-                    data: .init(primaryKey: "light", title: .dtb.create("deep.color.light")),
-                    style: .style("card_mid")
+                    data: .init(primaryKey: "light", title: .dtb.create("dtb.deep.color.light")),
+                    style: .style("dtb.card_mid")
                 ),
                 .init(
-                    data: .init(primaryKey: "dark", title: .dtb.create("deep.color.dark"), detail: .dtb.create("deep.color.dark.desc")),
-                    style: .style("card_mid")
+                    data: .init(primaryKey: "dark", title: .dtb.create("dtb.deep.color.dark"), detail: .dtb.create("dtb.deep.color.dark.desc")),
+                    style: .style("dtb.card_mid")
                 ),
                 .init(
-                    data: .init(primaryKey: "auto_dark", title: .dtb.create("deep.color.dark.auto"), detail: .dtb.create("deep.color.dark.auto.desc")),
-                    style: .style("card_bottom")
+                    data: .init(primaryKey: "auto_dark", title: .dtb.create("dtb.deep.color.dark.auto"), detail: .dtb.create("dtb.deep.color.dark.auto.desc")),
+                    style: .style("dtb.card_bottom")
                 ),
             ]
             
@@ -65,7 +65,7 @@ extension DTB {
         public override func viewDidLoad() {
             super.viewDidLoad()
             
-            setupNavigatonBar(with: .init(title: .dtb.create("deep.color")))
+            setupNavigatonBar(with: .init(title: .dtb.create("dtb.deep.color")))
             loadViews(in: view)
         }
         
@@ -99,9 +99,9 @@ extension DTB.ColorViewController: DTB.CrumbsSampleViewDelegate {
     
     public func listItemEvent(_ indexPath: IndexPath) {
         guard let data = sections.dtb[indexPath.section]?.cells.dtb[indexPath.row]?.data else { return }
-        let alert = UIAlertController(title: .dtb.create("common.hint"), message: .dtb.create("deep.color.ensure"), preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: .dtb.create("common.cancel"), style: .default))
-        alert.addAction(UIAlertAction(title: .dtb.create("common.ensure"), style: .default, handler: { _ in
+        let alert = UIAlertController(title: .dtb.create("dtb.common.hint"), message: .dtb.create("dtb.deep.color.ensure"), preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: .dtb.create("dtb.common.cancel"), style: .default))
+        alert.addAction(UIAlertAction(title: .dtb.create("dtb.common.ensure"), style: .default, handler: { _ in
             switch data.primaryKey {
             case "light":
                 DTB.ColorManager.shared.update(mode: .light)

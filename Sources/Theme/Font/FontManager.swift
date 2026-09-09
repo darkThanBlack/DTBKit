@@ -42,7 +42,10 @@ extension DTB {
         
         /// 由于需要指定 bundle，允许解析时机延后，但不需要多次调用
         public func loadCustomFonts() {
-            searchCustomFonts(in: DTB.ThemeManager.shared.currentBundle)
+            // 头→尾遍历：业务 bundle 先注册，同名字体先注册者保留（业务覆盖默认）
+            for bundle in DTB.ThemeManager.shared.bundles {
+                searchCustomFonts(in: bundle)
+            }
         }
         
         // MARK: - Parser

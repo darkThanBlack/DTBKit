@@ -123,8 +123,8 @@ class PhoneLoginView: UIView {
     }
     
     private lazy var titleLabel = UILabel().dtb
-        .textStyle("h1")
-        .text(.dtb.create("login.sms"))
+        .textStyle("dtb.h1")
+        .text(.dtb.create("dtb.login.sms"))
         .isUserInteractionEnabled(true)
         .addGestureRecognizer({
             let singleTap = UITapGestureRecognizer(target: self, action: #selector(titleLabelEvent(gesture:)))
@@ -135,8 +135,8 @@ class PhoneLoginView: UIView {
         .value
     
     private lazy var descLabel = UILabel().dtb
-        .textStyle("placeholder")
-        .text(.dtb.create("login.sms.desc"))
+        .textStyle("dtb.placeholder")
+        .text(.dtb.create("dtb.login.sms.desc"))
         .value
     
     private lazy var titleStack = UIStackView(arrangedSubviews: [titleLabel, descLabel]).dtb
@@ -154,12 +154,12 @@ class PhoneLoginView: UIView {
     private lazy var phoneField: UITextField = {
         let field = UITextField()
         field.font = .dtb.create(size: 19.0, weight: .bold)
-        field.textColor = .dtb.create("text")
-        field.backgroundColor = .dtb.create("bg2")
+        field.textColor = .dtb.create("dtb.text")
+        field.backgroundColor = .dtb.create("dtb.bg2")
         field.attributedPlaceholder = .init(
-            string: .dtb.create("login.sms.placeholder.phone"),
+            string: .dtb.create("dtb.login.sms.placeholder.phone"),
             attributes: .dtb.create.font(.dtb.create(15.0))
-                .foregroundColor(.dtb.create("text_disabled"))
+                .foregroundColor(.dtb.create("dtb.text_disabled"))
                 .value
         )
         field.delegate = self
@@ -180,7 +180,7 @@ class PhoneLoginView: UIView {
             DTB.ShapeStyle(
                 corners: .allCorners,
                 radius: .fixed(8.0),
-                fillColor: .dtb.create("bg2")
+                fillColor: .dtb.create("dtb.bg2")
             )
         )
         return view
@@ -197,7 +197,7 @@ class PhoneLoginView: UIView {
         let button = DTB.Button()
         button.setImageDirection(.left)
         button.setContentEdgeInsets(.init(top: 8.0, left: 16.0, bottom: 8.0, right: 0.0))
-        button.setTintColor(.dtb.create("danger"))
+        button.setTintColor(.dtb.create("dtb.danger"))
         button.setImage(.dtb.local("square"))
         button.addTarget(self, action: #selector(policyButtonEvent), for: .touchUpInside)
         return button
@@ -205,10 +205,10 @@ class PhoneLoginView: UIView {
     
     private lazy var policyTexts = {
         let view = DTB.LinkTextView()
-        view.text = .dtb.create(format: "login.policy.check", .dtb.create("policy.ts"), .dtb.create("policy.pp"))
+        view.text = .dtb.create(format: "dtb.login.policy.check", .dtb.create("dtb.policy.ts"), .dtb.create("dtb.policy.pp"))
         view.multiLinks = [
-            "policy.ts": .dtb.create("policy.ts"),
-            "policy.pp": .dtb.create("policy.pp")
+            "dtb.policy.ts": .dtb.create("dtb.policy.ts"),
+            "dtb.policy.pp": .dtb.create("dtb.policy.pp")
         ]
         view.linkConfigsFinished()
         return view
@@ -216,8 +216,8 @@ class PhoneLoginView: UIView {
     
     private lazy var sendButton = {
         let button = DTB.Button()
-        button.setConfig(.style("large01"))
-        button.setTitle(.dtb.create("login.sms.send"), for: .normal)
+        button.setConfig(.style("dtb.large01"))
+        button.setTitle(.dtb.create("dtb.login.sms.send"), for: .normal)
         button.addTarget(self, action: #selector(sendButtonEvent), for: .touchUpInside)
         return button
     }()

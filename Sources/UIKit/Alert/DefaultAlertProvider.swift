@@ -20,12 +20,7 @@ extension DTB {
         
         public func show(_ params: Any?) {
             guard let params = params as? AlertCreater else { return }
-            let alert = UIAlertController(title: params.title, message: params.message, preferredStyle: .alert)
-            params.actions.forEach({ act in
-                alert.addAction(UIAlertAction(title: act.title, style: .default, handler: { _ in
-                    act.handler?(act)
-                }))
-            })
+            let alert = DTB.SystemAlertViewController(creater: params)
             UIViewController.dtb.topMost()?.present(alert, animated: true)
         }
     }

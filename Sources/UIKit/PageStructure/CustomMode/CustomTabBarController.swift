@@ -111,9 +111,28 @@ extension DTB {
         /// Replacement for system hidden | 自行处理显隐
         public func setCustomTabBarHidden(_ isHidden: Bool, animated: Bool) {
             self.customTabBar.setCustomTabBarHidden(self, isHidden: isHidden, animated: animated)
+            syncCustomTabBarInset()
+        }
+
+        /// 布局完成后，把自定义 tabBar 的高度桥接给子 VC 的安全区，
+        /// 让子 VC 用 safeArea 布局时底部自动抬升（不遮挡 tabBar）。
+        public override func viewDidLayoutSubviews() {
+            super.viewDidLayoutSubviews()
+            syncCustomTabBarInset()
+        }
+
+        private func syncCustomTabBarInset() {
+            // 只抬升 tabBar 在安全区之上的「内容」部分：frame 高度已含 home indicator，
+            // 而 safeArea.bottom 本身也已含 home indicator，直接叠加会多抬一段。
+            let inset: CGFloat = customTabBar.isHidden
+                ? 0
+                : customTabBar.frame.height - customTabBar.safeAreaInsets.bottom
+            guard let selected = selectedViewController,
+                  selected.additionalSafeAreaInsets.bottom != inset else { return }
+            selected.additionalSafeAreaInsets.bottom = inset
         }
         
-        // TODO: 侧滑手势处理，简单 hidden 会出现闪烁
+        // FIXME: 侧滑手势处理，简单 hidden 会出现闪烁
 //        if #available(iOS 26.0, *) {
 //            targetController.navigationController?.interactiveContentPopGestureRecognizer?.isEnabled = true
 //        }

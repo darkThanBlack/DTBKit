@@ -1,98 +1,218 @@
 {
-  "large01": {
-    "font": { "size": 15.0, "weight": "medium" },
-    "padding": { "top": 12.0, "left": 50.0, "bottom": 12.0, "right": 50.0 },
-    "textColor": "text4",
-    "shape": "circle",
-    "gradient": "theme"
+  "dtb.large01": {
+    "font": {
+      "size": 15.0,
+      "weight": "medium"
+    },
+    "padding": {
+      "top": 12.0,
+      "left": 50.0,
+      "bottom": 12.0,
+      "right": 50.0
+    },
+    "textColor": "dtb.text4",
+    "shape": "dtb.circle",
+    "gradient": "dtb.theme"
   },
-  "large02": {
-    "font": { "size": 15.0, "weight": "medium" },
-    "padding": { "top": 12.0, "left": 50.0, "bottom": 12.0, "right": 50.0 },
-    "textColor": "text4",
-    "backgroundColor": "button",
-    "shape": "circle"
+  "dtb.large02": {
+    "font": {
+      "size": 15.0,
+      "weight": "medium"
+    },
+    "padding": {
+      "top": 12.0,
+      "left": 50.0,
+      "bottom": 12.0,
+      "right": 50.0
+    },
+    "textColor": "dtb.text4",
+    "backgroundColor": "dtb.button",
+    "shape": "dtb.circle"
   },
-  "large03": {
-    "font": { "size": 15.0, "weight": "medium" },
-    "padding": { "top": 12.0, "left": 50.0, "bottom": 12.0, "right": 50.0 },
-    "textColor": "danger",
-    "backgroundColor": "button2"
+  "dtb.large03": {
+    "font": {
+      "size": 15.0,
+      "weight": "medium"
+    },
+    "padding": {
+      "top": 12.0,
+      "left": 50.0,
+      "bottom": 12.0,
+      "right": 50.0
+    },
+    "textColor": "dtb.danger",
+    "backgroundColor": "dtb.button2"
   },
-  "large04": {
-    "font": { "size": 15.0, "weight": "medium" },
-    "padding": { "top": 12.0, "left": 50.0, "bottom": 12.0, "right": 50.0 },
-    "textColor": "text",
-    "backgroundColor": "button3"
+  "dtb.large04": {
+    "font": {
+      "size": 15.0,
+      "weight": "medium"
+    },
+    "padding": {
+      "top": 12.0,
+      "left": 50.0,
+      "bottom": 12.0,
+      "right": 50.0
+    },
+    "textColor": "dtb.text",
+    "backgroundColor": "dtb.button3"
   },
-  "large05": {
-    "font": { "size": 15.0, "weight": "medium" },
-    "padding": { "top": 12.0, "left": 50.0, "bottom": 12.0, "right": 50.0 },
-    "textColor": "danger",
-    "backgroundColor": "button4",
-    "shape": "theme"
+  "dtb.large05": {
+    "font": {
+      "size": 15.0,
+      "weight": "medium"
+    },
+    "padding": {
+      "top": 12.0,
+      "left": 50.0,
+      "bottom": 12.0,
+      "right": 50.0
+    },
+    "textColor": "dtb.danger",
+    "backgroundColor": "dtb.button4",
+    "shape": "dtb.theme"
   },
-  "middle01": {
-    "font": { "size": 13.0, "weight": "regular" },
-    "padding": { "top": 8.0, "left": 16.0, "bottom": 8.0, "right": 16.0 },
-    "textColor": "text4",
-    "gradient": "theme"
+  "dtb.middle01": {
+    "font": {
+      "size": 13.0,
+      "weight": "regular"
+    },
+    "padding": {
+      "top": 8.0,
+      "left": 16.0,
+      "bottom": 8.0,
+      "right": 16.0
+    },
+    "textColor": "dtb.text4",
+    "gradient": "dtb.theme"
   },
-  "middle02": {
-    "font": { "size": 13.0, "weight": "regular" },
-    "padding": { "top": 8.0, "left": 16.0, "bottom": 8.0, "right": 16.0 },
-    "textColor": "text4",
-    "backgroundColor": "button"
+  "dtb.middle02": {
+    "font": {
+      "size": 13.0,
+      "weight": "regular"
+    },
+    "padding": {
+      "top": 8.0,
+      "left": 16.0,
+      "bottom": 8.0,
+      "right": 16.0
+    },
+    "textColor": "dtb.text4",
+    "backgroundColor": "dtb.button"
   },
-  "middle03": {
-    "font": { "size": 13.0, "weight": "regular" },
-    "padding": { "top": 8.0, "left": 16.0, "bottom": 8.0, "right": 16.0 },
-    "textColor": "danger",
-    "backgroundColor": "button2"
+  "dtb.middle03": {
+    "font": {
+      "size": 13.0,
+      "weight": "regular"
+    },
+    "padding": {
+      "top": 8.0,
+      "left": 16.0,
+      "bottom": 8.0,
+      "right": 16.0
+    },
+    "textColor": "dtb.danger",
+    "backgroundColor": "dtb.button2"
   },
-  "middle04": {
-    "font": { "size": 13.0, "weight": "regular" },
-    "padding": { "top": 8.0, "left": 16.0, "bottom": 8.0, "right": 16.0 },
-    "textColor": "text",
-    "backgroundColor": "button3"
+  "dtb.middle04": {
+    "font": {
+      "size": 13.0,
+      "weight": "regular"
+    },
+    "padding": {
+      "top": 8.0,
+      "left": 16.0,
+      "bottom": 8.0,
+      "right": 16.0
+    },
+    "textColor": "dtb.text",
+    "backgroundColor": "dtb.button3"
   },
-  "middle05": {
-    "font": { "size": 13.0, "weight": "regular" },
-    "padding": { "top": 8.0, "left": 16.0, "bottom": 8.0, "right": 16.0 },
-    "textColor": "danger",
-    "backgroundColor": "button4",
-    "shape": "theme"
+  "dtb.middle05": {
+    "font": {
+      "size": 13.0,
+      "weight": "regular"
+    },
+    "padding": {
+      "top": 8.0,
+      "left": 16.0,
+      "bottom": 8.0,
+      "right": 16.0
+    },
+    "textColor": "dtb.danger",
+    "backgroundColor": "dtb.button4",
+    "shape": "dtb.theme"
   },
-  "small01": {
-    "font": { "size": 13.0, "weight": "regular" },
-    "padding": { "top": 5.0, "left": 12.0, "bottom": 5.0, "right": 12.0 },
-    "textColor": "text4",
-    "shape": "circle",
-    "gradient": "theme"
+  "dtb.small01": {
+    "font": {
+      "size": 13.0,
+      "weight": "regular"
+    },
+    "padding": {
+      "top": 5.0,
+      "left": 12.0,
+      "bottom": 5.0,
+      "right": 12.0
+    },
+    "textColor": "dtb.text4",
+    "shape": "dtb.circle",
+    "gradient": "dtb.theme"
   },
-  "small02": {
-    "font": { "size": 13.0, "weight": "regular" },
-    "padding": { "top": 5.0, "left": 12.0, "bottom": 5.0, "right": 12.0 },
-    "textColor": "text4",
-    "backgroundColor": "button"
+  "dtb.small02": {
+    "font": {
+      "size": 13.0,
+      "weight": "regular"
+    },
+    "padding": {
+      "top": 5.0,
+      "left": 12.0,
+      "bottom": 5.0,
+      "right": 12.0
+    },
+    "textColor": "dtb.text4",
+    "backgroundColor": "dtb.button"
   },
-  "small03": {
-    "font": { "size": 13.0, "weight": "regular" },
-    "padding": { "top": 5.0, "left": 12.0, "bottom": 5.0, "right": 12.0 },
-    "textColor": "danger",
-    "backgroundColor": "button2"
+  "dtb.small03": {
+    "font": {
+      "size": 13.0,
+      "weight": "regular"
+    },
+    "padding": {
+      "top": 5.0,
+      "left": 12.0,
+      "bottom": 5.0,
+      "right": 12.0
+    },
+    "textColor": "dtb.danger",
+    "backgroundColor": "dtb.button2"
   },
-  "small04": {
-    "font": { "size": 13.0, "weight": "regular" },
-    "padding": { "top": 5.0, "left": 12.0, "bottom": 5.0, "right": 12.0 },
-    "textColor": "text",
-    "backgroundColor": "button3"
+  "dtb.small04": {
+    "font": {
+      "size": 13.0,
+      "weight": "regular"
+    },
+    "padding": {
+      "top": 5.0,
+      "left": 12.0,
+      "bottom": 5.0,
+      "right": 12.0
+    },
+    "textColor": "dtb.text",
+    "backgroundColor": "dtb.button3"
   },
-  "small05": {
-    "font": { "size": 13.0, "weight": "regular" },
-    "padding": { "top": 5.0, "left": 12.0, "bottom": 5.0, "right": 12.0 },
-    "textColor": "danger",
-    "backgroundColor": "button4",
-    "shape": "theme"
+  "dtb.small05": {
+    "font": {
+      "size": 13.0,
+      "weight": "regular"
+    },
+    "padding": {
+      "top": 5.0,
+      "left": 12.0,
+      "bottom": 5.0,
+      "right": 12.0
+    },
+    "textColor": "dtb.danger",
+    "backgroundColor": "dtb.button4",
+    "shape": "dtb.theme"
   }
 }

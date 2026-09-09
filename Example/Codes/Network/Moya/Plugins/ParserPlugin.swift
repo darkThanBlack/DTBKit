@@ -30,13 +30,13 @@ class ParserPlugin: PluginType {
             case 401:
                 // TODO: kick out
                 // DTB.user.kickout()
-                return .failure(getError(.dtb.create("user.kickout.desc")))
+                return .failure(getError(.dtb.create("dtb.user.kickout.desc")))
             case 403:
-                return .failure(getError(.dtb.create("error.403")))
+                return .failure(getError(.dtb.create("dtb.error.403")))
             case 500:
-                return .failure(getError(.dtb.create("error.500")))
+                return .failure(getError(.dtb.create("dtb.error.500")))
             default:
-                return .failure(getError(.dtb.create("error.http.code") + "\(response.statusCode)"))
+                return .failure(getError(.dtb.create("dtb.error.http.code") + "\(response.statusCode)"))
             }
         case .failure(_):
             return result

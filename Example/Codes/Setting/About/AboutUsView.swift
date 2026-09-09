@@ -34,9 +34,9 @@ class AboutUsView: UIView {
         
         // logo.kf.setImage(with: URL(string: "https://image.xiaomaiketang.com/xm/internal/4eKBnm5M5C.png"))
         
-        self.backgroundColor = .dtb.create("bg")
+        self.backgroundColor = .dtb.create("dtb.bg")
         tableView.isScrollEnabled = false
-        tableView.backgroundColor = .dtb.create("bg")
+        tableView.backgroundColor = .dtb.create("dtb.bg")
         tableView.reloadData()
     }
     
@@ -86,13 +86,13 @@ class AboutUsView: UIView {
         return logo
     }()
     
-    private lazy var nameLabel = UILabel().dtb.textStyle("h2").text(DTB.app.displayName).value
+    private lazy var nameLabel = UILabel().dtb.textStyle("dtb.h2").text(DTB.app.displayName).value
     
-    private lazy var versionLabel = UILabel().dtb.textStyle("b6").text(DTB.app.version).value
+    private lazy var versionLabel = UILabel().dtb.textStyle("dtb.b6").text(DTB.app.version).value
     
     private lazy var tableView = UITableView.dtb.plain(self, cells: [DTB.CrumbsTableViewCell.self])
     
-    private lazy var buildLabel = UILabel().dtb.textStyle("b6").text(DTB.app.build).value
+    private lazy var buildLabel = UILabel().dtb.textStyle("dtb.b6").text(DTB.app.build).value
 }
 
 extension AboutUsView: UITableViewDelegate {

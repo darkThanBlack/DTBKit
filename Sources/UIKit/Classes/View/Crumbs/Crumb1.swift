@@ -85,12 +85,12 @@ extension DTB {
             .spacing(4.0)
             .value
         
-        private lazy var titleLabel = UILabel().dtb.textStyle("h3").value
+        private lazy var titleLabel = UILabel().dtb.textStyle("dtb.h3").value
         
-        private lazy var detailLabel = UILabel().dtb.textStyle("b6").value
+        private lazy var detailLabel = UILabel().dtb.textStyle("dtb.b6").value
         
         private lazy var rightImageView = UIImageView().dtb
-            .tintColor(.dtb.create("arrow"))
+            .tintColor(.dtb.create("dtb.arrow"))
             .image(.dtb.local("chevron.right"))
             .contentMode(.scaleAspectFit)
             .value

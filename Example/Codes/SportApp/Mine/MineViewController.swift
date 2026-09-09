@@ -31,20 +31,8 @@ class MineViewController: UIViewController, DTB.SimpleNavigationBarHandler {
         return [
             DTB.SectionModel(cells: [
                 DTB.CellModel(
-                    data: DTB.SampleData(primaryKey: "ble.debug", title: "BLE Debug", showArrow: true),
-                    style: .style("card")
-                )
-            ]),
-            DTB.SectionModel(cells: [
-                DTB.CellModel(
-                    data: DTB.SampleData(primaryKey: "venue", title: "venue", showArrow: true),
-                    style: .style("card")
-                )
-            ]),
-            DTB.SectionModel(cells: [
-                DTB.CellModel(
-                    data: DTB.SampleData(primaryKey: "setting", title: .dtb.create("setting"), showArrow: true),
-                    style: .style("card")
+                    data: DTB.SampleData(primaryKey: "dtb.setting", title: .dtb.create("dtb.setting"), showArrow: true),
+                    style: .style("dtb.card")
                 )
             ]),
         ]
@@ -63,7 +51,7 @@ class MineViewController: UIViewController, DTB.SimpleNavigationBarHandler {
         
         hidesBottomBarWhenPushed = false
         
-        view.backgroundColor = .dtb.create("bg")
+        view.backgroundColor = .dtb.create("dtb.bg")
         
         loadViews(in: view)
     }
@@ -114,7 +102,7 @@ extension MineViewController: MineViewDelegates {
     }
     
     func listItemEvent(_ data: DTB.SampleData) {
-        if data.primaryKey == "setting" {
+        if data.primaryKey == "dtb.setting" {
             let vc = SettingViewController()
             navigationController?.pushViewController(vc, animated: true)
             return

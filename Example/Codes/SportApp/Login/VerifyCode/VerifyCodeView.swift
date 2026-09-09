@@ -28,7 +28,7 @@ class VerifyCodeView: UIView {
     
     ///
     func setPhone(_ value: String) {
-        descLabel.dtb.text(.dtb.create("login.sms.enter.desc") + value)
+        descLabel.dtb.text(.dtb.create("dtb.login.sms.enter.desc") + value)
     }
     
     enum CounterStyles {
@@ -43,12 +43,12 @@ class VerifyCodeView: UIView {
         case .counting(let value):
             countLabel.dtb
                 .isUserInteractionEnabled(false)
-                .textColor(.dtb.create("text2"))
+                .textColor(.dtb.create("dtb.text2"))
                 .text("\(value)s后重新获取")
         case .resend:
             countLabel.dtb
                 .isUserInteractionEnabled(true)
-                .textColor(.dtb.create("danger"))
+                .textColor(.dtb.create("dtb.danger"))
                 .text("获取验证码")
         }
     }
@@ -99,11 +99,11 @@ class VerifyCodeView: UIView {
     }
     
     private lazy var titleLabel = UILabel().dtb
-        .textStyle("h1")
-        .text(.dtb.create("login.sms.enter"))
+        .textStyle("dtb.h1")
+        .text(.dtb.create("dtb.login.sms.enter"))
         .value
     
-    private lazy var descLabel = UILabel().dtb.textStyle("placeholder").value
+    private lazy var descLabel = UILabel().dtb.textStyle("dtb.placeholder").value
     
     private lazy var titleStack = UIStackView(arrangedSubviews: [titleLabel, descLabel]).dtb
         .axis(.vertical)
@@ -115,7 +115,7 @@ class VerifyCodeView: UIView {
     private lazy var countLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15.0, weight: .regular)
-        label.textColor = .dtb.create("text_disabled")
+        label.textColor = .dtb.create("dtb.text_disabled")
         label.textAlignment = .right
         
         label.isUserInteractionEnabled = true

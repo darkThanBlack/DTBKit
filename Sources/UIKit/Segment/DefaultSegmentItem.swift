@@ -17,7 +17,7 @@ extension DTB {
     public final class DefaultSegmentItem: DTB.SegmentItem {
         
         public override func reloadAppearance() {
-            titleLabel.textColor = .dtb.create(isSelected ? "text" : "text2")
+            titleLabel.textColor = .dtb.create(isSelected ? "dtb.text" : "dtb.text2")
             titleLabel.font = .dtb.create(isSelected ? 17.0 : 15.0)
             indicator.isHidden = !isSelected
         }
@@ -53,7 +53,7 @@ extension DTB {
         
         private lazy var indicator: UIView = {
             let v = UIView()
-            v.backgroundColor = .dtb.create("theme")
+            v.backgroundColor = .dtb.create("dtb.theme")
             v.isHidden = true
             return v
         }()

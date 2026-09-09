@@ -1,5 +1,5 @@
 //
-//  StatCell.swift
+//  GridCell1.swift
 //  DTBKit
 //
 //  Created by moonShadow on 2026/8/20
@@ -14,7 +14,7 @@ import UIKit
 extension DTB {
 
     /// 统计网格 Cell，展示 title + detail
-    public final class StatCell: UICollectionViewCell {
+    public final class GridCell1: UICollectionViewCell {
 
         public func config(title: String?, detail: String?) {
             titleLabel.text = title
@@ -64,14 +64,14 @@ extension DTB {
         }
 
         private lazy var titleLabel = UILabel().dtb
-            .textStyle("b6")
+            .textStyle("dtb.b6")
             .numberOfLines(1)
             .value
 
         private lazy var detailLabel: UILabel = {
             let lb = UILabel()
             lb.font = UIFont.monospacedDigitSystemFont(ofSize: 17.0, weight: .bold)
-            lb.textColor = .dtb.create("text")
+            lb.textColor = .dtb.create("dtb.text")
             lb.numberOfLines = 1
             lb.adjustsFontSizeToFitWidth = true
             lb.minimumScaleFactor = 0.5

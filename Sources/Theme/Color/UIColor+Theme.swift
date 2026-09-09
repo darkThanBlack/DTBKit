@@ -51,10 +51,10 @@ extension StaticWrapper where T: UIColor {
         guard let value = value as? String else { return nil }
         let s = upper(value)
         
-        // argb 是 android 规范，iOS 平台上默认采用 rgba 规范
         if s.count == 6, let i = Int64(s, radix: 16) {
             return hex(i)
         }
+        // argb 是 android 规范，iOS 平台上默认采用 rgba 规范
         if s.count == 8, let i = Int64(s, radix: 16) {
             return hex(rgba: i)
         }

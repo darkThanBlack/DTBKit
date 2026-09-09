@@ -16,20 +16,20 @@ class SettingViewController: DTB.BaseViewController {
     
     private lazy var sections: [DTB.SectionModel] = {
         let keys = [
-            "setting.about",
-            "deep.labs",
-            "login",
-            "user.logout"
+            "dtb.setting.about",
+            "dtb.deep.labs",
+            "dtb.login",
+            "dtb.user.logout"
         ]
         
         var cells: [DTB.CellModel] = keys.compactMap({
             .init(
                 data: .init(primaryKey: $0, title: .dtb.create($0), showArrow: true),
-                style: .style("card_mid")
+                style: .style("dtb.card_mid")
             )
         })
-        cells.first?.style = .style("card_top")
-        cells.last?.style = .style("card_bottom")
+        cells.first?.style = .style("dtb.card_top")
+        cells.last?.style = .style("dtb.card_bottom")
         return [
             DTB.SectionModel(cells: cells)
         ]
@@ -46,7 +46,7 @@ class SettingViewController: DTB.BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .dtb.create("bg")
+        view.backgroundColor = .dtb.create("dtb.bg")
         
         setupNavigatonBar(with: .init(title: "设置"))
         loadViews(in: view)
@@ -90,23 +90,23 @@ class SettingViewController: DTB.BaseViewController {
 extension SettingViewController: SettingViewDelegate {
     
     func listItemEvent(_ data: DTB.SampleData) {
-        if data.primaryKey == "setting.about" {
+        if data.primaryKey == "dtb.setting.about" {
             let vc = AboutUsViewController()
             navigationController?.pushViewController(vc, animated: true)
             return
         }
-        if data.primaryKey == "deep.labs" {
+        if data.primaryKey == "dtb.deep.labs" {
             let vc = DTB.LabsViewController()
             navigationController?.pushViewController(vc, animated: true)
             return
         }
-        if data.primaryKey == "login" {
+        if data.primaryKey == "dtb.login" {
             let vc = LoginViewController()
             let nav = DTB.SystemNavigationController(rootViewController: vc)
             present(nav, animated: true)
             return
         }
-        if data.primaryKey == "user.logout" {
+        if data.primaryKey == "dtb.user.logout" {
             UserManager.shared.logout()
             return
         }

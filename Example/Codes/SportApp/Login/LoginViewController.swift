@@ -105,11 +105,11 @@ extension LoginViewController: PhoneLoginViewDelegate {
         view.endEditing(true)
         
         guard let phone = contentView.getPhone(), phone.isEmpty == false else {
-            self.view.dtb.toast(String.dtb.create("login.sms.placeholder.phone"))
+            self.view.dtb.toast(String.dtb.create("dtb.login.sms.placeholder.phone"))
             return nil
         }
         guard phone.dtb.isRegular(.init("^\\d{11}$")) else {
-            self.view.dtb.toast(String.dtb.create("login.phone.error"))
+            self.view.dtb.toast(String.dtb.create("dtb.login.phone.error"))
             return nil
         }
         
@@ -137,9 +137,9 @@ extension LoginViewController: PhoneLoginViewDelegate {
         if contentView.isPolicySelected {
             showSlider()
         } else {
-            let alert = UIAlertController(title: .dtb.create("alert.title.hint"), message: .dtb.create(format: "login.policy.hint", .dtb.create("policy.ts"), .dtb.create("policy.pp")), preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: .dtb.create("common.cancel"), style: .default, handler: nil))
-            alert.addAction(UIAlertAction(title: .dtb.create("common.ensure"), style: .default, handler: { [weak self] _ in
+            let alert = UIAlertController(title: .dtb.create("dtb.alert.title.hint"), message: .dtb.create(format: "dtb.login.policy.hint", .dtb.create("dtb.policy.ts"), .dtb.create("dtb.policy.pp")), preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: .dtb.create("dtb.common.cancel"), style: .default, handler: nil))
+            alert.addAction(UIAlertAction(title: .dtb.create("dtb.common.ensure"), style: .default, handler: { [weak self] _ in
                 self?.contentView.isPolicySelected = true
                 showSlider()
             }))

@@ -48,15 +48,15 @@ class VerifyCodeViewModel: LoginViewModel {
 //                .mapObject(type: LoginResultVO.self)
 //                .subscribe { result in
 //                    guard let token = result.authToken, token.isEmpty == false else {
-//                        errorHandler("token" + .dtb.create("error.required"))
+//                        errorHandler("token" + .dtb.create("dtb.error.required"))
 //                        return
 //                    }
 //                    guard let userId = result.userId?.dtb.string().value, userId.isEmpty == false else {
-//                        errorHandler("userId" + .dtb.create("error.required"))
+//                        errorHandler("userId" + .dtb.create("dtb.error.required"))
 //                        return
 //                    }
 //                    guard let domain = result.domain, domain.isEmpty == false else {
-//                        errorHandler("domain" + .dtb.create("error.required"))
+//                        errorHandler("domain" + .dtb.create("dtb.error.required"))
 //                        return
 //                    }
 //                    

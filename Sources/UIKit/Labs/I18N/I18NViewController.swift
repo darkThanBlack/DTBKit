@@ -22,16 +22,16 @@ extension DTB {
             /// primaryKey 和实际的语言标志符对应
             var cells: [DTB.CellModel] = [
                 .init(
-                    data: .init(primaryKey: nil, title: .dtb.create("deep.follow_system")),
-                    style: .style("card_top")
+                    data: .init(primaryKey: nil, title: .dtb.create("dtb.deep.follow_system")),
+                    style: .style("dtb.card_top")
                 ),
                 .init(
                     data: .init(primaryKey: "en", title: "English"),
-                    style: .style("card_mid")
+                    style: .style("dtb.card_mid")
                 ),
                 .init(
                     data: .init(primaryKey: "zh", title: "简体中文"),
-                    style: .style("card_bottom")
+                    style: .style("dtb.card_bottom")
                 )
             ]
             
@@ -50,7 +50,7 @@ extension DTB {
         public override func viewDidLoad() {
             super.viewDidLoad()
             
-            setupNavigatonBar(with: .init(title: .dtb.create("deep.i18n")))
+            setupNavigatonBar(with: .init(title: .dtb.create("dtb.deep.i18n")))
             loadViews(in: view)
         }
         
@@ -90,7 +90,7 @@ extension DTB.I18NViewController: DTB.CrumbsSampleViewDelegate {
             switch data.primaryKey {
             case "en":  return "Hint"
             case "zh":  return "提示"
-            default:    return .dtb.create("common.hint")
+            default:    return .dtb.create("dtb.common.hint")
             }
         }()
         
@@ -98,7 +98,7 @@ extension DTB.I18NViewController: DTB.CrumbsSampleViewDelegate {
             switch data.primaryKey {
             case "en":  return "Switching languages requires restarting APP. Continue?"
             case "zh":  return "切换语言需要重启 APP，是否继续？"
-            default:    return .dtb.create("deep.i18n.ensure")
+            default:    return .dtb.create("dtb.deep.i18n.ensure")
             }
         }()
         
@@ -106,7 +106,7 @@ extension DTB.I18NViewController: DTB.CrumbsSampleViewDelegate {
             switch data.primaryKey {
             case "en":  return "Cancel"
             case "zh":  return "取消"
-            default:    return .dtb.create("common.cancel")
+            default:    return .dtb.create("dtb.common.cancel")
             }
         }()
         
@@ -114,7 +114,7 @@ extension DTB.I18NViewController: DTB.CrumbsSampleViewDelegate {
             switch data.primaryKey {
             case "en":  return "Ensure"
             case "zh":  return "确定"
-            default:    return .dtb.create("common.ensure")
+            default:    return .dtb.create("dtb.common.ensure")
             }
         }()
         

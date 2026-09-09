@@ -105,9 +105,11 @@ extension DTB {
             // 注意不能遍历所有 bundle，因为
             // - 纯资源 bundle 不会 loaded
             // - 通过 pod.resource_bundles 加载的 xcassets 可能重名
-            // 直接查当前主题指定的 bundle
-            if let image = getImage(name: name, in: ThemeManager.shared.currentBundle) {
-                return image
+            // 遍历主题链：业务 bundle 优先，默认主题包兜底
+            for bundle in ThemeManager.shared.bundles {
+                if let image = getImage(name: name, in: bundle) {
+                    return image
+                }
             }
             
             // TODO: SwiftPM
