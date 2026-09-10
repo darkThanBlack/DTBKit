@@ -16,6 +16,14 @@ extension DTB {
     
     public final class DefaultSegmentItem: DTB.SegmentItem {
         
+        public var text: String? {
+            get { titleLabel.text }
+            set {
+                titleLabel.text = newValue
+                setNeedsLayout()
+            }
+        }
+        
         public override func reloadAppearance() {
             titleLabel.textColor = .dtb.create(isSelected ? "dtb.text" : "dtb.text2")
             titleLabel.font = .dtb.create(isSelected ? 15.0 : 13.0)

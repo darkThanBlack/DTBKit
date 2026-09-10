@@ -87,6 +87,7 @@ extension DTB {
             showPage(at: index, old: old)
         }
         
+        /// header 对象依赖于 dataSource, 而 dataSource 自然有可能变化，必须提供重新布局的入口
         public func reloadData() {
             headerView.removeFromSuperview()
             pageContainer.removeFromSuperview()
@@ -98,9 +99,9 @@ extension DTB {
             headerView = ds.segmentHeader(self)
             headerView.dataSource = self
             headerView.delegate = self
+            
             addSubview(headerView)
             addSubview(pageContainer)
-            
             headerView.snp.makeConstraints { make in
                 make.top.left.right.equalToSuperview()
             }
@@ -136,6 +137,7 @@ extension DTB {
             if let oldView = pageView(at: old) {
                 delegate?.segment(self, willHidePageAt: old)
                 oldView.isHidden = true
+                // FIXME: 需要避免约束跨 item 堆叠
             }
             
             // 每次调 pageFor，业务更新数据

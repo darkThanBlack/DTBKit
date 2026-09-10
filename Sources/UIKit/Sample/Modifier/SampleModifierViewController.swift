@@ -45,7 +45,7 @@ extension DTB {
 
         func segment(_ view: DTB.SegmentView, itemFor index: Int) -> DTB.SegmentItem {
             let item = DTB.DefaultSegmentItem()
-            item.titleLabel.text = pages[index].title
+            item.text = pages[index].title
             return item
         }
     }

@@ -25,6 +25,7 @@ extension DTB {
 
         private func loadViews(in box: UIView) {
             box.addSubview(stack)
+            
             stack.snp.makeConstraints { make in make.edges.equalToSuperview().inset(16) }
         }
 

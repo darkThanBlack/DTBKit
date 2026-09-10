@@ -86,13 +86,13 @@ extension DTB {
         
         private let localUrlKey = "DTBKitColorThemeUrlKey"
         
-        /// 内存映射
+        /// 内存映射（调试器/示例可直接读取解析后的渲染色）
         ///
         /// e.g.
         /// ```
         /// {"bg": { "light": "FFFFFF", "dark": "0x000000", "custom": "" } }
         /// ```
-        private var mapper: [String: [String: UIColor]] = [:]
+        private(set) var mapper: [String: [String: UIColor]] = [:]
         
         private init() {
             // 系统深浅色模式变化监听

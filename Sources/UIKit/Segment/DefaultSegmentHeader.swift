@@ -26,6 +26,7 @@ extension DTB {
             isScrollMode = false
             items.forEach { stack.addArrangedSubview($0) }
             setNeedsLayout()
+            invalidateIntrinsicContentSize()
         }
 
         // MARK: - Layout
@@ -69,7 +70,7 @@ extension DTB {
         }
 
         // MARK: - Init
-
+        
         public override init(frame: CGRect) {
             super.init(frame: frame)
             loadViews(in: self)

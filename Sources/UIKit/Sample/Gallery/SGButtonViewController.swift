@@ -20,12 +20,14 @@ extension DTB {
         override func viewDidLoad() {
             super.viewDidLoad()
 
-            loadViews(in: view)
+            // loadViews(in: view)
         }
 
         private func loadViews(in box: UIView) {
             box.addSubview(stack)
-            stack.snp.makeConstraints { make in make.edges.equalToSuperview().inset(16) }
+            stack.snp.makeConstraints { make in
+                make.edges.equalToSuperview().inset(16)
+            }
         }
 
         private lazy var stack = UIStackView(arrangedSubviews: [
