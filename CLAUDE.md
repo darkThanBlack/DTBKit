@@ -46,3 +46,21 @@
 - **契约**：外部 delegate **不实现** `sizeForItemAt`，item 尺寸统一由内部 `layout.itemSize` 决定；source 由调用方持有（视图侧是弱引用）。
 - **示例 cell**：`DTB.GridCell1`（迁移自 ring 的 `TouristStatCell`）；示例数据源 `GridDemoSource` 见 `Sources/UIKit/Labs/SelfSizingGrid/`。
 - **存放**：`Sources/UIKit/Classes/View/Collection/`。
+
+## 研究课题
+
+### 1. 页面结构相关
+- 如何在 `BaseViewController` 里实现 `StatusBarStyle` 受 `NavigationBar` 驱动
+- `Config.Themes` 的具体实现处理
+- 根据导航栏视觉内容推测出 `statusBarStyle`
+
+### 2. Demo 展示设计
+- 如何设计更好的 demo 展示，能够直观展示现有框架内容和能力，并调试视觉问题
+
+### 3. Button 状态配置重构
+- `DTB.Button` 的 `config` 和 `match` 在实现自动点击变暗效果时体现出局限性，如何重构
+- 当 style 来到 label 和 button 层面时，不可避免地需要决定 style 是否包含比如 title, image 这些 data 层面的属性
+
+### 4. 页面恢复 / VC 结构范式
+- 用自研恢复系统替代系统 `shouldRestoreApplicationState` 及相关 API（`UIStateRestoration` / `UIViewControllerRestoration`）
+- 第一步：调整现有 VC 结构范式，使导航/层级可被描述与重建；画廊展示区 item VC（`SegmentCandy` 承载）作为该范式的探索者

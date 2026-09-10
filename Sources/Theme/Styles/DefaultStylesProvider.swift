@@ -48,7 +48,12 @@ extension DTB {
             guard let key = param as? String else { return nil }
             return mapper["button_style"]?[key] as? DTB.ButtonStyle
         }
-        
+
+        public func createLabelStyle(_ param: Any?) -> DTB.LabelStyle? {
+            guard let key = param as? String else { return nil }
+            return mapper["label_style"]?[key] as? DTB.LabelStyle
+        }
+
         public func reloadData() {
             // style 之间有依赖，注意解析顺序
             [
@@ -56,7 +61,8 @@ extension DTB {
                 "gradient_style",
                 "container_style",
                 "text_style",
-                "button_style"
+                "button_style",
+                "label_style"
             ].forEach { fileName in
                 // 尾→头遍历：默认主题包先填，业务 bundle 覆盖
                 var merged: [String: [String: Any]] = [:]
@@ -83,6 +89,8 @@ extension DTB {
                     mapper[fileName] = merged.compactMapValues({ TextStyle(dict: $0) })
                 case "button_style":
                     mapper[fileName] = merged.compactMapValues({ ButtonStyle(dict: $0) })
+                case "label_style":
+                    mapper[fileName] = merged.compactMapValues({ LabelStyle(dict: $0) })
                 default:
                     console.error("\(fileName): json mapper not handle")
                 }

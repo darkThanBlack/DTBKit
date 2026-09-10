@@ -31,6 +31,8 @@
   "dtb.deep.crumbs.desc": "快速预览标记为 Crumbs 的布局组件",
   "dtb.deep.grid": "自适配网格",
   "dtb.deep.grid.desc": "展示自身尺寸跟随 contentSize 的网格视图",
+  "dtb.deep.sample": "组件画廊",
+  "dtb.deep.sample.desc": "上下两层 segment，展示框架视觉组件与主题能力",
   "dtb.common.cancel": "取消",
   "dtb.common.ensure": "确定",
   "dtb.common.hint": "提示",

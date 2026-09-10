@@ -33,7 +33,7 @@ extension DTB {
             // 只放在 Nav.push 会导致页面恢复时无法生效
             hidesBottomBarWhenPushed = true
             
-            // iOS 13.x present 效果适配
+            // 禁用 iOS 13.x present 效果
             modalPresentationStyle = .fullScreen
         }
         

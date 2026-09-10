@@ -8,7 +8,7 @@
 //  LICENSE: SAME AS REPOSITORY
 //  Contact me: [GitHub](https://github.com/darkThanBlack)
 //
-    
+
 
 import UIKit
 
@@ -18,7 +18,7 @@ extension DTB {
         
         public override func reloadAppearance() {
             titleLabel.textColor = .dtb.create(isSelected ? "dtb.text" : "dtb.text2")
-            titleLabel.font = .dtb.create(isSelected ? 17.0 : 15.0)
+            titleLabel.font = .dtb.create(isSelected ? 15.0 : 13.0)
             indicator.isHidden = !isSelected
         }
         
@@ -35,7 +35,7 @@ extension DTB {
         private func loadViews(in box: UIView) {
             box.addSubview(titleLabel)
             box.addSubview(indicator)
-
+            
             titleLabel.snp.makeConstraints { make in
                 make.top.left.right.equalToSuperview()
             }
@@ -49,7 +49,11 @@ extension DTB {
             }
         }
         
-        public lazy var titleLabel = UILabel().dtb.numberOfLines(1).value
+        public lazy var titleLabel: UILabel = {
+            let l = UILabel()
+            l.textAlignment = .center
+            return l
+        }()
         
         private lazy var indicator: UIView = {
             let v = UIView()

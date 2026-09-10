@@ -25,7 +25,9 @@ extension DTB.Providers {
         func createTextStyle(_ param: Any?) -> DTB.TextStyle?
         
         func createContainerStyle(_ param: Any?) -> DTB.ContainerStyle?
-        
+
         func createButtonStyle(_ param: Any?) -> DTB.ButtonStyle?
+
+        func createLabelStyle(_ param: Any?) -> DTB.LabelStyle?
     }
 }
