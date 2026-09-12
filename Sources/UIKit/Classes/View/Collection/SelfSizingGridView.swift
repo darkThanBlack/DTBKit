@@ -12,22 +12,22 @@
 import UIKit
 
 extension DTB {
-
+    
     /// SelfSizingGridView 的布局配置。
     public struct SelfSizingGridConfig {
-
+        
         /// item 高度（固定）
         public var itemHeight: CGFloat
-
+        
         /// 每行最大 item 数
         public var columnsPerRow: Int
-
+        
         /// 行间距
         public var lineGap: CGFloat
-
+        
         /// 列间距
         public var columnGap: CGFloat
-
+        
         public init(
             itemHeight: CGFloat = 50,
             columnsPerRow: Int = 2,
@@ -35,159 +35,120 @@ extension DTB {
             columnGap: CGFloat = 0
         ) {
             self.itemHeight = itemHeight
-            self.columnsPerRow = max(1, columnsPerRow)
+            self.columnsPerRow = columnsPerRow
             self.lineGap = lineGap
             self.columnGap = columnGap
         }
     }
-
-    /// SelfSizingGridView 的数据源协议。
-    ///
-    /// 继承 ``UICollectionViewDataSource`` + ``UICollectionViewDelegate``，
-    /// 并用关联类型声明「本网格注册的唯一 cell 类型」；
-    /// ``SelfSizingGridView/setDataSource(_:)`` 读取该类型完成 cell 注册。
-    ///
-    /// 由业务侧实现（通常是一个 `NSObject` 子类），网格视图本身不实现。
-    public protocol SelfSizingGridDataSource: UICollectionViewDataSource, UICollectionViewDelegate {
-
-        /// 唯一注册的 cell 类型
-        associatedtype CellType: UICollectionViewCell
-    }
 }
 
 extension DTB {
-
-    /// 自身尺寸始终等于 ``UICollectionView`` contentSize 的网格视图。
+    
+    /// 自身尺寸始终等于内容尺寸的网格视图。
     ///
     /// 阶段一布局：item 从左到右逐行排列，每行最多 `columnsPerRow` 个；
     /// `item.width = 均分当前宽度`，`item.height = itemHeight`（固定）。
     ///
-    /// 视图**不持有数据、不实现数据源**：cell 类型与数据都来自
-    /// ``SelfSizingGridDataSource``，通过 ``setDataSource(_:)`` 注入。
+    /// 尺寸（均分宽 × itemHeight）由本类独占计算，item 只负责在给定 frame 内自适应内容。
     ///
-    /// 内部 `collectionView` / `layout` 不对外暴露，尺寸由本类独占计算；
-    /// 若需要不同的布局行为，应另起一个 view，而不是改这个的内部件。
+    /// 无 dataSource / 无 cell 注册 / 无复用：业务在 `update(_ items:)` 里一次性给完整视图数组，
+    /// 并自行在 map 闭包内决定「同 index 返回什么 / 是否复用缓存实例」。
     ///
-    /// - Note: dataSource / delegate 沿用 UIKit 语义为**弱引用**，调用方需自行持有 source。
-    /// - Note: 业务 delegate **不要**实现 `sizeForItemAt`，item 尺寸统一由内部 `layout.itemSize` 决定。
+    /// 【item 契约】item 采用「适应给定 frame」：容器给定 frame，item 内容在其内自适应；
+    /// 预设尺寸（列宽 / itemHeight）是「内容上限」——低了压缩/截断，高了留白。
+    /// 故 item 内部不得用 required 固定尺寸约束，可伸缩部分用低优先级以便优雅降级。
+    /// 要「内容撑开、绝不压缩」→ SelfSizingFlowView。
     public final class SelfSizingGridView: UIView {
-
+        
         /// 当前布局配置。
-        public private(set) var config: SelfSizingGridConfig
-
-        /// 当前 item 数量（用于公式计算行数）。
-        private var itemCount: Int = 0
-
-        // MARK: - Init
-
-        public init(config: SelfSizingGridConfig = SelfSizingGridConfig()) {
-            self.config = config
-            super.init(frame: .zero)
-            loadViews(in: self)
+        public private(set) var config = SelfSizingGridConfig()
+        
+        /// 当前挂载的 item 视图。
+        private var itemViews: [UIView] = []
+        
+        public override init(frame: CGRect) {
+            super.init(frame: frame)
         }
-
+        
         public required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
-
+        
         // MARK: - Update
-
-        /// 注入数据源：注册 `T.CellType`，并把 dataSource / delegate 指向 source。
+        
+        /// 更新 item：整体替换，并刷新高度与内容。
         ///
-        /// 泛型只落在方法上，视图本身保持非泛型。
-        ///
-        /// - Parameter source: 遵循 ``SelfSizingGridDataSource`` 的业务对象（**弱引用**，调用方需持有）
-        public func setDataSource<T: SelfSizingGridDataSource>(_ source: T) {
-            collectionView.register(T.CellType.self, forCellWithReuseIdentifier: String(describing: T.CellType.self))
-            collectionView.dataSource = source
-            collectionView.delegate = source
-            collectionView.reloadData()
+        /// - Parameter items: 完整 item 视图数组。框架按数组顺序从左到右、从上到下排 frame；
+        ///   业务在调用前自行完成「创建 + 配数据」，要复用实例就在 map 闭包里返回缓存实例。
+        public func update(items: [UIView]) {
+            itemViews.forEach { $0.removeFromSuperview() }
+            itemViews = items
+            items.forEach { addSubview($0) }
+            relayout()
+            print("update.items fired")
         }
-
-        /// 更新布局配置与 item 数量，并刷新高度与内容。
-        ///
-        /// - Parameters:
-        ///   - config: 新的布局配置
-        ///   - numberOfItems: 当前数据源 item 总数（用于公式计算行数）
-        public func update(_ config: SelfSizingGridConfig, numberOfItems: Int) {
+        
+        /// 更新布局配置，并刷新高度与内容。
+        public func update(config: SelfSizingGridConfig) {
             self.config = config
-            self.itemCount = numberOfItems
-
-            layout.minimumLineSpacing = config.lineGap
-            layout.minimumInteritemSpacing = config.columnGap
-
-            collectionView.reloadData()
+            relayout()
+        }
+        
+        // MARK: - Layout
+        
+        /// 触发重排
+        private func relayout() {
             setNeedsLayout()
             invalidateIntrinsicContentSize()
         }
-
-        // MARK: - Sizing
-
+        
         public override var intrinsicContentSize: CGSize {
-            let w = bounds.width
-            guard w > 0, itemCount > 0 else { return CGSize(width: w, height: 0) }
-            return CGSize(width: w, height: gridHeight(for: w))
+            return CGSize(width: UIView.noIntrinsicMetric, height: gridHeight)
         }
-
+        
         public override func sizeThatFits(_ size: CGSize) -> CGSize {
-            let w = size.width
-            guard w > 0, itemCount > 0 else { return CGSize(width: w, height: 0) }
-            return CGSize(width: w, height: gridHeight(for: w))
+            return CGSize(width: size.width, height: gridHeight)
         }
-
+        
+        /// 计算总高度（阶段一：行数 × itemHeight，不依赖宽度）。
+        private var gridHeight: CGFloat {
+            guard itemViews.count > 0 else { return 0 }
+            /// 每行个数
+            let per = max(1, config.columnsPerRow)
+            /// 最后一行个数
+            let lastPer = itemViews.count % per
+            /// 行数
+            let lines = (itemViews.count / per) + (lastPer > 0 ? 1 : 0)
+            
+            let result = CGFloat(lines) * config.itemHeight + CGFloat(lines - 1) * config.lineGap
+            return result
+        }
+        
         public override func layoutSubviews() {
             super.layoutSubviews()
-
+            
             guard bounds.width > 0 else { return }
-
-            let columns = config.columnsPerRow
-            let colWidth = (bounds.width - CGFloat(columns - 1) * config.columnGap) / CGFloat(columns)
-            let newSize = CGSize(width: colWidth, height: config.itemHeight)
-            if layout.itemSize != newSize {
-                layout.itemSize = newSize
-            }
-
-            let h = gridHeight(for: bounds.width)
-            collectionView.snp.updateConstraints { make in
-                make.height.equalTo(h)
-            }
-        }
-
-        /// 网格总高度
-        private func gridHeight(for width: CGFloat) -> CGFloat {
-            let columns = config.columnsPerRow
-            let lines = (itemCount + columns - 1) / columns
-            guard lines > 0 else { return 0 }
-            return CGFloat(lines) * config.itemHeight + CGFloat(lines - 1) * config.lineGap
-        }
-
-        // MARK: - Subviews
-
-        private func loadViews(in box: UIView) {
-            box.addSubview(collectionView)
-            collectionView.snp.makeConstraints { make in
-                make.edges.equalToSuperview()
-                make.height.equalTo(0)
+            
+            guard itemViews.count > 0 else { return }
+            /// 每行个数
+            let per = max(1, config.columnsPerRow)
+            /// 最后一行个数
+            // let lastPer = itemViews.count % per
+            /// 行数
+            // let lines = (itemViews.count / per) + (lastPer > 0 ? 1 : 0)
+            /// 固定宽度
+            let itemWidth = (bounds.width - CGFloat(per - 1) * config.columnGap) / CGFloat(per)
+            
+            itemViews.enumerated().forEach { index, view in
+                view.frame = CGRect(
+                    x: CGFloat(index % per) * (itemWidth + config.columnGap),
+                    y: CGFloat(index / per) * (config.itemHeight + config.lineGap),
+                    width: itemWidth,
+                    height: config.itemHeight
+                )
             }
         }
-
-        /// 内部 collectionView，不对外暴露：布局细节由本类独占，外部有额外需求应另起一个 view。
-        private lazy var collectionView: UICollectionView = {
-            let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-            cv.backgroundColor = .clear
-            cv.isScrollEnabled = false
-            cv.showsVerticalScrollIndicator = false
-            return cv
-        }()
-
-        /// 内部 flowLayout，不对外暴露；`itemSize` 由 ``layoutSubviews()`` 按均分宽度实时计算。
-        private lazy var layout: UICollectionViewFlowLayout = {
-            let lt = UICollectionViewFlowLayout()
-            lt.scrollDirection = .vertical
-            lt.minimumLineSpacing = config.lineGap
-            lt.minimumInteritemSpacing = config.columnGap
-            lt.itemSize = CGSize(width: 1, height: config.itemHeight)
-            return lt
-        }()
+        
     }
+    
 }

@@ -13,8 +13,10 @@ import UIKit
 
 extension DTB {
 
-    /// 统计网格 Cell，展示 title + detail
-    public final class GridCell1: UICollectionViewCell {
+    /// 统计网格 item 视图，展示 title + detail。
+    ///
+    /// SelfSizingGridView 的示例 item：外层由容器设 frame，内部用 frame 布局子内容。
+    public final class GridCell1: UIView {
 
         public func config(title: String?, detail: String?) {
             titleLabel.text = title
@@ -24,15 +26,11 @@ extension DTB {
         public override init(frame: CGRect) {
             super.init(frame: frame)
 
-            loadViews(in: contentView)
+            loadViews(in: self)
         }
 
         public required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
-        }
-
-        public override var intrinsicContentSize: CGSize {
-            return layoutSubviewWithSize(super.intrinsicContentSize)
         }
 
         public override func sizeThatFits(_ size: CGSize) -> CGSize {
