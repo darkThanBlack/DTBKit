@@ -35,8 +35,8 @@ extension DTB {
         
         public static let shared = FontManager()
         
-        /// 已注册的自定义字体名称
-        private var customFontNames: Set<String> = []
+        /// 已注册的自定义字体名称（示例/调试器可直接读取）
+        private(set) var customFontNames: Set<String> = []
         
         private init() {}
         

@@ -21,8 +21,8 @@ extension DTB {
         
         private init() {}
         
-        /// { "json_file_name": { "key": "value" } }
-        private var mapper: [String: [String: Any]] = [:]
+        /// { "json_file_name": { "key": "value" } }（示例/调试器可直接读取解析后的 style）
+        private(set) var mapper: [String: [String: Any]] = [:]
         
         public func createShapeStyle(_ param: Any?) -> DTB.ShapeStyle? {
             guard let key = param as? String else { return nil }

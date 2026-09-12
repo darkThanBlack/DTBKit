@@ -32,6 +32,12 @@ extension DTB {
             .init(vc: DTB.SGButtonViewController(), title: "Button"),
             .init(vc: DTB.SGLabelViewController(), title: "Label"),
             .init(vc: DTB.SGColorViewController(), title: "Color"),
+            .init(vc: DTB.SGI18NViewController(), title: "I18N"),
+            .init(vc: DTB.SGFontViewController(), title: "Font"),
+            .init(vc: DTB.SGShapeViewController(), title: "Shape"),
+            .init(vc: DTB.SGGradientViewController(), title: "Gradient"),
+            .init(vc: DTB.SGContainerViewController(), title: "Container"),
+            .init(vc: DTB.SGTextViewController(), title: "Text"),
         ]
 
         var childPages: [UIViewController] { pages.map { $0.vc } }

@@ -24,7 +24,12 @@ extension DTB {
 
         public override func layoutItems(_ items: [DTB.SegmentItem]) {
             isScrollMode = false
-            items.forEach { stack.addArrangedSubview($0) }
+            items.forEach {
+                stack.addArrangedSubview($0)
+                $0.snp.makeConstraints { make in
+                    make.height.equalToSuperview().priority(.low)
+                }
+            }
             setNeedsLayout()
             invalidateIntrinsicContentSize()
         }
@@ -38,10 +43,15 @@ extension DTB {
 
             let spacing = stackSpacing * CGFloat(max(itemViews.count - 1, 0))
             let totalContent = itemViews.reduce(CGFloat(0)) { sum, item in
-                sum + item.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).width
+                let w = item.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).width
+                DTB.console.log("item reducing: total=\(itemViews.count) sum=\(sum), width=\(w)")
+                return sum + w
             } + spacing
 
             let needsScroll = totalContent > bounds.width
+            
+            DTB.console.log("total=\(itemViews.count), totalContent=\(totalContent), bounds.width=\(bounds.width)")
+            
             if needsScroll != isScrollMode {
                 isScrollMode = needsScroll
                 applyModeConstraints()
@@ -55,8 +65,8 @@ extension DTB {
                 scrollView.addSubview(stack)
                 scrollView.isScrollEnabled = true
                 stack.snp.remakeConstraints { make in
-                    make.edges.equalToSuperview()
-                    make.height.equalToSuperview()
+                    make.edges.equalTo(scrollView.contentLayoutGuide)
+                    make.height.equalTo(scrollView.frameLayoutGuide)
                 }
                 stack.distribution = .fill
             } else {

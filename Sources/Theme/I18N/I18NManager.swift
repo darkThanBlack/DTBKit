@@ -42,8 +42,8 @@ extension DTB {
         /// 标识持久化
         private let localKey = "DTBKitI18NLocalKey"
         
-        /// 内存映射
-        private var mapper: [String: String] = [:]
+        /// 内存映射（示例/调试器可直接读取解析后的文案）
+        private(set) var mapper: [String: String] = [:]
         
         private init() {
             // 系统调整语言时会强制 APP 重启, 监听失去意义

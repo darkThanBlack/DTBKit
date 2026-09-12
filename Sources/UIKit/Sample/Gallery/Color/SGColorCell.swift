@@ -26,11 +26,8 @@ extension DTB {
         func config(key: String, light: UIColor, dark: UIColor?, autoDark: UIColor) {
             keyLabel.text = key
             lightSwatch.backgroundColor = light
+            // 无显式 dark 时留空（透明），统一黑色边框由 makeSwatch 提供，示意「未配置」
             darkSwatch.backgroundColor = dark ?? .clear
-            // 无显式 dark 时给个描边，示意「未配置」
-            darkSwatch.layer.borderColor = (dark == nil)
-                ? UIColor.dtb.create("dtb.border").cgColor
-                : UIColor.clear.cgColor
             autoDarkSwatch.backgroundColor = autoDark
         }
 
@@ -57,28 +54,25 @@ extension DTB {
                 make.top.bottom.equalToSuperview().inset(12)
                 make.width.equalTo(Self.columnWidth * 3)
             }
+
+            // 色块直接作为 arrangedSubviews，尺寸约束统一在此遍历设置，不再用 wrap 包装
+            swatchStack.arrangedSubviews.forEach { swatch in
+                swatch.snp.makeConstraints { make in
+                    make.height.equalTo(Self.swatchSize)
+                }
+            }
         }
 
         private lazy var keyLabel: UILabel = {
             let lb = UILabel()
             lb.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-            lb.textColor = .dtb.create("dtb.text")
+            lb.textColor = DTB.SampleDepends.textColor()
             return lb
         }()
 
         private lazy var swatchStack = UIStackView(arrangedSubviews: [
-            wrap(lightSwatch), wrap(darkSwatch), wrap(autoDarkSwatch)
-        ]).dtb.axis(.horizontal).distribution(.fillEqually).alignment(.center).value
-
-        private func wrap(_ swatch: UIView) -> UIView {
-            let box = UIView()
-            box.addSubview(swatch)
-            swatch.snp.makeConstraints { make in
-                make.center.equalToSuperview()
-                make.width.height.equalTo(Self.swatchSize)
-            }
-            return box
-        }
+            lightSwatch, darkSwatch, autoDarkSwatch
+        ]).dtb.axis(.horizontal).distribution(.fillEqually).alignment(.center).spacing(8).value
 
         private let lightSwatch = makeSwatch()
 
@@ -91,7 +85,7 @@ extension DTB {
             v.layer.cornerRadius = 8
             v.clipsToBounds = true
             v.layer.borderWidth = 1
-            v.layer.borderColor = UIColor.clear.cgColor
+            v.layer.borderColor = UIColor.black.cgColor
             return v
         }
     }

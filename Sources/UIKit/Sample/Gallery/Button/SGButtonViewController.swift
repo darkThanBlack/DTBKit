@@ -40,8 +40,8 @@ extension DTB {
         private func makeButton(_ text: String) -> DTB.Button {
             let b = DTB.Button()
             b.setTitle(text, for: .normal)
-            b.setBackgroundColor(.dtb.create("dtb.theme"), for: .normal)
-            b.setTextColor(.dtb.create("dtb.text4"), for: .normal)
+            b.setBackgroundColor(DTB.SampleDepends.themeColor(), for: .normal)
+            b.setTextColor(DTB.SampleDepends.text4Color(), for: .normal)
             b.setContentEdgeInsets(UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 16), for: .normal)
             return b
         }

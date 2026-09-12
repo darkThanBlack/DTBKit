@@ -69,7 +69,7 @@ extension DTB {
             }()
             for (i, label) in headerLabels.enumerated() {
                 let active = (i == index)
-                label.textColor = active ? .dtb.create("dtb.theme") : .dtb.create("dtb.text2")
+                label.textColor = active ? DTB.SampleDepends.themeColor() : DTB.SampleDepends.text2Color()
                 label.font = UIFont.systemFont(ofSize: 12, weight: active ? .bold : .medium)
             }
         }
@@ -81,12 +81,12 @@ extension DTB {
             lb.text = $0
             lb.textAlignment = .center
             lb.font = UIFont.systemFont(ofSize: 12, weight: .medium)
-            lb.textColor = .dtb.create("dtb.text2")
+            lb.textColor = DTB.SampleDepends.text2Color()
             return lb
         }
 
         private lazy var headerStack = UIStackView(arrangedSubviews: headerLabels)
-            .dtb.axis(.horizontal).distribution(.fillEqually).value
+            .dtb.axis(.horizontal).distribution(.fillEqually).spacing(8).value
 
         private lazy var tableView: UITableView = {
             let tv = UITableView.dtb.plain(self, cells: [DTB.SGColorCell.self])
