@@ -31,12 +31,12 @@ extension DTB.HFBehaviors {
     
     /// 默认按设计图宽度等比缩放；参见 ``DTB.Performance.designBaseSize``
     @inline(__always)
-    public static func scale(_ axis: DTB.Axis = .h) -> Self {
+    public static func scale(_ axis: DTB.Axis = .horizontal) -> Self {
         return DTB.HFBehaviors { v in
             switch axis {
-            case .h:
+            case .horizontal:
                 return v * UIScreen.main.bounds.size.width / DTB.config.designBaseSize.width
-            case .v:
+            case .vertical:
                 return v * UIScreen.main.bounds.size.height / DTB.config.designBaseSize.height
             }
         }

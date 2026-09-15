@@ -76,16 +76,15 @@ extension DTB {
         
         // MARK: - Update
         
-        /// 更新 item：整体替换，并刷新高度与内容。
+        /// 更新 items：整体替换
         ///
         /// - Parameter items: 完整 item 视图数组。框架按数组顺序从左到右、从上到下排 frame；
-        ///   业务在调用前自行完成「创建 + 配数据」，要复用实例就在 map 闭包里返回缓存实例。
+        ///   业务在调用前自行完成「创建 + 配数据」
         public func update(items: [UIView]) {
             itemViews.forEach { $0.removeFromSuperview() }
             itemViews = items
             items.forEach { addSubview($0) }
             relayout()
-            print("update.items fired")
         }
         
         /// 更新布局配置，并刷新高度与内容。

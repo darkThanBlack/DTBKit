@@ -33,19 +33,18 @@
 
 ## 进行中的组件设计
 
-### SelfSizingGridView（阶段一）
-- **目标**：通用「自身尺寸 == contentSize」的 collectionView 容器视图，是 ring 项目 `TouristStatGridView` 的进化结果。
-- **命名**：`DTB.SelfSizingGridView` —— `SelfSizing` 突出「自身尺寸跟随内容」这一特性；后续布局模式沿用同一前缀 + 布局名（如 `SelfSizingWaterfallView`）。
-- **非泛型**：视图类本身不带泛型、不 conform 数据源协议（泛型类不能在 extension 里 conform `@objc` 协议），dataSource / delegate 由外部传入。
-- **封闭内部件**：`collectionView` / `layout` 保持 `private`，外部不得改动——尺寸计算由本类独占；有不同布局需求应另起一个 view，而不是改内部件。
-- **数据源协议**：`DTB.SelfSizingGridDataSource` 继承 `UICollectionViewDataSource` + `UICollectionViewDelegate`，用 `associatedtype CellType` 声明唯一注册的 cell 类型；协议 extension 提供 `reuseIdentifier` 默认实现（`String(describing: CellType.self)`）。
-- **泛型只落在方法上**：`setDataSource<T: SelfSizingGridDataSource>(_ source: T)` 读取 `T.CellType` 完成注册并挂 dataSource / delegate；引用语义同 UIKit（弱引用），调用方需自行持有 source。
-- **配置**：布局参数集中在 `DTB.SelfSizingGridConfig`（`itemHeight` / `columnsPerRow` / `lineGap` / `columnGap`），通过 `update(_ config:numberOfItems:)` 更新，而非 init 固定。
-- **阶段一布局**：grid 均分换行。item 从左到右逐行排，每行最多 `columnsPerRow` 个；`item.width = 均分当前宽度`，`item.height = itemHeight`（固定）。
-- **self-sizing 实现**：公式法（行数 × itemHeight + 行距 × (行数-1)），非 contentSize KVO；前提是 cell 等高、尺寸不依赖数据。
-- **契约**：外部 delegate **不实现** `sizeForItemAt`，item 尺寸统一由内部 `layout.itemSize` 决定；source 由调用方持有（视图侧是弱引用）。
-- **示例 cell**：`DTB.GridCell1`（迁移自 ring 的 `TouristStatCell`）；示例数据源 `GridDemoSource` 见 `Sources/UIKit/Labs/SelfSizingGrid/`。
+### SelfSizingGridView（阶段一，已完成）
+- **目标**：通用「自身尺寸 == contentSize」的网格容器视图，ring 项目 `TouristStatGridView` 的进化结果。
+- **命名**：`SelfSizing` 前缀 + 布局中间词 + `View` 后缀；`Grid` = 容器均分列宽。后续 `SelfSizingFlowView`（流式）/ `SelfSizingWaterfallView`（瀑布流）。
+- **无 collection / 无 protocol / 无复用**：`self.height` 全展开 ⟂ 复用，故彻底抛弃 collectionView + dataSource protocol，裸 `update(items:)` 接口；业务在 map 闭包里决定「同 index 返回什么 / 是否复用缓存实例」，框架不缓存、不 diff、不 configure。
+- **接口**：`update(items: [UIView])`（换数据）/ `update(config:)`（换参数），都触发 `relayout()`（对内 `setNeedsLayout` + 对外 `invalidateIntrinsicContentSize`）。
+- **item 契约**：item 采用「适应给定 frame」——容器给定 frame，item 内容在其内自适应；预设尺寸（列宽/itemHeight）是「内容上限」，低了压缩/截断、高了留白；item 内部不得用 required 固定尺寸约束，可伸缩用低优先级。
+- **尺寸**：`intrinsicContentSize = (UIView.noIntrinsicMetric, gridHeight)`——宽度由外部约束决定（noIntrinsicMetric），高度公式法。`gridHeight = 行数 × itemHeight + 行距 × (行数-1)`，行数 `(count/per) + (lastPer>0 ? 1:0)` 向上取整，**不依赖 bounds.width**。
+- **布局**：`layoutSubviews` 里算 `itemWidth = (bounds.width - (per-1)×columnGap) / per`，`index % per` / `index / per` 定位。
+- **配置**：`SelfSizingGridConfig` 四参数 `itemHeight`/`columnsPerRow`/`lineGap`/`columnGap`，字段 `var`，clamp（`max(1,...)`）在消费点不在 init。
+- **示例**：`DTB.GridCell1`（UIView，非 cell）；`SelfSizingGridViewController` 直接 `grid.update(items: data.map {...})`。
 - **存放**：`Sources/UIKit/Classes/View/Collection/`。
+
 
 ### SegmentView / SegmentCandy
 - **切换 item 的待定决策**（记录待议，勿拍脑袋下结论）：
@@ -92,7 +91,7 @@
 - **依赖顺序**：变高必须建立在「每行成员已确定」之上——先维度一（换行）后维度二（行高 = 该行 max(item 高)）；变高不是平行新家族，而是每个家族的内部演进。
 - **变高终结公式法**：总高从「行数 × itemHeight」退化为「Σ 每行 max(item 高)」，且每行 max 依赖实测每个 item → 退回 `systemLayoutSizeFitting` / contentSize KVO，`SelfSizing` 系列「公式法、不碰 KVO」的立身之本失效。
 - **硬边界：self.height 与 cell 复用互斥**：要拿完整总高必须全展开 + 关自身滚动 → collectionView 全量 materialize、不触发重用；离屏（被祖先推出屏幕）≠ 回收（回收只看自身 contentOffset + bounds）。小 N 用 self-sizing，大 N 用自滚动，二者是不同 view。
-- **API 方向：不用 dataSource protocol，用裸 `reload(_ views: [UIView])`。** 理由链：业务对同 index 可自由返回不同类型/实例（cellForRow 完整语义）→ 该能力靠复用池支撑；但复用池 ⟂ self.height 全展开（硬边界，需滚动回收）→ 完善 protocol 在 SelfSizing 约束下自相矛盾；砍掉复用池的「询问式 protocol」退化成「业务自己 map」的多余间接层。故 protocol 只有两条路——完善（需复用，归「大 N 自滚动」另起线）或不用（SelfSizing 选不用）。接口收敛为 `update(_ config:)` + `reload(_ views:)` 两个裸方法；业务自行在 map 闭包里决定「同 index 返回什么/是否复用缓存实例」，框架不缓存、不 diff、不 configure。测量走 `sizeThatFits`（UIView 规范接口），不引入 `configure` / 业务手填宽度。CSS flexbox 概念（flex-basis/grow/shrink/wrap/justify）与原生 `UICollectionViewFlowLayout`+delegate 尺寸之间的取舍，仍在维度一内部待定。
+- **API 方向：不用 dataSource protocol，用裸 `reload(_ views: [UIView])`。** 理由链：业务对同 index 可自由返回不同类型/实例（cellForRow 完整语义）→ 该能力靠复用池支撑；但复用池 ⟂ self.height 全展开（硬边界，需滚动回收）→ 完善 protocol 在 SelfSizing 约束下自相矛盾；砍掉复用池的「询问式 protocol」退化成「业务自己 map」的多余间接层。故 protocol 只有两条路——完善（需复用，归「大 N 自滚动」另起线）或不用（SelfSizing 选不用）。接口收敛为 `update(_ config:)` + `reload(_ views:)` 两个裸方法；业务自行在 map 闭包里决定「同 index 返回什么/是否复用缓存实例」，框架不缓存、不 diff、不 configure。父类只规定 item 的「布局思路」（Grid=适应 frame / Flow=自报尺寸），不规定测量实现（`sizeThatFits` 手算 vs `systemLayoutSizeFitting` 约束求解由 item 自定）；不引入 `configure` / 业务手填宽度。CSS flexbox 概念（flex-basis/grow/shrink/wrap/justify）与原生 `UICollectionViewFlowLayout`+delegate 尺寸之间的取舍，仍在维度一内部待定。
 - **config 边界（参数 vs 不变量）**：config 只承载「同算法换输入」的参数（`columnsPerRow` 值、gap、itemHeight），不承载「算法翻转」的不变量（谁算尺寸、怎么换行、总高怎么求、滚不滚）。可操作判据：删掉某字段 view 能否仍完整工作——能则参数，不能则是不变量、该新对象。红色信号：config 出现 `mode`/`isSelfSizing` 枚举、或某字段只在某分支下有意义（dead field）。Grid 内部演进：均分 → 比例列宽（`columnWeights: [CGFloat]?`，nil=均分、非 nil=按权重）仍是不变量内参数（都是「容器把总宽按系数分给每列、永远填满」）；到「定宽/弹性列」引入绝对宽 → 跳出「永远填满」，不变量翻转，归 Flow（`sizeForItemAt` 自报宽，天然容纳「定宽 + 内容宽」混合）或表格框架（列宽规格），非 Grid 内配置。
 - **Grid/Flow 接口镜像**：同一原生方法 `sizeForItemAt` 在 Grid 是「禁」（容器独占尺寸、config 有 `columnsPerRow`），在 Flow 是「必」（item 自报尺寸、config 无 `columnsPerRow`）——用「禁/必」把宽度决策权移交写进 API 语义，学习成本趋近于零。
 - **CSS flex 概念映射**：比例列宽 ≈ `flex-grow`（`flex:1` 里的 grow，均分 = 权重全 1），只取 grow「分正空间/剩余」这一半，不取 shrink「分负空间/压缩」——因为 Grid 永远填满、永无负空间；一旦要 shrink（列宽和 > 容器宽）即跳出「永远填满」，归 Flow/表格。Grid 职责收敛为「容器把一行相对填满，只管 grow」。
@@ -105,3 +104,9 @@
 - **布局引擎**：`SS.VenueLayoutEngine`（measure-solve-layout）——`TopoHeader`（树形/多级合并表头，children）+ `TopoGrid`（逻辑行列 + colSpan/rowSpan 占位）纯算 frame + contentSize，与 view 解耦。
 - **复用机制**：`XMScrollView` + `XMScrollViewModel`（自定义可复用滚动容器 + 模型协议，非 UICollectionView）。
 - **待提取框架层**：冻结行/列表头 + 网格、三向滚动同步、缩放、topo 布局引擎、可复用滚动容器 + 模型协议；业务部分（场地/预订/时段状态、Butterfly VO）剔除。
+
+### 8. Cell 动态高度（template cell 路线，独立课题）
+- 与 SelfSizingFlowView 无关：FlowView 是「流式换行容器」（算 size），Cell 动态高度是「消费侧怎么把 size 变成 cell 高度」。
+- 深度研究结论（留档 `Docs/SelfSizingFlowCell-Research.md`）：wrap-dependent（高依赖宽）的自尺寸 cell，`automaticDimension + autolayout` 天然失败——测量时宽未定。
+- 五类方案：1) 参数化宽度（preferredMaxLayoutWidth 模式，layoutSubviews 重置宽）2) 离屏 template cell + heightForRowAt 缓存（测前 pin 宽）3) 手写 sizeThatFits + layoutSubviews 4) override systemLayoutSizeFitting（cell 层强制二遍）5) UICollectionViewFlowLayout + estimatedItemSize = automaticSize。
+- frame 路线（2、3）对 wrap-dependent 最 robust；稍后再展开实现。

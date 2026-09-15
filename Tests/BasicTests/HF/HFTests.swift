@@ -15,14 +15,14 @@ import XCTest
 final class HFTests: XCTestCase {
 
     func testHF() throws {
-        XCTAssertEqual(DTB.Axis.h.nsValue, NSLayoutConstraint.Axis.horizontal)
-        XCTAssertEqual(DTB.Axis.v.nsValue, NSLayoutConstraint.Axis.vertical)
+        XCTAssertEqual(DTB.Axis.horizontal.nsValue, NSLayoutConstraint.Axis.horizontal)
+        XCTAssertEqual(DTB.Axis.vertical.nsValue, NSLayoutConstraint.Axis.vertical)
 
         let designSize = DTB.config.designBaseSize
         let screenSize = UIScreen.main.bounds.size
         print("HFTests: designSize=\(designSize), screenSize=\(screenSize)")
         XCTAssertEqual(1.dtb.hf(), 1 * UIScreen.main.bounds.size.width / DTB.config.designBaseSize.width)
-        XCTAssertEqual(1.dtb.hf(.scale(.v)), 1 * UIScreen.main.bounds.size.height / DTB.config.designBaseSize.height)
+        XCTAssertEqual(1.dtb.hf(.scale(.vertical)), 1 * UIScreen.main.bounds.size.height / DTB.config.designBaseSize.height)
     }
     
 }

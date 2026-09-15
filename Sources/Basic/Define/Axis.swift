@@ -26,14 +26,14 @@ extension DTB {
     @frozen
     public enum Axis: CaseIterable {
         /// NSLayoutConstraint.Axis.horizontal
-        case h
+        case horizontal
         /// NSLayoutConstraint.Axis.vertical
-        case v
+        case vertical
         
         public var nsValue: NSLayoutConstraint.Axis {
             switch self {
-            case .h:  return .horizontal
-            case .v:  return .vertical
+            case .horizontal:  return .horizontal
+            case .vertical:  return .vertical
             }
         }
     }
