@@ -1,5 +1,5 @@
 //
-//  AlertViewController.swift
+//  BaseAlertViewController.swift
 //  DTBKit
 //
 //  Created by moonShadow on 2026/9/8
@@ -22,8 +22,8 @@ extension DTB {
     ///   - 点击关闭由本身提供（盖一个透明 view）
     ///
     /// 子类负责：对齐方式之外的「背景 / 圆角 / 内容排版」。
-    @objc(DTBAlertViewController)
-    open class AlertViewController: UIViewController {
+    @objc(DTBBaseAlertViewController)
+    open class BaseAlertViewController: UIViewController {
 
         /// 业务容器（透明，中心对齐；宽高由子类约束）
         public lazy var contentView = {

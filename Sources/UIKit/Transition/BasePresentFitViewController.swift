@@ -1,5 +1,5 @@
 //
-//  DTBFitPresentViewController.swift
+//  BasePresentFitViewController.swift
 //  SmartSales
 //
 //  Created by moonShadow on 2026/8/28
@@ -18,8 +18,8 @@ extension DTB {
     ///   - 整体高度由子类相对于 contentView 的 self-sizing 约束决定
     ///   - 灰色背景由转场层提供
     ///   - 点击关闭由本身提供(盖一个透明 view)
-    @objc(DTBPresentFitViewController)
-    open class PresentFitViewController: UIViewController {
+    @objc(DTBBasePresentFitViewController)
+    open class BasePresentFitViewController: UIViewController {
         
         /// 业务容器
         public lazy var contentView = {

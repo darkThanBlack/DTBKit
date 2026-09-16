@@ -49,6 +49,22 @@ extension DTB {
 
 extension DTB {
 
+    /// SelfSizingGridView 的数据源（可选入口，`dataSource != nil` 即协议模式）。
+    ///
+    /// 与 `update(items:)` 裸数组模式共存：`reloadData()` 内 for 循环拉快照后仍走裸数组数据流，布局引擎零 fork。
+    /// 无 `sizeForItemAt`（容器均分独占尺寸）、无 delegate（item 非 cell，点击由 item 在 `itemAt` 内自处理）、无 dequeue（全展开无离屏回收）。
+    ///
+    /// 实例复用职责在业务：`itemAt` 可能随 `reloadData` 多次回调，业务自行在 model 内缓存「同 index 同实例」。
+    public protocol SelfSizingGridDataSource: AnyObject {
+
+        func numberOfItems(in gridView: SelfSizingGridView) -> Int
+
+        func gridView(_ gridView: SelfSizingGridView, itemAt index: Int) -> UIView
+    }
+}
+
+extension DTB {
+
     /// 自身尺寸始终等于内容尺寸的网格视图。
     ///
     /// 布局：均分数 = `itemsPerLine`；模式由 item 尺寸推导——
@@ -61,6 +77,9 @@ extension DTB {
 
         /// 当前布局配置。
         public private(set) var config = SelfSizingGridConfig()
+
+        /// 可选数据源：非 nil 即协议模式，`reloadData()` 从它拉取；置 nil 切回裸 `update(items:)` 模式。
+        public weak var dataSource: SelfSizingGridDataSource?
 
         /// 当前挂载的 item 视图。
         private var itemViews: [UIView] = []
@@ -94,6 +113,23 @@ extension DTB {
         }
 
         // MARK: - Update
+
+        /// 重新加载数据：`dataSource != nil` 时从数据源拉取并替换；否则保留当前 items 仅重排。
+        ///
+        /// `itemAt` 只在 `reloadData()` 里回调、每 index 恰好一次；布局收敛（`relayout`/`layoutSubviews`/intrinsic 查询）绝不重调。
+        public func reloadData() {
+            guard let ds = dataSource else {
+                relayout()
+                return
+            }
+            let count = ds.numberOfItems(in: self)
+            var views: [UIView] = []
+            views.reserveCapacity(count)
+            for index in 0..<count {
+                views.append(ds.gridView(self, itemAt: index))
+            }
+            update(items: views)
+        }
 
         /// 更新 items：整体替换
         ///

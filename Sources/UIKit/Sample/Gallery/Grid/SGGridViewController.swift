@@ -108,6 +108,13 @@ extension DTB {
                 make.height.equalTo(320.0)
             }
 
+            contentStack.addArrangedSubview(makeIntroLabel("dataSource 协议模式（dataSource != nil，item 构造下沉到数据源，缓存复用实例）"))
+            let dsGrid = DTB.SelfSizingGridView()
+            dsGrid.update(config: .init(itemHeight: 44, itemsPerLine: 4, lineSpacing: 8, itemSpacing: 8))
+            dsGrid.dataSource = gridDataSource
+            dsGrid.reloadData()
+            contentStack.addArrangedSubview(dsGrid)
+
             view.setNeedsLayout()
             view.invalidateIntrinsicContentSize()
         }
@@ -171,6 +178,30 @@ extension DTB {
             tv.backgroundColor = .clear
             return tv
         }()
+
+        /// 强持有数据源（`dataSource` 为 weak，需外部保活）。
+        private lazy var gridDataSource: GridDemoDataSource = GridDemoDataSource()
+
+        /// 演示 `SelfSizingGridDataSource`：item 构造下沉，「同 index 同实例」由 `itemAt` 内缓存保证。
+        private final class GridDemoDataSource: SelfSizingGridDataSource {
+
+            private let stats: [(String, String)] = [
+                ("总收入", "¥1,234"), ("游客数", "3,456"), ("订单数", "789"), ("复购率", "45%")
+            ]
+            private var cache: [Int: UIView] = [:]
+
+            func numberOfItems(in gridView: SelfSizingGridView) -> Int {
+                return stats.count
+            }
+
+            func gridView(_ gridView: SelfSizingGridView, itemAt index: Int) -> UIView {
+                if let cached = cache[index] { return cached }
+                let item = DTB.GridDemoItem(frame: .zero)
+                item.config(title: stats[index].0, detail: stats[index].1)
+                cache[index] = item
+                return item
+            }
+        }
     }
 }
 

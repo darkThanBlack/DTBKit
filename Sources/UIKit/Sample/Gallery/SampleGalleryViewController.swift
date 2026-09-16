@@ -40,6 +40,7 @@ extension DTB {
             .init(vc: DTB.SGButtonViewController(), title: "Button"),
             .init(vc: DTB.SGGridViewController(), title: "Grid"),
             .init(vc: DTB.SGFlowViewController(), title: "Flow"),
+            .init(vc: DTB.SGScrollViewController(), title: "Scroll"),
         ]
 
         var childPages: [UIViewController] { pages.map { $0.vc } }

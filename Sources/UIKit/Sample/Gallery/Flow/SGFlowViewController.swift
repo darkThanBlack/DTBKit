@@ -120,6 +120,9 @@ extension DTB {
             contentStack.addArrangedSubview(makeIntroLabel("tableview cell 自动算高（预期错误）"))
             contentStack.addArrangedSubview(tableView)
 
+            contentStack.addArrangedSubview(makeIntroLabel("dataSource 协议模式（dataSource != nil，item 构造下沉到数据源，缓存复用实例）"))
+            contentStack.addArrangedSubview(dsFlowView)
+
             /// scrollview / tableview 无固有高度，stack 内需显式给高；数值可自行调整
             hScrollView.snp.makeConstraints { make in
                 make.height.equalTo(120.0)
@@ -129,6 +132,10 @@ extension DTB {
             }
             tableView.snp.makeConstraints { make in
                 make.height.equalTo(320.0)
+            }
+            /// 撑高依赖宽，需钉死宽
+            dsFlowView.snp.makeConstraints { make in
+                make.width.equalToSuperview()
             }
 
             hScrollView.addSubview(hStack)
@@ -192,6 +199,7 @@ extension DTB {
             }
 
             tableView.reloadData()
+            dsFlowView.reloadData()
         }
 
         private lazy var scrollView: UIScrollView = {
@@ -271,6 +279,46 @@ extension DTB {
             tv.isScrollEnabled = false
             return tv
         }()
+
+        /// dataSource 协议模式：`dataSource != nil`，item 构造下沉到数据源。
+        private lazy var dsFlowView: DTB.SelfSizingFlowView = {
+            let flow = DTB.SelfSizingFlowView()
+            flow.update(config: DTB.SelfSizingFlowConfig(
+                axis: .horizontal,
+                alignment: .center,
+                lineSpacing: 8.0,
+                itemSpacing: 8.0
+            ))
+            flow.dataSource = flowDataSource
+            return flow
+        }()
+
+        /// 强持有数据源（`dataSource` 为 weak，需外部保活）。
+        private lazy var flowDataSource: FlowDemoDataSource = {
+            FlowDemoDataSource(builders: groups[0])
+        }()
+
+        /// 演示 `SelfSizingFlowDataSource`：item 构造下沉，「同 index 同实例」由 `itemAt` 内缓存保证。
+        private final class FlowDemoDataSource: SelfSizingFlowDataSource {
+
+            private let builders: [() -> UIView]
+            private var cache: [Int: UIView] = [:]
+
+            init(builders: [() -> UIView]) {
+                self.builders = builders
+            }
+
+            func numberOfItems(in flowView: SelfSizingFlowView) -> Int {
+                return builders.count
+            }
+
+            func flowView(_ flowView: SelfSizingFlowView, itemAt index: Int) -> UIView {
+                if let cached = cache[index] { return cached }
+                let view = builders[index]()
+                cache[index] = view
+                return view
+            }
+        }
     }
 }
 

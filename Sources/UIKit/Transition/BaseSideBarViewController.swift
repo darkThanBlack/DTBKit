@@ -1,5 +1,5 @@
 //
-//  SideBarViewController.swift
+//  BaseSideBarViewController.swift
 //  DTBKit
 //
 //  Created by moonShadow on 2026/9/8
@@ -21,8 +21,8 @@ extension DTB {
     ///   - 灰色背景 + 点击遮罩关闭由转场层提供
     ///
     /// 子类负责：抽屉内部「背景 / 圆角 / 内容排版」。
-    @objc(DTBSideBarViewController)
-    open class SideBarViewController: UIViewController {
+    @objc(DTBBaseSideBarViewController)
+    open class BaseSideBarViewController: UIViewController {
 
         /// 业务容器（铺满 presented 视图）
         public lazy var contentView = {

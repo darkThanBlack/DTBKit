@@ -102,7 +102,7 @@
 ### 7. SpreadSheet 表格框架提取（Venue）
 - 来源：`XiaoMai/b/XMBusiness/Business/TaiChi/Venue` 的仿 excel 表格。
 - **已拆成两层，独立课题**：
-  - **7A 第一层——可复用 scroll + cell**（当前进行中）：`XMScrollView` + 复用池，见 `Sources/…/Collection`（待建）与 `Docs/SpreadSheet-Scroll-Layer1-Research.md`。
+  - **7A 第一层——可复用 scroll + cell**（已落地）：`DTB.ReusableScrollView` + `DTB.ReusableCell` + `ReusableScrollViewDataSource`，见 `Sources/UIKit/Classes/View/Scroll/ReusableScrollView.swift`；demo 在 `Sample/Gallery/Scroll/`（`SGScrollViewController` + `ScrollDemoCell`，已挂画廊「Scroll」页）。研究与选型结论见 `Docs/SpreadSheet-Scroll-Layer1-Research.md`。
   - **7B 第二层——与业务分离的网格布局框架**：`SS.VenueLayoutEngine`（topo 布局），先不动。
 - **核心结构**：三块同步 scrollView——左侧行表头 `leftScrollView` + 顶部列表头 `topScrollView` + 网格 `gridScrollView`，`scrollViewDidScroll` 三向联动；捏合缩放（`setScale` + 锚点 `calOffset`）。
 - **布局引擎（7B）**：`SS.VenueLayoutEngine`（measure-solve-layout）——`TopoHeader`（树形/多级合并表头，children）+ `TopoGrid`（逻辑行列 + colSpan/rowSpan 占位）纯算 frame + contentSize，与 view 解耦。
@@ -110,6 +110,7 @@
 - **7A 能力/边界**：model 携带 `frame`+`identifier`+强引用 `view`，frame 由外部布局算好塞入；滚动回收靠消费方 `scrollViewDidScroll` 手动 `reloadLocationData()`；无 indexPath/section、无 `prepareForReuse`；联动/缩放消费方自己做。
 - **7A 已发现问题（迁移必处理）**：retain cycle（`model.view` ↔ cell.model 互持，`configAllViews` 不置 nil → 换 dataSource 泄漏）；复用池 `isKind(of:)` 线性扫 O(n)、identifier 语义弱；无 `prepareForReuse`；首次 dataSource 赋值渲染为空靠 reload 兜底；model 混入 view 字段耦合数据/布局/视图。
 - **7A 业内方案（已研究）**：`SpreadsheetView`（MIT/3.5k stars，UIScrollView+自建 ReuseQueue，同架构；其 `ReuseQueue`=类型化 Set 池 `dequeueOrCreate`、可见 cell=`ReusableCollection` 地址字典+`columnRecords`/`rowRecords` 二分、`LayoutEngine` 独立，可对标）vs `SwiftSpreadsheet`（UICollectionViewLayout，弱/停更）。**无独立 drop-in 的「可复用 scroll+cell」框架**：该 primitive 成熟形态只有 UICollectionView / SpreadsheetView 滚动层 / Texture（Texture 不做复用）。选型待用户拍板（A 迁移优化 XMScrollView / B UICollectionView+layout / D fork 现代化 SpreadsheetView 抽取滚动层）。详见 `Docs/SpreadSheet-Scroll-Layer1-Research.md`。
+- **7A 落地决策（最终版）**：**身份 = index**（类比 indexPath），**无 item 对象**；数据源协议三方法 `numberOfItems` / `frameForItemAt(index)` / `cellForItemAt(index)`（frame 由业务算、属第二层布局）；容器只干一件事——内部 `frameForItemAt ∩ viewport` 纯数学判断 → 离屏回收、入屏渲染。**容器自驱（不劫持 delegate）**：offset（KVO `contentOffset`）、contentSize（KVO `contentSize`）、bounds（`layoutSubviews` 尺寸去重）三源自动走**增量** reconcile；`delegate` 原样留给外层（3 联动只改 offset 不管重用）。**数据变化**：index 作 key 感知不到内容变，业务换数据后显式调 `reloadData()` 做全量回收+重渲染（= UITableView `reloadData`）。`dequeueReusableCell(as:)` 按 cell 类型分桶（`ObjectIdentifier` 键，无 `register`/`cls.init`/`required init`，miss 由业务 `?? MyCell()` 创建）；cell 由 `visibleCells`（index→cell 字典）持有。**否决了**：item 对象（`ReusableScrollViewItem`）+ `ObjectIdentifier` 作 item key + IndexPath 二维 + 外部 `visibleItems` 传参。
 
 ### 8. Cell 动态高度（template cell 路线，独立课题）
 - 与 SelfSizingFlowView 无关：FlowView 是「流式换行容器」（算 size），Cell 动态高度是「消费侧怎么把 size 变成 cell 高度」。
