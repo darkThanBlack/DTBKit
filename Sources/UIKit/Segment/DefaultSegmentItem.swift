@@ -45,7 +45,9 @@ extension DTB {
             box.addSubview(indicator)
             
             titleLabel.snp.makeConstraints { make in
-                make.top.left.right.equalToSuperview()
+                make.top.equalToSuperview()
+                make.left.equalTo(box.snp.left).offset(8.0)
+                make.right.equalTo(box.snp.right).offset(-8.0)
             }
             indicator.layer.cornerRadius = 1.5
             indicator.snp.makeConstraints { make in

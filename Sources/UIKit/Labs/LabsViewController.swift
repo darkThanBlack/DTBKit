@@ -52,8 +52,6 @@ extension DTB {
                 ("dtb.deep.i18n",   "dtb.deep.i18n.desc"),
                 ("dtb.deep.color",  "dtb.deep.color.desc"),
                 ("dtb.deep.crumbs", "dtb.deep.crumbs.desc"),
-                ("dtb.deep.grid",   "dtb.deep.grid.desc"),
-                ("dtb.deep.flow",   "dtb.deep.flow.desc"),
                 ("dtb.deep.sample", "dtb.deep.sample.desc"),
             ].compactMap({
                 DTB.CellModel(
@@ -119,12 +117,6 @@ extension DTB.LabsViewController: DTB.CrumbsSampleViewDelegate {
             navigationController?.pushViewController(vc, animated: true)
         case "dtb.deep.crumbs":
             let vc = DTB.CrumbsViewController()
-            navigationController?.pushViewController(vc, animated: true)
-        case "dtb.deep.grid":
-            let vc = DTB.SelfSizingGridViewController()
-            navigationController?.pushViewController(vc, animated: true)
-        case "dtb.deep.flow":
-            let vc = DTB.SelfSizingFlowViewController()
             navigationController?.pushViewController(vc, animated: true)
         case "dtb.deep.sample":
             let vc = DTB.SampleViewController()

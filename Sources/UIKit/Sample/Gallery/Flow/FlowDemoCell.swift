@@ -16,13 +16,9 @@ extension DTB {
     /// Flow 展示 cell：内嵌 SelfSizingFlowView，验证「自身尺寸撑开 cell 高度」。
     final class FlowDemoCell: DTB.BaseTableViewCell {
         
-        func config(titles: [(String, CGFloat)], flowConfig: DTB.SelfSizingFlowConfig) {
+        func config(items: [UIView], flowConfig: DTB.SelfSizingFlowConfig) {
             flow.update(config: flowConfig)
-            flow.update(items: titles.map { item -> DTB.FlowCell1 in
-                let cell = DTB.FlowCell1(frame: .zero)
-                cell.config(title: item.0, fontSize: item.1)
-                return cell
-            })
+            flow.update(items: items)
         }
         
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

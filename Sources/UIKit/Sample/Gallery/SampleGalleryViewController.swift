@@ -29,8 +29,6 @@ extension DTB {
 
         /// 唯一要维护的清单：加一个页 = 加一行。
         private(set) lazy var pages: [DTB.SamplePage] = [
-            .init(vc: DTB.SGButtonViewController(), title: "Button"),
-            .init(vc: DTB.SGLabelViewController(), title: "Label"),
             .init(vc: DTB.SGColorViewController(), title: "Color"),
             .init(vc: DTB.SGI18NViewController(), title: "I18N"),
             .init(vc: DTB.SGFontViewController(), title: "Font"),
@@ -38,6 +36,10 @@ extension DTB {
             .init(vc: DTB.SGGradientViewController(), title: "Gradient"),
             .init(vc: DTB.SGContainerViewController(), title: "Container"),
             .init(vc: DTB.SGTextViewController(), title: "Text"),
+            .init(vc: DTB.SGLabelViewController(), title: "Label"),
+            .init(vc: DTB.SGButtonViewController(), title: "Button"),
+            .init(vc: DTB.SGGridViewController(), title: "Grid"),
+            .init(vc: DTB.SGFlowViewController(), title: "Flow"),
         ]
 
         var childPages: [UIViewController] { pages.map { $0.vc } }

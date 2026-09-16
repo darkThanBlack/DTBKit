@@ -1,5 +1,5 @@
 //
-//  FlowCell1.swift
+//  FlowDemoItem.swift
 //  DTBKit
 //
 //  Created by moonShadow on 2026/8/20
@@ -16,7 +16,7 @@ extension DTB {
     /// 流式标签 item 视图，展示单个标题。
     ///
     /// SelfSizingFlowView 的示例 item：自报固有宽（文字撑开 + padding），容器据此换行。
-    public final class FlowCell1: UIView {
+    public final class FlowDemoItem: UIView {
 
         private static let hPadding: CGFloat = 14.0
         private static let vPadding: CGFloat = 7.0
@@ -29,8 +29,9 @@ extension DTB {
         public override init(frame: CGRect) {
             super.init(frame: frame)
 
-            backgroundColor = .dtb.create("dtb.bg3")
+            backgroundColor = DTB.SampleDepends.bg3Color()
             layer.masksToBounds = true
+            layer.cornerRadius = 10.0
 
             loadViews(in: self)
         }
@@ -50,8 +51,6 @@ extension DTB {
 
             guard bounds != .zero else { return }
 
-            layer.cornerRadius = bounds.height / 2.0
-
             let s = titleLabel.sizeThatFits(bounds.size)
             titleLabel.frame = CGRect(
                 x: Self.hPadding,
@@ -65,9 +64,12 @@ extension DTB {
             box.addSubview(titleLabel)
         }
 
-        private lazy var titleLabel = UILabel().dtb
-            .textStyle("dtb.b6")
-            .numberOfLines(1)
-            .value
+        private lazy var titleLabel: UILabel = {
+            let lb = UILabel()
+            lb.font = UIFont.systemFont(ofSize: 13.0, weight: .regular)
+            lb.textColor = DTB.SampleDepends.text2Color()
+            lb.numberOfLines = 1
+            return lb
+        }()
     }
 }
