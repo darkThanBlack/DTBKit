@@ -79,6 +79,11 @@ extension DTB {
         private var offsetObservation: NSKeyValueObservation?
         private var contentSizeObservation: NSKeyValueObservation?
 
+        // MARK: - 性能诊断（临时，定位后移除）
+
+        private var perfCount: Int = 0
+        private var perfTotal: CFTimeInterval = 0
+
         public override init(frame: CGRect) {
             super.init(frame: frame)
             setupObservations()
@@ -128,6 +133,7 @@ extension DTB {
 
         /// 增量：offset / contentSize / bounds 变化自驱调用，diff 回收离屏、渲染入屏、更新仍可见 frame。
         private func reconcileVisible() {
+            let t0 = CFAbsoluteTimeGetCurrent()
             guard let dataSource = dataSource else {
                 reconcile([])
                 return
@@ -142,6 +148,15 @@ extension DTB {
                 }
             }
             reconcile(visible)
+
+            let dt = CFAbsoluteTimeGetCurrent() - t0
+            perfCount += 1
+            perfTotal += dt
+            if perfCount % 100 == 0 {
+                let avgMs = perfTotal / Double(perfCount) * 1000
+                let lastMs = dt * 1000
+                print("[ReusableScrollView] perf: 调用 \(perfCount) 次, 均 \(String(format: "%.3f", avgMs))ms, 最近 \(String(format: "%.3f", lastMs))ms, 总items \(count), 可见 \(visible.count)")
+            }
         }
 
         private func recycleAll() {

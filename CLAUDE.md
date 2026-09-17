@@ -60,7 +60,14 @@
 - **i18n 表头**：内存里只有单语言（`I18NManager.mapper` 只保留当前语言），故 `SGI18N` 表头只展示当前语言 key 一列（`currentKey ?? systemLanguageCode()`），不搞多列；多语言预览需先扩展 `I18NManager` 保留全语言 mapper + 补 `string_en.json`。
 - **style 展示**：`Shape` / `Gradient` / `Container` / `Label` 已实现——从 `DefaultStylesProvider.mapper` 取 `shape_style` / `gradient_style` / `container_style` / `label_style`，各自用 `ShapeView` / `GradientView` / `ContainerView` / `Label` 垂直遍历展示（一对一的专用控件）；shape 无 fill/stroke 时预览补一个 theme 填充以便观察圆角。
 - **待实现（空壳）**：`Text`（`text_style.json`）仍是占位 VC——`TextStyle` 没有一对一专用控件（只是 font+color，落到系统 UILabel），是否单独做展示页待定。
-- **待定**：`button_style.json`（15 key）的展示——`Button` 仍是手写组件 demo，且 `ButtonStyle` 含 state / title / image 等 data 属性（见课题 3）；`label_style.json` 尚未创建，故 `Label` 页目前为空。
+- **组件 demo 页（Label / Button）**：已从空壳补全——上半「布局展示」（参数一致、约束不同：只约束位置 / 内容撑开 / 压缩折行 / 拉长，4 种各一），下半 `Label` 读 `label_style.json` 解析、`Button` 展示业务能力（纯文本 / 纯图片 / 自定义间距 / image 4 方向 / 主轴高度大于小于文字）。`button_style.json`（15 key）的解析展示仍待定（`ButtonStyle` 含 state/title/image 等 data 属性，见课题 3）；`label_style.json` 尚未创建，故 Label 解析部分仍空。
+
+### Alert / Present 转场容器
+- **转场容器基类（Base 前缀）**：`BaseAlertViewController`（居中缩放）/ `BasePresentFitViewController`（底部上滑、高 fit content）/ `BaseSideBarViewController`（左滑抽屉、`widthRatio`）。都是 `open class` 模板：scrim + 遮罩点击 + 自定义转场由基类负责，子类只填 `contentView`（背景/圆角/排版）。`Base` 前缀强调「继承我、别直接 new」（裸 new 得空卡），与 `BaseViewController` 命名对齐。
+- **数据层（struct）**：`Alert`/`AlertAction`（字符串）与 `AttributeAlert`/`AttributeAlertAction`（富文本）两套分离，各带 `extra: Any?`。分离理由：`title`（数据）与 titleLabel 的具体属性（样式）是两个维度，`NSAttributedString` 只是把两者合一「简化」；未来应下沉为 `title` + `textStyle`/`labelStyle` 分离（后话）。
+- **入口收束到 VC**：`UIViewController.dtb.showAlert(on:param:)`（静态，`on` 可选源 VC）+ `vc.dtb.showAlert(param)`（实例），统一走 provider。
+- **provider 契约（`Any` + `if as`）**：`AlertProvider.showAlert(on:param:)`，`Any` 参数 + `if as` 分发——`as? UIViewController` 兜底自定义形态（业务自建「标题+自定义 view+按钮」VC 直接 present）、`as? Alert` / `as? AttributeAlert` 默认 alert。`Any` 是「可插拔 provider」的开放契约：`Alert` 锁不住所有业务形态，provider 自己 `if as` 收窄；框架糖层（若要）应保持强类型，不把 `Any` 泄漏到糖。
+- **默认实现一一对应**：`DefaultAlertProvider` ↔ `DefaultAlertViewController`（居中卡片，仿 `UIAlertController(.alert)`），一个 provider 实现对应一个业务 alert VC；换 provider 即换对应 VC。VC 数据入口 `Any?`（`if as` 分发 `Alert`/`AttributeAlert`），固定布局（卡片 `Container` + stack 包裹，title/message 用 `Label` 常驻 + `isHidden` 切换、buttons 动态重建），`update(creater:)` 可换数据；`init(creater:)` 仅为 buttons 布局方便。
 
 ## 研究课题
 
@@ -117,3 +124,10 @@
 - 深度研究结论（留档 `Docs/SelfSizingFlowCell-Research.md`）：wrap-dependent（高依赖宽）的自尺寸 cell，`automaticDimension + autolayout` 天然失败——测量时宽未定。
 - 五类方案：1) 参数化宽度（preferredMaxLayoutWidth 模式，layoutSubviews 重置宽）2) 离屏 template cell + heightForRowAt 缓存（测前 pin 宽）3) 手写 sizeThatFits + layoutSubviews 4) override systemLayoutSizeFitting（cell 层强制二遍）5) UICollectionViewFlowLayout + estimatedItemSize = automaticSize。
 - frame 路线（2、3）对 wrap-dependent 最 robust；稍后再展开实现。
+
+### 9. 缩放手势 + scale 计算封装（独立功能，衍生自课题 7）
+- **独立性**：scale/zoom **独立于 `ReusableScrollView`**，是单独的重要功能，可单独做、单独验证。
+- **现状**：XM 缩放 = 自定义 pinch 手势 + 中心点数学（保持视觉中心不变）；scrollview 自带 zoom 手势无此能力。
+- **待完成**：1) 自定义缩放手势 + 冲突避免（与 scrollView 手势） 2) scale 计算封装（含中心点锚定 `calOffset`）。
+- **与 7A 解耦**：7A 的 frame 计算优化（缓存 / 排序索引）**不引入 scale**；scale 作为独立功能单独做，二者正交。
+- **关联**：scale 是「纯滑动/布局变化/缩放」三态里「缩放态」的独立处理入口；7A 缓存只解决纯滑动态，缩放态由本功能负责。

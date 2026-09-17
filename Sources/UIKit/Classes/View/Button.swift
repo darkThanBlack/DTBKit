@@ -250,7 +250,7 @@ extension DTB {
         }
         
         open override var intrinsicContentSize: CGSize {
-            return layoutSubviewWithSize(.zero)
+            return layoutSubviewWithSize(bounds.size)
         }
         
         open override func sizeThatFits(_ size: CGSize) -> CGSize {

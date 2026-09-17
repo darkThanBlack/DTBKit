@@ -28,7 +28,12 @@ extension DTB {
                 return
             }
             if let creater = param as? DTB.Alert {
-                let alert = DTB.SystemAlertViewController(creater: creater)
+                let alert = DTB.DefaultAlertViewController(creater: creater)
+                sourceVC.present(alert, animated: true)
+                return
+            }
+            if let creater = param as? DTB.AttributeAlert {
+                let alert = DTB.DefaultAlertViewController(creater: creater)
                 sourceVC.present(alert, animated: true)
             }
         }
