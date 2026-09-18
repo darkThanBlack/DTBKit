@@ -13,23 +13,20 @@ import UIKit
 
 extension DTB {
 
-    /// 缩放锚点补偿：缩放改变 contentSize 后，重算 contentOffset，使「锚点」对应的内容点保持不动。
+    /// 缩放中心点补偿：缩放改变 contentSize 后，重算 contentOffset，使「视口中心」对应的内容点保持不动。
     ///
     /// 独立于 `ReusableScrollView`（课题 9）：纯数学，不含手势、不含布局。
-    /// 中心点版本即「视觉中心点保持不变」；锚点版本即「保持手指点不变」。
     public enum ZoomAnchorCompensation {
 
-        /// 保持「锚点在视口上的位置」对应的内容点不变。
+        /// 保持「视口中心」对应的内容点不变。
         ///
         /// - Parameters:
-        ///   - anchor: 锚点在视口坐标里的位置。「保持中心」= `viewportSize / 2`；「保持手指」= pinch 两指中点。
         ///   - viewportSize: 视口（scrollView.bounds）尺寸。
         ///   - oldContentSize: 缩放前内容尺寸。
         ///   - newContentSize: 缩放后内容尺寸。
         ///   - oldOffset: 缩放前 contentOffset。
         /// - Returns: 缩放后应设置的 contentOffset（已钳位到合法范围）。
-        public static func contentOffset(
-            anchor: CGPoint,
+        public static func centerOffset(
             viewportSize: CGSize,
             oldContentSize: CGSize,
             newContentSize: CGSize,
@@ -39,7 +36,8 @@ extension DTB {
                   newContentSize.width > 0, newContentSize.height > 0 else {
                 return .zero
             }
-            // 锚点对应的内容坐标
+            // 视口中心对应的内容坐标
+            let anchor = CGPoint(x: viewportSize.width / 2, y: viewportSize.height / 2)
             let contentX = oldOffset.x + anchor.x
             let contentY = oldOffset.y + anchor.y
             // 该内容点在内容中的比例（缩放前后比例不变）
@@ -52,22 +50,6 @@ extension DTB {
             newX = min(max(0, newX), max(0, newContentSize.width - viewportSize.width))
             newY = min(max(0, newY), max(0, newContentSize.height - viewportSize.height))
             return CGPoint(x: newX, y: newY)
-        }
-
-        /// 保持「视口中心点」不变的便捷入口（即「视觉中心点保持不变」）。
-        public static func centerOffset(
-            viewportSize: CGSize,
-            oldContentSize: CGSize,
-            newContentSize: CGSize,
-            oldOffset: CGPoint
-        ) -> CGPoint {
-            return contentOffset(
-                anchor: CGPoint(x: viewportSize.width / 2, y: viewportSize.height / 2),
-                viewportSize: viewportSize,
-                oldContentSize: oldContentSize,
-                newContentSize: newContentSize,
-                oldOffset: oldOffset
-            )
         }
     }
 }

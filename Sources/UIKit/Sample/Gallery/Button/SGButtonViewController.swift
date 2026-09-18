@@ -45,7 +45,8 @@ extension DTB {
             image: UIImage? = nil,
             imageSize: CGSize? = nil,
             imageDirection: DTB.FourDirection = .left,
-            contentEdgeInsets: UIEdgeInsets = UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 16)
+            contentEdgeInsets: UIEdgeInsets = UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 16),
+            numberOfLines: Int? = nil
         ) -> DTB.Button {
             let b = DTB.Button()
             b.setConfig(DTB.ButtonStyle(
@@ -60,6 +61,9 @@ extension DTB {
                 imageDirection: imageDirection,
                 shape: DTB.ShapeStyle(corners: [.allCorners], radius: .fixed(8.0))
             ), for: .normal)
+            if let lines = numberOfLines {
+                b.titleLabel.numberOfLines = lines
+            }
             return b
         }
 
@@ -129,6 +133,54 @@ extension DTB {
             return box
         }
 
+        /// 「约束过小」box：单文字 / 单图片 / 图文 三个分支，每个 width 约束过小。
+        private func makeOverConstraintBox() -> UIView {
+            let box = UIView()
+            box.backgroundColor = DTB.SampleDepends.bg2Color()
+            box.layer.cornerRadius = 8
+            box.clipsToBounds = true
+
+            let titleLabel = UILabel()
+            titleLabel.text = "3. 约束过小（宽度不足）：单文字截断 / 单图片缩放 / 图文溢出（图文分支待修）"
+            titleLabel.font = UIFont.systemFont(ofSize: 12, weight: .regular)
+            titleLabel.textColor = DTB.SampleDepends.text3Color()
+            titleLabel.numberOfLines = 0
+
+            let textButton = makeButtonDemo(title: demoText)
+            let imageButton = makeButtonDemo(image: demoImage, imageSize: CGSize(width: 120, height: 120))
+            let bothButton = makeButtonDemo(title: demoText, image: demoImage, imageSize: CGSize(width: 16, height: 16), imageDirection: .left)
+
+            let row = UIStackView(arrangedSubviews: [textButton, imageButton, bothButton])
+            row.axis = .vertical
+            row.alignment = .leading
+            row.distribution = .fill
+            row.spacing = 8
+
+            box.addSubview(titleLabel)
+            box.addSubview(row)
+
+            titleLabel.snp.makeConstraints { make in
+                make.leading.top.equalToSuperview().inset(10)
+            }
+            row.snp.makeConstraints { make in
+                make.leading.trailing.equalToSuperview().inset(10)
+                make.top.equalTo(titleLabel.snp.bottom).offset(8)
+                make.bottom.equalToSuperview().inset(10)
+            }
+
+            textButton.snp.makeConstraints { make in
+                make.width.equalTo(140)
+            }
+            imageButton.snp.makeConstraints { make in
+                make.width.equalTo(140)
+            }
+            bothButton.snp.makeConstraints { make in
+                make.width.equalTo(140)
+            }
+
+            return box
+        }
+
         // MARK: - View
 
         private func loadViews(in box: UIView) {
@@ -161,13 +213,7 @@ extension DTB {
                 }
             })
 
-            contentStack.addArrangedSubview(makeCaseBox(title: "3. 约束过小（宽度不足，内容被压缩折行）", fixedHeight: 150) { button, title in
-                button.snp.makeConstraints { make in
-                    make.leading.equalToSuperview().inset(10)
-                    make.top.equalTo(title.snp.bottom).offset(8)
-                    make.width.equalTo(150)
-                }
-            })
+            contentStack.addArrangedSubview(makeOverConstraintBox())
 
             contentStack.addArrangedSubview(makeCaseBox(title: "4. 约束过大（本身被拉长，内容按对齐方式排列）", fixedHeight: 150) { button, title in
                 button.snp.makeConstraints { make in
@@ -201,10 +247,20 @@ extension DTB {
 
             contentStack.addArrangedSubview(makeAbilityBox(
                 title: "image 主轴方向高度 大于 / 小于 文字（折行）",
-                buttons: [
-                    makeButtonDemo(title: "确定", image: demoImage, imageSize: CGSize(width: 24, height: 24), imageDirection: .left),
-                    makeButtonDemo(title: "这是一段会折行成多行的较长文字", image: demoImage, imageSize: CGSize(width: 14, height: 14), imageDirection: .left)
-                ]
+                buttons: {
+                    let bigImageButton = makeButtonDemo(title: "确定", image: demoImage, imageSize: CGSize(width: 24, height: 24), imageDirection: .left)
+                    let wrapTextButton = makeButtonDemo(
+                        title: "这是一段会折行成多行的较长文字",
+                        image: demoImage,
+                        imageSize: CGSize(width: 14, height: 14),
+                        imageDirection: .left,
+                        numberOfLines: 0
+                    )
+                    wrapTextButton.snp.makeConstraints { make in
+                        make.width.equalTo(140)
+                    }
+                    return [bigImageButton, wrapTextButton]
+                }()
             ))
         }
 

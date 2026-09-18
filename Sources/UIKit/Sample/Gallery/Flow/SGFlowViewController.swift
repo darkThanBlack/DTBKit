@@ -37,7 +37,7 @@ extension DTB {
         /// item 工厂：每个 consumer（flow / cell）各自 build 一份，避免复用同一 UIView 实例被 addSubview 移走。
         private typealias ItemBuilder = () -> UIView
 
-        /// 展示用 item 工厂组：前 3 组为文本 tag，第 4 组为 dtb.label / dtb.button 控件。
+        /// 展示用 item 工厂组：前 3 组为文本 tag（frame 布局），第 4 组为 dtb.label / dtb.button 控件，第 5 组为约束 item。
         private lazy var groups: [[ItemBuilder]] = {
             var result = textGroups.map { group in
                 group.map { item -> ItemBuilder in
@@ -49,6 +49,7 @@ extension DTB {
                 }
             }
             result.append(makeControlItems())
+            result.append(makeConstraintItems())
             return result
         }()
 
@@ -69,6 +70,22 @@ extension DTB {
                 { Self.makeButtonItem("dtb.button") },
                 { Self.makeButtonItem("dtb.button 同时支持 grid 和 flow 布局") }
             ]
+        }
+
+        /// 约束 item 组：与 frame item 组形成对照——约束 item 尺寸走 `systemLayoutSizeFitting`，能被正确测量。
+        private func makeConstraintItems() -> [ItemBuilder] {
+            return [
+                { Self.makeConstraintItem("约束 item") },
+                { Self.makeConstraintItem("约束 item 长文字折行示例") },
+                { Self.makeConstraintItem("短") },
+                { Self.makeConstraintItem("约束 item 中") }
+            ]
+        }
+
+        private static func makeConstraintItem(_ title: String) -> DTB.FlowDemoConstraintItem {
+            let item = DTB.FlowDemoConstraintItem(frame: .zero)
+            item.config(title: title)
+            return item
         }
 
         private static func makeLabelItem(_ text: String) -> DTB.Label {

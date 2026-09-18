@@ -94,6 +94,7 @@
 - **header 与 pageContent 的相对位置/布局自定义**：当前 `reloadData()` 硬编码 header 在顶（top/left/right）、pageContainer 在 header 下（top=header.bottom, left/right/bottom）；需支持 header 位置（顶/底/侧）、pageContent 边距、header 高度（intrinsic vs 固定）、是否允许外部自定义 header 布局。
 
 ### 6. SelfSizing 系列（网格家族）
+- **BaseSelfSizingView（基础设施）**：把 Flow 的 `cachedSize` + `layoutSubviews` 收敛提取成通用基类（`Sources/UIKit/Classes/View/BaseSelfSizingView.swift`）。子类只实现 `layoutInferSize(by:)`（布局子视图 + 返回 inferSize；依赖轴无效返回 `cachedSize` 表示本次不算、不收敛）；基类 `layoutSubviews` 调它、缓存，结果变化且 `!translatesAutoresizingMaskIntoConstraints` 时才 `invalidateIntrinsicContentSize` 收敛。TAMIC 判断放 `layoutSubviews` 每次实时判断（业务改 TAMIC 晚于 init，不能缓存）。入口两个：`refreshAndRelayout()`（立即重算 + 触发，避免 .zero 中间态）/ `relayout()`（仅触发）。`intrinsicContentSize` 默认返回 `cachedSize`（子类 override 成 noIntrinsicMetric + cachedSize）。覆盖两种形态——无给定轴（内容自算、一次稳定，如 Button）/ 依赖给定轴（换行、靠收敛求稳，如 Flow）。`SelfSizingFlowView` 已迁入。
 - **两个正交维度**：维度一「宽度策略」决定每行放几个——1) `self.width + columnsPerRow` 反推 itemSize（均分）；2) item self-sizing 反推换行（流式）。二者互斥。维度二「高度策略」决定行高——固定 `itemHeight` vs 逐行 self-sizing。
 - **家族按维度一切，不按实现/高度切**：`SelfSizingGridView`（均分）/ `SelfSizingFlowView`（流式）/ `SelfSizingWaterfallView`（瀑布流，未来）。collectionView 与否只是实现细节，落在维度之下。
 - **依赖顺序**：变高必须建立在「每行成员已确定」之上——先维度一（换行）后维度二（行高 = 该行 max(item 高)）；变高不是平行新家族，而是每个家族的内部演进。
@@ -127,7 +128,9 @@
 
 ### 9. 缩放手势 + scale 计算封装（独立功能，衍生自课题 7）
 - **独立性**：scale/zoom **独立于 `ReusableScrollView`**，是单独的重要功能，可单独做、单独验证。
+- **落地类**：`DTB.ZoomScrollView`（`Classes/View/Scroll/ZoomScrollView.swift`，未来 `ReusableScrollView` 父类）+ `DTB.ZoomAnchorCompensation.centerOffset`（纯数学中心点补偿）。
+- **API（已定）**：`scale` 替代 `zoomScale`；自定义 pinch + 中心点补偿；静态参数收拢进 `ZoomConfig`（`mechanism`/`minimumScale`/`maximumScale`）+ `update(config:)` 一次刷入；`ZoomScrollViewDelegate`（`viewForZooming(in:)` / `zoomScrollViewDidChangeScale(_:)`）仿原生 `UIScrollViewDelegate`，挂独立 `zoomDelegate`（不劫持 `delegate`）；**只保留 center 锚点**（删 `ZoomAnchor.finger`）。
 - **现状**：XM 缩放 = 自定义 pinch 手势 + 中心点数学（保持视觉中心不变）；scrollview 自带 zoom 手势无此能力。
-- **待完成**：1) 自定义缩放手势 + 冲突避免（与 scrollView 手势） 2) scale 计算封装（含中心点锚定 `calOffset`）。
+- **待完成**：1) 缩放手势冲突避免（与 scrollView 自带手势，生产级） 2) `ReusableScrollView` 继承 `ZoomScrollView` 接 scale 状态（待拍板）。
 - **与 7A 解耦**：7A 的 frame 计算优化（缓存 / 排序索引）**不引入 scale**；scale 作为独立功能单独做，二者正交。
 - **关联**：scale 是「纯滑动/布局变化/缩放」三态里「缩放态」的独立处理入口；7A 缓存只解决纯滑动态，缩放态由本功能负责。

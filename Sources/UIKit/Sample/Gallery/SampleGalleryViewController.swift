@@ -42,6 +42,7 @@ extension DTB {
             .init(vc: DTB.SGFlowViewController(), title: "Flow"),
             .init(vc: DTB.SGScrollViewController(), title: "Scroll"),
             .init(vc: DTB.SGZoomViewController(), title: "Zoom"),
+            .init(vc: DTB.SGBaseSelfSizingViewController(), title: "BaseSelfSizing"),
         ]
 
         var childPages: [UIViewController] { pages.map { $0.vc } }

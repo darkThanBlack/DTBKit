@@ -28,6 +28,7 @@ extension DTB {
         private let baseContentSize = CGSize(width: 300, height: 170)
 
         private var systemContent: DTB.ZoomTextContentView?
+        private var transformContent: DTB.ZoomTextContentView?
 
         override func viewDidLoad() {
             super.viewDidLoad()
@@ -69,15 +70,15 @@ extension DTB {
 
         private lazy var transformZoomArea: DTB.ZoomScrollView = {
             let sv = DTB.ZoomScrollView()
-            sv.zoomMechanism = .transform
-            sv.zoomAnchor = .center
+            sv.update(config: DTB.ZoomConfig(mechanism: .transform))
+            sv.zoomDelegate = self
             sv.backgroundColor = DTB.SampleDepends.bgColor()
             sv.layer.borderWidth = 0.5
             sv.layer.borderColor = DTB.SampleDepends.borderColor().cgColor
 
             let content = makeTextContent()
+            transformContent = content
             sv.addSubview(content)
-            sv.zoomTarget = content
             sv.contentSize = baseContentSize
 
             sv.snp.makeConstraints { make in make.height.equalTo(200) }
@@ -88,23 +89,14 @@ extension DTB {
 
         private lazy var frameZoomArea: DTB.ZoomScrollView = {
             let sv = DTB.ZoomScrollView()
-            sv.zoomMechanism = .frame
-            sv.zoomAnchor = .center
+            sv.update(config: DTB.ZoomConfig(mechanism: .frame))
+            sv.zoomDelegate = self
             sv.backgroundColor = DTB.SampleDepends.bgColor()
             sv.layer.borderWidth = 0.5
             sv.layer.borderColor = DTB.SampleDepends.borderColor().cgColor
 
             sv.addSubview(frameContent)
             sv.contentSize = baseContentSize
-
-            sv.onScaleChanged = { [weak self] newScale in
-                guard let self = self else { return }
-                // 重排：内容 frame = base × scale，label 在 layoutSubviews 里 reflow（字体不变）
-                let w = self.baseContentSize.width * newScale
-                let h = self.baseContentSize.height * newScale
-                self.frameContent.frame = CGRect(x: 0, y: 0, width: w, height: h)
-                self.frameZoomArea.contentSize = CGSize(width: w, height: h)
-            }
 
             sv.snp.makeConstraints { make in make.height.equalTo(200) }
             return sv
@@ -206,6 +198,25 @@ extension DTB.SGZoomViewController: UIScrollViewDelegate {
 
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return systemContent
+    }
+}
+
+// MARK: - ZoomScrollView 的 delegate（transform / frame 两套自实现缩放）
+
+extension DTB.SGZoomViewController: DTB.ZoomScrollViewDelegate {
+
+    /// transform 机制：返回要缩放的内容视图（类比原生 `viewForZooming`，参数类型是 `DTB.ZoomScrollView` 故与上面不冲突）。
+    func viewForZooming(in zoomScrollView: DTB.ZoomScrollView) -> UIView? {
+        return transformContent
+    }
+
+    /// frame 机制：scale 变化时重排 frameContent + 更新 contentSize（字体不变，文字折行变多）。
+    func zoomScrollViewDidChangeScale(_ zoomScrollView: DTB.ZoomScrollView) {
+        let s = zoomScrollView.scale
+        let w = baseContentSize.width * s
+        let h = baseContentSize.height * s
+        frameContent.frame = CGRect(x: 0, y: 0, width: w, height: h)
+        frameZoomArea.contentSize = CGSize(width: w, height: h)
     }
 }
 
