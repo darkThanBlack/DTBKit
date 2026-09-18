@@ -89,7 +89,7 @@
 
 ### 5. Segment 布局与交互
 - **空间富余时 header/headerItem 的处理**：item 保持固有宽度，富余空间分配策略——1) 均分进间隔（`.equalSpacing` / `.equalCentering`，二者在 item 宽度不一时视觉不同）；2) 间隔不变、整体打包：居左 / 居中 / 居右。首/尾内部 padding 也有业务价值，需明确 padding 与「居中/打包」的交互（padding 是最小下限 floor，还是居中时忽略）。结论：`.fillEqually`（改 item 自身宽度）是唯一会压出省略号的分支，应从策略集剔除；`needsScroll = totalContent > bounds.width` 对「平铺」判据正确。滚动分支无富余空间，固定间隔 + 打包 + 滚，padding 语义变为 `contentInset`。
-- **pageContent 约束叠加**：`SegmentView.showPage(at:)` 切换页面时旧 page 只 `isHidden = true`，其 edges 约束并未 deactivate，会在同一 container 上随切换逐次累加（已确认会引发约束冲突，但并非 header 被拉伸的根因）。
+- **pageContent 约束叠加（已修复）**：`SegmentView.showPage(at:)` 切换页面时旧 page 只 `isHidden = true`，其 edges 约束并未 deactivate，会在同一 container 上随切换逐次累加（已确认会引发约束冲突，但并非 header 被拉伸的根因）。**修复**：page 登记项收敛为 `private struct Page { var view: UIView?; var constraint: Constraint? }`，`pageViews: [Page]` 按 index 平行存（取代「`[UIView?]` + 字典」两套账）；`v.snp.makeConstraints` 闭包里用 `let con = make.edges.equalToSuperview()` 捕获**单个** `Constraint`（其 `layoutConstraints` 内含 top/left/right/bottom 四条，`deactivate`/`activate` 一次作用四条）登记，切走 `deactivate()`、切回 `activate()` —— 任意时刻只有当前页的 edges 约束 active。不动 `isHidden` 保活语义（view 留在层级里），故与下方「是否重新 add/remove child view」的待定决策解耦。
 - **header 计算同时适应 autolayout / frame**：header 高度走 autolayout（`intrinsicContentSize` / SnapKit 约束），但宽度/滚动判断却在 `layoutSubviews` 里用 `bounds.width` 手动量 item 宽度（frame 思维）；两种布局范式的边界与职责如何划分、如何在一个组件里共存（尺寸用 autolayout 求、滚动阈值用 frame 手动算，是否要统一成一种）。
 - **header 与 pageContent 的相对位置/布局自定义**：当前 `reloadData()` 硬编码 header 在顶（top/left/right）、pageContainer 在 header 下（top=header.bottom, left/right/bottom）；需支持 header 位置（顶/底/侧）、pageContent 边距、header 高度（intrinsic vs 固定）、是否允许外部自定义 header 布局。
 

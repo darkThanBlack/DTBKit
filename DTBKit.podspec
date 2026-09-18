@@ -86,7 +86,7 @@ Pod::Spec.new do |s|
     
     ss.dependency 'SnapKit', '~> 4.0.0'
     ss.dependency 'Toast-Swift', '~> 5.0.0'
-    ss.dependency 'MJRefresh'
+    ss.dependency 'MJRefresh', '~> 3.6.0'
     # :source => 'https://github.com/darkThanBlack/Specs.git'
     ss.dependency 'WKWebViewJavascriptBridge', '~> 1.2.4'
   end

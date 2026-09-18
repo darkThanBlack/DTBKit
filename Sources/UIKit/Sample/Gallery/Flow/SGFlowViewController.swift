@@ -48,8 +48,9 @@ extension DTB {
             
             let eText = """
                 FIXME：长文字折行等情况，需要 item 自己处理
-                因为 systemLayoutSizeFitting :
-                - 容器在 update(items:)
+                因为:
+                - 容器在 update(items)/reloadData 时直接调用 systemLayoutSizeFitting，此时 bounds.size 并不准确
+                - 即使尝试将时机延后，依然发现返回的测量值接近但不准确
                 """
             let e: [DemoItem] = [.button(title: "示例5")]
             + [.frame(title: eText, fontSize: 13.0)]

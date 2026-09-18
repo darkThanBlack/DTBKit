@@ -74,7 +74,7 @@ extension DTB {
         /// 返回已缓存的 page view，nil 表示尚未创建
         public func pageView(at index: Int) -> UIView? {
             guard index >= 0, index < pageViews.count else { return nil }
-            return pageViews[index]
+            return pageViews[index].view
         }
         
         public func setSelectedIndex(_ index: Int, animated: Bool = true) {
@@ -110,7 +110,7 @@ extension DTB {
                 make.left.right.bottom.equalToSuperview()
             }
             
-            pageViews = Array(repeating: nil, count: ds.segmentItemNumbers(self))
+            pageViews = Array(repeating: Page(), count: ds.segmentItemNumbers(self))
             
             guard pageViews.count > 0 else { return }
             headerView.reloadData()
@@ -127,31 +127,45 @@ extension DTB {
             return v
         }()
         
-        /// 用 nil 占位作为 lazy load 标记
-        private var pageViews: [UIView?] = []
+        /// 单个 page 的登记项：view 与其 edges 约束同生共死，合并成一个值维护
+        private struct Page {
+            
+            /// nil 表示该 index 尚未创建（lazy load 标记）
+            var view: UIView?
+            
+            /// edges 约束：单个 Constraint 内含 top/left/right/bottom 四条
+            var constraint: Constraint?
+        }
+        
+        /// index → page 登记项，与 dataSource 的 item 数量对齐
+        private var pageViews: [Page] = []
         
         private func showPage(at index: Int, old: Int) {
             guard let ds = dataSource, index < pageViews.count else { return }
             
-            // hide old
+            // hide old：isHidden + 停用其 edges 约束，避免约束跨 item 堆叠
             if let oldView = pageView(at: old) {
                 delegate?.segment(self, willHidePageAt: old)
                 oldView.isHidden = true
-                // FIXME: 需要避免约束跨 item 堆叠
+                pageViews[old].constraint?.deactivate()
             }
             
             // 每次调 pageFor，业务更新数据
             let v = ds.segment(self, pageFor: index)
             
-            // 首次 addSubview
-            if pageViews[index] == nil {
+            // 首次 addSubview：建约束并登记（makeConstraints 此时已激活）
+            if pageViews[index].view == nil {
                 pageContainer.addSubview(v)
-                v.snp.makeConstraints { make in make.edges.equalToSuperview() }
-                pageViews[index] = v
+                v.snp.makeConstraints { make in
+                    let con = make.edges.equalToSuperview()
+                    pageViews[index].constraint = con.constraint
+                }
+                pageViews[index].view = v
             }
             
-            // show new
+            // show new：先激活约束，再取消隐藏
             delegate?.segment(self, willShowPageAt: index)
+            pageViews[index].constraint?.activate()
             v.isHidden = false
             delegate?.segment(self, didSelectPageAt: index)
         }

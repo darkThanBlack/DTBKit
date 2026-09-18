@@ -12,83 +12,70 @@
 import UIKit
 
 extension DTB {
-
+    
     /// 作为自定义 View 需要同时支持 Frame 和 AutoLayout 布局方案的唯一实践
     ///
     /// 子类需要在 layoutInferSize 内计算出自身固有大小并返回
     ///
     /// 关键在于通过在 layoutSubviews 里一旦发现 inferSize 变化就通知 autoLayout
     open class BaseSelfSizingView: UIView {
-
+        
         /// 上一次算出的固有尺寸
         public private(set) var inferSize: CGSize = .zero
-
-        /// 调试标签：同一页面多实例时区分日志（仅调试日志用，不影响布局行为）。
-        public var debugTag: String = ""
-
-        #if DEBUG
-        /// 调用计数：观察 layoutSubviews / intrinsicContentSize / sizeThatFits 的重新调用开销
-        private var layoutSubviewsCallCount = 0
-        private var intrinsicContentSizeCallCount = 0
-        private var sizeThatFitsCallCount = 0
-        #endif
-
+        
+        /// [DEBUG] 调用过程很难直观看出，可以通过 renderLog = [] 然后 print 来观察
+        public var renderLog: [String]? = nil
+        
         /// 子类实现：根据给定 size 布局子视图，返回自身应有的尺寸（inferSize）。
         ///
         /// - Parameter size: 当前 bounds.size。
         /// - Returns: inferSize；依赖轴无效时返回 `inferSize`（本次不算、不收敛）。
+        ///
+        /// - size 是非法值(width || height <= 0):
+        ///  - 如果能求解出固定大小就返回
+        ///  - 如果在某个方向上是要依赖于 size 的，比如 label 折行，就直接返回 size 本身
+        ///
         /// - 副作用：设置子视图 frame。
         @discardableResult
         open func layoutInferSize(by size: CGSize) -> CGSize {
-            DTB.console.assert("wrong method call, subview must override it!")
-            return .zero
+            fatalError("Wrong method call, subview must override it!")
         }
-
+        
         open override func layoutSubviews() {
             super.layoutSubviews()
-
-            #if DEBUG
-            layoutSubviewsCallCount += 1
-            DTB.console.log("[BaseSelfSizing][\(debugTag)] layoutSubviews #\(layoutSubviewsCallCount) bounds=\(bounds.size) inferSize(before)=\(inferSize)")
-            #endif
-
+            
             // 不判 bounds.isEmpty：依赖给定轴的子类，副轴（如高度）在第一轮收敛前本来就是 0，
             // 若在此提前 return 会卡死。是否「可算」由子类在 layoutInferSize 内自行判断（依赖轴无效返回 inferSize）。
             let result = layoutInferSize(by: bounds.size)
+#if DEBUG
+            renderLog?.append("layoutSubviews: bounds.size=\(bounds.size), oldInferSize=\(inferSize), newInferSize=\(result)")
+#endif
             guard result != inferSize else {
-                #if DEBUG
-                DTB.console.log("[BaseSelfSizing][\(debugTag)]    → inferSize 未变化，不 invalidate")
-                #endif
                 return
             }
             inferSize = result
-
+            
             if !translatesAutoresizingMaskIntoConstraints {
-                #if DEBUG
-                DTB.console.log("[BaseSelfSizing][\(debugTag)]    → inferSize 变为 \(result)，invalidateIntrinsicContentSize")
-                #endif
+#if DEBUG
+                renderLog?.append("invalidateIntrinsicContentSize: trigged")
+#endif
                 invalidateIntrinsicContentSize()
-            } else {
-                #if DEBUG
-                DTB.console.log("[BaseSelfSizing][\(debugTag)]    → inferSize 变为 \(result)，TAMIC=true 不 invalidate")
-                #endif
             }
         }
-
+        
         open override var intrinsicContentSize: CGSize {
-            #if DEBUG
-            intrinsicContentSizeCallCount += 1
-            DTB.console.log("[BaseSelfSizing][\(debugTag)] intrinsicContentSize #\(intrinsicContentSizeCallCount) = \(inferSize)")
-            #endif
+#if DEBUG
+            renderLog?.append("intrinsicContentSize: trigged, inferSize=\(inferSize)")
+#endif
             return inferSize
         }
-
+        
         open override func sizeThatFits(_ size: CGSize) -> CGSize {
-            #if DEBUG
-            sizeThatFitsCallCount += 1
-            DTB.console.log("[BaseSelfSizing][\(debugTag)] sizeThatFits #\(sizeThatFitsCallCount) size=\(size)")
-            #endif
-            return layoutInferSize(by: size)
+            let result = layoutInferSize(by: size)
+#if DEBUG
+            renderLog?.append("sizeThatFits: size=\(size) result=\(result)")
+#endif
+            return result
         }
     }
 }
