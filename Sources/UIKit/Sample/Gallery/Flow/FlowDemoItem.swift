@@ -68,7 +68,7 @@ extension DTB {
             let lb = UILabel()
             lb.font = UIFont.systemFont(ofSize: 13.0, weight: .regular)
             lb.textColor = DTB.SampleDepends.text2Color()
-            lb.numberOfLines = 1
+            lb.numberOfLines = 0
             return lb
         }()
     }

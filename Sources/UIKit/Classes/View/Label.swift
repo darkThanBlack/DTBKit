@@ -15,12 +15,8 @@ import UIKit
 extension DTB {
     
     /// Replacement for UILabel + EdgeLabel.
-    ///
-    /// 结构对齐 ``DTB.Button``：自持 label + shapeView + gradientView，
-    /// 尺寸由 `contentEdgeInsets` + label 内容推算，背景随 label 变化。
-    /// 不响应 margin；除 text / attr 外，其余 UILabel 属性通过 ``update(_:)`` 配置。
     @objc(DTBLabel)
-    public final class Label: UIView {
+    public final class Label: BaseSelfSizingView {
         
         private var config: DTB.LabelStyle?
         
@@ -134,7 +130,7 @@ extension DTB {
         // MARK: - Layout
         
         private func updateLayout() {
-            invalidateIntrinsicContentSize()
+            // invalidateIntrinsicContentSize()
             setNeedsLayout()
         }
         
@@ -142,26 +138,32 @@ extension DTB {
             config?.contentEdgeInsets ?? .zero
         }
         
-        public override var intrinsicContentSize: CGSize {
-            let insets = contentEdgeInsets
-            let size = label.intrinsicContentSize
-            return CGSize(
-                width: size.width + insets.left + insets.right,
-                height: size.height + insets.top + insets.bottom
-            )
-        }
+//        public override var intrinsicContentSize: CGSize {
+//            let insets = contentEdgeInsets
+//            let size = label.intrinsicContentSize
+//            return CGSize(
+//                width: size.width + insets.left + insets.right,
+//                height: size.height + insets.top + insets.bottom
+//            )
+//        }
+//        
+//        public override func sizeThatFits(_ size: CGSize) -> CGSize {
+//            let insets = contentEdgeInsets
+//            let constrained = CGSize(
+//                width: max(0, size.width - insets.left - insets.right),
+//                height: max(0, size.height - insets.top - insets.bottom)
+//            )
+//            let fit = label.sizeThatFits(constrained)
+//            return CGSize(
+//                width: fit.width + insets.left + insets.right,
+//                height: fit.height + insets.top + insets.bottom
+//            )
+//        }
         
-        public override func sizeThatFits(_ size: CGSize) -> CGSize {
-            let insets = contentEdgeInsets
-            let constrained = CGSize(
-                width: max(0, size.width - insets.left - insets.right),
-                height: max(0, size.height - insets.top - insets.bottom)
-            )
-            let fit = label.sizeThatFits(constrained)
-            return CGSize(
-                width: fit.width + insets.left + insets.right,
-                height: fit.height + insets.top + insets.bottom
-            )
+        public override func layoutInferSize(by size: CGSize) -> CGSize {
+            let labelSize = label.sizeThatFits(size)
+            print("DTB.LABEL: size=\(size), labelSize=\(labelSize)")
+            return labelSize.dtb.margin(only: contentEdgeInsets).value
         }
         
         public override func layoutSubviews() {
@@ -172,13 +174,15 @@ extension DTB {
             // 背景随 label 变化，直接铺满
             shapeView.frame = bounds
             gradientView.frame = bounds
+            label.frame = bounds.inset(by: contentEdgeInsets)
             
             // 文字内缩 contentEdgeInsets
-            let rect = bounds.inset(by: contentEdgeInsets)
-            label.frame = rect
-            if label.numberOfLines == 0 {
-                label.preferredMaxLayoutWidth = rect.width
-            }
+//            let rect = bounds.inset(by: contentEdgeInsets)
+//            label.frame = rect
+//            if label.numberOfLines == 0 {
+//                label.preferredMaxLayoutWidth = rect.width
+//            }
+            
         }
     }
     

@@ -15,42 +15,49 @@ extension DTB {
 
     /// SelfSizingFlowView 展示页（Sample 画廊页）。
     ///
-    /// 最外层 scrollview + stack 包裹：内容超长可滚，未来头部加说明 label 无需动约束。
-    /// 三部分：
-    /// - 横向 scrollview：`axis = .vertical`（竖排、超高换列、撑宽）；
-    /// - 纵向 scrollview：`axis = .horizontal`（横排、超宽换行、撑高）；
-    /// - tableview：cell 自动算高，预期错误。
+    /// 最外层 scrollview + stack 包裹。统一一个固定数据源（只存数据），VC 直接担任 `SelfSizingFlowViewDataSource`，
+    /// `itemAt` 里按数据「类型」初始化不同 item 并分别赋值。
+    ///
+    /// 每种轴形式一个 flowview（`horizontalFlowView` / `verticalFlowView`），tableview 的每个 cell 复用同一 dataSource。
     final class SGFlowViewController: DTB.BaseViewController {
 
-        private let textGroups: [[(String, CGFloat)]] = [
-            (
-                [("0", 13), ("1", 13), ("2", 13), ("3", 13), ("4", 13), ("5", 13), ("6", 13), ("7", 13), ("8", 13), ("9", 13), ("10", 13)]
-            ),
-            (
-                [("文字大小从小变大", 11), ("文字大小从小变大", 13), ("文字大小从小变大", 15), ("文字大小从小变大", 17), ("文字大小从小变大", 19), ("文字大小从小变大", 23)]
-            ),
-            (
-                [("文字长度从长变短", 15), ("文字长度从长变", 15), ("文字长度从长", 15), ("文字长度从", 15), ("文字长度", 15), ("文字长", 15), ("文字", 15), ("文", 15)]
-            )
-        ]
+        // MARK: - 统一数据（只存数据，不存 view）
 
-        /// item 工厂：每个 consumer（flow / cell）各自 build 一份，避免复用同一 UIView 实例被 addSubview 移走。
-        private typealias ItemBuilder = () -> UIView
+        /// item 类型：决定 `itemAt` 里初始化哪种 view。
+        private enum DemoItem {
+            case frame(title: String, fontSize: CGFloat)       // FlowDemoItem（frame 布局）
+            case constraint(title: String, fontSize: CGFloat)  // FlowDemoConstraintItem（约束布局）
+            case label(title: String)                          // DTB.Label
+            case button(title: String)                         // DTB.Button
+        }
 
-        /// 展示用 item 工厂组：前 3 组为文本 tag（frame 布局），第 4 组为 dtb.label / dtb.button 控件，第 5 组为约束 item。
-        private lazy var groups: [[ItemBuilder]] = {
-            var result = textGroups.map { group in
-                group.map { item -> ItemBuilder in
-                    {
-                        let cell = DTB.FlowDemoItem(frame: .zero)
-                        cell.config(title: item.0, fontSize: item.1)
-                        return cell
-                    }
-                }
-            }
-            result.append(makeControlItems())
-            result.append(makeConstraintItems())
-            return result
+        private lazy var data: [DemoItem] = {
+            let a: [DemoItem] = [.frame(title: "示例1", fontSize: 13.0)]
+            + [.frame(title: "item 内部是纯 frame 布局，通过 sizeThatFits 提供 self sizing", fontSize: 13.0)]
+            + (0..<12).compactMap({ .frame(title: "\($0)", fontSize: 13.0) })
+            
+            let b: [DemoItem] = [.frame(title: "示例2", fontSize: 13.0)]
+            + [.constraint(title: "item 内部是 autolayout 布局，通过约束提供 self sizing", fontSize: 13.0)]
+            + (0..<12).compactMap({ .constraint(title: "\($0)", fontSize: 13.0) })
+            
+            let c: [DemoItem] = [.label(title: "示例3")]
+            + [.label(title: "直接将 DTB.Label 作为 item，用来观察内部实现是否正确")]
+            
+            let d: [DemoItem] = [.button(title: "示例4")]
+            + [.button(title: "直接将 DTB.Button 作为 item，用来观察内部实现是否正确")]
+            
+            let eText = """
+                FIXME：长文字折行等情况，需要 item 自己处理
+                因为 systemLayoutSizeFitting :
+                - 容器在 update(items:)
+                """
+            let e: [DemoItem] = [.button(title: "示例5")]
+            + [.frame(title: eText, fontSize: 13.0)]
+            + [.constraint(title: eText, fontSize: 13.0)]
+            + [.label(title: eText)]
+            + [.button(title: eText)]
+
+            return a + b + c + d + e
         }()
 
         override func viewDidLoad() {
@@ -58,62 +65,36 @@ extension DTB {
 
             loadViews(in: view)
 
-            reloadData()
+            horizontalFlowView.reloadData()
+            verticalFlowView.reloadData()
+            tableView.reloadData()
         }
-
-        // MARK: - Item
-
-        private func makeControlItems() -> [ItemBuilder] {
-            return [
-                { Self.makeLabelItem("dtb.label") },
-                { Self.makeLabelItem("dtb.label 同时支持 grid 和 flow 布局") },
-                { Self.makeButtonItem("dtb.button") },
-                { Self.makeButtonItem("dtb.button 同时支持 grid 和 flow 布局") }
-            ]
-        }
-
-        /// 约束 item 组：与 frame item 组形成对照——约束 item 尺寸走 `systemLayoutSizeFitting`，能被正确测量。
-        private func makeConstraintItems() -> [ItemBuilder] {
-            return [
-                { Self.makeConstraintItem("约束 item") },
-                { Self.makeConstraintItem("约束 item 长文字折行示例") },
-                { Self.makeConstraintItem("短") },
-                { Self.makeConstraintItem("约束 item 中") }
-            ]
-        }
-
-        private static func makeConstraintItem(_ title: String) -> DTB.FlowDemoConstraintItem {
-            let item = DTB.FlowDemoConstraintItem(frame: .zero)
-            item.config(title: title)
-            return item
-        }
-
-        private static func makeLabelItem(_ text: String) -> DTB.Label {
-            let label = DTB.Label(frame: .zero)
-            label.setConfig(DTB.LabelStyle(
-                backgroundColor: DTB.SampleDepends.bg3Color(),
-                contentEdgeInsets: UIEdgeInsets(top: 6, left: 12, bottom: 6, right: 12),
-                textColor: DTB.SampleDepends.textColor(),
-                font: UIFont.systemFont(ofSize: 13, weight: .regular),
-                numberOfLines: 0,
-                shape: DTB.ShapeStyle(corners: [.allCorners], radius: .fixed(10.0))
+        
+        ///
+        private lazy var horizontalFlowView: DTB.SelfSizingFlowView = {
+            let flow = DTB.SelfSizingFlowView()
+            flow.update(config: DTB.SelfSizingFlowConfig(
+                axis: .horizontal,
+                alignment: .center,
+                lineSpacing: 8.0,
+                itemSpacing: 8.0
             ))
-            label.text = text
-            return label
-        }
-
-        private static func makeButtonItem(_ title: String) -> DTB.Button {
-            let button = DTB.Button(frame: .zero)
-            button.setConfig(DTB.ButtonStyle(
-                backgroundColor: DTB.SampleDepends.bg3Color(),
-                contentEdgeInsets: UIEdgeInsets(top: 6, left: 12, bottom: 6, right: 12),
-                title: title,
-                textColor: DTB.SampleDepends.textColor(),
-                font: UIFont.systemFont(ofSize: 13, weight: .regular),
-                shape: DTB.ShapeStyle(corners: [.allCorners], radius: .fixed(10.0))
-            ), for: .normal)
-            return button
-        }
+            flow.dataSource = self
+            return flow
+        }()
+        
+        ///
+        private lazy var verticalFlowView: DTB.SelfSizingFlowView = {
+            let flow = DTB.SelfSizingFlowView()
+            flow.update(config: DTB.SelfSizingFlowConfig(
+                axis: .vertical,
+                alignment: .center,
+                lineSpacing: 8.0,
+                itemSpacing: 8.0
+            ))
+            flow.dataSource = self
+            return flow
+        }()
 
         // MARK: - View
 
@@ -129,144 +110,24 @@ extension DTB {
                 make.width.equalTo(scrollView.snp.width).offset(-32)
             }
 
-            contentStack.addArrangedSubview(makeTopIntroLabel("流式布局：item 自报尺寸，沿主轴排列、超界换排；自身尺寸 = 内容尺寸"))
-            contentStack.addArrangedSubview(makeIntroLabel("axis = .vertical（竖排、超高换列、撑宽）"))
-            contentStack.addArrangedSubview(hScrollView)
-            contentStack.addArrangedSubview(makeIntroLabel("axis = .horizontal（横排、超宽换行、撑高）"))
-            contentStack.addArrangedSubview(vScrollView)
-            contentStack.addArrangedSubview(makeIntroLabel("tableview cell 自动算高（预期错误）"))
+            contentStack.addArrangedSubview(makeTopIntroLabel("流式布局：item 自报尺寸，沿主轴排列、超界换排；自身尺寸 = 内容尺寸（VC 直接担任统一 dataSource）"))
+            contentStack.addArrangedSubview(makeIntroLabel("axis = .horizontal  主轴方向是水平的，从左到右排列"))
+            contentStack.addArrangedSubview(horizontalFlowView)
+            contentStack.addArrangedSubview(makeIntroLabel("axis = .vertical  主轴方向是垂直的，从上到下排列"))
+            contentStack.addArrangedSubview(verticalFlowView)
+            contentStack.addArrangedSubview(makeIntroLabel("tableview cell 自动算高（预期错误，cell 内 flowview 复用同一 dataSource）"))
             contentStack.addArrangedSubview(tableView)
 
-            contentStack.addArrangedSubview(makeIntroLabel("dataSource 协议模式（dataSource != nil，item 构造下沉到数据源，缓存复用实例）"))
-            contentStack.addArrangedSubview(dsFlowView)
-
-            /// scrollview / tableview 无固有高度，stack 内需显式给高；数值可自行调整
-            hScrollView.snp.makeConstraints { make in
-                make.height.equalTo(120.0)
+            /// 撑宽依赖高，需钉死高
+            verticalFlowView.snp.makeConstraints { make in
+                make.height.equalTo(200.0)
             }
-            vScrollView.snp.makeConstraints { make in
-                make.height.equalTo(320.0)
-            }
+            /// tableview 无固有高度，stack 内需显式给高
             tableView.snp.makeConstraints { make in
-                make.height.equalTo(320.0)
-            }
-            /// 撑高依赖宽，需钉死宽
-            dsFlowView.snp.makeConstraints { make in
-                make.width.equalToSuperview()
-            }
-
-            hScrollView.addSubview(hStack)
-            hStack.snp.makeConstraints { make in
-                make.edges.equalToSuperview()
-                make.height.equalToSuperview()
-            }
-
-            vScrollView.addSubview(vStack)
-            vStack.snp.makeConstraints { make in
-                make.edges.equalToSuperview()
-                make.width.equalToSuperview()
+                make.height.equalTo(240.0)
             }
         }
-
-        private func reloadData() {
-            /// 横向 scrollview：axis = .vertical
-            hStack.arrangedSubviews.forEach({ $0.removeFromSuperview() })
-            groups.enumerated().forEach { idx, builders in
-                let flow = DTB.SelfSizingFlowView()
-                flow.update(
-                    config: SelfSizingFlowConfig(
-                        axis: .vertical,
-                        alignment: {
-                            if idx == 0 { return .leading }
-                            if idx == 1 { return .trailing }
-                            return .center
-                        }(),
-                        lineSpacing: 8.0,
-                        itemSpacing: 8.0
-                    )
-                )
-                flow.update(items: builders.map { $0() })
-                hStack.addArrangedSubview(flow)
-                /// 重要: 必须给定高度
-                flow.snp.makeConstraints { make in
-                    make.height.equalToSuperview()
-                }
-            }
-
-            /// 纵向 scrollview：axis = .horizontal（默认）
-            vStack.arrangedSubviews.forEach({ $0.removeFromSuperview() })
-            groups.enumerated().forEach { idx, builders in
-                let flow = DTB.SelfSizingFlowView()
-                flow.update(config: SelfSizingFlowConfig(
-                    axis: .horizontal,
-                    alignment: {
-                        if idx == 0 { return .leading }
-                        if idx == 1 { return .trailing }
-                        return .center
-                    }(),
-                    lineSpacing: 8.0,
-                    itemSpacing: 8.0
-                ))
-                flow.update(items: builders.map { $0() })
-                vStack.addArrangedSubview(flow)
-                /// 重要: 必须给定宽度
-                flow.snp.makeConstraints { make in
-                    make.width.equalToSuperview()
-                }
-            }
-
-            tableView.reloadData()
-            dsFlowView.reloadData()
-        }
-
-        private lazy var scrollView: UIScrollView = {
-            let sv = UIScrollView()
-            sv.alwaysBounceVertical = true
-            sv.showsVerticalScrollIndicator = false
-            return sv
-        }()
-
-        private lazy var contentStack: UIStackView = {
-            let stacks = UIStackView()
-            stacks.axis = .vertical
-            stacks.alignment = .fill
-            stacks.distribution = .fill
-            stacks.spacing = 24.0
-            return stacks
-        }()
-
-        private lazy var hScrollView: UIScrollView = {
-            let sv = UIScrollView()
-            sv.alwaysBounceHorizontal = true
-            sv.showsHorizontalScrollIndicator = false
-            return sv
-        }()
-
-        private lazy var hStack: UIStackView = {
-            let stacks = UIStackView()
-            stacks.axis = .horizontal
-            stacks.alignment = .center
-            stacks.distribution = .fill
-            stacks.spacing = 0.0
-            return stacks
-        }()
-
-        private lazy var vScrollView: UIScrollView = {
-            let sv = UIScrollView()
-            sv.alwaysBounceVertical = true
-            sv.showsVerticalScrollIndicator = false
-            return sv
-        }()
-
-        private lazy var vStack: UIStackView = {
-            let stacks = UIStackView()
-            stacks.axis = .vertical
-            stacks.alignment = .center
-            stacks.distribution = .fill
-            stacks.spacing = 0.0
-            return stacks
-        }()
-
+        
         private func makeIntroLabel(_ text: String) -> UILabel {
             let lb = UILabel()
             lb.text = text
@@ -287,6 +148,24 @@ extension DTB {
             return lb
         }
 
+        // MARK: - 懒加载
+
+        private lazy var scrollView: UIScrollView = {
+            let sv = UIScrollView()
+            sv.alwaysBounceVertical = true
+            sv.showsVerticalScrollIndicator = false
+            return sv
+        }()
+
+        private lazy var contentStack: UIStackView = {
+            let stacks = UIStackView()
+            stacks.axis = .vertical
+            stacks.alignment = .fill
+            stacks.distribution = .fill
+            stacks.spacing = 24.0
+            return stacks
+        }()
+
         /// 失败的示例: 如果直接用约束放在 cell 上，第一次展示时高度会恒为 0
         ///
         /// 这是系统自动算高机制的时机问题，不应由 flowview 内部来解决
@@ -296,68 +175,65 @@ extension DTB {
             tv.isScrollEnabled = false
             return tv
         }()
+    }
+}
 
-        /// dataSource 协议模式：`dataSource != nil`，item 构造下沉到数据源。
-        private lazy var dsFlowView: DTB.SelfSizingFlowView = {
-            let flow = DTB.SelfSizingFlowView()
-            flow.update(config: DTB.SelfSizingFlowConfig(
-                axis: .horizontal,
-                alignment: .center,
-                lineSpacing: 8.0,
-                itemSpacing: 8.0
+// MARK: - 统一 dataSource（VC 直接担任）
+
+extension DTB.SGFlowViewController: DTB.SelfSizingFlowViewDataSource {
+
+    func numberOfItems(in flowView: DTB.SelfSizingFlowView) -> Int {
+        data.count
+    }
+
+    func flowView(_ flowView: DTB.SelfSizingFlowView, itemAt index: Int) -> UIView {
+        switch data[index] {
+        case .frame(let title, let fontSize):
+            let item = DTB.FlowDemoItem(frame: .zero)
+            item.config(title: title, fontSize: fontSize)
+            return item
+        case .constraint(let title, let fontSize):
+            let item = DTB.FlowDemoConstraintItem()
+            item.config(title: title, fontSize: fontSize)
+            return item
+        case .label(let title):
+            let label = DTB.Label()
+            label.setConfig(DTB.LabelStyle(
+                backgroundColor: DTB.SampleDepends.bg3Color(),
+                contentEdgeInsets: UIEdgeInsets(top: 6, left: 12, bottom: 6, right: 12),
+                textColor: DTB.SampleDepends.textColor(),
+                font: UIFont.systemFont(ofSize: 13, weight: .regular),
+                numberOfLines: 0,
+                shape: DTB.ShapeStyle(corners: [.allCorners], radius: .fixed(10.0))
             ))
-            flow.dataSource = flowDataSource
-            return flow
-        }()
-
-        /// 强持有数据源（`dataSource` 为 weak，需外部保活）。
-        private lazy var flowDataSource: FlowDemoDataSource = {
-            FlowDemoDataSource(builders: groups[0])
-        }()
-
-        /// 演示 `SelfSizingFlowDataSource`：item 构造下沉，「同 index 同实例」由 `itemAt` 内缓存保证。
-        private final class FlowDemoDataSource: SelfSizingFlowDataSource {
-
-            private let builders: [() -> UIView]
-            private var cache: [Int: UIView] = [:]
-
-            init(builders: [() -> UIView]) {
-                self.builders = builders
-            }
-
-            func numberOfItems(in flowView: SelfSizingFlowView) -> Int {
-                return builders.count
-            }
-
-            func flowView(_ flowView: SelfSizingFlowView, itemAt index: Int) -> UIView {
-                if let cached = cache[index] { return cached }
-                let view = builders[index]()
-                cache[index] = view
-                return view
-            }
+            label.text = title
+            return label
+        case .button(let title):
+            let button = DTB.Button(frame: .zero)
+            button.setConfig(DTB.ButtonStyle(
+                backgroundColor: DTB.SampleDepends.bg3Color(),
+                contentEdgeInsets: UIEdgeInsets(top: 6, left: 12, bottom: 6, right: 12),
+                textColor: DTB.SampleDepends.textColor(),
+                font: UIFont.systemFont(ofSize: 13, weight: .regular),
+                shape: DTB.ShapeStyle(corners: [.allCorners], radius: .fixed(10.0))
+            ), for: .normal)
+            button.setTitle(title)
+            return button
         }
     }
 }
 
+// MARK: - 表格
+
 extension DTB.SGFlowViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return groups.count
+        return 3
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: DTB.FlowDemoCell = tableView.dtb.dequeueReusableCellEnsured(indexPath)
-        let config = DTB.SelfSizingFlowConfig(
-            axis: .horizontal,
-            alignment: {
-                if indexPath.row == 0 { return .leading }
-                if indexPath.row == 1 { return .trailing }
-                return .center
-            }(),
-            lineSpacing: 8.0,
-            itemSpacing: 8.0
-        )
-        cell.config(items: groups[indexPath.row].map { $0() }, flowConfig: config)
+        cell.config(dataSource: self)
         return cell
     }
 }

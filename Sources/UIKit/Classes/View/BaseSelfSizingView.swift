@@ -40,6 +40,7 @@ extension DTB {
         /// - 副作用：设置子视图 frame。
         @discardableResult
         open func layoutInferSize(by size: CGSize) -> CGSize {
+            DTB.console.assert("wrong method call, subview must override it!")
             return .zero
         }
 

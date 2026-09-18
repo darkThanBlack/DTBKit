@@ -53,7 +53,7 @@ extension DTB {
     /// 无 `sizeForItemAt`（item 自报尺寸走 `sizeThatFits`/约束）、无 delegate（item 非 cell，点击由 item 在 `itemAt` 内自处理）、无 dequeue（全展开无离屏回收）。
     ///
     /// 实例复用职责在业务：`itemAt` 可能随 `reloadData` 多次回调，业务自行在 model 内缓存「同 index 同实例」。
-    public protocol SelfSizingFlowDataSource: AnyObject {
+    public protocol SelfSizingFlowViewDataSource: AnyObject {
 
         func numberOfItems(in flowView: SelfSizingFlowView) -> Int
 
@@ -69,25 +69,22 @@ extension DTB {
     /// 主轴由 `axis` 决定：`.horizontal` 横排（超宽换行，撑高依赖宽）、`.vertical` 竖排（超高换列，撑宽依赖高）。
     ///
     /// 撑开轴依赖换排、换排依赖主轴尺寸，而 `intrinsicContentSize` 无参拿不到主轴尺寸——
-    /// 故缓存 `cachedSize`，在 `layoutSubviews` 算出结果、变化时 `invalidateIntrinsicContentSize` 触发外层重查收敛。
+    /// 故继承 ``BaseSelfSizingView``，在 `layoutInferSize` 内按给定主轴算撑开轴，结果变化时由基类 `invalidateIntrinsicContentSize` 收敛。
     ///
     /// item 需自报尺寸：约束 item 建约束、frame item 重写 `sizeThatFits` 即可。
-    public final class SelfSizingFlowView: UIView {
+    public final class SelfSizingFlowView: BaseSelfSizingView {
 
         /// 当前布局配置。
         public private(set) var config = SelfSizingFlowConfig()
 
         /// 可选数据源：非 nil 即协议模式，`reloadData()` 从它拉取；置 nil 切回裸 `update(items:)` 模式。
-        public weak var dataSource: SelfSizingFlowDataSource?
+        public weak var dataSource: SelfSizingFlowViewDataSource?
 
         /// 当前挂载的 item 视图。
         private var itemViews: [UIView] = []
 
         /// 缓存每个 item 的固有 size
         private var itemSizes: [CGSize] = []
-
-        /// 最近一次 layout 算出的总 size（依赖轴由外部给，撑开轴由本类算）。
-        private var cachedSize: CGSize = .zero
 
         public override init(frame: CGRect) {
             super.init(frame: frame)
@@ -101,10 +98,10 @@ extension DTB {
 
         /// 重新加载数据：`dataSource != nil` 时从数据源拉取并替换；否则保留当前 items 仅重排。
         ///
-        /// `itemAt` 只在 `reloadData()` 里回调、每 index 恰好一次；布局收敛（`relayout`/`layoutSubviews`/intrinsic 查询）绝不重调。
+        /// `itemAt` 只在 `reloadData()` 里回调、每 index 恰好一次；布局收敛（`setNeedsLayout`/`layoutSubviews`/intrinsic 查询）绝不重调。
         public func reloadData() {
             guard let ds = dataSource else {
-                relayout()
+                setNeedsLayout()
                 return
             }
             let count = ds.numberOfItems(in: self)
@@ -127,75 +124,29 @@ extension DTB {
 
             /// measure：立即求解每个 item 的固有 size（不依赖容器宽）
             itemSizes = items.map {
-                $0.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+                $0.systemLayoutSizeFitting(bounds.size.dtb.isEmpty() ? UIView.layoutFittingCompressedSize : bounds.size)
             }
-            refreshCachedSize()
-            relayout()
+            setNeedsLayout()
         }
 
         /// 更新布局配置，并刷新内容。
         public func update(config: SelfSizingFlowConfig) {
             self.config = config
-            refreshCachedSize()
-            relayout()
+            setNeedsLayout()
         }
 
         // MARK: - Layout
-
-        /// 触发重排
-        private func relayout() {
-            setNeedsLayout()
-            invalidateIntrinsicContentSize()
-        }
-
-        /// update 时若依赖轴已定，立即重算缓存，让 invalidate 后的首次 intrinsic 查询就直接拿到新值。
-        private func refreshCachedSize() {
-            switch config.axis {
-            case .horizontal:
-                cachedSize = bounds.width > 0 ? layoutItems(by: bounds.size) : .zero
-            case .vertical:
-                cachedSize = bounds.height > 0 ? layoutItems(by: bounds.size) : .zero
-            }
-        }
-
-        public override var intrinsicContentSize: CGSize {
-            switch config.axis {
-            case .horizontal:
-                return CGSize(width: UIView.noIntrinsicMetric, height: cachedSize.height)
-            case .vertical:
-                return CGSize(width: cachedSize.width, height: UIView.noIntrinsicMetric)
-            }
-        }
-
-        public override func sizeThatFits(_ size: CGSize) -> CGSize {
-            return layoutItems(by: size)
-        }
-
-        public override func layoutSubviews() {
-            super.layoutSubviews()
-
-            switch config.axis {
-            case .horizontal:
-                guard bounds.width > 0 else { return }
-            case .vertical:
-                guard bounds.height > 0 else { return }
-            }
-
-            let result = layoutItems(by: bounds.size)
-            /// 依赖轴或撑开轴任一变化 → 触发外层重查，收敛
-            if result != cachedSize {
-                cachedSize = result
-                invalidateIntrinsicContentSize()
-            }
-        }
-
+        
         /// 入参为提议 size，返回推测总宽高，副作用是依次设置 item frame。
+        /// 依赖轴无效（换行依赖的轴尚未确定）时返回 `inferSize`，本次不算、不触发收敛。
         @discardableResult
-        private func layoutItems(by size: CGSize) -> CGSize {
+        public override func layoutInferSize(by size: CGSize) -> CGSize {
             switch config.axis {
             case .horizontal:
+                guard size.width > 0 else { return inferSize }
                 return layoutHorizontal(by: size)
             case .vertical:
+                guard size.height > 0 else { return inferSize }
                 return layoutVertical(by: size)
             }
         }
