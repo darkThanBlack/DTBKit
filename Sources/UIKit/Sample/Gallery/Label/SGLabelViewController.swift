@@ -45,7 +45,7 @@ extension DTB {
         /// 统一参数的 demo label（背景 + 内边距 + 折行）。
         private func makeDemoLabel() -> DTB.Label {
             let label = DTB.Label()
-            label.setConfig(DTB.LabelStyle(
+            label.updateUI(DTB.LabelStyle(
                 backgroundColor: DTB.SampleDepends.bg3Color(),
                 contentEdgeInsets: UIEdgeInsets(top: 6, left: 10, bottom: 6, right: 10),
                 textColor: DTB.SampleDepends.textColor(),

@@ -180,7 +180,7 @@ extension DTB {
 
         private lazy var titleLabel: DTB.Label = {
             let label = DTB.Label()
-            label.setConfig(DTB.LabelStyle(
+            label.updateUI(DTB.LabelStyle(
                 contentEdgeInsets: UIEdgeInsets(top: 20, left: 16, bottom: 0, right: 16),
                 textColor: .dtb.create("dtb.text"),
                 font: UIFont.systemFont(ofSize: 17, weight: .semibold),
@@ -193,7 +193,7 @@ extension DTB {
 
         private lazy var messageLabel: DTB.Label = {
             let label = DTB.Label()
-            label.setConfig(DTB.LabelStyle(
+            label.updateUI(DTB.LabelStyle(
                 contentEdgeInsets: UIEdgeInsets(top: 8, left: 16, bottom: 20, right: 16),
                 textColor: .dtb.create("dtb.text2"),
                 font: UIFont.systemFont(ofSize: 13, weight: .regular),

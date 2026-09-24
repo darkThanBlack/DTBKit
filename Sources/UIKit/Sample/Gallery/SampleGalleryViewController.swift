@@ -36,6 +36,7 @@ extension DTB {
             .init(vc: DTB.SGGradientViewController(), title: "Gradient"),
             .init(vc: DTB.SGContainerViewController(), title: "Container"),
             .init(vc: DTB.SGTextViewController(), title: "Text"),
+            .init(vc: DTB.SGBaseSelfSizingViewController(), title: "SelfSizing"),
             .init(vc: DTB.SGLabelViewController(), title: "Label"),
             .init(vc: DTB.SGButtonViewController(), title: "Button"),
             .init(vc: DTB.SGGridViewController(), title: "Grid"),

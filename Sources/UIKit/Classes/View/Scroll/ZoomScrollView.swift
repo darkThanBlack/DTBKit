@@ -60,14 +60,17 @@ public extension DTB.ZoomScrollViewDelegate {
 
 extension DTB {
 
-    /// 可缩放滚动容器基类（未来 `ReusableScrollView` 的父类）。
+    /// 可缩放滚动容器基类（`ReusableScrollView` 的父类）。
     ///
     /// 只做三件事，其余交给业务：
     /// 1. **覆盖缩放手势**：自定义 pinch（禁用原生 zoom / `viewForZooming`），提供 `scale` 替代 `zoomScale`；
     /// 2. **两套缩放机制**：`transform`（位图）/ `frame`（重排），由 `config.mechanism` 开关切换；
     /// 3. **中心点补偿**：缩放后重设 offset 保持视觉中心不变。
     ///
-    /// 「是否每帧重排、重排干什么」是业务的事：`frame` 机制里业务在 `zoomScrollViewDidChangeScale` 里重排 frame、更新 `contentSize`，
+    /// 「是否每帧重排、重排干什么」是业务的事。两个入口都留了 override 口子，子类可接管：
+    /// - `zoomTargetView()`：`transform` 机制的作用对象，默认问代理，子类可改为自有容器；
+    /// - `zoomDidChangeScale(_:)`：`frame` 机制的重排入口，默认转交代理，子类可自行处理（如容器自管 `contentSize`）。
+    ///
     /// 中心点 offset 由本类统一算（不归业务）。
     open class ZoomScrollView: UIScrollView {
 
@@ -126,6 +129,18 @@ extension DTB {
             applyScale(clamped)
         }
 
+        // MARK: - 可重写入口
+
+        /// `transform` 机制的缩放目标：默认问代理，子类可 override 提供自有容器。
+        open func zoomTargetView() -> UIView? {
+            return zoomDelegate?.viewForZooming(in: self)
+        }
+
+        /// `frame` 机制的重排入口：默认转交代理，子类可 override 自行处理（如容器自管 `contentSize`）。
+        open func zoomDidChangeScale(_ newScale: CGFloat) {
+            zoomDelegate?.zoomScrollViewDidChangeScale(self)
+        }
+
         // MARK: - 缩放执行
 
         private func applyScale(_ newScale: CGFloat) {
@@ -137,7 +152,7 @@ extension DTB {
             case .transform:
                 applyTransform(newScale)
             case .frame:
-                zoomDelegate?.zoomScrollViewDidChangeScale(self)   // 业务重排 frame + 更新 contentSize
+                zoomDidChangeScale(newScale)   // 业务 / 子类在此重排 frame + 更新 contentSize
             }
 
             // 中心点补偿（两种机制共用）：把视口中心对应的内容点拉回中心位置
@@ -150,7 +165,7 @@ extension DTB {
         }
 
         private func applyTransform(_ s: CGFloat) {
-            guard let target = zoomDelegate?.viewForZooming(in: self) else { return }
+            guard let target = zoomTargetView() else { return }
             // 以「内容原点」为锚（anchorPoint = .zero），使视觉内容对齐 contentSize 模型。
             // 注意：改 anchorPoint 会 shift frame（保持 position 不变），须回设 frame；bounds 不受 transform 影响，用它作 base size。
             let baseSize = target.bounds.size

@@ -18,45 +18,41 @@ extension DTB {
     @objc(DTBLabel)
     public final class Label: BaseSelfSizingView {
         
-        private var config: DTB.LabelStyle?
+        private var config: DTB.LabelStyle? = nil
         
-        public func setConfig(_ config: DTB.LabelStyle?) {
-            self.config = config
+        public func updateUI(_ value: DTB.LabelStyle?) {
+            self.config = value
             updateAppearance()
             updateLayout()
         }
         
-        private func ensureConfigExist() {
-            if config == nil { config = DTB.LabelStyle() }
-        }
-        
         public var text: String? {
-            get { label.text }
+            get { textLabel.text }
             set {
-                label.text = newValue
+                textLabel.text = newValue
                 updateLayout()
             }
         }
         
         public var attributedText: NSAttributedString? {
-            get { label.attributedText }
+            get { textLabel.attributedText }
             set {
-                label.attributedText = newValue
+                textLabel.attributedText = newValue
                 updateLayout()
             }
         }
         
-        /// 未覆盖的 UILabel 属性在此操作，避免关注 UILabel 具体 API。
+        /// 允许直接操作 UILabel
         ///
-        /// 例如 `label.update { $0.lineBreakMode = .byTruncatingTail; $0.numberOfLines = 1 }`
-        public func update(_ handler: ((UILabel) -> Void)?) {
-            handler?(label)
+        /// 注意: 如果设置了 DTB.LabelStyle，那么相关属性会被 style 覆盖
+        public func label(_ handler: ((UILabel) -> Void)?) {
+            handler?(textLabel)
             updateLayout()
         }
         
         // MARK: - Subviews
         
-        public private(set) lazy var label: UILabel = {
+        private lazy var textLabel: UILabel = {
             let lb = UILabel()
             lb.isUserInteractionEnabled = false
             return lb
@@ -88,21 +84,20 @@ extension DTB {
         private func loadViews(in box: UIView) {
             box.addSubview(shapeView)
             box.addSubview(gradientView)
-            box.addSubview(label)
+            box.addSubview(textLabel)
         }
         
-        // MARK: - Appearance
-        
+        /// 只处理 style 有值时的情况
         private func updateAppearance() {
             guard let config = config else { return }
             
             // 等确定是普通背景再赋值，避免视觉上把圆角盖住
             self.backgroundColor = nil
             
-            label.font = config.font
-            label.textColor = config.textColor
-            if let lines = config.numberOfLines { label.numberOfLines = lines }
-            if let alignment = config.textAlignment { label.textAlignment = alignment }
+            textLabel.font = config.font
+            textLabel.textColor = config.textColor
+            if let lines = config.numberOfLines { textLabel.numberOfLines = lines }
+            if let alignment = config.textAlignment { textLabel.textAlignment = alignment }
             
             // 是渐变
             if let gradient = config.gradient {
@@ -134,36 +129,12 @@ extension DTB {
             setNeedsLayout()
         }
         
-        private var contentEdgeInsets: UIEdgeInsets {
-            config?.contentEdgeInsets ?? .zero
-        }
-        
-//        public override var intrinsicContentSize: CGSize {
-//            let insets = contentEdgeInsets
-//            let size = label.intrinsicContentSize
-//            return CGSize(
-//                width: size.width + insets.left + insets.right,
-//                height: size.height + insets.top + insets.bottom
-//            )
-//        }
-//        
-//        public override func sizeThatFits(_ size: CGSize) -> CGSize {
-//            let insets = contentEdgeInsets
-//            let constrained = CGSize(
-//                width: max(0, size.width - insets.left - insets.right),
-//                height: max(0, size.height - insets.top - insets.bottom)
-//            )
-//            let fit = label.sizeThatFits(constrained)
-//            return CGSize(
-//                width: fit.width + insets.left + insets.right,
-//                height: fit.height + insets.top + insets.bottom
-//            )
-//        }
-        
         public override func layoutInferSize(by size: CGSize) -> CGSize {
-            let labelSize = label.sizeThatFits(size)
-            print("DTB.LABEL: size=\(size), labelSize=\(labelSize)")
-            return labelSize.dtb.margin(only: contentEdgeInsets).value
+            let contentEdgeInsets = config?.contentEdgeInsets ?? .zero
+            // 保持内间距不变
+            let inner = size.dtb.padding(only: contentEdgeInsets).value
+            let innerLabelSize = textLabel.sizeThatFits(inner)
+            return innerLabelSize.dtb.margin(only: contentEdgeInsets).value
         }
         
         public override func layoutSubviews() {
@@ -171,18 +142,13 @@ extension DTB {
             
             guard bounds.isEmpty == false else { return }
             
-            // 背景随 label 变化，直接铺满
+            // 背景直接铺满
             shapeView.frame = bounds
             gradientView.frame = bounds
-            label.frame = bounds.inset(by: contentEdgeInsets)
             
-            // 文字内缩 contentEdgeInsets
-//            let rect = bounds.inset(by: contentEdgeInsets)
-//            label.frame = rect
-//            if label.numberOfLines == 0 {
-//                label.preferredMaxLayoutWidth = rect.width
-//            }
-            
+            //
+            let contentEdgeInsets = config?.contentEdgeInsets ?? .zero
+            textLabel.frame = bounds.inset(by: contentEdgeInsets)
         }
     }
     

@@ -199,7 +199,7 @@ extension DTB.SGFlowViewController: DTB.SelfSizingFlowViewDataSource {
             return item
         case .label(let title):
             let label = DTB.Label()
-            label.setConfig(DTB.LabelStyle(
+            label.updateUI(DTB.LabelStyle(
                 backgroundColor: DTB.SampleDepends.bg3Color(),
                 contentEdgeInsets: UIEdgeInsets(top: 6, left: 12, bottom: 6, right: 12),
                 textColor: DTB.SampleDepends.textColor(),

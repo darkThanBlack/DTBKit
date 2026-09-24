@@ -36,8 +36,17 @@ extension DTB {
             )
         }
 
+        override func viewDidLayoutSubviews() {
+            super.viewDidLayoutSubviews()
+            refreshInfo()
+        }
+
         private func refreshInfo() {
-            infoLabel.text = "created \(DTB.ScrollDemoCell.createdCount) / visible \(scrollView.visibleCellCount) / grid \(rowCount)×\(columnCount)"
+            let ms: (TimeInterval) -> String = { String(format: "%.2f", $0 * 1000) }
+            infoLabel.text = """
+            created \(DTB.ScrollDemoCell.createdCount) / visible \(scrollView.visibleCellCount) / grid \(rowCount)×\(columnCount)
+            reconcile \(ms(scrollView.lastReconcileCost))ms  avg \(ms(scrollView.averageReconcileCost))ms  ×\(scrollView.reconcileCount)
+            """
         }
 
         // MARK: - View
@@ -60,7 +69,7 @@ extension DTB {
             let lb = UILabel()
             lb.font = UIFont.monospacedDigitSystemFont(ofSize: 13.0, weight: .regular)
             lb.textColor = DTB.SampleDepends.text3Color()
-            lb.numberOfLines = 1
+            lb.numberOfLines = 0
             return lb
         }()
 

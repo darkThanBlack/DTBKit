@@ -19,7 +19,7 @@ extension DTB {
 
         func config(key: String, style: DTB.LabelStyle) {
             keyLabel.text = key
-            preview.setConfig(style)
+            preview.updateUI(style)
             preview.text = "Label"
         }
 
