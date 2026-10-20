@@ -57,5 +57,7 @@
   "dtb.user.kickout.desc": "您已被强制下线，这一般是由于账号已在其他设备上登录，或登录授权已过期导致，如果这不是您本人的操作，请咨询管理员。",
   "dtb.setting": "设置",
   "dtb.setting.about": "关于我们",
-  "dtb.app.update": "版本更新"
+  "dtb.app.update": "版本更新",
+  "dtb.file.browser.loading": "加载中…",
+  "dtb.file.browser.empty": "暂无文件"
 }

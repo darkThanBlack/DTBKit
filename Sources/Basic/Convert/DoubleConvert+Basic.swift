@@ -65,4 +65,16 @@ extension Wrapper where Base: BinaryFloatingPoint {
         return Date.dtb.create(ms: me).dtb
     }
     
+    /// s -> ms, me * 1000
+    @inline(__always)
+    public func sToMS() -> Wrapper<Double> {
+        return (Double(me) * 1000).dtb
+    }
+    
+    /// ms -> s, me / 1000
+    @inline(__always)
+    public func msToS() -> Wrapper<Double> {
+        return (Double(me) / 1000).dtb
+    }
+    
 }

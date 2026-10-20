@@ -20,7 +20,7 @@ extension Wrapper where Base == Date {
         return Int64(me.timeIntervalSince1970).dtb
     }
     
-    /// Get Int64 by timeIntervalSince1970 * 1000 (length == 13) | 获取 13 位毫秒时间戳
+    /// Get Int64 by timeIntervalSince1970 * 1000 | 获取 13 位毫秒时间戳
     @inline(__always)
     public func ms() -> Wrapper<Int64> {
         return Int64(me.timeIntervalSince1970 * 1000).dtb

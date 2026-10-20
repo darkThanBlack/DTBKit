@@ -14,34 +14,12 @@ import UIKit
 
 class SettingViewController: DTB.BaseViewController {
     
-    private lazy var sections: [DTB.SectionModel] = {
-        let keys = [
-            "dtb.setting.about",
-            "dtb.deep.labs",
-            "dtb.login",
-            "dtb.user.logout"
-        ]
-        
-        var cells: [DTB.CellModel] = keys.compactMap({
-            .init(
-                data: .init(primaryKey: $0, title: .dtb.create($0), showArrow: true),
-                style: .style("dtb.card_mid")
-            )
-        })
-        cells.first?.style = .style("dtb.card_top")
-        cells.last?.style = .style("dtb.card_bottom")
-        return [
-            DTB.SectionModel(cells: cells)
-        ]
-    }()
-    
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    private let items: [ArrowRow.Item] = [
+        ArrowRow.Item(key: "dtb.setting.about", title: .dtb.create("dtb.setting.about")),
+        ArrowRow.Item(key: "dtb.deep.labs", title: .dtb.create("dtb.deep.labs")),
+        ArrowRow.Item(key: "dtb.login", title: .dtb.create("dtb.login")),
+        ArrowRow.Item(key: "dtb.user.logout", title: .dtb.create("dtb.user.logout")),
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,7 +33,7 @@ class SettingViewController: DTB.BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        contentView.updateSection(sections)
+        contentView.update(items: items)
     }
     
     // MARK: - View
@@ -89,28 +67,24 @@ class SettingViewController: DTB.BaseViewController {
 
 extension SettingViewController: SettingViewDelegate {
     
-    func listItemEvent(_ data: DTB.SampleData) {
-        if data.primaryKey == "dtb.setting.about" {
+    func listItemEvent(_ index: Int) {
+        guard let item = items.dtb[index] else { return }
+        
+        switch item.key {
+        case "dtb.setting.about":
             let vc = AboutUsViewController()
             navigationController?.pushViewController(vc, animated: true)
-            return
-        }
-        if data.primaryKey == "dtb.deep.labs" {
+        case "dtb.deep.labs":
             let vc = DTB.LabsViewController()
             navigationController?.pushViewController(vc, animated: true)
-            return
-        }
-        if data.primaryKey == "dtb.login" {
+        case "dtb.login":
             let vc = LoginViewController()
             let nav = DTB.SystemNavigationController(rootViewController: vc)
             present(nav, animated: true)
-            return
-        }
-        if data.primaryKey == "dtb.user.logout" {
+        case "dtb.user.logout":
             UserManager.shared.logout()
-            return
+        default:
+            DTB.console.error(item.key)
         }
-
-        DTB.console.error(data.primaryKey)
     }
 }

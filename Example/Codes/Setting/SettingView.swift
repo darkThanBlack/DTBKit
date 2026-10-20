@@ -8,14 +8,14 @@
 //  LICENSE: SAME AS REPOSITORY
 //  Contact me: [GitHub](https://github.com/darkThanBlack)
 //
-    
+
 
 import UIKit
 
 ///
 protocol SettingViewDelegate: AnyObject {
     
-    func listItemEvent(_ data: DTB.SampleData)
+    func listItemEvent(_ index: Int)
 }
 
 /// 我的
@@ -23,11 +23,27 @@ class SettingView: UIView {
     
     weak var delegate: SettingViewDelegate?
     
-    private var sections: [DTB.SectionModel] = []
+    private var items: [ArrowRow.Item] = []
     
-    func updateSection(_ data: [DTB.SectionModel]) {
-        self.sections = data
-        tableView.reloadData()
+    /// 更新条目
+    ///
+    /// 列表很短（个位数），每次直接重建，不做 diff。
+    func update(items: [ArrowRow.Item]) {
+        self.items = items
+        
+        contentStack.arrangedSubviews.forEach({ $0.removeFromSuperview() })
+        
+        for (index, item) in items.enumerated() {
+            contentStack.addArrangedSubview(
+                ArrowRow.card(
+                    title: item.title,
+                    index: index,
+                    count: items.count,
+                    target: self,
+                    action: #selector(listItemEvent(_:))
+                )
+            )
+        }
     }
     
     override init(frame: CGRect) {
@@ -43,54 +59,43 @@ class SettingView: UIView {
     //MARK: View
     
     private func loadViews(in box: UIView) {
-        box.addSubview(tableView)
-        tableView.snp.makeConstraints { make in
-            make.top.left.right.bottom.equalToSuperview()
+        box.addSubview(scrollView)
+        scrollView.addSubview(contentStack)
+        
+        scrollView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        /// 左右留白由 card style 的 margin 自带，stack 不再 inset
+        contentStack.snp.makeConstraints { make in
+            make.edges.equalTo(scrollView)
+            make.width.equalTo(scrollView.snp.width)
         }
     }
     
-    private lazy var tableView: UITableView = {
-        let tableView = UITableView.dtb.plain(self, cells: [DTB.CrumbsTableViewCell.self])
-        tableView.isScrollEnabled = false
-        return tableView
-    }()
-}
-
-extension SettingView: UITableViewDelegate {
+    //MARK: 事件
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let data = sections.dtb[indexPath.section]?.cells.dtb[indexPath.row]?.data else {
+    @objc private func listItemEvent(_ sender: UITapGestureRecognizer) {
+        guard let index = sender.view?.tag, items.dtb[index] != nil else {
             return
         }
-        delegate?.listItemEvent(data)
-    }
-}
-
-extension SettingView: UITableViewDataSource {
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
+        delegate?.listItemEvent(index)
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections.dtb[section]?.cells.count ?? 0
-    }
+    //MARK: 懒加载
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell: DTB.CrumbsTableViewCell = tableView.dtb.dequeueReusableCell(indexPath), let model = sections.dtb[indexPath.section]?.cells.dtb[indexPath.row] else {
-            DTB.console.error()
-            return UITableViewCell()
-        }
-        cell.registerCrumbs(type: .itdi_arrow_1)
-        cell.update(model: model)
-        return cell
-    }
+    private lazy var scrollView: UIScrollView = {
+        let sv = UIScrollView()
+        sv.alwaysBounceVertical = true
+        sv.showsVerticalScrollIndicator = false
+        return sv
+    }()
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return UIView()
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 8.0
-    }
+    private lazy var contentStack: UIStackView = {
+        let s = UIStackView()
+        s.axis = .vertical
+        s.alignment = .fill
+        s.distribution = .fill
+        s.spacing = 0.0
+        return s
+    }()
 }

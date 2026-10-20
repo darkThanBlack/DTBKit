@@ -43,6 +43,9 @@ extension DTB {
             .init(vc: DTB.SGFlowViewController(), title: "Flow"),
             .init(vc: DTB.SGScrollViewController(), title: "Scroll"),
             .init(vc: DTB.SGZoomViewController(), title: "Zoom"),
+            .init(vc: DTB.SGCrumbsViewController(), title: "Crumbs"),
+            .init(vc: DTB.SGPathBarViewController(), title: "PathBar"),
+            .init(vc: DTB.SGFileBrowserViewController(), title: "FileBrowser"),
         ]
 
         var childPages: [UIViewController] { pages.map { $0.vc } }

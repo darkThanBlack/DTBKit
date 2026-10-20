@@ -17,35 +17,38 @@ extension DTB {
     /// 展示对国际化字符串的控制
     public final class I18NViewController: DTB.BaseViewController {
         
-        private lazy var sections: [DTB.SectionModel] = {
+        /// 条目：只存数据
+        private struct Item {
             
-            /// primaryKey 和实际的语言标志符对应
-            var cells: [DTB.CellModel] = [
-                .init(
-                    data: .init(primaryKey: nil, title: .dtb.create("dtb.deep.follow_system")),
-                    style: .style("dtb.card_top")
-                ),
-                .init(
-                    data: .init(primaryKey: "en", title: "English"),
-                    style: .style("dtb.card_mid")
-                ),
-                .init(
-                    data: .init(primaryKey: "zh", title: "简体中文"),
-                    style: .style("dtb.card_bottom")
-                )
-            ]
+            /// 与 ``DTB.I18NManager/currentKey`` 对应；nil = follow system
+            let key: String?
             
-            // 样式
-            cells.forEach({ $0.extra = DTB.CrumbsType.tdi_select_1 })
+            let title: String
             
-            // 当前选中状态
-            let idx = cells.firstIndex(where: { $0.data?.primaryKey == DTB.I18NManager.shared.currentKey }) ?? 0
-            cells[idx].data?.isSelected = true
-            
-            return [
-                DTB.SectionModel(cells: cells)
-            ]
-        }()
+            /// 分组卡片样式（首/尾圆角不同）
+            let cardStyle: String
+        }
+        
+        private let items: [Item] = [
+            Item(
+                key: nil,
+                title: .dtb.create("dtb.deep.follow_system"),
+                cardStyle: "dtb.card_top"
+            ),
+            Item(
+                key: "en",
+                title: "English",
+                cardStyle: "dtb.card_mid"
+            ),
+            Item(
+                key: "zh",
+                title: "简体中文",
+                cardStyle: "dtb.card_bottom"
+            ),
+        ]
+        
+        /// 行视图：刷新选中态用
+        private var rows: [DTB.LabsSelectRow] = []
         
         public override func viewDidLoad() {
             super.viewDidLoad()
@@ -57,73 +60,111 @@ extension DTB {
         public override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
             
-            contentView.updateSection(sections)
+            refreshSelection()
         }
         
         // MARK: - View
         
         private func loadViews(in box: UIView) {
-            box.addSubview(contentView)
-            contentView.snp.makeConstraints { make in
-                make.top.equalTo(customNavigationBar.snp.bottom).offset(0)
+            box.addSubview(scrollView)
+            scrollView.addSubview(contentStack)
+            
+            scrollView.snp.makeConstraints { make in
+                make.top.equalTo(customNavigationBar.snp.bottom)
                 make.left.right.bottom.equalTo(box.safeAreaLayoutGuide)
+            }
+            /// 左右留白由 card style 的 margin 自带，stack 不再 inset
+            contentStack.snp.makeConstraints { make in
+                make.edges.equalTo(scrollView)
+                make.width.equalTo(scrollView.snp.width)
+            }
+            
+            for (index, item) in items.enumerated() {
+                let row = DTB.LabsSelectRow()
+                row.update(title: item.title, detail: nil, isSelected: false)
+                rows.append(row)
+                
+                let card = DTB.Container(child: row, style: .style(item.cardStyle))
+                card.tag = index
+                card.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(listItemEvent(_:))))
+                contentStack.addArrangedSubview(card)
             }
         }
         
-        private lazy var contentView: DTB.CrumbsSampleView = {
-            let view = DTB.CrumbsSampleView()
-            view.backgroundColor = .clear
-            view.delegate = self
-            return view
+        /// 当前选中项（跟随 ``DTB.I18NManager`` 的实际状态）
+        private func refreshSelection() {
+            let current = DTB.I18NManager.shared.currentKey
+            let selected = items.firstIndex(where: { $0.key == current }) ?? 0
+            
+            rows.enumerated().forEach { index, row in
+                guard let item = items.dtb[index] else { return }
+                row.update(title: item.title, detail: nil, isSelected: (index == selected))
+            }
+        }
+        
+        // MARK: - 事件
+        
+        @objc private func listItemEvent(_ sender: UITapGestureRecognizer) {
+            guard let item = items.dtb[sender.view?.tag] else { return }
+            
+            let title: String = {
+                switch item.key {
+                case "en":  return "Hint"
+                case "zh":  return "提示"
+                default:    return .dtb.create("dtb.common.hint")
+                }
+            }()
+            
+            let message: String = {
+                switch item.key {
+                case "en":  return "Switching languages requires restarting APP. Continue?"
+                case "zh":  return "切换语言需要重启 APP，是否继续？"
+                default:    return .dtb.create("dtb.deep.i18n.ensure")
+                }
+            }()
+            
+            let cancel: String = {
+                switch item.key {
+                case "en":  return "Cancel"
+                case "zh":  return "取消"
+                default:    return .dtb.create("dtb.common.cancel")
+                }
+            }()
+            
+            let ensure: String = {
+                switch item.key {
+                case "en":  return "Ensure"
+                case "zh":  return "确定"
+                default:    return .dtb.create("dtb.common.ensure")
+                }
+            }()
+            
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: cancel, style: .default))
+            alert.addAction(UIAlertAction(title: ensure, style: .default, handler: { _ in
+                DTB.I18NManager.shared.update(key: item.key)
+                NotificationCenter.default.post(name: DTB.Notifications.appNeedRestart, object: nil)
+            }))
+            present(alert, animated: true)
+        }
+        
+        // MARK: - 懒加载
+        
+        private lazy var scrollView: UIScrollView = {
+            let sv = UIScrollView()
+            sv.alwaysBounceVertical = true
+            sv.showsVerticalScrollIndicator = false
+            return sv
+        }()
+        
+        private lazy var contentStack: UIStackView = {
+            let s = UIStackView()
+            s.axis = .vertical
+            s.alignment = .fill
+            s.distribution = .fill
+            s.spacing = 0.0
+            return s
         }()
     }
     
-}
-
-
-extension DTB.I18NViewController: DTB.CrumbsSampleViewDelegate {
-    
-    public func listItemEvent(_ indexPath: IndexPath) {
-        guard let data = sections.dtb[indexPath.section]?.cells.dtb[indexPath.row]?.data else { return }
-        
-        let title: String = {
-            switch data.primaryKey {
-            case "en":  return "Hint"
-            case "zh":  return "提示"
-            default:    return .dtb.create("dtb.common.hint")
-            }
-        }()
-        
-        let message: String = {
-            switch data.primaryKey {
-            case "en":  return "Switching languages requires restarting APP. Continue?"
-            case "zh":  return "切换语言需要重启 APP，是否继续？"
-            default:    return .dtb.create("dtb.deep.i18n.ensure")
-            }
-        }()
-        
-        let cancel: String = {
-            switch data.primaryKey {
-            case "en":  return "Cancel"
-            case "zh":  return "取消"
-            default:    return .dtb.create("dtb.common.cancel")
-            }
-        }()
-        
-        let ensure: String = {
-            switch data.primaryKey {
-            case "en":  return "Ensure"
-            case "zh":  return "确定"
-            default:    return .dtb.create("dtb.common.ensure")
-            }
-        }()
-        
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: cancel, style: .default))
-        alert.addAction(UIAlertAction(title: ensure, style: .default, handler: { _ in
-            DTB.I18NManager.shared.update(key: data.primaryKey)
-            NotificationCenter.default.post(name: DTB.Notifications.appNeedRestart, object: nil)
-        }))
-        self.present(alert, animated: true)
-    }
 }

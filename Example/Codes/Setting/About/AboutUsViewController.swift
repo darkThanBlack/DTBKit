@@ -14,33 +14,23 @@ import UIKit
 /// 关于我们
 class AboutUsViewController: DTB.BaseViewController {
     
-    private lazy var sections: [DTB.SectionModel] = {
-        let keys = [
-            "dtb.app.update",
-            "dtb.policy.ts",
-            "dtb.policy.pp"
-        ]
-        
-        var cells: [DTB.CellModel] = keys.compactMap({
-            .init(
-                data: .init(primaryKey: $0, title: .dtb.create($0), showArrow: true),
-                style: .style("dtb.card_mid")
-            )
-        })
-        cells.first?.style = .style("dtb.card_top")
-        cells.last?.style = .style("dtb.card_bottom")
-        return [
-            DTB.SectionModel(cells: cells)
-        ]
-    }()
+    private let items: [ArrowRow.Item] = [
+        ArrowRow.Item(key: "dtb.app.update", title: .dtb.create("dtb.app.update")),
+        ArrowRow.Item(key: "dtb.policy.ts", title: .dtb.create("dtb.policy.ts")),
+        ArrowRow.Item(key: "dtb.policy.pp", title: .dtb.create("dtb.policy.pp")),
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupNavigatonBar(with: .init(title: .dtb.create("dtb.setting.about")))
         loadViews(in: view)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        contentView.updateSection(sections)
+        contentView.update(items: items)
     }
     
     //MARK: View
@@ -62,8 +52,10 @@ class AboutUsViewController: DTB.BaseViewController {
 
 extension AboutUsViewController: AboutUsViewDelegate {
     
-    func listItemEvent(_ data: DTB.SampleData) {
-        switch data.primaryKey ?? "" {
+    func listItemEvent(_ index: Int) {
+        guard let item = items.dtb[index] else { return }
+        
+        switch item.key {
         case "dtb.app.update":
             // XMVersions.shared.showUserCheckUpdateAlert()
             break
@@ -72,8 +64,7 @@ extension AboutUsViewController: AboutUsViewDelegate {
         case "dtb.policy.pp":
             break
         default:
-            DTB.console.error(data.primaryKey)
-            break
+            DTB.console.error(item.key)
         }
         
         // TODO: link

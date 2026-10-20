@@ -88,8 +88,8 @@ extension DTB {
         /// FFFFFF
         static func backgroundColor2() -> UIColor { return .dtb.create("dtb.bg2") }
 
-        /// F05746
-        static func themeColor() -> UIColor { return .dtb.create("dtb.danger") }
+        /// FF7700
+        static func themeColor() -> UIColor { return .dtb.create("dtb.theme") }
         
         /// 15171F
         static func textColor() -> UIColor { return .dtb.create("dtb.text") }

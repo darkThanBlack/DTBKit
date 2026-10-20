@@ -27,24 +27,9 @@ class MineViewController: UIViewController, DTB.SimpleNavigationBarHandler {
         device: "device_id: "
     )
     
-    private lazy var sections: [DTB.SectionModel] = {
-        return [
-            DTB.SectionModel(cells: [
-                DTB.CellModel(
-                    data: DTB.SampleData(primaryKey: "dtb.setting", title: .dtb.create("dtb.setting"), showArrow: true),
-                    style: .style("dtb.card")
-                )
-            ]),
-        ]
-    }()
-    
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    private let items: [ArrowRow.Item] = [
+        ArrowRow.Item(key: "dtb.setting", title: .dtb.create("dtb.setting")),
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,7 +45,7 @@ class MineViewController: UIViewController, DTB.SimpleNavigationBarHandler {
         super.viewWillAppear(animated)
         
         contentView.updateHeader(header)
-        contentView.updateSection(sections)
+        contentView.update(items: items)
     }
     
     // MARK: - View
@@ -101,12 +86,15 @@ extension MineViewController: MineViewDelegates {
         
     }
     
-    func listItemEvent(_ data: DTB.SampleData) {
-        if data.primaryKey == "dtb.setting" {
+    func listItemEvent(_ index: Int) {
+        guard let item = items.dtb[index] else { return }
+        
+        switch item.key {
+        case "dtb.setting":
             let vc = SettingViewController()
             navigationController?.pushViewController(vc, animated: true)
-            return
+        default:
+            DTB.console.error(item.key)
         }
-        DTB.console.error(data.primaryKey)
     }
 }

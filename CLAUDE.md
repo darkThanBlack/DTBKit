@@ -69,6 +69,32 @@
 - **provider 契约（`Any` + `if as`）**：`AlertProvider.showAlert(on:param:)`，`Any` 参数 + `if as` 分发——`as? UIViewController` 兜底自定义形态（业务自建「标题+自定义 view+按钮」VC 直接 present）、`as? Alert` / `as? AttributeAlert` 默认 alert。`Any` 是「可插拔 provider」的开放契约：`Alert` 锁不住所有业务形态，provider 自己 `if as` 收窄；框架糖层（若要）应保持强类型，不把 `Any` 泄漏到糖。
 - **默认实现一一对应**：`DefaultAlertProvider` ↔ `DefaultAlertViewController`（居中卡片，仿 `UIAlertController(.alert)`），一个 provider 实现对应一个业务 alert VC；换 provider 即换对应 VC。VC 数据入口 `Any?`（`if as` 分发 `Alert`/`AttributeAlert`），固定布局（卡片 `Container` + stack 包裹，title/message 用 `Label` 常驻 + `isHidden` 切换、buttons 动态重建），`update(creater:)` 可换数据；`init(creater:)` 仅为 buttons 布局方便。
 
+### FileBrowser（纯 UI 文件浏览器 + 面包屑路径条）
+- **来源**：复刻 `XMTool/XMBundleL1/UIKits/Bundles/View/ScrollableNodesView.swift`（面包屑路径条）+ 云盘选文件（`XMBusiness/HomeSchool/Swift/Homework/CloudFiles`）与 `XMBundleLN/Media`（模型/行/导航）。**只借需求，不借形状**：原型把选中态写进 model（`XMCloudFile.isSelected`）、用 `copy()` + 值比较当身份、上限与锁定双闸分散、分页态塞进 model、路径栈与面包屑同源却无身份概念，这些问题全部在框架层解决。
+- **落位**：`Sources/UIKit/Classes/View/FileBrowser/` —— 契约 `FileNode.swift` / `FileBrowserProtocols.swift`；纯逻辑 `FilePathStack.swift`；组件 `PathBarView.swift` / `FileListView.swift` / `FileBrowserView.swift` / `FileRowView.swift` / `FileBrowserCells.swift`；依赖收束 `FileBrowserDepends.swift`。demo 在 `Sample/Gallery/FileBrowser/`（`FileBrowserMockProvider` + `SGPathBarViewController` / `SGFileBrowserViewController`，已挂画廊 PathBar / FileBrowser 两页）。
+- **命名**：**不用 `Crumb` 前缀** —— 仓库里 `DTB.Crumb1/Crumb3` 已被占用表示「列表行模板」，路径条改叫 `DTB.PathBarView` + `PathNode`，避免指代冲突。
+- **职责切分（本轮定稿）**：三种输入性质不同，边界在此 —— ① **路径是同步且确定的**：`FileBrowserView.update(paths:)` 一把喂进来（上层知道自己在哪几层、每层叫什么）；② **内容是异步的**：`FileBrowserView` 拿当前路径去问 `FileBrowserDataSource.nodesOf(_:completion:)`，回调回来才刷列表（中间显示 loading 文案，回调是空数组则显示 empty 文案）；③ **事件只报「第几项」**：点行 / 点面包屑都上抛，换不换路径由上层决定（它再喂一次 `update(paths:)`）。三个组件的出口（`PathBarDelegate` / `FileListViewDelegate`）在这里被收成一个 `FileBrowserDelegate`。
+- **它仍然不组织 node**：不推栈、不缓存某层内容、不知道下一层是哪一层 —— 那是数据源实现里的事。示例装配见 `SGFileBrowserViewController`（路径栈 + 一个 `FileBrowserDataSource` 实现 = 一个浏览器的全部业务）。
+- **数据源 = 路径 → 内容（异步）**：`fileBrowser(_:nodesOf:completion:)`，收「从根到当前层的整条路径」，答「末端这一层的内容」。契约三条：**必须主线程回调**（框架直接刷 UI）、**空数组 = 这一层确实没内容**（不是「还没加载」）、**缓存命中可以同步回调**。框架侧用**请求序号**（`requestToken`）丢弃过期回调 —— 来回快速点击 / 改路径后再回来，不会渲染出旧路径的内容。
+- **三态只用一句文案**：`show(stateText:)` 里 `nil` = 有内容（显示列表），否则列表藏起来、居中显示这句话（`stateLabel`）。列表与文案同在一个垂直 `.fill` 的 `contentStack` 里，藏掉一个剩下的自然占满 —— 于是不需要枚举、不需要单独的 emptyView/indicator。文案走 `FileBrowserDepends.loadingText()` / `emptyText()`（`dtb.file.browser.loading` / `.empty`）。
+- **`willSelectPath` = 「不可进入」的唯一表达方式**：**`FileNode.isLocked` 已删**（连同行视图的压暗、点击短路）—— 「哪些路径进不去」是业务规则，不是节点属性。框架在**路径类操作**上调用它：面包屑任一祖先项 + 列表里的**文件夹行**；返回 false 则这次点击整个作废（不上报事件、不换路径、不请求数据源，提示由业务在那个方法里给）。**文件行不上闸**（它不是路径，走 `didSelectAt`；要「点了没反应」业务不做事即可）。默认实现返回 true，不关心的业务一行都不用写。
+- **协议分层（两层节点）**：`PathNode`（只 `nodeID` / `nodeName`）← `FileNode`（+ `nodeKind` / `nodeSize` / `nodeIconToken`，可选项全有默认值）。身份是 `nodeID: String`，三条硬契约：**全局唯一** / **跨 reload 稳定** / **禁用展示名当 id**。`[any FileNode]` 喂 `[any PathNode]` 处套 `PathNodeBox` 具体类型 —— 不赌 existential 集合的隐式向上转换。
+- **id 契约的兜底在框架**：数据源是外面写的，`FileBrowserView` 在收到 nodes 后统一 `sanitize`（id 为空 / 同层重复 → `DTB.console.error` + 丢弃该行，宁可少一行也不允许同一 id 指两行）。跨层重复需要全局 node 表，那是上层的事，框架不越界。
+- **范围收敛：只管浏览** —— 没有选中态、没有上下拉刷新、没有分页。选择 / 分页一律不进框架：业务在 `didSelectAt` 里自己做。
+- **节点不带 `subNode: [Self]` 树（与 `XMCloudFile` 的关键分歧）**：原型把子节点存进 model，于是「空文件夹」与「还没加载」不可区分（只能用 `pageParams` 之类的旁路字段补），且要往 UI 已经持有的对象里回写子数组。框架改成**查询式**：数据源回答「某节点下有什么」，节点自身不持子树。编译器实测 `var subNode: [Self]` 的两条硬约束：① 该类型**必须 `final`**；② 子节点**必须与自身同型**（`[any TreeNode]` 不满足 `[Self]`）。树仍在框架允许范围内 —— final 类树模型写 3 行即可接入。
+- **依赖收束**：只收「文案 / 颜色 / 图片」这类**随主题变化**的东西（`DTB.FileBrowserDepends`，仿 `DiskUsageDepends`）；**尺寸与字号就地写字面量**（图标盒 32 / 圆角 8 / 图标 17 / 箭头 12 / 行留白 16 / 标题 15 / 副标题 12 / 行高下限 36 / 状态文案 13）—— 它们跟着布局走，收进 Depends 反而看不出对应关系。默认图标是 SF Symbol（iOS 13+，低版本 nil 降级）。
+- **列表承载 = UITableView（但只是承载）**：`FileListView` 是**哑组件** —— 给什么画什么，吃 `[any DTB.FileNode]`、报「第几行」，`IndexPath` / cell 一概不外露；行高自适应（`rowHeight = .automaticDimension` + `dtb.plain` 铺的预估行高，`separatorStyle = .none`）。换承载（`ReusableScrollView` / SelfSizing 单列）只需重写这一个文件。
+- **行视图 = `Crumb1` + 左侧图标盒**：结构 `H[iconBox | V[title, detail] | spacer | rightImage]`，**照 `Crumb1` 来写**（同款 stacks + `spacer()` + `edges` 铺满 + 只给 `leftStack` 低压缩阻力，只用原生 API + SnapKit），不另起一套约束。文字块给 `>= 36` 的高度下限 —— 文件夹没有副标题，靠它跟文件行一样高。尾部箭头**不用 `isHidden`**（它是带固定尺寸的 arranged subview，隐藏有约束冲突的坑），而是把 `image` 置空：文件行照样占着槽位，长名截断线一致。标题一行中间截断（文件名语义），要折行把 `numberOfLines` 改 0。
+- **路径条（`PathBarView`）的减法清单**（已由用户手改定型）：
+  - **永远从左至右**：不做「元素少时均分铺满」（对标 `DefaultSegmentHeader`，删掉它那条 `.fillEqually` 分支）。只有一种布局模式 ⇒ 不必按内容宽切换约束、不必自己量宽，只留一条 Auto Layout 约束链（`contentLayoutGuide` / `frameLayoutGuide`）。
+  - **两端渐隐是两个固定覆盖层**（`self` 的子视图、scrollView 的兄弟，不参与滚动），职责只是**提示「末端还有可滑动内容」**，所以固定常驻即可 —— 不按滚动位置逐帧算，也不判断有没有溢出；形态可换成切图（改 `FadeView` 一处）。首尾留白 = 渐隐宽 = 同一个 `contentInset` 常量，于是「滚到任一端时首/末项恰好落在渐隐之外」由构造保证。**别改用 `scrollView.layer.mask`**：scrollView 的 `bounds.origin` 就是 `contentOffset`，mask 的 frame 会被解释进内容坐标、随滚动漂走（实测会把右半屏内容整片抹掉）。
+  - **没有 `intrinsicContentSize` / `setNeedsLayout` / `layoutSubviews`**：条高由内容决定 —— `stack` 给最小高度（`>= 36`）兜底、高度跟 `scrollView.frameLayoutGuide` 走，`self` 上不钉死高度（代价：`>=` 是「引擎取满足约束的最小解」，实践稳定但不是等式那种硬保证）。
+  - **要不要滚只看「内容宽 vs 视口宽」**：`update(items:)` 里用 `stack.systemLayoutSizeFitting` 算出内容宽（+ 首尾留白），宽于视口才滚到末尾，**每次喂数据都对齐到当前层**（上游重排本身就意味着数据刷新过）。`cachedIDs` / `isGrown` 已删 —— 变长变短跟「滚到末端」没关系；`FilePathStack.isExtension` 也删了（只有路径条一个消费者）。不读 `scrollView.contentSize`（它只在 scrollView 自己的布局回调里结算，加子视图也不会标脏，实测会读到「少了一项」的旧值，短 77pt = 末项 + 一个分隔符）。视口未知（还没布局）时不滚，不猜 offset。
+  - **命中判定走 `stack.arrangedSubviews` 的几何命中**（平行的 `itemViews` 数组已删）。**已知问题（待修）**：分隔符也是 `arrangedSubviews` 一员，`isUserInteractionEnabled = false` 只挡 hitTest、不挡几何命中，而它的 `tag` 默认 **0** → 点两个面包屑之间的「›」会命中 index 0，直接跳回根。修法：`guard let label = view as? UILabel else { return }`（或给分隔符 `tag = -1`）。
+  - 参数不开放给业务：`PathBarConfig` 已删，形态常量就地字面量（首尾 16 / 最小高 36 / 最大项宽 200 / 分隔符 9×12 / spacing 6）。
+- **已实测（模拟器截图，路径条那轮）**：路径条溢出 → 首帧就滚到末尾（当前层强调色贴住右留白）+ 左侧渐隐；短路径（装得下）两端看不见渐隐；长名中点截断。列表侧的空态 / loading / 异步 / `willSelectPath` 这一轮**尚未验证**（数据源 mock 里 `fakeDelay = 0.35` 用来肉眼观察 loading 文案）。
+- **文档同步**：`llms/modules/uikit.md` 的 PathBar / FileBrowser 一节按本轮 API 重写；上一条「Crumbs 系列」还列着已删的 `Crumb2` / `CrumbsView` / `CrumbsTableViewCell` / `CrumbsSampleView`（那是另一条线在改的内容，未动）。
+
 ## 研究课题
 
 ### 1. 页面结构相关

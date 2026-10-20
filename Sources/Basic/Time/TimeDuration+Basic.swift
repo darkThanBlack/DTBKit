@@ -48,16 +48,6 @@ extension Wrapper where Base == Date {
 
 extension Wrapper where Base: FixedWidthInteger & SignedInteger {
     
-    /// s -> ms, me * 1000
-    public func toMS() -> Wrapper<Double> {
-        return (Double(me) * 1000).dtb
-    }
-    
-    /// ms -> s, me / 1000
-    public func toS() -> Wrapper<Double> {
-        return (Double(me) / 1000).dtb
-    }
-    
     /// 根据毫秒时间戳转换为可读的时长字符串
     public func toDurationString(_ type: DTB.DateDurationFormatTypes) -> String? {
         let seconds = me / 1000

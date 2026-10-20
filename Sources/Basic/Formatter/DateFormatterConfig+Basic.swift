@@ -31,7 +31,7 @@ extension Wrapper where Base == Date {
     ///     let a = Date().dtb.toString(.dtb.date("yyyy-MM-dd HH:mm"))
     /// ```
     @inline(__always)
-    public func toString(_ formatter: DTB.DateFormatterConfig) -> String {
+    public func toString(_ formatter: DTB.DateFormatterConfig = .date()) -> String {
         return formatter.make().string(from: me)
     }
 }

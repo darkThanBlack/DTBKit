@@ -17,55 +17,23 @@ extension DTB {
     /// 实验性功能
     public final class LabsViewController: DTB.BaseViewController {
         
-        private lazy var sections: [DTB.SectionModel] = {
+        /// 条目：只存数据
+        private struct Item {
             
-            let hintCells = [
-                DTB.CellModel(
-                    data: DTB.SampleData(
-                        title: .dtb.create("dtb.common.warning"),
-                        detail: .dtb.create("dtb.deep.labs.desc"),
-                        titleAttr: NSAttributedString(
-                            string: .dtb.create("dtb.common.warning"),
-                            attributes: .dtb.create
-                                .foregroundColor(.dtb.create("dtb.warning"))
-                                .font(.dtb.create(size: 17.0))
-                                .value
-                        ),
-                    ),
-                    style: DTB.ContainerStyle(
-                        margin: UIEdgeInsets(top: 8.0, left: 16.0, bottom: 4.0, right: 16.0),
-                        padding: UIEdgeInsets(top: 12.0, left: 16.0, bottom: 12.0, right: 16.0),
-                        shape: DTB.ShapeStyle(
-                            corners: [.allCorners],
-                            radius: .fixed(12.0),
-                            fillColor: .dtb.create("dtb.bg3"),
-                            strokeColor: .dtb.create("dtb.warning"),
-                            lineWidth: 1.0,
-                        )
-                    ),
-                    extra: DTB.CrumbsType.tdi_arrow_1
-                )
-            ]
+            /// 跳转标识
+            let key: String
             
-            let subCells: [DTB.CellModel] = [
-                ("dtb.deep.disk",   "dtb.deep.disk.desc"),
-                ("dtb.deep.i18n",   "dtb.deep.i18n.desc"),
-                ("dtb.deep.color",  "dtb.deep.color.desc"),
-                ("dtb.deep.crumbs", "dtb.deep.crumbs.desc"),
-                ("dtb.deep.sample", "dtb.deep.sample.desc"),
-            ].compactMap({
-                DTB.CellModel(
-                    data: .init(primaryKey: $0.0, title: .dtb.create($0.0), detail: .dtb.create($0.1), showArrow: true),
-                    style: .style("dtb.card"),
-                    extra: DTB.CrumbsType.tdi_arrow_1
-                )
-            })
+            let title: String
             
-            return [
-                DTB.SectionModel(cells: hintCells),
-                DTB.SectionModel(cells: subCells)
-            ]
-        }()
+            let detail: String
+        }
+        
+        private let items: [Item] = [
+            Item(key: "dtb.deep.disk",   title: .dtb.create("dtb.deep.disk"),   detail: .dtb.create("dtb.deep.disk.desc")),
+            Item(key: "dtb.deep.i18n",   title: .dtb.create("dtb.deep.i18n"),   detail: .dtb.create("dtb.deep.i18n.desc")),
+            Item(key: "dtb.deep.color",  title: .dtb.create("dtb.deep.color"),  detail: .dtb.create("dtb.deep.color.desc")),
+            Item(key: "dtb.deep.sample", title: .dtb.create("dtb.deep.sample"), detail: .dtb.create("dtb.deep.sample.desc")),
+        ]
         
         public override func viewDidLoad() {
             super.viewDidLoad()
@@ -74,55 +42,112 @@ extension DTB {
             loadViews(in: view)
         }
         
-        public override func viewWillAppear(_ animated: Bool) {
-            super.viewWillAppear(animated)
-            
-            contentView.updateSection(sections)
-        }
-        
         // MARK: - View
         
         private func loadViews(in box: UIView) {
-            box.addSubview(contentView)
-            contentView.snp.makeConstraints { make in
-                make.top.equalTo(customNavigationBar.snp.bottom).offset(0)
+            box.addSubview(scrollView)
+            scrollView.addSubview(contentStack)
+            
+            scrollView.snp.makeConstraints { make in
+                make.top.equalTo(customNavigationBar.snp.bottom)
                 make.left.right.bottom.equalTo(box.safeAreaLayoutGuide)
+            }
+            /// 左右留白由 card style 的 margin 自带，stack 不再 inset
+            contentStack.snp.makeConstraints { make in
+                make.edges.equalTo(scrollView)
+                make.width.equalTo(scrollView.snp.width)
+            }
+            
+            contentStack.addArrangedSubview(makeHintCard())
+            
+            items.enumerated().forEach { index, item in
+                contentStack.addArrangedSubview(makeArrowCard(item, tag: index))
             }
         }
         
-        private lazy var contentView: DTB.CrumbsSampleView = {
-            let view = DTB.CrumbsSampleView()
-            view.backgroundColor = .clear
-            view.delegate = self
-            return view
+        /// 顶部警示卡：样式在代码里拼（非 json）
+        private func makeHintCard() -> UIView {
+            let row = DTB.LabsArrowRow()
+            row.update(
+                title: nil,
+                titleAttr: NSAttributedString(
+                    string: .dtb.create("dtb.common.warning"),
+                    attributes: .dtb.create
+                        .foregroundColor(.dtb.create("dtb.warning"))
+                        .font(.dtb.create(size: 17.0))
+                        .value
+                ),
+                detail: .dtb.create("dtb.deep.labs.desc"),
+                showArrow: false
+            )
+            
+            return DTB.Container(
+                child: row,
+                style: DTB.ContainerStyle(
+                    margin: UIEdgeInsets(top: 8.0, left: 16.0, bottom: 16.0, right: 16.0),
+                    padding: UIEdgeInsets(top: 12.0, left: 16.0, bottom: 12.0, right: 16.0),
+                    shape: DTB.ShapeStyle(
+                        corners: [.allCorners],
+                        radius: .fixed(12.0),
+                        fillColor: .dtb.create("dtb.bg3"),
+                        strokeColor: .dtb.create("dtb.warning"),
+                        lineWidth: 1.0
+                    )
+                )
+            )
+        }
+        
+        /// 普通行：`dtb.card` 卡片 + 尾部箭头
+        private func makeArrowCard(_ item: Item, tag: Int) -> UIView {
+            let row = DTB.LabsArrowRow()
+            row.update(title: item.title, detail: item.detail, showArrow: true)
+            
+            let card = DTB.Container(child: row, style: .style("dtb.card"))
+            card.tag = tag
+            card.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(listItemEvent(_:))))
+            return card
+        }
+        
+        // MARK: - 跳转
+        
+        @objc private func listItemEvent(_ sender: UITapGestureRecognizer) {
+            guard let item = items.dtb[sender.view?.tag] else {
+                DTB.console.error(sender.view?.tag)
+                return
+            }
+            
+            switch item.key {
+            case "dtb.deep.disk":
+                navigationController?.pushViewController(DTB.DiskUsageViewController(), animated: true)
+            case "dtb.deep.i18n":
+                navigationController?.pushViewController(DTB.I18NViewController(), animated: true)
+            case "dtb.deep.color":
+                navigationController?.pushViewController(DTB.ColorViewController(), animated: true)
+            case "dtb.deep.sample":
+                navigationController?.pushViewController(DTB.SampleViewController(), animated: true)
+            default:
+                DTB.console.error(item.key)
+            }
+        }
+        
+        // MARK: - 懒加载
+        
+        private lazy var scrollView: UIScrollView = {
+            let sv = UIScrollView()
+            sv.alwaysBounceVertical = true
+            sv.showsVerticalScrollIndicator = false
+            return sv
+        }()
+        
+        private lazy var contentStack: UIStackView = {
+            let s = UIStackView()
+            s.axis = .vertical
+            s.alignment = .fill
+            s.distribution = .fill
+            s.spacing = 0.0
+            return s
         }()
         
     }
     
-}
-
-extension DTB.LabsViewController: DTB.CrumbsSampleViewDelegate {
-    
-    public func listItemEvent(_ indexPath: IndexPath) {
-        let key = sections.dtb[indexPath.section]?.cells.dtb[indexPath.row]?.data?.primaryKey
-        switch key {
-        case "dtb.deep.disk":
-            let vc = DTB.DiskUsageViewController()
-            navigationController?.pushViewController(vc, animated: true)
-        case "dtb.deep.i18n":
-            let vc = DTB.I18NViewController()
-            navigationController?.pushViewController(vc, animated: true)
-        case "dtb.deep.color":
-            let vc = DTB.ColorViewController()
-            navigationController?.pushViewController(vc, animated: true)
-        case "dtb.deep.crumbs":
-            let vc = DTB.CrumbsViewController()
-            navigationController?.pushViewController(vc, animated: true)
-        case "dtb.deep.sample":
-            let vc = DTB.SampleViewController()
-            navigationController?.pushViewController(vc, animated: true)
-        default:
-            DTB.console.error(key)
-        }
-    }
 }

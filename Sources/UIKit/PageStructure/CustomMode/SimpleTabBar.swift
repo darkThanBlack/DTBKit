@@ -74,8 +74,10 @@ extension DTB {
         private func updateAppearance() {
             titleLabel.textColor = (isSelected ? self.selectedColor : self.unselectColor) ?? .clear
             selectImageView.image = selectedImage
+            selectImageView.tintColor = selectedColor ?? .clear
             unSelectImageView.image = unSelectImage
-            
+            unSelectImageView.tintColor = unselectColor ?? .clear
+
             if let str = self.title, str.isEmpty == false {
                 titleLabel.text = str
                 titleLabel.isHidden = false
@@ -184,8 +186,8 @@ extension DTB {
                 let item = barItems[index]
                 view.update(
                     title: item.title,
-                    unselectColor: barData?.unSelectTintColor,
-                    selectedColor: barData?.selectedTintColor,
+                    unselectColor: item.unSelectTintColor ?? barData?.unSelectTintColor,
+                    selectedColor: item.selectedTintColor ?? barData?.selectedTintColor,
                     unSelectImage: item.image,
                     selectedImage: item.selectedImage
                 )

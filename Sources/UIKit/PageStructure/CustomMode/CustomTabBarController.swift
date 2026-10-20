@@ -35,6 +35,10 @@ extension DTB {
         var selectedImage: UIImage?  { get }
         
         var font: UIFont?  { get }
+        
+        var unSelectTintColor: UIColor? { get }
+        
+        var selectedTintColor: UIColor? { get }
     }
     
     ///

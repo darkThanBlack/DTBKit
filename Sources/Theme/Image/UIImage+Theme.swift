@@ -28,7 +28,7 @@ extension StaticWrapper where T: UIImage {
     /// 加载网络图片
     ///
     ///
-    public func remote(_ value: Any?, completedHandler: ((Result<UIImage, Error>) -> ())? = nil) {
+    public func remote(_ value: Any?, completedHandler: ((Swift.Result<UIImage, Error>) -> ())? = nil) {
         if let p = DTB.Providers.get(DTB.Providers.remoteImageKey) {
             p.remote(value, completedHandler: completedHandler)
         }

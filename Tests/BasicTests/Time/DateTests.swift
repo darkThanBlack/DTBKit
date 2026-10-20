@@ -98,6 +98,33 @@ final class TimeModuleTests: XCTestCase {
         })
     }
     
+    // MARK: - TimeStamp Unit Convert
+
+    /// s ↔ ms 换算：与 ``sDate()`` / ``msDate()`` 同族（接收者是时间戳，单位由方法名前缀说明）
+    func testTimeStampUnitConvert() throws {
+        Self.plan_stamp.forEach({
+            XCTAssertEqual($0.dtb.sToMS().value, TimeInterval($0) * 1000)
+            XCTAssertEqual($0.dtb.msToS().value, TimeInterval($0) / 1000)
+        })
+
+        Self.plan_stamp_f.forEach({
+            XCTAssertEqual($0.dtb.sToMS().value, $0 * 1000)
+            XCTAssertEqual($0.dtb.msToS().value, $0 / 1000)
+        })
+
+        /// 毫秒侧的小数不截断（返回 Double 的意义就在这儿）
+        XCTAssertEqual(1_500.dtb.msToS().value, 1.5)
+        XCTAssertEqual(1_500.5.dtb.msToS().value, 1.5005, accuracy: 0.000_000_1)
+        XCTAssertEqual(1.5.dtb.sToMS().value, 1_500.0)
+
+        /// 边界：0 / 负数 / 不足 1 秒
+        XCTAssertEqual(Int64(0).dtb.sToMS().value, 0)
+        XCTAssertEqual(Int64(0).dtb.msToS().value, 0)
+        XCTAssertEqual(Int64(999).dtb.msToS().value, 0.999, accuracy: 0.000_000_1)
+        XCTAssertEqual(Int64(-1).dtb.msToS().value, -0.001, accuracy: 0.000_000_1)
+        XCTAssertEqual(Int64(-86_400).dtb.sToMS().value, -86_400_000)
+    }
+
     // MARK: - Format
     
     func testDateFormat() throws {

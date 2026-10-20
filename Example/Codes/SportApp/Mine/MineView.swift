@@ -13,13 +13,13 @@
 ///
 protocol MineViewDelegates: MineHeaderViewDelegate {
     
-    func listItemEvent(_ data: DTB.SampleData)
+    func listItemEvent(_ index: Int)
 }
 
 /// 我的
 class MineView: UIView {
     
-    private var sections: [DTB.SectionModel] = []
+    private var items: [ArrowRow.Item] = []
     
     weak var delegate: MineViewDelegates? {
         didSet {
@@ -31,9 +31,25 @@ class MineView: UIView {
         headerView.updateData(data)
     }
     
-    func updateSection(_ data: [DTB.SectionModel]) {
-        self.sections = data
-        tableView.reloadData()
+    /// 更新条目
+    ///
+    /// 列表很短（个位数），每次直接重建，不做 diff。
+    func update(items: [ArrowRow.Item]) {
+        self.items = items
+        
+        contentStack.arrangedSubviews.forEach({ $0.removeFromSuperview() })
+        
+        for (index, item) in items.enumerated() {
+            contentStack.addArrangedSubview(
+                ArrowRow.card(
+                    title: item.title,
+                    index: index,
+                    count: items.count,
+                    target: self,
+                    action: #selector(listItemEvent(_:))
+                )
+            )
+        }
     }
     
     override init(frame: CGRect) {
@@ -54,18 +70,35 @@ class MineView: UIView {
     
     private func loadViews(in box: UIView) {
         box.addSubview(headerView)
-        box.addSubview(tableView)
+        box.addSubview(scrollView)
+        scrollView.addSubview(contentStack)
         
         headerView.snp.makeConstraints { make in
             make.top.equalTo(box.snp.top).offset(12.0)
             make.left.right.equalToSuperview()
             make.height.equalTo(162.0)
         }
-        tableView.snp.makeConstraints { make in
+        scrollView.snp.makeConstraints { make in
             make.top.equalTo(headerView.snp.bottom)
             make.left.right.bottom.equalToSuperview()
         }
+        /// 左右留白由 card style 的 margin 自带，stack 不再 inset
+        contentStack.snp.makeConstraints { make in
+            make.edges.equalTo(scrollView)
+            make.width.equalTo(scrollView.snp.width)
+        }
     }
+    
+    //MARK: 事件
+    
+    @objc private func listItemEvent(_ sender: UITapGestureRecognizer) {
+        guard let index = sender.view?.tag, items.dtb[index] != nil else {
+            return
+        }
+        delegate?.listItemEvent(index)
+    }
+    
+    //MARK: 懒加载
     
     private lazy var headerView: MineHeaderView = {
         let view = MineHeaderView()
@@ -73,10 +106,20 @@ class MineView: UIView {
         return view
     }()
     
-    private lazy var tableView: UITableView = {
-        let tableView = UITableView.dtb.plain(self, cells: [DTB.CrumbsTableViewCell.self])
-        tableView.isScrollEnabled = false
-        return tableView
+    private lazy var scrollView: UIScrollView = {
+        let sv = UIScrollView()
+        sv.alwaysBounceVertical = true
+        sv.showsVerticalScrollIndicator = false
+        return sv
+    }()
+    
+    private lazy var contentStack: UIStackView = {
+        let s = UIStackView()
+        s.axis = .vertical
+        s.alignment = .fill
+        s.distribution = .fill
+        s.spacing = 0.0
+        return s
     }()
     
     private lazy var logoutButton = {
@@ -85,42 +128,4 @@ class MineView: UIView {
         button.addTarget(self, action: #selector(logoutButtonEvent), for: .touchUpInside)
         return button
     }()
-}
-
-extension MineView: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let data = sections.dtb[indexPath.section]?.cells.dtb[indexPath.row]?.data else {
-            return
-        }
-        delegate?.listItemEvent(data)
-    }
-}
-
-extension MineView: UITableViewDataSource {
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections.dtb[section]?.cells.count ?? 0
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: DTB.CrumbsTableViewCell = tableView.dtb.dequeueReusableCellEnsured(indexPath)
-        if let model = sections.dtb[indexPath.section]?.cells.dtb[indexPath.row] {
-            cell.registerCrumbs(type: .itdi_arrow_1)
-            cell.update(model: model)
-        }
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return UIView()
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 8.0
-    }
 }
