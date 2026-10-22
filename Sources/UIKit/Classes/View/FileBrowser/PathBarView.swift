@@ -118,8 +118,31 @@ extension DTB {
                 make.height.greaterThanOrEqualTo(36.0)
             }
 
+            /// 条高只由内容决定（见 ``intrinsicContentSize``）：把垂直 hugging 抬到默认 250 之上，
+            /// 免得同层的兄弟视图（如 ``FileBrowserView`` 里铺满剩余空间的内容区）把整条拉长。
+            setContentHuggingPriority(.defaultHigh, for: .vertical)
 
             addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(gesture:))))
+        }
+
+        /// 条高由内容决定（`36` 兜底），宽度交给外部
+        ///
+        /// - Note: 高度**必须自带固有尺寸**，不能只靠 ``stack`` 的 `>= 36` 兜底：
+        ///   `UIStackView` 的 `intrinsicContentSize` 是 `(-1, -1)`，而这里又是 `.center` 对齐，
+        ///   内容高度压根不会回传到 ``stack`` / `self` 上 —— 「条该多高」于是变成外部约束系统的
+        ///   歧义解。兄弟视图一旦有确定的固有高度（如 ``FileBrowserView`` 列表为空、只剩一句
+        ///   状态文案时），它就会被拉去占满剩余空间。
+        public override var intrinsicContentSize: CGSize {
+            return CGSize(width: UIView.noIntrinsicMetric, height: max(36.0, contentHeight()))
+        }
+
+        /// 内容的自然高度：取分隔符 / 文字里最高的那个
+        private func contentHeight() -> CGFloat {
+            var height: CGFloat = 0.0
+            for view in stack.arrangedSubviews {
+                height = max(height, view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height)
+            }
+            return height
         }
 
         /// 滚动到末尾
@@ -141,6 +164,8 @@ extension DTB {
         private func reload() {
             stack.arrangedSubviews.forEach({ $0.removeFromSuperview() })
             itemViews.removeAll()
+
+            defer { invalidateIntrinsicContentSize() }
 
             guard let ds = dataSource else { return }
 
