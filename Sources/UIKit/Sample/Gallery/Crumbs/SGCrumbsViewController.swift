@@ -42,19 +42,18 @@ extension DTB {
             
             contentStack.addArrangedSubview(makeHeader("Crumbs：列表行模板，业务拷走后按需改名 / 微调。每张卡是一个场景", isTop: true))
             
-            contentStack.addArrangedSubview(makeHeader("Crumb1　H[ V[Title, Detail] | spacer | RightImage ]"))
-            crumb1Scenes().forEach { caption, apply in
-                let crumb = DTB.Crumb1()
-                apply(crumb)
-                contentStack.addArrangedSubview(makeCard(caption, crumb))
-            }
+            /// 每组只常驻「最完全」的那张（数组第 0 项），其余折叠，点开关行再展开
+            appendSceneMatrix(
+                "Crumb1　H[ V[Title, Detail] | spacer | RightImage ]",
+                scenes: crumb1Scenes(),
+                make: { DTB.Crumb1() }
+            )
             
-            contentStack.addArrangedSubview(makeHeader("Crumb3　H[LeftImage, Title, spacer, Detail, RightImage]"))
-            crumb3Scenes().forEach { caption, apply in
-                let crumb = DTB.Crumb3()
-                apply(crumb)
-                contentStack.addArrangedSubview(makeCard(caption, crumb))
-            }
+            appendSceneMatrix(
+                "Crumb3　H[LeftImage, Title, spacer, Detail, RightImage]",
+                scenes: crumb3Scenes(),
+                make: { DTB.Crumb3() }
+            )
         }
         
         // MARK: - 场景矩阵
@@ -92,6 +91,47 @@ extension DTB {
                 ("无文字（仅左右图）", { $0.update(leftImage: image, showRightImage: true) }),
                 ("全空（仅右图）", { $0.update(showRightImage: true) })
             ]
+        }
+        
+        // MARK: - 场景矩阵装配
+        
+        /// 一组场景：常驻「最完全」的第 1 张，其余收进折叠区，由开关行控制
+        ///
+        /// - Note: 折叠区一开始就建好（18 张卡片本来就是一次性创建，成本可忽略），展开 / 收起只切
+        ///   `isHidden` —— UIStackView 会让隐藏的 arranged subview 高度归零并自动重排，不需要增删视图。
+        private func appendSceneMatrix<T: UIView>(
+            _ title: String,
+            scenes: [(String, (T) -> Void)],
+            make: () -> T
+        ) {
+            guard let primary = scenes.first else { return }
+            
+            contentStack.addArrangedSubview(makeHeader(title))
+            
+            let (caption, apply) = primary
+            let primaryView = make()
+            apply(primaryView)
+            contentStack.addArrangedSubview(makeCard(caption, primaryView))
+            
+            guard scenes.count > 1 else { return }
+            
+            let restStack = UIStackView()
+            restStack.axis = .vertical
+            restStack.alignment = .fill
+            restStack.distribution = .fill
+            restStack.spacing = 0.0
+            restStack.isHidden = true
+            
+            for (caption, apply) in scenes.dropFirst() {
+                let crumb = make()
+                apply(crumb)
+                restStack.addArrangedSubview(makeCard(caption, crumb))
+            }
+            
+            contentStack.addArrangedSubview(restStack)
+            contentStack.addArrangedSubview(
+                SceneToggleRow(restStack: restStack, collapsedCount: scenes.count - 1)
+            )
         }
         
         // MARK: - 工具
@@ -148,5 +188,81 @@ extension DTB {
             s.spacing = 0.0
             return s
         }()
+    }
+    
+    /// 场景组的「展开 / 收起」开关行（自带状态，只认自己那一组折叠区）
+    private final class SceneToggleRow: UIControl {
+        
+        private weak var restStack: UIStackView?
+        
+        private let collapsedCount: Int
+        
+        private let titleLabel: UILabel = {
+            let view = UILabel()
+            view.font = UIFont.systemFont(ofSize: 12.0, weight: .regular)
+            view.textColor = DTB.SampleDepends.text2Color()
+            return view
+        }()
+        
+        private let arrowView: UIImageView = {
+            let view = UIImageView(image: UIImage.dtb.local("chevron.down"))
+            view.contentMode = .scaleAspectFit
+            view.tintColor = DTB.SampleDepends.textDisabledColor()
+            return view
+        }()
+        
+        init(restStack: UIStackView, collapsedCount: Int) {
+            self.restStack = restStack
+            self.collapsedCount = collapsedCount
+            super.init(frame: .zero)
+            
+            titleLabel.setContentHuggingPriority(.required, for: .horizontal)
+            
+            /// 中间塞一个空 UIView 当弹簧，标题贴左、箭头贴右
+            let stack = UIStackView(arrangedSubviews: [titleLabel, UIView(), arrowView])
+            stack.axis = .horizontal
+            stack.alignment = .center
+            stack.distribution = .fill
+            stack.spacing = 4.0
+            stack.isUserInteractionEnabled = false
+            
+            addSubview(stack)
+            stack.snp.makeConstraints { make in
+                /// 左右 32 = 卡片 margin(16) + padding(16)，文字与卡片正文对齐
+                make.edges.equalToSuperview().inset(
+                    UIEdgeInsets(top: 10.0, left: 32.0, bottom: 10.0, right: 32.0)
+                )
+            }
+            arrowView.snp.makeConstraints { make in
+                make.width.height.equalTo(12.0)
+            }
+            
+            addTarget(self, action: #selector(handleTap), for: .touchUpInside)
+            
+            refresh()
+
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        @objc private func handleTap() {
+            guard let restStack = restStack else { return }
+            
+            UIView.animate(withDuration: 0.25, delay: 0.0, options: [.curveEaseInOut], animations: {
+                restStack.isHidden.toggle()
+                self.refresh()
+                /// 让滚动视图的内容尺寸跟着一起变（被展开 / 收起的卡片也一起动）
+                self.window?.layoutIfNeeded()
+            })
+        }
+        
+        private func refresh() {
+            let isExpanded: Bool = (restStack?.isHidden == false)
+            
+            titleLabel.text = isExpanded ? "收起" : "展开其余 \(collapsedCount) 个场景"
+            arrowView.transform = isExpanded ? CGAffineTransform(rotationAngle: .pi) : .identity
+        }
     }
 }

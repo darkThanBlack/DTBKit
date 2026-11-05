@@ -18,6 +18,6 @@ extension DTB.Providers {
     
     public protocol RemoteImageProvider {
         
-        func remote(_ value: Any?, completedHandler: ((Result<UIImage, Error>) -> ())?)
+        func remote(_ value: Any?, completedHandler: ((Swift.Result<UIImage, Error>) -> ())?)
     }
 }

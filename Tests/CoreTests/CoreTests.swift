@@ -354,6 +354,52 @@ final class CoreTests: XCTestCase {
         XCTAssertNil(DTB.Providers.get(key))
     }
     
+    /// 注册后日志转发到 provider；注销后回落到默认实现
+    func testConsoleProvider() throws {
+        let provider = TestConsoleProvider()
+        DTB.Providers.register(provider, key: DTB.Providers.consoleKey)
+        defer { DTB.Providers.unregister(DTB.Providers.consoleKey) }
+        
+        DTB.console.log("log-message")
+        DTB.console.error("error-message")
+        
+        XCTAssertEqual(provider.logs, ["log-message"])
+        XCTAssertEqual(provider.errors, ["error-message"])
+        XCTAssertTrue(provider.logFunctions.first?.contains("testConsoleProvider") == true)
+        XCTAssertTrue(provider.logFiles.first?.contains("CoreTests.swift") == true)
+        XCTAssertTrue(provider.logLines.first ?? 0 > 0)
+        
+        /// 注销后回到默认实现：DEBUG 下走 Swift.print，不崩溃即可
+        DTB.Providers.unregister(DTB.Providers.consoleKey)
+        DTB.console.log("fallback")
+        DTB.console.error("fallback")
+    }
+    
+    private final class TestConsoleProvider: DTB.Providers.ConsoleProvider {
+        
+        private(set) var logs: [String] = []
+        private(set) var errors: [String] = []
+        private(set) var assertions: [String] = []
+        private(set) var logFunctions: [String] = []
+        private(set) var logFiles: [String] = []
+        private(set) var logLines: [Int] = []
+        
+        func log(_ item: Any, file: String, line: Int, function: String) {
+            logs.append("\(item)")
+            logFunctions.append(function)
+            logFiles.append(file)
+            logLines.append(line)
+        }
+        
+        func error(_ item: Any?, file: String, line: Int, function: String) {
+            errors.append(item.map({ "\($0)" }) ?? "nil")
+        }
+        
+        func assertionFailure(_ message: String?, file: String, line: Int, function: String) {
+            assertions.append(message ?? "nil")
+        }
+    }
+    
     // MARK: - Performance, base on Mac Studio 2023, Apple M2 Ultra, 64 GB
     
     private let plan_performance_count: Int = 100000

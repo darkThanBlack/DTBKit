@@ -108,12 +108,19 @@ public struct Wrapper<Base> {
     /// ```
     @inline(__always)
     public var value: Base { return me }
+}
+
+/// Chainable for any property.
+///
+/// 链式语法兼容。
+///
+/// - Important: 只对引用类型开放。值类型的 `me` 是副本，写入不会回传到 `value`，
+///   所以这里用 `Base: AnyObject` 把它挡在编译期（而不是运行时静默 no-op）。
+///   值类型请使用 `MutableWrapper` 或各自的构造器。
+extension Wrapper where Base: AnyObject {
     
-    /// Chainable for any property.
-    ///
-    /// 链式语法兼容
-    public subscript<Value>(dynamicMember keyPath: WritableKeyPath<Base, Value>) -> ((Value) -> Wrapper<Base>) {
-        var subject = self.me
+    public subscript<Value>(dynamicMember keyPath: ReferenceWritableKeyPath<Base, Value>) -> ((Value) -> Wrapper<Base>) {
+        var subject = me
         return { value in
             subject[keyPath: keyPath] = value
             return self

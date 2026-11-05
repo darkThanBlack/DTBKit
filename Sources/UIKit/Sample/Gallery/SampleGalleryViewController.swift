@@ -46,6 +46,7 @@ extension DTB {
             .init(vc: DTB.SGCrumbsViewController(), title: "Crumbs"),
             .init(vc: DTB.SGPathBarViewController(), title: "PathBar"),
             .init(vc: DTB.SGFileBrowserViewController(), title: "FileBrowser"),
+            .init(vc: DTB.SGSandboxFileBrowserViewController(), title: "Sandbox"),
         ]
 
         var childPages: [UIViewController] { pages.map { $0.vc } }
