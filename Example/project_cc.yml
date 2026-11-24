@@ -66,8 +66,6 @@ targets:
       - path: "../Sources/Theme"
     dependencies:
       - target: DTBKit_Core
-      - target: DTBKit_Chain
-      - target: DTBKit_Basic
     settings:
       base:
         GENERATE_INFOPLIST_FILE: true

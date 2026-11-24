@@ -46,7 +46,7 @@ Pod::Spec.new do |s|
   
   s.subspec 'Theme' do |ss|
     ss.source_files = 'Sources/Theme/**/*'
-    ss.dependency 'DTBKit/Basic'
+    ss.dependency 'DTBKit/Core'
   end
   
   s.subspec 'ObjectMapper' do |ss|
@@ -82,6 +82,7 @@ Pod::Spec.new do |s|
   s.subspec 'UIKit' do |ss|
     ss.source_files = 'Sources/UIKit/**/*.{swift,h,m,mm,c,cpp}'
     ss.dependency 'DTBKit/Basic'
+    ss.dependency 'DTBKit/Theme'
     ss.dependency 'DTBKit/SportTheme'
     
     ss.dependency 'SnapKit', '~> 4.0.0'

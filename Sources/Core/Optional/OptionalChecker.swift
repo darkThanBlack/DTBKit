@@ -10,36 +10,10 @@
 //
 
 
-import UIKit
+import Foundation
 
 extension DTB {
     
-    /// For object
-    public protocol EmptyCheckable {
-        
-        static func dtb_emptyValue() -> Self
-        
-        func dtb_isEmpty() -> Bool
-    }
-    
-    /// For number
-    public protocol NumberEmptyCheckable: EmptyCheckable {
-        
-        /// 0
-        static func dtb_zeroValue() -> Self
-        
-        /// != .NaN && != .infinite; Int will always return true.
-        func dtb_isFinite() -> Bool
-        
-        /// == 0
-        func dtb_isZero() -> Bool
-        
-        /// > 0
-        func dtb_isPositive() -> Bool
-        
-        /// < 0
-        func dtb_isNegative() -> Bool
-    }
     
     /// - Unbox for Optional / Empty / Zero
     public struct OptionalChecker {

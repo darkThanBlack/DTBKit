@@ -77,7 +77,7 @@ extension DTB {
             selectImageView.tintColor = selectedColor ?? .clear
             unSelectImageView.image = unSelectImage
             unSelectImageView.tintColor = unselectColor ?? .clear
-
+            
             if let str = self.title, str.isEmpty == false {
                 titleLabel.text = str
                 titleLabel.isHidden = false
@@ -217,11 +217,11 @@ extension DTB {
             box.addSubview(stackView)
             stackView.snp.makeConstraints { make in
                 make.top.left.right.equalTo(box)
-                 make.height.greaterThanOrEqualTo(49.0)
+                make.height.greaterThanOrEqualTo(49.0 - 8.0)
                 if #available(iOS 12.0, *) {
-                    make.bottom.equalTo(box.safeAreaLayoutGuide.snp.bottom).offset(-0)
+                    make.bottom.equalTo(box.safeAreaLayoutGuide.snp.bottom).offset(-8.0)
                 } else {
-                    make.bottom.equalTo(box.snp.bottom).offset(-0)
+                    make.bottom.equalTo(box.snp.bottom).offset(-8.0)
                 }
             }
         }

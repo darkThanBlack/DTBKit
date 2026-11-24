@@ -10,7 +10,7 @@
 //
 
 
-import UIKit
+import Foundation
 
 extension StaticWrapper where T: Bundle {
     
