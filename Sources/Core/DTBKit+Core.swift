@@ -51,7 +51,7 @@ extension DTB {
     /// LLDB Console, replacement for ``Swift.print``
     public static let console = ConsoleManager.shared
     
-    /// Unbox for ``Optional / Empty / Zero``
+    /// Optional 兜底 / 有效性判定
     public static let check = OptionalChecker()
     
     /// Try adjust from 'Any'

@@ -4,7 +4,7 @@
 
 ```
 Core (DTBKit/Core)
-├── 命名空间系统, Wrapper, ConstKey, AppManager, ConsoleManager
+├── 命名空间系统, Wrapper, ConstKey, AppManager, ConsoleManager, AnyConvert, OptionalChecker
 │
 ├── Chain (DTBKit/Chain)     ← 依赖 Core
 │   └── UIKit/QuartzCore 链式属性设置
@@ -19,11 +19,10 @@ Core (DTBKit/Core)
 │   ├── 数值类型 (Int, Double, NSDecimalNumber, NSNumber)
 │   ├── 时间 (Date 扩展, 时长, 相对时间)
 │   ├── 几何 (CGRect, CGSize)
-│   ├── 类型转换 (AnyConvert, Date/Double/Integer/String Convert)
+│   ├── 类型转换 (Date/Double/Integer/String Convert)
 │   ├── Collection 扩展 (Array 安全下标)
 │   ├── 格式化 (DateFormatter, NumberFormatter)
 │   ├── 磁盘缓存 (DiskCacheManager, File/URL/WebView Cache)
-│   ├── Optional 检查 (DTB.check)
 │   ├── 高保真适配 (HighFidelity)
 │   └── 工具 (Regulars, ReflectManager)
 │

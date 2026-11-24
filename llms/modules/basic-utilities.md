@@ -232,46 +232,15 @@ class MyCacheProvider: DTB.Providers.CacheProvider {
 }
 ```
 
-## 可选值检查（DTB.check）
+## 可选值兜底（DTB.check）
 
-`DTB.check` 提供对可选值的安全处理，区分"空对象"和"零值数值"。
-
-### 对象空值检查（EmptyCheckable）
-
-适用类型：`String`、`Array`、`Dictionary`、`Set`
+已移至 Core 模块，见 [[core]]。
 
 ```swift
-DTB.check.isEmpty(str)         // → Bool（nil 或空字符串 → true）
-DTB.check.isNotEmpty(str)      // → Bool
-
-// 空则取默认值
-DTB.check.or(str, def: "默认") // → String（nil/empty 用 def，def 也为 nil 用空值）
-DTB.check.or(str)              // → String（nil/empty → ""）
+DTB.check.or(value)                  // nil / 无效 → 默认值
+DTB.check.isInvalid(value) / isValid(value)
+DTB.check.isInvalidOrZero(value) / isPositive(value) / isNegative(value)
 ```
-
-### 数值零值检查（NumberEmptyCheckable）
-
-适用类型：`Int`, `Double`, `Float`, `CGFloat` 等
-
-```swift
-DTB.check.isEmptyOrZero(value)     // → Bool（nil / NaN / infinite / 0 → true）
-DTB.check.isNotEmptyOrZero(value)  // → Bool
-
-// 零则取默认值
-DTB.check.orZero(value)            // → Double（nil/NaN/infinite → 0）
-
-// 正负检查
-DTB.check.isPositive(value)        // → Bool（> 0 且有限）
-DTB.check.isNegative(value)        // → Bool（< 0 且有限）
-```
-
-### 与实例方法的关系
-
-| DTB.check 方法 | 对应实例方法 |
-|----------------|-------------|
-| `DTB.check.isEmpty(s)` | `s.dtb.isEmpty()` |
-| `DTB.check.isEmptyOrZero(d)` | `!d.dtb.isFinite() \|\| d.dtb.isZero()` |
-| `DTB.check.or(str)` | —（无实例等价物，因需处理 nil） |
 
 ## 高保真适配（HighFidelity）
 

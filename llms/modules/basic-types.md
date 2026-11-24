@@ -4,18 +4,20 @@
 
 ## 数值类型
 
-### 数值检查协议（NumberEmptyCheckable）
+### 数值语义（NumberCheckable）
 
-所有数值类型（Int, Int8, Int16, Int32, Int64, Float, Double）共享：
+协议定义在 Core 模块（`DTB.NumberCheckable`，继承 `DTB.OptionalCheckable`）。
+数值没有「空」的概念，只有有效性、零值与符号：
 
 ```swift
-value.dtb.isZero()       // → Bool
-value.dtb.isPositive()   // → Bool
-value.dtb.isNegative()   // → Bool
-value.dtb.isFinite()     // → Bool（对浮点类型有意义，Int 始终返回 true）
-value.dtb.isEmpty()      // → Bool（浮点: !isFinite, 整数: 始终 false）
-value.dtb.emptyValue()   // → Self（静态，返回零值）
+DTB.check.isInvalid(value)        // nil / NaN / inf → true
+DTB.check.isInvalidOrZero(value)  // 上述，或 == 0
+DTB.check.isPositive(value)       // 有效且 > 0
+DTB.check.isNegative(value)       // 有效且 < 0
+DTB.check.or(value)               // nil / 无效 → 0
 ```
+
+详见 [[core]]。
 
 ### Double/Float/CGFloat（BinaryFloatingPoint）
 
@@ -198,17 +200,16 @@ CGRect 自身扩展方法较少，主要通过 Chain 模块的 `CGRect.dtb.creat
 
 ### AnyConvert（DTB.any）
 
-从 `Any?` 安全转换为具体类型：
+定义在 Core 模块，从 `Any?` 安全转换为具体类型（多形态输入，失败返回 `nil`）：
 
 ```swift
 DTB.any.int64(value)          // → Int64?
 DTB.any.int(value)            // → Int?
 DTB.any.double(value)         // → Double?
 DTB.any.cgFloat(value)        // → CGFloat?
-DTB.any.uiEdgeInsets(value)   // → UIEdgeInsets?（从 [String: Any] 解析）
-DTB.any.cgSize(value)         // → CGSize?（从 [String: Any] 解析）
-DTB.any.cgVector(value)       // → CGVector?（从 [String: Any] 解析）
 ```
+
+`uiEdgeInsets` / `cgSize` / `cgVector` 由 Theme 模块以扩展提供，调用方式相同。
 
 ### 专用 Convert
 

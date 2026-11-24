@@ -16,9 +16,11 @@ public enum DTB {}
 // 全局入口
 DTB.app        // → AppManager，内存字典 + 应用信息
 DTB.console    // → ConsoleManager，日志打印
+DTB.check      // → OptionalChecker，Optional 兜底
+DTB.any        // → AnyConvert，Any 安全转换
 ```
 
-`DTB.app` 和 `DTB.console` 定义在 `DTBKit+Core.swift` 中。其他模块会向 `DTB` 添加更多静态入口。
+四个入口都定义在 `DTBKit+Core.swift` 中。其他模块会向 `DTB` 添加更多静态入口。
 
 ### Wrapper / StaticWrapper
 
@@ -102,6 +104,56 @@ public final class ConsoleManager {
 public struct Weaker<T: AnyObject> {
     public weak var object: T?
 }
+```
+
+### AnyConvert（DTB.any）
+
+从 `Any?` 安全转换为具体类型。多形态输入：整数 / 浮点 / `String` / `NSNumber`，失败返回 `nil`。
+
+```swift
+DTB.any.int64(value)          // → Int64?
+DTB.any.int(value)            // → Int?
+DTB.any.double(value)         // → Double?
+DTB.any.cgFloat(value)        // → CGFloat?
+```
+
+`uiEdgeInsets` / `cgSize` / `cgVector` 在 Theme 模块以扩展提供，调用方式相同。
+
+### OptionalCheckable / NumberCheckable
+
+对象的「空」与数字的「无效」是两个概念，协议只承诺「能判断可用性 + 有默认值」：
+
+```swift
+public protocol OptionalCheckable {
+    static func dtb_defaultValue() -> Self   // nil / 无效时的值
+    func dtb_isInvalid() -> Bool             // 非 nil 前提下是否不可用
+}
+
+public protocol NumberCheckable: OptionalCheckable {
+    func dtb_isZero() -> Bool
+    func dtb_isPositive() -> Bool
+    func dtb_isNegative() -> Bool
+}
+```
+
+| 类型 | `dtb_isInvalid()` | `dtb_defaultValue()` |
+|---|---|---|
+| `String` / `Array` / `Dictionary` / `Set` | `isEmpty` | `""` / `[]` / `[:]` |
+| `Int` / `Int8` … `Int64` | 恒 `false`（只有 nil 缺失） | `0` |
+| `Float` / `Double` | `!isFinite`（NaN / inf） | `0` |
+
+### OptionalChecker（DTB.check）
+
+```swift
+DTB.check.or(value)                 // nil / 无效 → 默认值
+DTB.check.or(value, def: fallback)  // nil / 无效 → fallback
+DTB.check.isInvalid(value)          // → Bool
+DTB.check.isValid(value)            // → Bool
+
+// 数字
+DTB.check.isInvalidOrZero(value)    // nil / 无效 / 0
+DTB.check.isPositive(value)         // 有效且 > 0
+DTB.check.isNegative(value)         // 有效且 < 0
 ```
 
 ## 使用示例

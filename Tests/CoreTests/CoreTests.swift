@@ -395,8 +395,8 @@ final class CoreTests: XCTestCase {
             errors.append(item.map({ "\($0)" }) ?? "nil")
         }
         
-        func assertionFailure(_ message: String?, file: String, line: Int, function: String) {
-            assertions.append(message ?? "nil")
+        func assert(_ item: Any?, file: String, line: Int, function: String) {
+            assertions.append(item.map({ "\($0)" }) ?? "nil")
         }
     }
     

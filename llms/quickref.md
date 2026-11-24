@@ -113,7 +113,7 @@
 | DTB.app | core.md | 内存 KV 存储 + 应用信息 |
 | DTB.console | core.md | 日志（仅 debug 输出） |
 | DTB.config | basic-utilities.md | 全局默认值配置 |
-| DTB.check | basic-utilities.md | 可选值/空值检查 |
-| DTB.any | basic-types.md | Any 安全转换 |
+| DTB.check | core.md | Optional 兜底 / 有效性判定 |
+| DTB.any | core.md | Any 安全转换 |
 | HighFidelity | basic-utilities.md | 设计稿像素适配 |
 | DiskCache | basic-utilities.md | 磁盘缓存管理 |

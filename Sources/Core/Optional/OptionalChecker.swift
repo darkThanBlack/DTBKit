@@ -9,121 +9,63 @@
 //  Contact me: [GitHub](https://github.com/darkThanBlack)
 //
 
-
 import Foundation
 
 extension DTB {
     
-    
-    /// - Unbox for Optional / Empty / Zero
+    /// - Optional 兜底
     public struct OptionalChecker {
         
-        // MARK: - Object, empty
+        // MARK: - 通用
         
-        /// orEmpty
+        /// value 为 nil / 无效时返回 ``def ?? dtb_defaultValue()``。
         @inline(__always)
-        public func `or`<E>(_ value: E?, def: E? = nil) -> E where E: DTB.EmptyCheckable {
-            return orEmpty(value, def: def)
+        public func `or`<E>(_ value: E?, def: E? = nil) -> E where E: DTB.OptionalCheckable {
+            if let value = value, !value.dtb_isInvalid() {
+                return value
+            }
+            return def ?? E.dtb_defaultValue()
         }
         
-        /// return TRUE when value is nil / empty.
+        /// value 为 nil / 无效时返回 true。
         @inline(__always)
-        public func isEmpty<E>(_ value: E?) -> Bool where E: DTB.EmptyCheckable {
-            return value?.dtb_isEmpty() ?? true
+        public func isInvalid<E>(_ value: E?) -> Bool where E: DTB.OptionalCheckable {
+            return value.map { $0.dtb_isInvalid() } ?? true
         }
         
-        /// return TRUE when value is NOT nil / empty.
+        /// value 非 nil 且有效时返回 true。
         @inline(__always)
-        public func isNotEmpty<E>(_ value: E?) -> Bool where E: DTB.EmptyCheckable {
-            return !isEmpty(value)
+        public func isValid<E>(_ value: E?) -> Bool where E: DTB.OptionalCheckable {
+            return !isInvalid(value)
         }
         
-        /// return ``def ?? dtb_emptyValue`` when value is nil / empty.
+        // MARK: - 数字
+        
+        /// value 为 nil / 无效 / 零时返回 true。
         @inline(__always)
-        public func orEmpty<E>(_ value: E?, def: E? = nil) -> E where E: DTB.EmptyCheckable {
-            return (isEmpty(value) ? def : value) ?? E.dtb_emptyValue()
+        public func isInvalidOrZero<E>(_ value: E?) -> Bool where E: DTB.NumberCheckable {
+            return !isValid(value) || value?.dtb_isZero() == true
         }
         
-        // MARK: - Number, zero
-        
-        /// return true when value is nil / nan / infinite / zero.
+        /// value 有效且 > 0。
         @inline(__always)
-        public func isEmptyOrZero<E>(_ value: E?) -> Bool where E: DTB.NumberEmptyCheckable {
-            return !isNotEmptyOrZero(value)
+        public func isPositive<E>(_ value: E?) -> Bool where E: DTB.NumberCheckable {
+            return isValid(value) && value?.dtb_isPositive() == true
         }
         
-        /// return false when value is nil / nan / infinite / zero.
+        /// value 有效且 < 0。
         @inline(__always)
-        public func isNotEmptyOrZero<E>(_ value: E?) -> Bool where E: DTB.NumberEmptyCheckable {
-            return (value?.dtb_isFinite() == true) && (value?.dtb_isZero() == false)
-        }
-        
-        /// return ``dtb_zeroValue`` when value is nil / nan / infinite.
-        @inline(__always)
-        public func orZero<E>(_ value: E?) -> E where E: DTB.NumberEmptyCheckable {
-            return orEmpty(value)
-        }
-        
-        // MARK: - Number, positive / negative
-        
-        /// isPositive: return true when value is not invalid and > 0
-        @inline(__always)
-        public func isPositive<E>(_ value: E?) -> Bool where E: DTB.NumberEmptyCheckable {
-            return isNotEmptyOrZero(value) && (value?.dtb_isPositive() == true)
-        }
-        
-        /// isNegative: return true when value is not invalid and < 0
-        @inline(__always)
-        public func isNegative<E>(_ value: E?) -> Bool where E: DTB.NumberEmptyCheckable {
-            return isNotEmptyOrZero(value) && (value?.dtb_isNegative() == true)
+        public func isNegative<E>(_ value: E?) -> Bool where E: DTB.NumberCheckable {
+            return isValid(value) && value?.dtb_isNegative() == true
         }
     }
-    
 }
 
-// MARK: - 放弃对 Optional 的扩展，因为多重可选链最后一步解析不到，除非用括号指定优先级，这样意义不大
-
-//extension DTB {
+// MARK: - 为什么没有 a?.dtb.or() 这种链式写法
 //
-//    func tttttttttttttt() {
-//        // Optional(123)
+// `?` 之后的整条后缀表达式结果恒为 Optional，`Wrapper<T>` 上的方法无论如何都返回 T?，
+// 无法在链上完成 Optional -> T 的坍塌。
 //
-//        let a: Double? = 123.233
-//        let b: Bool? = a?.dtb.isEmpty()
-//        let c: Bool = (a?.dtb).isEmpty()
-//
-//        let d: String? = "123"
-//        guard (d?.dtb).isEmpty() else {
-//            return
-//        }
-//
-//    }
-//}
-//
-//extension Optional where Wrapped == Wrapper<String> {
-//
-//    @inline(__always)
-//    public func isEmpty() -> Bool {
-//        return self?.isEmpty() ?? true
-//    }
-//
-//    @inline(__always)
-//    public func orEmpty() -> String {
-//        return self?.me ?? ""
-//    }
-//
-//}
-//
-//extension Optional where Wrapped == Wrapper<Double> {
-//
-//    @inline(__always)
-//    public func isEmpty() -> Bool {
-//        return self?.me.isFinite != true
-//    }
-//
-//    @inline(__always)
-//    public func isEmptyOrZero() -> Bool {
-//        return self?.me.isZero == true ? true : isEmpty()
-//    }
-//
-//}
+// 对 Optional 加扩展可行，但需要写成 `(a?.dtb).or()`（括号冻结类型），
+// 或另建 `a.dtb` 接收者（多一层包装器 + 同一标识符两种含义）。
+// 二者都不优于参数位形式 `DTB.check.or(value)`，故不提供。
