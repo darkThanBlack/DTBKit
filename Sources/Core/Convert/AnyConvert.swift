@@ -20,8 +20,10 @@ extension DTB {
         
         public func `int64`(_ value: Any?) -> Int64? {
             if let v = value as? Int64 { return v }
-            if let v = value as? (any (FixedWidthInteger & SignedInteger)) { return Int64(v) }
-            if let v = value as? (any BinaryFloatingPoint) { return Int64(v) }
+            if let v = value as? (any (FixedWidthInteger & SignedInteger)) { return Int64(exactly: v) }
+            if let v = value as? (any BinaryFloatingPoint) {
+                return Int64(exactly: Double(v).rounded(.towardZero))
+            }
             if let v = value as? String { return Int64(v) }
             return nil
         }
@@ -33,15 +35,18 @@ extension DTB {
         }
         
         public func `double`(_ value: Any?) -> Double? {
-            if let v = value as? Double { return v }
-            if let v = value as? (any BinaryFloatingPoint) { return Double(v) }
+            if let v = value as? Double { return v.isFinite ? v : nil }
+            if let v = value as? (any BinaryFloatingPoint) {
+                let d = Double(v)
+                return d.isFinite ? d : nil
+            }
             if let v = value as? (any (FixedWidthInteger & SignedInteger)) { return Double(v) }
-            if let v = value as? String { return Double(v) }
+            if let v = value as? String, let d = Double(v), d.isFinite { return d }
             return nil
         }
         
         public func `cgFloat`(_ value: Any?) -> CGFloat? {
-            if let v = value as? CGFloat { return v }
+            if let v = value as? CGFloat { return v.isFinite ? v : nil }
             if let v = double(value) { return CGFloat(v) }
             return nil
         }
