@@ -16,11 +16,10 @@ public enum DTB {}
 // 全局入口
 DTB.app        // → AppManager，内存字典 + 应用信息
 DTB.console    // → ConsoleManager，日志打印
-DTB.check      // → OptionalChecker，Optional 兜底
 DTB.any        // → AnyConvert，Any 安全转换
 ```
 
-四个入口都定义在 `DTBKit+Core.swift` 中。其他模块会向 `DTB` 添加更多静态入口。
+三个入口都定义在 `DTBKit+Core.swift` 中。其他模块会向 `DTB` 添加更多静态入口。
 
 ### Wrapper / StaticWrapper
 
@@ -142,19 +141,32 @@ public protocol NumberCheckable: OptionalCheckable {
 | `Int` / `Int8` … `Int64` | 恒 `false`（只有 nil 缺失） | `0` |
 | `Float` / `Double` | `!isFinite`（NaN / inf） | `0` |
 
-### OptionalChecker（DTB.check）
+### Optional 扩展
+
+兜底与判定直接挂在 `Optional` 上，统一 `dtb_` 前缀：
 
 ```swift
-DTB.check.or(value)                 // nil / 无效 → 默认值
-DTB.check.or(value, def: fallback)  // nil / 无效 → fallback
-DTB.check.isInvalid(value)          // → Bool
-DTB.check.isValid(value)            // → Bool
+let a: String? = nil
+a.dtb_or()                  // ""（nil / 无效 → 默认值）
+a.dtb_or("兜底")            // 显式兜底
+a.dtb_isInvalid()           // nil / 无效 → true
+a.dtb_isValid()             // 非 nil 且有效 → true
 
 // 数字
-DTB.check.isInvalidOrZero(value)    // nil / 无效 / 0
-DTB.check.isPositive(value)         // 有效且 > 0
-DTB.check.isNegative(value)         // 有效且 < 0
+let d: Double? = .nan
+d.dtb_isInvalidOrZero()     // nil / 无效 / 0
+d.dtb_isPositive()          // 有效且 > 0
+d.dtb_isNegative()          // 有效且 < 0
 ```
+
+与 `DTB.any` 组合：
+
+```swift
+DTB.any.int64(dict["width"]).dtb_or()   // Int64
+```
+
+> 为什么没有 `a?.dtb.dtb_or()`：`?` 之后整条链恒为 `Optional`，成员查找落在 `Wrapper` 上，
+> 只有已成型的 `Optional` 能命中扩展。
 
 ## 使用示例
 

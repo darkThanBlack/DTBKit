@@ -232,14 +232,17 @@ class MyCacheProvider: DTB.Providers.CacheProvider {
 }
 ```
 
-## 可选值兜底（DTB.check）
+## 可选值兜底（Optional 扩展）
 
 已移至 Core 模块，见 [[core]]。
 
 ```swift
-DTB.check.or(value)                  // nil / 无效 → 默认值
-DTB.check.isInvalid(value) / isValid(value)
-DTB.check.isInvalidOrZero(value) / isPositive(value) / isNegative(value)
+let a: String? = nil
+a.dtb_or()                  // nil / 无效 → 默认值
+a.dtb_isInvalid() / a.dtb_isValid()
+
+let d: Double? = nil
+d.dtb_isInvalidOrZero() / d.dtb_isPositive() / d.dtb_isNegative()
 ```
 
 ## 高保真适配（HighFidelity）

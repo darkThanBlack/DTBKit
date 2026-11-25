@@ -4,7 +4,7 @@
 
 ```
 Core (DTBKit/Core)
-├── 命名空间系统, Wrapper, ConstKey, AppManager, ConsoleManager, AnyConvert, OptionalChecker
+├── 命名空间系统, Wrapper, ConstKey, AppManager, ConsoleManager, AnyConvert, Optional 扩展
 │
 ├── Chain (DTBKit/Chain)     ← 依赖 Core
 │   └── UIKit/QuartzCore 链式属性设置

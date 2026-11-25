@@ -10,11 +10,12 @@
 数值没有「空」的概念，只有有效性、零值与符号：
 
 ```swift
-DTB.check.isInvalid(value)        // nil / NaN / inf → true
-DTB.check.isInvalidOrZero(value)  // 上述，或 == 0
-DTB.check.isPositive(value)       // 有效且 > 0
-DTB.check.isNegative(value)       // 有效且 < 0
-DTB.check.or(value)               // nil / 无效 → 0
+let d: Double? = value
+d.dtb_isInvalid()        // nil / NaN / inf → true
+d.dtb_isInvalidOrZero()  // 上述，或 == 0
+d.dtb_isPositive()       // 有效且 > 0
+d.dtb_isNegative()       // 有效且 < 0
+d.dtb_or()               // nil / 无效 → 0
 ```
 
 详见 [[core]]。
