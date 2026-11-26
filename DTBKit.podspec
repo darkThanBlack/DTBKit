@@ -28,14 +28,9 @@ Pod::Spec.new do |s|
     ss.source_files = 'Sources/Core/**/*'
   end
   
-  s.subspec 'Chain' do |ss|
-    ss.source_files = 'Sources/Chain/**/*'
-    ss.dependency 'DTBKit/Core'
-  end
-  
   s.subspec 'Basic' do |ss|
     ss.source_files = 'Sources/Basic/**/*'
-    ss.dependency 'DTBKit/Chain'
+    ss.dependency 'DTBKit/Core'
     
     ss.test_spec 'Tests' do |t|
       t.framework = 'XCTest'

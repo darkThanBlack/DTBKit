@@ -16,19 +16,19 @@ extension StaticWrapper where T == Date {
     
     /// From 's' timeStamp | 从秒级时间戳生成
     @inline(__always)
-    public func create(s: any FixedWidthInteger) -> T {
+    public func callAsFunction(s: any FixedWidthInteger) -> T {
         return Date(timeIntervalSince1970: TimeInterval(s))
     }
     
     /// From 's' timeStamp | 从秒级时间戳生成
     @inline(__always)
-    public func create(s: any BinaryFloatingPoint) -> T {
+    public func callAsFunction(s: any BinaryFloatingPoint) -> T {
         return Date(timeIntervalSince1970: TimeInterval(s))
     }
     
     /// From 's' timeStamp | 从秒级时间戳生成
     @inline(__always)
-    public func create(s: String?) -> T? {
+    public func callAsFunction(s: String?) -> T? {
         guard let s = s, s.isEmpty == false, let t = Double(s) else {
             return nil
         }
@@ -37,19 +37,19 @@ extension StaticWrapper where T == Date {
     
     /// From 'ms' timeStamp | 从毫秒级时间戳生成 | (self / 1000)
     @inline(__always)
-    public func create(ms: any FixedWidthInteger) -> T {
+    public func callAsFunction(ms: any FixedWidthInteger) -> T {
         return Date(timeIntervalSince1970: TimeInterval(ms) / 1000.0)
     }
     
     /// From 'ms' timeStamp | 从毫秒级时间戳生成 | (self / 1000)
     @inline(__always)
-    public func create(ms: any BinaryFloatingPoint) -> T {
+    public func callAsFunction(ms: any BinaryFloatingPoint) -> T {
         return Date(timeIntervalSince1970: TimeInterval(ms) / 1000.0)
     }
     
     /// From 'ms' timeStamp | 从毫秒级时间戳生成 | (self / 1000)
     @inline(__always)
-    public func create(ms: String?) -> T? {
+    public func callAsFunction(ms: String?) -> T? {
         guard let ms = ms, ms.isEmpty == false, let t = Double(ms) else {
             return nil
         }

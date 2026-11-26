@@ -11,7 +11,7 @@ UIKit 模块提供了一系列 UI 组件，包括基础类、常用视图组件�
 ### BaseView
 
 ```swift
-open class BaseView: UIView, Chainable {
+open class BaseView: UIView {
     // 提供通用的视图基类
 }
 ```
@@ -19,7 +19,7 @@ open class BaseView: UIView, Chainable {
 ### BaseControl
 
 ```swift
-open class BaseControl: UIControl, Chainable {
+open class BaseControl: UIControl {
     // 提供通用的控件基类
 }
 ```
@@ -203,6 +203,6 @@ DTB.AlertAnimation
 ```
 
 ## 关联
-- [[../concepts/chain]] — 所有组件遵守 Chainable，支持链式配置
+- [[../concepts/chain]] — 链式属性配置（`@dynamicMemberLookup`）
 - [[uikit-system]] — Alert/HUD/Toast/导航/WebView/Window
-- [[../chain]] — UIView 等类型的链式扩展
+- [[../factory]] — 系统类型构造入口

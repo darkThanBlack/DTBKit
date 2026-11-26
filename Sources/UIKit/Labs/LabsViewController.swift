@@ -72,10 +72,10 @@ extension DTB {
                 title: nil,
                 titleAttr: NSAttributedString(
                     string: .dtb.create("dtb.common.warning"),
-                    attributes: .dtb.create
-                        .foregroundColor(.dtb.create("dtb.warning"))
-                        .font(.dtb.create(size: 17.0))
-                        .value
+                    attributes: DTB.AttributedStyle(
+                        font: .dtb.create(size: 17.0),
+                        foregroundColor: .dtb.create("dtb.warning")
+                    ).attr
                 ),
                 detail: .dtb.create("dtb.deep.labs.desc"),
                 showArrow: false

@@ -55,13 +55,13 @@ extension Wrapper where Base: FixedWidthInteger & SignedInteger {
     /// From 's' timeStamp (length == 10) | 从秒级时间戳生成
     @inline(__always)
     public func sDate() -> Wrapper<Date> {
-        return Date.dtb.create(s: me).dtb
+        return Date.dtb(s: me).dtb
     }
     
     /// From 'ms' timeStamp (length == 13) | 从毫秒级时间戳生成 | (self / 1000)
     @inline(__always)
     public func msDate() -> Wrapper<Date> {
-        return Date.dtb.create(ms: me).dtb
+        return Date.dtb(ms: me).dtb
     }
     
     /// s -> ms, me * 1000

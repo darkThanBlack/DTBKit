@@ -91,7 +91,6 @@ xcrun xccov view --report --json "/Users/admin/Library/Developer/Xcode/DerivedDa
 ```shell
 # Change commit id to latest main.
 pod 'DTBKit/Core', git: 'https://github.com/darkThanBlack/DTBKit', commit: '3f93179af6c2caa1e8bd0c418820947fe1aae899'
-pod 'DTBKit/Chain'
 pod 'DTBKit/Basic'
 pod 'DTBKit/Theme'
 pod 'DTBKit/UIKit'

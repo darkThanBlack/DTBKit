@@ -10,6 +10,8 @@
 //
 
 import Foundation
+import UIKit
+import CoreGraphics
 
 /// For code coverage.
 #if canImport(DTBKit_Core)
@@ -24,3 +26,15 @@ extension DTB {
     /// Default value
     public static let config = ConfigManager.shared
 }
+
+extension CGSize: Structable {}
+
+extension CGRect: Structable {}
+
+extension Date: Structable {}
+
+extension NSRange: Structable {}
+
+extension UIEdgeInsets: Structable {}
+
+extension Dictionary: Structable {}

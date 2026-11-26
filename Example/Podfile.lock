@@ -2,10 +2,8 @@ PODS:
   - Alamofire (5.10.2)
   - DoKit/Core (4.0.0)
   - DTBKit/Basic (0.0.1):
-    - DTBKit/Chain
+    - DTBKit/Core
   - DTBKit/Basic/Tests (0.0.1):
-    - DTBKit/Chain
-  - DTBKit/Chain (0.0.1):
     - DTBKit/Core
   - DTBKit/Core (0.0.1)
   - DTBKit/Kingfisher (0.0.1):
@@ -65,7 +63,6 @@ DEPENDENCIES:
   - DoKit/Core (from `https://github.com/darkThanBlack/DoKit-iOS.git`, commit `02e1f72e1265af5bab78beb22f693f0e78ffa00a`, branch `master`)
   - DTBKit/Basic (from `../`)
   - DTBKit/Basic/Tests (from `../`)
-  - DTBKit/Chain (from `../`)
   - DTBKit/Core (from `../`)
   - DTBKit/Kingfisher (from `../`)
   - DTBKit/Map (from `../`)
@@ -123,7 +120,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: 7193b3b92c74a07f85569e1a6c4f4237291e7496
   DoKit: be7712b87f2562de9893ae9ca6ba5f6d7455723d
-  DTBKit: 2fc358cee71acb6402030ed150ee678a1d2c4ca9
+  DTBKit: 1603c93232c635d57220cc745eeeae32dc11cfd0
   Kingfisher: 53a10ea35051a436b5fb626ca2dd8f3144d755e9
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   MJRefresh: ff9e531227924c84ce459338414550a05d2aea78
@@ -138,6 +135,6 @@ SPEC CHECKSUMS:
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
   WKWebViewJavascriptBridge: ce3e9e3723da3ea628635de4db7f583369a87e79
 
-PODFILE CHECKSUM: 35262e2ef3b052e37b8b8c703e7ef9767207454b
+PODFILE CHECKSUM: eb152d6fa9f39356aabb2b81c27742b6b91a6c3b
 
 COCOAPODS: 1.16.2

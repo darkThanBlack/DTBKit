@@ -33,16 +33,16 @@ extension Wrapper where Base: NSMutableAttributedString {
     /// ```
     /// let attr = "".dtb.attr.append(
     ///     "text",
-    ///     .dtb.create
-    ///         .foregroundColor(.black)
-    ///         .font(.systemFont(ofSize: 13.0))
-    ///         .value
+    ///     DTB.AttributedStyle(
+    ///         font: .systemFont(ofSize: 13.0),
+    ///         foregroundColor: .black
+    ///     )
     /// ).value
     /// ```
     @discardableResult
-    public func append(_ string: String?, _ attributes: [NSAttributedString.Key: Any]?) -> Self {
+    public func append(_ string: String?, _ style: DTB.AttributedStyle?) -> Self {
         if let str = string, str.isEmpty == false {
-            me.append(NSAttributedString(string: str, attributes: attributes))
+            me.append(NSAttributedString(string: str, attributes: style?.attr))
         }
         return self
     }
@@ -51,12 +51,12 @@ extension Wrapper where Base: NSMutableAttributedString {
     ///
     /// 没搜索到则不做处理。
     @discardableResult
-    public func setSub(_ subString: String, attrs: [NSAttributedString.Key : Any]? = nil) -> Self {
+    public func setSub(_ subString: String, style: DTB.AttributedStyle? = nil) -> Self {
         let range = string().ns().range(of: subString).value
         guard string().has(nsRange: range) else {
             return self
         }
-        me.setAttributes(attrs, range: range)
+        me.setAttributes(style?.attr, range: range)
         return self
     }
     
@@ -64,12 +64,12 @@ extension Wrapper where Base: NSMutableAttributedString {
     ///
     /// 没搜索到则不做处理。
     @discardableResult
-    public func addSub(_ subString: String, attrs: [NSAttributedString.Key : Any]) -> Self {
+    public func addSub(_ subString: String, style: DTB.AttributedStyle) -> Self {
         let range = string().ns().range(of: subString).value
         guard string().has(nsRange: range) else {
             return self
         }
-        me.addAttributes(attrs, range: range)
+        me.addAttributes(style.attr, range: range)
         return self
     }
 }

@@ -281,7 +281,7 @@ final class FoundationExtensionsTests: XCTestCase {
             .font: UIFont.systemFont(ofSize: 16)
         ]
 
-        baseAttrString.dtb.append(appendString, attributes)
+        baseAttrString.dtb.append(appendString, DTB.AttributedStyle(attr: attributes))
 
         XCTAssertEqual(baseAttrString.string, "Base Appended")
 
@@ -305,7 +305,7 @@ final class FoundationExtensionsTests: XCTestCase {
             .backgroundColor: UIColor.yellow
         ]
 
-        attrString.dtb.setSub("World", attrs: newAttributes)
+        attrString.dtb.setSub("World", style: DTB.AttributedStyle(attr: newAttributes))
 
         // 验证 "World" 的位置是否设置了新属性
         let worldRange = (baseString as NSString).range(of: "World")
@@ -324,7 +324,7 @@ final class FoundationExtensionsTests: XCTestCase {
             .strikethroughStyle: NSUnderlineStyle.single.rawValue
         ]
 
-        attrString.dtb.addSub("modification", attrs: addAttributes)
+        attrString.dtb.addSub("modification", style: DTB.AttributedStyle(attr: addAttributes))
 
         // 验证添加的属性
         let modRange = (baseString as NSString).range(of: "modification")
@@ -341,13 +341,13 @@ final class FoundationExtensionsTests: XCTestCase {
         XCTAssertEqual(emptyAttrString.dtb.mString().value.length, 0)
 
         // 空字符串添加属性（应该不崩溃）
-        emptyAttrString.dtb.append("", [:])
+        emptyAttrString.dtb.append("", DTB.AttributedStyle())
         XCTAssertEqual(emptyAttrString.string, "")
 
         // 不存在的子字符串操作
         let testAttrString = NSMutableAttributedString(string: "Test")
-        testAttrString.dtb.setSub("NotFound", attrs: [.font: UIFont.systemFont(ofSize: 12)])
-        testAttrString.dtb.addSub("NotFound", attrs: [.font: UIFont.systemFont(ofSize: 12)])
+        testAttrString.dtb.setSub("NotFound", style: DTB.AttributedStyle(font: .systemFont(ofSize: 12)))
+        testAttrString.dtb.addSub("NotFound", style: DTB.AttributedStyle(font: .systemFont(ofSize: 12)))
 
         // 应该不改变原字符串
         XCTAssertEqual(testAttrString.string, "Test")

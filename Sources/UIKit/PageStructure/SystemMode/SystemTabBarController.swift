@@ -68,9 +68,9 @@ extension DTB {
                     
                     appear.stackedLayoutAppearance = {
                         let itemAppear = UITabBarItemAppearance()
-                        itemAppear.normal.titleTextAttributes = .dtb.create.foregroundColor(data.unSelectTintColor).value
+                        itemAppear.normal.titleTextAttributes = DTB.AttributedStyle(foregroundColor: data.unSelectTintColor).attr
                         itemAppear.normal.iconColor = data.unSelectTintColor
-                        itemAppear.selected.titleTextAttributes = .dtb.create.foregroundColor(data.selectedTintColor).value
+                        itemAppear.selected.titleTextAttributes = DTB.AttributedStyle(foregroundColor: data.selectedTintColor).attr
                         itemAppear.selected.iconColor = data.selectedTintColor
                         return itemAppear
                     }()
@@ -107,17 +107,17 @@ extension DTB {
                 selectedImage: item.selectedImage?.withRenderingMode(.alwaysTemplate)
             )
             tabBarItem.setTitleTextAttributes(
-                .dtb.create
-                    .foregroundColor(tabBar.unselectedItemTintColor)
-                    .font(item.font)
-                    .value,
+                DTB.AttributedStyle(
+                    font: item.font,
+                    foregroundColor: tabBar.unselectedItemTintColor
+                ).attr,
                 for: .normal
             )
             tabBarItem.setTitleTextAttributes(
-                .dtb.create
-                    .foregroundColor(tabBar.tintColor)
-                    .font(item.font)
-                    .value,
+                DTB.AttributedStyle(
+                    font: item.font,
+                    foregroundColor: tabBar.tintColor
+                ).attr,
                 for: .selected
             )
             return tabBarItem

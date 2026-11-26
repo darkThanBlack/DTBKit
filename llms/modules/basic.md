@@ -1,6 +1,6 @@
 # Basic — Foundation 扩展
 
-> subspec: `DTBKit/Basic` | 源码: `Sources/Basic/` | 依赖: Chain + Theme
+> subspec: `DTBKit/Basic` | 源码: `Sources/Basic/` | 依赖: Core
 
 ## 概述
 

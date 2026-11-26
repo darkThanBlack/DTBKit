@@ -16,17 +16,17 @@ extension StaticWrapper where T == CGSize {
     
     /// width | height
     @inline(__always)
-    public func create(_ width: CGFloat = 0, _ height: CGFloat = 0) -> T {
+    public func callAsFunction(_ width: CGFloat, _ height: CGFloat) -> T {
         return CGSize(width: width, height: height)
     }
     
     @inline(__always)
-    public func create(width: CGFloat = 0, height: CGFloat = 0) -> T {
+    public func callAsFunction(width: CGFloat = 0, height: CGFloat = 0) -> T {
         return CGSize(width: width, height: height)
     }
     
     @inline(__always)
-    public func create(square: CGFloat) -> T {
+    public func callAsFunction(square: CGFloat) -> T {
         return CGSize(width: square, height: square)
     }
 }

@@ -41,9 +41,13 @@ string.dtb.isEmpty()  // → Bool
 ### 链式创建
 
 ```swift
-// 值类型的快速创建，.create 返回 MutableWrapper
-CGRect.dtb.create.x(10).y(20).width(100).height(50).value
-NSAttributedString.Key.dtb.create.foregroundColor(.black).font(...).value
+// 值类型构造：callAsFunction，标签区分重载
+CGRect.dtb(10, 20, 100, 50)
+CGSize.dtb(square: 8)
+UIEdgeInsets.dtb(all: 8)
+
+// 属性字典
+DTB.AttributedStyle(foregroundColor: .black, font: .systemFont(ofSize: 13)).attr
 
 // 引用类型的链式配置
 UILabel().dtb
@@ -67,7 +71,7 @@ llms/
 │   ├── basic.md               #   Basic — Foundation 扩展
 │   ├── basic-types.md         #   Basic — 数值/时间/几何/转换
 │   ├── basic-utilities.md     #   Basic — 格式化/缓存/可选值/高保真
-│   ├── chain.md               #   Chain — UIKit 链式扩展
+│   ├── factory.md             #   Factory — 系统类型构造入口
 │   ├── theme.md               #   Theme — 颜色/字体/图片/国际化
 │   ├── theme-styles.md        #   Theme — 样式系统
 │   ├── uikit.md               #   UIKit — 基础组件与视图

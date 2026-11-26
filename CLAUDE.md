@@ -12,6 +12,7 @@
 
 ## 用户偏好
 - 语言: 中文
+- **LLM 产出的代码，除文件头注释外，不允许有任何注释**（包括行内注释、文档注释、`// MARK`）
 
 ## 主题资源约定
 
@@ -30,6 +31,35 @@
 
 ### 审计
 - `Scripts/theme_audit.sh` 审计：1) 无人调用的死 key 2) 跨 json 同名 key（后覆盖风险）
+
+## 便捷初始化与重载规范
+
+适用于 `Type.dtb(...)` 这类匿名构造入口（`StaticWrapper` + `callAsFunction`），以及所有同名重载。
+
+### `callAsFunction` 作为构造入口
+
+- `Type.dtb` 本身是 `StaticWrapper<Type>` 实例，实现 `callAsFunction` 后可直接调用：`UIEdgeInsets.dtb(all: 8)`
+- 只在「用参数构造一个值」时使用；「按 key / 路径查找资源」保留语义名：
+  - `UIColor.dtb.create("dtb.bg")`、`UIColor.dtb.hex("#FF0000")` —— 同为 String 入参、语义不同，不能匿名
+  - `Bundle.dtb.create(...)` —— 是查找，不是构造
+- 标签原样保留，`callAsFunction` 只省掉方法名，不改变重载区分方式
+
+### 重载约束
+
+1. **位置参数（无标签）重载必须全参数，禁止默认值**
+   - 否则新增一个参数更少的重载时，旧调用点会静默改投（Swift 优先选择不需要默认参数的候选），编译不报错
+2. **同参数个数的重载不得并存可隐式互转的类型**
+   - `CGFloat` / `Int` / `Double` 并存时，字面量调用 `dtb(8)` 会在新增重载后改投
+   - `FixedWidthInteger` / `BinaryFloatingPoint` 之间没有隐式转换，可以并存（`Date.dtb(s:)`）
+3. **语义不同用标签或方法名区分，不靠重载解析**
+   - 单位：`Date.dtb(s:)` / `Date.dtb(ms:)`
+   - 来源：色值 `hex(_:)` vs 主题 key `create(_:)`
+4. **新增重载不得改变已有调用点的解析结果**（提交前确认）
+
+### 适用文件
+
+`Sources/Basic/Factory/` 下五个工厂（`UIEdgeInsets` / `CGSize` / `CGRect` / `NSRange` / `Date`）全部以 `callAsFunction` 提供；其他模块新增工厂遵循同一组约束。
+
 
 ## 进行中的组件设计
 

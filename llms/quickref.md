@@ -40,9 +40,9 @@
 
 | 类型 | 路径 | 常见方法 |
 |------|------|----------|
-| CGRect | basic-types.md, chain.md | .dtb.xxx() 扩展 + .dtb.create 链式 |
-| CGSize | basic-types.md, chain.md | .dtb.xxx() 扩展 + .dtb.create 链式 |
-| UIEdgeInsets | chain.md | .dtb.create 链式创建 |
+| CGRect | basic-types.md, chain.md | .dtb.xxx() 扩展 + `CGRect.dtb(...)` |
+| CGSize | basic-types.md, chain.md | .dtb.xxx() 扩展 + `CGSize.dtb(...)` |
+| UIEdgeInsets | chain.md | `UIEdgeInsets.dtb(...)` |
 
 ## 我要配置 UIKit 视图（链式）
 

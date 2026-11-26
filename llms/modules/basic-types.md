@@ -195,7 +195,7 @@ size.dtb.aspectFill(to: targetSize)   // → Self（外接缩放）
 
 ### CGRect
 
-CGRect 自身扩展方法较少，主要通过 Chain 模块的 `CGRect.dtb.create.xxx().value` 进行链式创建。
+CGRect 通过 `Sources/Basic/Factory/CGRect+Factory.swift` 的 `CGRect.dtb(...)` 构造。
 
 ## 类型转换
 

@@ -192,4 +192,4 @@ DTB.Providers.register(
 ## 关联
 - [[../concepts/provider]] — Alert/HUD/Toast/Window 都使用 Provider 模式
 - [[uikit]] — 基础 UI 组件
-- [[../chain]] — 相关视图的链式配置
+- [[../factory]] — 系统类型构造入口

@@ -6,14 +6,11 @@
 Core (DTBKit/Core)
 ├── 命名空间系统, Wrapper, ConstKey, AppManager, ConsoleManager, AnyConvert, Optional 扩展
 │
-├── Chain (DTBKit/Chain)     ← 依赖 Core
-│   └── UIKit/QuartzCore 链式属性设置
-│
 ├── Theme (DTBKit/Theme)     ← 依赖 Core
 │   ├── 颜色/字体/国际化/图片 (Provider 模式)
 │   └── 样式系统 (ButtonStyle, TextStyle, ContainerStyle)
 │
-├── Basic (DTBKit/Basic)     ← 依赖 Chain + Theme
+├── Basic (DTBKit/Basic)     ← 依赖 Core
 │   ├── Foundation 扩展 (Data, String, UserDefaults, Bundle, Error, JSON, NSRange)
 │   ├── UIKit 扩展 (UIImage, UIImageView, UILabel, UITableView, UICollectionView, UIViewController)
 │   ├── 数值类型 (Int, Double, NSDecimalNumber, NSNumber)
@@ -52,9 +49,8 @@ pod 'DTBKit'
 
 # 按需引入（subspec 写法）
 pod 'DTBKit/Core'          # 命名空间 + 基础设施
-pod 'DTBKit/Chain'         # 链式属性设置
 pod 'DTBKit/Theme'         # 主题系统
-pod 'DTBKit/Basic'         # Foundation/UIKit 扩展（自动包含 Chain + Theme）
+pod 'DTBKit/Basic'         # Foundation/UIKit 扩展（自动包含 Core）
 pod 'DTBKit/UIKit'         # UI 组件（自动包含 Basic）
 pod 'DTBKit/Map'           # 地图扩展
 pod 'DTBKit/Stream'        # 字节处理
@@ -69,7 +65,7 @@ pod 'DTBKit/SportTheme'    # 运动主题资源包
 | 文档 | 对应 subspec | 内容 |
 |------|-------------|------|
 | [[core]] | Core | 命名空间, Wrapper, ConstKey, AppManager, ConsoleManager |
-| [[chain]] | Chain | UIKit/QuartzCore 链式属性设置 |
+| [[factory]] | Factory | 系统类型构造入口与 Structable conformance |
 | [[theme]] | Theme | 颜色/字体/国际化/图片 |
 | [[theme-styles]] | Theme | 样式系统 |
 | [[basic]] | Basic | Foundation/UIKit 扩展 |

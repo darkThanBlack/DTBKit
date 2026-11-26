@@ -66,22 +66,20 @@ extension DTB {
         public var multiLinks: [String: String] = [:]
         
         /// (默认)普通文本样式
-        public var textAttr: [NSAttributedString.Key: Any] = .dtb.create
-            .font(.systemFont(ofSize: 13.0))
-            .foregroundColor(.dtb.create("dtb.text"))
-            .paragraphStyle(
-                NSMutableParagraphStyle().dtb
-                    .lineBreakMode(.byCharWrapping)
-                    .alignment(.left)
-                    .lineSpacing(5.0)
-                    .value
-            )
-            .value
+        public var textAttr: [NSAttributedString.Key: Any] = DTB.AttributedStyle(
+            font: .systemFont(ofSize: 13.0),
+            paragraphStyle: NSMutableParagraphStyle().dtb
+                .lineBreakMode(.byCharWrapping)
+                .alignment(.left)
+                .lineSpacing(5.0)
+                .value,
+            foregroundColor: .dtb.create("dtb.text")
+        ).attr
         
         /// (默认)链接文本样式
-        public var linkAttr: [NSAttributedString.Key: Any] = .dtb.create
-            .foregroundColor(.dtb.create("dtb.theme"))
-            .value
+        public var linkAttr: [NSAttributedString.Key: Any] = DTB.AttributedStyle(
+            foregroundColor: .dtb.create("dtb.theme")
+        ).attr
         
         /// 使当前配置生效
         public func linkConfigsFinished() {

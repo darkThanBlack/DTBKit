@@ -23,20 +23,6 @@ targets:
       base:
         GENERATE_INFOPLIST_FILE: true
         
-  DTBKit_Chain:
-    type: framework
-    platform: [iOS]
-    platformSuffix: ""
-    deploymentTarget:
-      iOS: 12.0
-    sources:
-      - path: "../Sources/Chain"
-    dependencies:
-      - target: DTBKit_Core
-    settings:
-      base:
-        GENERATE_INFOPLIST_FILE: true
-  
   DTBKit_Basic:
     type: framework
     platform: [iOS]
@@ -51,7 +37,6 @@ targets:
       - path: "../Sources/Basic"
     dependencies:
       - target: DTBKit_Core
-      - target: DTBKit_Chain
     settings:
       base:
         GENERATE_INFOPLIST_FILE: true
