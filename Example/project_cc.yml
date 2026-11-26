@@ -29,10 +29,6 @@ targets:
     platformSuffix: ""
     deploymentTarget:
       iOS: 12.0
-    scheme:
-      testTargets:
-        - DTBKit_Basic_Tests
-      gatherCoverageData: true
     sources:
       - path: "../Sources/Basic"
     dependencies:
@@ -78,3 +74,17 @@ targets:
     # dependencies:
     # - target: DTBKit_Basic
     # - target: DTBKit_Example
+
+schemes:
+  DTBKit_Basic:
+    build:
+      targets:
+        DTBKit_Basic: all
+    test:
+      config: Debug
+      gatherCoverageData: true
+      targets:
+        - DTBKit_Basic_Tests
+      postActions:
+        - name: Coverage Report
+          script: "$SRCROOT/../Scripts/coverage_report.sh"
