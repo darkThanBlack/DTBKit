@@ -40,7 +40,7 @@ extension DTB {
                 } else if let image = image {
                     completedHandler?(.success(image))
                 } else {
-                    completedHandler?(.failure(NSError.dtb.reason("image is nil")))
+                    completedHandler?(.failure(NSError.dtb.create("image is nil")))
                 }
             }
         }

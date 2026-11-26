@@ -12,7 +12,7 @@
 
 import UIKit
 
-extension StaticWrapper where T == String {
+extension DTB.StaticWrapper where T == String {
     
     /// Create string by provider.
     ///

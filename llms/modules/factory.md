@@ -4,17 +4,17 @@
 
 为 Foundation / CoreGraphics / UIKit 的值类型提供 `.dtb` 接入与构造入口。
 
-## Structable conformance
+## DTB.Structable conformance
 
 ```swift
-extension CGSize: Structable {}
-extension CGRect: Structable {}
-extension Date: Structable {}
-extension NSRange: Structable {}
-extension UIEdgeInsets: Structable {}
+extension CGSize: DTB.Structable {}
+extension CGRect: DTB.Structable {}
+extension Date: DTB.Structable {}
+extension NSRange: DTB.Structable {}
+extension UIEdgeInsets: DTB.Structable {}
 ```
 
-`Structable` 协议定义在 Core；没有这组 conformance，上述类型无法使用 `.dtb`。
+`DTB.Structable` 协议定义在 Core；没有这组 conformance，上述类型无法使用 `.dtb`。
 
 ## 构造入口（callAsFunction）
 
@@ -42,6 +42,6 @@ Date.dtb(ms: 1764000000000)
 
 原 `DTBKit/Chain` 模块已删除：
 
-- UIKit / QuartzCore 的属性链式 setter → 由 `Wrapper` 的 `@dynamicMemberLookup` 承担
+- UIKit / QuartzCore 的属性链式 setter → 由 `DTB.Wrapper` 的 `@dynamicMemberLookup` 承担
 - `Chainable` / `StructChainable` / `MutableWrapper` / `when` → 无消费者，已删除
 - 属性字典构建 → 由 `DTB.AttributedStyle`（Basic）承担

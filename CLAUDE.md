@@ -34,11 +34,11 @@
 
 ## 便捷初始化与重载规范
 
-适用于 `Type.dtb(...)` 这类匿名构造入口（`StaticWrapper` + `callAsFunction`），以及所有同名重载。
+适用于 `Type.dtb(...)` 这类匿名构造入口（`DTB.StaticWrapper` + `callAsFunction`），以及所有同名重载。
 
 ### `callAsFunction` 作为构造入口
 
-- `Type.dtb` 本身是 `StaticWrapper<Type>` 实例，实现 `callAsFunction` 后可直接调用：`UIEdgeInsets.dtb(all: 8)`
+- `Type.dtb` 本身是 `DTB.StaticWrapper<Type>` 实例，实现 `callAsFunction` 后可直接调用：`UIEdgeInsets.dtb(all: 8)`
 - 只在「用参数构造一个值」时使用；「按 key / 路径查找资源」保留语义名：
   - `UIColor.dtb.create("dtb.bg")`、`UIColor.dtb.hex("#FF0000")` —— 同为 String 入参、语义不同，不能匿名
   - `Bundle.dtb.create(...)` —— 是查找，不是构造

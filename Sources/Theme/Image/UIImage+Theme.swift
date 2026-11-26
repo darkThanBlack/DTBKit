@@ -13,7 +13,7 @@
 import UIKit
 
 ///
-extension StaticWrapper where T: UIImage {
+extension DTB.StaticWrapper where T: UIImage {
     
     /// 加载本地图片
     ///

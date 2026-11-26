@@ -12,7 +12,7 @@
 
 import UIKit
 
-extension StaticWrapper where T: UIColor {
+extension DTB.StaticWrapper where T: UIColor {
     
     /// Create color with provider.
     ///
@@ -30,7 +30,7 @@ extension StaticWrapper where T: UIColor {
     }
 }
 
-extension StaticWrapper where T: UIColor {
+extension DTB.StaticWrapper where T: UIColor {
     
     @inline(__always)
     private func upper(_ value: String) -> String {
@@ -126,7 +126,7 @@ extension StaticWrapper where T: UIColor {
     }
 }
 
-extension Wrapper where Base == UIColor {
+extension DTB.Wrapper where Base == UIColor {
     
     /// WCAG 2 经验阈值: 0.5
     public func isLight() -> Bool {

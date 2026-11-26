@@ -133,12 +133,14 @@ class MineHeaderView: UIView {
         return button
     }()
     
-    private lazy var containerView = UIView().dtb
-        .backgroundColor(UIColor.dtb.create("dtb.bg2"))
-        .layer({
-            $0.cornerRadius(12.0).masksToBounds(true)
-        })
-        .value
+    private lazy var containerView: UIView = {
+        let view = UIView().dtb
+            .backgroundColor(UIColor.dtb.create("dtb.bg2"))
+            .value
+        view.layer.cornerRadius = 12.0
+        view.layer.masksToBounds = true
+        return view
+    }()
     
     private lazy var nicknameLabel = UILabel().dtb
         .font(.dtb.create(size: 23.0, weight: .medium))
@@ -147,10 +149,11 @@ class MineHeaderView: UIView {
         .value
     
     private func createRoleLabel() -> UILabel {
-        return UILabel().dtb.textStyle("dtb.b1")
-            .layer({ $0.cornerRadius(11.0) })
+        let label = UILabel().dtb.textStyle("dtb.b1")
             .backgroundColor(.dtb.create("dtb.border"))
             .value
+        label.layer.cornerRadius = 11.0
+        return label
     }
     
     private lazy var roleStackView = UIStackView().dtb

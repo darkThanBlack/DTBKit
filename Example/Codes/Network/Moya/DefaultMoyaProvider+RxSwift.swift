@@ -29,7 +29,7 @@ extension Reactive where Base: DTB.DefaultMoyaProvider {
                     switch result {
                     case .success(let data):
                         if data == nil, config.failWhenNil {
-                            single(.failure(NSError.dtb.reason("result is nil")))
+                            single(.failure(NSError.dtb.create("result is nil")))
                             return
                         }
                         single(.success(data))

@@ -237,19 +237,19 @@ final class FoundationExtensionsTests: XCTestCase {
     func testNSRangeValidation() throws {
         // 有效范围
         let validRange = NSRange(location: 5, length: 10)
-        XCTAssertFalse(validRange.dtb.isEmpty())
+        XCTAssertFalse(validRange.dtb_isInvalid())
 
         // 空长认为是合法值
         let emptyRange = NSRange(location: 5, length: 0)
-        XCTAssertFalse(emptyRange.dtb.isEmpty())
+        XCTAssertFalse(emptyRange.dtb_isInvalid())
 
         // NSNotFound 范围
         let notFoundRange = NSRange(location: NSNotFound, length: 0)
-        XCTAssertTrue(notFoundRange.dtb.isEmpty())
+        XCTAssertTrue(notFoundRange.dtb_isInvalid())
 
         // 边界情况
         let maxRange = NSRange(location: NSNotFound - 1, length: 1)
-        XCTAssertFalse(maxRange.dtb.isEmpty())
+        XCTAssertFalse(maxRange.dtb_isInvalid())
     }
 
     // MARK: - NSMutableAttributedString Extensions Tests

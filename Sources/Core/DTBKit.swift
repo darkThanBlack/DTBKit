@@ -18,14 +18,54 @@ import Foundation
 /// 静态对象命名空间。
 public enum DTB {}
 
-//MARK: - Name spaces
+//MARK: - DTB.Wrapper
 
-/// Indicate which one implements the namespace for ``class``.
-///
-/// 核心的引用对象协议。
-public protocol Kitable: AnyObject {}
+extension DTB {
+    /// Mainly instance wrapper.
+    ///
+    /// 对象容器。
+    @dynamicMemberLookup
+    public struct Wrapper<Base> {
+        public let me: Base
+        public init(_ value: Base) { self.me = value }
+        
+        /// Default unbox, use it to get actual value.
+        ///
+        /// 默认拆箱关键字。
+        ///
+        /// Usage example:
+        /// ```
+        ///     let label = UILabel().dtb.text("title").value
+        /// ```
+        @inline(__always)
+        public var value: Base { return me }
+    }
+    
+    
+    /// Mainly static wrapper.
+    ///
+    /// 静态方法容器。
+    public struct StaticWrapper<T> {
+        public init() {}
+    }
+}
 
-extension Kitable {
+//MARK: - Protocol
+
+extension DTB {
+    
+    /// Indicate which one implements the namespace for ``class``.
+    ///
+    /// 核心的引用对象协议。
+    public protocol Kitable: AnyObject {}
+    
+    /// Indicate which one implements the namespace for ``struct``.
+    ///
+    /// 核心的值对象协议。
+    public protocol Structable {}
+}
+
+extension DTB.Kitable {
     
     /// Namespace for instance method.
     ///
@@ -36,8 +76,8 @@ extension Kitable {
     ///     UIView().dtb
     /// ```
     @inline(__always)
-    public var dtb: Wrapper<Self> {
-        return Wrapper(self)
+    public var dtb: DTB.Wrapper<Self> {
+        return DTB.Wrapper(self)
     }
     
     /// Namespace for static method.
@@ -49,17 +89,12 @@ extension Kitable {
     ///     UIView.dtb
     /// ```
     @inline(__always)
-    public static var dtb: StaticWrapper<Self> {
-        return StaticWrapper()
+    public static var dtb: DTB.StaticWrapper<Self> {
+        return DTB.StaticWrapper()
     }
 }
 
-/// Indicate which one implements the namespace for ``struct``.
-///
-/// 核心的值对象协议。
-public protocol Structable {}
-
-extension Structable {
+extension DTB.Structable {
     
     /// Namespace for instance method.
     ///
@@ -70,8 +105,8 @@ extension Structable {
     ///     UIView().dtb
     /// ```
     @inline(__always)
-    public var dtb: Wrapper<Self> {
-        return Wrapper(self)
+    public var dtb: DTB.Wrapper<Self> {
+        return DTB.Wrapper(self)
     }
     
     /// Namespace for static method.
@@ -83,43 +118,22 @@ extension Structable {
     ///     UIView.dtb
     /// ```
     @inline(__always)
-    public static var dtb: StaticWrapper<Self> {
-        return StaticWrapper()
+    public static var dtb: DTB.StaticWrapper<Self> {
+        return DTB.StaticWrapper()
     }
 }
 
-//MARK: - Wrapper
+//MARK: - Dynamic chainable
 
-/// Mainly instance wrapper.
+/// KeyPath-based property chaining for reference types.
 ///
-/// 对象容器。
-@dynamicMemberLookup
-public struct Wrapper<Base> {
-    public let me: Base
-    public init(_ value: Base) { self.me = value }
-    
-    /// Default unbox, use it to get actual value.
-    ///
-    /// 默认拆箱关键字。
-    ///
-    /// Usage example:
-    /// ```
-    ///     let label = UILabel().dtb.text("title").value
-    /// ```
-    @inline(__always)
-    public var value: Base { return me }
-}
-
-/// Chainable for any property.
-///
-/// 链式语法兼容。
+/// 通过 `@dynamicMemberLookup` 支持任意可写属性的链式赋值。
 ///
 /// - Important: 只对引用类型开放。值类型的 `me` 是副本，写入不会回传到 `value`，
 ///   所以这里用 `Base: AnyObject` 把它挡在编译期（而不是运行时静默 no-op）。
-///   值类型请使用 `MutableWrapper` 或各自的构造器。
-extension Wrapper where Base: AnyObject {
+extension DTB.Wrapper where Base: AnyObject {
     
-    public subscript<Value>(dynamicMember keyPath: ReferenceWritableKeyPath<Base, Value>) -> ((Value) -> Wrapper<Base>) {
+    public subscript<Value>(dynamicMember keyPath: ReferenceWritableKeyPath<Base, Value>) -> ((Value) -> DTB.Wrapper<Base>) {
         var subject = me
         return { value in
             subject[keyPath: keyPath] = value
@@ -127,11 +141,3 @@ extension Wrapper where Base: AnyObject {
         }
     }
 }
-
-/// Mainly static wrapper.
-///
-/// 静态方法容器。
-public struct StaticWrapper<T> {
-    public init() {}
-}
-

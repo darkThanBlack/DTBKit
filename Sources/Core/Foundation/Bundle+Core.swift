@@ -12,7 +12,7 @@
 
 import Foundation
 
-extension StaticWrapper where T: Bundle {
+extension DTB.StaticWrapper where T: Bundle {
     
     /// 搜索 app 内所有的 Bundle
     ///

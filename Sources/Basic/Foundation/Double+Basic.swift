@@ -13,7 +13,7 @@ import UIKit
 import Foundation
 
 ///
-extension Wrapper where Base: BinaryFloatingPoint {
+extension DTB.Wrapper where Base: BinaryFloatingPoint {
     
     /// 截取小数后指定位数，默认四舍五入
     ///
@@ -46,25 +46,25 @@ extension Wrapper where Base: BinaryFloatingPoint {
     ///
     /// - Note: value must in [0, 15]
     @inline(__always)
-    public func rounded(to value: Int = 0, rule: FloatingPointRoundingRule = .toNearestOrAwayFromZero) -> Wrapper<Double> {
+    public func rounded(to value: Int = 0, rule: FloatingPointRoundingRule = .toNearestOrAwayFromZero) -> DTB.Wrapper<Double> {
         return round(to: value, rule: rule).dtb
     }
     
     /// towardZero | 向 0 取整
     @inline(__always)
-    public func truncated(to value: Int = 0) -> Wrapper<Double> {
+    public func truncated(to value: Int = 0) -> DTB.Wrapper<Double> {
         return rounded(to: value, rule: .towardZero)
     }
     
     /// up | 向上取整
     @inline(__always)
-    public func ceiled(to value: Int = 0) -> Wrapper<Double> {
+    public func ceiled(to value: Int = 0) -> DTB.Wrapper<Double> {
         return rounded(to: value, rule: .up)
     }
     
     /// down | 向下取整
     @inline(__always)
-    public func floored(to value: Int = 0) -> Wrapper<Double> {
+    public func floored(to value: Int = 0) -> DTB.Wrapper<Double> {
         return rounded(to: value, rule: .down)
     }
     

@@ -16,7 +16,7 @@ Basic 模块为常用 Foundation 和 UIKit 类型提供实用扩展方法。这�
 // Data → String
 data.dtb.string()?.value           // 默认 UTF-8
 data.dtb.string(.ascii)?.value     // 指定编码
-data.dtb.toString()                // 直接返回 String?（不走 Wrapper）
+data.dtb.toString()                // 直接返回 String?（不走 DTB.Wrapper）
 
 // Data → NSData
 data.dtb.ns().value                // → NSData
@@ -80,12 +80,12 @@ mutableAttrString.dtb.mString().value   // → NSMutableString
 
 // 追加富文本
 mutableAttrString.dtb.append("text",
-    .dtb.create.foregroundColor(.black).font(...).value
-).value
+    DTB.AttributedStyle(foregroundColor: .black, font: ...)
+)
 
 // 设置子串属性（搜索子串 → 设置属性）
-mutableAttrString.dtb.setSub("关键字", attrs: [...])
-mutableAttrString.dtb.addSub("关键字", attrs: [...])
+mutableAttrString.dtb.setSub("关键字", style: DTB.AttributedStyle(foregroundColor: ...))
+mutableAttrString.dtb.addSub("关键字", style: DTB.AttributedStyle(foregroundColor: ...))
 ```
 
 ### UserDefaults

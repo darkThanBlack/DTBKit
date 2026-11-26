@@ -22,9 +22,9 @@ final class FrameTest: XCTestCase {
 
         // 基础属性测试
         XCTAssertEqual(invalidSize.dtb.safe().value, CGSize.zero)
-        XCTAssertFalse(validSize.dtb.isEmpty())
-        XCTAssertTrue(validSize.dtb.notEmpty())
-        XCTAssertFalse(invalidSize.dtb.notEmpty())
+        XCTAssertFalse(validSize.dtb_isInvalid())
+        XCTAssertFalse(validSize.dtb_isInvalid())
+        XCTAssertTrue(invalidSize.dtb_isInvalid())
 
         // 几何计算测试
         XCTAssertEqual(validSize.dtb.center(), CGPoint(x: 50, y: 25))
@@ -98,6 +98,21 @@ final class FrameTest: XCTestCase {
         XCTAssertEqual(negativeSize.dtb.aspectFill(to: targetSize).value, targetSize)
         XCTAssertEqual(sourceSize.dtb.aspectFit(to: negativeSize).value, CGSize.zero)
         XCTAssertEqual(sourceSize.dtb.aspectFill(to: negativeSize).value, CGSize.zero)
+    }
+
+    func testCGRectBoxModel() throws {
+        let invalidRect = CGRect(x: 10, y: 10, width: -5, height: -5)
+        XCTAssertEqual(invalidRect.dtb.safe().value, CGRect(x: 5, y: 5, width: 5, height: 5))
+
+        let base = CGRect(x: 0, y: 0, width: 20, height: 20)
+        XCTAssertEqual(base.dtb.padding(all: 5).value, CGRect(x: 5, y: 5, width: 10, height: 10))
+        XCTAssertEqual(base.dtb.margin(all: 5).value, CGRect(x: -5, y: -5, width: 30, height: 30))
+        XCTAssertEqual(base.dtb.padding(all: 100).value.size, CGSize.zero)
+
+        XCTAssertTrue(CGRect.zero.dtb_isInvalid())
+        XCTAssertFalse(base.dtb_isInvalid())
+        XCTAssertEqual((nil as CGRect?).dtb_or(), .zero)
+        XCTAssertEqual(Optional(base).dtb_or(), base)
     }
     
 }

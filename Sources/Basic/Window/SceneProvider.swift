@@ -26,7 +26,7 @@ extension DTB.Providers {
 }
 
 @available(iOS 13.0, *)
-extension StaticWrapper where T: UIWindowScene {
+extension DTB.StaticWrapper where T: UIWindowScene {
     
     /// Current scene in general.
     @available(iOS 13.0, *)

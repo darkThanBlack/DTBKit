@@ -369,7 +369,7 @@ extension DTB {
     }
 }
 
-// MARK: - Static 预置（对应 StaticWrapper，快速创建对象）
+// MARK: - Static 预置（对应 DTB.StaticWrapper，快速创建对象）
 
 extension DTB.NumberFormatterConfig {
 
@@ -448,7 +448,7 @@ extension DTB.NumberFormatterConfig {
     }
 }
 
-// MARK: - 实例便捷（对应 Wrapper，快速赋值 / 转换）
+// MARK: - 实例便捷（对应 DTB.Wrapper，快速赋值 / 转换）
 
 extension DTB.NumberFormatterConfig {
 

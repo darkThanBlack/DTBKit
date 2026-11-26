@@ -13,17 +13,17 @@
 import UIKit
 
 ///
-extension Wrapper where Base: NSMutableAttributedString {
+extension DTB.Wrapper where Base: NSMutableAttributedString {
     
     ///
     @inline(__always)
-    public func string() -> Wrapper<String> {
+    public func string() -> DTB.Wrapper<String> {
         return me.string.dtb
     }
     
     ///
     @inline(__always)
-    public func mString() -> Wrapper<NSMutableString> {
+    public func mString() -> DTB.Wrapper<NSMutableString> {
         return me.mutableString.dtb
     }
     
@@ -52,8 +52,7 @@ extension Wrapper where Base: NSMutableAttributedString {
     /// 没搜索到则不做处理。
     @discardableResult
     public func setSub(_ subString: String, style: DTB.AttributedStyle? = nil) -> Self {
-        let range = string().ns().range(of: subString).value
-        guard string().has(nsRange: range) else {
+        guard let range = string().range(of: subString) else {
             return self
         }
         me.setAttributes(style?.attr, range: range)
@@ -65,8 +64,7 @@ extension Wrapper where Base: NSMutableAttributedString {
     /// 没搜索到则不做处理。
     @discardableResult
     public func addSub(_ subString: String, style: DTB.AttributedStyle) -> Self {
-        let range = string().ns().range(of: subString).value
-        guard string().has(nsRange: range) else {
+        guard let range = string().range(of: subString) else {
             return self
         }
         me.addAttributes(style.attr, range: range)

@@ -17,9 +17,6 @@ import CoreGraphics
 #if canImport(DTBKit_Core)
 @_exported import DTBKit_Core
 #endif
-#if canImport(DTBKit_Chain)
-@_exported import DTBKit_Chain
-#endif
 
 extension DTB {
     
@@ -27,14 +24,14 @@ extension DTB {
     public static let config = ConfigManager.shared
 }
 
-extension CGSize: Structable {}
+extension CGSize: DTB.Structable {}
 
-extension CGRect: Structable {}
+extension CGRect: DTB.Structable {}
 
-extension Date: Structable {}
+extension Date: DTB.Structable {}
 
-extension NSRange: Structable {}
+extension NSRange: DTB.Structable {}
 
-extension UIEdgeInsets: Structable {}
+extension UIEdgeInsets: DTB.Structable {}
 
-extension Dictionary: Structable {}
+extension Dictionary: DTB.Structable {}

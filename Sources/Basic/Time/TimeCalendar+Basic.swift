@@ -12,11 +12,11 @@
 
 import UIKit
 
-extension Wrapper where Base == Date {
+extension DTB.Wrapper where Base == Date {
     
     /// Self - date | 日期差值
     @inline(__always)
-    public func minus(to date: Date, _ unit: Calendar.Component) -> Wrapper<Int>? {
+    public func minus(to date: Date, _ unit: Calendar.Component) -> DTB.Wrapper<Int>? {
         return Calendar.current.dateComponents([unit], from: date, to: me).value(for: unit)?.dtb
     }
     
@@ -55,7 +55,7 @@ extension Wrapper where Base == Date {
     }
     
     /// Get components value by Calendar.current | 自由取值
-//    public func dateComponentsValue(for unit: Calendar.Component) -> Wrapper<Int>? {
+//    public func dateComponentsValue(for unit: Calendar.Component) -> DTB.Wrapper<Int>? {
 //        return Calendar.current.dateComponents([unit], from: me).value(for: unit)?.dtb
 //    }
     

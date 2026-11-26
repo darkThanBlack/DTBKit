@@ -10,6 +10,7 @@
 //
 
 import Foundation
+import CoreGraphics
 
 extension DTB {
     
@@ -19,12 +20,13 @@ extension DTB {
         static func dtb_defaultValue() -> Self
         
         func dtb_isInvalid() -> Bool
+        
+        func dtb_isValid() -> Bool
     }
 }
 
 public extension DTB.OptionalCheckable {
     
-    @inline(__always)
     func dtb_isValid() -> Bool { return !dtb_isInvalid() }
 }
 
@@ -64,4 +66,39 @@ extension Set: DTB.OptionalCheckable {
     
     @inline(__always)
     public func dtb_isInvalid() -> Bool { return isEmpty }
+}
+
+// MARK: -
+
+extension CGSize: DTB.OptionalCheckable {
+
+    public static func dtb_defaultValue() -> Self {
+        return .zero
+    }
+
+    public func dtb_isInvalid() -> Bool {
+        return (width <= 0) || (height <= 0)
+    }
+}
+
+extension CGRect: DTB.OptionalCheckable {
+
+    public static func dtb_defaultValue() -> Self {
+        return .zero
+    }
+
+    public func dtb_isInvalid() -> Bool {
+        return isEmpty
+    }
+}
+
+extension NSRange: DTB.OptionalCheckable {
+
+    public static func dtb_defaultValue() -> Self {
+        return NSRange(location: 0, length: 0)
+    }
+
+    public func dtb_isInvalid() -> Bool {
+        return (location == NSNotFound) || (length < 0)
+    }
 }

@@ -12,13 +12,13 @@
 
 import UIKit
 
-extension Wrapper where Base == Date {
+extension DTB.Wrapper where Base == Date {
 
     /// Convert to string with dateFormatter.
     ///
     /// 格式化字符串；返回 wrapper，便于链式。
     @inline(__always)
-    public func string(formatter: DTB.DateFormatterConfig) -> Wrapper<String> {
+    public func string(formatter: DTB.DateFormatterConfig) -> DTB.Wrapper<String> {
         return toString(formatter).dtb
     }
 
@@ -36,13 +36,13 @@ extension Wrapper where Base == Date {
     }
 }
 
-extension Wrapper where Base == String {
+extension DTB.Wrapper where Base == String {
 
     /// Convert to ``Date`` with dateFormatter.
     ///
     /// 字符串 → 日期；返回 wrapper，便于链式。
     @inline(__always)
-    public func date(formatter: DTB.DateFormatterConfig) -> Wrapper<Date>? {
+    public func date(formatter: DTB.DateFormatterConfig) -> DTB.Wrapper<Date>? {
         return toDate(formatter)?.dtb
     }
 

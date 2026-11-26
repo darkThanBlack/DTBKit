@@ -1,5 +1,5 @@
 //
-//  Date+Chain.swift
+//  Date+Factory.swift
 //  DTBKit
 //
 //  Created by moonShadow on 2024/10/17
@@ -12,7 +12,7 @@
 
 import UIKit
 
-extension StaticWrapper where T == Date {
+extension DTB.StaticWrapper where T == Date {
     
     /// From 's' timeStamp | 从秒级时间戳生成
     @inline(__always)

@@ -13,8 +13,8 @@ import Foundation
 
 // MARK: - 链式形态
 //
-// `a?.dtb.or()` 这类「可选链 + Wrapper」无法实现：`?` 之后整条链恒为 Optional，
-// 成员查找发生在 `Wrapper` 上，落不到 `Optional` 扩展；要命中必须写成 `(a?.dtb).or()`。
+// `a?.dtb.or()` 这类「可选链 + DTB.Wrapper」无法实现：`?` 之后整条链恒为 Optional，
+// 成员查找发生在 `DTB.Wrapper` 上，落不到 `Optional` 扩展；要命中必须写成 `(a?.dtb).or()`。
 //
 // 因此链式形态只提供给「已成型的 Optional」，并统一加 `dtb_` 前缀避免污染宿主命名空间：
 //     let a: String? = nil

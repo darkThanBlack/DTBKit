@@ -4,7 +4,7 @@
 
 ```
 Core (DTBKit/Core)
-├── 命名空间系统, Wrapper, ConstKey, AppManager, ConsoleManager, AnyConvert, Optional 扩展
+├── 命名空间系统, DTB.Wrapper, ConstKey, AppManager, ConsoleManager, AnyConvert, Optional 扩展
 │
 ├── Theme (DTBKit/Theme)     ← 依赖 Core
 │   ├── 颜色/字体/国际化/图片 (Provider 模式)
@@ -64,8 +64,8 @@ pod 'DTBKit/SportTheme'    # 运动主题资源包
 
 | 文档 | 对应 subspec | 内容 |
 |------|-------------|------|
-| [[core]] | Core | 命名空间, Wrapper, ConstKey, AppManager, ConsoleManager |
-| [[factory]] | Factory | 系统类型构造入口与 Structable conformance |
+| [[core]] | Core | 命名空间, DTB.Wrapper, ConstKey, AppManager, ConsoleManager |
+| [[factory]] | Factory | 系统类型构造入口与 DTB.Structable conformance |
 | [[theme]] | Theme | 颜色/字体/国际化/图片 |
 | [[theme-styles]] | Theme | 样式系统 |
 | [[basic]] | Basic | Foundation/UIKit 扩展 |

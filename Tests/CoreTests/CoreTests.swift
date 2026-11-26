@@ -55,7 +55,7 @@ final class CoreTests: XCTestCase {
         
         let testString = "Hello, World!"
 
-        // 测试 Wrapper 命名空间访问
+        // 测试 DTB.Wrapper 命名空间访问
         XCTAssertNoThrow({
             _ = testString.dtb.ns()
             _ = testString.dtb.double()
@@ -65,7 +65,7 @@ final class CoreTests: XCTestCase {
         XCTAssertTrue(testString.hasPrefix("Hello"))
         XCTAssertEqual(testString.count, 13)
         
-        // 测试 StaticWrapper 命名空间访问
+        // 测试 DTB.StaticWrapper 命名空间访问
         XCTAssertNoThrow({
             _ = UIColor.dtb.create("#FF0000")
             _ = DTB.NumberFormatterConfig.decimal(2)
@@ -78,7 +78,7 @@ final class CoreTests: XCTestCase {
     }
     
     func testSimpleChain() throws {
-        // 测试基础类型是否正确实现了 Kitable 协议
+        // 测试基础类型是否正确实现了 DTB.Kitable 协议
         let string: String = "test"
         let cgSize: CGSize = CGSize(width: 10, height: 20)
         let date: Date = Date()
@@ -105,15 +105,15 @@ final class CoreTests: XCTestCase {
         XCTAssertNotNil(chainResult.value)
         
         // 测试泛型约束确保类型安全
-        let stringWrapper: Wrapper<String> = "test".dtb
-        let sizeWrapper: Wrapper<CGSize> = CGSize.zero.dtb
+        let stringWrapper: DTB.Wrapper<String> = "test".dtb
+        let sizeWrapper: DTB.Wrapper<CGSize> = CGSize.zero.dtb
 
         // 编译时类型检查
         XCTAssertTrue(stringWrapper.value is String)
         XCTAssertTrue(sizeWrapper.value is CGSize)
 
-        // 不同类型的 Wrapper 不应该混用
-//         let wrongAssignment: Wrapper<String> = sizeWrapper // 这应该编译失败
+        // 不同类型的 DTB.Wrapper 不应该混用
+//         let wrongAssignment: DTB.Wrapper<String> = sizeWrapper // 这应该编译失败
         
         let _ = {
             // 测试 DTBKit 扩展不与系统方法冲突
@@ -142,7 +142,7 @@ final class CoreTests: XCTestCase {
         }()
     }
     
-    class DyTestClass: Kitable {
+    class DyTestClass: DTB.Kitable {
         
         var text: String? = nil
     }

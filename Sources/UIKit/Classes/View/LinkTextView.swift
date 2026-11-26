@@ -12,7 +12,7 @@
 
 import UIKit
 
-extension Wrapper where Base: DTB.LinkTextView {
+extension DTB.Wrapper where Base: DTB.LinkTextView {
     
     /// 如果 value 为空则尝试用 key 本地创建
     @discardableResult

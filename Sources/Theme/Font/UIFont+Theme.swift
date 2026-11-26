@@ -11,7 +11,7 @@
 
 import UIKit
 
-extension StaticWrapper where T: UIFont {
+extension DTB.StaticWrapper where T: UIFont {
     
     /// Create font with provider.
     ///
@@ -34,7 +34,7 @@ extension StaticWrapper where T: UIFont {
     }
 }
 
-extension StaticWrapper where T == UIFont.Weight {
+extension DTB.StaticWrapper where T == UIFont.Weight {
     
     public func create(_ param: Any?) -> UIFont.Weight? {
         if let variant = param as? String {
@@ -59,7 +59,7 @@ extension StaticWrapper where T == UIFont.Weight {
     }
 }
 
-extension Wrapper where Base == UIFont.Weight {
+extension DTB.Wrapper where Base == UIFont.Weight {
     
     /// Rule: fontname-variant.extension
     public func variant() -> String {

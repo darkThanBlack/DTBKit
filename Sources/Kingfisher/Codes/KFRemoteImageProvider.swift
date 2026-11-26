@@ -33,7 +33,7 @@ extension DTB {
             }
             
             guard let url = anyUrl() else {
-                completedHandler?(.failure(NSError.dtb.reason("empty url")))
+                completedHandler?(.failure(NSError.dtb.create("empty url")))
                 return
             }
             

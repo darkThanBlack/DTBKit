@@ -13,7 +13,7 @@
 import UIKit
 
 /// Basic
-extension Wrapper where Base == String {
+extension DTB.Wrapper where Base == String {
     
     /// Use ``utf16.count`` to make same as ``NSString.length``.
     ///
@@ -70,15 +70,22 @@ extension Wrapper where Base == String {
     ///
     /// 越界检查。
     public func has(nsRange: NSRange) -> Bool {
-        guard nsRange.dtb.isEmpty() == false else {
+        guard !nsRange.dtb_isInvalid() else {
             return false
         }
         return NSMaxRange(nsRange) <= ns().value.length
     }
+    
+    /// Search by NSString.
+    @inline(__always)
+    public func range(of searchString: String) -> NSRange? {
+        let range = (me as NSString).range(of: searchString)
+        return range.dtb_isInvalid() ? nil : range
+    }
 }
 
 /// Regular
-extension Wrapper where Base == String {
+extension DTB.Wrapper where Base == String {
     
     /// Use ``NSPredicate`` to fire regular.
     @inline(__always)
@@ -98,7 +105,7 @@ extension Wrapper where Base == String {
 }
 
 /// URL
-extension Wrapper where Base == String {
+extension DTB.Wrapper where Base == String {
     
     ///
     public func urlAppendParams(_ data: [String: String]) -> Self {

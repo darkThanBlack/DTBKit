@@ -124,7 +124,7 @@ extension DTB {
 
             /// measure：立即求解每个 item 的固有 size（不依赖容器宽）
             itemSizes = items.map {
-                $0.systemLayoutSizeFitting(bounds.size.dtb.isEmpty() ? UIView.layoutFittingCompressedSize : bounds.size)
+                $0.systemLayoutSizeFitting(bounds.size.dtb_isInvalid() ? UIView.layoutFittingCompressedSize : bounds.size)
             }
             setNeedsLayout()
         }

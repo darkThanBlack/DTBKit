@@ -108,7 +108,7 @@ extension DTB.DateRelativeRule {
     }
 }
 
-extension Wrapper where Base == Date {
+extension DTB.Wrapper where Base == Date {
     
     /// Dynamic format string | 动态(分段)时间转换
     ///

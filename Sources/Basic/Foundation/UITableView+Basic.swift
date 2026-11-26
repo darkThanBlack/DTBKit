@@ -12,7 +12,7 @@
 
 import UIKit
 
-extension StaticWrapper where T: UITableView {
+extension DTB.StaticWrapper where T: UITableView {
     
     ///
     public func plain<C>(
@@ -73,7 +73,7 @@ extension StaticWrapper where T: UITableView {
     }
 }
 
-extension Wrapper where Base: UITableView {
+extension DTB.Wrapper where Base: UITableView {
     
     // fully e.g.
     // ```
@@ -146,7 +146,7 @@ extension Wrapper where Base: UITableView {
     /// Use ``String(describing: Cell.self)`` to cell identifier | 直接用类名作为重用标识
     ///
     /// More details in ``Explain.md``
-    public func dequeueReusableHeaderFooterViewEnsured<T: UITableViewHeaderFooterView>() -> T? {
+    public func dequeueReusableHeaderFooterViewEnsured<T: UITableViewHeaderFooterView>() -> T {
         if let view = me.dequeueReusableHeaderFooterView(withIdentifier: String(describing: T.self)) as? T {
             return view
         }

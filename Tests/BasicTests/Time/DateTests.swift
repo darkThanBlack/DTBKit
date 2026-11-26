@@ -426,11 +426,6 @@ final class TimeModuleTests: XCTestCase {
         set.dateFormat = "yyyy-MM-dd"
         set.apply(to: formatter)
         XCTAssertEqual(formatter.dateFormat, "yyyy-MM-dd")
-
-        var clear = DTB.DateFormatterConfig()
-        clear.dateFormat = nil
-        clear.apply(to: formatter)
-        XCTAssertNil(formatter.dateFormat)
     }
 
     func testDateFormatterConfigApplyPreserveNonOptional() throws {

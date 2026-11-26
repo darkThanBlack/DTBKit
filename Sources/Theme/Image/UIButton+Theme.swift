@@ -12,7 +12,7 @@
 
 import UIKit
 
-extension Wrapper where Base: UIButton {
+extension DTB.Wrapper where Base: UIButton {
     
     @discardableResult
     public func setImage(with url: Any?, placeholder: Any? = nil, completedHandler: ((Swift.Result<UIImage, Error>) -> Void)? = nil) -> Self {

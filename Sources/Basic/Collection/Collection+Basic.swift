@@ -12,7 +12,7 @@
 
 import Foundation
 
-extension Wrapper {
+extension DTB.Wrapper {
     
     /// Safe array | 数组防越界
     ///

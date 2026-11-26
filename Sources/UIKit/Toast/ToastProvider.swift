@@ -23,7 +23,7 @@ extension DTB.Providers {
     }
 }
 
-extension StaticWrapper where T: UIView {
+extension DTB.StaticWrapper where T: UIView {
     
     /// Show toast with provider.
     ///
@@ -33,7 +33,7 @@ extension StaticWrapper where T: UIView {
     }
 }
 
-extension Wrapper where Base: UIView {
+extension DTB.Wrapper where Base: UIView {
     
     /// Show toast with provider.
     ///

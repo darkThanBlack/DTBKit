@@ -79,7 +79,7 @@ class PhoneLoginView: UIView {
         
         fieldContainer.addSubview(fieldStack)
         fieldStack.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(UIEdgeInsets.dtb.create(horizontal: 12.0))
+            make.edges.equalToSuperview().inset(UIEdgeInsets.dtb(horizontal: 12.0))
         }
         
         titleStack.arrangedSubviews.forEach { view in
@@ -122,17 +122,18 @@ class PhoneLoginView: UIView {
         }
     }
     
-    private lazy var titleLabel = UILabel().dtb
-        .textStyle("dtb.h1")
-        .text(.dtb.create("dtb.login.sms"))
-        .isUserInteractionEnabled(true)
-        .addGestureRecognizer({
-            let singleTap = UITapGestureRecognizer(target: self, action: #selector(titleLabelEvent(gesture:)))
-            singleTap.numberOfTapsRequired = 5
-            singleTap.numberOfTouchesRequired = 1
-            return singleTap
-        }())
-        .value
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel().dtb
+            .textStyle("dtb.h1")
+            .text(.dtb.create("dtb.login.sms"))
+            .isUserInteractionEnabled(true)
+            .value
+        let singleTap = UITapGestureRecognizer(target: self, action: #selector(titleLabelEvent(gesture:)))
+        singleTap.numberOfTapsRequired = 5
+        singleTap.numberOfTouchesRequired = 1
+        label.addGestureRecognizer(singleTap)
+        return label
+    }()
     
     private lazy var descLabel = UILabel().dtb
         .textStyle("dtb.placeholder")
@@ -158,9 +159,10 @@ class PhoneLoginView: UIView {
         field.backgroundColor = .dtb.create("dtb.bg2")
         field.attributedPlaceholder = .init(
             string: .dtb.create("dtb.login.sms.placeholder.phone"),
-            attributes: .dtb.create.font(.dtb.create(15.0))
-                .foregroundColor(.dtb.create("dtb.text_disabled"))
-                .value
+            attributes: DTB.AttributedStyle(
+                font: .dtb.create(15.0),
+                foregroundColor: .dtb.create("dtb.text_disabled")
+            ).attr
         )
         field.delegate = self
         field.borderStyle = .none

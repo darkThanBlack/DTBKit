@@ -12,13 +12,13 @@
 
 import UIKit
 
-extension Wrapper where Base: FixedWidthInteger & SignedInteger {
+extension DTB.Wrapper where Base: FixedWidthInteger & SignedInteger {
     
     /// Convert to string with numberFormatter.
     ///
     /// 格式化字符串；返回 wrapper, 便于链式。
     @inline(__always)
-    public func string(formatter: DTB.NumberFormatterConfig) -> Wrapper<String>? {
+    public func string(formatter: DTB.NumberFormatterConfig) -> DTB.Wrapper<String>? {
         return toString(formatter)?.dtb
     }
     
@@ -36,13 +36,13 @@ extension Wrapper where Base: FixedWidthInteger & SignedInteger {
     }
 }
 
-extension Wrapper where Base: BinaryFloatingPoint {
+extension DTB.Wrapper where Base: BinaryFloatingPoint {
     
     /// Convert to string with numberFormatter.
     ///
     /// 格式化字符串；返回 wrapper, 便于链式。
     @inline(__always)
-    public func string(formatter: DTB.NumberFormatterConfig) -> Wrapper<String>? {
+    public func string(formatter: DTB.NumberFormatterConfig) -> DTB.Wrapper<String>? {
         return toString(formatter)?.dtb
     }
     
@@ -60,10 +60,10 @@ extension Wrapper where Base: BinaryFloatingPoint {
     }
 }
 
-extension Wrapper where Base == String {
+extension DTB.Wrapper where Base == String {
     
     @inline(__always)
-    public func number(formatter: DTB.NumberFormatterConfig) -> Wrapper<NSNumber>? {
+    public func number(formatter: DTB.NumberFormatterConfig) -> DTB.Wrapper<NSNumber>? {
         return toNumber(formatter)?.dtb
     }
     

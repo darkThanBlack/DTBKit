@@ -32,7 +32,7 @@ extension DTB {
             }
             
             guard let url = anyUrl() else {
-                completedHandler?(.failure(NSError.dtb.reason("empty url")))
+                completedHandler?(.failure(NSError.dtb.create("empty url")))
                 return
             }
             
@@ -46,7 +46,7 @@ extension DTB {
                 } else if let image = image, finished {
                     completedHandler?(.success(image))
                 } else {
-                    completedHandler?(.failure(NSError.dtb.reason("image is nil")))
+                    completedHandler?(.failure(NSError.dtb.create("image is nil")))
                 }
             }
         }

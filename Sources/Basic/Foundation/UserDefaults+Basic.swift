@@ -12,7 +12,7 @@
 
 import UIKit
 
-extension StaticWrapper where T: UserDefaults {
+extension DTB.StaticWrapper where T: UserDefaults {
     
     ///
     public func clear<Value>(_ key: DTB.ConstKey<Value>) {

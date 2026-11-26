@@ -1,5 +1,5 @@
 //
-//  CGSize+Chain.swift
+//  CGSize+Factory.swift
 //  DTBKit_Example
 //
 //  Created by moonShadow on 2023/10/7
@@ -12,16 +12,11 @@
 
 import UIKit
 
-extension StaticWrapper where T == CGSize {
+extension DTB.StaticWrapper where T == CGSize {
     
     /// width | height
     @inline(__always)
     public func callAsFunction(_ width: CGFloat, _ height: CGFloat) -> T {
-        return CGSize(width: width, height: height)
-    }
-    
-    @inline(__always)
-    public func callAsFunction(width: CGFloat = 0, height: CGFloat = 0) -> T {
         return CGSize(width: width, height: height)
     }
     

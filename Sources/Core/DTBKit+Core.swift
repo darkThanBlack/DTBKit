@@ -55,33 +55,33 @@ extension DTB {
     public static let `any` = AnyConvert()
 }
 
-//MARK: - Kitable
+//MARK: - DTB.Kitable
 
 ///
-extension NSObject: Kitable {}
+extension NSObject: DTB.Kitable {}
 
-// MARK: - Structable
+// MARK: - DTB.Structable
 
-extension Int: Structable {}
+extension Int: DTB.Structable {}
 
-extension Int8: Structable {}
+extension Int8: DTB.Structable {}
 
-extension Int16: Structable {}
+extension Int16: DTB.Structable {}
 
-extension Int32: Structable {}
+extension Int32: DTB.Structable {}
 
-extension Int64: Structable {}
+extension Int64: DTB.Structable {}
 
-extension Float: Structable {}
+extension Float: DTB.Structable {}
 
-extension Double: Structable {}
+extension Double: DTB.Structable {}
 
-extension String: Structable {}
+extension String: DTB.Structable {}
 
-extension CGFloat: Structable {}
+extension CGFloat: DTB.Structable {}
 
-extension Decimal: Structable {}
+extension Decimal: DTB.Structable {}
 
-extension Array: Structable {}
+extension Array: DTB.Structable {}
 
-extension Data: Structable {}
+extension Data: DTB.Structable {}

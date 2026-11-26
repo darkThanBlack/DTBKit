@@ -2,7 +2,7 @@
 
 ## 实例链式（`@dynamicMemberLookup`）
 
-`Wrapper` 对引用类型提供 keyPath 写入，方法的返回值仍是 `Wrapper`，可连续调用：
+`DTB.Wrapper` 对引用类型提供 keyPath 写入，方法的返回值仍是 `DTB.Wrapper`，可连续调用：
 
 ```swift
 UIView().dtb
@@ -23,12 +23,12 @@ UILabel().dtb
     .value
 ```
 
-实现位于 Core 的 `Wrapper`：
+实现位于 Core 的 `DTB.Wrapper`：
 
 ```swift
-extension Wrapper where Base: AnyObject {
+extension DTB.Wrapper where Base: AnyObject {
     public subscript<Value>(dynamicMember keyPath: ReferenceWritableKeyPath<Base, Value>)
-        -> ((Value) -> Wrapper<Base>)
+        -> ((Value) -> DTB.Wrapper<Base>)
 }
 ```
 
@@ -49,7 +49,7 @@ Date.dtb(s: 1764000000)
 ## 已删除
 
 - `Chainable` / `StructChainable` / `def_()`
-- `MutableWrapper` 与 `StaticWrapper.create`
+- `MutableWrapper` 与 `DTB.StaticWrapper.create`
 - 属性字典构建（`.dtb.create.font(...)`）→ 改用 `DTB.AttributedStyle`
 
 ## 关联

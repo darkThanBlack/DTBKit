@@ -12,7 +12,7 @@
 
 import UIKit
 
-extension StaticWrapper where T == NSDecimalNumber {
+extension DTB.StaticWrapper where T == NSDecimalNumber {
     
     /// Return NSDecimalNumber.notANumber when fail.
     public func create(_ value: Any) -> NSDecimalNumber {
@@ -33,7 +33,7 @@ extension StaticWrapper where T == NSDecimalNumber {
 }
 
 ///
-extension Wrapper where Base == NSDecimalNumber {
+extension DTB.Wrapper where Base == NSDecimalNumber {
     
     private func getDecimal(_ value: Any?) -> NSDecimalNumber? {
         if let d = value as? NSDecimalNumber {
@@ -68,13 +68,13 @@ extension Wrapper where Base == NSDecimalNumber {
     
     /// Convert to ``Double``. Return ``nil`` when notANumber.
     @inline(__always)
-    public func double() -> Wrapper<Double>? {
+    public func double() -> DTB.Wrapper<Double>? {
         return me == NSDecimalNumber.notANumber ? nil : me.doubleValue.dtb
     }
     
     /// Convert to ``String``. Return ``nil`` when NaN / notANumber.
     @inline(__always)
-    public func string() -> Wrapper<String>? {
+    public func string() -> DTB.Wrapper<String>? {
         return me == NSDecimalNumber.notANumber ? nil : me.stringValue.dtb
     }
     

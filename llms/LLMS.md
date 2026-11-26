@@ -18,7 +18,7 @@ DTBKit 是一个 Swift iOS 工具包，核心设计理念：
 ### 访问入口
 
 ```swift
-// 实例扩展 — 任何遵守 Kitable/Structable 的对象
+// 实例扩展 — 任何遵守 DTB.Kitable/DTB.Structable 的对象
 object.dtb.method()
 
 // 静态扩展 — 类级别方法
@@ -28,10 +28,10 @@ Type.dtb.method()
 ### 拆箱规则
 
 ```swift
-// Wrapper<T> — 非可选，用 .value
+// DTB.Wrapper<T> — 非可选，用 .value
 object.dtb.someProperty(.black).value  // → 原始对象
 
-// Wrapper<T?> — 可选，用 ?.value
+// DTB.Wrapper<T?> — 可选，用 ?.value
 data.dtb.string()?.value  // → String?
 
 // 直接返回 — Bool、Void 等不需要解包

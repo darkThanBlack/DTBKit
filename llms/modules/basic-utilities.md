@@ -104,8 +104,8 @@ let result = 1234.5.dtb.toString(fmt)   // "¥1,234.50元"
 | `.rounded(_:)` | RoundingMode | 进位模式 |
 | `.prefix(_:negative:)` | String, String? | 正/负前缀 |
 | `.suffix(_:_:)` | String, String? | 正/负后缀 |
-| `.string(from:)` | NSNumber? | 格式化输出 → Wrapper\<String\>? |
-| `.number(from:)` | String? | 反向解析 → Wrapper\<NSNumber\>? |
+| `.string(from:)` | NSNumber? | 格式化输出 → DTB.Wrapper\<String\>? |
+| `.number(from:)` | String? | 反向解析 → DTB.Wrapper\<NSNumber\>? |
 
 **数值 → 字符串（使用 NumberFormatter）：**
 

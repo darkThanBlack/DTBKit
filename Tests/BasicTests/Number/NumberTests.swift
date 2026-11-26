@@ -272,41 +272,6 @@ final class NumberModuleTests: XCTestCase {
         XCTAssertEqual(hexValue, nil) // 默认实现可能不支持十六进制
     }
     
-    // MARK: - NSNumber Extensions Tests
-    
-    func testNSNumberConversions() throws {
-        // NSNumber -> 基本类型
-        let nsNumber = NSNumber(value: 123.45)
-        
-        XCTAssertEqual(nsNumber.dtb.int().value, 123)
-        XCTAssertEqual(nsNumber.dtb.int64().value, Int64(123))
-        XCTAssertEqual(nsNumber.dtb.double().value, 123.45, accuracy: 0.01)
-        
-        // 布尔值 NSNumber
-        let boolNumber = NSNumber(value: true)
-        XCTAssertEqual(boolNumber.dtb.int().value, 1)
-        XCTAssertEqual(boolNumber.dtb.double().value, 1.0)
-        
-        let falseBoolNumber = NSNumber(value: false)
-        XCTAssertEqual(falseBoolNumber.dtb.int().value, 0)
-        XCTAssertEqual(falseBoolNumber.dtb.double().value, 0.0)
-    }
-    
-    func testNSNumberEdgeCases() throws {
-        // 极大值
-        let maxNumber = NSNumber(value: Double.greatestFiniteMagnitude)
-        XCTAssertTrue(maxNumber.dtb.double().value > 0)
-        
-        // 极小值
-        let minNumber = NSNumber(value: -Double.greatestFiniteMagnitude)
-        XCTAssertTrue(minNumber.dtb.double().value < 0)
-        
-        // 零值
-        let zeroNumber = NSNumber(value: 0)
-        XCTAssertEqual(zeroNumber.dtb.int().value, 0)
-        XCTAssertEqual(zeroNumber.dtb.double().value, 0.0)
-    }
-    
     // MARK: - NumberFormatterConfig Tests
 
     /// 固定 en_US_POSIX locale，保证小数点为 "."、分组为 ","，让断言确定。

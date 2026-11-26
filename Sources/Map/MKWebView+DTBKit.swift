@@ -13,7 +13,7 @@
 import UIKit
 import MapKit
 
-extension Wrapper where Base: MKMapView {
+extension DTB.Wrapper where Base: MKMapView {
     
     ///
     public func getZoomLevel() -> Int {

@@ -12,7 +12,7 @@
 
 import UIKit
 
-extension Wrapper where Base: UIImageView {
+extension DTB.Wrapper where Base: UIImageView {
     
     @discardableResult
     public func setImageData(_ data: DTB.ImageData?) -> Self {

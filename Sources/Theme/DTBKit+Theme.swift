@@ -16,4 +16,4 @@ import UIKit
 @_exported import DTBKit_Core
 #endif
 
-extension UIFont.Weight: Structable {}
+extension UIFont.Weight: DTB.Structable {}

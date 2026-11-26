@@ -14,7 +14,7 @@ import UIKit
 
 //TODO: 字节相关处理
 
-public extension Wrapper where Base == Int16 {
+public extension DTB.Wrapper where Base == Int16 {
     
     func bytes() -> [UInt8] {
         return [
@@ -24,7 +24,7 @@ public extension Wrapper where Base == Int16 {
     }
 }
 
-public extension Wrapper where Base == Int32 {
+public extension DTB.Wrapper where Base == Int32 {
     
     func bytes() -> [UInt8] {
         return [
@@ -36,7 +36,7 @@ public extension Wrapper where Base == Int32 {
     }
 }
 
-public extension Wrapper where Base == Int64 {
+public extension DTB.Wrapper where Base == Int64 {
     
     func bytes() -> [UInt8] {
         return [
@@ -52,7 +52,7 @@ public extension Wrapper where Base == Int64 {
     }
 }
 
-public extension Wrapper where Base == [UInt8] {
+public extension DTB.Wrapper where Base == [UInt8] {
     
     func int(length: Int, offset: Int = 0) -> Int64? {
         guard (offset + (length - 1)) < me.count else {

@@ -4,7 +4,7 @@
 
 ## 概述
 
-Core 是 DTBKit 的最底层模块，定义了命名空间系统、Wrapper 类型和基础设施。所有其他模块都依赖 Core。
+Core 是 DTBKit 的最底层模块，定义了命名空间系统、DTB.Wrapper 类型和基础设施。所有其他模块都依赖 Core。
 
 ## 核心类型
 
@@ -21,11 +21,11 @@ DTB.any        // → AnyConvert，Any 安全转换
 
 三个入口都定义在 `DTBKit+Core.swift` 中。其他模块会向 `DTB` 添加更多静态入口。
 
-### Wrapper / StaticWrapper
+### DTB.Wrapper / DTB.StaticWrapper
 
 ```swift
-Wrapper<Base>        // 实例包装器，通过 object.dtb 获取
-StaticWrapper<T>     // 静态包装器，通过 Type.dtb 获取
+DTB.Wrapper<Base>        // 实例包装器，通过 object.dtb 获取
+DTB.StaticWrapper<T>     // 静态包装器，通过 Type.dtb 获取
 ```
 
 详见 [[../concepts/namespace]]。
@@ -165,7 +165,7 @@ d.dtb_isNegative()          // 有效且 < 0
 DTB.any.int64(dict["width"]).dtb_or()   // Int64
 ```
 
-> 为什么没有 `a?.dtb.dtb_or()`：`?` 之后整条链恒为 `Optional`，成员查找落在 `Wrapper` 上，
+> 为什么没有 `a?.dtb.dtb_or()`：`?` 之后整条链恒为 `Optional`，成员查找落在 `DTB.Wrapper` 上，
 > 只有已成型的 `Optional` 能命中扩展。
 
 ## 使用示例

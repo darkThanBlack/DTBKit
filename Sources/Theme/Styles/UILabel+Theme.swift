@@ -12,7 +12,7 @@
 
 import UIKit
 
-extension Wrapper where Base: UILabel {
+extension DTB.Wrapper where Base: UILabel {
     
     ///
     @discardableResult

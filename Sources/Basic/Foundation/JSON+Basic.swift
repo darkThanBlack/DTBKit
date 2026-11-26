@@ -13,10 +13,10 @@
 import UIKit
 
 ///
-public extension Wrapper where Base: Collection {
+public extension DTB.Wrapper where Base: Collection {
     
     /// 纯原生解析 | System json parser
-    func jsonString() -> Wrapper<String>? where Base: Collection {
+    func jsonString() -> DTB.Wrapper<String>? where Base: Collection {
         guard me.isEmpty == false, JSONSerialization.isValidJSONObject(me) else {
             return nil
         }
@@ -39,7 +39,7 @@ public extension Wrapper where Base: Collection {
 }
 
 ///
-public extension Wrapper where Base == String {
+public extension DTB.Wrapper where Base == String {
     
     /// System json parser.
     ///
@@ -69,7 +69,7 @@ public extension Wrapper where Base == String {
     }
 }
 
-public extension Wrapper where Base == Data {
+public extension DTB.Wrapper where Base == Data {
     
     /// System json parser.
     ///

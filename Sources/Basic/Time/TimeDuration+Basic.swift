@@ -35,10 +35,10 @@ extension DTB {
     }
 }
 
-extension Wrapper where Base == Date {
+extension DTB.Wrapper where Base == Date {
     
     /// 计算从 startOfDay 到 当前 经过的分钟数
-    public func dayMinutes() -> Wrapper<Int64>? {
+    public func dayMinutes() -> DTB.Wrapper<Int64>? {
         guard let myStartDayMs = startOfDay()?.ms().value else {
             return nil
         }
@@ -46,7 +46,7 @@ extension Wrapper where Base == Date {
     }
 }
 
-extension Wrapper where Base: FixedWidthInteger & SignedInteger {
+extension DTB.Wrapper where Base: FixedWidthInteger & SignedInteger {
     
     /// 根据毫秒时间戳转换为可读的时长字符串
     public func toDurationString(_ type: DTB.DateDurationFormatTypes) -> String? {

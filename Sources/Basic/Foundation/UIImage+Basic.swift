@@ -15,10 +15,10 @@ import UIKit
 // MARK: -
 
 /// Convert
-extension Wrapper where Base: UIImage {
+extension DTB.Wrapper where Base: UIImage {
     
     ///
-    public func ci() -> Wrapper<CIImage>? {
+    public func ci() -> DTB.Wrapper<CIImage>? {
         if let ci = me.ciImage {
             return ci.dtb
         }
@@ -31,7 +31,7 @@ extension Wrapper where Base: UIImage {
 }
 
 /// Redraw
-extension Wrapper where Base: UIImage {
+extension DTB.Wrapper where Base: UIImage {
     
     /// Down sampling to fit.
     ///
@@ -42,9 +42,9 @@ extension Wrapper where Base: UIImage {
     /// - Parameter value: result will aspect fit to value.
     ///
     /// - Returns: nil if scale fail.
-    public func scale(to value: CGFloat) -> Wrapper<UIImage>? {
+    public func scale(to value: CGFloat) -> DTB.Wrapper<UIImage>? {
         let nSize = me.size.dtb.aspectFit(to: CGSize(width: value, height: value)).value
-        guard nSize.dtb.isEmpty() == false else {
+        guard nSize.dtb_isValid() else {
             return nil
         }
         
@@ -76,14 +76,15 @@ extension Wrapper where Base: UIImage {
     }
     
     /// 图片裁剪
+    ///
     /// - Parameter ratio: 宽高比
     /// - Returns: 裁剪之后的图片
-    func clip(_ ratio: CGFloat) -> UIImage {
+    func clip(aspect ratio: CGFloat) -> DTB.Wrapper<UIImage>? {
         var rect = CGRect(origin: .zero, size: me.size)
         let width = me.size.width
         let height = me.size.height
         if width / height == ratio || ratio == 0 {
-            return me
+            return nil
         }
         if width / height > ratio {
             rect.size.width = height * ratio
@@ -93,8 +94,8 @@ extension Wrapper where Base: UIImage {
             rect.origin.y = (height - rect.size.height) / 2
         }
         guard let img = me.cgImage?.cropping(to: rect) else {
-            return me
+            return nil
         }
-        return UIImage(cgImage: img)
+        return UIImage(cgImage: img).dtb
     }
 }

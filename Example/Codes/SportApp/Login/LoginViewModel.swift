@@ -64,7 +64,7 @@ class LoginViewModel: DTB.BaseViewModel {
         return moya.requestPromiseObject(MultiTarget(request), type: AdminLoginResultVO.self)
             .map { result in
                 guard let userId = ctx.user?.userId else {
-                    throw NSError.dtb.empty("userId")
+                    throw NSError.dtb.create("userId is nil")
                 }
                 ctx.user = result
                 return ctx

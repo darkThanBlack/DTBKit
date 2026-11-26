@@ -13,7 +13,7 @@
 import UIKit
 
 /// Basic
-extension Wrapper where Base == CGSize {
+extension DTB.Wrapper where Base == CGSize {
     
     /// W & H >= 0 | 将负数长宽改为 0
     @inline(__always)
@@ -21,22 +21,10 @@ extension Wrapper where Base == CGSize {
         return CGSize(width: max(0, me.width), height: max(0, me.height)).dtb
     }
     
-    /// W or H <= 0 | 长宽有一项小于等于 0
-    @inline(__always)
-    public func isEmpty() -> Bool {
-        return (me.width <= 0) || (me.height <= 0)
-    }
-    
-    /// W and H > 0
-    @inline(__always)
-    public func notEmpty() -> Bool {
-        return !isEmpty()
-    }
-    
     /// W == H | 是正方形
     @inline(__always)
     public func isSquare() -> Bool {
-        return isEmpty() ? false : (me.width == me.height)
+        return me.dtb_isInvalid() ? false : (me.width == me.height)
     }
     
     /// (W/2, H/2) | 中心点
@@ -65,7 +53,7 @@ extension Wrapper where Base == CGSize {
 }
 
 /// Flow box
-extension Wrapper where Base == CGSize {
+extension DTB.Wrapper where Base == CGSize {
     
     /// Inscribe | 内接正方形
     @inline(__always)
@@ -129,12 +117,12 @@ extension Wrapper where Base == CGSize {
 }
 
 /// Aspect
-extension Wrapper where Base == CGSize {
+extension DTB.Wrapper where Base == CGSize {
     
     /// Same as ``UIImageView.contentMode`` | 缩放，直至与 target 内接
     public func aspectFit(to target: CGSize) -> Self {
-        if isEmpty()  { return target.dtb }
-        if target.dtb.isEmpty()  { return CGSize.zero.dtb }
+        if me.dtb_isInvalid() { return target.dtb }
+        if target.dtb_isInvalid() { return CGSize.zero.dtb }
         let scaleX = target.width / me.width
         let scaleY = target.height / me.height
         let scale = Swift.min(scaleX, scaleY)
@@ -143,8 +131,8 @@ extension Wrapper where Base == CGSize {
     
     /// Same as ``UIImageView.contentMode`` | 缩放，直至与 target 外接
     public func aspectFill(to target: CGSize) -> Self {
-        if isEmpty()  { return target.dtb }
-        if target.dtb.isEmpty()  { return CGSize.zero.dtb }
+        if me.dtb_isInvalid() { return target.dtb }
+        if target.dtb_isInvalid() { return CGSize.zero.dtb }
         let scaleX = target.width / me.width
         let scaleY = target.height / me.height
         let scale = Swift.max(scaleX, scaleY)

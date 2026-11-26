@@ -12,7 +12,7 @@
 
 import UIKit
 
-extension Wrapper where Base: FixedWidthInteger & SignedInteger {
+extension DTB.Wrapper where Base: FixedWidthInteger & SignedInteger {
     
     /// High fidelity design | 高保真
     ///
@@ -23,7 +23,7 @@ extension Wrapper where Base: FixedWidthInteger & SignedInteger {
     }
 }
 
-extension Wrapper where Base: BinaryFloatingPoint {
+extension DTB.Wrapper where Base: BinaryFloatingPoint {
     
     /// High fidelity design | 高保真
     ///

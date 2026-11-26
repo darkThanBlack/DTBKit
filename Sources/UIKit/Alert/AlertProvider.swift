@@ -21,7 +21,7 @@ extension DTB.Providers {
     }
 }
 
-extension StaticWrapper where T: UIViewController {
+extension DTB.StaticWrapper where T: UIViewController {
     
     /// Show Alert with provider.
     ///
@@ -31,7 +31,7 @@ extension StaticWrapper where T: UIViewController {
     }
 }
 
-extension Wrapper where Base: UIViewController {
+extension DTB.Wrapper where Base: UIViewController {
     
     /// Show Alert with provider.
     ///

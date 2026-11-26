@@ -154,7 +154,7 @@ extension DTB.Providers {
     }
 }
 
-// 使用入口（StaticWrapper）
+// 使用入口（DTB.StaticWrapper）
 UIWindow.dtb.keyWindow()    // → UIWindow?
 ```
 
@@ -177,7 +177,7 @@ extension DTB.Providers {
     }
 }
 
-// 使用入口（StaticWrapper）
+// 使用入口（DTB.StaticWrapper）
 UIWindowScene.dtb.keyWindowScene()  // → UIWindowScene?
 ```
 

@@ -22,7 +22,7 @@ extension DTB.Providers {
     }
 }
 
-extension StaticWrapper where T: UIWindow {
+extension DTB.StaticWrapper where T: UIWindow {
     
     /// Current window in general for nonscene-based app.
     @inline(__always)

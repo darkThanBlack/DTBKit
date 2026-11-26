@@ -12,11 +12,11 @@
 
 import UIKit
 
-extension Wrapper where Base == String {
+extension DTB.Wrapper where Base == String {
     
     /// Encoding to ``Data``
     @inline(__always)
-    public func data(_ encoding: String.Encoding = .utf8, lossy: Bool = true) -> Wrapper<Data>? {
+    public func data(_ encoding: String.Encoding = .utf8, lossy: Bool = true) -> DTB.Wrapper<Data>? {
         return toData(encoding, lossy: lossy)?.dtb
     }
     
@@ -27,17 +27,17 @@ extension Wrapper where Base == String {
     }
 }
 
-public extension Wrapper where Base == Data {
+public extension DTB.Wrapper where Base == Data {
     
     /// Convert to ``NSData``.
     @inline(__always)
-    func ns() -> Wrapper<NSData> {
+    func ns() -> DTB.Wrapper<NSData> {
         return NSData(data: me).dtb
     }
     
     /// Encoding to ``String``
     @inline(__always)
-    func string(_ encoding: String.Encoding = .utf8) -> Wrapper<String>? {
+    func string(_ encoding: String.Encoding = .utf8) -> DTB.Wrapper<String>? {
         return toString(encoding)?.dtb
     }
     

@@ -29,11 +29,11 @@ value.dtb.trunc(to: 2)       // → Double（向 0 取整）
 value.dtb.ceil(to: 2)        // → Double（向上取整）
 value.dtb.floor(to: 2)       // → Double（向下取整）
 
-// 取整（返回 Wrapper<Double>）
-value.dtb.rounded(to: 2)     // → Wrapper<Double>
-value.dtb.truncated(to: 2)   // → Wrapper<Double>
-value.dtb.ceiled(to: 2)      // → Wrapper<Double>
-value.dtb.floored(to: 2)     // → Wrapper<Double>
+// 取整（返回 DTB.Wrapper<Double>）
+value.dtb.rounded(to: 2)     // → DTB.Wrapper<Double>
+value.dtb.truncated(to: 2)   // → DTB.Wrapper<Double>
+value.dtb.ceiled(to: 2)      // → DTB.Wrapper<Double>
+value.dtb.floored(to: 2)     // → DTB.Wrapper<Double>
 ```
 
 ### Integer
@@ -41,8 +41,8 @@ value.dtb.floored(to: 2)     // → Wrapper<Double>
 ```swift
 int.dtb.hf()                 // → CGFloat（高保真适配）
 int.dtb.hf(.width)           // 指定轴向
-int.dtb.toMS()               // → Wrapper<Double>（秒 → 毫秒, * 1000）
-int.dtb.toS()                // → Wrapper<Double>（毫秒 → 秒, / 1000）
+int.dtb.toMS()               // → DTB.Wrapper<Double>（秒 → 毫秒, * 1000）
+int.dtb.toS()                // → DTB.Wrapper<Double>（毫秒 → 秒, / 1000）
 int.dtb.toDurationString(.text)   // → String?（"12小时33分"）
 int.dtb.toDurationString(.symbol) // → String?（"12'33\""）
 int.dtb.minutesString()      // → String（"02:30" 格式）
@@ -224,7 +224,7 @@ DTB.any.cgFloat(value)        // → CGFloat?
 ## NSString
 
 ```swift
-nsString.dtb.range(of: "searchString")  // → Wrapper<NSRange>
+nsString.dtb.range(of: "searchString")  // → DTB.Wrapper<NSRange>
 ```
 
 ## Collection — 数组安全下标

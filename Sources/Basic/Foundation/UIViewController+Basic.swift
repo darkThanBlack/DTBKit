@@ -13,7 +13,7 @@
 import UIKit
 
 ///
-extension StaticWrapper where T: UIViewController {
+extension DTB.StaticWrapper where T: UIViewController {
     
     /// Recursion get the top most view controller.
     ///
@@ -34,14 +34,14 @@ extension StaticWrapper where T: UIViewController {
 }
 
 ///
-extension Wrapper where Base: UIViewController {
+extension DTB.Wrapper where Base: UIViewController {
     
     /// Recursion get the top most view controller.
     ///
     /// 递归取栈顶。
     ///
     /// [refer](https://github.com/devxoul/URLNavigator)
-    public func topMost() -> Wrapper<UIViewController>? {
+    public func topMost() -> DTB.Wrapper<UIViewController>? {
         // presented view controller
         if let presentedViewController = me.presentedViewController {
             return presentedViewController.dtb.topMost()
@@ -67,7 +67,7 @@ extension Wrapper where Base: UIViewController {
                 return childViewController.dtb.topMost()
             }
         }
-        return self as? Wrapper<UIViewController>
+        return self as? DTB.Wrapper<UIViewController>
     }
 
     /// Try get "previous" controller.
@@ -75,7 +75,7 @@ extension Wrapper where Base: UIViewController {
     /// 尝试获取"上一个"控制器
     ///
     /// - Returns: nil when not founded.
-    public func previous() -> Wrapper<UIViewController>? {
+    public func previous() -> DTB.Wrapper<UIViewController>? {
         let result: UIViewController? = {
             if let stack = me.navigationController?.viewControllers, let index = stack.firstIndex(of: me) {
                 return index > 0 ? stack[index - 1] : me.navigationController?.dtb.previous()?.value

@@ -1,5 +1,5 @@
 //
-//  NSRange+Chain.swift
+//  NSRange+Factory.swift
 //  DTBKit_Example
 //
 //  Created by moonShadow on 2023/11/6
@@ -12,7 +12,7 @@
 
 import UIKit
 
-extension StaticWrapper where T == NSRange {
+extension DTB.StaticWrapper where T == NSRange {
     
     /// location | length
     @inline(__always)

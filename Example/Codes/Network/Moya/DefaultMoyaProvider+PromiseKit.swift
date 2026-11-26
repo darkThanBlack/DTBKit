@@ -41,7 +41,7 @@ extension DTB.DefaultMoyaProvider {
                     switch result {
                     case .success(let data):
                         if data == nil, config.failWhenNil {
-                            seal.reject(NSError.dtb.reason("result is nil"))
+                            seal.reject(NSError.dtb.create("result is nil"))
                             return
                         }
                         seal.fulfill(data)
@@ -75,11 +75,11 @@ extension DTB.DefaultMoyaProvider {
             .then { data in
                 return Promise<T> { seal in
                     guard let dict = (data as? [String: Any]) ?? (config.failWhenNil ? nil : [:]) else {
-                        seal.reject(NSError.dtb.reason("result is not vaild json dict or nil"))
+                        seal.reject(NSError.dtb.create("result is not vaild json dict or nil"))
                         return
                     }
                     guard let model = Mapper<T>().map(JSON: dict) else {
-                        seal.reject(NSError.dtb.reason("result object mapper to \(type) faild"))
+                        seal.reject(NSError.dtb.create("result object mapper to \(type) faild"))
                         return
                     }
                     seal.fulfill(model)
@@ -96,7 +96,7 @@ extension DTB.DefaultMoyaProvider {
             .then { data in
                 return Promise<[T]> { seal in
                     guard let list = data as? [[String: Any]] ?? (config.failWhenNil ? nil : []) else {
-                        seal.reject(NSError.dtb.reason("result is not vaild json array or nil"))
+                        seal.reject(NSError.dtb.create("result is not vaild json array or nil"))
                         return
                     }
                     let modelList = Mapper<T>().mapArray(JSONArray: list)

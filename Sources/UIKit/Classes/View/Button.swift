@@ -281,14 +281,14 @@ extension DTB {
             let tSize: CGSize = titleLabel.isHidden ? .zero : titleLabel.sizeThatFits(size)
             let iSize: CGSize = imageView.isHidden ? .zero : (config.imageSize ?? imageView.sizeThatFits(size))
             
-            if tSize.dtb.isEmpty() && iSize.dtb.isEmpty() {
+            if tSize.dtb_isInvalid() && iSize.dtb_isInvalid() {
                 titleLabel.frame = .zero
                 imageView.frame = .zero
                 return .zero
             }
             
             // 只有文字显示，和全部显示时的逻辑相同
-            if iSize.dtb.isEmpty() {
+            if iSize.dtb_isInvalid() {
                 let inferSize = tSize.dtb.margin(only: insets).value
                 titleLabel.frame = CGRect(
                     x: (size.width - inferSize.width) / 2.0 + insets.left,
@@ -301,7 +301,7 @@ extension DTB {
             }
             
             // 只有图片显示，和全部显示时的逻辑相同
-            if tSize.dtb.isEmpty() {
+            if tSize.dtb_isInvalid() {
                 let inferSize = iSize.dtb.margin(only: insets).value
                 titleLabel.frame = .zero
                 imageView.frame = CGRect(
@@ -315,7 +315,7 @@ extension DTB {
             
             /// 推算主轴上的间距
             let mainGap: CGFloat = {
-                guard tSize.dtb.notEmpty() && iSize.dtb.notEmpty() else {
+                guard !tSize.dtb_isInvalid() && !iSize.dtb_isInvalid() else {
                     return 0.0
                 }
                 switch imageDirection {
@@ -328,7 +328,7 @@ extension DTB {
             
             /// 推算副轴上的偏移量
             let crossGap: CGFloat = {
-                guard tSize.dtb.notEmpty() && iSize.dtb.notEmpty() else {
+                guard !tSize.dtb_isInvalid() && !iSize.dtb_isInvalid() else {
                     return 0.0
                 }
                 switch imageDirection {
