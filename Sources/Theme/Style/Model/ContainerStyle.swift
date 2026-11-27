@@ -92,28 +92,7 @@ extension DTB {
             friendlyParser()
         }
         
-        /// Simple replacement for .dtb.create
-        public static func style(_ param: Any?) -> Self? {
-            if let p = DTB.app.get(DTB.Providers.stylesKey), let style = p.createContainerStyle(param) {
-                return style
-            }
-            if let dict = param as? [String: Any], let style = DTB.ContainerStyle(dict: dict) {
-                return style
-            }
-            return nil
-        }
         
-        public init?(dict: [String: Any]?) {
-            guard let dict = dict else { return nil }
-            
-            self.margin = DTB.any.uiEdgeInsets(dict["margin"])
-            self.padding = DTB.any.uiEdgeInsets(dict["padding"])
-            self.backgroundColor = .dtb.create(nullable: dict["backgroundColor"])
-            self.shape = .style(dict["shape"])
-            self.gradient = .style(dict["gradient"])
-            
-            friendlyParser()
-        }
     }
 }
 

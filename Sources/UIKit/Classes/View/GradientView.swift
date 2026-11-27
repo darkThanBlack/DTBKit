@@ -106,15 +106,17 @@ extension DTB {
                     return path
                 }
                 // 圆角
-                if let corners = sp.corners,
-                   let radii = sp.radius?.radii(for: bounds) {
+                guard let radii = sp.radius?.radii(for: bounds) else {
+                    return UIBezierPath(rect: bounds).cgPath
+                }
+                if let corners = sp.corners {
                     return UIBezierPath(
                         roundedRect: bounds,
                         byRoundingCorners: corners,
                         cornerRadii: radii
                     ).cgPath
                 }
-                return nil
+                return UIBezierPath(roundedRect: bounds, cornerRadius: radii.width).cgPath
             }()
         }
     }

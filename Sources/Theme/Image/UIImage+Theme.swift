@@ -17,7 +17,6 @@ extension DTB.StaticWrapper where T: UIImage {
     
     /// 加载本地图片
     ///
-    /// - bundle: same as Bundle.dtb.create
     public func local(_ param: Any?, bundle: Any? = nil) -> UIImage? {
         if let p = DTB.Providers.get(DTB.Providers.localImageKey), let image = p.create(param, bundle: bundle) {
             return image

@@ -87,65 +87,7 @@ extension DTB {
             friendlyParser()
         }
         
-        /// Simple replacement for .dtb.create
-        public static func style(_ param: Any?) -> DTB.ButtonStyle? {
-            if let p = DTB.app.get(DTB.Providers.stylesKey), let style = p.createButtonStyle(param) {
-                return style
-            }
-            if let dict = param as? [String: Any], let style = DTB.ButtonStyle(dict: dict) {
-                return style
-            }
-            return nil
-        }
         
-        public init?(dict: [String: Any]?) {
-            guard let dict = dict else { return nil }
-            
-            // 属性字符串一般不在 JSON 中解析，置 nil
-            self.attributedText = nil
-            
-            self.backgroundColor = .dtb.create(nullable: dict["backgroundColor"])
-            self.shape = .style(dict["shape"])
-            self.gradient = .style(dict["gradient"])
-            
-            // 标题
-            self.title = dict["title"] as? String
-            
-            // 字体
-            if let f = dict["font"] {
-                self.font = .dtb.create(f)
-            }
-            
-            // 文字颜色
-            if let c = dict["textColor"] {
-                self.textColor = .dtb.create(c)
-            }
-            
-            // 图片
-            self.image = .dtb.create(dict["image"])
-            
-            //
-            self.tintColor = .dtb.create(dict["tintColor"])
-
-            // 内边距
-            //
-            // 额外解析: 兼容多个字段名
-            self.contentEdgeInsets = [
-                "contentEdgeInsets",
-                "padding"
-            ].compactMap({ DTB.any.uiEdgeInsets(dict[$0]) }).first
-            
-            // 图片尺寸
-            self.imageSize = DTB.any.cgSize(dict["imageSize"])
-            
-            // 图片方向
-            self.imageDirection = DTB.FourDirection(rawValue: (dict["imageDirection"] as? String) ?? "")
-            
-            // 图片偏移
-            self.imageOffset = DTB.any.cgVector(dict["imageOffset"])
-            
-            friendlyParser()
-        }
         
     }
     

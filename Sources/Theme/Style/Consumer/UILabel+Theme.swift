@@ -17,7 +17,7 @@ extension DTB.Wrapper where Base: UILabel {
     ///
     @discardableResult
     public func textStyle(_ value: Any?) -> Self {
-        guard let style = DTB.TextStyle.style(value) ?? (value as? DTB.TextStyle) else {
+        guard let style = DTB.TextStyle.style(value) else {
             return self
         }
         return self.numberOfLines(0)

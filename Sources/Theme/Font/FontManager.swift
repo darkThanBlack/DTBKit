@@ -18,13 +18,30 @@ extension DTB.FontManager: DTB.Providers.FontProvider {
     /// 实现 FontProvider 协议
     @inline(__always)
     public func create(_ param: Any?) -> UIFont? {
-        if let dict = param as? [String: Any], let style = DTB.FontStyle(dict: dict), let font = style.getFont() {
+        if let dict = param as? [String: Any], let style = DTB.FontStyle.parse(dict), let font = style.getFont() {
             return font
         }
         if let size = DTB.any.double(param) {
             return UIFont.systemFont(ofSize: size, weight: .regular)
         }
         return nil
+    }
+
+}
+
+extension DTB.FontStyle {
+
+    static func parse(_ dict: [String: Any]) -> DTB.FontStyle? {
+        guard let size = DTB.any.cgFloat(dict["size"]) else { return nil }
+        let weight: UIFont.Weight
+        if let value = dict["weight"] as? UIFont.Weight {
+            weight = value
+        } else if let value = UIFont.Weight.dtb.create(dict["weight"]) {
+            weight = value
+        } else {
+            weight = .regular
+        }
+        return DTB.FontStyle(size: size, weight: weight, name: dict["name"] as? String)
     }
 }
 

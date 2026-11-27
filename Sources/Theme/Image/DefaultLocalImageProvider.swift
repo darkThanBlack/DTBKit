@@ -40,7 +40,6 @@ extension DTB {
         ///
         /// - Parameters:
         ///   - imageName: image name / path
-        ///   - bundle: same as Bundle.dtb.create(:)
         public func create(_ param: Any?, bundle: Any?) -> UIImage? {
             
             /// 尝试在指定的 bundle 中创建 | Search image with name in specify bundle.
@@ -86,7 +85,7 @@ extension DTB {
                 return image
             }
             // 如果指定了 bundle, 尝试 ``*.bundle/*.{xcassets/car}/name.{png/jpg/jpeg}``
-            if let target = Bundle.dtb.create(bundle),
+            if let target = bundle as? Bundle,
                let image = getImage(name: name, in: target) {
                 return image
             }

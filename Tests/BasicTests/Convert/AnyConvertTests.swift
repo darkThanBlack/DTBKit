@@ -67,6 +67,21 @@ final class AnyConvertTests: XCTestCase {
         XCTAssertNil(DTB.any.double(NSNumber(value: Double.nan)))
     }
     
+    func testIntBranches() {
+        XCTAssertEqual(DTB.any.int("42"), 42)
+        XCTAssertEqual(DTB.any.int(42.9), 42)
+        XCTAssertNil(DTB.any.int(NSNull()))
+    }
+
+    func testNumericBranches() {
+        XCTAssertEqual(DTB.any.int64(Int64.max), Int64.max)
+        XCTAssertEqual(DTB.any.int64(Int64.min), Int64.min)
+        XCTAssertEqual(DTB.any.double(Float(1.5)), 1.5)
+        XCTAssertEqual(DTB.any.double(Int8(3)), 3)
+        XCTAssertEqual(DTB.any.cgFloat(Int(2)), 2)
+        XCTAssertEqual(DTB.any.cgFloat(Float(0.5)), 0.5)
+    }
+
     func testCGFloat() {
         XCTAssertEqual(DTB.any.cgFloat(1.5), 1.5)
         XCTAssertEqual(DTB.any.cgFloat("2.5"), 2.5)
